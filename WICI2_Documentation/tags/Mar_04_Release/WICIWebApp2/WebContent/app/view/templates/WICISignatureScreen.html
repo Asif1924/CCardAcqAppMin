@@ -1,0 +1,169 @@
+<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+	
+<!--
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+-->
+
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
+						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
+					</div>
+					<div class="breadcrumbTextDivFirst" >
+						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
+					</div>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv">
+						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
+					</div>
+					<div class="breadcrumbTextDiv">
+						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
+					</div>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv">
+						<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb rightalign">3.</span>
+					</div>
+					<div class="breadcrumbTextDiv">
+						<span class="BreadcrumbTextStyle unselectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+					</div
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell nowrap">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="SignatureScreen_PageContents">	
+		<br>
+		<br>				
+		<center>
+			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
+		</center>		
+		<br>		
+		<p><span data-translationKey="signatureScreen_Header"/></p>
+
+		<ul>
+			<li>
+				<span data-translationKey="signatureScreen_License1" />
+				<span id="singnatureCardName" />
+				<span data-translationKey="signatureScreen_License1_1" />
+			</li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License2"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License3"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License4"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License5"/></li>
+			<br>
+			<li>
+				<b>
+					<span data-translationKey="signatureScreen_License6"/>
+				</b>
+			</li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License7"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License8"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License9"/></li>
+			
+			<!--<br>//-->
+			<!--<br>//-->
+			<!--<li><span data-translationKey="signatureScreen_License4"/></li>//-->
+			<!--<br>//-->
+			<!--<br>//-->
+			<!--<li><span data-translationKey="signatureScreen_License5"/></li>//-->	
+		</ul>
+		<br>
+		<center>
+			<div class="signatureContainer sugnatureFixes" >
+				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">				
+					<div class="signature" id="signature"/>															
+				</div>
+			</div>
+			<br>
+			<span id="signature_Reset_Button" class="button grayflat proceedButtonWidth">
+        		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+			</span>
+		</center>
+		<label id="signatureScreen_UserName">${ClientName}</label>				
+		<p>
+			<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
+		</p>		
+		<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer">
+			<div class="rightContaier">
+					<div class="wiciCheckBox" >	
+						<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />		
+						<label for="signatureScreen_AcceptAgreement"/>									
+					</div>
+			</div>
+			<div class="leftContainer  opCheckBoxLabel">
+				<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />
+			</div>
+		</div>		
+		<br>
+		<br>
+		<br>		
+		<center>
+            <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
+            	<span class="buttonText" data-translationKey="sigScreen_ProceedToOptProducts"></span>
+			</span>
+        </center>
+		<br>
+		<br>
+		<br>
+	</div>		
+</script>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" version="5">
+	<display-name>BRBMiddlewareBrokerEAR</display-name>
+	<module id="Module_1371953539913">
+		<web>
+			<web-uri>BRBMiddlewareBroker.war</web-uri>
+			<context-root>BRBMiddlewareBroker</context-root>
+		</web>
+	</module>
+	<security-role>
+		<role-name>FMR</role-name>
+	</security-role>
+	<security-role>
+		<role-name>WICI-ADMIN</role-name>
+	</security-role>
+</application>

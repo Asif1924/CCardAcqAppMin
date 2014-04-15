@@ -1,0 +1,8 @@
+package com.ctfs.BRB.Model;
+
+public enum MessageType {
+	TU_AUTHENTICATION_EXAM_IDENTITY,
+	ACCOUNT_APPLICATION,
+	USER_LOCATION,
+	ADDRESS_LOOKUP
+}

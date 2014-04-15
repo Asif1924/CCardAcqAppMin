@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.RequestBuilder - RequestBuilder" errors="0" failures="0" tests="6" time="0.003">
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will build a AddressLookup request from a AddressLookup service name and a physical server URL" time="0.0"/>
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will build a AddressLookup request from a AddressLookup service name and empty parameters" time="0.0"/>
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will build a AddressLookup request from a AddressLookup service name and one parameter" time="0.001"/>
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will give back the parameters portion of any arbitrary request when parameters exist" time="0.001"/>
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will give back empty parameter string of any arbitrary request when parameters do not exist" time="0.0"/>
+<testcase classname="Firefox_270_Windows.RequestBuilder - RequestBuilder" name="test that it will return the parameter string by just passing it in" time="0.001"/>
+</testsuite>

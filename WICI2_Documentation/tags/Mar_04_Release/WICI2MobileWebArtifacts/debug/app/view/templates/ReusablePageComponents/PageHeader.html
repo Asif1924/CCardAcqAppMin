@@ -1,0 +1,16 @@
+<script id="pageHeader-template" type="text/x-jquery-tmpl">
+	<!--<header class="pageHeader redGradient">//-->
+	<header class="pageHeader darkGrayGradient">
+		<center><img src="app/images/ctfs_navigation_bar_logo2.png"></img></center>		
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${previousButtonId}" class="pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_previous"></span>
+			</a>
+		{{/if}}	
+		{{if nextButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${nextButtonId}" class="pageNavigationButton next ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_next"></span>
+			</a>
+		{{/if}}
+	</header>
+</script>

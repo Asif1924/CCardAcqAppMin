@@ -1,0 +1,383 @@
+<script id="WICIPersonalDataScreen2-template" type="text/x-jquery-tmpl">	
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+		
+	<div class="ScreenLayout" id="PersonalDataScreen2_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="P2ClickHere" class="pageTitle" data-translationKey="personalData2_AddressInformation"></span>
+		</center>
+		<br>
+		<br>
+		<!--
+	personalData2_AddressInformation					:	"ADDRESS INFORMATION",
+	personalData2_Address_PostalCode					:	"Postal Code",
+	personalData2_Address_StreetNumber					:	"Street Number",
+	personalData2_Address_Button_Label					:	"ADDRESS LOOKUP",
+		
+		//-->
+		<center>
+			<div id="personalData2_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_PostalCode_TextField" tabindex=1 type="text" maxlength="6" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_StreetNumber_TextField" tabindex=2 type="text" maxlength="5" />
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_AddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText lookupSpan" data-translationKey="personalData2_Address_Button_Label"></span>
+		</span>	
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>	
+		<br>	
+		<!--
+	personalData2_Address_AddressLine1					:	"Address Line 1",	
+	personalData2_Address_AddressLine2					:	"Address Line 2",
+	personalData2_Address_SuiteUnit						:	"Suite/Unit",
+	personalData2_Address_City							:	"City*",
+	personalData2_Address_Province						:	"Province*",
+		//-->
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine1_TextField" tabindex=3 type="text" maxlength="40" />
+	                        <div id="addressLookup_Address_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine1_SelectField" >
+								</select>
+							</div>													
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine2_TextField" tabindex=4 type="text" maxlength="40" />
+							<div id="addressLookup_Address_AddressLine2_MultipleControl" class="addressLookup_DropDownItemsControl">								
+								<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine2_SelectField" >
+								</select>
+							</div>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_SuiteUnit_TextField" tabindex=5 type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_City_TextField" tabindex=6 type="text" maxlength="24"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_Address_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_Address_Province_TextField" tabindex=7>
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+		<!--
+		
+	
+	personalData2_Address_ResidenceType					:	"ResidenceType:",
+	personalData2_Address_Own							:	"Own",
+	personalData2_Address_Rent							:	"Rent",
+	personalData2_Address_Parents						:	"With Parents",
+	personalData2_Address_Other							:	"Other",
+		//-->
+
+	<center>
+		<table class="regularTable stretchThisTable tableNoCellsBorder" id="personalData2_ResidenceTypeArea">
+			<tr>
+				<td class="heightForRadioButtonLabelCell">
+					<span class="fieldLabelsTitle" data-translationKey="personalData2_Address_ResidenceType"></span>					
+				</td>
+			</tr>			
+			<tr>
+				<td>
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData2_Address_Own_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Own"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Rent_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Rent"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Parents_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Parents"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Other_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Other"></span>
+								</span>
+							</a>		
+						</fieldset>
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+	<br>
+	<br>
+		<!--
+	personalData2_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
+	personalData2_Address_Duration						:	"Duration at Current Address",			
+		//-->
+		<center>
+			<div id="personalData2_HouseArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_MonthlyPayment"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData2_Address_MonthlyPayment_TextField" tabindex=8 type='tel' max="9999" min="0" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_Duration"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                    	<div id="personalData2_Duration">
+		                    	<table class="durationControlTable tableNoBorder">
+
+								   	<tr>
+								   		<td class="fieldValuesCell fieldCellSize1">
+								   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+								   		</td>
+								   		
+								   		<td class="fieldValuesCell fieldCellSize15 durationRightBorder">
+									   		<div class="numbers-row">
+		        								<input type="tel" class="durationInput2" id="personalData2_Address_Duration_years_TextField" tabindex=9 min="0" max="100">
+		      								</div>
+	      								</td>
+	      								
+	      								<td class="fieldValuesCell fieldCellSize1 durationYearCell">
+								   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+								   		</td>
+								   		<td class="fieldValuesCell fieldCellSize15">
+									   		<div class="numbers-row" >
+		        								<input type="tel" class="durationInput2" id="personalData2_Address_Duration_months_TextField" tabindex=10 min="0" max="11">
+		      								</div>
+	      								</td>
+	      								<td class="fieldValuesCell fieldCellSize50">
+	      								</td>
+								   	</tr>
+								   	
+								</table>
+							</div>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+		<div id='personalData2_PreviousAddressArea' > 		
+		<hr>
+		<br>
+		<br>
+
+<!--		
+	personalData2_PreviousAddress_Title					:	"Previous Address",
+	personalData2_PreviousAddress_Description			:	"Only required if less than 2 years at current address",
+//-->
+
+		<center>
+			<span class="pageSubTitle" data-translationKey="personalData2_PreviousAddress_Title"></span>
+			<br>
+			<span class="pageSubTitle" data-translationKey="personalData2_PreviousAddress_Description"></span>
+		</center>
+		<br>
+<!--	
+	personalData2_PreviousAddress_PostalCode			:	"Postal Code",	
+	personalData2_PreviousAddress_StreetNumber			:	"Street Number",	
+	personalData2_PreviousAddress_Button_Label			:	"ADDRESS LOOKUP",
+//-->
+
+		<center>
+			<div id="personalData2_PreviousAddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_PostalCode_TextField" tabindex=11 type="text" maxlength="6"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_StreetNumber_TextField" tabindex=12 type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_PreviousAddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText lookupSpan" data-translationKey="personalData2_PreviousAddress_Button_Label"></span>
+		</span>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+<!--		
+	personalData2_PreviousAddress_AddressLine1			:	"Address Line 1",	
+	personalData2_PreviousAddress_AddressLine2			:	"Address Line 2",
+	personalData2_PreviousAddress_SuiteUnit				:	"Suite/Unit",
+	personalData2_PreviousAddress_City					:	"City*",
+	personalData2_PreviousAddress_Province				:	"Province*"	
+//-->		
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine1_TextField" type="text" maxlength="40" tabindex=13/>
+	                        <div id="addressLookup_PreviousAddress_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesSelectField" id="personalData2_PreviousAddress_AddressLine1_SelectField" >
+								</select>							
+							</div>								
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine2_TextField" type="text" maxlength="40" tabindex=13/>
+	                        <div id="addressLookup_PreviousAddress_AddressLine2_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesSelectField" id="personalData2_PreviousAddress_AddressLine2_SelectField" >
+								</select>
+							</div>															
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_SuiteUnit_TextField" type="text" maxlength="5" tabindex=14/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_City_TextField" type="text" maxlength="24" tabindex=15/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" tabindex=16 >
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+</div>		
+	</div>
+</script>

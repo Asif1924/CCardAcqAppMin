@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:io="http://ctfs.com/esocketTransactIo/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:w="http://ctfs.com/esocketTransact/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="esocketTransact" targetNamespace="http://ctfs.com/esocketTransact/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://ctfs.com/esocketTransact/">
+	  <xsd:import namespace="http://ctfs.com/esocketTransactIo/" schemaLocation="esocketTransact.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="transactResponse">
+    <wsdl:part element="io:transactResponse" name="response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PGCError">
+    <wsdl:part element="io:PGCError" name="fault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transactRequest">
+    <wsdl:part element="io:transactRequest" name="request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="esocketTransact">
+    <wsdl:operation name="transact">
+      <wsdl:input message="w:transactRequest">
+    </wsdl:input>
+      <wsdl:output message="w:transactResponse">
+    </wsdl:output>
+      <wsdl:fault message="w:PGCError" name="PGCErrorFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="esocketTransactSOAP" type="w:esocketTransact">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="transact">
+      <soap:operation soapAction="http://ctfs.com/esocketTransact/transact"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PGCErrorFault">
+        <soap:fault name="PGCErrorFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="esocketTransact">
+    <wsdl:port binding="w:esocketTransactSOAP" name="esocketTransactSOAP">
+      <soap:address location="http://d9ihss1.ctal.ctc:80/PaymentGateway/esocketTransact"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

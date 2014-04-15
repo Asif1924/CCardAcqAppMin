@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.channel.ctfs.ctc.com"
+	xmlns:tns="http://www.channel.ctfs.ctc.com"
+	elementFormDefault="qualified">
+
+	<simpleType name="userFirstNameType">
+		<annotation>
+			<documentation>Employee First Name</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"></minLength>
+			<maxLength value="50"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userLastNameType">
+		<annotation>
+			<documentation>Employee Last Name</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"></minLength>
+			<maxLength value="50"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userEmplIDType">
+		<annotation>
+			<documentation>
+				Employee Identification Number
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"></minLength>
+			<maxLength value="20"></maxLength>
+			<whiteSpace value="collapse"></whiteSpace>
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="messageTextType">
+		<annotation>
+			<documentation>Message Container</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="3"></minLength>
+			<maxLength value="150"></maxLength>
+			<enumeration value="SUCCESS"></enumeration>
+			<enumeration value="FAILURE"></enumeration>
+			<enumeration value="ERROR"></enumeration>
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="userLocationIDType">
+		<annotation>
+			<documentation>Location ID is a 4 digits Store Number. 
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"></minLength>
+			<maxLength value="4"></maxLength>
+			<whiteSpace value="collapse"></whiteSpace>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userGroupIDType">
+		<annotation>
+			<documentation>Agency Name / Group ID</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"></minLength>
+			<maxLength value="20"></maxLength>
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="userIDType">
+		<annotation>
+			<documentation>
+				This is Agent ID. In a case of the user Management,
+				denotes UserID of the user that is maintained by an
+				Action User (Administrator)
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="2"></minLength>
+			<maxLength value="6"></maxLength>
+			<whiteSpace value="collapse"></whiteSpace>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="outletNameType">
+        <annotation>
+        	<documentation>denotes outlet type name</documentation>
+        </annotation>
+        <restriction base="string">
+			<maxLength value="20"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="outletNumberType">
+		<annotation>
+			<documentation>denotes store number</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="4"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="addressStatus">
+        <annotation>
+        	<documentation>Address verification status flag: V-valid, C-corrected, N-non-correctable, I-invalid(almost no use), F-foreign</documentation>
+        </annotation>
+        <restriction base="string">
+    		<length value="1"></length>
+    		<enumeration value="V"></enumeration>
+    		<enumeration value="C"></enumeration>
+    		<enumeration value="N"></enumeration>
+    		<enumeration value="F"></enumeration>
+    		<enumeration value="I"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="addressLine1Type">
+    	<annotation>
+    		<documentation>Agent's Address Line 1</documentation>
+    	</annotation>
+    	<restriction base="string">
+    		<maxLength value="40"></maxLength>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="addressLine2Type">
+    	<annotation>
+    		<documentation>Agent's Address Line 2</documentation>
+    	</annotation>
+    	<restriction base="string">
+    		<maxLength value="24"></maxLength>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="addressMunicipalityType">
+        <annotation>
+        	<documentation>Agent's Address Municipality</documentation>
+        </annotation>
+        <restriction base="string">
+			<maxLength value="24"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="addressProvinceType">
+		<restriction base="string">
+			<maxLength value="2"></maxLength>
+			<enumeration value="AB"></enumeration>
+			<enumeration value="BC"></enumeration>
+			<enumeration value="MB"></enumeration>
+			<enumeration value="NB"></enumeration>
+			<enumeration value="NL"></enumeration>
+			<enumeration value="NT"></enumeration>
+			<enumeration value="NS"></enumeration>
+			<enumeration value="NU"></enumeration>
+			<enumeration value="ON"></enumeration>
+			<enumeration value="PE"></enumeration>
+			<enumeration value="QC"></enumeration>
+			<enumeration value="SK"></enumeration>
+			<enumeration value="YT"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userRoleIDType">
+		<annotation>
+			<documentation>
+				USer RoleID. Could be Admin, FMR, Emp or Rep
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="5"></maxLength>
+			<enumeration value="ADMIN"></enumeration>
+			<enumeration value="FMR"></enumeration>
+			<minLength value="3"></minLength>
+			<enumeration value="EMP"></enumeration>
+			<enumeration value="REP"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="addressPostalCodeType">
+		<restriction base="string">
+			<whiteSpace value="collapse"></whiteSpace>
+			<maxLength value="6"></maxLength>
+			<pattern value="[A-Z][0-9][A-Z][0-9][A-Z][0-9]"></pattern>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userPhoneNumberType">
+		<restriction base="string">
+			<whiteSpace value="collapse"></whiteSpace>
+			<maxLength value="10"></maxLength>
+			<minLength value="0"></minLength>
+			<pattern
+				value="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]">
+			</pattern>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="userEmailType">
+		<restriction base="string">
+			<maxLength value="60"></maxLength>
+			<whiteSpace value="collapse"></whiteSpace>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="activeUserID">
+        <annotation>
+        	<documentation>Denotes UserID of the User, who perform's an Action during user mainanace only</documentation>
+        </annotation>
+        <restriction base="string">
+			<minLength value="6"></minLength>
+			<maxLength value="20"></maxLength>
+			<whiteSpace value="collapse"></whiteSpace>
+		</restriction>
+	</simpleType>
+
+</schema>

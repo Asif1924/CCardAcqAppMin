@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.FlowControllerTest" errors="0" failures="0" tests="14" time="0.053000003">
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  can be created" time="0.002"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  can start flow" time="0.0"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  page 1 is reached" time="0.003"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  page 2 can be reached by going to next" time="0.003"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  page 2 can be reached by going to page 3 then back" time="0.006"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  page 2 can be reached by going to page 3 then back and only page 2 is showing" time="0.005"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  can back out of the flow" time="0.003"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  can call back with failure" time="0.003"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  can finish flow" time="0.004"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  finishes flow and no pages are visible" time="0.005"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  uses the failure transition of a page and exits when it is an exit transition" time="0.002"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  uses no transition when none is defined" time="0.004"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  halts abruptly properly" time="0.002"/>
+<testcase classname="Firefox_270_Windows.FlowControllerTest" name="test that it  order of travel is as expected, page 0 1 0 1 2 1 0 1 2" time="0.011"/>
+</testsuite>

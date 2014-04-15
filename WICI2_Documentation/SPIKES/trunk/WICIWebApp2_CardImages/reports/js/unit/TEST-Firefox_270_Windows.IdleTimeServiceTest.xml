@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.IdleTimeServiceTest" errors="0" failures="0" tests="3" time="0.007">
+<testcase classname="Firefox_270_Windows.IdleTimeServiceTest" name="test that it check the initial service status if it is not started" time="0.003"/>
+<testcase classname="Firefox_270_Windows.IdleTimeServiceTest" name="test that it check public and private methods in service" time="0.001"/>
+<testcase classname="Firefox_270_Windows.IdleTimeServiceTest" name="test that it status service right after stop" time="0.003"/>
+</testsuite>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.BaseModel Validator LoginScreen employerID" errors="0" failures="0" tests="4" time="0.006">
+<testcase classname="Firefox_270_Windows.BaseModel Validator LoginScreen employerID" name="test that it will ensure employerID can be a letter" time="0.002"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator LoginScreen employerID" name="test that it will ensure employerID can be a number" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator LoginScreen employerID" name="test that it will ensure employerID cannot be a special character" time="0.002"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator LoginScreen employerID" name="test that it will ensure employerID can be only 1 character" time="0.001"/>
+</testsuite>

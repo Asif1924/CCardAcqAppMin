@@ -1,0 +1,920 @@
+ <script id="BRBPersonalInformation-template" type="text/x-jquery-tmpl"> 
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
+				</td>
+				
+				<td class="selectedBreadcrumbCell currentBreadcrumb fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</td>
+
+				<td class="unselectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+
+				<td class="unselectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="ScreenLayout" id="PersonalInformation_PageContents">
+
+		<table  id="makeCorrectionSection"
+			class="personalScreenTable stretchThisTable elementWithPaddingRightLeft25">
+			<td class="fieldCellSize3">				
+				<div class="errorCell floatToRight"></div>	
+			</td>
+			<td>
+				<span class="makeCorrectionSectionSpan"
+					data-translationKey="personalInformation_makeCorrections"></span>
+			</td>
+		</table>
+		
+		<div id="personalData_AboutYourselfArea" >
+		
+		<div class="personalInfoTitle">
+				<span class="pageSubTitle leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+				
+				<div class="floatToRight">
+					<span class="requiredField redSpan">*</span>
+					<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+				</div>
+		</div>
+		
+		<center>
+	            <table id="personalInfoTable" class="stretchThisTable grayTable">
+	            <tr class="fieldRow">
+	            	<td colspan="2" id="useMyCTProfileInformation_Cell">
+						<div id="useMyCTProfileInformation_Container" class="useMyCTProfileInformationContainer">
+							<a href="#" class="useMyCTProfileInformationLink">
+								<div id="useMyCTProfileButton" class="useMyCTProfileInformationButton" data-translationKey="personalInformation_useMyCTProfileButtonText">
+								</div>
+							</a>
+							<div id="useMyCTProfileLabel" class="alignCTProfileLabel">
+								<span class="fieldLabelsCell leftalign" data-translationKey="personalInformation_CTProfileLabel"></span>
+							</div>
+						</div>
+						
+					</td>
+	            </tr>
+	            <tbody>
+  					<tr class="fieldRow" id="personalInformation_MoneyAdvantage_FieldContainer">
+	                    <td class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25 alignToTop elementTopBottom10">
+	                        <span data-translationKey="personalInformation_MoneyAdvantageField"></span>
+	                    </td>						
+						<td class="fieldValuesCell elementTopBottom10">
+		                    	<table class="grayTableForInputsGroup">
+		                        	<tr>									
+		                        		<td class="fieldValuesCell fieldLabelsCell36">
+		                        			<span class="fieldValuesText">636574</span>
+		                        			<input class="fieldValuesTextField personNameField" id="personalInformation_MoneyAdvantage_TextField" type="text" maxlength="10" />
+		                        		</td>
+		                        		
+		                        		<td class="fieldValuesCell questionSeparatorCell" >
+		                        			<div class="errorCell hideElement" id="personalInformation_MoneyAdvantage_TextField_error"></div>
+		                        		</td>
+		                        	</tr>
+										<td class="fieldValuesTextField fieldLabelsCellWithTopAlign fieldCellSize100" colspan="2">
+		                        			<span class="alignToBottom" data-translationKey="personalInformation_MoneyAdvantage_MessageField"/>						
+										</td>
+									<tr>
+									</tr>
+		                        </table>
+		                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_TitleField"></span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                    </td>
+
+						<td class="fieldValuesCell fieldValuesTopCell" data-translationKey="personalInformation_Title_TextField">
+							<div class="errorCell tooltip_err">
+								<span class="hint_err" id="personalInformation_Title_TextField_error"></span>
+							</div>
+						</td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_NameField"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <table class="grayTableForInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_FirstName"></span>
+	                        			<span class="redSpanForInputsGroup">*</span>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_Initial"></span>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_LastName"></span>
+	                        			<span class="redSpanForInputsGroup">*</span>
+	                        		</td>
+	                        	</tr>
+	                        	
+	                        	<tr>
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField personNameField" id="personalInformation_FirstName_TextField" type="text" maxlength="40" />
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField personInitialField" id="personalInformation_Initial_TextField" type="text" maxlength="1"/>
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField personNameField" id="personalInformation_LastName_TextField" type="text" maxlength="40"/>
+	                        		</td>
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_DateOfBirth"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <div >
+		                        <table  class="grayTableForInputsGroup grayTableSpacerBottom grayTableSpacerTop">
+		                        	<tbody id="personalInformation_DateOfBirth_Control">
+		                        	<tr>
+		                        		<td class="fieldLabelsSubCell" data-translationKey="personalInformation_Month">
+		                        		<td>
+		                        		
+		                        		<td class="fieldLabelsSubCell separatorCell" />
+		                        		
+		                        		<td class="fieldLabelsSubCell" data-translationKey="personalInformation_Day">
+		                        		<td>
+		                        			
+		                        		<td class="fieldLabelsSubCell separatorCell" />
+		                        		
+		                        		<td class="fieldLabelsSubCell" id="personalInformation_YearID">
+		                        		<td>
+		                        	<tr>
+		                        		</tbody>
+		                        </table>
+		                      </div>
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_EmailAddress"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <table class="grayTableForInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField upperCaseField" id="personalInformation_Email_TextField" type="text" maxlength="60"/>
+	                        		</td>
+	                        		
+	                        		<td class="fieldValuesCell questionSeparatorCell" />
+	                        		
+	                        		<td>
+	                        			<div id="personalInformation_Email_Help" class="questionCell tooltip">
+    										<span>
+        										<div class="hintArrow"></div>
+												<p data-translationKey="personalInformation_EmailAddressHint">
+    										</span>
+										</div>
+	                        		</td>
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                	<td class="fieldLabelsCell fieldCellSize25">
+	                	
+	                	</td>
+	                	
+	                	<td class="fieldValuesCell">
+	                        <div class="personalRowSpacer">
+		                        <table class="grayTableForInputsGroup">
+		                        	<tr>
+			                        	<td class="fieldLabelsCell fieldCellSize4 fieldLabelsCellWithTopAlign">							
+											<input class="fieldValuesCheckBoxField elementTopMargin8" id="personalInformation_ReceiveEmail_TextField" type="checkbox" />
+										</td>
+										<td class="fieldValuesTextField fieldLabelsCellWithTopAlign fieldCellSize100">
+											<span data-translationKey="personalInformation_ReceiveEmail"></span>
+										</td>
+		                        	</tr>
+		                        </table>
+	                       	<div>
+	                    </td>
+	                </tr>
+	                
+	                
+	                <tr class="fieldRow">
+	                	<td class="fieldLabelsCell fieldCellSize25">
+	                		<span data-translationKey="personalInformation_PreferredLanguage"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                	</td>
+	                	
+	                	<td class="fieldValuesCell">
+		                	<div id="personalInformation_PreferredLanguage_Area">
+		                		<input class="additionalInformation_SameAddresYes" id="personalInformation_LanguageEnglish" value="true" type="radio" name="personalInformation_Language" />
+		        				<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_PreferredLanguageEnglish"></span>
+		        				&nbsp;&nbsp;&nbsp;&nbsp;
+		        				<input class="additionalInformation_SameAddresNo" id="personalInformation_LanguageFrench" value="false" type="radio" name="personalInformation_Language" />
+		        				<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_PreferredLanguageFrench"></span>
+		        			</div>
+		        		</td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_PrimaryPhone"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                    </td>
+	                    <td class="fieldValuesCell">
+								<table class="grayTableForInputsGroup ">
+		                        	<tbody id="personalInformation_PrimaryPhone_Control">
+		                        	<tr>
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_PrimaryPhone1_TextField" type="text" maxlength="3" />
+		                        		</td>
+		                        		
+		                        		
+		                        		<td class="separatorCell" > - </td>
+	
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_PrimaryPhone2_TextField" type="text" maxlength="3"/>
+		                        		</td>
+		                        		
+		                        		<td class="separatorCell" >
+		                        			-	
+		                        		</td>
+		                        		
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesTextField phoneValuesCellLong" id="personalInformation_PrimaryPhone3_TextField" type="text" maxlength="4"/>
+		                        		</td>
+		                        	</tr>
+		                        	</tbody>
+		                        </table>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_SocialInsurance"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+								<table class="grayTableForInputsGroup">
+		                        	<tr>
+		                        		<td>
+		                        			<table class="grayTableForInputsGroup">
+		                        			<tbody id="personalInformation_SocialInsurance">
+		                        			<tr>
+			                        			<td class="fieldValuesCell">
+			                        				<input class="fieldValuesTextField sinValuesCell" id="personalInformation_SocialInsurance1_TextField" maxlength="3" />
+			                        			</td>
+			                        		
+				                        		<td class="separatorCellPostalSin" />
+				                        		
+				                        		<td class="fieldValuesCell">
+				                        			<input class="fieldValuesTextField sinValuesCell" id="personalInformation_SocialInsurance2_TextField" maxlength="3" />
+				                        		</td>
+				                        		
+				                        		<td class="separatorCellPostalSin" />
+				                        		
+				                        		<td class="fieldValuesCell">
+				                        			<input class="fieldValuesTextField sinValuesCell" id="personalInformation_SocialInsurance3_TextField" maxlength="3" />
+				                        		</td>
+				                        	</tr>
+				                        	</tbody>
+				                        	</table>
+		                        		</td>
+		                        		
+		                        		<td class="fieldValuesCell questionSeparatorCell" />
+		                        		
+		                        		<td>
+		                        			<div id="personalInformation_SocialInsurance_Help" class="questionCell tooltip">
+    											<span>
+        											<div class="hintArrow"></div>
+													<p data-translationKey="personalInformation_SINHint">
+    											</span>
+											</div>
+		                        		</td>
+		                        	</tr>
+		                        </table>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_Address"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<table class="grayTableForInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetNumber"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+										<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>                        			
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
+	                        		</td>
+	                        	</tr>
+	                        	
+	                        	<tr>
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField addressShortField" id="personalInformation_StreetNumber_TextField" type="text" maxlength="5"/>
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        			
+	                        		<td class="fieldValuesCell">
+										<input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="40" />	                        			
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField addressShortField" id="personalInformation_Suite_TextField" type="text" maxlength="5"/>
+	                        		</td>
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<table class="grayTableForInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_City"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>  
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_Province"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>  
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_PostalCode"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>  
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        	</tr>
+	                        	
+	                        	<tr class="fieldValuesCell">
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField addressCityField" id="personalInformation_City_TextField" type="text" maxlength="24" />
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell">
+	                        			<div class="errorCell hideElement" id="personalInformation_City_TextField_error"></div> 
+	                        		</td>
+	                        			
+	                        		<td class="fieldValuesCell"  data-translationKey="personalInformation_Province_TextField">
+	                        			<select class="fieldValuesSelectField addressProvinceField" id="personalInformation_Province_TextField"/>
+									</td>
+	                        		
+	                        		<td class="separatorCell">
+	                        			<div class="errorCell hideElement" id="personalInformation_Province_TextField_error"></div>
+	                        		</td> 
+	                        		
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<div id="personalInformation_PostalCode_Control">
+		                        		<table class="grayTableForInputsGroup">
+			                        		<tbody id="personalInformation_PostalCode_Control1">
+				                        		<tr>
+					                        		<td class="fieldValuesCell">
+					                        			<input class="fieldValuesTextField postalCodeField" id="personalInformation_PostalCode1_TextField" type="text" maxlength="3"/>
+					                        		</td>
+					                        		
+					                        		<td class="separatorCellPostalCode" />
+					                        			
+					                        		<td class="fieldValuesCell">
+					                        			<input class="fieldValuesTextField postalCodeField" id="personalInformation_PostalCode2_TextField" type="text" maxlength="3"/>
+					                        		</td>
+			                        			</tr>
+			                        		</tbody>
+		                        		</table>
+		                        		</div>
+	                        		</td> 
+	                        		
+	                        		<td class="separatorCell">
+	                        			<div class="errorCell hideElement" id="personalInformation_PostalCode_Control_error"></div>
+	                        		</td> 
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+	                        <span data-translationKey="personalInformation_HousingInformation"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<table class="grayTableForInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_ResidentialStatus"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_MonthlyHousingPayment"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        	</tr>
+	                        	
+	                        	<tr>
+	                        		<td class="fieldValuesCell" data-translationKey="personalInformation_ResidentialStatus_TextField">
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        			
+	                        		<td class="fieldValuesCell">
+										<div id="personalInformation_MonthlyHousingPayment_Container">
+	                        				<span id="personalInformation_MonthlyHousingPaymentDollar" class="graySpan fieldValuesText alignToTop" data-translationKey="personalInformation_Dollar" />
+	                        				<input class="fieldValuesTextField monthlyHousingPaymentField" id="personalInformation_MonthlyHousingPayment_TextField" type="text" maxlength="4"/>
+	                        				<span class="graySpan fieldValuesText alignToBottom" data-translationKey="personalInformation_MonthlyHousingPayment1"></span>
+										</div>
+									</td>
+									
+									<td class="separatorCell">
+	                        			<div class="errorCell hideElement" id="personalInformation_MonthlyHousingPayment_TextField_error"></div> 
+	                        		</td>
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25">
+		                	<span data-translationKey="personalInformation_AddressSince"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+	                    </td>
+	                    <td class="fieldValuesCell fieldValuesCell">
+							<table  class="grayTableForInputsGroup grayTableSpacerTop">
+	                        	<tr>
+	                        		<td class="fieldValuesCell" data-translationKey="personalInformation_AddressSince_Month">
+	                        		<td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        		
+	                        		<td class="fieldValuesCell" id="personalInformation_AddressSince_YearID">
+	                        		<td>
+	                        	<tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                	<td class="lastRow" colspan="2" />
+	                </tr>
+	             </tbody>
+	             <tbody id="prevAddressArea" class="fieldLabelsAdditionalInfoCell">
+	                <tr class="fieldRow" class="fieldLabelsCell fieldLabelsAdditionalInfoCell">
+	                	<td colspan=2>
+	                		<span class="graySpan fieldLabelsCell fieldLabelsSubCell fieldLabelsAdditionalInfoCell" data-translationKey="personalInformation_prevAddressTitle" ></span>
+	                	</td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell">
+	                        <span data-translationKey="personalInformation_Address"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<table class="grayTableForAdditionalInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetNumber"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell fieldLabelsAdditionalInfoCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+										<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>	                        			
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell fieldLabelsAdditionalInfoCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
+	                        		</td>
+	                        	</tr>
+	                        	
+	                        	<tr>
+	                        		<td class="fieldValuesCell ">
+	                        			<input class="fieldValuesTextField addressShortField" id="personalInformation_PrevStreetNumber_TextField" type="text" maxlength="5"/>
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        			
+	                        		<td class="fieldValuesCell">
+										<input class="fieldValuesTextField addressLongField" id="personalInformation_PrevStreetName_TextField" type="text" maxlength="40" />	                        			
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" />
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField addressShortField" id="personalInformation_PrevSuite_TextField" type="text" maxlength="5"/>
+	                        		</td>
+	                        	</tr>
+	                        </tbody>
+	                        </table>
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell">
+	                        
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<table class="grayTableForAdditionalInputsGroup">
+	                        	<tr>
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_City"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell fieldLabelsAdditionalInfoCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_Province"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell fieldLabelsAdditionalInfoCell" />
+	                        		
+	                        		<td class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell">
+	                        			<span class="SpanForInputsGroup" data-translationKey="personalInformation_PostalCode"></span>
+										<span> </span>
+										<sup class="redSpanForInputsGroup">*</sup>
+	                        		</td>
+	                        		
+	                        		<td class="fieldLabelsSubCell separatorCell fieldLabelsAdditionalInfoCell" />
+	                        		
+	                        		
+	                        	</tr>
+	                        	
+	                        	<tr>
+	                        		<td class="fieldValuesCell">
+	                        			<input class="fieldValuesTextField addressCityField" id="personalInformation_PrevCity_TextField" type="text" maxlength="24" />
+	                        		</td>
+	                        		
+	                        		<td class="separatorCell" >
+	                        			<div class="errorCell hideElement" id="personalInformation_PrevCity_TextField_error" ></div>
+	                        		</td>
+	                        			
+	                        		<td class="fieldValuesCell" data-translationKey="personalInformation_PrevProvince_TextField">
+									</td>
+	                        		
+	                        		<td class="separatorCell" >
+	                        			<div class="errorCell hideElement" id="personalInformation_PrevProvince_TextField_error" ></div>
+	                        		</td>
+	                        		
+	                        		
+	                        		<td class="fieldValuesCell">
+	                        			<div id="personalInformation_PostalCodePrev_Control">
+		                        		<table class="grayTableForInputsGroup">
+			                        		<tbody id="personalInformation_PostalCodePrev_Control1">
+				                        		<tr>
+					                        		<td class="fieldValuesCell">
+					                        			<input class="fieldValuesTextField postalCodeField" id="personalInformation_PrevPostalCode1_TextField" type="text" maxlength="3"/>
+					                        		</td>
+					                        		
+					                        		<td class="separatorCellPostalCode fieldLabelsAdditionalInfoCell" />
+					                        			
+					                        		<td class="fieldValuesCell">
+					                        			<input class="fieldValuesTextField postalCodeField" id="personalInformation_PrevPostalCode2_TextField" type="text" maxlength="3"/>
+					                        		</td>
+			                        			</tr>
+			                        		</tbody>
+		                        		</table>
+		                        		</div>
+	                        		</td> 
+	                        		
+	                        		<td class="separatorCell" >
+	                        			<div class="errorCell hideElement" id="personalInformation_PostalCodePrev_Control_error" ></div>
+	                        		</td>
+	                        		
+	                        	</tr>
+	                        </table>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                	<td class="fieldLabelsCell fieldLabelsAdditionalInfoCell" colspan="2"/>
+	                </tr>
+	                </tbody>
+	            </table>
+		</center>
+		
+		</div>
+		
+		<div id="personalData_EmploymentInformationArea" >
+			<div class="personalInfoTitle">
+				<span class="pageSubTitle leftalign" data-translationKey="personalInformation_EmploymentInformation"></span>
+				{{if screenIsPopup }}
+				<div class="floatToRight">
+					<span class="requiredField redSpan">*</span>
+					<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+				</div>				
+				{{/if}}
+			</div>
+			<center>
+		            <table id="personalInfoTable" class="stretchThisTable grayTable grayTableSpacerTop">
+		            <tbody>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25 grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_EmploymentType"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell fieldValuesTopCell grayTableSpacerBottom"  data-translationKey="personalInformation_EmploymentType_TextField">
+		                    </td>
+		                </tr>
+		           	</tbody>
+		           	<tbody id="employerInformationArea" class="fieldLabelsAdditionalInfoCell" >
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_Employer"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell grayTableSpacerBottom">
+		                        <input class="fieldValuesTextField upperCaseField" id="personalInformation_Employer_TextField" type="text" maxlength="36"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_City"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell grayTableSpacerBottom">
+		                        <input class="fieldValuesTextField upperCaseField" id="personalInformation_EmployerCity_TextField" type="text" maxlength="24"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_JobTitle"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell grayTableSpacerBottom" data-translationKey="personalInformation_JobTitle_TextField">
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_JobDescription"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell grayTableSpacerBottom">
+								<input class="fieldValuesTextField upperCaseField" id="personalInformation_JobDescription_TextField" type="text" maxlength="10"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell grayTableSpacerBottom">
+		                        <span data-translationKey="personalInformation_EmployerSince"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell fieldValuesCell">
+								<table  class="grayTableForAdditionalInputsGroup grayTableSpacerBottom">
+		                        	<tr>
+		                        		<td class="fieldValuesCell"  data-translationKey="personalInformation_EmployerSince_Month">
+		                        		<td>
+		                        		
+		                        		<td class="separatorCell" />
+		                        		
+		                        		<td class="fieldValuesCell" id="personalInformation_EmployerSince_YearID">
+		                        		<td>
+		                        	<tr>
+		                        </table>
+		                    </td>
+		                </tr>
+		            </tbody>
+		            </table>
+			</center>
+		</div>
+		
+		
+		<div id="personalData_FinancialInformationArea" >
+			<div class="personalTitle">
+				<span class="pageSubTitle" data-translationKey="personalInformation_FinancialInformation"></span>
+				{{if screenIsPopup }}
+				<div class="floatToRight">
+					<span class="requiredField redSpan">*</span>
+					<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+				</div>				
+				{{/if}}
+			</div>
+			<center>
+		            <table id="personalInfoTable" class="stretchThisTable grayTable grayTableSpacerTop">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25">
+		                        <span data-translationKey="personalInformation_GrossAnnualIncome"></span>
+								<span> </span>
+								<sup class="redSpanForInputsGroup">*</sup>
+		                    </td>
+		                    <td class="fieldValuesCell fieldValuesTopCell">
+		                    	<table class="grayTableForInputsGroup">
+		                        	<tr>
+		                        		<td class="fieldValuesCell">
+											<div id="personalInformation_GrossAnnualIncome_Container">
+		                        				<span id="personalInformation_GrossAnnualIncome_Dollar_En" class="graySpan fieldValuesText alignToTop floatToLeft" data-translationKey="personalInformation_Dollar" />
+		                        				<input class="fieldValuesTextField upperCaseField" id="personalInformation_GrossAnnualIncome_TextField" type="text" maxlength="40" />
+												<span id="personalInformation_GrossAnnualIncome_Dollar_Fr" class="graySpan fieldValuesText alignToTop" data-translationKey="personalInformation_Dollar" />
+											</div>	
+		                        		</td>	                        		
+		                        		<td class="fieldValuesCell questionSeparatorCell" >
+		                        			<div class="errorCell hideElement" id="personalInformation_GrossAnnualIncome_TextField_error"></div>
+		                        		</td>
+		                        		
+		                        		<td>
+		                        			<div id="personalInformation_GrossAnnualIncome_Help" class="questionCell tooltip">
+    											<span>
+        											<div class="hintArrow"></div>
+													<p data-translationKey="personalInformation_GrossAnnualIncomeHint">
+    											</span>
+											</div>
+		                        		</td>
+		                        	</tr>
+		                        </table>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldValuesCell fieldCellSize25">
+		                        <span data-translationKey="personalInformation_BankingProducts"></span>
+		                    </td>
+		                    <td class="fieldValuesCell fieldValuesCell">
+		                        <table class="grayTableForInputsGroup grayTableSpacerTop">
+		                        	<tr>
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesCheckBoxField" id="personalInformation_ChequingAccount_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_ChequingAccount"></span>
+		                        		</td>
+		                        		<td class="separatorCellBankingProducts" />
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesCheckBoxField" value="test1" id="personalInformation_CreditCard_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_CreditCard"></span>
+		                        		</td>
+		                        	</tr>
+		                        	
+		                        	<tr>
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesCheckBoxField" id="personalInformation_SavingsAccount_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_SavingsAccount"></span>
+		                        		</td>
+		                        		<td class="separatorCellBankingProducts" />
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesCheckBoxField" id="personalInformation_GasCard_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_GasCard"></span>
+		                        		</td>
+		                        	</tr>
+		                        	
+		                        	<tr>
+		                        		<td class="fieldValuesCell">
+		                        			<input class="fieldValuesCheckBoxField" id="personalInformation_BankLoan_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_BankLoan"></span>
+		                        		</td>
+		                        		<td class="separatorCellBankingProducts" />
+		                        		<td class="fieldValuesCell">
+											<input class="fieldValuesCheckBoxField" id="personalInformation_StoreCard_TextField" type="checkbox" />
+		                        			<span class="floatLeft fieldValuesCheckBoxField" data-translationKey="personalInformation_StoreCard"></span>	                        			
+		                        		</td>
+		                        	</tr>
+		                        </table>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                	<td class="lastRow" colspan="2" />
+		                </tr>
+		            </table>
+			</center>
+		</div>
+		
+		<br>
+		<br>
+		{{if !screenIsPopup }}
+		<div class="continueButtonContainer" >
+        	<div class="floatToRight continueButtonRightPosition" id="personalInformation_ContinueButton">
+	        		<div id="personalInformation_continueButtonContainer">
+		        		<a href="#" class="continueButton" id="personalInformation_continueButtonHref">
+			        		<span class="buttonText" data-translationKey="continue_Button_Label"></span>
+			        	</a>
+			        	<span class="continueButtonTriangle">
+			        	</span>
+		        	</div>
+        	</div>
+        </div>
+        <div class="footnoteContentBlock overviewNSBorderTop">
+			<span class="footnoteContentText">
+				<sup>1</sup>
+				<span data-translationKey="overview_footnoteContentText1Extended"></span>
+				<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
+				<span ></span>
+				<span>   </span>
+				<!--<span class="overviewLinkGray" data-translationKey="overview_footnoteContentTextLinkBack"></span> -->
+				<br>
+				<sup>2</sup>
+				<span data-translationKey="overview_footnoteContentText2"></span>
+				<span> </span>
+			<!--	<span class="overviewLinkGray" data-translationKey="overview_footnoteContentTextLinkBack"></span> -->
+				<br>
+				<span data-translationKey="overview_footnoteContentText4"></span>
+				<br>
+				<span data-translationKey="overview_footnoteContentText5"></span>
+<!--
+				<br>
+				<span data-translationKey="overview_footnoteContentText6"></span>
+-->
+			</span>
+		</div>
+		<br>
+		<br>
+		{{/if}}
+		{{if screenIsPopup }}
+		<div class="buttonsContainer">
+			<div class="floatToRight continueButtonContainer">
+			    <div class="floatToRight continueButtonRightPosition" id="personalInformation_CancelButton">
+		        	<div id="personalInformation_cancelButtonContainer">
+			        	<a href="#" class="continueButtonInactive continueButtonFocused" id="personalInformation_cancelChangesButtonHref">
+				        	<span class="buttonText" data-translationKey="continue_Button_PopupMode_CancelChanges_Label"></span>
+			        	</a>
+		        	</div>
+			    </div>
+	        </div>
+	        
+			<div class="floatToRight continueButtonContainer">
+	        	<div class="floatToRight continueButtonRightPosition" id="personalInformation_ContinueButton">
+		        	<div id="personalInformation_continueButtonContainer">
+			        	<a href="#" class="continueButton continueButtonFocused" id="personalInformation_saveChangesButtonHref">
+				        	<span class="buttonText" data-translationKey="continue_Button_PopupMode_SaveChanges_Label"></span>
+			        	</a>
+		        	</div>
+	        	</div>
+	        </div>
+        </div>
+        
+		{{/if}}		   
+	</div>
+			
+</script>	

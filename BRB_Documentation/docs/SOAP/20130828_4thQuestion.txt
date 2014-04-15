@@ -1,0 +1,193 @@
+--Exam Request
+
+<soapenv:Envelope
+    xmlns:soapenc = "http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Header>
+        <p282:MessageHeader xmlns:p282 = "http://www.ctc.ctfs.channel.com/WebICGateway/">
+            <messageHeader>
+                <secureContentFlag>1</secureContentFlag>
+                <messageType>TU_AUTHENTICATION_EXAM_IDENTITY</messageType>
+                <responseMode>Synchronous</responseMode>
+                <messageId>1</messageId>
+                <correlationId>1234</correlationId>
+            </messageHeader>
+        </p282:MessageHeader>
+    </soapenv:Header>
+               <soapenv:Body>
+<p282:RequestBody xmlns:p282="http://www.ctc.ctfs.channel.com/WebICGateway/">
+<RequestBody>&lt;WebICIdentityExamRequest&gt;
+&lt;firstName&gt;BREDITU&lt;/firstName&gt;
+&lt;middleName&gt;&lt;/middleName&gt;
+&lt;lastName&gt;Zephyranth&lt;/lastName&gt;
+&lt;channel&gt;WEBIC&lt;/channel&gt;
+&lt;driversLicense&gt;&lt;/driversLicense&gt;
+&lt;driversLicenseExpirationDate&gt;&lt;/driversLicenseExpirationDate&gt;
+&lt;phoneNumber&gt;&lt;/phoneNumber&gt;
+&lt;dateOfBirth&gt;07/18/1976&lt;/dateOfBirth&gt;
+&lt;address&gt;
+&lt;addressLine1&gt;203 180 METCALFE ST&lt;/addressLine1&gt;
+&lt;addressLine2&gt;&lt;/addressLine2&gt;
+&lt;addressLine3&gt;&lt;/addressLine3&gt;
+&lt;city&gt;OTTAWA&lt;/city&gt;
+&lt;province&gt;ON&lt;/province&gt;
+&lt;postalCode&gt;K2P1P5&lt;/postalCode&gt;
+&lt;/address&gt;
+&lt;/WebICIdentityExamRequest&gt;
+</RequestBody>
+</p282:RequestBody>
+</soapenv:Body>
+</soapenv:Envelope>
+
+--Exam Response
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Header>
+      <p309:MessageHeader xmlns:p309="http://www.ctc.ctfs.channel.com/WebICGateway/">
+         <messageHeader>
+            <secureContentFlag>1</secureContentFlag>
+            <messageType>TU_AUTHENTICATION_EXAM_IDENTITY</messageType>
+            <responseMode>Synchronous</responseMode>
+            <messageId>1</messageId>
+            <correlationId>1234</correlationId>
+         </messageHeader>
+      </p309:MessageHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <p309:ResponseBody xmlns:p309="http://www.ctc.ctfs.channel.com/WebICGateway/">
+         <ResponseBody>
+            <requestStatus>Success</requestStatus>
+            <resultDocument><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<WebICIdentityExamResponse>  <identityExam>    <id>1226820</id>    <transactionId>1377694738418</transactionId>    <score>0.00000</score>    <state>issued</state>    <questions>      <question>        <id>177</id>        <text>HOW MANY ADDRESSES HAVE YOU LIVED AT IN THE LAST TWO YEARS (EXCLUDING MOVES IN THE LAST 45 DAYS)?</text>        <state>un-scored</state>        <maxTimeToAnswer>999</maxTimeToAnswer>        <possibleAnswers>          <answer>            <id>0</id>            <text>2</text>          </answer>          <answer>            <id>1</id>            <text>3</text>          </answer>          <answer>            <id>2</id>            <text>4</text>          </answer>        </possibleAnswers>      </question>      <question>        <id>150</id>        <text>IN THE PAST 5 YEARS, WHICH PROVINCE HAVE YOU LIVED IN?</text>        <state>un-scored</state>        <maxTimeToAnswer>45</maxTimeToAnswer>        <possibleAnswers>          <answer>            <id>0</id>            <text>ONTARIO</text>          </answer>          <answer>            <id>1</id>            <text>QUEBEC</text>          </answer>          <answer>            <id>2</id>            <text>NONE OF THE ABOVE</text>          </answer>        </possibleAnswers>      </question>      <question>        <id>148</id>        <text>FROM THE FOLLOWING LIST, SELECT ONE OF YOUR PREVIOUS ADDRESSES.</text>        <state>un-scored</state>        <maxTimeToAnswer>45</maxTimeToAnswer>        <possibleAnswers>          <answer>            <id>0</id>            <text>555 PRINCE CHARLES</text>          </answer>          <answer>            <id>1</id>            <text>396 MCLAUGHLIN </text>          </answer>          <answer>            <id>2</id>            <text>NONE OF THE ABOVE</text>          </answer>        </possibleAnswers>      </question>    </questions>  </identityExam></WebICIdentityExamResponse>
+]]></resultDocument>
+         </ResponseBody>
+      </p309:ResponseBody>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+
+
+----Score Request
+
+<soapenv:Envelope
+    xmlns:soapenc = "http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Header>
+        <p282:MessageHeader xmlns:p282 = "http://www.ctc.ctfs.channel.com/WebICGateway/">
+            <messageHeader>
+                <secureContentFlag>1</secureContentFlag>
+                <messageType>TU_AUTHENTICATION_EXAM_IDENTITY</messageType>
+                <responseMode>Synchronous</responseMode>
+                <messageId>1</messageId>
+                <correlationId>1234</correlationId>
+            </messageHeader>
+        </p282:MessageHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+	<p282:RequestBody xmlns:p282="http://www.ctc.ctfs.channel.com/WebICGateway/">
+	    <RequestBody>&lt;WebICScoreIdentityExamRequest&gt;
+&lt;identityExam&gt; 
+&lt;id&gt;1226820&lt;/id&gt;
+&lt;channel&gt;WEBIC&lt;/channel&gt;
+&lt;transactionId&gt;1377694738418&lt;/transactionId&gt;
+&lt;score&gt;0.00000&lt;/score&gt;
+&lt;state&gt;issued&lt;/state&gt;
+&lt;questions&gt;
+	&lt;question&gt;
+		&lt;id&gt;177&lt;/id&gt;
+		&lt;text&gt;HOW MANY ADDRESSES HAVE YOU LIVED AT IN THE LAST TWO YEARS (EXCLUDING MOVES IN THE LAST 45 DAYS)?&lt;/text&gt;
+		&lt;state&gt;un-scored&lt;/state&gt;
+		&lt;maxTimeToAnswer&gt;999&lt;/maxTimeToAnswer&gt;
+		&lt;answerId&gt;1&lt;/answerId&gt;
+	    &lt;possibleAnswers&gt;          
+			 &lt;answer&gt;            
+					 &lt;id&gt;0&lt;/id&gt;            
+					 &lt;text&gt;2&lt;/text&gt;          
+			 &lt;/answer&gt;          
+			 &lt;answer&gt;            
+					 &lt;id&gt;1&lt;/id&gt;            
+					 &lt;text&gt;3&lt;/text&gt;          
+			 &lt;/answer&gt;          
+			 &lt;answer&gt;            
+					 &lt;id&gt;2&lt;/id&gt;            
+					 &lt;text&gt;4&lt;/text&gt;          
+			 &lt;/answer&gt;        
+	   &lt;/possibleAnswers&gt;
+	&lt;/question&gt;
+	&lt;question&gt;
+		&lt;id&gt;150&lt;/id&gt;
+		&lt;text&gt;IN THE PAST 5 YEARS, WHICH PROVINCE HAVE YOU LIVED IN?&lt;/text&gt;
+		&lt;state&gt;un-scored&lt;/state&gt;
+		&lt;maxTimeToAnswer&gt;45&lt;/maxTimeToAnswer&gt;
+		&lt;answerId&gt;0&lt;/answerId&gt;
+	    &lt;possibleAnswers&gt;          
+		  &lt;answer&gt;            
+				   &lt;id&gt;0&lt;/id&gt;            
+				  &lt;text&gt;ONTARIO&lt;/text&gt;          
+		  &lt;/answer&gt;          
+		  &lt;answer&gt;            
+				   &lt;id&gt;1&lt;/id&gt;            
+					 &lt;text&gt;QUEBEC&lt;/text&gt;          
+			 &lt;/answer&gt;          
+			 &lt;answer&gt;            
+					 &lt;id&gt;2&lt;/id&gt;            
+					 &lt;text&gt;NONE OF THE ABOVE&lt;/text&gt;          
+			 &lt;/answer&gt;        
+	    &lt;/possibleAnswers&gt;
+	&lt;/question&gt;
+	&lt;question&gt;
+		&lt;id&gt;148&lt;/id&gt;
+		&lt;text&gt;FROM THE FOLLOWING LIST, SELECT ONE OF YOUR PREVIOUS ADDRESSES.&lt;/text&gt;
+		&lt;state&gt;un-scored&lt;/state&gt;
+		&lt;maxTimeToAnswer&gt;45&lt;/maxTimeToAnswer&gt;
+		&lt;answerId&gt;0&lt;/answerId&gt;
+	    &lt;possibleAnswers&gt;          
+			&lt;answer&gt;            
+					&lt;id&gt;0&lt;/id&gt;            
+					&lt;text&gt;555 PRINCE CHARLES&lt;/text&gt;          
+			&lt;/answer&gt;          
+			&lt;answer&gt;           
+					 &lt;id&gt;1&lt;/id&gt;            
+					 &lt;text&gt;1036 ST MICHEL&lt;/text&gt;          
+			 &lt;/answer&gt;          
+			 &lt;answer&gt;            
+					 &lt;id&gt;2&lt;/id&gt;            
+					 &lt;text&gt;NONE OF THE ABOVE&lt;/text&gt;          
+			 &lt;/answer&gt;        
+		&lt;/possibleAnswers&gt;
+	&lt;/question&gt;
+&lt;/questions&gt;
+&lt;/identityExam&gt;
+&lt;/WebICScoreIdentityExamRequest&gt;
+	    </RequestBody>
+	</p282:RequestBody>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+--Score Response (with 4th Question)
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Header>
+      <p309:MessageHeader xmlns:p309="http://www.ctc.ctfs.channel.com/WebICGateway/">
+         <messageHeader>
+            <secureContentFlag>1</secureContentFlag>
+            <messageType>TU_AUTHENTICATION_EXAM_IDENTITY</messageType>
+            <responseMode>Synchronous</responseMode>
+            <messageId>1</messageId>
+            <correlationId>1234</correlationId>
+         </messageHeader>
+      </p309:MessageHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <p309:ResponseBody xmlns:p309="http://www.ctc.ctfs.channel.com/WebICGateway/">
+         <ResponseBody>
+            <requestStatus>Success</requestStatus>
+            <resultDocument><![CDATA[<?xml version="1.0" encoding="UTF-8"?> <WebICScoreIdentityExamResponse>  <identityExam>    <externalId>1377694738418</externalId>    <sessionId>1226820</sessionId>    <score>0.00000</score>    <decision>FAILED 4TH QUESTION</decision>    <questions>      <question>        <id>151</id>        <text>IN 2013, YOU LIVED IN WHICH OF THE FOLLOWING CITIES?</text>        <state>un-scored</state>        <maxTimeToAnswer>120</maxTimeToAnswer>        <possibleAnswers>          <answer>            <id>0</id>            <text>WELLAND</text>          </answer>          <answer>            <id>1</id>            <text>EMBRUN</text>          </answer>          <answer>            <id>2</id>            <text>NONE OF THE ABOVE</text>          </answer>        </possibleAnswers>      </question>      <question reference="../question"/>    </questions>  </identityExam></WebICScoreIdentityExamResponse>]]></resultDocument>
+         </ResponseBody>
+      </p309:ResponseBody>
+   </soapenv:Body>
+</soapenv:Envelope>
+

@@ -1,0 +1,250 @@
+<script id="BRBConfirmation-template" type="text/x-jquery-tmpl">	
+	<span><!-- Dont remove span, IE8!!! -->
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
+				</td>
+				
+				<td class="selectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</td>
+
+				<td class="selectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</td>
+				
+				<td class="selectedBreadcrumbCell currentBreadcrumb fieldCellSize20">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+
+				<td class="unselectedBreadcrumbCell fieldCellSize20">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+		
+	<div class="ScreenLayout" id="Confirmation_PageContents">
+		<div id="confirmation_print_header" data-translationKey="confirmation_print_header"></div>
+		<center>
+			<div id="confirmation_Information_Accurate_Area" >
+				<table class="stretchThisTable grayTable">
+					<tr class="fieldRow">
+						<td class="fieldLabelsCell fieldLabelsBottomCell">
+							<span class="floatLeft" data-translationKey="confirmation_Information_Accurate_Text"></span>
+						</td>
+					</tr>
+				</table>	
+			</div>
+		</center>
+		
+
+		<div class="personalInfoTitle">
+			<span class="pageSubTitle leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+			<a href="#" id="print" class="print_button floatToRight">
+				<span class="print_link" data-translationKey="confirmation_PrintPage"></span>
+				<div class="print_image"></div>
+    		</a>
+		</div>		
+		<center>
+			<div id="confirmation_AboutYourselfArea" >
+			</div>
+		</center>		
+				
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
+		</div>		
+		<center>
+			<div id="confirmation_EmploymentInformationArea" >
+			</div>
+		</center>
+			
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="personalInformation_FinancialInformation"></span>
+		</div>		
+		<center>
+			<div id="confirmation_FinancialInformationArea" >	            								
+			</div>
+		</center>		
+		
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
+		</div>
+		<center>
+			<div id="confirmation_GetSuplementaryCardArea" >
+			</div>
+		</center>		
+
+<!--
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="additionalInformation_Final_Details"></span>
+		</div>		
+		<center>
+			<div id="personalData_FinalDetailsArea" >
+	            <table id="personalInfoTable" class="stretchThisTable grayTable grayTableSpacerTop">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25 fieldCellWidth170">
+							<span class="floatLeft" data-translationKey="additionalInformation_Final_Details_Language"></span>
+	                    </td>
+ 						<td class="fieldValuesCell fieldCellWithBoldFontSize14">	                    		                        			
+							
+	                    </td>	                                  
+	                </tr>	
+ 					<tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize25 fieldCellWidth170">
+	                        <span data-translationKey="additionalInformation_Final_Details_Statement"></span>	                        
+	                    </td>
+	                    <td class="fieldValuesCell fieldCellWithBoldFontSize14">
+	                       
+	                    </td>
+	                </tr>    
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsTopCell ">
+							<span class="floatLeft" data-translationKey="additionalInformation_Final_Details_Subscription"></span>
+	                    </td>
+	                </tr>    
+					<tr class="fieldRow">
+						<td class="fieldLabelsCell fieldValuesTopCell" colspan="2">
+        					<div class="floatToRight fieldValueWithMargins" id="confirmation_FinalDetails_Edit">
+	        					<span class="button lightgrayflat editButtonSize" id="confirmation_FinalDetails_EditButton">
+		        					<span class="editButtonText" data-translationKey="confirmation_Edit_Button_Label"></span>
+	        					</span>	        					
+        					</div>							
+						</td>
+					</tr>	        
+	            </table>								
+			</div>
+		</center>		
+-->
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="additionalInformation_OptionalProducts"></span>
+		</div>
+		<center>
+			<div id="confirmation_OptionalInsuranceArea" >	            								
+			</div>
+		</center>		
+		
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="confirmation_Terms_Conditions"></span>
+		</div>		
+		<center>
+			<div id="confirmation_TermsConditionsArea" >
+				<table class="stretchThisTable grayTable">
+					<tr class="fieldRow">					
+						<td class="fieldLabelsCell fieldValuesTopAndBottomCell">
+							<div id="privacylist">
+								<span data-translationKey="confirmation_Application_Authorization_Title"></span>
+								<p/>
+								<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_SubTitle"></span>
+								<ul class="privacylist">
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item1"></span></li>
+									<br>
+									<li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									<br>
+									<li>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1"></span>
+										<span class="privacylistItemText">
+											<span class="redSpan" data-translationKey="confirmation_Application_Authorization_Item4_2"/>
+										</span>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_3"></span>
+									</li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item5"></span></li>
+									<br>
+									<li><a href="#" class="privacylistItemLargeText boldSpan" data-translationKey="confirmation_Application_Authorization_Item6"/></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item8"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item9"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item10"></span></li>																	
+								</ul>
+							</div>
+						</td>
+					</tr>			
+					<tr class="fieldRow">
+						<td class="fieldLabelsCell fieldValuesOneCell tableWithPaddingBottom15" colspan="2">
+							<div id="confirmation_Privacy_Area">
+							<table class="stretchThisTable whiteTable">
+								<tr class="fieldRow">
+									<td class="fieldLabelsCell fieldLabelsBottomCell" colspan="2">
+										<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter"/>
+										<div class="floatToRight elementWithRightMargin15">
+											<span class="requiredField redSpan">*</span>
+											<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+										</div>
+									</td>
+								</tr>
+	                			<tr class="fieldRow">									
+	                				<td class="fieldLabelsCell fieldCellSize5">
+	                					<input class="fieldValuesCheckBoxField" id="confirmation_Application_Authorization_CheckBox_Field" type="checkbox" />
+	                				</td>
+	                    			<td class="fieldRow fieldLabelsCellWithCheckBox">
+										<sup>
+											<b class="redSpanForInputsGroup">*</b>
+										</sup>
+										<span class="floatLeft" data-translationKey="confirmation_Privacy_Charter_Text"></span>										
+	                    			</td>									                    
+	                			</tr>
+								<tr class="fieldRow">
+	                				<td class="fieldLabelsCell fieldCellSize5">
+	                					<input class="fieldValuesCheckBoxField" id="confirmation_Update_CT_Profile_CheckBox_Field" type="checkbox" />
+	                				</td>
+	                    			<td class="fieldRow fieldLabelsCellWithCheckBox">
+										<span class="floatLeft" data-translationKey="confirmation_Update_CT_Profile_Text"></span>										
+	                    			</td>	                    
+	                			</tr>
+							</table>
+							</div>								
+						</td>
+					</tr>			
+				</table>	
+			</div>
+		</center>	
+		<br>
+		<br>
+		
+        <div class="continueButtonContainer" id="confirmation_continueButtonContainer">
+        	<div class="floatToRight continueButtonRightPosition" id="confirmation_continueButton">
+	        	<a href="#" class="continueButton submitApplecationButton" id="confirmation_ContinueButtonHref">
+		        	<span class="buttonText" data-translationKey="confirmation_Button_Label"></span>
+	        	</a>
+	        	<span class="continueButtonTriangle"></span>
+        	</div>
+        	
+        	<div class="floatToRight backButtonRightPosition" id="confirmation_BackButton">
+        		<div id="confirmation_BackButtonContainer">
+	        		<span class="backButtonTriangle">
+		        	</span>
+		        	
+	        		<a href="#" class="backButton continueButton" id="confirmation_BackButtonHref">
+		        		<span class="buttonText" data-translationKey="back_Button_Label"></span>
+		        	</a>
+		        	
+	        	</div>
+        </div>
+	</div>
+
+<div class="footnoteContentBlock">
+			<span class="footnoteContentText">
+				<span data-translationKey="confirmation_footnoteContentText1"></span>
+				<span class="overviewLinkGray" data-translationKey="confirmation_footnoteContentText1Link"/>
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText2"></span>
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText4"></span>
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText5"></span>
+			<span>
+		</div>
+		<br>
+		<br>
+</div>
+</script>

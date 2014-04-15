@@ -1,0 +1,3364 @@
+.mainpage {
+	width: 299px;
+}
+
+a {
+	-webkit-touch-callout:none;
+}
+
+/* START - Common Styles */
+html,body {
+	background-color: #C0C4C7;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#BRBWebAppMainPage {
+	background-color: #FFFFFF;
+	background-image: none;
+	max-width: 980px;
+	width: 980px;
+  margin: 0px auto;
+  position: inherit;
+  min-height: 0px !important;
+  height: auto;
+
+}
+
+.ui-page {
+	outline: none;
+	min-height:100%;
+	height:100%;
+}
+.brbLoginPage {
+	background-color: #E6E6E6;
+	min-height:100%;
+	height:100%;
+}
+
+.brbWhiteBackgroundPage {
+	background-color: #FFFFFF;
+	padding-top: 0px;
+}
+
+.pageTitle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 21pt;
+	font-color: #000;
+}
+
+.pageSubTitle  {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-color: #333333;
+    padding-left: 6px;
+}
+
+.summaryPageSubTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 18pt;
+    font-color: #000;
+}
+
+.locationDetailsFont {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 18pt;
+    font-color: #000;
+}
+
+.exitApplicationFont {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 18pt;
+    font-color: #000;
+}
+
+.ScreenLayout{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.ScreenLayoutFullWidth{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#dialogButtonContainer {
+	text-align: center;
+}
+
+.settingsContainer
+{
+  max-height: 250px;
+  max-width: 300px;
+}
+
+.settingsContainer2Buttons
+{
+  max-height: 176px;
+  max-width: 300px;
+}
+
+.navigationControls {
+	width: 100%
+}
+
+.Login_CanadianTireLogo{
+	background-image: #{inline-image("CTFS_IconLogo_Sml_CMYK_R_LGR.png")};
+    height: 120px;
+    width: 477px;
+	background-size: 100%;
+}
+
+.PageHeader_CanadianTireTabLogo{
+	background-image: #{inline-image("ctfs_tab_with_logo.png")};
+  height: 94px;
+  width: 290px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 5px;
+}
+.PageHeader_CanadianTireTabLogo_fr{
+	background-image: #{inline-image("ctfs_tab_with_logo_fr.png")};
+  height: 94px;
+  width: 290px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 5px;
+}
+
+.PageHeader_CanadianTireLogo{
+	background-image: #{inline-image("CTFS_IconLogo_Sml_CMYK_R_LGR.png")};
+  height: 110px;
+  width: 450px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 10px;
+}
+
+.pageHeader {
+	position: relative;
+	width: 96%;
+	top: 0px;
+	left: 0px;
+	z-index: 50;
+	height: 100px;
+	min-width: 910px;
+}
+
+.box-narrow
+{
+  float: right;
+  margin-right: 10px;
+  width: 370px;
+  padding: 15px 0 0 0;
+  font-weight: bold;
+  font-size: 11pt;
+}
+.icon-phone
+{
+	margin-bottom: 0;
+}
+
+.pageHeaderPadding {
+	padding-top: 50px;
+}
+
+.pageHeader {
+ 	h2 {
+		color: #464646;
+		font-size: 16px;
+	}
+	.pageNavigationButton {
+		width: 56px;
+		height: 40px;
+		padding-top: 20px;
+		position: absolute;
+		top: -4px;
+
+		.buttonAltText {
+			background: 0px 0 no-repeat;
+			display: inline-block;
+			overflow: hidden;
+			background-size: cover;
+      padding-left: 0px;
+      height: 30px;
+      width: 40px;
+      margin-top: -3px;
+		}
+
+		&.previous {
+			left: 0px;
+			.buttonAltText {
+				background-image: #{inline-image("previous.png")};
+			}
+		}
+		&.next {
+			right: 0px;
+			.buttonAltText {
+				background-image: #{inline-image("next.png")};
+				background-position: right;
+			}
+		}
+
+		&.settings {
+        right: 65px;
+        border-bottom-left-radius: .6em;
+        border-top-left-radius: .6em;
+        border-bottom-left-radius: .6em;
+        border-top-left-radius: .6em;
+        padding-left: 0px;
+
+        .buttonAltText {
+          background-image: #{inline-image("settings_icon.png")};
+          background-position: center center;
+        }
+      }
+    &.rightPosition
+    {
+      right: 0px;
+    }
+	}
+}
+
+
+/*------Gradient Title Bar------*/
+.redGradient{
+	background: #ed2524; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ed2524 0%, #a1020e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed2524), color-stop(100%,#a1020e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ed2524 0%,#a1020e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ed2524 0%,#a1020e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ed2524 0%,#a1020e 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ed2524 0%,#a1020e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed2524', endColorstr='#a1020e',GradientType=0 ); /* IE6-9 */
+	height: 120px;
+}
+
+.darkGrayGradient{
+	background: #666666; /* Old browsers */
+	background: -moz-linear-gradient(top,  #666666 0%, #333333 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#666666), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #666666 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #666666 0%,#333333 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #666666 0%,#333333 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #666666 0%,#333333 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+	height: 120px;
+}
+
+.whitePageHeader
+{
+  background:white;
+}
+
+
+.alignRightAtEdgeofTitleBar{
+	float:right;
+	text-align:right;
+}
+
+/*------Gradient Title Bar------*/
+
+/*-------BEGIN: Dialog Stuff ------*/
+
+
+#messageDialog {
+	 ul li {
+		list-style-type: none;
+		padding-left: 0px;
+		margin-left: 0px;
+	}
+}
+#messageDialog.removeExpired {
+	 ul li {
+		list-style-type: disc;
+	}
+}
+
+.ui-dialog-background {
+	opacity: 0.5;
+	display: block !important;
+	-webkit-transition: opacity 0.5s ease-in;
+}
+
+.ui-dialog-background.pop.in {
+	opacity: 1;
+	-webkit-transition: opacity 0.5s ease-in;
+}
+
+.ui-dialog {
+	min-height: 100% !important;
+	background: transparent !important;
+}
+
+
+/*-------END: Dialog Stuff ------*/
+
+
+/*-------Breadcrumbs-----*/
+
+.RestrictHeight{
+	overflow: hidden;
+}
+
+.BreadcrumbTableStyle{
+	height: 47px;
+	border: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*
+, tbody, tfoot, thead,
+*/
+#BreadcrumbTable {
+	height: 40px;
+	border: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-collapse: collapse;
+	border-spacing: 0 ! important;
+	max-width: 980px;
+
+	tbody, tfoot, thead, tr, th, td {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		height: 60px;
+		border-spacing: 0 ! important;
+	  min-width: 184px;
+    max-width: 190px;
+	}
+}
+
+.selectedBreadcrumbCell{
+	text-align: center;
+	height: 47px;
+}
+
+.currentBreadcrumb
+{
+  background:  #{inline-image("sprite-bg-nav.png")} no-repeat 0 40px;
+  background-position-x: center;
+}
+
+.selectedBreadcrumb{
+  display: block;
+  height: 30px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+
+  font-family: Arial;
+  font-size: 16px;
+  color: #FFF;
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E74646), color-stop(100%,#B01F1F));
+  background: -moz-linear-gradient(top,  #E74646,  #B01F1F);
+  background: -ms-linear-gradient(top,  #E74646,  #B01F1F);
+  background: -o-linear-gradient(top, #E74646, #B01F1F);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#E74646', endColorstr='#B01F1F');
+  border-right: 2px solid gray !important;
+}
+
+.unselectedBreadcrumb{
+  display: block;
+  height: 30px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+
+  color: black;
+  text-shadow: none;
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C6C6C6), color-stop(100%,#919191));
+  background: -moz-linear-gradient(top,  #C6C6C6,  #919191);
+  background: -ms-linear-gradient(top,  #C6C6C6,  #919191);
+  background: -o-linear-gradient(top, #C6C6C6, #919191);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#919191');
+}
+
+.unselectedBreadcrumbCell{
+
+  text-align: center;
+  height: 47px;
+}
+
+.BreadcrumbTextNumberStyle{
+	font-family: Arial Narrow, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+	text-shadow: 1px 50% white;
+}
+
+.BreadcrumbTextStyle{
+	font-family: Arial Narrow, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	text-shadow: none;
+	white-space: nowrap;
+}
+
+.BreadcrumbRow{
+	height:10px;
+}
+
+#selected_breadcrumb_image{
+	height:47px;
+	width:30px;
+}
+
+#unselected_breadcrumb_image{
+	height:47px;
+	width:30px;
+}
+
+.visitedCrumbSeparator {
+    background: url('../../images/visited_crumb_sep.png') no-repeat;
+    height: 47px;
+    width: 30px;
+}
+
+.visitedLeftCrumbSeparator {
+    background: url('../../images/visited_left_crumb_sep.png') no-repeat;
+    height: 47px;
+    width: 29px;
+}
+
+.notVisitedCrumbSeparator {
+    background: url('../../images/notvisited_crumb_sep.png') no-repeat;
+    height: 47px;
+    width: 31px;
+}
+
+.breadcrumbPadding{
+	/*padding-top: 100px;*/
+}
+
+#confirmation_Information_Accurate_Area
+{
+ padding-top: 1px;
+}
+
+.breadcrumbPaddingConfirmation
+{
+  /*top: -27px !important;*/
+  padding-bottom: 27px !important;;
+}
+
+.breadcrumbHeader{
+	position: relative;
+	/*width: 100%;*/
+	top: -2px;
+	left: 0px;
+	z-index: 50;
+	float:left;
+	height: 100%;
+	/*float:left;*/
+	width: 950px;
+}
+
+
+
+/*----End-Breadcrumbs----*/
+
+/*------------BEGIN Table-Related-Stuff------------*/
+.regularTable{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border:1px solid #CCCCCC;
+
+    font-color: #5E5D5D;
+	background-color:#F7F7F7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+
+	padding-left: 15px;
+}
+
+table.personalScreenTable {
+ 	border:0px;
+ 	border-collapse:collapse;
+ 	border-bottom: 2px solid #D2D2D2;
+	border-top: 2px solid #D2D2D2;
+	padding:5px;
+
+	tr td {
+        border:0px;
+        padding: 0px;
+    }
+}
+
+.tableNoBorder
+{
+      tr td {
+        border:0px;
+        padding: 0px;
+    }
+      border:0px;
+}
+
+.tableNoCellsBorder
+{
+      tr td {
+        border:0px;
+    }
+}
+
+table{
+/*
+	-webkit-border-radius: 11px;
+	-moz-border-radius: 11px;
+	border-radius: 11px;
+*/
+	border:1px solid #CCCCCC;
+	background-color:#FFFFFF;
+	border-spacing: 0px;
+}
+
+tr {
+  border-bottom: solid 1px #CCCCCC;
+
+}
+
+table tr th td {
+	border:1px solid #CCCCCC;
+	border-spacing: 0px;
+}
+
+tr td{
+	height: 47px;
+
+	 border: solid 1px #CCCCCC;
+  border-spacing: 0px;
+}
+
+.heightForRadioButtonLabelCell{
+	height: 70px;
+}
+
+.lastRow
+{
+  height: 38px;
+}
+
+/*------------END Table-Related-Stuff------------*/
+
+.selectRow {
+	border:1px solid #EA2323;
+	border-bottom:1px solid #EA2323;
+	border-top:1px solid #EA2323;
+	border-left:1px solid #EA2323;
+	border-right:1px solid #EA2323;
+}
+
+
+.fieldLabelsTitle{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14pt;
+	font-color: #5E5D5D;
+}
+
+.fieldLabelsTopCell{
+    -moz-border-radius-topleft: 11px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+
+    -webkit-border-top-left-radius: 11px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+}
+
+.fieldLabelsOneCell{
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-bottom-left-radius: 11px;
+}
+
+.fieldLabelsBottomCell{
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 11px;
+
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 11px;
+}
+
+.fieldLabelsSingleCell{
+    -moz-border-radius-topleft: 11px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 11px;
+
+    -webkit-border-top-left-radius: 11px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 11px;
+
+    font-color: #5E5D5D;
+	background-color:#F7F7F7;
+	width:50%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+
+	padding-left: 15px;
+}
+
+.fieldLabelsCell{
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+
+   font-color: #333333;
+	 background-color:#F7F7F7;
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: 14px;
+
+    padding-left: 15px;
+    text-align: left;
+}
+.fieldLabelsAdditionalInfoCell
+{
+  background-color: #DADADA;
+  text-align: left;
+}
+
+.fieldLabelsSubCell
+{
+  -moz-border-radius-topleft: 0px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -moz-border-radius-bottomleft: 0px;
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+
+  height: 10px;
+  text-align: left;
+}
+
+.fieldTableHeaderTopCell{
+    -moz-border-radius-topleft: 11px;
+    -moz-border-radius-topright: 11px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+
+    -webkit-border-top-left-radius: 11px;
+    -webkit-border-top-right-radius: 11px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+
+	background-color:#F7F7F7;
+	width:50%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 16pt;
+	font-color: #5E5D5D;
+
+	padding-left: 15px;
+}
+
+.fieldLabelsCell25{
+  width:25%;
+}
+
+.fieldLabelsCell50{
+  width:50%;
+}
+
+.fieldLabelsCell36{
+  width:36.4%;/*CTCOFSMB-945*/
+}
+.fieldValuesCell{
+	 -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+
+	padding-left: 15px;
+	padding-right: 15px;
+
+	text-align: left;
+}
+
+.fieldValuesCellFlip{
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #F7F7F7;
+  width:15%;
+  text-align: center;
+}
+
+.fieldValuesTopCell{
+	padding-left: 15px;
+	padding-right: 15px;
+
+	-moz-border-radius-topleft: 0px;
+  -moz-border-radius-topright: 11px;
+  -moz-border-radius-bottomright: 0px;
+  -moz-border-radius-bottomleft: 0px;
+
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-top-right-radius: 11px;
+  -webkit-border-bottom-right-radius: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+}
+
+.fieldValuesBottomCell{
+	padding-left: 15px;
+	padding-right: 15px;
+
+	-webkit-border-bottom-right-radius: 11px;
+}
+
+.fieldValuesTopAndBottomCell{
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 20px;
+	padding-top: 15px;
+
+	-moz-border-radius-topleft: 0px;
+  	-moz-border-radius-topright: 11px;
+  	-moz-border-radius-bottomright: 0px;
+  	-moz-border-radius-bottomleft: 0px;
+
+  	-webkit-border-top-left-radius: 0px;
+  	-webkit-border-top-right-radius: 11px;
+  	-webkit-border-bottom-right-radius: 0px;
+  	-webkit-border-bottom-left-radius: 0px;
+}
+
+.fieldValuesOneCell
+{
+  padding-left: 15px;
+  padding-right: 15px;
+
+  -webkit-border-bottom-right-radius: 11px;
+  -webkit-border-top-right-radius: 11px;
+}
+
+.fieldValueWithMargins{
+	margin: 15px;
+}
+
+
+
+.genericTableWidth{
+	width:700px;
+}
+
+.stretchThisTable{
+	width:100%;
+}
+
+.tableWithPadding15 {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.tableWithPaddingBottom15 {
+	padding-bottom: 15px;
+}
+
+.tableWithPadding50 {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.fieldValuesTextField{
+	#background-color:transparent;
+	border: 1px solid #777;
+	height:30px;
+	line-height: 30px;
+	/*width:100%;*/
+	width: 300px;
+	color:#5E5D5D;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	padding-left: 5px;
+}
+
+.fieldValuesSelectField{
+	height: 33px;
+	width: 307px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color:#5E5D5D;
+	
+ 	padding-top: 4px;
+  	padding-bottom: 4px;
+  	padding-right: 2px;
+  	padding-left: 2px;	
+
+	background-position: center right; 
+  	background-repeat: no-repeat; 
+	background-image: #{inline-image("select-arrow.png")}, 
+	-webkit-linear-gradient(#F9F9F9, #F9F9F9 40%, #E9E9E9), 
+	-webkit-linear-gradient(#F9F9F9, #F9F9F9 40%, #E9E9E9); 
+	-webkit-appearance: button;
+	-webkit-border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+	
+	-moz-appearance: button;	
+}
+
+.fieldValuesText
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-color:#5E5D5D;
+}
+
+.fieldValuesPhoneField {
+	background-color:transparent;
+	border: 1px solid;
+  border-color: gray;
+	height:30px;
+	width:100%;
+	color:#5E5D5D;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 162t;
+	font-color:#5E5D5D;
+}
+
+.fieldValuesCheckBoxField
+{
+  height: auto;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+.upperCaseField{
+	text-transform: uppercase;
+}
+
+.fieldHeight20
+{
+  height: 20px;
+}
+/* luk: used in ValidationDecorator */
+.errorField{
+	border: 1px solid red !important;
+	box-shadow: 0 0 10px red;
+	-webkit-box-shadow: 0 0 10px red;
+	-moz-box-shadow: 0 0 10px red;
+//	border-radius: 0px;
+	-webkit-appearance: none;
+}
+
+.errorFieldIE8 {
+	border: 1px solid red !important;
+}
+
+.fieldCellSize100 {
+  width: 100%;
+}
+.fieldCellHeight0{
+  height:0px
+}
+
+.fieldCellSize50 {
+  max-width: 50%;
+}
+
+.fieldCellSize33 {
+  width: 33%;
+}
+
+.fieldCellSize30 {
+  width: 30%;
+}
+
+.fieldCellSize20 {
+  width: 20%;
+}
+
+.fieldCellSize25 {
+  width: 145px;
+}
+
+.fieldCellSize5 {
+  width:5%;
+}
+
+.fieldCellSize4 {
+  width:4%;
+}
+
+.fieldCellSize3 {
+  width:3%;
+}
+
+.fieldCellSize4 {
+  width:4%;
+}
+
+.fieldCellSize1 {
+  width:1%;
+}
+
+.fieldCellWidth170 {
+  width:170px;
+}
+
+/* END - Common Styles */
+
+
+#loginScreenImage_ctfs_image_titleblock{
+	padding-top: 118px;
+	background-color: #e6e6e6;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-image: #{inline_image("ctfs_titleblock.png")};
+}
+
+/* START - Login Screen */
+
+/* END - Login Screen */
+
+/* START - button ---------------------------------------------- */
+.button {
+	display: table-cell;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: middle;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: .5em 0em .5em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+
+	-webkit-border-radius: .25em;
+	-moz-border-radius: .25em;
+	border-radius: .25em;
+
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	height: 72px;
+	width: 640px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.button_disabled {
+	color: #c8c8c8;
+	border: solid 1px #dedede;
+	background: #faddde;
+	opacity: 0.5;
+  	disabled:true;
+	ui-disabled:true;
+}
+
+.buttonText{
+	font-family: Arial;
+	font-size: 16pt;
+	color: #FFF;
+	line-height: 22px;
+	height: 72px;
+}
+
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.editButtonText > .buttonText {
+	color: #717171;
+}
+
+/* red */
+.red {
+	color: #faddde;
+	border: solid 1px #980c10;
+	background: #d81b21;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
+	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ed1c24', endColorstr='#aa1317');
+}
+.red:hover {
+	background: #b61318;
+	background: -webkit-gradient(linear, left top, left bottom, from(#c9151b), to(#a11115));
+	background: -moz-linear-gradient(top,  #c9151b,  #a11115);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9151b', endColorstr='#a11115');
+}
+.red:active {
+	color: #de898c;
+	background: -webkit-gradient(linear, left top, left bottom, from(#aa1317), to(#ed1c24));
+	background: -moz-linear-gradient(top,  #aa1317,  #ed1c24);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aa1317', endColorstr='#ed1c24');
+}
+
+/* greenflat */
+.greenflat {
+	color: #faddde;
+	border: solid 1px rgb(34, 152, 12);
+	background: rgb(24, 142, 2);
+}
+.greenflat:hover {
+	background: rgb(30, 148, 10);
+}
+.greenflat:active {
+	color: rgb(44, 162, 22);
+}
+
+/* grayflat */
+.grayflat {
+	color: #c8c8c8;
+	border: solid 1px #cccccc;
+	background: #dedede;
+}
+.grayflat:hover {
+	background: #dedede;
+}
+.grayflat:active {
+	color: #dedede;
+}
+
+/* darkgrayflat */
+.darkgrayflat {
+	color: #a7a7a7;
+	border: solid 1px #aaaaaaa;
+	background: #bcbcbc;
+}
+.darkgrayflat:hover {
+	background: #bcbcbc;
+}
+.darkgrayflat:active {
+	color: #bcbcbc;
+}
+
+/* lightgrayflat */
+.lightgrayflat {
+	color: #565555;
+	border: solid 1px #D1D1D1;
+	background: #FBFBFB;
+}
+.lightgrayflat:hover {
+	background: #FBFBFB;
+}
+.lightgrayflat:active {
+	color: #FBFBFB;
+}
+
+/* blackflat */
+.blackflat {
+	color: #676767;
+	border: solid 1px #aaaaaaa;
+	background: #565656;
+}
+.blackflat:hover {
+	background: #565656;
+}
+.blackflat:active {
+	color: #565656;
+}
+
+.rightalign {
+	float:right;
+}
+
+.leftalign {
+  float:left;
+}
+
+/* END - button ---------------------------------------------- */
+
+/* START - Choose Product Screen */
+
+.PageTitle{
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 21pt;
+	color: #000;
+}
+
+.CC_Labels{
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 18pt;
+	color: #000;
+}
+
+#addressLookupButton{
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #ccc;
+	margin: 5px;
+	border-radius: 2px;
+}
+
+.lookupSpan
+{
+  top: 25px;
+  position: relative;
+}
+
+.submitButton
+{
+  height: 144px;
+}
+
+.addressLookup_DropDownItemsControl {
+	border: 2px solid #22980c;
+	background-color: #22980c;
+	padding: 0px 0px 0px 0px;
+	border-radius: 5px;
+	text-shadow: 0px 0px white;
+	font-weight: bold;
+	font-size: 12px;
+	color: #ffffff;
+}
+
+.SubTextFieldControl {
+	border: 2px solid #F7F7F7;
+	background-color: #F7F7F7;
+	padding: 0px 0px 0px 0px;
+	border-radius: 5px;
+	text-shadow: 0px 0px white;
+	font-weight: bold;
+	font-size: 12px;
+	color: #000000;
+}
+
+.dropDownButton {
+	display: block;
+	float: right;
+	height: 25px;
+	width:27px;
+	background: no-repeat #{inline_image("dropdownarrow.png")};
+	background-position: center;
+}
+
+.makeRoomForDropDownButton{
+	width:90%;
+}
+
+#promoCodeTable{
+	width: 100%;
+}
+
+.applyButtonWidth{
+	width: 240px;
+}
+
+.addressLookupButtonWidth{
+	width: 260px;
+}
+
+.loginButtonWidth{
+	width: 640px;
+}
+
+.loginTableWidth{
+	width: 640px;
+}
+
+.editButtonSize{
+	width: 120px;
+	height: 25px;
+}
+
+a.editButtonSize:focus{
+	border: 1px dotted black;
+}
+
+/* END - Choose Product Screen */
+
+/* START - Personal Data Screen */
+
+#addressLookupTable {
+	width:100%;
+}
+
+/* END - Personal Data Screen */
+
+#loadingIconBackgroundPane {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 60;
+	top: 0px;
+	left: 0px;
+}
+.loadingIconPane {
+	text-align: center;
+	background: #ddd;
+	border-radius: 15px;
+	width: 10em;
+	height: 8em;
+	padding: 2em 1em;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: small;
+	color: #000;
+	margin: 10% auto;
+}
+.loadingIcon {
+	background: top left no-repeat #{inline_image("loading.gif")};
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+}
+.identityVerificationLoadingIcon {
+	background: top left no-repeat #{inline_image("MoneyToCard_Loop.gif")};
+	display: inline-block;
+	width: 300px;
+	height: 160px;
+}
+.identityVerificationLoadingIconPane {
+	text-align: center;
+	background: #fff;
+	border-radius: 15px;
+	border: solid 1px #000;
+	width: 24em;
+	height: 19em;
+	padding: 2em 1em;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: small;
+	color: #000;
+	margin: 10% auto;
+}
+
+#loadingScreenBackground {
+	width: 100%;
+	height: 200%;
+	background: #e3e5ed;
+	position: absolute;
+	opacity: 0.6;
+	top: 0px;
+	left: 0px;
+}
+/*================================= jQuery Mobile Overrides ==============================*/
+/* Red button theme for JQuery Mobile
+ * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
+ ******************************************************************************************/
+
+.ui-btn-up-r {
+    border: 1px solid #721414;
+    background: #AB2525;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 -1px 1px #000;
+    background-image: -moz-linear-gradient(top, #C54E4E, #AB2525);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0, #C54E4E),
+        color-stop(1, #AB2525));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
+}
+.ui-btn-up-r a.ui-link-inherit {
+    color: #fff;
+}
+.ui-btn-hover-r {
+    border: 1px solid #6E0000;
+    background: #B64B4B;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 -1px 1px #000;
+    background-image: -moz-linear-gradient(top,
+        #D47272,
+        #B64B4B);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0, #D47272),
+        color-stop(1, #B64B4B));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#D47272', EndColorStr='#B64B4B')";
+}
+.ui-btn-hover-r a.ui-link-inherit {
+    color: #fff;
+}
+.ui-btn-down-r {
+    border: 1px solid #772222;
+    background: #C54E4E;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 -1px 1px #000;
+    background-image: -moz-linear-gradient(top, #9E3939, #C54E4E);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0, #9E3939),
+        color-stop(1, #C54E4E));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#9E3939', EndColorStr='#C54E4E')";
+}
+.ui-btn-down-r a.ui-link-inherit {
+    color: #fff;
+}
+.ui-btn-up-r,
+.ui-btn-hover-r,
+.ui-btn-down-r {
+    font-family: Helvetica, Arial, sans-serif;
+    text-decoration: none;
+}
+
+
+/* This is to fix a bug with jquery mobile, DE-681 */
+body.ui-mobile-viewport {
+  overflow-x: visible;
+  background-color: #c0c4c7;
+  }
+
+.passwordField {
+    -webkit-text-security: disc;
+    text-security: disc;
+}
+
+.numericField::-webkit-inner-spin-button,.numericField::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0px;
+}
+
+.defaultCursor {
+	cursor: default;
+}
+
+
+/* brbCheckBox */
+.brbCheckBox {
+	width: 45px;
+	height: 45px;
+	position: relative;
+	margin-bottom: 0px;
+}
+
+.brbCheckBox label {
+	cursor: pointer;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	top: 0;
+  	left: 0;
+	background: #eee;
+	border:1px solid #ddd;
+}
+
+.brbCheckBox label:after {
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 30px;
+	height: 19px;
+	background: transparent;
+	top: 6px;
+	left: 7px;
+	border: 3px solid #2CA216;
+	border-top: none;
+	border-right: none;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.brbCheckBox label:hover::after {
+	opacity: 0;
+}
+
+.brbCheckBox input[type=checkbox]:checked + label:after {
+	opacity: 1;
+}
+
+
+.rightContaier {
+ 	float: left;
+    width: auto;
+}
+
+.leftContainer {
+    margin-left: 50px;
+    position: absolute;
+    bottom: 23px;
+}
+
+.opCheckBoxLabel
+{
+  padding-top: 15px;
+  padding-left: 10px;
+  position: inherit;
+}
+
+.hideElement
+{
+  display: none;
+}
+
+div.ui-slider-switch
+{
+  width: 200px;
+}
+
+.dialogFixes
+{
+  height: auto !important;
+}
+
+.stop-scrolling {
+  height: 100% !important;
+  overflow: hidden;
+}
+
+/* End Signature screen */
+
+/* Continue button*/
+
+.continueButton
+{
+  border-radius: 10px;
+  display: inline-block;
+  overflow: visible;
+  width: 100%;
+  text-align: center;
+  width: 200px;
+
+  padding: 8px 0px 8px 0px;
+  //float: left;
+  text-align:center;
+  text-decoration: none; font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;  text-shadow:0px 1px 0px #000;
+  color: #e6e2cf;
+  position: relative; text-shadow:1px 0 0 #000;
+
+  background: #{inline_image("ContinueButtonBackground.png")};
+
+  min-width:181px;
+  width:auto;
+  overflow: visible;
+
+  height: 22px;
+  cursor: pointer;
+  float: left;
+  border-radius: 10px;
+}
+
+a.continueButtonFocused:focus{
+	border: 1px solid gray;
+}
+
+.largeContinueButtonRightPosition
+{
+  width: 155px;
+  min-width: 155px;
+}
+
+.continueButtonInactiveBG{
+	background: #{inline_image("ContinueButtonBackgroundGray.png")};
+}
+
+.submitApplecationButton
+{
+  width: 300px;
+}
+
+.overviewContinueButtonRightPosition
+{
+  margin-right: 90px
+}
+
+.continueButton > .buttonText
+  {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #FFF;
+    line-height: 22px;
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+  }
+
+.continueButtonContainer
+{
+    height: 60px;
+}
+
+.continueButtonContainer > .active, .continueButton > .active, .active
+
+{
+    //position: relative;
+    margin-top: 1px;
+}
+
+.continueButtonTriangle
+{
+  background-image: #{inline-image("ContinueButtonArrow_cuted.png")};
+  height: 38px;
+  width: 39px;
+  background-size: 100%;
+  float: left;
+  margin-left: -19px;
+  background-repeat: no-repeat;
+}
+
+.backButtonTriangle
+{
+  background-image: #{inline-image("BackButtonArrow_cuted.png")};
+  margin-left: 0px;
+  margin-right: -19px;
+  height: 38px;
+  width: 39px;
+  background-size: 100%;
+  float: left;
+  background-repeat: no-repeat;
+}
+
+.continueButtonGrayTriangle
+{
+ background-image: #{inline-image("ContinueButtonArrowGray_cuted.png")};
+  height: 38px;
+  width: 40px;
+  background-size: 100%;
+  float: left;
+  margin-left: -10px;
+  background-repeat: no-repeat;
+
+}
+
+.continueButtonInactive
+{
+  border-radius: 10px;
+  display: inline-block;
+  overflow: visible;
+  width: 100%;
+  text-align: center;
+  width: 200px;
+
+  padding: 8px 0px 8px 0px;
+  //float: left;
+  text-align:center;
+  text-decoration: none; font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;  text-shadow:0px 1px 0px #000;
+  color: #e6e2cf;
+  position: relative; text-shadow:1px 0 0 #000;
+
+  background: #{inline_image("ContinueButtonBackgroundGray.png")};
+
+  min-width:181px;
+  width:auto;
+  overflow: visible;
+
+  height: 22px;
+  cursor: pointer;
+}
+
+.continueButtonInactive1::after
+  {
+    overflow: visible;
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    margin-top: 0px;
+    padding-top: 0px;
+    top: 7px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    padding-left: -1px;
+    margin-left: -17px;
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #E0DFDF), color-stop(100%, #CBCBCB));
+    background: linear-gradient(top left, #E0DFDF, #CBCBCB); /*future CSS3 browsers*/
+    background: -moz-linear-gradient(top left, #E0DFDF, #CBCBCB);
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#FFE0DFDF,EndColorStr=#FFCBCBCB);
+  }
+
+  .continueButtonInactive > .buttonText
+  {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #FFF;
+    line-height: 22px;
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+  }
+
+.continueButtonRightPosition
+{
+  margin-right: 55px
+}
+
+
+.backButtonRightPosition
+{
+  margin-right: 43px
+}
+
+/*End Continue button */
+
+
+/* Overview */
+
+#choseProduct {
+	margin-top: 80px;
+	height: 235px;
+}
+
+#productListBlock {
+	margin-top: 15px;
+	margin-bottom: 3px;
+}
+
+.chooseProductBlock {
+	height: 170px;
+	padding-left: 35px;
+}
+
+.chooseProductTitle {
+	margin-left: 20px;
+	font-family: Arial, Helvetica Neue, sans-serif;
+	font-weight: bold;
+	font-size: 16px;
+	color: #333333;
+}
+
+.chooseProductBlock > ul {
+	height: 170px;
+	list-style: none;
+}
+
+.chooseProductBlock > li {
+	list-style-type: none;
+	float: left;
+	height: 170px;
+}
+
+#productImage {
+	background-size: 100%;
+	float: left;
+	background: #{inline_image("card-options_min.png")};
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.productImageBlock {
+	display: block;
+	text-decoration: none;
+	position: relative;
+}
+
+.chooseProductBlock .productImageBlock {
+	width: 272px;
+	height: 170px;
+	outline-style: none;
+}
+
+.chooseProductLink {
+	margin-left: 115px;
+	font-size: 11px;
+	color: #777777;
+}
+
+.productImageArea {
+	width: 309px;
+	border: none;
+}
+
+.productDescriptionArea {
+	width: 60%;
+	border-left: 1px inset #E7E7E7;
+}
+
+.productDescriptionTitle {
+	font-family: Arial, Helvetica Neue, sans-serif;
+	font-weight: bold;
+	font-size: 16px;
+	color: #cf1b23;
+	margin-left: 30px;
+}
+
+#rewardsOnPurchasList {
+	padding-left: 15px;
+	margin-top: 5px;
+	margin-left: 30px;
+}
+
+.simpleList > ul {
+	list-style-position: inside;
+	list-style-image: #{inline_image("bullet.png")};
+	list-style-type: square;
+}
+
+.simpleList > li {
+	list-style-type: inherit;
+	margin: 5px;
+	height: auto;
+	list-style-image: #{inline_image("bullet.png")};
+	list-style-type: square;
+}
+
+.listItemText {
+	font-family: Arial, Helvetica Neue, sans-serif;
+	font-size: 14px;
+	color: #000000;
+}
+
+.overviewLinkGray {
+	color: gray;
+}
+
+.overviewFootnote {
+	font-size: 9px;
+	font-weight: bold;
+	color: #000000;
+}
+
+#overviewPageContents {
+	padding-top: 15px;
+}
+
+.overviewTitle {
+	font-family: Arial, Helvetica Neue, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+.overviewTable {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	td {
+		padding: 5px;
+	}
+}
+
+.overviewTopTable {
+	width: 100%;
+
+	border: 1px solid #E8E8E8;
+	border-spacing: 2px 1px;
+
+	td {
+		margin-top: 5px;
+		width: 50%;
+		background-color: #E8E8E8;
+		border-color: #E8E8E8;
+	}
+}
+
+.overviewTopTableTitle {
+	font-size: 13px;
+	color: #333333;
+	font-weight: bold;
+	padding-left: 15px;
+}
+
+.overviewTopTableText {
+	font-size: 13px;
+	color: #333333;
+	padding-left: 15px;
+	margin: 0px !important;
+}
+
+.overviewPrintDisclosureImage {
+	background: #{inline_image("print_disclosure.png")};
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+	margin-left: 4px;
+	height: 20px;
+}
+
+.overviewPrintDownloadLink {
+	color: #656565;
+	margin-left: 29px;
+	font-size: 11px;
+}
+
+.overviewCenterTableContainer {
+	margin-top: 8px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 100%;
+	border: none;
+}
+
+.overviewCenterTableContainer td {
+	padding: 0;
+}
+
+.overviewCenterTable {
+	width: 100%;
+	border-spacing: 0;
+	border-radius: 0;
+}
+
+.overviewCenterTableTitle {
+	width: 22%;
+	font-size: 14px;
+	font-weight: bold;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+#overviewCenterTableTextMargin {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#overviewCenterTableTextWithoutMargin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.overviewCenterTableTextBold {
+	font-weight: bold;
+}
+
+.overviewCenterTableTextBold14 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.overviewCenterTableTextRightPadding {
+	width: 150px !important;
+	padding-right: 15px;
+}
+
+.overviewCenterTableTextFloatLeft {
+	float: left;
+}
+
+.overviewCenterTableTextAutoWidth {
+	width: auto;
+}
+
+.overviewTableTextMarginTop14 {
+	margin-top: 14px;
+}
+
+.overviewTableTextLimitedWidth {
+	width: 470px;
+}
+
+#overviewCenterTableTitlePadding {
+	font-size: 14px;
+	padding: 8px;
+}
+
+.overviewCenterTableTextTab {
+	margin-left: 20px;
+}
+
+.overviewCenterTableRightBlockTitle {
+	font-size: 14px;
+	font-weight: bold;
+	padding-left: 10px !important;
+	padding-right: 15px !important;
+}
+
+.overviewCenterTableRightBlockBottomText {
+	font-size: 12px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 10px !important;
+	padding-right: 15px !important;
+}
+
+.overviewCenterTableRowTitle {
+	font-weight: bold;
+	margin-left: 15px;
+}
+
+.overviewCenterTableData {
+	width: 80%;
+	padding-left: 10px !important;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	padding-right: 10px !important;
+}
+
+.overviewCenterTableRightBlockData {
+	padding: 2px;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.overviewCenterTable th, td {
+	border: 1px solid #ccc;
+}
+
+#overviewCenterTableRightSeparator {
+	border: none;
+	width: 9px;
+}
+
+#overviewCenterTableRightBlock {
+	border: 2px solid #ccc;
+	width: 29%;
+}
+
+#overviewCenterTableRightBlockTopDiv {
+	border-bottom: 2px solid #ccc;
+}
+
+.overviewBottomTable {
+	margin-top: 9px;
+	width: 100%;
+
+	border: 2px solid #C0C0C0;
+	tr td {
+		border: 0px;
+	}
+}
+
+.overviewStartApplicationTextCell {
+	width: 20%;
+	min-width: 130px;
+}
+
+.overviewPromoCodeTextCell {
+	padding-left: 20px !important;
+}
+
+.overviewPromoCodeText {
+	padding-left: 0px !important;
+}
+
+.overviewStartApplicationValueCell {
+	width: 35%;
+	min-width: 400px;
+}
+
+.overviewStartApplicationText {
+	font-color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	padding-left: 15px;
+}
+
+.overviewStartApplicationInfo {
+	border-left: 2px solid #C0C0C0;
+	padding-top: 10px;
+	padding-bottom: 3px;
+}
+
+.overviewStartApplicationInfoText {
+	font-size: 12px;
+	padding-left: 15px;
+}
+
+.overviewStartApplicationInfoTitle {
+	font-size: 10pt;
+	font-color: #333333;
+	margin-left: 20px;
+}
+
+.startApplicationButtonContainer
+{
+    height: 60px;
+}
+
+.startApplicationButton {
+ 	width: 200px;
+ 	float: left;
+ 	margin-right: 0px;
+}
+
+#overviewRequiredFieldLableText {
+	font-size: 12px;
+	color: #333333;
+	vertical-align: bottom;
+	padding-left: 15px;
+}
+
+.overviewSecurityMessagingImage {
+	background: #{inline_image("security_messaging.png")};
+	background-repeat: no-repeat;
+	background-position: 0px 2px;
+	margin-left: 15px;
+	height: 18px;
+}
+
+.overviewAutoTimeoutImage {
+	background: #{inline_image("auto_timeout.png")};
+	background-repeat: no-repeat;
+	background-position: 0px 2px;
+	margin-left: 15px;
+	height: 18px;
+}
+
+#privacyCharter {
+	font-size: 12px;
+	color: #333333;
+}
+
+.overviewFootnoteBlock {
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+	border-top: none !important;
+}
+
+.footnoteContentBlock {
+	width: 100%;
+	padding-top: 10px;
+	margin-top: 7px;
+	border-top: 2px solid #ccc;
+}
+
+.footnoteContentText {
+	font-size: 11px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #818181;
+}
+
+/* End Overview */
+
+/* Overview Nova Scotia */
+
+.breadcrumbHeaderOverviewNSPage {
+	top: -39px;
+}
+
+.overviewNSTable {
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin-top: 60px;
+	border: 0px;
+
+	td {
+		vertical-align: top;
+		border: 0px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+.overviewNSTableBottomBorder {
+	border-bottom: 2px solid #ccc;
+}
+
+.overviewNSTableRightColBorder {
+	border-left: none;
+}
+
+.overviewNSTableRedText {
+	color: red;
+}
+
+.overviewNSTableBlackText {
+	color: black;
+}
+
+.overviewNSList {
+	padding-left: 20px;
+	li {
+		min-height: 18px;
+	}
+}
+
+.footnoteBorderTop {
+	border-top: 2px solid #ccc;
+}
+
+#moneyPlusOMCImage {
+	display: block;
+	text-decoration: none;
+	position: relative;
+	width: 400px;
+	height: 79px;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.moneyPlusOMCImageBlock {
+	background: #{inline_image("MONEYplusOMC_3points_min.png")};
+}
+
+.moneyPlusOMCImageBlock_fr {
+	background: #{inline_image("MONEYplusOMC_3points_fr_min.png")};
+}
+
+#rightBannerNSImage {
+	display: block;
+	text-decoration: none;
+	position: relative;
+	width: 308px;
+	height: 251px;
+	/*margin-top: -100px;*/
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.rightBannerNSBlock {
+	background: #{inline_image("right_banner_ns.png")};
+}
+.rightBannerNSBlock_fr {
+	background: #{inline_image("right_banner_ns_fr.png")};
+}
+.rightBannerNSBlock_ie8 {
+	background: #{inline_image("right_banner_ns.jpg")};
+}
+.rightBannerNSBlock_fr_ie8 {
+	background: #{inline_image("right_banner_ns_fr.jpg")};
+}
+
+.overviewNSHorizontalCenteredText {
+	text-align: center;
+}
+
+.overviewNSTableText14 {
+	font-size: 14px;
+}
+
+.overviewNSRightBannerText1 {
+	font-size: 16px;
+	font-weight: bold;
+	padding-top: 205px;
+	margin-bottom: 0px;
+}
+
+.overviewNSRightBannerText2 {
+	font-size: 12px;
+	margin-top: 0px;
+}
+
+.overviewNSContinueButtonContainer:active {
+    position: relative;
+    margin-top: 1px;
+    margin-bottom: -1px;
+}
+
+#overviewNS_Footnotes {
+	font-size: 11px;
+	color: #818181;
+}
+
+/* End Overview Nova Scotia */
+
+
+/* Personal information */
+
+#personalInformation_PreferredLanguage_Area
+{
+  width: 170px;
+  height: 26px;
+  padding-top: 3px;
+}
+
+.makeCorrectionSection
+{
+  margin-left: 5px;
+  
+}
+
+.makeCorrectionSectionSpan
+{
+  height: 22px;
+  padding-top: 5px;
+  margin-left: 10px;
+  color: #cb191f;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.personalTitle
+{
+  margin-top: 27px;
+}
+
+.personalInfoTitle
+{
+	margin-top: 27px;
+	padding-bottom: 25px;
+}
+
+.personalRowSpacer
+{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.useMyCTProfileInformationContainer {
+	width: 100%;
+	height: 41px;
+
+	margin-left: 10px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+.useMyCTProfileInformationButton
+{
+  border-radius: 10px;
+  display: inline-block;
+  overflow: visible;
+  width: 100%;
+  text-align: center;
+  width: 200px;
+
+  padding: 8px 0px 8px 0px;
+  //float: left;
+  text-align:center;
+  text-decoration: none; font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;  text-shadow:0px 1px 0px #000;
+  color: #e6e2cf;
+  position: relative; text-shadow:1px 0 0 #000;
+
+  background: #{inline_image("ContinueButtonBackground.png")};
+
+  min-width:181px;
+  width:auto;
+  overflow: visible;
+
+  height: 23px;
+  cursor: pointer;
+  float: left;
+  border-radius: 10px;
+}
+
+.buttonCTText {
+	padding-right: 60px;
+	padding-left: 60px;
+	font-family: Arial;
+	font-size: 9pt;
+	color: #FFF;
+	font-weight: bold;
+	line-height: 22px;
+	height: 72px;
+}
+.buttonCTText_fr {
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Arial;
+	font-size: 9pt;
+	color: #FFF;
+	font-weight: bold;
+	line-height: 22px;
+	height: 72px;
+}
+
+.useMyCTProfileInformationButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.useMyCTProfileInformationLink {
+  border-radius: 10px;
+  display: inline-block;
+  overflow: visible;
+  width: auto;
+
+  text-decoration: none;
+
+  position: relative;
+  cursor: pointer;
+  float: left;
+}
+
+.alignCTProfileLabel {
+	padding-top: 8px;
+}
+
+#creditCardDescription
+{
+  margin-top: 80px;
+  height: 133px;
+}
+
+.piDescriptionList
+{
+  height:215px;
+  width: 970px;
+  padding-left: 10px;
+}
+
+.piDescriptionList > ul {
+  /*height:205px;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;*/
+ padding-left: 10px;
+}
+
+.piDescriptionList > li {
+  list-style-type: none;
+  float: left;
+
+  height: 120px;
+  margin-bottom: 5px;
+}
+
+#omcCard {
+  background: #{inline_image("omc.png")};
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+
+}
+
+.creditCardBlock {
+  display: block;
+  text-decoration: none;
+  position: relative;
+}
+
+.piDescriptionList .creditCardBlock {
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+
+.firstListItem
+{
+  width: 180px;
+  border:none;
+
+}
+
+.listItem
+{
+  width: 75%;
+  border-left: 1px solid #CCCCCC;
+}
+
+.liTitle
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  font-color: #333333;
+  margin-left: 33px;
+}
+
+.liContent
+{
+  /*margin-left: 10px;
+  margin-right: 10px;*/
+}
+
+/*Personal information*/
+
+.pageSubHeader
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-color: #333333;
+  padding-left: 6px;
+}
+
+.floatToRight
+{
+  float: right;
+}
+
+.floatToLeft
+{
+  float: left;
+}
+
+
+
+.requiredField
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  font-color: #000
+}
+
+
+.graySpan
+{
+  color: #999999;
+}
+
+.redSpan
+{
+  color: red;
+}
+
+.boldSpan{
+	font-weight: bold;
+}
+
+.span12{
+	font-size: 12px;
+}
+
+.span14{
+	font-size: 14px;
+}
+
+.span10{
+	font-size: 10px;
+}
+
+.spanBold
+{
+  font-weight: bold;
+}
+
+.grayTable
+{
+  background-color: rgb(247, 247, 247);
+  border:0px;
+  border:0px;
+
+  tr td {
+        border:0px;
+  }
+
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  border-radius: 0px;
+}
+
+.grayTableNoBorder
+{
+  background-color: #F7F7F7;
+  border:0px;
+  border:0px;
+
+  tr td {
+        border:0px;
+    }
+}
+.grayTableBorderGray
+{
+  background-color: #F7F7F7;
+  border:1px solid;
+  border-color: #F7F7F7;
+  tr td {
+        border:0px;
+    }
+}
+
+.grayAdditionalTable
+{
+  background-color: #DADADA;
+  border:0px;
+  border:0px;
+
+  tr td {
+        border:0px;
+    }
+
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  border-radius: 0px;
+}
+
+.whiteTable
+{
+  background-color: #FFFFFF;
+  border:0px;
+
+  tr td {
+        border:0px;
+        background-color: #FFFFFF;
+         border-radius: 5px;
+    }
+    border-radius: 5px;
+}
+
+.tableBorderRadius7 {
+	border-radius: 7px;
+	tr td {
+         border-radius: 7px;
+    }
+}
+
+.asterixForLabel
+{
+  margin-left: -5px;
+}
+
+.redSpanForInputsGroup
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: red;
+  margin-left: -2px;
+}
+
+.SpanForInputsGroup
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #333333;
+}
+
+.whiteTableForInputsGroup
+{
+      tr td {
+        border:0px;
+        padding: 0px;
+        padding-right: 10px;
+       	padding: 0px;
+       	height: 25px;
+      }
+
+    border:0px;
+    display: block;
+}
+
+.grayTableForInputsGroup
+{
+      tr td {
+        border:0px;
+       	padding: 0px;
+       	height: 25px;
+    }
+
+    border:0px;
+    background-color: #F7F7F7;
+    display: block;
+}
+
+.grayTableSpacerTop
+{
+  padding-top: 22px;
+}
+
+.grayTableSpacerTop17
+{
+  padding-top: 17px;
+}
+
+.grayTableSpacerTop40
+{
+  padding-top: 40px;
+}
+
+.grayTableSpacerBottom
+{
+  padding-bottom: 15px;
+}
+
+.grayTableSpacerBottom10
+{
+  padding-bottom: 10px;
+}
+
+.grayTableForAdditionalInputsGroup
+{
+  tr td {
+        border:0px;
+        padding: 0px;
+/*        padding-left: 10px;*/
+        padding-right: 10px;
+       padding: 0px;
+       height: 25px;
+    }
+
+
+    border:0px;
+    background-color: #DADADA;
+    display: block;
+}
+
+.additionalInformation_EarnReward{
+	background-image: #{inline-image("earn_rewards.png")};
+  	height: 74px;
+  	width: 290px;
+  	background-size: 100%;
+  	background-repeat: no-repeat;
+  	background-position:center;
+  	float: right;
+}
+
+.additionalInformation_EarnReward_fr{
+	background-image: #{inline-image("earn_rewards_fr.png")};
+  	height: 74px;
+  	width: 290px;
+  	background-size: 100%;
+  	background-repeat: no-repeat;
+  	background-position:center;
+  	float: right;
+}
+
+.additionalInformationFootnoteAsterixFontSize {
+	padding-top: 5px;
+	font-size: 14px !important;
+}
+
+.separatorCell
+{
+  width: 30px;
+  text-align: center;
+  min-width: 30px;
+}
+
+.separatorCell25_OptionalProducts {
+	height: 25px !important;
+}
+
+.separatorCell45_OptionalProducts {
+	height: 45px !important;
+}
+
+.separatorCellPostalCode
+{
+  width: 5px;
+  min-width: 5px;
+}
+
+.separatorCellPostalSin
+{
+  width: 7px;
+  min-width: 7px;
+}
+
+
+.separatorCellBankingProducts
+{
+  width: 20px;
+}
+
+.questionSeparatorCell
+{
+  width: 13px;
+  text-align: center;
+}
+
+.confirmationSeparatorCell
+{
+  width: 7px;
+  text-align: center;
+  min-width: 7px;
+}
+
+.sinValuesCell
+{
+  width: 70px;
+}
+
+.phoneValuesCellShort
+{
+  width: 70px;
+}
+
+.phoneValuesCellLong
+{
+  width: 96px;
+}
+
+.dateOfBirthMonthField
+{
+   width: 125px;
+}
+
+.dateOfBirthDayField
+{
+  width: 80px;
+}
+
+.dateOfBirthYearField
+{
+  width: 65px;
+  text-align: center;
+  padding-left: 0px !important;
+}
+
+.titleField
+{
+  width: 170px;
+}
+
+.postalCodeField
+{
+  width: 70px;
+  text-transform: uppercase;
+}
+
+.addressShortField
+{
+  width: 90px;
+  text-transform: uppercase;
+}
+
+.addressLongField
+{
+  width: 300px;
+  text-transform: uppercase;
+}
+
+.personNameField
+{
+  width: 200px;
+  text-transform: uppercase;
+}
+
+.personInitialField
+{
+  width: 70px;
+  text-transform: uppercase;
+}
+
+.addressCityField
+{
+  width: 195px;
+  text-transform: uppercase;
+}
+
+.addressProvinceField
+{
+  width: 230px;
+}
+
+.monthlyHousingPaymentField
+{
+  width: 100px;
+}
+
+.alignToTop
+{
+  vertical-align: top;
+}
+
+.alignToBottom
+{
+  vertical-align: bottom;
+}
+
+.residentialStatusField
+{
+  width: 215px;
+}
+
+.questionCell
+{
+  width: 27px;
+  height: 21px;
+  cursor: pointer;
+  text-align: center;
+  background-image: #{inline-image("help_button_new.png")};
+  background-repeat: no-repeat;
+}
+
+.questionCell:active {
+  position: relative;
+  top: 1px;
+}
+
+.errorCell
+{
+  width: 18px;
+  height: 30px;
+  text-align: center;
+  background-image: #{inline-image("error_symbol.png")};
+  float: left;
+  margin-left: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headerLogo
+{
+  width: 176px;
+  height: 100px;
+  text-align: center;
+  float: right;
+  background-image: #{inline-image("header_Logo.png")};
+}
+
+.languageRegion
+{
+  text-align: right;
+  float: right;
+  margin-top: 20px;
+  width: 50px;
+}
+
+.languageLink
+{
+  text-decoration: underline;
+  color: #000000;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.callout
+{
+  color:red;
+}
+
+
+.headerPhone
+{
+  font-size: 27px;
+}
+
+.continueShoppingCell
+{
+  width: 10%;
+  min-width: 165px;
+  text-align: right;
+  vertical-align: top;
+  padding-top: 55px;
+  padding-right: 20px;
+}
+
+.continueShoppingButton
+{
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.examTableHeightCards
+{
+  height: 505px;
+}
+
+.customerCard {
+  background: #{inline_image("default_generic_card.png")};
+  background-repeat: no-repeat;
+
+  background-position:0 35px;
+  /*background-position-x: 20px;*/
+  height: 170px;
+  width: 250px;
+}
+
+.custormerCardName{
+  position: relative;
+  display: block;
+  top: -40px;
+  left: 15px;
+  margin-top: -10px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #333333;
+}
+
+.congratulationsLabel
+{
+  font-size: 20px;
+  color: #df1b23
+}
+
+.congratulationsTextContent
+{
+  line-height: 30px;
+}
+
+
+.emailField
+{
+  color: #333333;
+}
+
+
+.fieldLabelsCellWithCheckBox {
+	padding-left: 10px;
+	padding-right: 15px;
+	width: 100%;
+}
+
+.fieldLabelsCellWithTopAlign {
+	vertical-align: top;
+}
+
+.fieldCellWithLeftShift {
+	margin-left:-4px;
+}
+
+.footerText
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #333333;
+  margin-left: 19px;
+  padding-top: 20px;
+}
+
+#confirmation_Privacy_Area {
+	min-width:97.1%;
+	max-width:100%;
+}
+
+.fieldCellWithFontSize12 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-color: #333333;
+}
+
+.fieldCellWithBoldFontSize14 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-color: #333333;
+	font-weight: bold;
+}
+
+.tableWithLeftPadding {
+	padding-left: 22px;
+}
+
+.elementWithRightMargin15 {
+	margin-right: 15px;
+}
+
+.elementWithBottomMargin15 {
+	margin-bottom: 15px;
+}
+
+.privacyArea {
+	min-width:97.1%;
+	max-width:100%;
+}
+
+.fieldValuesTopMargin{
+	padding-top: 15px;
+}
+
+.privacylistItemText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+}
+
+.privacylistItemLargeText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #333333;
+}
+
+#privacylist {
+ 	ul {
+ 		margin: 0.75em 0;
+    	padding: 0 1em;
+    	list-style: none;
+	}
+	li:before {
+    	content: "";
+    	border-color: transparent #111;
+    	border-style: solid;
+    	border-width: 0.22em 0 0.22em 0.3em;
+    	display: block;
+    	height: 0;
+    	width: 0;
+    	left: -1em;
+    	top: 0.9em;
+    	position: relative;
+	}
+}
+
+
+
+.ui-mobile
+{
+  height: 99.9%;
+  background-color: #C0C4C7;
+}
+
+.buttonsContainer
+{
+  height: 50px;
+}
+
+.cards
+{
+  position: relative;
+  height: 100%;
+  /*float: left;*/
+  padding-top: 80px;
+}
+
+.card
+{
+  display: block;
+  position: absolute;
+  top:80px;
+  left: 50px;
+  width: 100%;
+  height: 348px;
+  background: #fff;
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  box-shadow:#555 0px 1px 5px;
+}
+
+.card:first-child
+{
+ height: 350px;
+  width: 80%;
+  top: 150px;
+  z-index: 3;
+}
+
+.card:first-child + *
+{
+  height: 350px;
+  width: 80%;
+  top: 165px;
+  left: 90px;
+  z-index: 2;
+}
+
+.card:first-child + * + *
+{
+  height: 350px;
+  width: 80%;
+  top: 180px;
+  left: 130px;
+  z-index: 1;
+}
+
+.card:first-child + * + * + *
+{
+  height: 350px;
+  width: 80%;
+  top: 195px;
+  left: 170px;
+  z-index: 0;
+}
+
+.examNumberLabel
+{
+  float: right;
+  padding-right: 15px;
+  padding-top: 15px;
+  font-size: 20px;
+  color: #CCCCCC;
+}
+
+.questionTable
+{
+      tr td {
+        height: 32px;
+    }
+
+    margin-left: 55px;
+    margin-top: 20px;
+}
+
+.questionText
+{
+  text-align: left;
+  margin-left: 55px;
+  margin-top: 20px;
+  margin-right: 30px;
+}
+
+.questionSubmit
+{
+	margin-bottom: 30px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+div.tooltip {
+	outline:none;
+	text-decoration:none;
+}
+
+div.tooltip span {
+    z-index: 10;
+    display: none;
+    padding:10px 10px;
+    margin-top:-15px;
+    margin-left: 45px;
+    width: 200px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-box-shadow: 5px 5px 8px #CCC;
+    -webkit-box-shadow: 5px 5px 8px #CCC;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+div.tooltip p {
+	display: none;
+}
+
+.hint{
+    display:inline !important;
+    position:absolute;
+    text-align: left;
+    color:#111;
+    border:1px solid #CCC;
+    background: white;
+}
+
+.hint p {
+	display:inline !important;
+    padding: 0;
+    margin: 0;
+}
+
+.hintArrow {
+	z-index: 20;
+	background-image: #{inline-image("callout.png")};
+	position: absolute;
+	top: 15px;
+	border: 0;
+	left: -10px;
+	height: 12px;
+  	width: 10px;
+  	background-size: 100%;
+  	float: left;
+  	background-repeat: no-repeat;
+}
+
+
+div.tooltip_err {
+	outline:none;
+	text-decoration:none;
+}
+
+div.tooltip_err:hover span {
+    z-index: 10;
+    display:inline !important;
+    position:absolute;
+    text-align: left;
+    color:#111;
+    border:1px solid #CCC;
+    background: white;
+    padding:5px 5px;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: auto;
+    max-width: 250px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    -moz-box-shadow: 5px 5px 8px #666;
+    -webkit-box-shadow: 5px 5px 8px #666;
+    box-shadow: 5px 5px 8px #666;
+}
+
+div.tooltip_err span {
+    display:none;
+}
+
+.tu_pendingending_exclamation_point{
+	background-image: #{inline-image("exclamation_point.png")};
+  	height: 32px;
+  	width: 32px;
+  	margin-right: 15px;
+  	margin-top: 15px;
+  	background-size: 100%;
+  	background-repeat: no-repeat;
+  	float: left;
+}
+#tu_pendingending{
+	font-size: 19px;
+}
+
+.LabelsCellWithCheckBoxDecoratorFix{
+	padding-left: 10px;
+	padding-right: 15px;
+}
+
+.cards_success {
+	position: relative;
+	/*height: 390px;*/
+	padding-top: 90px;
+}
+
+.examTableHeightSuccess {
+	height:	300px;
+}
+
+.cards_pending {
+	position: relative;
+	/*height: 160px;*/
+	padding-top: 90px;
+}
+
+.examTableHeightPending {
+	height: 260px;
+}
+
+.cards_TU_pending {
+	position: relative;
+	/*height: 330px;*/
+	padding-top: 90px;
+}
+
+.examTableHeight_TU_Pending {
+	height: 390px;
+}
+
+.floatLeftSpan{
+	float: left;
+}
+
+.elementTopBottom10
+{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.elementTopMargin8
+{
+  margin-top: 8px;
+}
+
+.elementTopMargin5
+{
+  margin-top: 5px;
+}
+
+.print_image {
+	background-image: #{inline-image("print_icon.png")};
+	background-size: 100%;
+    height: 16px;
+    width: 16px;
+    float: right;
+	margin-right: 5px;
+}
+
+.print_button{
+	display: block;
+	margin-right: 25px;
+}
+
+.print_link{
+	display: block;
+	float: right;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-decoration: underline;
+	color: blue;
+}
+.print_header{
+	display: none;
+}
+
+.superscripts{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 7pt !important;
+	position: relative;
+	top: -2px;
+}
+
+.superscriptsFootnote{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 6pt;
+	position: relative;
+	top: -2px;
+}
+
+
+.optionalProduct_optionalInsuranceTableWith {
+	width: 97%;
+}
+
+.elementWithPaddingRightLeft20 {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.elementWithPaddingRightLeft25 {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.ecomUpdateRequestFailedTextContent
+{
+  line-height: 25px;
+}
+.identityVerificationFooterNote {
+	font-size: 14px;
+	display: block;
+}
+.protection_note{
+	vertical-align: top;
+	span{
+		padding-top: 10px;
+		padding-left: 30px;
+	}
+	/*display: block;
+	position: absolute;
+	top: 120px;
+	z-index: 10;
+	left: 40px;*/
+}
+.outLineAroundTr{
+	outline: solid 1px #CCCCCC
+}
+.fontStyleForBoldTextInOverWievPage{
+	font-size: 14px;
+	font-weight : bold;
+}
+.fieldCell130pxWidth{
+	height:0px;
+	width:130px;
+
+}
+.fieldCell400pxWidth{
+	height:0px;
+	width:400px;
+
+}.fieldCell100PercentPxWidth{
+	height:0px;
+	width:100%;
+}
+.customMargin{
+	margin:0;
+	padding:0;
+}
+.cssForShowTextInOneLine{
+	position:absolute;
+}
+.custormerCreditCardNumber{
+  position: relative;
+  word-spacing: 2px;
+  top: -57px;
+  left: 18px;
+  margin-top: -10px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #333333;
+}
+.nowrap{
+	white-space:nowrap;
+}
+
+ input.input-placeholder {
+text-align: center;
+}
+input::-webkit-input-placeholder{
+text-align: center;
+}
+input:-moz-placeholder{
+text-align: center;
+}
+
+

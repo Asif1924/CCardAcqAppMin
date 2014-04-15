@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.LoginResponseHelper Test" errors="0" failures="0" tests="9" time="0.0060000005">
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a successful authentication and authorization can be determined by status code 200, LTPA TOKEN exists and no error" time="0.001"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a successful authentication and authorization can be determined by status code 200, LTPA TOKEN exists and no error with new login response" time="0.0"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a successful authentication and authorization with roles can be determined by status code 200, LTPA TOKEN exists and no error" time="0.001"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a successful authentication but failed authorization will result in a login failure" time="0.001"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a failed authentication and authorization can be determined by status code 403 and no LTPA Token" time="0.0"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a failed EmployerID lookup will also be considered a failed login" time="0.001"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a failed EmployerID lookup can get the error message from the response" time="0.0"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a failed EmployerID lookup can get the right bundle code for the error message" time="0.001"/>
+<testcase classname="Firefox_270_Windows.LoginResponseHelper Test" name="test that it  will confirm that a failed authentication and authorization which has a status code 403 and no LTPA Token will return default bundle code for error message" time="0.001"/>
+</testsuite>

@@ -1,0 +1,661 @@
+
+<script id="BRBAdditionalInformation-template" type="text/x-jquery-tmpl"> 
+<span><!-- Dont remove span, IE8!!! -->
+<div id="BreadcrumbTrailArea1"
+	class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">
+	<table id="BreadcrumbTable"
+		class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px"
+		cellpadding="0px">
+		<tr>
+			<td class="selectedBreadcrumbCell fieldCellSize20"><span
+				class="BreadcrumbTextStyle selectedBreadcrumb"
+				data-translationKey="breadCrumbItem_Overview"></span></td>
+
+			<td class="selectedBreadcrumbCell fieldCellSize20"><span
+				class="BreadcrumbTextStyle selectedBreadcrumb"
+				data-translationKey="breadCrumbItem_PersonalInformation"></span></td>
+
+			<td class="selectedBreadcrumbCell currentBreadcrumb fieldCellSize20">
+				<span class="BreadcrumbTextStyle selectedBreadcrumb"
+				data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+			</td>
+
+			<td class="unselectedBreadcrumbCell fieldCellSize20"><span
+				class="BreadcrumbTextStyle unselectedBreadcrumb"
+				data-translationKey="breadCrumbItem_Confirmation"></span></td>
+
+			<td class="unselectedBreadcrumbCell fieldCellSize20"><span
+				class="BreadcrumbTextStyle unselectedBreadcrumb"
+				data-translationKey="breadCrumbItem_IdentityVerification"></span></td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="ScreenLayout" id="AdditionalInformation_PageContents">
+
+	<div id="additionalSuplementaryCardArea">
+
+		<div class="personalInfoTitle">
+			<span class="pageSubTitle leftalign" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
+			<div id="getSuplementaryCard_requiredFieldIndicatorBlock" class="floatToRight">
+				<span class="requiredField redSpan">*</span>
+				<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+			</div>
+		</div>
+		<div>
+			<center>
+				<div id="additionalInformation_GetSuplementaryCardHeader">
+					<table class="stretchThisTable grayTable tableWithPadding15">
+						<tr class="fieldRow">
+							<td class="fieldLabelsCell fieldCellSize5"><input
+								class="fieldValuesCheckBoxField"
+								id="additionalInformation_AuthorizeSupplementaryCardmember_CheckBox_Field"
+								type="checkbox" /></td>
+							<td
+								class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix">
+								<span class="boldSpan" data-translationKey="Generic_Yes"></span>
+								<span class="fieldCellWithLeftShift boldSpan"
+								data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember"
+								id="additionalInformation_AuthorizeSupplementaryCardmember_TextField"></span>
+							</td>
+							<td class="fieldLabelsCell"
+								data-translationKey="additionalInformation_EarnReward"></td>
+						</tr>
+					</table>
+				</div>
+			</center>
+		</div>
+
+		<center>
+			<div id="additionalInfo_AboutYourselfArea">
+				<table id="additionalInfoTable"
+					class="stretchThisTable grayTableSpacerTop17 grayTableSpacerBottom grayTable grayAdditionalTable">
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_TitleField"></span>
+						</td>
+						<td class="fieldValuesCell fieldValuesTopCell" data-translationKey="additionalInformation_Title_TextField"></td>
+					</tr>
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldCellSize25 grayTableSpacerTop17 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_NameField"></span>
+						</td>
+						<td class="fieldValuesCell">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tr>
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_FirstName"></span>
+										<span class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_Initial"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_LastName"></span> <span
+										class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+								</tr>
+
+								<tr>
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField personNameField"
+										id="additionalInformation_FirstName_TextField" type="text"
+										maxlength="40" /></td>
+
+									<td class="separatorCell" />
+
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField personInitialField"
+										id="additionalInformation_Initial_TextField" type="text"
+										maxlength="1" /></td>
+
+									<td class="separatorCell" />
+
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField personNameField"
+										id="additionalInformation_LastName_TextField" type="text"
+										maxlength="40" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldCellSize25 grayTableSpacerTop17 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_DateOfBirth"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+						</td>
+						<td class="fieldValuesCell grayTableSpacerTop17">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tr>
+									<td class="fieldLabelsSubCell"
+										data-translationKey="additionalInformation_DateOfBirth_Month">
+									<td>
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"
+										data-translationKey="additionalInformation_DateOfBirth_Day">
+									<td>
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"
+										id="additionalInformation_DateOfBirth_YearID">
+									<td>
+								<tr>
+									</div>
+							</table>
+						</td>
+					</tr>
+
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldCellSize25 grayTableSpacerTop17 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_PrimaryPhone"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+						</td>
+						<td class="fieldValuesCell grayTableSpacerTop17">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tbody id="additionalInformation_PrimaryPhone_Control">
+									<tr>
+										<td class="fieldValuesCell">
+											<div class="additionalInformation_PrimaryPhone_Control">
+												<input class="fieldValuesTextField phoneValuesCellShort"
+													id="additionalInformation_PrimaryPhone_1_TextField"
+													type="text" maxlength="3" />
+											</div>
+										</td>
+										<td>
+										<td class="separatorCell">-</td>
+
+										<td class="fieldValuesCell"><input
+											class="fieldValuesTextField phoneValuesCellShort"
+											id="additionalInformation_PrimaryPhone_2_TextField"
+											type="text" maxlength="3" /></td>
+
+										<td class="separatorCell">-</td>
+
+										<td class="fieldValuesCell"><input
+											class="fieldValuesTextField phoneValuesCellLong"
+											id="additionalInformation_PrimaryPhone_3_TextField"
+											type="text" maxlength="4" /></td>
+									</tr>
+								</tbody>
+								</div>
+							</table>
+						</td>
+					</tr>
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldCellSize25 grayTableSpacerTop17 grayTableSpacerBottom10 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_Relationship"></span>
+							<span> </span>
+							<sup class="redSpanForInputsGroup">*</sup>
+						</td>
+						<td
+							class="fieldValuesCell grayTableSpacerTop17 grayTableSpacerBottom">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tr>
+									<td class="fieldValuesCell"
+										data-translationKey="additionalInformation_Relationship_TextField">
+									</td>
+
+									<td class="fieldValuesCell separatorCell" />
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr class="fieldRow">
+						<td
+							class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell" />
+						<td class="fieldValuesCell">
+							<div id="additionalInformation_SameAddress_Area">
+								<table class="grayTableForAdditionalInputsGroup">
+									<tr>
+										<td class="fieldLabelsSubCell"><span
+											class="SpanForInputsGroup"
+											data-translationKey="additionalInformation_SameAddressAsPrimaryCardholder"></span>
+											<span> </span>
+											<sup class="redSpanForInputsGroup">*</sup>
+										</td>
+									</tr>
+									<tr>
+										<td class="fieldLabelsSubCell"><input
+											class="additionalInformation_SameAddresYes"
+											id="additionalInformation_SameAddresYes" value="true"
+											type="radio" name="additionalInformation_SameAddres" /> <span
+											class="floatLeft fieldValuesCheckBoxField"
+											data-translationKey="additionalInformation_SameAddresYes"></span>
+											&nbsp;&nbsp; <input
+											class="additionalInformation_SameAddresNo"
+											id="additionalInformation_SameAddresNo" value="false"
+											type="radio" name="additionalInformation_SameAddres" /> <span
+											class="floatLeft fieldValuesCheckBoxField"
+											data-translationKey="additionalInformation_SameAddresNo"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr class="fieldRow" id="additionalInformation_AddressLine1">
+						<td
+							class="fieldLabelsCell fieldCellSize25 grayTableSpacerTop40 fieldLabelsAdditionalInfoCell">
+							<span data-translationKey="additionalInformation_Address"></span>
+						</td>
+						<td class="fieldValuesCell grayTableSpacerTop17">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tr>
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_StreetNumber"></span>
+										<span class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_StreetName"></span>
+										<span class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_Suite"></span></td>
+								</tr>
+
+								<tr>
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField addressShortField"
+										id="additionalInformation_StreetNumber_TextField" type="text"
+										maxlength="5" /></td>
+
+									<td class="separatorCell" />
+
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField addressLongField"
+										id="additionalInformation_StreetName_TextField" type="text"
+										maxlength="40" /></td>
+
+									<td class="separatorCell" />
+
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField addressShortField"
+										id="additionalInformation_Suite_TextField" type="text"
+										maxlength="5" /></td>
+								</tr>
+
+							</table>
+						</td>
+					</tr>
+
+					<tr class="fieldRow" id="additionalInformation_AddressLine2">
+						<td
+							class="fieldLabelsCell fieldCellSize25 fieldLabelsAdditionalInfoCell">
+
+						</td>
+						<td class="fieldValuesCell">
+							<table class="grayTableForAdditionalInputsGroup">
+								<tr>
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_City"></span> <span
+										class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_Province"></span> <span
+										class="redSpanForInputsGroup"
+										data-translationKey="additionalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell"><span
+										class="SpanForInputsGroup"
+										data-translationKey="additionalInformation_PostalCode"></span>
+										<span class="redSpanForInputsGroup"
+										data-translationKey="personalInformation_Asterix"></span></td>
+
+									<td class="fieldLabelsSubCell separatorCell" />
+
+									<td class="fieldLabelsSubCell" />
+									<td class="fieldLabelsSubCell separatorCell" />
+								</tr>
+
+								<tr>
+									<td class="fieldValuesCell"><input
+										class="fieldValuesTextField addressCityField"
+										id="additionalInformation_City_TextField" type="text"
+										maxlength="24" /></td>
+
+									<td class="separatorCell">
+										<div class="errorCell hideElement"
+											id="additionalInformation_City_TextField_error"></div>
+									</td>
+
+									<td class="fieldValuesCell"
+										data-translationKey="additionalInformation_Province_TextField">
+									</td>
+
+									<td class="separatorCell">
+										<div class="errorCell hideElement"
+											id="additionalInformation_Province_TextField_error"></div>
+									</td>
+
+									<td class="fieldValuesCell">
+										<div id="additionalInformation_PostalCode_Control">
+											<table class="grayTableForAdditionalInputsGroup">
+												<tbody>
+													<tr>
+														<td class="fieldValuesCell"><input
+															class="fieldValuesTextField postalCodeField"
+															id="additionalInformation_PostalCode1_TextField"
+															type="text" maxlength="3" /></td>
+
+														<td class="separatorCellPostalCode" />
+
+														<td class="fieldValuesCell"><input
+															class="fieldValuesTextField postalCodeField"
+															id="additionalInformation_PostalCode2_TextField"
+															type="text" maxlength="3" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="fieldRow">
+									<td class="fieldLabelsBottomCell" colspan="2" />
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</center>
+
+	</div>
+
+	<div id="additionalInsuranceArea">
+
+		<div class="personalTitle">
+			<span class="pageSubTitle" data-translationKey="additionalInformation_OptionalProducts"></span>
+			<div id="optionalInsurance_requiredFieldIndicatorBlock" class="floatToRight">
+				<span class="requiredField redSpan">*</span>
+				<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+			</div>
+		</div>
+
+		<center>
+			<table class="stretchThisTable grayTable tableWithPadding50">
+				<tr>
+					<td>
+						<table id="additionalInsuranceTable" 
+							class="grayTableBorderGray optionalProduct_optionalInsuranceTableWith">
+							<tbody>
+							{{if !isSkSelected }}
+								<tr class="fieldRow elementWithBottomMargin15">
+									<td
+										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign">
+										<input class="fieldValuesCheckBoxField"
+										id="additionalInformation_OptionalInsurance_YesNoTextField"
+										type="radio" name="additionalInformation_OptionalInsurance" />
+									</td>
+									<td
+										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix">
+										<span class="boldSpan" data-translationKey="Generic_Yes"></span>
+										<span class="boldSpan"
+										data-translationKey="additionalInformation_OptionalInsurance_CreditProtector"></span>
+										<br> <span
+										data-translationKey="additionalInformation_OptionalInsurance_Details"></span>
+										<span class="continueShoppingButton redSpan"
+										data-translationKey="additionalInformation_OptionalInsurance_Details1"></span>
+									</td>
+								</tr>
+								<tr class="fieldRow">
+									<td class="fieldLabelsCell fieldValuesTopMargin"
+										id="additionalInformation_OptionalInsurance_CP_Area"
+										colspan="2">
+										<div class="elementWithRightMargin15">
+											<div id="additionalInformation_OptionalInsurance_CP_Table"
+												class="privacyArea">
+												<table
+													class="stretchThisTable whiteTable tableBorderRadius7 tableWithLeftPadding">
+													<tr class="fieldRow">
+														<td class="fieldValuesCell"><input
+															class="fieldValuesCheckBoxField"
+															id="additionalInformation_optionalInsurance_CP_Agreement"
+															type="checkbox" /></td>
+														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
+															<sup class="redSpanForInputsGroup">*</sup>
+															<span class="floatLeft"
+															data-translationKey="additionalInformation_Credit_Protector_Text"></span>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="fieldRow">
+									<td class="separatorCell25_OptionalProducts" />
+								</tr>
+
+								{{/if}}
+								<tr class="fieldRow">
+									<td
+										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign">
+										<input class="fieldValuesCheckBoxField"
+										id="additionalInformation_OptionalInsurance_IW_CheckField"
+										type="radio" name="additionalInformation_OptionalInsurance" />
+									</td>
+									<td
+										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix">
+										<span class="boldSpan" data-translationKey="Generic_Yes"></span>
+										<span class="boldSpan"
+										data-translationKey="additionalInformation_OptionalInsurance_IdentityWatch"></span>
+										<br> <span
+										data-translationKey="additionalInformation_OptionalInsurance_Details2"></span>
+										<span class="continueShoppingButton redSpan"
+										data-translationKey="additionalInformation_IdentityWatch_Terms"></span>
+									</td>
+								</tr>
+								<tr class="fieldRow">
+									<td class="fieldLabelsCell fieldValuesTopMargin" colspan="2"
+										id="additionalInformation_OptionalInsurance_IW_Area">
+										<div class="elementWithRightMargin15">
+											<div id="additionalInformation_OptionalInsurance_IW_Table"
+												class="privacyArea">
+												<table
+													class="stretchThisTable whiteTable tableBorderRadius7 tableWithLeftPadding">
+													<tr class="fieldRow">
+														<td class="fieldValuesCell"><input
+															class="fieldValuesCheckBoxField"
+															id="additionalInformation_optionalInsurance_IW_Agreement"
+															type="checkbox" /></td>
+														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
+															<sup class="redSpanForInputsGroup">*</sup>
+															<span class="floatLeft"
+															data-translationKey="additionalInformation_Identity_Watch_Text"></span>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div>
+									</td>
+								</tr>
+								<tr class="fieldRow">
+									<td class="separatorCell45_OptionalProducts" />
+								</tr>
+								<!--  3 section -->
+								{{if !isSkSelected }}
+								<tr class="fieldRow">
+									<td
+										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign">
+										<input class="fieldValuesCheckBoxField"
+										id="additionalInformation_OptionalInsurance_PA_CheckField"
+										type="radio" name="additionalInformation_OptionalInsurance" />
+									</td>
+									<td
+										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix">
+										<span class="boldSpan" data-translationKey="Generic_Yes"></span>
+										<span class="boldSpan"
+										data-translationKey="additionalInformation_OptionalInsurance_ProtectionAdvantage"></span>
+										<br> <span
+										data-translationKey="additionalInformation_OptionalInsurance_Details3"></span>
+										<span class="continueShoppingButton redSpan"
+										data-translationKey="additionalInformation_ProtectionAdvantage_Terms"></span>
+									</td>
+								</tr>
+								<tr class="fieldRow">
+									<td class="fieldLabelsCell fieldValuesTopMargin" colspan="2"
+										id="additionalInformation_OptionalInsurance_PA_Area">
+										<div class="elementWithRightMargin15">
+											<div id="additionalInformation_OptionalInsurance_PA_Table"
+												class="privacyArea">
+												<table
+													class="stretchThisTable whiteTable tableBorderRadius7 tableWithLeftPadding">
+													<tr class="fieldRow">
+														<td class="fieldValuesCell"><input
+															class="fieldValuesCheckBoxField"
+															id="additionalInformation_optionalInsurance_PA_Agreement"
+															type="checkbox" /></td>
+														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
+															<sup class="redSpanForInputsGroup">*</sup>
+															<span class="floatLeft"
+															data-translationKey="additionalInformation_ProtectionAdvantage_Text"></span>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div>
+									</td>
+								</tr>
+								<tr class="fieldRow">
+									<td class="separatorCell25_OptionalProducts" />
+								</tr>
+								{{/if}}
+								<tr class="fieldRow">
+									<td
+										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign fieldHeight20">
+										<input class="fieldValuesCheckBoxField"
+										id="additionalInformation_OptionalInsurance_NA_CheckField"
+										type="radio" name="additionalInformation_OptionalInsurance" />
+									</td>
+									<td
+										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix fieldHeight20">
+										<span class="boldSpan" data-translationKey="Generic_No"></span>
+										<span class="boldSpan"
+										data-translationKey="additionalInformation_OptionalInsurance_DoNotEnrolMe"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		</center>
+
+	</div>
+
+	<br /> <br /> {{if !screenIsPopup }}
+
+	<div class="continueButtonContainer">
+		<div class="floatToRight continueButtonRightPosition"
+			id="additionalInformation_ContinueButton">
+			<div id="additionalInformation_continueButtonContainer">
+				<a href="#" target="_blank" class="continueButton" id="additionalInformation_ContinueButtonHref"> <span
+					class="buttonText" data-translationKey="continue_Button_Label"></span>
+				</a> <span class="continueButtonTriangle"> </span>
+			</div>
+		</div>
+
+		<div class="floatToRight backButtonRightPosition"
+			id="additionalInformation_BackButton">
+			<div id="additionalInformation_BackButtonContainer">
+				<span class="backButtonTriangle"> </span>
+				 	<a href="#"	target="_blank" class="backButton continueButton" id="additionalInformation_BackButtonHref"> 
+						<span class="buttonText" data-translationKey="back_Button_Label"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+	{{/if}} {{if screenIsPopup }}
+	<div class="buttonsContainer">
+		<div class="floatToRight continueButtonContainer">
+			<div class="floatToRight continueButtonRightPosition"
+				id="additionalInformation_CancelButton">
+				<div id="additionalInformation_cancelButtonContainer">
+					<a href="#" id="additionalInformation_cancelChangesButtonHref" class="continueButtonInactive continueButtonFocused">
+						<span class="buttonText" data-translationKey="continue_Button_PopupMode_CancelChanges_Label"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="floatToRight continueButtonContainer">
+			<div class="floatToRight continueButtonRightPosition"
+				id="additionalInformation_ContinueButton">
+				<div id="additionalInformation_continueButtonContainer">
+					<a href="#" id="additionalInformation_saveChangesButtonHref" class="continueButton continueButtonFocused">
+						<span class="buttonText" data-translationKey="continue_Button_PopupMode_SaveChanges_Label"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{/if}}
+
+	<div id="additionalInformation_FootnoteBlock" class="footnoteContentBlock">
+		<span class="footnoteContentText">
+			<span data-translationKey="additionalInformation_footnoteContentText1"></span>
+			<span class="overviewLinkGray" data-translationKey="additionalInformation_footnoteContentText1Link"/>
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText2"></span>
+  			{{if !isSkSelected }}
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText3"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText4"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText5"></span>
+			{{/if}}
+			<br>			
+			<span data-translationKey="additionalInformation_footnoteContentText6"></span>
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText7"></span>
+		<span>
+	</div>
+
+	<br>
+	<br>
+
+
+</div>
+</script>

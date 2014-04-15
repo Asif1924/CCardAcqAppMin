@@ -1,0 +1,114 @@
+  <script id="WICIChooseProductScreen-template" type="text/x-jquery-tmpl"> 
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+    
+    <div class="ScreenLayout" id="chooseProductScreen_PageContents"> 
+		<br>
+		<br> 	
+        <span class="pageTitle" data-translationKey="chooseProduct_ChooseOneOfTheCreditCards"></span>
+		<br>
+		<br>
+		<ul id="creditCardProductList">
+			<li>
+				<a href="#" id="omcCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_OptionsMasterCard"></span>
+	        	</a>
+        	</li>
+			<li>
+				<a href="#" id="ompCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_GasAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+			<li style="display: none;">
+				<a href="#" id="omrCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_CashAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+		</ul>   
+        <br>
+        <br>
+        <div id="cardDescriptionArea">
+        </div>
+        <br>
+        <br>
+		<center>
+		<div id="chooseProduct_PromoCodeArea" >
+            <table id="promoCodeTable" class="stretchThisTable">
+    			<tr class="fieldRow">
+                    <td class="fieldLabelsTopCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_Program"></span>
+                    </td>
+                    <td class="fieldValuesTopCell">
+						<select id="programDropDown" class="fieldValuesTextField" tabindex=2>						    
+						</select>						
+                    </td>
+                </tr>
+                <tr class="fieldRow">
+                    <td class="fieldLabelsCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_PromoCode"></span>
+                    </td>
+                    <td class="fieldValuesCell">
+                        <input class="fieldValuesTextField upperCaseField" id="promoCodeTextField" type="text" tabindex=1 maxlength="5"/>
+                    </td>
+                </tr>            
+                <tr class="fieldRow">
+                    <td class="fieldLabelsBottomCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_Province"></span>
+                    </td>
+                    <td class="fieldValuesBottomCell">
+						<select id="provinceTextField" class="fieldValuesTextField" tabindex=2>						    
+						</select>						
+                    </td>
+                </tr>
+            </table>
+		</div>
+		</center>
+		<br>
+		<br>
+		<center>
+            <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
+            	<span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
+			</span>
+        </center>
+		<br>
+		<br>		
+        <hr>
+    </div>
+	<div  id="chooseProductScreen_disclaimerArea" class="ScreenLayoutFullWidth" >		
+	</div>
+</script>

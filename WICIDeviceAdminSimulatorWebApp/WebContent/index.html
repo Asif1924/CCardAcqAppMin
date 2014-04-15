@@ -1,0 +1,350 @@
+<html>
+    <head>
+        <title>WICIDeviceAdminSimulatorWebApp</title>
+        <link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.3.custom.css" />
+        <style type="text/css">
+            input {
+                width: 250px;
+                height: 30px;
+                margin-left: 20px;
+            }
+
+            select {
+                width: 250px;
+                height: 30px;
+                margin-left: 20px;
+            }
+        </style>
+        <script type="text/javascript" src="script/lib/jquery-1.10.2.js">
+        </script>
+        <script type="text/javascript" src="script/namespaceExists.js">
+        </script>
+        <script type="text/javascript" src="script/connectionDetails.js">
+        </script>
+        <script type="text/javascript" src="script/lib/jquery-ui-1.10.3.custom.js">
+        </script>
+        <script type="text/javascript" src="script/lib/sprintf.js">
+        </script>
+        <script type="text/javascript">
+        	var BOMString = '';
+
+            var ie = (function(v, div, undef){
+                while (div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]>-->', div.getElementsByTagName('i')[0])
+
+                    var res = v > 4 ? v : undef;
+                return res;
+            }(3, document.createElement('div'), undefined));
+
+            $(function(){
+                $("#dialog").dialog({
+                    modal: true,
+                    autoOpen: false,
+                    buttons: {
+                        Ok: function(){
+                            $("#erorMsg").text('');
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            $(document).ready(function(){
+                $.support.cors = true;
+                $("#selectId").change(function(){
+                    if ($(this).val() == "NS") {
+                        $("#loyaltyId").show();
+                        $("#loyaltyProgram").show();
+                    }
+                    else {
+                        // Reset values
+                        $('input[name="loyalty_program"]').val('');
+                        $('input[name="loyalty_number"]').val('');
+                        // Hide area
+                        $("#loyaltyId").hide();
+                        $("#loyaltyProgram").hide();
+                    }
+                });
+            });
+
+            function showDialog(message){
+                $("#erorMsg").text(message);
+                $("#dialog").dialog("open");
+            };
+
+            function logMsg(message){
+                if (typeof console !== "undefined" && typeof console.log !== "undefined") {
+                    console.log(message);
+                }
+            };
+
+			function setBOM(){
+				console.log($("#bomCheckRef").prop('checked'));
+				if($("#bomCheckRef").prop('checked'))
+					BOMString = '\uFEFF';
+				else
+					BOMString ='';
+
+				console.log("BOMString = " + BOMString);
+			}
+
+            function submitRequest(argButton){
+
+                var symbol = "MSFT";
+				var requestURL = WICI.middlewareBrokerDeviceAdminPath;
+				var requestData = "";
+				var requestType = "POST";
+				var requestContentType = "";
+
+
+                var compromisedStatusChangedXML = '' + BOMString +
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<Eventlog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+                '<EventId>178</EventId>' +
+                '<EventType>CompromisedStatusChanged</EventType>' +
+                '<DeviceId>133</DeviceId>' +
+				'<DeviceFriendlyName>' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '</DeviceFriendlyName>' +
+                '<EnrollmentEmailAddress>michael.kirton@cantire.com</EnrollmentEmailAddress>' +
+                '<EnrollmentUserName>WIC</EnrollmentUserName>' +
+                '<EventTime>2014-01-31T14:49:29.0274433Z</EventTime>' +
+                '<EnrollmentStatus>Enrolled</EnrollmentStatus>' +
+                '<CompromisedStatus />' +
+                '<CompromisedTimeStamp>2014-01-31T14:49:39.0905768Z</CompromisedTimeStamp>' +
+                '<ComplianceStatus>PendingComplianceCheck</ComplianceStatus>' +
+                '<PhoneNumber />' +
+                '<Udid>System.Byte[]</Udid>' +
+                '<SerialNumber>' + $("#serialNumberRef").val() + '</SerialNumber>' +
+                '<MACAddress>System.Byte[]</MACAddress>' +
+                '</Eventlog>';
+
+                var compromisedStatusChangedJSON = '' + BOMString +
+                '{"EventId":178,"EventType":"CompromisedStatusChanged","DeviceId":133,' +
+                '"DeviceFriendlyName":"' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '","EnrollmentEmailAddress":"michael.kirton@cantire.com",' +
+                '"EnrollmentUserName":"WIC","EventTime":"\/Date(1391182403986)\/","EnrollmentStatus":"Enrolled",' +
+                '"CompromisedStatus":"","CompromisedTimeStamp":"\/Date(1391182409025)\/","ComplianceStatus":"PendingComplianceCheck",' +
+                '"PhoneNumber":"","Udid":"System.Byte[]","SerialNumber":"' + $("#serialNumberRef").val() + '","MACAddress":"System.Byte[]"}';
+
+                var breakMDMConfirmedXML = '' + BOMString +
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<Eventlog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+                '<EventId>178</EventId>' +
+                '<EventType>BreakMDMConfirmed</EventType>' +
+                '<DeviceId>133</DeviceId>' +
+				'<DeviceFriendlyName>' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '</DeviceFriendlyName>' +
+                '<EnrollmentEmailAddress>michael.kirton@cantire.com</EnrollmentEmailAddress>' +
+                '<EnrollmentUserName>WIC</EnrollmentUserName>' +
+                '<EventTime>2014-01-31T14:49:29.0274433Z</EventTime>' +
+                '<EnrollmentStatus>Enrolled</EnrollmentStatus>' +
+                '<CompromisedStatus />' +
+                '<CompromisedTimeStamp>2014-01-31T14:49:39.0905768Z</CompromisedTimeStamp>' +
+                '<ComplianceStatus>PendingComplianceCheck</ComplianceStatus>' +
+                '<PhoneNumber />' +
+                '<Udid>System.Byte[]</Udid>' +
+				'<SerialNumber>' + $("#serialNumberRef").val() + '</SerialNumber>' +
+                '<MACAddress>System.Byte[]</MACAddress>' +
+                '</Eventlog>';
+
+                var breakMDMConfirmedJSON = '' + BOMString +
+                '{"EventId":178,"EventType":"BreakMDMConfirmed","DeviceId":133,' +
+                '"DeviceFriendlyName":"' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '","EnrollmentEmailAddress":"michael.kirton@cantire.com",' +
+                '"EnrollmentUserName":"WIC","EventTime":"\/Date(1391182403986)\/","EnrollmentStatus":"Enrolled",' +
+                '"CompromisedStatus":"","CompromisedTimeStamp":"\/Date(1391182409025)\/","ComplianceStatus":"PendingComplianceCheck",' +
+                '"PhoneNumber":"","Udid":"System.Byte[]","SerialNumber":"' + $("#serialNumberRef").val() + '","MACAddress":"System.Byte[]"}';
+
+                var deviceEnterpriseWipeRequestedXML = '' + BOMString +
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<Eventlog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+                '<EventId>229</EventId>' +
+                '<EventType>DeviceEnterpriseWipeRequested</EventType>' +
+                '<DeviceId>280</DeviceId>' +
+				'<DeviceFriendlyName>' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '</DeviceFriendlyName>' +
+                '<EnrollmentEmailAddress>michael.kirton@cantire.com</EnrollmentEmailAddress>' +
+                '<EnrollmentUserName>WIC</EnrollmentUserName>' +
+                '<EventTime>2014-01-31T14:49:29.0274433Z</EventTime>' +
+                '<EnrollmentStatus>EnterpriseWipePending</EnrollmentStatus>' +
+                '<CompromisedStatus />' +
+                '<CompromisedTimeStamp>2014-01-31T14:49:39.0905768Z</CompromisedTimeStamp>' +
+                '<ComplianceStatus>Compliant</ComplianceStatus>' +
+                '<PhoneNumber />' +
+                '<Udid>System.Byte[]</Udid>' +
+				'<SerialNumber>' + $("#serialNumberRef").val() + '</SerialNumber>' +
+                '<MACAddress>System.Byte[]</MACAddress>' +
+                '</Eventlog>';
+
+
+                var deviceEnterpriseWipeRequestedJSON = '' + BOMString +
+                '{"EventId":229,"EventType":"DeviceEnterpriseWipeRequested","DeviceId":280,' +
+                '"DeviceFriendlyName":"' + $("#airwatchPrefixRef").val() + '-' + $("#serialNumberRef").val() + '","EnrollmentEmailAddress":"michael.kirton@cantire.com",' +
+                '"EnrollmentUserName":"WIC","EventTime":"\/Date(1391182403986)\/","EnrollmentStatus":"EnterpriseWipePending",' +
+                '"CompromisedStatus":"","CompromisedTimeStamp":"\/Date(1391182409025)\/","ComplianceStatus":"Compliant",' +
+                '"PhoneNumber":"","Udid":"System.Byte[]","SerialNumber":"' + $("#serialNumberRef").val() + '","MACAddress":"System.Byte[]"}';
+
+                // send request
+                if (argButton == '1a') {
+					//requestData = "payload=" + encodeURIComponent(compromisedStatusChangedXML);
+					requestData = compromisedStatusChangedXML;
+					//requestContentType = "text/xml";
+					requestContentType = $("#xmlContentTypeRef").val();
+                }
+                if (argButton == '1b') {
+					//requestData = "payload=" + encodeURIComponent(compromisedStatusChangedJSON);
+					requestData = compromisedStatusChangedJSON;
+					//requestContentType = "application/json";
+					requestContentType = $("#jsonContentTypeRef").val();
+                }
+                if (argButton == '2a') {
+					//requestData = "payload=" + encodeURIComponent( breakMDMConfirmedXML );
+					requestData = breakMDMConfirmedXML;
+					//requestContentType = "text/xml";
+					requestContentType = $("#xmlContentTypeRef").val();
+                }
+                if (argButton == '2b') {
+					//requestData = "payload=" + encodeURIComponent( breakMDMConfirmedJSON );
+					requestData = breakMDMConfirmedJSON;
+					//requestContentType = "application/json";
+					requestContentType = $("#jsonContentTypeRef").val();
+                }
+                if (argButton == '3a') {
+					//requestData = "{payload:" + deviceEnterpriseWipeRequestedXML + "}";
+					requestData = deviceEnterpriseWipeRequestedXML;
+					//requestContentType = "text/xml";
+					requestContentType = $("#xmlContentTypeRef").val();
+                }
+                if (argButton == '3b') {
+					//requestData = "{payload:" + deviceEnterpriseWipeRequestedJSON + "}";
+					requestData = deviceEnterpriseWipeRequestedJSON;
+					//requestContentType = "application/json";
+					requestContentType = $("#jsonContentTypeRef").val();
+                }
+
+				console.log("Outgoing data = " + requestData );
+
+				sendAJAXRequest(requestURL,requestData,requestType,requestContentType,requestSuccess,requestFailed);
+            };
+
+            function utf8_to_b64(str){
+                return window.btoa(unescape(encodeURIComponent(str)));
+            }
+
+			function requestSuccess( argResponse ){
+				console.log("requestSuccess" + argResponse);
+				showDialog(argResponse.msg);
+			}
+
+			function requestFailed( argResponse ){
+				console.log("requestFailed" + argResponse);
+				showDialog(argResponse.msg);
+			}
+
+			function sendAJAXRequest( argURL,argData,argRequestType,argContentType,argSuccessCB, argFailureCB )
+			{
+				$.ajax({
+					url: argURL,
+					data: argData,
+					type: argRequestType,
+					contentType: argContentType,
+					dataType: "json",
+					success: argSuccessCB,
+					error: argFailureCB
+				})
+			}
+
+        </script>
+    </head>
+    <body>
+        <center>
+            <h2>Device Admin Simulator</h2>
+        </center>
+        <br>
+        <form name="Demo" action="" method="post" style="margin-left: 30px;">
+            <table>
+                <tr>
+                    <td>
+                        Serial number:
+                    </td>
+                    <td>
+                        <input id="serialNumberRef" type="text" name="serialNumber" maxlength="60">
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        AirwatchDeviceFriendlyNameSearchPrefix:
+                    </td>
+                    <td>
+                        <input id="airwatchPrefixRef" type="text" name="DFNSearchPrefix" maxlength="60">
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+			<div>
+			Legend
+				<table border=1px bordercolor=#000000>
+					<tr>
+						<td>Enrol</td>
+						<td bgcolor=#88ff88 width=40px></td>
+					</tr>
+					<tr>
+						<td>DeEnrol</td>
+						<td bgcolor=#ff8888 width=40px></td>
+					</tr>
+				</table>
+			</div>
+			<br>
+			<div>
+				<table border=1px bordercolor=#000000>
+					<tr>
+						<td><input id="bomCheckRef" type="checkbox" name="bomCheck" onclick="setBOM();"></td>
+						<td>Add BOM to outgoing requests</td>
+					</tr>
+				</table>
+			</div>
+
+			<br>
+            <div>
+            	<table cellpadding=3px>
+            		<tr>
+            			<td>XML</td><td>JSON</td>
+					</tr>
+            		<tr bgcolor=#888888>
+            			<td>
+            				<input id="xmlContentTypeRef" type="text" value="text/xml"/>
+            			</td>
+						<td>
+							<input id="jsonContentTypeRef" type="text" value="application/json"/>
+						</td>
+					</tr>
+            		<tr bgcolor=#88ff88>
+            			<td>
+            				<input type="button" value="CompromisedStatusChanged (XML)" onclick="submitRequest('1a');"/>
+            			</td>
+						<td>
+							<input type="button" value="CompromisedStatusChanged (JSON)" onclick="submitRequest('1b');"/>
+						</td>
+					</tr>
+            		<tr bgcolor=#ff8888>
+            			<td>
+            				<input type="button" value="BreakMDMConfirmed (XML)" onclick="submitRequest('2a');"/>
+            			</td>
+						<td>
+							<input type="button" value="BreakMDMConfirmed (JSON)" onclick="submitRequest('2b');"/>
+						</td>
+					</tr>
+            		<tr bgcolor=#ff8888>
+            			<td>
+            				<input type="button" value="DeviceEnterpriseWipeRequested (XML)" onclick="submitRequest('3a');"/>
+            			</td>
+						<td>
+							<input type="button" value="DeviceEnterpriseWipeRequested (JSON)" onclick="submitRequest('3b');"/>
+						</td>
+					</tr>
+            </div>
+			<br>
+			<br>
+        </form>
+        <div id="dialog" title="Simulator Message">
+            <span id="erorMsg"></span>
+        </div>
+    </body>
+</html>

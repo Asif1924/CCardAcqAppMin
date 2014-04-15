@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://persistservice.BRB.ctfs.com/"
+           targetNamespace="http://persistservice.BRB.ctfs.com/"
+           version="1.0"
+           elementFormDefault="qualified">
+
+  <xs:element name="request" type="tns:brbRequestType" />
+  <xs:annotation>
+    <xs:documentation>
+      Object that represents the request. Will be of brbRequestType.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="response" type="tns:brbResponseType"/>
+  <xs:annotation>
+    <xs:documentation>
+      Object that represents the request. Will be of brbResponseType.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="brbRequestType">
+    <xs:annotation>
+      <xs:documentation>
+        Objects that represent the request. Will consist of ecomm customerInfo
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+    	<xs:element name="requestingSystem" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="customerInfo" type="tns:customerInfoType" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="brbResponseType">
+    <xs:annotation>
+      <xs:documentation>
+        Response from eComm indicating the status of the request as well as the brbTransId to attach to the URL
+        when the customer is redirected to the application page. Error messages are in here as well.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="brbTransId" minOccurs="1" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="128" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="passFail" type="tns:passFailType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="statusCode" type="xs:integer" minOccurs="1" maxOccurs="1" />
+      <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="customerInfoType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the main container to hold the customer specific information.
+        customerId, billingAddress (optional), loyaltyInfo (optional)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ecommCustomerId" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            The eComm Customer ID from the Hybris eComm system. It is a GUID.
+            eg: e3edc4d3-3314-4927-8d0d-2974a132f589
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="email" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="phone" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="addressDetails" type="tns:addressDetailsType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="loyaltyDetails" type="tns:loyaltyDetailsType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addressDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the address details. This may not be present on a request
+        If Present save, if not present, do nothing.
+
+        If addressType is present, all fields are required. (except addressLine2)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="addressLine1" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="addressLine2" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="city" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="province" minOccurs="1" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="2" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="postalCode" minOccurs="1" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="7" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loyaltyDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        *** FUTURE USAGE ***
+        *** DO NOT USE YET ***
+
+        Represents the loyalty details. This may not be present on a request
+
+        If loyaltyDetailsType Present, fields are required.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="loyaltyProgram" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="loyaltyNumber" type="xs:string" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="passFailType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="P"/>
+      <xs:enumeration value="F"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="statusCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="0">
+        <xs:annotation>
+          <xs:documentation>Successful Response Code</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="101">
+        <xs:annotation>
+          <xs:documentation>Error Saving Data, Try again</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <!-- Can add other status codes to indicate the failure types -->
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

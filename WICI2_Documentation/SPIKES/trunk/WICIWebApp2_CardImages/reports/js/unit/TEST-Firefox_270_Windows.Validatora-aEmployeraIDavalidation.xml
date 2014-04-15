@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Employer ID validation" errors="0" failures="0" tests="3" time="0.004">
+<testcase classname="Firefox_270_Windows.Validator - Employer ID validation" name="test that it will ensure employerID can be a letter but not a special character" time="0.002"/>
+<testcase classname="Firefox_270_Windows.Validator - Employer ID validation" name="test that it will ensure employerID can be only 1 alpha" time="0.001"/>
+<testcase classname="Firefox_270_Windows.Validator - Employer ID validation" name="test that it will ensure employerID cannot be a number" time="0.001"/>
+</testsuite>

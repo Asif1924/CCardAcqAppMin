@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.TriggerActionServiceTest" errors="0" failures="0" tests="10" time="0.014">
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it check the initial service status if it is not started" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it check public and private methods in service" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it status service right after stop" time="0.002"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it setActionMethod proper parameter set test" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it setActionMethod wrong parameter set test" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it setTriggerMethod proper parameter set test" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it setTriggerMethod wrong parameter set test" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it starting service without setting trigger" time="0.002"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it starting service without setting action" time="0.001"/>
+<testcase classname="Firefox_270_Windows.TriggerActionServiceTest" name="test that it attempt to start more than one the service" time="0.003"/>
+</testsuite>

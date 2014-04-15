@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" errors="0" failures="0" tests="7" time="0.044">
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  can start flow" time="0.001"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  page 1 of subflow can be reached" time="0.003"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  final page can be reached by going next" time="0.006"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  can back out of the subflow" time="0.004"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  can finish flow" time="0.005"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it  finishes flow and no pages are visible" time="0.005"/>
+<testcase classname="Firefox_270_Windows.runs a series of tests for the flows which have sub flows" name="test that it can traverse out and then back in and then out again" time="0.02"/>
+</testsuite>

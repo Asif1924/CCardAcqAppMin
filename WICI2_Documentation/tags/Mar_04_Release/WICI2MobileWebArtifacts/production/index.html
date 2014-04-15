@@ -1,0 +1,4307 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="app/images/favicon.ico"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" id="viewport" content="initial-scale=1.0,user-scalable=no" />
+
+        <!--CSS//-->
+        <link rel="stylesheet" type="text/css" href="app/wiciwebapp.css"></link>
+
+        <!--Application-related JavaScript Files//-->
+        <script src="app/wiciwebapp.js" type="text/javascript"></script>
+
+<script id="BreadcrumbTrail-template" type="text/x-jquery-tmpl">
+<div id="BreadcrumbTrailArea" class="BreadcrumbTrailAreaLayoutStyle">
+	<ul id="ID_BreadcrumbTrail" class="BreadcrumbTrail">
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">1.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_ProductSelection"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">2.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_PersonalData"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">3.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_OptionalProducts"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">4.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_Confirmation"></span></a></li>
+		
+	</ul>
+</div>
+</script>
+<script id="confirmMessageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" >
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="confirm_confirmButton" data-rel="back" data-role="button" data-theme="b">${yesButton}</a>
+			<a href="#" id="confirm_cancelButton" data-rel="back" data-role="button" data-theme="c">${noButton}</a>
+		</div>
+	</div>
+</div>
+</script>
+
+<script id="messageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="${messageDialogId}">	
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		{{if _.isArray(message)}}
+			{{if itemizedList}}
+				<ol>
+			{{else}}
+				<ul class="multiInfoMessageContainer">
+			{{/if}}
+			    {{each(i, aMessage) message}}
+			        <li class="multiInfoMessage ${liClass}">{{html aMessage}}</li>
+				{{/each}}
+			{{if itemizedList}}
+				</ol>
+			{{else}}
+				</ul>
+			{{/if}}
+		{{else}}
+			<p>${message}</p>
+		{{/if}}
+		<div class="dialogButtonContainer">
+			<a href="#" data-rel="back" id="messageDialogOkay" data-role="button" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+				<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+					<span class="ui-btn-text">${button}</span> 
+				</span> 
+			</a>
+		</div>
+	</div>
+</div>
+</script>
+<script id="removeExpiredActivationsDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" class="removeExpired">	
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message.preList}</p>
+		<ul>
+		    {{each(i, aMessage) message.list}}
+		        <li class="multiInfoMessage ${liClass}">{{html aMessage}}</li>
+			{{/each}}
+		</ul>
+		<p>${message.postList}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" data-rel="back" data-role="button" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+				<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"> 
+					<span class="ui-btn-text">${button}</span> 
+				</span> 
+			</a>
+		</div>
+	</div>
+</div>
+</script>
+<script id="signatureDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" >
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="signature_resetButton" data-rel="back" data-role="button" data-theme="c">${resetButton}</a>
+			<a href="#" id="signature_cancelButton" data-rel="back" data-role="button" data-theme="c">${canceButton}</a>
+			<a href="#" id="signature_okButton" data-rel="back" data-role="button" data-theme="b">${okButton}</a>			
+		</div>
+		<br>
+		<div class="signatureBorder" >				
+			<div class="signature" id="signature"/>															
+		</div>
+		<br>
+	</div>
+</div>
+</script>
+
+<script id="CC_Legal_OMC-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>
+<span id="legalOMC" class="TandC_Content_Format">
+<br><sup>1</sup>   In the form of Canadian Tire 'Money' On The Card<sup>&reg;</sup> awards. Terms and conditions apply to earning and redeeming. Details available in-store or on the Canadian Tire 'Money' Rewards Program page. Options MasterCard customers in Nova Scotia participate in a different rewards program, please go to ctfs.com/ctm for more details.
+<br><sup>2</sup>   Provided it is a redeemable purchase and does not exceed your Canadian Tire 'Money' On The Card<sup>&reg;</sup> awards balance.
+<br><sup>3</sup>   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup>  companies.
+<br><sup>&dagger;</sup>   Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>&reg;</sup>/<sup>&trade;</sup>   The trademarks of Canadian Tire Corporation, Limited are used under licence.
+Credit Protector is a registered trademark of Canadian Tire Financial Services Limited.
+<br><sup>&reg;</sup>/<sup>&trade;</sup>   MasterCard, the MasterCard Brand Mark and PayPass are registered trademarks of MasterCard International Incorporated.
+TM Trademark of Canada Post Corporation, used under license.
+</span>
+</script>
+<script id="CC_Legal_OMP-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>
+<span id="legalOMP" class="TandC_Content_Format">
+<br>* Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire Gas Bars during the following monthly billing period and that is charged to your Gas Advantage MasterCard.
+<br>The discount that you receive in a billing period will be reduced to 2&cent; per litre after you have made purchases of more than $700 for gasoline, diesel fuel or any other sundry items at Canadian Tire Gas Bars during that billing period using your Gas Advantage MasterCard.
+<br>All purchases charged anywhere to your Gas Advantage MasterCard will qualify, except: interest charges, balance transfers, cash advances, Gas Advantage MasterCard fees, insurance and membership services offered by Canadian Tire Financial Services Limited or any gambling transactions (including the purchase of lottery tickets and all transactions at a casino) the transfer of money or the payment of taxes. The Gas Advantage MasterCard may not be used by you in connection with any commercial transportation business or any business that operates a fleet of motor vehicles. If used for this purpose, we may revoke your Gas Advantage MasterCard immediately. The Gas Advantage MasterCard gas discount program is subject to cancellation on 60 days notice. As the original posted price per litre of gasoline is a tax included amount, the stated per litre discount is also a tax included amount.  For complete program details please read the Canadian Tire Gas Advantage MasterCard Terms and conditions.
+<br><sup>&dagger;</sup> In Nova Scotia and where pay at the pump feature is not available, pay inside to receive the discount.
+<br><sup>&dagger;&dagger;</sup> Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>1</sup>   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup> companies.
+<br><sup>2</sup>   To receive discount, use your Gas Advantage MasterCard to make an eligible purchase anywhere within 45 days from receipt of your card. Your activation bonus begins on the date your first purchase is posted to your account. The discount will then apply for 30 consecutive days. When the 30 days are completed, you will revert to your qualified discount level indicated on your monthly statement. Valid for 1 gas purchase per day during the activation bonus period. Discount reduced to 2 cents/litre after $700 in purchases of gasoline, diesel, fuel or other items is made at Canadian Tire gas bars during the 30 day period.
+<br>
+<br><sup>&reg;</sup>/<sup>&trade;</sup>The trademarks of Canadian Tire Corporation, Limited are used under licence.
+<br>Credit Protector is a registered trademark of Canadian Tire Financial Services Limited.
+<br>MasterCard<sup>&reg;</sup> is a registered trademark of MasterCard International Incorporated, used under licence.
+<span>
+</script>
+<script id="CC_Legal_OMR-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>	
+<span id="legalOMR" class="TandC_Content_Format">
+<br><sup>1</sup>   Some conditions apply. See Rewards Program Terms and Conditions for details.
+<br>* Annual rewards will reduce the balance for determining the Minimum Due but not for the purpose of calculating interest or any balance-based insurance premium. Other Terms and Conditions apply. See Rewards Program Terms and Conditions for details.
+<br><sup>&dagger;</sup> Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>&reg;</sup>/<sup>&trade;</sup> The trademarks of Canadian Tire Corporation, Limited are used under licence.
+<br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and PayPass is a trademark of MasterCard International Inc. 
+<br>
+<br>Cirrus is a registered trademark of Cirrus System, LLC, formerly known as Cirrus System, Inc.
+</span> 
+</script>
+<script id="NavBar-template" type="text/x-jquery-tmpl">
+	<img id="navBarImage"></img>
+</script>
+<script id="CC_OMC-template" type="text/x-jquery-tmpl">
+    <blockquote>
+    <p>
+        <span style="color: #d52b1e; font-size: large;"><b>Get MORE rewards MORE often</b></span>
+    </p>
+    <p>
+        The Canadian Tire Options
+        <sup>
+            &reg;
+        </sup>
+        MasterCard
+        <sup>
+            &reg;
+        </sup>
+        is the best way to earn the most Canadian Tire 'Money' On The Card
+        <sup>
+            &reg;
+        </sup>
+        awards
+        <sup>
+            1
+        </sup>
+        at Canadian Tire... and everywhere else you shop with it.
+    </p>
+    <h4>More ways to earn rewards on purchases</h4>
+    <p>
+        &nbsp;
+    </p>
+    <ul>
+        <li>
+            Earn Canadian Tire 'Money' rewards
+            <sup>
+                1
+            </sup>
+            EVERYWHERE you shop
+        </li>
+        <li>
+            Get even more rewards at Canadian Tire stores
+            <sup>
+                1
+            </sup>
+        </li>
+        <li>
+            Enjoy Bonus Cardmember Exclusives - There are new Cardmember Exclusive bonuses every week in the flyer!
+        </li>
+    </ul>
+    <p>
+        <i>Redeem your rewards for anything at Canadian Tire stores
+            <sup>
+                2
+            </sup>... right at the register!
+        </i>
+    </p>
+    <h4>Plus enjoy great cardmember benefits</h4>
+    <ul>
+        <li>
+            <b>PayPass</b>
+            <sup>
+                <b>&trade;</b>
+            </sup>
+            for faster checkout
+        </li>
+        <li>
+            <b>Chip technology</b> 
+            for added security
+        </li>
+        <li>
+            <b>Online account access</b> 
+            including exclusive email offers
+        </li>
+        <li>
+            <b>Worldwide acceptance</b>
+            at millions of places that take MasterCard
+            <sup>
+                &reg;
+            </sup>
+        </li>
+        <li>
+            <b>Cash advances</b>
+            <sup>
+                &dagger;
+            </sup>
+            at any Automated Bank Machine (ABM) that displays the MasterCard
+            <sup>
+                &reg;
+            </sup>
+            or Cirrus
+            <sup>
+                &reg;
+            </sup>
+            logos.
+        </li>
+    </ul>
+    <h4>Help protect your card with powerful security tools</h4>
+    <ul>
+        <li>
+            MasterCard
+                <sup>
+                    &reg;
+                </sup>
+                SecureCode           
+            <sup>
+                &trade;
+            </sup>
+        </li>
+        <li>
+            24-hour customer service for lost or stolen cards - call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256)
+        </li>
+    </ul>
+    </p>
+</blockquote>
+</script>
+
+<script id="CC_OMP-template" type="text/x-jquery-tmpl">
+    <blockquote>
+        <div class="copy">
+            <p>
+                <b><span style="font-size: medium;">BONUS! Save a full 10&cent; per litre automatically for your first 30 days as a cardmember.
+                        <sup>
+                            2
+                        </sup>
+                    </span></b>
+            </p>
+            <p>
+                There&rsquo;s an easy way to save at least 2 cents and up to 10 cents* off per litre of gas at Canadian Tire Gas Bars. Just use the Gas Advantage MasterCard for your everyday purchases and you&rsquo;ll save instantly right at the pump!
+            </p>
+        </div>
+        <img src="app/images/e_gasadvan_image_MR.gif" alt="" class="contentImgRight" />
+        <div class="copy">
+            <p>
+                <b>Here&rsquo;s how easy it is:</b>
+            </p>
+            <p>
+                1. <b>Swipe</b>
+                the card at the pump
+                <sup>
+                    &dagger;
+                </sup>
+                <br/>
+                2. <b>Watch</b>
+                the litre price turn back INSTANTLY
+                <br/>
+                3. <b>Save</b>
+                up to 10&cent; off per litre
+            </p>            
+            <p>
+                <b>Plus, enjoy full MasterCard benefits:</b>
+            </p>
+            <ul>
+                <li>
+                    <b>Worldwide acceptance</b>
+                    at millions of merchants across the globe.
+                </li>
+                <li>
+                    <b>Cash advances</b>
+                    <sup>
+                        &dagger;&dagger;
+                    </sup>
+                    at any Automated Bank Machine (ABM) that displays the MasterCard&reg; or Cirrus&reg; logos.
+                </li>
+                <li>
+                    <b>FREE Online Account Inquiry</b>
+                    at canadiantire.ca/financialservices
+                </li>
+                <li>
+                    <b>FREE supplementary cards</b>
+                    by calling 1-800-459-6415
+                </li>
+                <li>
+                    <b>24-hour customer service</b>
+                    for lost or stolen cards. Just call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256).
+                </li>
+                <li>
+                    <b>3 ways to pay your bill:</b>
+                    at Canadian Tire stores, at your bank or by mail. See your Benefits Booklet or statement back for details.
+                </li>
+                <li>
+                    Guard your card online with <b>MasterCard
+                            <sup>
+                                &reg;
+                            </sup>
+                            SecureCode
+                            <sup>
+                                TM
+                            </sup>
+                        </b>
+                </li>
+            </ul>
+            <p>
+                You can also help protect your card:
+            </p>
+            <ul>
+                <li>
+                    Credit Protector
+                    &reg;
+                    <sup>
+                        1
+                    </sup>
+                </li>
+            </ul>
+        </div>
+    </blockquote>
+</script>
+
+<script id="CC_OMR-template" type="text/x-jquery-tmpl">
+    <blockquote>
+        <div class="copy">
+            <p>
+                <b>Get valuable benefits as a cardholder:</b>
+            </p>
+            <ul>
+                <li>
+                    <div>
+                        <b>Earn up to 1.5% cash back</b>
+                        on all your eligible purchases
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Earn up to 3% cash back</b>
+                        at Canadian Tire stores, Canadian Tire gas bars and Mark&rsquo;s Work Wearhouse/L&rsquo;&Eacute;quipeur stores
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Get unlimited cash back</b>
+                        with no annual fee
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Get your cash back automatically</b>
+                        applied to your account every year*
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div>
+                            <i>PayPass</i>
+                            <sup>
+                                TM
+                            </sup>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <p>
+                <b>Plus, enjoy these card benefits:</b>
+            </p>
+            <ul>
+                <li>
+                    <div>
+                        <b>Worldwide acceptance</b>
+                        at millions of merchants across the globe.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Cash advances</b>
+                        <sup>
+                            &dagger;
+                        </sup>
+                        at any Automated Bank Machine (ABM) that displays the MasterCard
+                        <sup>
+                            &reg;
+                        </sup>&nbsp;or Cirrus
+                        <sup>
+                            &reg;
+                        </sup>
+                        logos.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>FREE online account inquiry</b>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>FREE supplementary cards</b>
+                        by calling 1-800-459-6415.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>24-hour customer service</b>
+                        for lost or stolen cards. Just call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256).
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>4 ways to pay your bill:</b>
+                        at Canadian Tire stores, at your bank, by mail or by pre-authorized payment plan. See your Benefits Booklet or statement back for details.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        Guard your card online with <b>MasterCard
+                                <sup>
+                                    &reg;
+                                </sup>
+                                SecureCode
+                                <sup>
+                                    <small>
+                                        TM
+                                    </small>
+                                </sup>
+                            </b>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </blockquote>
+</script>
+
+<script id="pageHeader-template" type="text/x-jquery-tmpl">
+	<!--<header class="pageHeader redGradient">//-->
+	<header class="pageHeader darkGrayGradient">
+		<center><img src="app/images/ctfs_navigation_bar_logo2.png"></img></center>		
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${previousButtonId}" class="pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_previous"></span>
+			</a>
+		{{/if}}	
+		{{if nextButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${nextButtonId}" class="pageNavigationButton next ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_next"></span>
+			</a>
+		{{/if}}
+	</header>
+</script>
+<script id="WICIChooseProductScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+    
+    <div class="ScreenLayout" id="chooseProductScreen_PageContents"> 
+		<br>
+		<br> 	
+        <span class="pageTitle" data-translationKey="chooseProduct_ChooseOneOfTheCreditCards"></span>
+		<br>
+		<br>
+		<ul id="creditCardProductList">
+			<li>
+				<a href="#" id="omcCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_OptionsMasterCard"></span>
+	        	</a>
+        	</li>
+			<li>
+				<a href="#" id="ompCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_GasAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+			<li>
+				<a href="#" id="omrCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_CashAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+		</ul>   
+        <br>
+        <br>
+        <div id="cardDescriptionArea">
+        </div>
+        <br>
+        <br>
+		<center>
+		<div id="chooseProduct_PromoCodeArea" >
+            <table id="promoCodeTable" class="stretchThisTable">
+                <tr class="fieldRow">
+                    <td class="fieldLabelsTopCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_PromoCode"></span>
+                    </td>
+                    <td class="fieldValuesTopCell">
+                        <input class="fieldValuesTextField upperCaseField" id="promoCodeTextField" type="text" maxlength="5"/>
+                    </td>
+                </tr>
+                <tr class="fieldRow">
+                    <td class="fieldLabelsBottomCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_Province"></span>
+                    </td>
+                    <td class="fieldValuesBottomCell">
+                        <!--<input class="fieldValuesTextField" id="provinceTextField" type="text"/>//-->
+						<select id="provinceTextField" class="fieldValuesTextField">						    
+						</select>						
+                    </td>
+                </tr>
+            </table>
+		</div>
+		</center>
+		<br>
+		<br>
+		<center>
+            <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
+            	<span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
+			</span>
+        </center>
+		<br>
+		<br>		
+        <hr>
+    </div>
+	<div  id="chooseProductScreen_disclaimerArea" class="ScreenLayoutFullWidth" >		
+	</div>
+</script>
+<script id="WICIFinancialScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	  
+	<div class="ScreenLayout" id="FEScreen_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="FEClickHere" class="pageTitle" data-translationKey="finEmpInfo_PageTitle"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="FE_BankingProducts" >
+	            <table id="bankingProductsTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldTableHeaderTopCell" colspan="4">
+	                        <span class="fieldLabelsTitle" data-translationKey="finEmpInfo_BankingProducts"></span>
+	                    </td>	                    
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipVISAMCAMEX" id="flipVISAMCAMEX" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_BankLoan"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipBankLoan" id="flipBankLoan" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_StoreCard"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                    	<div class="flipAlignCenter">
+		                        <select name="flipStoreCard" id="flipStoreCard" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_ChequingAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipChequingAcct" id="flipChequingAcct" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_GasCard"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipGasCard" id="flipGasCard" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_SavingsAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipSavingsAcct" id="flipSavingsAcct" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>
+	                </tr>	                
+	            </table>
+			</div>
+		</center>		
+		<br>
+		<br>		
+		<!--<center>
+			<div id="FE_EmpType" >
+	            <table id="empTypeTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell " colspan="4">
+	                        <span data-translationKey="finEmpInfo_EmpType"></span>
+	                    </td>	                    
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>
+	                    </td>
+	                    <td class="fieldValuesCell fieldLabelsCell25">
+	                        <select name="flipVISAMCAMEX" id="flipVISAMCAMEX" data-role="slider">
+								<option value="Yes">Yes</option>
+								<option value="No" selected>No</option>
+							</select> 
+	                    </td>
+	                    
+	                    <td class="fieldLabelsTopCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_BankLoan"></span>
+	                    </td>
+	                    
+	                    <td class="fieldValuesCell fieldLabelsCell25">
+	                        <select name="flipBankLoan" id="flipBankLoan" data-role="slider">
+								<option value="Yes">Yes</option>
+								<option value="No" selected>No</option>
+							</select> 
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>-->		
+		<center>
+			<table class="regularTable stretchThisTable" id="finEmpInfo_EmpType_Group">
+				<tr>
+					<td>
+						<span class="fieldLabelsTitle" data-translationKey="finEmpInfo_EmpType"></span>						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center>
+							<fieldset  id="finEmpInfo_EmploymentType_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+								<a id="finEmpInfo_EmploymentTypeFullTime_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeFullTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypePartTime_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypePartTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeSeasonal_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeSeasonal"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeRetired_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeRetired"></span>
+									</span>
+								</a>		
+							</fieldset>
+						</center>			
+					</td>
+				</tr>
+			</table>
+		</center>	
+		<br>
+		<br>
+		<center>
+			<div id="FE_EmploymentArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tbody id="FE_EmploymentArea1" >
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobTitle"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_JobTitle_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobCategory"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        
+		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" type="text"/> -->
+		                        
+		                        <select class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" >
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerName"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerCity"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerCity_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerProvince"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_EmployerProvince_TextField" type="text"/> -->
+		                        <select class="fieldValuesTextField" id="finEmpInfo_EmployerProvince_TextField" >
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerPhone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="finEmpInfo_EmployerPhone_TextField" type='tel' maxlength="10"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_HowLongCurrentEmployer"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+							   <table class="durationControlTable">
+							   	<tr >
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<div data-role="fieldcontain">
+							   				<input type="number" name="slider" id="finEmpInfo_Years_Slider" value="0" min="0" max="100"  />
+							   			</div>
+							   		</td>
+							   	</tr>
+							   	
+							   	<tr>
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<input type="number" name="slider" id="finEmpInfo_Months_Slider" value="0" min="0" max="11"  />
+							   		</td>
+							   	</tr>
+							   </table>
+		                    </td>
+		                </tr>
+		            </tbody>
+	                <tbody>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="finEmpInfo_GrossIncome"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField" id="finEmpInfo_GrossIncome_TextField" type="number"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="finEmpInfo_SIN"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField" id="finEmpInfo_SIN_TextField" type="number"/>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+			</div>
+		</center>
+		<br>
+	</div>	
+</script>		
+<script id="WICILoginScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="loginScreen_PageContents">
+        <br>
+        <br>
+        <br>
+        <center>
+			<div class="Login_CanadianTireLogo"></div>
+        </center>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+		<div id="loginScreen_FieldsArea"><!--loginTableWidth//-->
+			<center>
+	            <table id="loginFieldsTable" class="loginTableWidth">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell">
+	                        <span data-translationKey="loginScreen_AgentID_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="agentIDTextField" type="text"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell">
+	                        <span data-translationKey="loginScreen_Password_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField passwordField" id="passwordTextField" type="text"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell">
+	                        <span data-translationKey="loginScreen_Location_Number"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField" type="text"/>
+	                    </td>
+	                </tr>
+	            </table>
+	        </center>
+	        <br>
+	        <br>
+	        <center>
+	            <span id="loginScreen_LoginButton" class="button greenflat loginButtonWidth">
+	            	<span class="buttonText" data-translationKey="loginScreen_Button_Label"></span>
+				</span>
+	        </center>
+    	</div>
+    </div>
+</script>
+<script id="WICIOptionalProductsScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
+	 	<br>
+	 	<br>
+
+		<center>
+			<span id="OPClickHere" class="pageTitle" data-translationKey="optionalProducts_PageTitle"></span>
+		</center>
+		<br>
+		
+		<center>
+			<div id="personalData2_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell colspan="4"">
+	                        <span data-translationKey="optionalProducts_CreditProtector"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <select name="flipCreditProtector" id="flipCreditProtector" data-role="slider">
+								<option value="N" selected>No</option>
+								<option value="Y">Yes</option>
+							</select> 
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		
+		<br>
+		
+		<ul>
+			<li><span data-translationKey="optionalProducts_License1"></span></li>
+			<br>
+			<br>
+			<li><span data-translationKey="optionalProducts_License2"></span></li>
+		</ul>
+		
+		
+		<br>
+		
+		<div id="creditProtectorYesOption">
+		
+		<hr>
+		<p>
+			<span class="TandC_Title_Format" data-translationKey="optionalProducts_TermsAndConditionsTitle" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions1" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions2" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions3" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions4" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions5" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions6" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions7" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions8" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions9" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions10" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions11" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions12" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions13" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions14" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions15" />
+		</p>
+		
+		<p>
+			<input id="optionalProducts_AcceptConditions" type="checkbox">
+			<span data-translationKey="optionalProducts_TermsAndConditions16" />
+		</p>
+		
+		<hr>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions17" />
+			<span id="optionalProducts_DateNow" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions18" />
+		</p>
+		</div>
+		
+		<br>
+		
+		<center>
+            <span id="optionalProducts_ProceedButton" class="button greenflat applyButtonWidth">
+            	<span class="buttonText" data-translationKey="optionalProducts_Proceed"></span>
+			</span>
+        </center>
+        
+		<br>
+		
+	</div>
+</script>
+<script id="WICIPersonalDataScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="PersonalDataScreen_PageContents">
+		<br>
+		<br>
+		<center>
+		<span id="P1ClickHere" class="pageTitle" data-translationKey="personalData_TellUsAboutYourself"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="personalData_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData_PlaceOfIssue"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" type="text"/-->
+	                        <select class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_IDType"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <!--input class="fieldValuesTextField" id="personalData_IDType_TextField" type="text"/-->
+							<select class="fieldValuesTextField" id="personalData_IDType_TextField" type="text">
+							</select>
+
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_IDNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_IDNumber_TextField" type="text" maxlength="20"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+		<!--
+	personalData_Title									: 	"Title:",
+	personalData_MR										:	"MR",
+	personalData_MRS									:	"MRS",
+	personalData_MISS									:	"MISS",
+	personalData_MS										:	"MS",
+	personalData_DR										:	"DR",
+		//-->
+		
+	
+		<!-- center>
+			<div id="personalData_TitleArea" >
+	            <table id="titleTable" class="stretchThisTable">
+					<span id="ClickHere" class="pageTitle" data-translationKey="personalData_Title"></span>	                        	            	
+	                <tr >
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MR"></span>
+							<input type="radio" name="personalData_title" value="MR" >
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MRS"></span>
+							<input type="radio" name="personalData_title" value="MRS" >
+	                    </td>
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MISS"></span>
+							<input type="radio" name="personalData_title" value="MISS" >
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MS"></span>
+							<input type="radio" name="personalData_title" value="MS" >	                       
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_DR"></span>
+							<input type="radio" name="personalData_title" value="DR" >
+	                    </td>
+	                </tr>
+	            </table>
+			</div>			
+		</center -->
+	
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData_Title_Group">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData_Title"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>					
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData_MR_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MR"></span>
+								</span>
+							</a>
+							<a id="personalData_MRS_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MRS"></span>
+								</span>
+							</a>
+							<a id="personalData_MISS_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MISS"></span>
+								</span>
+							</a>
+							<a id="personalData_MS_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MS"></span>
+								</span>
+							</a>		
+						</fieldset >
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+
+		<br>
+		<center>
+			<div id="personalData_PersonalInfoArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData_FirstName"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_Initial"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" maxlength="1"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_LastName"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_DatOfBirth"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_DatOfBirth_TextField" type="date"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_EmailAddress"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_HomePhone"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_CellPhone"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<!--
+	personalData_Correspondence							:	"Correspondence:",
+	personalData_English								:	"English:",
+	personalData_French									:	"French:",		
+		//-->
+		<!-- center>
+			<div id="personalData_TitleArea" >
+	            <table id="titleTable" class="stretchThisTable">
+					<span id="ClickHere" class="pageTitle" data-translationKey="personalData_Correspondence"></span>
+	                <tr >
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_English"></span>
+							<input type="radio" name="personalData_correspondence" value="E" >
+	                    </td>
+	                    <td >				
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_French"></span>
+							<input type="radio" name="personalData_correspondence" value="F" >
+	                    </td>
+	                </tr>
+	            </table>
+			</div>			
+		</center -->
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData_Correspondence_Group">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData_Correspondence"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData_English_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_English"></span>
+								</span>
+							</a>
+	
+							<a id="personalData_French_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_French"></span>
+								</span>
+							</a>		
+						</fieldset >
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+		<br>
+	</div>
+</script>
+<script id="WICIPersonalDataScreen2-template" type="text/x-jquery-tmpl">	
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+		
+	<div class="ScreenLayout" id="PersonalDataScreen2_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="P2ClickHere" class="pageTitle" data-translationKey="personalData2_AddressInformation"></span>
+		</center>
+		<br>
+		<br>
+		<!--
+	personalData2_AddressInformation					:	"ADDRESS INFORMATION",
+	personalData2_Address_PostalCode					:	"Postal Code",
+	personalData2_Address_StreetNumber					:	"Street Number",
+	personalData2_Address_Button_Label					:	"ADDRESS LOOKUP",
+		
+		//-->
+		<center>
+			<div id="personalData2_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_PostalCode_TextField" type="text" maxlength="6" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_StreetNumber_TextField" type="text" maxlength="5" />
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_AddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText" data-translationKey="personalData2_Address_Button_Label"></span>
+		</span>	
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+		<!--
+	personalData2_Address_AddressLine1					:	"Address Line 1",	
+	personalData2_Address_AddressLine2					:	"Address Line 2",
+	personalData2_Address_SuiteUnit						:	"Suite/Unit",
+	personalData2_Address_City							:	"City*",
+	personalData2_Address_Province						:	"Province*",
+		//-->
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine1_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_Address_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine1_SelectField" >
+								</select>
+							</div>													
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine2_TextField" type="text" maxlength="40" />
+							<div id="addressLookup_Address_AddressLine2_MultipleControl" class="addressLookup_DropDownItemsControl">								
+								<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine2_SelectField" >
+								</select>
+							</div>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_SuiteUnit_TextField" type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_City_TextField" type="text" maxlength="24"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_Address_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_Address_Province_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<!--
+		
+	
+	personalData2_Address_ResidenceType					:	"ResidenceType:",
+	personalData2_Address_Own							:	"Own",
+	personalData2_Address_Rent							:	"Rent",
+	personalData2_Address_Parents						:	"With Parents",
+	personalData2_Address_Other							:	"Other",
+		//-->
+
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData2_ResidenceTypeArea">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData2_Address_ResidenceType"></span>					
+				</td>
+			</tr>			
+			<tr>
+				<td>
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData2_Address_Own_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Own"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Rent_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Rent"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Parents_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Parents"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Other_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Other"></span>
+								</span>
+							</a>		
+						</fieldset>
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+	<br>
+		<!--
+	personalData2_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
+	personalData2_Address_Duration						:	"Duration at Current Address",			
+		//-->
+		<center>
+			<div id="personalData2_HouseArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell">
+	                        <span data-translationKey="personalData2_Address_MonthlyPayment"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData2_Address_MonthlyPayment_TextField" type="text" maxlength="4" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell">
+	                        <span data-translationKey="personalData2_Address_Duration"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                    	<table class="durationControlTable">
+							   	<tr >
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<div data-role="fieldcontain">
+							   				<input type="number" name="slider" id="personalData2_Address_Duration_years_TextField" value="0" min="0" max="100"  />
+							   			</div>
+							   		</td>
+							   	</tr>
+							   	
+							   	<tr>
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<input type="number" name="slider" id="personalData2_Address_Duration_months_TextField" value="0" min="0" max="11"  />
+							   		</td>
+							   	</tr>
+							</table>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+<div id='personalData2_PreviousAddressArea' > <!-- luk: div is used to show/hide all prevAddress section -->		
+		<hr>
+		<br>
+		<br>
+
+<!--
+		
+	personalData2_PreviousAddress_Title					:	"Previous Address",
+	personalData2_PreviousAddress_Description			:	"Only required if less than 2 years at current address",
+//-->
+
+		<center>
+			<span class="pageTitle" data-translationKey="personalData2_PreviousAddress_Title"></span>
+			<span class="pageTitle" data-translationKey="personalData2_PreviousAddress_Description"></span>
+		</center>
+		<br>
+<!--	
+	personalData2_PreviousAddress_PostalCode			:	"Postal Code",	
+	personalData2_PreviousAddress_StreetNumber			:	"Street Number",	
+	personalData2_PreviousAddress_Button_Label			:	"ADDRESS LOOKUP",
+//-->
+
+		<center>
+			<div id="personalData2_PreviousAddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_PostalCode_TextField" type="text" maxlength="6"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_StreetNumber_TextField" type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_PreviousAddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText" data-translationKey="personalData2_PreviousAddress_Button_Label"></span>
+		</span>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+<!--		
+	personalData2_PreviousAddress_AddressLine1			:	"Address Line 1",	
+	personalData2_PreviousAddress_AddressLine2			:	"Address Line 2",
+	personalData2_PreviousAddress_SuiteUnit				:	"Suite/Unit",
+	personalData2_PreviousAddress_City					:	"City*",
+	personalData2_PreviousAddress_Province				:	"Province*"	
+//-->		
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine1_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_PreviousAddress_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesTextField" id="personalData2_PreviousAddress_AddressLine1_SelectField" >
+								</select>							
+							</div>								
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine2_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_PreviousAddress_AddressLine2_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesTextField" id="personalData2_PreviousAddress_AddressLine2_SelectField" >
+								</select>
+							</div>															
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_SuiteUnit_TextField" type="text" maxlength="5" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_City_TextField" type="text" maxlength="24" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+</div>		
+	</div>
+</script>
+<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="SignatureScreen_PageContents">	
+		<br>
+		<br>				
+		<center>
+			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
+		</center>		
+		<br>		
+		<p><span class="signatureScreenText" data-translationKey="signatureScreen_Header"/></p>
+		<br>
+		<ul>
+			<li><span class="signatureScreenText" data-translationKey="signatureScreen_License1"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText" data-translationKey="signatureScreen_License2"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText"  data-translationKey="signatureScreen_License3"/></li>
+			<br>
+			<br>
+			<li><span  class="signatureScreenText" data-translationKey="signatureScreen_License4"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText"  data-translationKey="signatureScreen_License5"/></li>	
+		</ul>
+		<br>		
+		<br>
+		<center>
+			<div class="signatureContainer" >
+				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">				
+					<div class="signature" id="signature"/>															
+				</div>
+				<br>
+				<span id="signature_Reset_Button" class="button grayflat proceedButtonWidth">
+            		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+				</span>				 				
+			</div>
+		</center>
+		<br>		
+		<label id="signatureScreen_UserName" class="signatureScreenText">Alex Smith</label>		
+		<br>
+		<p>
+			<p class="signatureScreenText">Date: <label id="signatureScreen_SignDate"></p>
+		</p>		
+		<br>
+		<p>
+
+		<div data-role="fieldcontain" id="signatureScreen_AgreementBoxContainer">
+ 			<fieldset data-role="controlgroup">		
+				<input type="checkbox" id="signatureScreen_AcceptAgreement" data-mini="true"/>		
+				<label for="signatureScreen_AcceptAgreement" class="signatureScreenText" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"/>	
+    		</fieldset>
+		</div>	
+		</p>
+		<br>
+
+		<!--<br>
+		<br>
+		<center>
+            <span id="signatureScreen_ProceedButton" class="button grayflat proceedButtonWidth">
+            	<span class="buttonText" data-translationKey="signatureScreen_Proceed_Button_Label"></span>
+			</span>
+        </center>
+		<br>-->
+	</div>		
+</script>
+<script id="WICISupCardScreen-template" type="text/x-jquery-tmpl">	
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="SupCardScreen_PageContents">
+		<br>		
+		<br>		
+		<center>
+		<span id="SupCardClickHere" class="pageTitle" data-translationKey="supCardRequest_PageTitle"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="SupCardRequest_TitleAreaYesNO" >
+	            <table id="titleTable" class="stretchThisTable" >
+	                <tr >
+	                    <td class="fieldLabelsCell" colspan="4">
+	                        <span data-translationKey="supCardRequest_WouldYouLikeACard"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <select name="flipSupplementaryCard" id="flipSupplementaryCard" data-role="slider">
+								<option value="N">No</option>
+								<option value="Y">Yes</option>
+							</select> 
+	                    </td>
+	                    
+	                </tr>
+	            </table>
+			</div>
+		</center>
+	<br>
+	<br>
+	<div id="supCardDetailsPanel" >
+		<center>
+				<table class="regularTable stretchThisTable">
+					<tr>
+						<td>
+							<span class="fieldLabelsTitle" data-translationKey="supCardRequest_ForWhom"></span>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<fieldset  id="supCardRequestType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+									<a id="supCardRequest_Spouse_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_Spouse"></span>
+										</span>
+									</a>
+									<a id="supCardRequest_ChildDependant_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_ChildDependant"></span>
+										</span>
+									</a>
+									<a id="supCardRequest_Other_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_Other"></span>
+										</span>
+									</a>
+								</fieldset>
+							</center>			
+						</td>
+					</tr>
+				</table>
+			</center>
+			<br>
+			<br>	 
+			<center>
+				<div id="SupCard_PersonalDetailsArea" >
+		            <table class="stretchThisTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell">
+		                        <span data-translationKey="supCardRequest_FirstName"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_FirstName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_Initial"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_Initial_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_LastName"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_LastName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_DateOfBirth"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField" id="supCardRequest_DateOfBirth_TextField" type="date"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_Telephone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="supCardRequest_Telephone_TextField" type='tel' maxlength="10"/>
+		                    </td>
+		                </tr>
+		            </table>
+				</div>
+			</center>
+			<br>		
+			<br>
+			<br>
+			<center>
+		            <table id="titleTable" class="stretchThisTable">
+		                <tr >
+		                    <td class="fieldLabelsCell" colspan="6">
+		                        <span data-translationKey="supCardRequest_SameAddyPrimaryApplicant"></span>
+		                    </td>
+		                    <td class="fieldValuesCellFlip">
+		                        <select name="flipSameAddress" id="flipSameAddress" data-role="slider">
+									<option value="N">No</option>
+									<option value="Y" selected>Yes</span></option>
+									
+								</select> 
+		                    </td>
+		                </tr>
+		            </table>
+			</center>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div id="supAddressPanel" >
+			<center>
+		            <table id="addressTable" class="stretchThisTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_PostalCode"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_PostalCode" type="text" maxlength="6"/>
+		                    </td>
+	                	</tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                    	<input class="fieldValuesTextField upperCaseField" id="sup_AddressLine1_TextField" type="text" maxlength="40"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine2_TextField" type="text" maxlength="40"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_SuiteUnit_TextField" type="text" maxlength="5"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_City_TextField" type="text" maxlength="24"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsBottomCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+		                    </td>
+		                    <td class="fieldValuesBottomCell">
+								<select class="fieldValuesTextField" id="sup_Province_TextField" >
+								</select>
+		                    </td>
+		                </tr>
+		            </table>
+			</center>
+		</div>
+		<br>
+		<br>
+		<br>
+	</div>	
+</script>		
+<script id="BreadcrumbTrail-template" type="text/x-jquery-tmpl">
+<div id="BreadcrumbTrailArea" class="BreadcrumbTrailAreaLayoutStyle">
+	<ul id="ID_BreadcrumbTrail" class="BreadcrumbTrail">
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">1.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_ProductSelection"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">2.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_PersonalData"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">3.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_OptionalProducts"></span></a></li>
+		<li><a href="#"><span class="BreadcrumbTrailItemNumberFont">4.</span><span class="BreadcrumbTrailItemFont" data-translationKey="breadCrumbItem_Confirmation"></span></a></li>
+		
+	</ul>
+</div>
+</script>
+<script id="confirmMessageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" >
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="confirm_confirmButton" data-rel="back" data-role="button" data-theme="b">${yesButton}</a>
+			<a href="#" id="confirm_cancelButton" data-rel="back" data-role="button" data-theme="c">${noButton}</a>
+		</div>
+	</div>
+</div>
+</script>
+
+<script id="messageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="${messageDialogId}">	
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		{{if _.isArray(message)}}
+			{{if itemizedList}}
+				<ol>
+			{{else}}
+				<ul class="multiInfoMessageContainer">
+			{{/if}}
+			    {{each(i, aMessage) message}}
+			        <li class="multiInfoMessage ${liClass}">{{html aMessage}}</li>
+				{{/each}}
+			{{if itemizedList}}
+				</ol>
+			{{else}}
+				</ul>
+			{{/if}}
+		{{else}}
+			<p>${message}</p>
+		{{/if}}
+		<div class="dialogButtonContainer">
+			<a href="#" data-rel="back" id="messageDialogOkay" data-role="button" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+				<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+					<span class="ui-btn-text">${button}</span> 
+				</span> 
+			</a>
+		</div>
+	</div>
+</div>
+</script>
+<script id="removeExpiredActivationsDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" class="removeExpired">	
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message.preList}</p>
+		<ul>
+		    {{each(i, aMessage) message.list}}
+		        <li class="multiInfoMessage ${liClass}">{{html aMessage}}</li>
+			{{/each}}
+		</ul>
+		<p>${message.postList}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" data-rel="back" data-role="button" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+				<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"> 
+					<span class="ui-btn-text">${button}</span> 
+				</span> 
+			</a>
+		</div>
+	</div>
+</div>
+</script>
+<script id="signatureDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" >
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">
+		<p>${message}</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="signature_resetButton" data-rel="back" data-role="button" data-theme="c">${resetButton}</a>
+			<a href="#" id="signature_cancelButton" data-rel="back" data-role="button" data-theme="c">${canceButton}</a>
+			<a href="#" id="signature_okButton" data-rel="back" data-role="button" data-theme="b">${okButton}</a>			
+		</div>
+		<br>
+		<div class="signatureBorder" >				
+			<div class="signature" id="signature"/>															
+		</div>
+		<br>
+	</div>
+</div>
+</script>
+
+<script id="CC_Legal_OMC-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>
+<span id="legalOMC" class="TandC_Content_Format">
+<br><sup>1</sup>   In the form of Canadian Tire 'Money' On The Card<sup>&reg;</sup> awards. Terms and conditions apply to earning and redeeming. Details available in-store or on the Canadian Tire 'Money' Rewards Program page. Options MasterCard customers in Nova Scotia participate in a different rewards program, please go to ctfs.com/ctm for more details.
+<br><sup>2</sup>   Provided it is a redeemable purchase and does not exceed your Canadian Tire 'Money' On The Card<sup>&reg;</sup> awards balance.
+<br><sup>3</sup>   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup>  companies.
+<br><sup>&dagger;</sup>   Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>&reg;</sup>/<sup>&trade;</sup>   The trademarks of Canadian Tire Corporation, Limited are used under licence.
+Credit Protector is a registered trademark of Canadian Tire Financial Services Limited.
+<br><sup>&reg;</sup>/<sup>&trade;</sup>   MasterCard, the MasterCard Brand Mark and PayPass are registered trademarks of MasterCard International Incorporated.
+TM Trademark of Canada Post Corporation, used under license.
+</span>
+</script>
+<script id="CC_Legal_OMP-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>
+<span id="legalOMP" class="TandC_Content_Format">
+<br>* Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire Gas Bars during the following monthly billing period and that is charged to your Gas Advantage MasterCard.
+<br>The discount that you receive in a billing period will be reduced to 2&cent; per litre after you have made purchases of more than $700 for gasoline, diesel fuel or any other sundry items at Canadian Tire Gas Bars during that billing period using your Gas Advantage MasterCard.
+<br>All purchases charged anywhere to your Gas Advantage MasterCard will qualify, except: interest charges, balance transfers, cash advances, Gas Advantage MasterCard fees, insurance and membership services offered by Canadian Tire Financial Services Limited or any gambling transactions (including the purchase of lottery tickets and all transactions at a casino) the transfer of money or the payment of taxes. The Gas Advantage MasterCard may not be used by you in connection with any commercial transportation business or any business that operates a fleet of motor vehicles. If used for this purpose, we may revoke your Gas Advantage MasterCard immediately. The Gas Advantage MasterCard gas discount program is subject to cancellation on 60 days notice. As the original posted price per litre of gasoline is a tax included amount, the stated per litre discount is also a tax included amount.  For complete program details please read the Canadian Tire Gas Advantage MasterCard Terms and conditions.
+<br><sup>&dagger;</sup> In Nova Scotia and where pay at the pump feature is not available, pay inside to receive the discount.
+<br><sup>&dagger;&dagger;</sup> Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>1</sup>   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup> companies.
+<br><sup>2</sup>   To receive discount, use your Gas Advantage MasterCard to make an eligible purchase anywhere within 45 days from receipt of your card. Your activation bonus begins on the date your first purchase is posted to your account. The discount will then apply for 30 consecutive days. When the 30 days are completed, you will revert to your qualified discount level indicated on your monthly statement. Valid for 1 gas purchase per day during the activation bonus period. Discount reduced to 2 cents/litre after $700 in purchases of gasoline, diesel, fuel or other items is made at Canadian Tire gas bars during the 30 day period.
+<br>
+<br><sup>&reg;</sup>/<sup>&trade;</sup>The trademarks of Canadian Tire Corporation, Limited are used under licence.
+<br>Credit Protector is a registered trademark of Canadian Tire Financial Services Limited.
+<br>MasterCard<sup>&reg;</sup> is a registered trademark of MasterCard International Incorporated, used under licence.
+<span>
+</script>
+<script id="CC_Legal_OMR-template" type="text/x-jquery-tmpl">
+<span id="TandCTitle" class="TandC_Title_Format" data-translationKey="chooseProduct_ReadTandC"></span>	
+<span id="legalOMR" class="TandC_Content_Format">
+<br><sup>1</sup>   Some conditions apply. See Rewards Program Terms and Conditions for details.
+<br>* Annual rewards will reduce the balance for determining the Minimum Due but not for the purpose of calculating interest or any balance-based insurance premium. Other Terms and Conditions apply. See Rewards Program Terms and Conditions for details.
+<br><sup>&dagger;</sup> Cash advance fee: $4.00.  Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.
+<br><sup>&reg;</sup>/<sup>&trade;</sup> The trademarks of Canadian Tire Corporation, Limited are used under licence.
+<br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and PayPass is a trademark of MasterCard International Inc. 
+<br>
+<br>Cirrus is a registered trademark of Cirrus System, LLC, formerly known as Cirrus System, Inc.
+</span> 
+</script>
+<script id="NavBar-template" type="text/x-jquery-tmpl">
+	<img id="navBarImage"></img>
+</script>
+<script id="CC_OMC-template" type="text/x-jquery-tmpl">
+    <blockquote>
+    <p>
+        <span style="color: #d52b1e; font-size: large;"><b>Get MORE rewards MORE often</b></span>
+    </p>
+    <p>
+        The Canadian Tire Options
+        <sup>
+            &reg;
+        </sup>
+        MasterCard
+        <sup>
+            &reg;
+        </sup>
+        is the best way to earn the most Canadian Tire 'Money' On The Card
+        <sup>
+            &reg;
+        </sup>
+        awards
+        <sup>
+            1
+        </sup>
+        at Canadian Tire... and everywhere else you shop with it.
+    </p>
+    <h4>More ways to earn rewards on purchases</h4>
+    <p>
+        &nbsp;
+    </p>
+    <ul>
+        <li>
+            Earn Canadian Tire 'Money' rewards
+            <sup>
+                1
+            </sup>
+            EVERYWHERE you shop
+        </li>
+        <li>
+            Get even more rewards at Canadian Tire stores
+            <sup>
+                1
+            </sup>
+        </li>
+        <li>
+            Enjoy Bonus Cardmember Exclusives - There are new Cardmember Exclusive bonuses every week in the flyer!
+        </li>
+    </ul>
+    <p>
+        <i>Redeem your rewards for anything at Canadian Tire stores
+            <sup>
+                2
+            </sup>... right at the register!
+        </i>
+    </p>
+    <h4>Plus enjoy great cardmember benefits</h4>
+    <ul>
+        <li>
+            <b>PayPass</b>
+            <sup>
+                <b>&trade;</b>
+            </sup>
+            for faster checkout
+        </li>
+        <li>
+            <b>Chip technology</b> 
+            for added security
+        </li>
+        <li>
+            <b>Online account access</b> 
+            including exclusive email offers
+        </li>
+        <li>
+            <b>Worldwide acceptance</b>
+            at millions of places that take MasterCard
+            <sup>
+                &reg;
+            </sup>
+        </li>
+        <li>
+            <b>Cash advances</b>
+            <sup>
+                &dagger;
+            </sup>
+            at any Automated Bank Machine (ABM) that displays the MasterCard
+            <sup>
+                &reg;
+            </sup>
+            or Cirrus
+            <sup>
+                &reg;
+            </sup>
+            logos.
+        </li>
+    </ul>
+    <h4>Help protect your card with powerful security tools</h4>
+    <ul>
+        <li>
+            MasterCard
+                <sup>
+                    &reg;
+                </sup>
+                SecureCode           
+            <sup>
+                &trade;
+            </sup>
+        </li>
+        <li>
+            24-hour customer service for lost or stolen cards - call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256)
+        </li>
+    </ul>
+    </p>
+</blockquote>
+</script>
+
+<script id="CC_OMP-template" type="text/x-jquery-tmpl">
+    <blockquote>
+        <div class="copy">
+            <p>
+                <b><span style="font-size: medium;">BONUS! Save a full 10&cent; per litre automatically for your first 30 days as a cardmember.
+                        <sup>
+                            2
+                        </sup>
+                    </span></b>
+            </p>
+            <p>
+                There&rsquo;s an easy way to save at least 2 cents and up to 10 cents* off per litre of gas at Canadian Tire Gas Bars. Just use the Gas Advantage MasterCard for your everyday purchases and you&rsquo;ll save instantly right at the pump!
+            </p>
+        </div>
+        <img src="app/images/e_gasadvan_image_MR.gif" alt="" class="contentImgRight" />
+        <div class="copy">
+            <p>
+                <b>Here&rsquo;s how easy it is:</b>
+            </p>
+            <p>
+                1. <b>Swipe</b>
+                the card at the pump
+                <sup>
+                    &dagger;
+                </sup>
+                <br/>
+                2. <b>Watch</b>
+                the litre price turn back INSTANTLY
+                <br/>
+                3. <b>Save</b>
+                up to 10&cent; off per litre
+            </p>            
+            <p>
+                <b>Plus, enjoy full MasterCard benefits:</b>
+            </p>
+            <ul>
+                <li>
+                    <b>Worldwide acceptance</b>
+                    at millions of merchants across the globe.
+                </li>
+                <li>
+                    <b>Cash advances</b>
+                    <sup>
+                        &dagger;&dagger;
+                    </sup>
+                    at any Automated Bank Machine (ABM) that displays the MasterCard&reg; or Cirrus&reg; logos.
+                </li>
+                <li>
+                    <b>FREE Online Account Inquiry</b>
+                    at canadiantire.ca/financialservices
+                </li>
+                <li>
+                    <b>FREE supplementary cards</b>
+                    by calling 1-800-459-6415
+                </li>
+                <li>
+                    <b>24-hour customer service</b>
+                    for lost or stolen cards. Just call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256).
+                </li>
+                <li>
+                    <b>3 ways to pay your bill:</b>
+                    at Canadian Tire stores, at your bank or by mail. See your Benefits Booklet or statement back for details.
+                </li>
+                <li>
+                    Guard your card online with <b>MasterCard
+                            <sup>
+                                &reg;
+                            </sup>
+                            SecureCode
+                            <sup>
+                                TM
+                            </sup>
+                        </b>
+                </li>
+            </ul>
+            <p>
+                You can also help protect your card:
+            </p>
+            <ul>
+                <li>
+                    Credit Protector
+                    &reg;
+                    <sup>
+                        1
+                    </sup>
+                </li>
+            </ul>
+        </div>
+    </blockquote>
+</script>
+
+<script id="CC_OMR-template" type="text/x-jquery-tmpl">
+    <blockquote>
+        <div class="copy">
+            <p>
+                <b>Get valuable benefits as a cardholder:</b>
+            </p>
+            <ul>
+                <li>
+                    <div>
+                        <b>Earn up to 1.5% cash back</b>
+                        on all your eligible purchases
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Earn up to 3% cash back</b>
+                        at Canadian Tire stores, Canadian Tire gas bars and Mark&rsquo;s Work Wearhouse/L&rsquo;&Eacute;quipeur stores
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Get unlimited cash back</b>
+                        with no annual fee
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Get your cash back automatically</b>
+                        applied to your account every year*
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div>
+                            <i>PayPass</i>
+                            <sup>
+                                TM
+                            </sup>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <p>
+                <b>Plus, enjoy these card benefits:</b>
+            </p>
+            <ul>
+                <li>
+                    <div>
+                        <b>Worldwide acceptance</b>
+                        at millions of merchants across the globe.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>Cash advances</b>
+                        <sup>
+                            &dagger;
+                        </sup>
+                        at any Automated Bank Machine (ABM) that displays the MasterCard
+                        <sup>
+                            &reg;
+                        </sup>&nbsp;or Cirrus
+                        <sup>
+                            &reg;
+                        </sup>
+                        logos.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>FREE online account inquiry</b>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>FREE supplementary cards</b>
+                        by calling 1-800-459-6415.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>24-hour customer service</b>
+                        for lost or stolen cards. Just call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256).
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <b>4 ways to pay your bill:</b>
+                        at Canadian Tire stores, at your bank, by mail or by pre-authorized payment plan. See your Benefits Booklet or statement back for details.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        Guard your card online with <b>MasterCard
+                                <sup>
+                                    &reg;
+                                </sup>
+                                SecureCode
+                                <sup>
+                                    <small>
+                                        TM
+                                    </small>
+                                </sup>
+                            </b>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </blockquote>
+</script>
+
+<script id="pageHeader-template" type="text/x-jquery-tmpl">
+	<!--<header class="pageHeader redGradient">//-->
+	<header class="pageHeader darkGrayGradient">
+		<center><img src="app/images/ctfs_navigation_bar_logo2.png"></img></center>		
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${previousButtonId}" class="pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_previous"></span>
+			</a>
+		{{/if}}	
+		{{if nextButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${nextButtonId}" class="pageNavigationButton next ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r">
+				<span class="buttonAltText" data-translationKey="pageHeader_next"></span>
+			</a>
+		{{/if}}
+	</header>
+</script>
+<script id="WICIChooseProductScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+    
+    <div class="ScreenLayout" id="chooseProductScreen_PageContents"> 
+		<br>
+		<br> 	
+        <span class="pageTitle" data-translationKey="chooseProduct_ChooseOneOfTheCreditCards"></span>
+		<br>
+		<br>
+		<ul id="creditCardProductList">
+			<li>
+				<a href="#" id="omcCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_OptionsMasterCard"></span>
+	        	</a>
+        	</li>
+			<li>
+				<a href="#" id="ompCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_GasAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+			<li>
+				<a href="#" id="omrCard" class="creditCardProductClickableProduct">
+	        		<span class="CC_Labels" data-translationKey="chooseProduct_CashAdvantageMasterCard"></span>
+	        	</a>
+        	</li>
+		</ul>   
+        <br>
+        <br>
+        <div id="cardDescriptionArea">
+        </div>
+        <br>
+        <br>
+		<center>
+		<div id="chooseProduct_PromoCodeArea" >
+            <table id="promoCodeTable" class="stretchThisTable">
+                <tr class="fieldRow">
+                    <td class="fieldLabelsTopCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_PromoCode"></span>
+                    </td>
+                    <td class="fieldValuesTopCell">
+                        <input class="fieldValuesTextField upperCaseField" id="promoCodeTextField" type="text" maxlength="5"/>
+                    </td>
+                </tr>
+                <tr class="fieldRow">
+                    <td class="fieldLabelsBottomCell fieldCellSize33">
+                        <span data-translationKey="chooseProduct_Province"></span>
+                    </td>
+                    <td class="fieldValuesBottomCell">
+                        <!--<input class="fieldValuesTextField" id="provinceTextField" type="text"/>//-->
+						<select id="provinceTextField" class="fieldValuesTextField">						    
+						</select>						
+                    </td>
+                </tr>
+            </table>
+		</div>
+		</center>
+		<br>
+		<br>
+		<center>
+            <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
+            	<span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
+			</span>
+        </center>
+		<br>
+		<br>		
+        <hr>
+    </div>
+	<div  id="chooseProductScreen_disclaimerArea" class="ScreenLayoutFullWidth" >		
+	</div>
+</script>
+<script id="WICIFinancialScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	  
+	<div class="ScreenLayout" id="FEScreen_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="FEClickHere" class="pageTitle" data-translationKey="finEmpInfo_PageTitle"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="FE_BankingProducts" >
+	            <table id="bankingProductsTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldTableHeaderTopCell" colspan="4">
+	                        <span class="fieldLabelsTitle" data-translationKey="finEmpInfo_BankingProducts"></span>
+	                    </td>	                    
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipVISAMCAMEX" id="flipVISAMCAMEX" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_BankLoan"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipBankLoan" id="flipBankLoan" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_StoreCard"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                    	<div class="flipAlignCenter">
+		                        <select name="flipStoreCard" id="flipStoreCard" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_ChequingAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipChequingAcct" id="flipChequingAcct" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_GasCard"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipGasCard" id="flipGasCard" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_SavingsAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell25">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipSavingsAcct" id="flipSavingsAcct" data-role="slider">
+									<option value="N" selected>No</option>
+									<option value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>
+	                </tr>	                
+	            </table>
+			</div>
+		</center>		
+		<br>
+		<br>		
+		<!--<center>
+			<div id="FE_EmpType" >
+	            <table id="empTypeTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell " colspan="4">
+	                        <span data-translationKey="finEmpInfo_EmpType"></span>
+	                    </td>	                    
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>
+	                    </td>
+	                    <td class="fieldValuesCell fieldLabelsCell25">
+	                        <select name="flipVISAMCAMEX" id="flipVISAMCAMEX" data-role="slider">
+								<option value="Yes">Yes</option>
+								<option value="No" selected>No</option>
+							</select> 
+	                    </td>
+	                    
+	                    <td class="fieldLabelsTopCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_BankLoan"></span>
+	                    </td>
+	                    
+	                    <td class="fieldValuesCell fieldLabelsCell25">
+	                        <select name="flipBankLoan" id="flipBankLoan" data-role="slider">
+								<option value="Yes">Yes</option>
+								<option value="No" selected>No</option>
+							</select> 
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>-->		
+		<center>
+			<table class="regularTable stretchThisTable" id="finEmpInfo_EmpType_Group">
+				<tr>
+					<td>
+						<span class="fieldLabelsTitle" data-translationKey="finEmpInfo_EmpType"></span>						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center>
+							<fieldset  id="finEmpInfo_EmploymentType_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+								<a id="finEmpInfo_EmploymentTypeFullTime_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeFullTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypePartTime_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypePartTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeSeasonal_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeSeasonal"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeRetired_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeRetired"></span>
+									</span>
+								</a>		
+							</fieldset>
+						</center>			
+					</td>
+				</tr>
+			</table>
+		</center>	
+		<br>
+		<br>
+		<center>
+			<div id="FE_EmploymentArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tbody id="FE_EmploymentArea1" >
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobTitle"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_JobTitle_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobCategory"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        
+		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" type="text"/> -->
+		                        
+		                        <select class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" >
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerName"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerCity"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerCity_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerProvince"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_EmployerProvince_TextField" type="text"/> -->
+		                        <select class="fieldValuesTextField" id="finEmpInfo_EmployerProvince_TextField" >
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerPhone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="finEmpInfo_EmployerPhone_TextField" type='tel' maxlength="10"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_HowLongCurrentEmployer"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+							   <table class="durationControlTable">
+							   	<tr >
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<div data-role="fieldcontain">
+							   				<input type="number" name="slider" id="finEmpInfo_Years_Slider" value="0" min="0" max="100"  />
+							   			</div>
+							   		</td>
+							   	</tr>
+							   	
+							   	<tr>
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<input type="number" name="slider" id="finEmpInfo_Months_Slider" value="0" min="0" max="11"  />
+							   		</td>
+							   	</tr>
+							   </table>
+		                    </td>
+		                </tr>
+		            </tbody>
+	                <tbody>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="finEmpInfo_GrossIncome"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField" id="finEmpInfo_GrossIncome_TextField" type="number"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="finEmpInfo_SIN"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField" id="finEmpInfo_SIN_TextField" type="number"/>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+			</div>
+		</center>
+		<br>
+	</div>	
+</script>		
+<script id="WICILoginScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="loginScreen_PageContents">
+        <br>
+        <br>
+        <br>
+        <center>
+			<div class="Login_CanadianTireLogo"></div>
+        </center>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+		<div id="loginScreen_FieldsArea"><!--loginTableWidth//-->
+			<center>
+	            <table id="loginFieldsTable" class="loginTableWidth">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell">
+	                        <span data-translationKey="loginScreen_AgentID_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="agentIDTextField" type="text"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell">
+	                        <span data-translationKey="loginScreen_Password_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField passwordField" id="passwordTextField" type="text"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell">
+	                        <span data-translationKey="loginScreen_Location_Number"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField" type="text"/>
+	                    </td>
+	                </tr>
+	            </table>
+	        </center>
+	        <br>
+	        <br>
+	        <center>
+	            <span id="loginScreen_LoginButton" class="button greenflat loginButtonWidth">
+	            	<span class="buttonText" data-translationKey="loginScreen_Button_Label"></span>
+				</span>
+	        </center>
+    	</div>
+    </div>
+</script>
+<script id="WICIOptionalProductsScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
+	 	<br>
+	 	<br>
+
+		<center>
+			<span id="OPClickHere" class="pageTitle" data-translationKey="optionalProducts_PageTitle"></span>
+		</center>
+		<br>
+		
+		<center>
+			<div id="personalData2_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell colspan="4"">
+	                        <span data-translationKey="optionalProducts_CreditProtector"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <select name="flipCreditProtector" id="flipCreditProtector" data-role="slider">
+								<option value="N" selected>No</option>
+								<option value="Y">Yes</option>
+							</select> 
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		
+		<br>
+		
+		<ul>
+			<li><span data-translationKey="optionalProducts_License1"></span></li>
+			<br>
+			<br>
+			<li><span data-translationKey="optionalProducts_License2"></span></li>
+		</ul>
+		
+		
+		<br>
+		
+		<div id="creditProtectorYesOption">
+		
+		<hr>
+		<p>
+			<span class="TandC_Title_Format" data-translationKey="optionalProducts_TermsAndConditionsTitle" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions1" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions2" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions3" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions4" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions5" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions6" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions7" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions8" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions9" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions10" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions11" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions12" />
+		</p>
+		
+		<p>
+			<span class="TandC_Content_Format" data-translationKey="optionalProducts_TermsAndConditions13" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions14" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions15" />
+		</p>
+		
+		<p>
+			<input id="optionalProducts_AcceptConditions" type="checkbox">
+			<span data-translationKey="optionalProducts_TermsAndConditions16" />
+		</p>
+		
+		<hr>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions17" />
+			<span id="optionalProducts_DateNow" />
+		</p>
+		
+		<p>
+			<span data-translationKey="optionalProducts_TermsAndConditions18" />
+		</p>
+		</div>
+		
+		<br>
+		
+		<center>
+            <span id="optionalProducts_ProceedButton" class="button greenflat applyButtonWidth">
+            	<span class="buttonText" data-translationKey="optionalProducts_Proceed"></span>
+			</span>
+        </center>
+        
+		<br>
+		
+	</div>
+</script>
+<script id="WICIPersonalDataScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="PersonalDataScreen_PageContents">
+		<br>
+		<br>
+		<center>
+		<span id="P1ClickHere" class="pageTitle" data-translationKey="personalData_TellUsAboutYourself"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="personalData_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData_PlaceOfIssue"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" type="text"/-->
+	                        <select class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_IDType"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <!--input class="fieldValuesTextField" id="personalData_IDType_TextField" type="text"/-->
+							<select class="fieldValuesTextField" id="personalData_IDType_TextField" type="text">
+							</select>
+
+	                    </td>
+	                </tr>
+	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_IDNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_IDNumber_TextField" type="text" maxlength="20"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+		<!--
+	personalData_Title									: 	"Title:",
+	personalData_MR										:	"MR",
+	personalData_MRS									:	"MRS",
+	personalData_MISS									:	"MISS",
+	personalData_MS										:	"MS",
+	personalData_DR										:	"DR",
+		//-->
+		
+	
+		<!-- center>
+			<div id="personalData_TitleArea" >
+	            <table id="titleTable" class="stretchThisTable">
+					<span id="ClickHere" class="pageTitle" data-translationKey="personalData_Title"></span>	                        	            	
+	                <tr >
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MR"></span>
+							<input type="radio" name="personalData_title" value="MR" >
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MRS"></span>
+							<input type="radio" name="personalData_title" value="MRS" >
+	                    </td>
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MISS"></span>
+							<input type="radio" name="personalData_title" value="MISS" >
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_MS"></span>
+							<input type="radio" name="personalData_title" value="MS" >	                       
+	                    </td>
+	                    <td >		
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_DR"></span>
+							<input type="radio" name="personalData_title" value="DR" >
+	                    </td>
+	                </tr>
+	            </table>
+			</div>			
+		</center -->
+	
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData_Title_Group">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData_Title"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>					
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData_MR_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MR"></span>
+								</span>
+							</a>
+							<a id="personalData_MRS_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MRS"></span>
+								</span>
+							</a>
+							<a id="personalData_MISS_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MISS"></span>
+								</span>
+							</a>
+							<a id="personalData_MS_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_MS"></span>
+								</span>
+							</a>		
+						</fieldset >
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+
+		<br>
+		<center>
+			<div id="personalData_PersonalInfoArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData_FirstName"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_Initial"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" maxlength="1"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_LastName"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_DatOfBirth"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_DatOfBirth_TextField" type="date"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_EmailAddress"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_HomePhone"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_CellPhone"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<!--
+	personalData_Correspondence							:	"Correspondence:",
+	personalData_English								:	"English:",
+	personalData_French									:	"French:",		
+		//-->
+		<!-- center>
+			<div id="personalData_TitleArea" >
+	            <table id="titleTable" class="stretchThisTable">
+					<span id="ClickHere" class="pageTitle" data-translationKey="personalData_Correspondence"></span>
+	                <tr >
+	                    <td >
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_English"></span>
+							<input type="radio" name="personalData_correspondence" value="E" >
+	                    </td>
+	                    <td >				
+							<span id="ClickHere" class="pageTitle" data-translationKey="personalData_French"></span>
+							<input type="radio" name="personalData_correspondence" value="F" >
+	                    </td>
+	                </tr>
+	            </table>
+			</div>			
+		</center -->
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData_Correspondence_Group">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData_Correspondence"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData_English_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_English"></span>
+								</span>
+							</a>
+	
+							<a id="personalData_French_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData_French"></span>
+								</span>
+							</a>		
+						</fieldset >
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+		<br>
+	</div>
+</script>
+<script id="WICIPersonalDataScreen2-template" type="text/x-jquery-tmpl">	
+	
+	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+		
+	<div class="ScreenLayout" id="PersonalDataScreen2_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="P2ClickHere" class="pageTitle" data-translationKey="personalData2_AddressInformation"></span>
+		</center>
+		<br>
+		<br>
+		<!--
+	personalData2_AddressInformation					:	"ADDRESS INFORMATION",
+	personalData2_Address_PostalCode					:	"Postal Code",
+	personalData2_Address_StreetNumber					:	"Street Number",
+	personalData2_Address_Button_Label					:	"ADDRESS LOOKUP",
+		
+		//-->
+		<center>
+			<div id="personalData2_AddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_PostalCode_TextField" type="text" maxlength="6" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_StreetNumber_TextField" type="text" maxlength="5" />
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_AddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText" data-translationKey="personalData2_Address_Button_Label"></span>
+		</span>	
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+		<!--
+	personalData2_Address_AddressLine1					:	"Address Line 1",	
+	personalData2_Address_AddressLine2					:	"Address Line 2",
+	personalData2_Address_SuiteUnit						:	"Suite/Unit",
+	personalData2_Address_City							:	"City*",
+	personalData2_Address_Province						:	"Province*",
+		//-->
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine1_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_Address_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine1_SelectField" >
+								</select>
+							</div>													
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_AddressLine2_TextField" type="text" maxlength="40" />
+							<div id="addressLookup_Address_AddressLine2_MultipleControl" class="addressLookup_DropDownItemsControl">								
+								<span data-translationKey="addressLookup_multipleItemsExist"></span>
+	                        	<select class="fieldValuesSelectField" id="personalData2_Address_AddressLine2_SelectField" >
+								</select>
+							</div>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_SuiteUnit_TextField" type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_Address_City_TextField" type="text" maxlength="24"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_Address_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_Address_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_Address_Province_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<!--
+		
+	
+	personalData2_Address_ResidenceType					:	"ResidenceType:",
+	personalData2_Address_Own							:	"Own",
+	personalData2_Address_Rent							:	"Rent",
+	personalData2_Address_Parents						:	"With Parents",
+	personalData2_Address_Other							:	"Other",
+		//-->
+
+	<center>
+		<table class="regularTable stretchThisTable" id="personalData2_ResidenceTypeArea">
+			<tr>
+				<td>
+					<span class="fieldLabelsTitle" data-translationKey="personalData2_Address_ResidenceType"></span>					
+				</td>
+			</tr>			
+			<tr>
+				<td>
+					<center>
+						<fieldset  id="personalData2_Address_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+							<a id="personalData2_Address_Own_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Own"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Rent_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Rent"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Parents_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Parents"></span>
+								</span>
+							</a>
+							<a id="personalData2_Address_Other_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+								<span class="ui-btn-inner" aria-hidden="true">
+									<span class="ui-btn-text" data-translationKey="personalData2_Address_Other"></span>
+								</span>
+							</a>		
+						</fieldset>
+					</center>			
+				</td>
+			</tr>
+		</table>
+	</center>
+	<br>
+		<!--
+	personalData2_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
+	personalData2_Address_Duration						:	"Duration at Current Address",			
+		//-->
+		<center>
+			<div id="personalData2_HouseArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell">
+	                        <span data-translationKey="personalData2_Address_MonthlyPayment"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData2_Address_MonthlyPayment_TextField" type="text" maxlength="4" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell">
+	                        <span data-translationKey="personalData2_Address_Duration"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                    	<table class="durationControlTable">
+							   	<tr >
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<div data-role="fieldcontain">
+							   				<input type="number" name="slider" id="personalData2_Address_Duration_years_TextField" value="0" min="0" max="100"  />
+							   			</div>
+							   		</td>
+							   	</tr>
+							   	
+							   	<tr>
+							   		<td class="fieldLabelsCell25">
+							   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+							   		</td>
+							   		
+							   		<td>
+							   			<input type="number" name="slider" id="personalData2_Address_Duration_months_TextField" value="0" min="0" max="11"  />
+							   		</td>
+							   	</tr>
+							</table>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+<div id='personalData2_PreviousAddressArea' > <!-- luk: div is used to show/hide all prevAddress section -->		
+		<hr>
+		<br>
+		<br>
+
+<!--
+		
+	personalData2_PreviousAddress_Title					:	"Previous Address",
+	personalData2_PreviousAddress_Description			:	"Only required if less than 2 years at current address",
+//-->
+
+		<center>
+			<span class="pageTitle" data-translationKey="personalData2_PreviousAddress_Title"></span>
+			<span class="pageTitle" data-translationKey="personalData2_PreviousAddress_Description"></span>
+		</center>
+		<br>
+<!--	
+	personalData2_PreviousAddress_PostalCode			:	"Postal Code",	
+	personalData2_PreviousAddress_StreetNumber			:	"Street Number",	
+	personalData2_PreviousAddress_Button_Label			:	"ADDRESS LOOKUP",
+//-->
+
+		<center>
+			<div id="personalData2_PreviousAddressLookupArea" >
+	            <table id="addressLookupTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_PostalCode_TextField" type="text" maxlength="6"/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_StreetNumber"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_StreetNumber_TextField" type="text" maxlength="5"/>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+        <span id="personalData2_PreviousAddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
+        	<span class="buttonText" data-translationKey="personalData2_PreviousAddress_Button_Label"></span>
+		</span>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+<!--		
+	personalData2_PreviousAddress_AddressLine1			:	"Address Line 1",	
+	personalData2_PreviousAddress_AddressLine2			:	"Address Line 2",
+	personalData2_PreviousAddress_SuiteUnit				:	"Suite/Unit",
+	personalData2_PreviousAddress_City					:	"City*",
+	personalData2_PreviousAddress_Province				:	"Province*"	
+//-->		
+		<center>
+			<div id="personalData2_AddressArea" >
+	            <table id="personalInfoTable" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine1_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_PreviousAddress_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesTextField" id="personalData2_PreviousAddress_AddressLine1_SelectField" >
+								</select>							
+							</div>								
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_AddressLine2_TextField" type="text" maxlength="40" />
+	                        <div id="addressLookup_PreviousAddress_AddressLine2_MultipleControl"  class="addressLookup_DropDownItemsControl">
+	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
+		                        <select class="fieldValuesTextField" id="personalData2_PreviousAddress_AddressLine2_SelectField" >
+								</select>
+							</div>															
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_SuiteUnit_TextField" type="text" maxlength="5" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData2_PreviousAddress_City_TextField" type="text" maxlength="24" />
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <!-- input class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" type="text"/ -->
+							<select class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" >
+							</select>
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+</div>		
+	</div>
+</script>
+<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl">
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="SignatureScreen_PageContents">	
+		<br>
+		<br>				
+		<center>
+			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
+		</center>		
+		<br>		
+		<p><span class="signatureScreenText" data-translationKey="signatureScreen_Header"/></p>
+		<br>
+		<ul>
+			<li><span class="signatureScreenText" data-translationKey="signatureScreen_License1"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText" data-translationKey="signatureScreen_License2"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText"  data-translationKey="signatureScreen_License3"/></li>
+			<br>
+			<br>
+			<li><span  class="signatureScreenText" data-translationKey="signatureScreen_License4"/></li>
+			<br>
+			<br>
+			<li><span class="signatureScreenText"  data-translationKey="signatureScreen_License5"/></li>	
+		</ul>
+		<br>		
+		<br>
+		<center>
+			<div class="signatureContainer" >
+				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">				
+					<div class="signature" id="signature"/>															
+				</div>
+				<br>
+				<span id="signature_Reset_Button" class="button grayflat proceedButtonWidth">
+            		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+				</span>				 				
+			</div>
+		</center>
+		<br>		
+		<label id="signatureScreen_UserName" class="signatureScreenText">Alex Smith</label>		
+		<br>
+		<p>
+			<p class="signatureScreenText">Date: <label id="signatureScreen_SignDate"></p>
+		</p>		
+		<br>
+		<p>
+
+		<div data-role="fieldcontain" id="signatureScreen_AgreementBoxContainer">
+ 			<fieldset data-role="controlgroup">		
+				<input type="checkbox" id="signatureScreen_AcceptAgreement" data-mini="true"/>		
+				<label for="signatureScreen_AcceptAgreement" class="signatureScreenText" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"/>	
+    		</fieldset>
+		</div>	
+		</p>
+		<br>
+
+		<!--<br>
+		<br>
+		<center>
+            <span id="signatureScreen_ProceedButton" class="button grayflat proceedButtonWidth">
+            	<span class="buttonText" data-translationKey="signatureScreen_Proceed_Button_Label"></span>
+			</span>
+        </center>
+		<br>-->
+	</div>		
+</script>
+<script id="WICISupCardScreen-template" type="text/x-jquery-tmpl">	
+	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="ScreenLayout" id="SupCardScreen_PageContents">
+		<br>		
+		<br>		
+		<center>
+		<span id="SupCardClickHere" class="pageTitle" data-translationKey="supCardRequest_PageTitle"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="SupCardRequest_TitleAreaYesNO" >
+	            <table id="titleTable" class="stretchThisTable" >
+	                <tr >
+	                    <td class="fieldLabelsCell" colspan="4">
+	                        <span data-translationKey="supCardRequest_WouldYouLikeACard"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <select name="flipSupplementaryCard" id="flipSupplementaryCard" data-role="slider">
+								<option value="N">No</option>
+								<option value="Y">Yes</option>
+							</select> 
+	                    </td>
+	                    
+	                </tr>
+	            </table>
+			</div>
+		</center>
+	<br>
+	<br>
+	<div id="supCardDetailsPanel" >
+		<center>
+				<table class="regularTable stretchThisTable">
+					<tr>
+						<td>
+							<span class="fieldLabelsTitle" data-translationKey="supCardRequest_ForWhom"></span>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<fieldset  id="supCardRequestType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+									<a id="supCardRequest_Spouse_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_Spouse"></span>
+										</span>
+									</a>
+									<a id="supCardRequest_ChildDependant_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_ChildDependant"></span>
+										</span>
+									</a>
+									<a id="supCardRequest_Other_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+										<span class="ui-btn-inner" aria-hidden="true">
+											<span class="ui-btn-text" data-translationKey="supCardRequest_Other"></span>
+										</span>
+									</a>
+								</fieldset>
+							</center>			
+						</td>
+					</tr>
+				</table>
+			</center>
+			<br>
+			<br>	 
+			<center>
+				<div id="SupCard_PersonalDetailsArea" >
+		            <table class="stretchThisTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell">
+		                        <span data-translationKey="supCardRequest_FirstName"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_FirstName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_Initial"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_Initial_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_LastName"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="supCardRequest_LastName_TextField" type="text"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_DateOfBirth"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField" id="supCardRequest_DateOfBirth_TextField" type="date"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell">
+		                        <span data-translationKey="supCardRequest_Telephone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="supCardRequest_Telephone_TextField" type='tel' maxlength="10"/>
+		                    </td>
+		                </tr>
+		            </table>
+				</div>
+			</center>
+			<br>		
+			<br>
+			<br>
+			<center>
+		            <table id="titleTable" class="stretchThisTable">
+		                <tr >
+		                    <td class="fieldLabelsCell" colspan="6">
+		                        <span data-translationKey="supCardRequest_SameAddyPrimaryApplicant"></span>
+		                    </td>
+		                    <td class="fieldValuesCellFlip">
+		                        <select name="flipSameAddress" id="flipSameAddress" data-role="slider">
+									<option value="N">No</option>
+									<option value="Y" selected>Yes</span></option>
+									
+								</select> 
+		                    </td>
+		                </tr>
+		            </table>
+			</center>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div id="supAddressPanel" >
+			<center>
+		            <table id="addressTable" class="stretchThisTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_PostalCode"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_PostalCode" type="text" maxlength="6"/>
+		                    </td>
+	                	</tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                    	<input class="fieldValuesTextField upperCaseField" id="sup_AddressLine1_TextField" type="text" maxlength="40"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine2_TextField" type="text" maxlength="40"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_SuiteUnit_TextField" type="text" maxlength="5"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="sup_City_TextField" type="text" maxlength="24"/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsBottomCell fieldCellSize33">
+		                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+		                    </td>
+		                    <td class="fieldValuesBottomCell">
+								<select class="fieldValuesTextField" id="sup_Province_TextField" >
+								</select>
+		                    </td>
+		                </tr>
+		            </table>
+			</center>
+		</div>
+		<br>
+		<br>
+		<br>
+	</div>	
+</script>		
+        <title>WICIWebApp</title>
+    </head>
+    <body topmargin="0" leftmargin="0">
+        <div data-role="page" id="WICIWebAppMainPage">
+		<!--<div id="WICIWebAppMainPage">//-->
+        	<!-- Loading Icon -->
+			
+			<div id="loadingIconBackgroundPane" style="display:none">
+				<div id="loadingIconPane">
+		    		<h2>
+		    			<span data-translationKey="app_loading">Loading...</span>
+		    		</h2>
+			       	<span id="loadingIcon"></span>
+		       	</div>
+			</div>
+            
+            <!-- Login Screen -->
+            <section id="WICILoginScreen" class="wiciLoginPage" style="display:none">			
+            </section>
+            
+            <!-- Credit Card Selection Screen -->
+            <section id="ChooseProductScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>			
+						
+			<!-- Personal Data Screen -->
+            <section id="PersonalDataScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+			<!-- Personal Data Screen 2 -->
+            <section id="PersonalDataScreen2" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Financial And Employment Screen -->
+            <section id="FinancialScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Supplementary Card Request Screen -->
+            <section id="SupplementaryCardRequestScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Signature Screen -->
+            <section id="SignatureScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Optional Products Screen -->
+            <section id="OptionalProductsScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Confirmation Screen -->
+            <section id="ConfirmationScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+            <!-- Status Screen -->
+            <section id="StatusScreen" class="wiciWhiteBackgroundPage" style="display:none">
+            </section>
+
+			<script>							
+                $(document).ready(function(){
+                    app = new WICI.WICIWebApp();
+                    app.init();
+                });
+			</script>
+
+        </div>
+    </body>
+</html>

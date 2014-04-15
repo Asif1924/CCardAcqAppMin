@@ -1,0 +1,299 @@
+<html>
+<head>
+<title>BRB Simulated ECom Site</title>
+
+<link rel="stylesheet" type="text/css"
+	href="css/blitzer/jquery-ui-1.10.3.custom.css" />
+
+<style type="text/css">
+input {
+	width: 250px;
+	height: 30px;
+	margin-left: 20px;
+}
+
+select {
+	width: 250px;
+	height: 30px;
+	margin-left: 20px;
+}
+</style>
+
+<script type="text/javascript" src="script/lib/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="script/namespaceExists.js"></script>
+<script type="text/javascript" src="script/connectionDetails.js"></script>
+<script type="text/javascript"
+	src="script/lib/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="script/lib/sprintf.js"></script>
+
+<script type="text/javascript">
+	var ie = (function(v, div, undef) {
+		while (
+				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]>-->',
+				div.getElementsByTagName('i')[0]
+				)
+
+			var res = v > 4 ? v : undef;
+			return res;
+	}(3, document.createElement('div'), undefined));
+
+	$(function() {
+    	$( "#dialog" ).dialog({
+      	modal: true,
+      	autoOpen: false,
+      	buttons: {
+       	 Ok: function() {
+       		 $("#erorMsg").text('');
+       	  	 $( this ).dialog( "close" );
+       	 }
+      	}
+   	 });
+  	});
+
+	$( document ).ready(function() {
+		$.support.cors = true;
+		$("#selectId").change(function(){
+			if($(this).val() == "NS"){
+				$("#loyaltyId").show();
+				$("#loyaltyProgram").show();
+			} else {
+				// Reset values
+				$('input[name="loyalty_program"]').val('');
+				$('input[name="loyalty_number"]').val('');
+				// Hide area
+				$("#loyaltyId").hide();
+				$("#loyaltyProgram").hide();
+			}
+		});
+    });
+
+	function showDialog (message){
+		 $("#erorMsg").text(message);
+		 $( "#dialog" ).dialog( "open" );
+	};
+
+	function logMsg (message) {
+		if (typeof console !== "undefined" && typeof console.log !== "undefined") {
+			console.log(message);
+		}
+	};
+
+	function startBRBWeb() {
+		if (!validateRequiredFileds ()) {
+			showDialog('Some of the parameters (Requesting System, Email, ProfileId) are not correct or empty!');
+			return;
+		}
+
+		var symbol = "MSFT";
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", BRB.middlewareBrokerPersistWSPath, true);
+		xmlhttp.onreadystatechange=function() {
+		 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		  logMsg('Response: \n' + xmlhttp.responseText);
+
+		  var xmlDoc;
+
+	 	   // Apply needed logic for IE <= 8
+		   if (ie < 9) {
+			 xmlDoc = $.parseXML(xmlhttp.responseText);
+		   }
+		   else {
+			 xmlDoc = xmlhttp.responseText;
+		   }
+
+		  // Parse response
+		  var statusCode = $(xmlDoc).find("soapenv\\:Body").find("response").find("passFail").text();
+
+    	  // Check response status
+    	  if (statusCode == 'P') {
+    	  	var transactionId = $(xmlDoc).find("soapenv\\:Body").find("response").find("brbTransId").text();
+
+    	  	// Get selected language
+    	  	var lang = $('select[name="language"]').val();
+
+    	  	// Log data
+    	  	logMsg('Transaction ID is ' + transactionId);
+    	  	logMsg('Language is ' + lang);
+
+		 	// Open BRBWeb project in new window
+		  	window.open(BRB.webAppFullPath.format(transactionId, lang));
+		  }
+		  else {
+		  	var errorMessage = $(xmlDoc).find("soapenv\\:Body").find("response").find("errorMessage").text();
+		  	showDialog(errorMessage);
+		  }
+		 }
+		 else if (xmlhttp.status == 0 || xmlhttp.status == 404) {
+			 showDialog("Could not connect to the server. Please try again later.");
+		 } else if (xmlhttp.status == 500) {
+			 showDialog("Internal server or validation error. Please check input data and try again!");
+		 }
+		}
+		xmlhttp.setRequestHeader("Content-Type", "text/xml");
+		var xml = '<?xml version="1.0" encoding="utf-8"?>' +
+		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:per="http://persistservice.BRB.ctfs.com/">' +
+		   '<soapenv:Header/>' +
+		   '<soapenv:Body>' +
+			   '<per:request>' +
+		         '<per:requestingSystem>' + $('select[name="requestingSystem"]').val() + '</per:requestingSystem>' +
+		         '<per:customerInfo>' +
+		            '<per:ecommCustomerId>' + $('input[name="profileId"]').val() + '</per:ecommCustomerId>' +
+		            '<per:email>' + $('input[name="email"]').val() + '</per:email>' +
+		            (isNotRequiredFieldValid($('input[name="firstName"]').val()) ? '<per:firstName>' + $('input[name="firstName"]').val() + '</per:firstName>' : '') +
+		            (isNotRequiredFieldValid($('input[name="lastName"]').val()) ? '<per:lastName>' + $('input[name="lastName"]').val() + '</per:lastName>' : '') +
+		            (isNotRequiredFieldValid($('input[name="phoneNumber"]').val()) ?  '<per:phone>' + $('input[name="phoneNumber"]').val() + '</per:phone>' : '') +
+		            createAddressDetails() +
+		            createLoyaltyDetails() +
+		         '</per:customerInfo>' +
+		      '</per:request>' +
+		    '</soapenv:Body>' +
+		'</soapenv:Envelope>';
+
+		logMsg('Request: \n' + xml);
+
+		// send request
+		xmlhttp.send(xml);
+	};
+	function createAddressDetails(){
+		var reStr = '';
+		if($('input[name="addressLine1"]').val() != null && $('input[name="city"]').val() != null
+				&& $('select[name="province"]').val() != null && $('input[name="postalCode"]').val() != null){
+			reStr = '<per:addressDetails>'+
+			'<per:addressLine1>' + $('input[name="addressLine1"]').val() + '</per:addressLine1>' +
+			(isNotRequiredFieldValid($('input[name="addressLine2"]').val()) ? '<per:addressLine2>' + $('input[name="addressLine2"]').val() + '</per:addressLine2>' : '') +
+			'<per:city>' + $('input[name="city"]').val() + '</per:city>'  +
+			'<per:province>' + $('select[name="province"]').val() + '</per:province>' +
+			'<per:postalCode>' + $('input[name="postalCode"]').val() + '</per:postalCode>' +
+			'</per:addressDetails>';
+		}
+		return reStr;
+	}
+	function createLoyaltyDetails(){
+		var strRes = '';
+		var $loyProgram = $('input[name="loyalty_program"]').val();
+		var $loyNumber = $('input[name="loyalty_number"]').val();
+		if(isNotRequiredFieldValid($loyProgram) && isNotRequiredFieldValid($loyNumber))
+			{
+			strRes = '<per:loyaltyDetails>' +
+			'<per:loyaltyProgram>' + $('input[name="loyalty_program"]').val() + '</per:loyaltyProgram>' +
+			'<per:loyaltyNumber>' + $('input[name="loyalty_number"]').val() + '</per:loyaltyNumber>' +
+			'</per:loyaltyDetails>';
+		}
+		return strRes;
+	}
+
+	function validateRequiredFileds() {
+		var requestingSystem = $('select[name="requestingSystem"]').val();
+		var email = $('input[name="email"]').val();
+		var profileId = $('input[name="profileId"]').val();
+
+		return 	(email != null && email.length > 0) &&
+				(profileId != null && profileId.length > 0)	&&
+				(requestingSystem != null && requestingSystem.length > 0);
+	};
+
+	function isNotRequiredFieldValid (fieldValue) {
+		return fieldValue != null && fieldValue.length > 0;
+	};
+</script>
+</head>
+<body>
+	<center>
+		<h2>BRB Simulated E-Comm Site</h2>
+	</center>
+	<br>
+	<form name="Demo" action="" method="post" style="margin-left: 30px;">
+		<table>
+			<tr>
+				<td>Requesting System:</td>
+				<td><select name="requestingSystem">
+						<option value="">Please select requesting system...</option>
+						<option value="CTRONLINE">CTRONLINE</option>
+						<option value="CTRONLINEUAT2">CTRONLINEUAT2</option>
+						<option value="BRBSIM">BRBSIM</option>
+						<option value="CTCECOMM">CTCECOMM</option>
+						<option value="NOT_EXIST_SYSTEM">NOT_EXIST_SYSTEM</option>
+				</select> <br></td>
+			</tr>
+			<tr>
+				<td>Profile ID:</td>
+				<td><input type="text" name="profileId" maxlength="36" value="e3edc4d3-3314-4927-8d0d-2974a132f589"><br></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" name="email" maxlength="60"><br></td>
+			</tr>
+			<tr>
+				<td>First Name:</td>
+				<td><input type="text" name="firstName" maxlength="50"><br></td>
+			</tr>
+			<tr>
+				<td>Last Name:</td>
+				<td><input type="text" name="lastName" maxlength="50"><br></td>
+			</tr>
+			<tr>
+				<td>AddressLine1:</td>
+				<td><input type="text" name="addressLine1" maxlength="50"><br></td>
+			</tr>
+			<tr>
+				<td>AddressLine2:</td>
+				<td><input type="text" name="addressLine2" maxlength="50"><br></td>
+			</tr>
+			<tr>
+				<td>City:</td>
+				<td><input type="text" name="city" maxlength="24"><br></td>
+			</tr>
+			<tr>
+				<td>Postal Code:</td>
+				<td><input type="text" name="postalCode" maxlength="7"><br></td>
+			</tr>
+			<tr>
+				<td>Phone Number:</td>
+				<td><input type="text" name="phoneNumber" maxlength="20"><br></td>
+			</tr>
+			<tr>
+				<td>Province:</td>
+				<td><select id="selectId" name="province">
+						<option value="">Please select province...</option>
+						<option value="AB">AB</option>
+						<option value="BC">BC</option>
+						<option value="MB">MB</option>
+						<option value="NB">NB</option>
+						<option value="NL">NL</option>
+						<option value="NT">NT</option>
+						<option value="NS">NS</option>
+						<option value="NU">NU</option>
+						<option value="ON">ON</option>
+						<option value="PE">PE</option>
+						<option value="QC">QC</option>
+						<option value="SK">SK</option>
+						<option value="YT">YT</option>
+				</select> <br></td>
+			</tr>
+			<tr style="display: none" id="loyaltyId">
+				<td>Loyalty Number:</td>
+				<td><input type="text" name="loyalty_number" maxlength="10"><br></td>
+			</tr>
+			<tr style="display: none" id="loyaltyProgram">
+				<td>Loyalty Program:</td>
+				<td><input type="text" name="loyalty_program"><br></td>
+			</tr>
+			<tr>
+				<td>Language:</td>
+				<td><select name="language">
+						<option value="en">English</option>
+						<option value="fr">Francais</option>
+				</select></td>
+			</tr>
+		</table>
+		<br> <br>
+		<div>
+			<input type="button" value="Launch Application"
+				onclick="startBRBWeb();" />
+		</div>
+	</form>
+	<div id="dialog" title="Launch Application Failed">
+		<span id="erorMsg"></span>
+	</div>
+</body>
+</html>

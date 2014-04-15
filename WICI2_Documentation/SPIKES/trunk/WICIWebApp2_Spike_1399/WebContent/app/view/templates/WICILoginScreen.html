@@ -1,0 +1,81 @@
+<script id="WICILoginScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="loginScreen_PageContents">
+        <br>
+                        <div class="flipAlignRight">
+		                        <select id="language_choser" data-role="slider">
+									<option value="E" selected>En</option>
+									<option value="F">Fr</option>
+								</select> 
+							</div>
+        <br>
+        <br>
+        <center>
+			<div id="CTFSLogo" class="Login_CanadianTireLogo"></div>
+        </center>       
+        <center>
+			<div id="UPCBarcode" class="Login_UPC_Barcode">
+				<canvas id="canvas" width=1 height=1 style="border:1px solid #fff;visibility:hidden"></canvas>
+			</div>
+        </center>
+                
+		<div id="loginScreen_FieldsArea">
+			<center>
+				<div class="wrapLoginTable"> 
+	            <table id="loginFieldsTable" class="loginTableWidth">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldSize55">
+	                        <!--<span data-translationKey="loginScreen_UserID_Label"></span>//-->
+							<span data-translationKey="loginScreen_EmployerID_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <!--<input class="fieldValuesTextField upperCaseField" id="userIDTextField" type="text" maxlength="20" tabindex=1/>//-->
+							<input class="fieldValuesTextField upperCaseField" id="employerIDTextField" type="text" maxlength="1" tabindex=1/>
+	                    </td>
+	                </tr>
+					<!--
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldSize55">
+	                        <span data-translationKey="loginScreen_Password_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField passwordField" id="passwordTextField" type="password"
+	                        	autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex=2/>
+	                    </td>
+	                </tr>
+					//-->
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldSize55">
+	                        <span data-translationKey="loginScreen_Location_Number"></span>
+	                    </td>
+	                    <td class="fieldValuesCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField" type="tel" maxlength="4" tabindex=3/>
+	                    </td>
+	                </tr>
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldSize55">
+	                        <span data-translationKey="loginScreen_AgentID_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="agentIDTextField" type="text" maxlength="20" tabindex=4/>
+	                    </td>
+	                </tr>
+	            </table>
+				</div>
+	        </center>
+	        <br>
+	        <br>
+			<br>
+	        <center>
+	            <span id="loginScreen_LoginButton" class="button greenflat loginButtonWidth">
+	            	<span class="buttonText" data-translationKey="loginScreen_Button_Label"></span>
+				</span>
+				<br>
+	        </center>
+    	</div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</script>

@@ -1,0 +1,76 @@
+--Tokenization Request
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"> 
+<soapenv:Body>
+	<transactRequest xmlns="http://ctfs.com/esocketTransactIo/">
+	<id>A07E7916-89BF-4AAE-AED7-380E879C891D</id>
+	<transaction>
+	<messageType>0600</messageType>
+	<messageFields>
+	<processingCode>
+	<fromAccountType>00</fromAccountType>
+	<toAccountType>00</toAccountType>
+	<transactionType>91</transactionType>
+	</processingCode>
+	<expiryDate>9912</expiryDate>
+	<structuredData>
+	<entry>
+	<name>ReferenceTransactionInfo</name>
+	<data>
+	&lt;?xml version="1.0" encoding="utf-8"?&gt;
+	&lt;ReferenceTransactionInfo&gt;
+	&lt;Request&gt;
+	&lt;Channel&gt;WEBIC&lt;/Channel&gt;  // BRB channel
+	&lt;Lifespan&gt;48&lt;/Lifespan&gt; // hours alive
+	&lt;RemainingUses&gt;10&lt;/RemainingUses&gt;
+	&lt;/Request&gt;
+	&lt;/ReferenceTransactionInfo&gt;
+	</data>
+	</entry>
+	</structuredData>
+	<extendedTransactionType>9750</extendedTransactionType>
+	</messageFields>
+	<pciMessageFields>
+	<pan>6006274452532259</pan>  // decrypted PAN
+	</pciMessageFields>
+	</transaction>
+	<tokenRequired>Y</tokenRequired>
+	<agentIPAddress>192.168.247.79</agentIPAddress>
+	<hostSystem>WEBIC</hostSystem>
+	<hostSystemOperator>SYSTEM</hostSystemOperator>
+	</transactRequest> 
+    </soapenv:Body>
+
+
+--Tokenization Response
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Body>
+      <a:transactResponse xmlns:a="http://ctfs.com/esocketTransactIo/">
+         <a:id>A07E7916-89BF-4AAE-AED7-380E879C891D</a:id>
+         <a:transaction>
+            <a:messageType>0610</a:messageType>
+            <a:messageFields>
+               <a:processingCode>
+                  <a:fromAccountType>00</a:fromAccountType>
+                  <a:toAccountType>00</a:toAccountType>
+                  <a:transactionType>91</a:transactionType>
+               </a:processingCode>
+               <a:responseCode>00</a:responseCode>
+               <a:structuredData>
+                  <a:entry>
+                     <a:name>ReferenceTransactionInfo</a:name>
+                     <a:data><![CDATA[<?xml version="1.0" encoding="utf-8"?><ReferenceTransactionInfo><Response><ReferenceNumber>3166759754</ReferenceNumber><ReferenceExpiryDate>20130831102518</ReferenceExpiryDate><RemainingUses>10</RemainingUses></Response></ReferenceTransactionInfo>]]></a:data>
+                  </a:entry>
+               </a:structuredData>
+               <a:extendedTransactionType>9750</a:extendedTransactionType>
+               <a:pan>600627xxxxxx2259</a:pan>
+            </a:messageFields>
+         </a:transaction>
+         <a:passFail>P</a:passFail>
+         <a:responseCodes>0</a:responseCodes>
+      </a:transactResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

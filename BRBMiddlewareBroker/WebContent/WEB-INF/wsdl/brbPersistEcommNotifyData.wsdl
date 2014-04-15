@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://persistservice.BRB.ctfs.com/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://persistservice.BRB.ctfs.com/" >
+
+  <!-- 
+  We need a SOAP web service has a single operation for the time being "saveCustomerCardData",
+  this operation's only parameter is a cardRequest, and it will respond with a cardResponse
+  
+  See XSD for object definitions
+  
+  NOTE: All these namespaces are just placeholders, use whatever you need here.
+  -->
+
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://persistservice.BRB.ctfs.com/" schemaLocation="brbPersistEcommNotifyData.xsd"/>
+    </xsd:schema>
+  </types>
+
+  <message name="SaveCustomerBrbData">
+    <part name="SaveBrbRequest" element="tns:request" />
+  </message>
+
+  <message name="SaveCustomerBrbDataResponse">
+    <part name="SaveBrbResponse" element="tns:response"/>
+  </message>
+
+  <portType name="PersistServiceDelegate">
+    <operation name="SaveCustomerBrbData">
+      <input message="tns:SaveCustomerBrbData"/>
+      <output message="tns:SaveCustomerBrbDataResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="PersistServicePortBinding" type="tns:PersistServiceDelegate">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="SaveCustomerBrbData">
+      <soap:operation soapAction="http://persistservice.BRB.ctfs.com/"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PersistService">
+    <port binding="tns:PersistServicePortBinding" name="PersistServicePort">
+      <soap:address location="http://localhost:9080/BRBMiddlewareBroker/PersistService"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Date to be in future validation" errors="0" failures="0" tests="2" time="0.001">
+<testcase classname="Firefox_270_Windows.Validator - Date to be in future validation" name="test that it 2099 5 is a future date" time="0.0"/>
+<testcase classname="Firefox_270_Windows.Validator - Date to be in future validation" name="test that it 2012 5 is not a future date" time="0.001"/>
+</testsuite>

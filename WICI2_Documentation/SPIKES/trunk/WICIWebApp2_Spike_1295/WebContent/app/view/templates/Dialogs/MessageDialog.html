@@ -1,0 +1,42 @@
+<script id="messageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="${messageDialogId}">	
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c dialogFixes" role="main">
+		{{if _.isArray(message)}}
+			{{if itemizedList}}
+				<ol>
+			{{else}}
+				<ul class="multiInfoMessageContainer">
+			{{/if}}
+			    {{each(i, aMessage) message}}
+			        <li class="multiInfoMessage locationDetailsFont ${liClass}">{{html aMessage}}</li>
+				{{/each}}
+			{{if itemizedList}}
+				</ol>
+			{{else}}
+				</ul>
+			{{/if}}
+		{{else}}
+			<p>
+				<center>
+				<br>
+				<span class="locationDetailsFont">
+					{{html message}}
+				</span>
+				<br>
+				<br>
+				</center>
+			</p>
+		{{/if}}
+		<div class="dialogButtonContainer">
+			<a href="#" data-rel="back" id="messageDialogOkay" data-role="button" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+				<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+					<span class="ui-btn-text">${button}</span> 
+				</span> 
+			</a>
+		</div>
+	</div>
+</div>
+</script>

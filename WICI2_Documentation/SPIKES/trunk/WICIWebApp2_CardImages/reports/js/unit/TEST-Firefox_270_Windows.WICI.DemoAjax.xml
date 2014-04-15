@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.WICI.DemoAjax" errors="0" failures="0" tests="5" time="0.003">
+<testcase classname="Firefox_270_Windows.WICI.DemoAjax" name="test that it AJAXrequest Login" time="0.001"/>
+<testcase classname="Firefox_270_Windows.WICI.DemoAjax" name="test that it AJAXrequest IsAlive" time="0.0"/>
+<testcase classname="Firefox_270_Windows.WICI.DemoAjax" name="test that it AJAXrequest AddressLookup" time="0.001"/>
+<testcase classname="Firefox_270_Windows.WICI.DemoAjax" name="test that it AJAXrequest AccountApplication" time="0.001"/>
+<testcase classname="Firefox_270_Windows.WICI.DemoAjax" name="test that it AJAXrequest wrong service name passed" time="0.0"/>
+</testsuite>

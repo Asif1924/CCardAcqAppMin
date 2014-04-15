@@ -1,0 +1,54 @@
+--Token Request
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"> 
+        <soapenv:Body> 
+                <transactRequest xmlns="http://ctfs.com/esocketTransactIo/"> 
+                        <id>1226907</id> 
+                        <transaction> 
+                                <messageType>0600</messageType> 
+                                <messageFields> 
+                                        <processingCode> 
+                                                <fromAccountType>00</fromAccountType> 
+                                                <toAccountType>00</toAccountType> 
+                                                <transactionType>91</transactionType> 
+                                        </processingCode> 
+                                        <expiryDate>1606</expiryDate> 
+                                        <structuredData> 
+                                                <entry> 
+                                                        <name>ReferenceTransactionInfo</name> 
+                                                        <data> 
+                                                                &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+                                                                &lt;ReferenceTransactionInfo&gt; 
+                                                                &lt;Request&gt; 
+                                                                &lt;Channel&gt;WEBIC&lt;/Channel&gt; 
+                                                                &lt;ICCVCPromptDate&gt;20130828134000&lt;/ICCVCPromptDate&gt; 
+                                                                &lt;/Request&gt; 
+                                                                &lt;/ReferenceTransactionInfo&gt; </data> 
+                                                </entry> 
+                                        </structuredData> 
+                                        <extendedTransactionType>9750</extendedTransactionType> 
+                                </messageFields> 
+                                <pciMessageFields> 
+                                        <pan>5259******090886</pan> 
+                                </pciMessageFields> 
+                        </transaction> 
+                        <tokenRequired>Y</tokenRequired> 
+                        <agentIPAddress>***.**.**.**</agentIPAddress> 
+                        <hostSystem>WEBIC</hostSystem> 
+                        <hostSystemOperator>SYSTEM</hostSystemOperator> 
+                </transactRequest> 
+        </soapenv:Body> 
+</soapenv:Envelope> 
+
+
+--Token Response
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Body>
+      <a:transactResponse xmlns:a="http://ctfs.com/esocketTransactIo/">
+         <a:id>1226907</a:id>
+         <a:passFail>F</a:passFail>
+         <a:responseCodes>301</a:responseCodes>
+      </a:transactResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

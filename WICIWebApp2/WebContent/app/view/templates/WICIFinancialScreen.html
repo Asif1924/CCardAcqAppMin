@@ -1,0 +1,365 @@
+<script id="WICIFinancialScreen-template" type="text/x-jquery-tmpl">	
+	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
+		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
+<!--			<tr>
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>				
+				<td class="selectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+				</td>				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>				
+				<td class="unselectedBreadcrumbCell">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+-->
+			<tr>
+				<td class="selectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
+						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
+					</div>
+					<div class="breadcrumbTextDivFirst" >
+						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
+					</div>
+				</td>
+				<td class="selectedBreadcrumbCell">
+					<div class="visitedCrumbSeparator"/>
+				</td>
+				
+				<td class="selectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv">
+						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
+					</div>
+					<div class="breadcrumbTextDiv">
+						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
+					</div>
+				</td>
+				<td class="unselectedBreadcrumbCell">
+					<div class="visitedLeftCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="breadcrumbNumberDiv">
+						<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb rightalign">3.</span>
+					</div>
+					<div class="breadcrumbTextDiv">
+						<span class="BreadcrumbTextStyle unselectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
+					</div
+				</td>
+				
+				<td class="unselectedBreadcrumbCell">
+					<div class="notVisitedCrumbSeparator"/>
+				</td>
+				
+				<td class="unselectedBreadcrumbCell nowrap">
+					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="ScreenLayout" id="FEScreen_PageContents">
+		<br>
+		<br>		
+		<center>
+		<span id="FEClickHere" class="pageTitle" data-translationKey="finEmpInfo_PageTitle"></span>
+		</center>
+		<br>
+		<br>
+		<center>
+			<div id="FE_BankingProducts" >
+	            <table id="bankingProductsTable" class="stretchThisTable tableNoCellsBorder">
+	                <tr class="fieldRow">
+	                    <td class="fieldTableHeaderTopCell" colspan="4">
+	                        <span class="fieldLabelsTitle" data-translationKey="finEmpInfo_BankingProducts"></span>
+	                    </td>	                    
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipVISAMCAMEX" id="flipVISAMCAMEX" data-role="slider">
+									<option id="flipVISAMCAMEX_no" value="N" selected>No</option>
+									<option id="flipVISAMCAMEX_yes" value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_BankLoan"></span>
+	                    </td>	                    
+	                    <td class="fieldValuesCellFlip">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipBankLoan" id="flipBankLoan" data-role="slider">
+									<option id="flipBankLoan_no" value="N" selected>No</option>
+									<option id="flipBankLoan_yes" value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_StoreCard"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                    	<div class="flipAlignCenter">
+		                        <select name="flipStoreCard" id="flipStoreCard" data-role="slider">
+									<option id="flipStoreCard_no" value="N" selected>No</option>
+									<option id="flipStoreCard_yes" value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_ChequingAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldValuesCellFlip">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipChequingAcct" id="flipChequingAcct" data-role="slider">
+									<option id="flipChequingAcct_no" value="N" selected>No</option>
+									<option id="flipChequingAcct_yes" value="Y">Yes</option>
+								</select>
+							</div> 
+	                    </td>
+	                </tr>	                
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldLabelsCell25">
+	                        <span data-translationKey="finEmpInfo_GasCard"></span>
+	                    </td>
+	                    <td class="fieldValuesCellFlip">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipGasCard" id="flipGasCard" data-role="slider">
+									<option id="flipGasCard_no" value="N" selected>No</option>
+									<option id="flipGasCard_yes" value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>	                    
+	                    <td class="fieldLabelsCell fieldLabelsCell25">
+	                    	<span data-translationKey="finEmpInfo_SavingsAcct"></span>
+	                    </td>	                    
+	                    <td class="fieldValuesCellFlip">
+	                        <div class="flipAlignCenter">
+		                        <select name="flipSavingsAcct" id="flipSavingsAcct" data-role="slider">
+									<option id="flipSavingsAcct_no" value="N" selected>No</option>
+									<option id="flipSavingsAcct_yes" value="Y">Yes</option>
+								</select> 
+							</div>
+	                    </td>
+	                </tr>	                
+	            </table>
+			</div>
+		</center>		
+		<br>
+		<br>		
+		<center>
+			<table class="regularTableEx stretchThisTable tableNoCellsBorder" id="finEmpInfo_EmpType_Group">
+				<tr>
+					<td class="heightForRadioButtonLabelCell labelPadingLeft15">
+						<span class="fieldLabelsTitle" data-translationKey="finEmpInfo_EmpType"></span>						
+					</td>
+				</tr>
+				<tr class="sizeSelector">
+					<td>
+						<center>
+							<fieldset  id="finEmpInfo_EmploymentType_ResidenceType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+								<a id="finEmpInfo_EmploymentTypeFullTime_RadioButton" itemValue="F"  href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeFullTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypePartTime_RadioButton" itemValue="P" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypePartTime"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeSeasonal_RadioButton" itemValue="S" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeSeasonal"></span>
+									</span>
+								</a>
+								<a id="finEmpInfo_EmploymentTypeRetired_RadioButton" itemValue="R" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+									<span class="ui-btn-inner" aria-hidden="true">
+										<span class="ui-btn-text" data-translationKey="finEmpInfo_EmploymentTypeRetired"></span>
+									</span>
+								</a>		
+							</fieldset>
+						</center>			
+					</td>
+				</tr>
+			</table>
+		</center>	
+		<br>
+		<br>
+		<center>
+			<div id="FE_EmploymentArea" >
+	            <table id="FE_EmploymentArea_Table" class="stretchThisTable">
+	                <tbody id="FE_EmploymentArea1" >
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobTitle"></span>
+		                    </td>
+		                    <td class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_JobTitle_TextField" type="text" maxlength="10" tabindex=1/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobCategory"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" type="text"/> -->
+		                        <select class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" tabindex=2>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerName"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerName_TextField" type="text" maxlength="36" tabindex=3/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerCity"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_EmployerCity_TextField" type="text" maxlength="24" tabindex=4/>
+		                    </td>
+		                </tr>
+
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_EmployerPhone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="finEmpInfo_EmployerPhone_TextField" type='tel' maxlength="10" tabindex=5/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_HowLongCurrentEmployer"></span>
+		                    </td>
+<!-- ######################################## -->
+							<td>
+		                    	<div id="finEmpInfo_Duration">
+			                    	<table class="durationControlTable">
+									   	<tr>
+									   		<td class="fieldValuesCell>
+											<div>								
+			
+												<div id="durationControlDiv">
+													<table class="durationTableNoBorder">
+														<tr>
+															<td id="durationSpanSeparator" class="fieldValuesCell fieldCellSize5 durationSpanMinWidth">
+									   							<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+									   						</td>
+								   			
+								   							<td id="durationCellsSeparator" class="fieldValuesCell fieldCellSize50">
+									   							<div id="durationControlLeftPadding" class="numbers-row">
+		        													<input type="tel" class="durationInput" id="finEmpInfo_Years_Slider" min="0" max="100" tabindex=6>
+		      													</div>
+	      													</td>
+														</tr>	
+													</table>
+												</div>
+	
+												<div id="durationControlDiv">
+													<table class="durationTableNoBorder">
+														<tr>
+															<td class="fieldValuesCell fieldCellSize5 durationSpanMinWidth">
+									   							<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+									   						</td>
+	
+									   						<td id="durationCellsSeparatorPadding" class="fieldValuesCell fieldCellSize50">
+										   						<div id="durationControlLeftPadding" class="numbers-row" >
+		    	    												<input type="tel" class="durationInput" id="finEmpInfo_Months_Slider" min="0" max="11" tabindex=7>
+		      													</div>
+	      													</td>
+														</tr>	
+													</table>
+												</div>		
+										
+											</div>
+											</td>
+								   		</tr>								   	
+									</table>
+								</div>
+
+							</td>
+<!--
+		                    <td class="fieldValuesCell">
+		                    	<div id="finEmpInfo_Duration">	
+								   <table class="durationControlTable tableNoBorder">
+									   	<tr>
+									   		<td class="fieldValuesCell fieldCellSize5">
+									   			<span data-translationKey="personalData2_Address_DurationYears"></span>&emsp;
+									   		</td>
+									   		
+									   		<td class="fieldValuesCell fieldCellSize20 durationRightBorder">
+										   		<div class="numbers-row">
+			        								<input type="tel" class="durationInput" id="finEmpInfo_Years_Slider" min="0" max="100" tabindex=6>
+			      								</div>
+		      								</td>
+		      								
+		      								<td class="fieldValuesCell fieldCellSize5 durationYearCell">
+									   			<span data-translationKey="personalData2_Address_DurationMonths"></span>&emsp;
+									   		</td>
+									   		<td class="fieldValuesCell fieldCellSize20">
+										   		<div class="numbers-row" >
+			        								<input type="tel" class="durationInput" id="finEmpInfo_Months_Slider" min="0" max="11" tabindex=7>
+			      								</div>
+		      								</td>
+		      								<td class="fieldCellSize50">
+		      								</td>
+									   	</tr>
+								   </table>
+							   </div>
+		                    </td>
+-->
+
+		                </tr>
+		            </tbody>
+	                <tbody>
+		                <tr class="fieldRow">
+		                    <td id="finEmpInfo_GrossIncome_Lable" class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_GrossIncome"></span>
+		                    </td>
+		                    <td id="finEmpInfo_GrossIncome_Value" class="fieldValuesTopCell">
+		                        <input class="fieldValuesTextField" id="finEmpInfo_GrossIncome_TextField" type='tel' tabindex=8/>
+		                    </td>
+		                </tr>
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsBottomCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_SIN"></span>
+		                    </td>
+		                    <td class="fieldValuesBottomCell">
+		                        <input class="fieldValuesTextField" id="finEmpInfo_SIN_TextField" type='tel' tabindex=9/>
+		                    </td>
+		                </tr>
+	                </tbody>
+	            </table>
+			</div>
+		</center>
+		<br>
+		<br>
+		<br>
+		<br>
+	</div>	
+</script>		

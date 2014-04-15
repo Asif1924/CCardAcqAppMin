@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.channel.ctfs.ctc.com" xmlns:tns="http://www.channel.ctfs.ctc.com"
+	elementFormDefault="qualified">
+	<xsd:include schemaLocation="Validation_CommonTypes.xsd" />
+	<xsd:complexType name="WebICIdentityExamResponse">
+		<xsd:sequence>
+			<xsd:element name="identityExam" type="tns:IdentityExam"
+				minOccurs="1" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="id" type="tns:idType"></xsd:element>
+
+	<xsd:complexType name="IdentityExam">
+		<xsd:sequence>
+			<xsd:element ref="tns:id" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="sessionId" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="externalId" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="channel" type="xsd:string" maxOccurs="1"
+				minOccurs="1">
+			</xsd:element>
+			<xsd:element name="transactionId" type="xsd:string"
+				minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="score" type="xsd:decimal" minOccurs="1"
+				maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="result" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="decision" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="state" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="error" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Possible values:
+						"Service called wth invalid
+						channel argument" - indicates invalid request
+						parameters were used.
+
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="alerts" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded">
+			</xsd:element>
+			<xsd:element name="reports" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded">
+			</xsd:element>
+			<xsd:element name="earnPoints" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Points earned on this exam. Irrelevant to BRB.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="possiblePoints" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Points that could have been earned on this exam.
+						Irrelevant to BRB.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="questions" minOccurs="1" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="question" type="tns:question"
+							maxOccurs="unbounded"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="question">
+		<xsd:sequence>
+			<xsd:element name="id" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="text" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is the question text itself
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="answerId" minOccurs="0" maxOccurs="1"
+				type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is the ID of the answer the customer has
+						selected for
+						this question when presented. This element has a
+						minOccurs="1"
+						when being submitted for scoring. The answerID must
+						exist in the
+						List of answers being submitted for scoring.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="state" minOccurs="0" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						Possible values:
+						"un-scored" - indicates a
+						question has not been scored. The
+						value that should be returned
+						from retrieve identity exam call
+						and a score request that results
+						in a 4th question.
+						"scored" - indicates a question has been scored.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="maxTimeToAnswer" minOccurs="1" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is the maximum time for an applicant to
+						answer the given
+						question.
+						The business elects to enforce this rule
+						or not on presentation.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="timeToAnswer" type="xsd:int"
+				minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is the length of time in seconds it took an
+						applicant to answer
+						the given question. It is required for a
+						scoring submission.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="possibleAnswers">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="answer" type="tns:Answer"
+							minOccurs="3" maxOccurs="5"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="WebICScoreIdentityExamRequest">
+		<xsd:sequence>
+			<xsd:element name="identityExam" type="tns:IdentityExam"
+				minOccurs="1" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Answer">
+		<xsd:sequence>
+			<xsd:element name="text" type="xsd:string" maxOccurs="1"
+				minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						The answer text for this possible answer.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="id" type="tns:idType">
+
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="idType">
+		<xsd:restriction base="tns:integer"></xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="WebICIdentityExamRequest">
+		<xsd:sequence>
+			<xsd:element name="channel">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="WEBIC" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="language" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="en" />
+						<xsd:enumeration value="fr" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="firstName" minOccurs="1" maxOccurs="1"
+				type="tns:firstNameType">
+			</xsd:element>
+			<xsd:element name="middleName" minOccurs="0" maxOccurs="1"
+				type="tns:middleNameType">
+			</xsd:element>
+			<xsd:element name="lastName" type="tns:lastNameType">
+			</xsd:element>
+			<xsd:element name="driversLicense" minOccurs="0" maxOccurs="1" fixed="">
+			</xsd:element>
+			<xsd:element name="driversLicenseExpirationDate" minOccurs="0" maxOccurs="1" fixed="">
+			</xsd:element>
+			<xsd:element name="phoneNumber" type="tns:userPhoneNumberType">
+			</xsd:element>
+			<xsd:element name="dateOfBirth">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					<!-- ((19|20)[0-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) -->
+						<xsd:pattern value="(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)[0-9][0-9])"></xsd:pattern>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="address" type="tns:Address"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="integer">
+		<xsd:restriction base="xsd:int"></xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="Address">
+		<xsd:sequence>
+			<xsd:element name="addressLine1" type="tns:addressLineType">
+			</xsd:element>
+			<xsd:element name="addressLine2" maxOccurs="1" minOccurs="0"
+				type="tns:addressLine2Type">
+			</xsd:element>
+			<xsd:element name="addressLine3" fixed="" maxOccurs="1" minOccurs="0">
+
+			</xsd:element>
+			<xsd:element name="city" type="tns:cityType">
+			</xsd:element>
+			<xsd:element name="province" type="tns:addressProvinceType">
+
+			</xsd:element>
+			<xsd:element name="postalCode" type="tns:addressPostalCodeType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="WebICScoreIdentityExamRequest" type="tns:WebICScoreIdentityExamRequest"></xsd:element>
+	<xsd:element name="WebICIdentityExamRequest" type="tns:WebICIdentityExamRequest"></xsd:element>
+
+</xsd:schema>

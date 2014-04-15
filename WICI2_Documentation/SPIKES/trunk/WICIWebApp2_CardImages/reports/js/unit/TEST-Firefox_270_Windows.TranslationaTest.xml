@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Translation Test" errors="0" failures="0" tests="12" time="0.019000001">
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will initially set up the translation language with the default language" time="0.002"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will not translate text if it does not have a translation key" time="0.002"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will translate text to french if it has a translation key and the current language is french" time="0.003"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will toggle the current language to french if it is english" time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will only translate text on a specific page when a page is passed in" time="0.002"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will translate text on a specific text-key basis, with one formatting argument {0}" time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will translate text on a specific text-key basis, with multiple arguments {0}, {1}, ..." time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will translate text on a specific page in a language that is passed in and not the 'current' language of the app" time="0.003"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will check for calling method getCurrentLanguage is return right value " time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will check for calling method getCurrentLanguage for French language is return right value " time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will check for calling method getCurrentLanguage for French language is not return right value " time="0.001"/>
+<testcase classname="Firefox_270_Windows.Translation Test" name="test that it will check for calling method getCurrentLanguage is return not right value " time="0.001"/>
+</testsuite>

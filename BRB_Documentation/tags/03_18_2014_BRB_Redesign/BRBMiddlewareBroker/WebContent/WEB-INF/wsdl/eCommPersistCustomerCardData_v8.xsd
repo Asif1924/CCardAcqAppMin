@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://persistservice.cantire.com/" elementFormDefault="qualified" targetNamespace="http://persistservice.cantire.com/" version="1.0">
+
+  <xs:element name="request" type="tns:cardRequestType"/>  
+  <xs:annotation>
+    <xs:documentation>
+      Object that represents the request. Will be of cardRequestType.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="response" type="tns:cardResponseType"/>
+  <xs:annotation>
+    <xs:documentation>
+      Object that represents the request. Will be of cardResponseType.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="cardRequestType">
+    <xs:annotation>
+      <xs:documentation>
+        Objects that represent the request. Will consist of transId and customerInfo
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="brbTransId">
+        <xs:annotation>
+          <xs:documentation>
+            The original TransID that brb generated that eComm attached to the URL for the brb application.
+            eComm can use this TransID to correlate this reply message to the original request if they need to.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="128"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="customerInfo" type="tns:customerInfoType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cardResponseType">
+    <xs:annotation>
+      <xs:documentation>
+        Response from eComm indicating the status of the saveCardRequest
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="passFail" type="tns:passFailType"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="statusCode" type="xs:integer"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="errorMessage" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="customerInfoType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the main container to hold the customer specific information.
+        customerId, cardDetails, billingAddress (optional), loyaltyInfo (optional)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="ecommCustomerId">
+        <xs:annotation>
+          <xs:documentation>
+            The eComm Customer ID from the Hybris eComm system. It is a GUID.
+            eg: e3edc4d3-3314-4927-8d0d-2974a132f589
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="email" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="phone" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="cardDetails" type="tns:cardDetailsType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="addressDetails" type="tns:addressDetailsType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="loyaltyDetails" type="tns:loyaltyDetailsType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cardDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the card details. This should always be present on a request
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="referenceNumber" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="maskedPan" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="expiryDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addressDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the address details. This may not be present on a request
+        If Present save, if not present, do nothing.
+
+        If addressType is present, fields are required. (except addressLine2)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="addressLine1" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="addressLine2" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="city" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="province">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="postalCode">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="7"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loyaltyDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        *** FUTURE USAGE ***
+        *** DO NOT USE YET ***
+
+        Represents the loyalty details. This may not be present on a request
+
+        If loyaltyDetailsType Present, fields are required.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="loyaltyProgram" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="loyaltyNumber" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="passFailType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="P"/>
+      <xs:enumeration value="F"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="statusCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="0">
+        <xs:annotation>
+          <xs:documentation>Successful Response Code</xs:documentation>
+        </xs:annotation>        
+      </xs:enumeration>
+      <xs:enumeration value="100">
+        <xs:annotation>
+          <xs:documentation>Customer Not Found</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="101">
+        <xs:annotation>
+          <xs:documentation>Error Saving Data, Try again</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <!-- Can add other status codes to indicate the failure types -->
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

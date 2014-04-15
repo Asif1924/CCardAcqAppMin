@@ -1,0 +1,52 @@
+<script id="pageHeader-template" type="text/x-jquery-tmpl">
+	<!--<header class="pageHeader redGradient">-->
+	<span>
+	<header class="pageHeader whitePageHeader ScreenLayout">
+
+		<center>
+			<div data-translationKey="PageHeader_CanadianTireTabLogo"></div>
+
+            {{if switchLanguageButtonId}}
+				<div class="languageRegion">
+					<span class="languageLink" id="${switchLanguageButtonId}"  data-translationKey="language_English_link"></span>
+				</div>
+			{{/if}}	
+            
+            <div class="headerLogo">
+            </div>
+            
+            <div id="NeedHelp" class="box-narrow">
+	            <p class="callout" data-translationKey="Header_NeedHelp"></p>
+	            <p class="icon-phone"> <span data-translationKey="Header_CallUsAt"></span>
+	            	<strong> <span class="headerPhone" data-translationKey="header_Phone"></span></strong>
+	            </p>
+            </div>
+        </div>
+		</center>
+		<!--<div class="Login_CanadianTireLogo"></div>//-->		
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${previousButtonId}" class="pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<!--<span class="buttonAltText" data-translationKey="pageHeader_previous"></span>-->
+				<span class="buttonAltText"></span>
+			</a>
+		{{/if}}	
+		
+		{{if settingsButtonId}}
+			<div data-role="content">  
+			<a href="##uploadOptions" data-theme="r" data-role="button" id="${settingsButtonId}" class="pageNavigationButton settings ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r"
+				data-rel="dialog" data-transition="slidedown">
+				<!-- <span class="buttonAltText" data-translationKey="pageHeader_settings"></span> -->
+				<span class="buttonAltText"></span>
+			</a>
+			</div>
+		{{/if}}
+		
+		{{if nextButtonId}}
+			<a href="#" data-theme="r" data-role="button" id="${nextButtonId}" class="pageNavigationButton next ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r">
+				<!--<span class="buttonAltText" data-translationKey="pageHeader_next"></span> -->
+				<span class="buttonAltText"></span>
+			</a>
+		{{/if}}		
+	</header>
+	
+</script>

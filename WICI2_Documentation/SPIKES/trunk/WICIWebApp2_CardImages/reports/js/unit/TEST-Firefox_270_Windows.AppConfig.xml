@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.AppConfig" errors="0" failures="0" tests="1" time="0.001">
+<testcase classname="Firefox_270_Windows.AppConfig" name="test that it will make sure Maximum submission retries are only 3" time="0.001"/>
+</testsuite>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" errors="0" failures="0" tests="12" time="0.034">
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'postalcode' cannot be empty" time="0.004"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'postalcode' cannot contain more than 6 characters" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'postalcode' cannot contain less than 6 characters" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'postalcode' has correct alphanumeric format" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'streetnumber' cannot be empty" time="0.002"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'addressline1' cannot be empty" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'city' cannot be empty" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'province' cannot be empty" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'house' cannot be empty" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'years' cannot be empty" time="0.002"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'years' value cannot be less than 2 without setting previous address" time="0.003"/>
+<testcase classname="Firefox_270_Windows.PersonalDataScreen2Controller Inner Model" name="test that it will ensure 'years' value can be less than 2 if previous address set" time="0.002"/>
+</testsuite>

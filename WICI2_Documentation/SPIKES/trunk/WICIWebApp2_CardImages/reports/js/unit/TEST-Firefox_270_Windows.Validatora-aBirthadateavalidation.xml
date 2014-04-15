@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Birth date validation" errors="0" failures="0" tests="1" time="0.002">
+<testcase classname="Firefox_270_Windows.Validator - Birth date validation" name="test that it will make sure value can not be null, false or undefined" time="0.002"/>
+</testsuite>

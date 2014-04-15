@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Terms and conditions validation" errors="0" failures="0" tests="3" time="0.004">
+<testcase classname="Firefox_270_Windows.Validator - Terms and conditions validation" name="test that it will make sure value can not be null, false or undefined" time="0.002"/>
+<testcase classname="Firefox_270_Windows.Validator - Terms and conditions validation" name="test that it will make sure value can not be 'N' or 'NO'" time="0.001"/>
+<testcase classname="Firefox_270_Windows.Validator - Terms and conditions validation" name="test that it will make sure value can be 'Y' or 'YES'" time="0.001"/>
+</testsuite>

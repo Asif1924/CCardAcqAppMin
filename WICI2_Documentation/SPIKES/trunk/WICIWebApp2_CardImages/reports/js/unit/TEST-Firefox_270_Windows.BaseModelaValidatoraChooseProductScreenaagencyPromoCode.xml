@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" errors="0" failures="0" tests="6" time="0.0060000005">
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode can be a letter" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode can be a number" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode cannot be a special character of $" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode can be a special character of '" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode can be a special character of -" time="0.001"/>
+<testcase classname="Firefox_270_Windows.BaseModel Validator ChooseProductScreen agencyPromoCode" name="test that it will ensure agencyPromoCode cannot be more than 5 characters" time="0.001"/>
+</testsuite>
