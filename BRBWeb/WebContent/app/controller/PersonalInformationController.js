@@ -1244,7 +1244,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 				 
 		$(refs.initial).alpha({nocaps : false});
 		
-		$(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999', mDec:'0',wEmpty: '', aSep:''});
+		//$(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999', mDec:'0',wEmpty: '', aSep:''});
 	}
 	
 	//---------------------------------------------------------------------------------------
