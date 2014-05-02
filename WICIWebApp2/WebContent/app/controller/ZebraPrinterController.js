@@ -67,7 +67,8 @@ WICI.ZebraPrinterController = function () {
                  activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                  activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                  prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo 
-                 prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence'))]);//identityWatchYesNo 
+                 prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                 activationItems.getModel('loginScreen').get('locationFieldID'),""]);       
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);            
         }        

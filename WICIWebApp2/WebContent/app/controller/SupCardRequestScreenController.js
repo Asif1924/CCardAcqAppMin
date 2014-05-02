@@ -347,7 +347,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 	function hideAddressLookupSelectionDropDowns() {
 		$(refs.addressLine1_MultipleControl).hide();
-		$(refs.addressLine2_MultipleControl).hide();
+		//$(refs.addressLine2_MultipleControl).hide();
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -386,7 +386,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	}
 	// ---------------------------------------------------------------------------------------
 	function disableAddressline2(){
-		$(refs.addressLine2).prop('disabled', true);
+	//	$(refs.addressLine2).prop('disabled', true);
 	}
 	// ---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
@@ -671,7 +671,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		model.set('postalCode', $(refs.postalCode).val().toUpperCase());
 		model.set('addressLine1', $(refs.addressLine1).val().toUpperCase());
-		model.set('addressLine2', $(refs.addressLine2).val().toUpperCase());
+		model.set('addressLine2', '');
 		model.set('suiteUnit', $(refs.suiteUnit).val().toUpperCase());
 		model.set('streetNumber', $(refs.streetNumber).val().toUpperCase());
 		model.set('city', $(refs.city).val().toUpperCase());

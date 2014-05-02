@@ -28,7 +28,7 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
             streetnumber:       '#personalData2_Address_StreetNumber_TextField',
             
             addressline1:       '#personalData2_Address_AddressLine1_TextField',
-            addressline2:       '#personalData2_Address_AddressLine2_TextField',
+            //addressline2:       '#personalData2_Address_AddressLine2_TextField',
             city:               '#personalData2_Address_City_TextField',
             suiteunit:          '#personalData2_Address_SuiteUnit_TextField',
             province:           '#personalData2_Address_Province_TextField',
@@ -51,7 +51,7 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
             streetnumber_prev:  '#personalData2_PreviousAddress_StreetNumber_TextField',
             
             addressline1_prev:  '#personalData2_PreviousAddress_AddressLine1_TextField',
-            addressline2_prev:  '#personalData2_PreviousAddress_AddressLine2_TextField',
+            //addressline2_prev:  '#personalData2_PreviousAddress_AddressLine2_TextField',
             city_prev:          '#personalData2_PreviousAddress_City_TextField',
             suiteunit_prev:     '#personalData2_PreviousAddress_SuiteUnit_TextField',
             province_prev:      '#personalData2_PreviousAddress_Province_TextField'
@@ -88,7 +88,7 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
             {name: 'province_prev',     value: null, validation: {type: 'presence',     message: '', group: [2]} },
             
             {notField:true, name: 'addressline1_prev_Array', value: null },
-            {notField:true, name: 'addressline2_prev_Array', value: null },
+            //{notField:true, name: 'addressline2_prev_Array', value: null },
        ]
     });    
     
@@ -183,7 +183,8 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
         model.set('postalcode',     $(refs.postalcode).val().toUpperCase());
         model.set('streetnumber',   $(refs.streetnumber).val().toUpperCase());
         model.set('addressline1',   $(refs.addressline1).val().toUpperCase());
-        model.set('addressline2',   $(refs.addressline2).val().toUpperCase());
+       // model.set('addressline2',   $(refs.addressline2).val().toUpperCase());
+        model.set('addressline2',   '');
         model.set('suiteunit',      $(refs.suiteunit).val().toUpperCase());
         model.set('city',           $(refs.city).val().toUpperCase());
         model.set('province',       $(refs.province).val());
@@ -197,7 +198,8 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
         model.set('postalcode_prev',    $(refs.postalcode_prev).val().toUpperCase());
         model.set('streetnumber_prev',  $(refs.streetnumber_prev).val().toUpperCase());
         model.set('addressline1_prev',  $(refs.addressline1_prev).val().toUpperCase());
-        model.set('addressline2_prev',  $(refs.addressline2_prev).val().toUpperCase());
+        //model.set('addressline2_prev',  $(refs.addressline2_prev).val().toUpperCase()); 
+        model.set('addressline2_prev',  '');
         model.set('city_prev',          $(refs.city_prev).val().toUpperCase());
         model.set('suiteunit_prev',     $(refs.suiteunit_prev).val().toUpperCase());
         model.set('province_prev',      $(refs.province_prev).val());
@@ -393,7 +395,7 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 		hideAddressLookupSelectionDropDowns();
 		$screenContainer.addClass("breadcrumbPadding");		
 		initFields();
-		disableAddressline2();
+		//disableAddressline2();
 			//personalData2_Address_Duration_years_TextField_Up
 		//$("#personalData2_Address_Duration_years_TextField_Up").css("width", "30px");
 	}
