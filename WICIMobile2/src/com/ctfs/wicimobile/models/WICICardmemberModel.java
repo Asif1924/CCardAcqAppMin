@@ -3,6 +3,8 @@ package com.ctfs.wicimobile.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.text.format.Time;
+
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
 
 public class WICICardmemberModel {
@@ -22,6 +24,9 @@ public class WICICardmemberModel {
     private String _creditProtectorYesNo;
 	private String _identityWatchYesNo;
 
+	private String _todayDate;
+	private String _storeNumber;
+	
 	public WICICardmemberModel(){
         _cardType = "";
         _firstName = "";
@@ -38,6 +43,9 @@ public class WICICardmemberModel {
         _correspondenceLanguage = "";
         _creditProtectorYesNo = "N";
         _identityWatchYesNo = "N";
+        
+        _todayDate = "";
+    	_storeNumber = "";
     }   
     
     public void initializeModel(JSONArray source, int shift) {
@@ -58,6 +66,9 @@ public class WICICardmemberModel {
             _creditProtectorYesNo = source.getString(shift + 13);
             _identityWatchYesNo = source.getString(shift + 14);
             
+            _storeNumber = source.getString(shift + 15);
+            _todayDate = source.getString(shift + 16);
+                 
         } catch (JSONException e) {            
             e.printStackTrace();
         }
@@ -255,5 +266,41 @@ public class WICICardmemberModel {
 	public void setIdentityWatchYesNo(String _identityWatchYesNo) {
 		this._identityWatchYesNo = _identityWatchYesNo;
 	}
+	
+	
+	
+	/**
+     * @return the _todate 
+     */
+    public String getTodayDate() {
+    	
+    	 
+    	Time today = new Time(Time.getCurrentTimezone());
+    	today.setToNow(); 
+    	
+    	 return _todayDate.isEmpty() || _todayDate.equalsIgnoreCase("")? today.month  + "/" + today.monthDay + "/" + today.year + " " + today.format("%k:%M") : _todayDate ;
+	}
+
+	/**
+	 * @param _todayDate
+	 */
+	public void setTodayDate(String _todayDate) {
+		this._todayDate = _todayDate;
+	}
+	 
+	/**
+     * @return the _storeNumber 
+     */
+    public String getStoreNumber() {
+    	  return _storeNumber.isEmpty() || _storeNumber.equalsIgnoreCase("")? "Test" : _storeNumber ;
+   }
+
+	/**
+	 * @param _storeNumber
+	 */
+	public void setStoreNumber(String _storeNumber) {
+		this._storeNumber = _storeNumber;
+	}  
+	
 
 }
