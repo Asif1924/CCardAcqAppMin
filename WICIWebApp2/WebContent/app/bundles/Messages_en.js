@@ -279,7 +279,7 @@ WICI.dictionary_en = {
 
 	optionalProducts_ProtectionAdvantage_Title			:	"Canadian Tire Protection Advantage<sup>&trade;</sup>",
     optionalProducts_ProtectionAdvantage_Text			:	"<br><i>(not available in Saskatchewan)</i><br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>. " + 
-    														"<ul type=\"disc\"><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector <i>Senior</i>** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card Identity Watch Classic." + 
+    														"<ul type=\"disc\"><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector <i>Senior</i>** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card for Identity Watch Classic." + 
 															"<br><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes.</li>" +
 															"</ul>",
     optionalProducts_ProtectionAdvantage_Additions		:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions.Terms and conditions apply." +
@@ -299,7 +299,7 @@ WICI.dictionary_en = {
 															"<li>Online monitoring of your registered personal information</li>" +
 															"<li>Rebound<sup>&reg;</sup><sup>&trade;</sup> Asset Return Service*** which may help you recover lost or stolen items</li>" +
 															"<li>Computer Tune-Up Reimbursement*** of up to $75 CDN, inclusive of taxes, per subscription year.</li>" +
-															"<li>Plus Card Protection, On-line Data Backup, Credit Card Theft Reward Service*** a $3,000 CDN reward.</li>" +
+															"<li>Plus Card Protection, Online Data Backup, Credit Card Theft Reward Service*** a $3,000 CDN reward.</li>" +
 															"<li>$4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</li></ul>" +
 															"If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",
 	optionalProducts_IdentityWatch_Additions			:	"<br><br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",												
