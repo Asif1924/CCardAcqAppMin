@@ -278,7 +278,7 @@ WICI.dictionary_en = {
 	optionalProducts_SignatureAgreement2				:	"Your signature to enrol in optional product(s).",
 
 	optionalProducts_ProtectionAdvantage_Title			:	"Canadian Tire Protection Advantage<sup>&trade;</sup>",
-    optionalProducts_ProtectionAdvantage_Text			:	"<br><i>(not available in Saskatchewan)</i><br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>. " + 
+    optionalProducts_ProtectionAdvantage_Text			:	"<br><i>(not available in Saskatchewan)</i><br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-<i>Senior</i><sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>. " + 
     														"<ul type=\"disc\"><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector <i>Senior</i>** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card for Identity Watch Classic." + 
 															"<br><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes.</li>" +
 															"</ul>",
