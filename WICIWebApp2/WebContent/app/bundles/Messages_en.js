@@ -272,7 +272,7 @@ WICI.dictionary_en = {
 	//........................NEW ITEMS ..............................
 
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
-	optionalProducts_PageTitle						    :	"OPTIONAL PRODUCT<sup>&#8224;&#8224;</sup> ENROLMENT",
+	optionalProducts_PageTitle						    :	"OPTIONAL PRODUCT(s)<sup>&#8224;&#8224;</sup> ENROLMENT",
 		
 	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the legal information booklet and give my consent to be enrolled in the above selected optional product(s).</i>",
 	optionalProducts_SignatureAgreement2				:	"Your signature to enrol in optional product(s).",
