@@ -39,7 +39,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
 		correspondence : '#personalData_Correspondence_Group',
 		correspondence_eng : '#personalData_English_RadioButton',
-		correspondence_fre : '#personalData_French_RadioButton'
+		correspondence_fre : '#personalData_French_RadioButton',
+			
+		receiveemailArea:'#personalData_ReceiveEmailArea',
+		receiveEmail : '#personalData_ReceiveEmail_Group',
+		receiveemail_optin : '#personalData_Optin_RadioButton',
+		receiveemail_optout : '#personalData_Optout_RadioButton'
+			
 	};
 
 	var model = new WICI.BaseModel({
@@ -50,14 +56,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			value : null,
 			validation : {
 				type : 'presence',
-				message : 'personalData1_validation_placeofissue'
+				message : 'personalData1_validation_placeofissue',
+				group: [ 1 ]
 			}
 		}, {
 			name : 'idtype',
 			value : null,
 			validation : {
 				type : 'presence',
-				message : 'personalData1_validation_idtype'
+				message : 'personalData1_validation_idtype',
+				group: [ 1 ]
 			}
 		}, {
 			name : 'idnumbers',
@@ -65,7 +73,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			validation : {
 				type : 'format',
 				message : 'personalData1_validation_idnumbers',
-				matcher : /^[A-Z0-9\,\_\'\-\.\~\@\[\]\}\{\)\(]{1,20}$/
+				matcher : /^[A-Z0-9\,\_\'\-\.\~\@\[\]\}\{\)\(]{1,20}$/,
+				group: [ 1 ]
 			}
 		},
 
@@ -78,7 +87,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			value : null,
 			validation : {
 				type : 'personName',
-				message : 'personalData1_validation_firstName'
+				message : 'personalData1_validation_firstName',
+				group: [ 1 ]
 			}
 		}, {
 			name : 'initial',
@@ -86,15 +96,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			validation : {
 				type : 'format',
 				message : 'personalData1_validation_initial',
-				matcher : /^[A-Z]{1}/,
-				canBeEmpty : true
+				matcher : /^[A-Z]{1}/,				
+				canBeEmpty : true,
+				group: [ 1 ]
+				
 			}
 		}, {
 			name : 'lastName',
 			value : null,
 			validation : {
 				type : 'personName',
-				message : 'personalData1_validation_lastName'
+				message : 'personalData1_validation_lastName',
+				group: [ 1 ]
 			}
 		},
 
@@ -103,7 +116,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			value : null,
 			validation : {
 				type : 'birthDate',
-				message : 'personalData1_validation_birthDate'
+				message : 'personalData1_validation_birthDate',
+				group: [ 1 ]
 			}
 		}, {
 			name : 'email',
@@ -111,14 +125,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			validation : {
 				type : 'email',
 				message : 'personalData1_validation_email',
-				canBeEmpty : true
+				canBeEmpty : true,
+				group: [ 1 ]
 			}
-		}, {
+		},{
+			name : 'receiveEmail',
+			value : null,
+			validation : {
+				type : 'presence',
+				message : 'personalData1_validation_ReceiveEmail',
+				group: [ 2 ]
+			}
+		},{
 			name : 'homePhone',
 			value : null,
 			validation : {
 				type : 'phone',
-				message : 'personalData1_validation_homePhone'
+				message : 'personalData1_validation_homePhone',
+				group: [ 1 ]
 			}
 		}, {
 			name : 'cellPhone',
@@ -126,14 +150,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			validation : {
 				type : 'phone',
 				message : 'personalData1_validation_cellPhone',
-				canBeEmpty : true
+				canBeEmpty : true,
+				group: [ 1 ]
 			}
 		}, {
 			name : 'correspondence',
 			value : null,
 			validation : {
 				type : 'presence',
-				message : 'personalData1_validation_correspondence'
+				message : 'personalData1_validation_correspondence',
+				group: [ 1 ]
 			}
 		} ]
 	});
@@ -170,6 +196,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
 		// Set masks for UI elements
 		setUIElementsMasks();
+		
+		onEmailChangesHandler(); 
 	}
 	// ---------------------------------------------------------------------------------------
 	function show() {
@@ -248,29 +276,40 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		$(refs.email).val(model.get('email'));
 		$(refs.homePhone).val(model.get('homePhone'));
 		$(refs.cellPhone).val(model.get('cellPhone'));
-
+		onEmailChangesHandler(); 
 	}
-	// ---------------------------------------------------------------------------------------
-	function validateFields(argSuccessCallback, argFailureCallback) {
-		var sMethod = 'validateFields() ';
-		console.log(logPrefix + sMethod);
-
-		var validator = new WICI.Validator();
-		syncUserData();
-
-		if (!validator.notEmpty(agentIDTextField)) {
-			argFailureCallback(translator
-					.translateKey("loginScreen_AgentID_Label"));
-		} else {
-			argSuccessCallback();
-		}
-
-	}
-	// ---------------------------------------------------------------------------------------
-	function bindEvents() {
+	//-----------------------------------------------------------------------------------------
+	function onEmailChangesHandler(){
+	        var sMethod = 'onEmailChangesHandler() ';
+	        console.log(logPrefix + sMethod);
+	        
+	        syncUserData();
+	        validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
+	        console.log("validEmail : " + validEmail.test(model.get('email').trim()));
+	        clearRadios('receiveEmail');
+	        if(validEmail.test(model.get('email').trim()) != true ){  
+	            $(refs.receiveemailArea).hide();
+	        }
+	        else{
+	        	//$(refs.receiveemail_optin).removeClass('ui-btn-active');
+				//$(refs.receiveemail_optout).removeClass('ui-btn-active');				
+	        	$(refs.receiveemailArea).show();
+	        }
+	 }
+	
+	//----------------------------------------------------------------------------------------
+	function bindRealTimeEmailControl(){	
+		$(refs.email).change(function(){
+            onEmailChangesHandler();
+        });
+	}	
+	//-----------------------------------------------------------------------------------------
+   function bindEvents() {
 		var sMethod = 'bindEvents() ';
 		console.log(logPrefix + sMethod);
 
+		bindRealTimeEmailControl();
+		
 		$(refs.placeofissue).change(function(event) {
 			console.log(refs.placeofissue + '::change');
 			populateIdTypesList();
@@ -328,6 +367,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			$(refs.correspondence_fre).addClass('ui-btn-active');
 			model.set('correspondence', 'F');
 		});
+		
+		$(refs.receiveemail_optin).click(function() {
+			clearRadios('receiveEmail');
+			$(refs.receiveemail_optin).addClass('ui-btn-active');
+			model.set('receiveEmail', 'Y');
+		});
+		$(refs.receiveemail_optout).click(function() {
+			clearRadios('receiveEmail');
+			$(refs.receiveemail_optout).addClass('ui-btn-active');
+			model.set('receiveEmail', 'N');
+		});
+		
 		checkForMsButton();
 	}
 	function checkForMsButton(){
@@ -365,6 +416,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		} else if (radioGroup === 'correspondence') {
 			$(refs.correspondence_eng).removeClass('ui-btn-active');
 			$(refs.correspondence_fre).removeClass('ui-btn-active');
+		} else if (radioGroup === 'receiveEmail') {
+			$(refs.receiveemail_optin).removeClass('ui-btn-active');
+			$(refs.receiveemail_optout).removeClass('ui-btn-active');
+			model.set('receiveEmail', null);
 		}
 	}
 	// ---------------------------------------------------------------------------------------
@@ -437,8 +492,22 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		if (app.validationsOn) {
 			app.validationDecorator.clearErrArrtibute();
 
-			var rez = model.validate();
-			if (rez.length > 0) {
+			var rez = [];
+			var rez1 = [];
+			var rez2 = [];
+			
+			rez1 = model.validate(1);
+			
+			//CASL Validation   ---------------------------------------------------------------------
+			
+			validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
+	        if(validEmail.test(model.get('email').trim()) == true ){  
+	        	rez2 = model.validate(2);
+	        
+	        }
+	        rez = rez.concat(rez1, rez2);
+			//--------------------------------------------------------------------
+	        if (rez.length > 0) {
 				var errStrArr = [];
 				$.each(rez, function(index, item) {
 					errStrArr.push(translator.translateKey(item.err));
@@ -447,7 +516,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 				app.validationDecorator.applyErrAttribute(rez);
 				return;
 			}
-
+	        
+	        
 			var edgeValidation = model.validateAge(model);
 			var rez = [];
 			if (edgeValidation != null) {

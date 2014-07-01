@@ -696,6 +696,12 @@ WICI.dictionary_fr = {
 	omr_14_chapter 										: "Protection de votre carte lors des transactions en ligne grâce à SecureCode<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span> de MasterCard.",
 	//******************************************
 	before_gross										: " ",
-	after_gross											: " $"
+	after_gross											: " $",
+	personalData_ReceiveEmail					        : "J’aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standards de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (les « SFCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme de primes en « Argent » Canadian Tire (ou du programme Avantage « Argent » Canadian Tire si vous résidez en Nouvelle-Écosse), de l’Académie des conducteurs de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, des Services résidentiels de Canadian Tire<span class=\"superscripts\"><sup>MC</sup></span> et de l’Assistance routière Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, ainsi que d’autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT et la BCT à la C.P. 2000, Welland (Ontario)  L3B 5S3 ou à l’adresse customerservice@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
+	personalData_Yes									: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;",
+	personalData_No								    	: "&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+	personalDataC_Yes									: "Oui",
+	personalDataC_No								    : "Non",
+	personalData1_validation_ReceiveEmail				: 'Sélectionnez intérêt légitime par e-mail',
+	summary_TellAboutYourself_Email_Consent             : "e-mail marketing consentement?"  
 };
-

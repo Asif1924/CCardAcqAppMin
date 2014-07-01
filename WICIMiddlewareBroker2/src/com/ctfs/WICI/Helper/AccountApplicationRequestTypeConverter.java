@@ -46,7 +46,21 @@ public class AccountApplicationRequestTypeConverter
 		populatedAccountApplicationRequest.setChannelIndicator("IP");
 		populatedAccountApplicationRequest.setCurrentCountry("CA");
 		populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
-		populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+		//populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+		BaseModel model_supp;
+		try
+		{
+			model_supp = argCreditCardApplicationData.getModel(MODEL_SUP_CARD_REQUEST_DATA);
+			if (model_supp != null && model_supp.get("cardYesNo").equals("Y"))
+			{
+				populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+			}
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
 		populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA);
 
 		// From AccountApplication.xsd v1.14 this filed have been removed
@@ -382,6 +396,8 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
+				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
+				
 			}
 		}
 		catch (Exception e)

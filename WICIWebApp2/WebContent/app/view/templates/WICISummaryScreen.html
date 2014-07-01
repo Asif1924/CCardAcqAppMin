@@ -188,7 +188,8 @@
 	summary_TellAboutYourself_Initial					:	"Initial",	
 	summary_TellAboutYourself_LastName					:	"Last Name",	
 	summary_TellAboutYourself_DateOfBirth				:	"Date of Birth",	
-	summary_TellAboutYourself_Email						:	"Email Address",	
+	summary_TellAboutYourself_Email						:	"Email Address",
+	summary_TellAboutYourself_Email_Consent             :   "E-mail Marketing Consent?",
 	summary_TellAboutYourself_HomePhone					:	"Home Phone",	
 	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",	
 	summary_TellAboutYourself_Correspondence			:	"Correspondence",	
@@ -245,6 +246,14 @@
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData').get('email')}
+	                    </td>
+	                </tr>
+ 					<tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="summary_TellAboutYourself_Email_Consent"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell">
+	                     <span data-translationKey="${ activationItems.getModel('personalData').get('receiveEmail') == "Y" ? "personalDataC_Yes" : activationItems.getModel('personalData').get('receiveEmail') == "N"? "personalDataC_No" : "" }"></span>   
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
