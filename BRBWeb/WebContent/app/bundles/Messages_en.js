@@ -524,9 +524,9 @@ BRB.dictionary_en = {
 	additionalInformation_Daughter							:	"Daughter",
 	additionalInformation_Relative							:	"Relative",
 	additionalInformation_Other								:	"Other",
-	additionalInformation_Credit_Protector_Text             :   "I have read and fully agree to the Terms and Conditions of the Credit Protector/Credit Protector Senoir.",
-	additionalInformation_Identity_Watch_Text               :   "I have read and fully agree to the Terms and Conditions of identity Watch.",	
-	additionalInformation_ProtectionAdvantage_Text          :   "I have read and fully agree to the Terms and Conditions of Protection Advantage.",
+	additionalInformation_Credit_Protector_Text             :   "I have read and fully agree to the <a href='https://www.ctfs.com/ApplyNow/CreditProtector/SummaryOfCoverages/' target='_blank'>Terms and Conditions</a> of the Credit Protector/Credit Protector Senior.",
+	additionalInformation_Identity_Watch_Text               :   "I have read and fully agree to the <a href='https://www.ctfs.com/Products/TermsandConditions/IDWatch/' target='_blank'>Terms and Conditions</a> of identity Watch.",	
+	additionalInformation_ProtectionAdvantage_Text          :   "I have read and fully agree to the <a href='https://www.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>Terms and Conditions</a> of Protection Advantage.",
 	
 	additionalInformation_IdentityWatch_Terms				: " ",
 	additionalInformation_ProtectionAdvantage_Terms			: " ",

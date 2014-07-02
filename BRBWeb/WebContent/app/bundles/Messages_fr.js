@@ -530,10 +530,10 @@ BRB.dictionary_fr = {
 		additionalInformation_Daughter							:	"Fille",
 		additionalInformation_Relative							:	"Parent",
 		additionalInformation_Other								:	"Autre",
-		additionalInformation_Credit_Protector_Text             :   "J’ai lu et j’accepte les modalités de Couverture-crédit / Couverture-crédit – Âge d’or.",
-		additionalInformation_Identity_Watch_Text               :   "J’ai lu et j’accepte les modalités de Surveillance d’identité.",	
-		additionalInformation_ProtectionAdvantage_Text          :   "J’ai lu et j’accepte les modalités du programme Avantage Protection.",
-		
+		additionalInformation_Credit_Protector_Text             :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/ApplyNow/CreditProtector/SummaryOfCoverages/' target='_blank'>modalités</a> de Couverture-crédit / Couverture-crédit – Âge d’or.",
+		additionalInformation_Identity_Watch_Text               :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/' target='_blank'>modalités</a> de Surveillance d’identité.",	
+		additionalInformation_ProtectionAdvantage_Text          :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>modalités</a> du programme Avantage Protection.",
+
 		additionalInformation_IdentityWatch_Terms				: " ",//we need this empty string because french and english templates have different structure
 		additionalInformation_ProtectionAdvantage_Terms			: " ",//we need this empty string because french and english templates have different structure
 		additionalInformation_EarnReward						: '<div class="additionalInformation_EarnReward_fr" />',
