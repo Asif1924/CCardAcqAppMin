@@ -207,6 +207,10 @@ public class AccountApplicationRequestTypeConverter
 						ar.setSupp1TelephoneNumber(model.get("primaryPhone"));
 					}
 				}
+				else
+				{
+					ar.setSupp1Country(null);
+				}
 				ar.setInsuranceAgreedFlag("N");
 				ar.setInsuranceCode(InsuranceCodeTypes.N.toString());
 				if (model != null && model.get("optionalInsurance_CP") != null && model.get("optionalInsurance_CP").equals("true"))
