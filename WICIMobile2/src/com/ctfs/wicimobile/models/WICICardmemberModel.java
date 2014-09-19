@@ -271,14 +271,15 @@ public class WICICardmemberModel {
 	
 	/**
      * @return the _todate 
+     * US3159 Fix for INC0052924 WICI - Date Issued On Printouts Is Off By 1 Month
      */
     public String getTodayDate() {
     	
     	 
     	Time today = new Time(Time.getCurrentTimezone());
     	today.setToNow(); 
-    	
-    	 return _todayDate.isEmpty() || _todayDate.equalsIgnoreCase("")? today.month  + "/" + today.monthDay + "/" + today.year + " " + today.format("%k:%M") : _todayDate ;
+    	    	
+    	return _todayDate.isEmpty() || _todayDate.equalsIgnoreCase("")? (today.month + 1)  + "/" + today.monthDay + "/" + today.year + " " + today.format("%k:%M") : _todayDate ;
 	}
 
 	/**
