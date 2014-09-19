@@ -37,7 +37,7 @@ WICI.LoginScreenController = function() {
             //{name: 'userID',							  	value: null, validation: {type: 'presence',     message: '',      group: [1]} },
             //{notField:true, name: 'passwordFieldID',      	value: null, validation: {type: 'presence',     message: '',      group: [1]} },
             {name: 'locationFieldID',       			  	value: null, validation: {type: 'presence',   	message: '',      group: [1]} },
-            {name: 'agentID',           				  	value: null, validation: {type: 'format',   	message: '',	matcher: /^[a-zA-Z0-9]{1,20}$/,      group: [1]} },
+            {name: 'agentID',           				  	value: null, validation: {type: 'format',   	message: '',	matcher: /^[a-zA-Z0-9]{1,8}$/,      group: [1]} },
             {notField:true, name: 'userLocationResponse', 	value: null, validation: null }
        ]
     }); 

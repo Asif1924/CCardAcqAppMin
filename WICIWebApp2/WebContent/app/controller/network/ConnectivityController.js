@@ -66,13 +66,15 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
         console.log("---setting init params");
         var loginScreenModel 		= argCreditCardData.getModel("loginScreen");
 		var agentID 				= loginScreenModel.get("agentID");
-		var queueTransactionID 		= new WICI.UniqueIDGenerator().getUniqueID(agentID);
+		
+		//WASA2 Fix - QueueTransactionID to be generating from middle ware
+		//var queueTransactionID 		= new WICI.UniqueIDGenerator().getUniqueID(agentID);
 
 		console.log("---loginScreenModel=" + loginScreenModel );
 		console.log("---agentID=" + agentID);
-		console.log("---queueTransactionID=" + queueTransactionID);
+		//console.log("---queueTransactionID=" + queueTransactionID);  //WASA2 Fix 
 
-		argCreditCardData.setQueueTransactionID(queueTransactionID);
+		//argCreditCardData.setQueueTransactionID(queueTransactionID);  //WASA2 Fix 
 
         //var requestParams = argCreditCardData.getGroupedData();
 		var requestParams = { 

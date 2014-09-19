@@ -98,7 +98,7 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }        
-        return regexMatch(/^[A-Z0-9\'\- ]{1,5}$/, value.trim());
+        return regexMatch(/^[A-Z0-9\'\- ]{1,6}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------    
     this.addressLine= function(value) {

@@ -11,6 +11,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	this.hide = hide;
 	var signatureControl;
 	var signatureDate = "";
+  var cardNameGlobal;
+  var cardTypeGlobal;
 	
 	var flow = null;
 	
@@ -50,12 +52,17 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         messageDialog = argMessageDialog; 	//(AA)Dependency Injection Principle: Allows for proper unit testing
 		
         // Initialize model
-        initModel();        
-		createView();		
-		bindEvents();        
+        initModel();
+        
+        // Added for warning section      
+				parseCardNameAndType();
+				
+				createView();		
+				bindEvents();        
         restoreCreditCardData();
         
-        displayProductTitle();
+        displayProductTitle(); 
+        toggleWarningDIV();
 	}
 	//---------------------------------------------------------------------------------------
     function initModel() {
@@ -115,14 +122,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
     }
 	//---------------------------------------------------------------------------------------
 	function displayProductTitle()
-	{
-		var cardName = activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard'));
-		var cardTranslation = translator.translateKey(cardName).replace("<br>", "");
-		if(activationItems.getModel('chooseProductModel').get('productCard') === 'OMC')
-		{
-			cardTranslation = translator.translateKey('signatureScreen_License1_2') + cardTranslation; 
-		}
-		$(refs.singnatureCardName).text(cardTranslation);
+	{		
+		$(refs.singnatureCardName).text(cardNameGlobal);
 	}
 	//---------------------------------------------------------------------------------------
 	function hide(){
@@ -155,7 +156,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		if(activationItems.getModel('personalData')!==null){
 			nameOfCustomer = activationItems.getModel('personalData').get('firstName') + ' ' + activationItems.getModel('personalData').get('lastName');
 		}
-		$.tmpl("signatureScreenPage",{"ClientName":nameOfCustomer}).appendTo($element);
+		$.tmpl("signatureScreenPage",{"ClientName":nameOfCustomer,"CardType":cardTypeGlobal,"CardName":cardNameGlobal}).appendTo($element);
+		
 	}
 	//---------------------------------------------------------------------------------------
 	function bindEvents(){
@@ -170,6 +172,10 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         $('#signatureScreen_SignDate').bind('translatorFinished',function(e){
         	showSignatureDate();
         });
+        // Bind to the checkbox               
+        $('#signatureScreen_AcceptAgreement').click(function() {
+        	toggleWarningDIV();
+        }); 
 	}	
 	//---------------------------------------------------------------------------------------
 	function onSignatureChaged (e) {
@@ -268,4 +274,31 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         
     }
 	//---------------------------------------------------------------------------------------
+	
+	function parseCardNameAndType()
+	{	
+		cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard')	
+		cardNameGlobal = activationItems.getCardFriendlyName(cardTypeGlobal);
+		cardNameGlobal = translator.translateKey(cardNameGlobal).replace("<br>", "");
+		if(cardTypeGlobal === 'OMC')
+		{
+			cardNameGlobal = translator.translateKey('signatureScreen_License1_2') + cardNameGlobal; 
+		}
+	}
+	
+	//---------------------------------------------------------------------------------------
+	function toggleWarningDIV(){	
+		 if ($("#signatureScreen_AcceptAgreement").is(":checked"))
+	   {
+	   		$("#warningDIVSig").removeClass("warningDIV").addClass("warningDIVCleared");
+	   		$("#warningHeaderSig").removeClass("warningHeader").addClass("warningHeaderCleared");
+	   		$("#warningTableSig").removeClass("warningTable").addClass("warningTableCleared");
+	   }	   			
+	   else
+	   {
+	   		$("#warningDIVSig").removeClass("warningDIVCleared").addClass("warningDIV");
+	   		$("#warningHeaderSig").removeClass("warningHeaderCleared").addClass("warningHeader");
+	   		$("#warningTableSig").removeClass("warningTableCleared").addClass("warningTable");
+	   }
+	}
 };

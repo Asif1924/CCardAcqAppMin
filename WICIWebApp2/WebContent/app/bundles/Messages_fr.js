@@ -61,9 +61,9 @@ WICI.dictionary_fr = {
 
 	loginScreen_UserID_Label                          :                         "Code d’utilisateur",
 	loginScreen_EmployerID_Label                      :                         "Code d’employeur",
-	loginScreen_AgentID_Label                         :                         "Code de représentant",
+	loginScreen_AgentID_Label                         :                         "Numéro du représentant / Le client avant tout",
 	loginScreen_Password_Label                        :                         "Mot de passe (sensible à la casse)",
-	loginScreen_Location_Number                       :                         "Numéro d’adresse (p. ex., 324)",
+	loginScreen_Location_Number                       :                         "Numéro de magasin ou d’emplacement",
 	loginScreen_Button_Label                          :                         "CONNEXION",
 
 	loginScreen_Dialog_ErrorTitle                     :                         "Erreur de connexion",
@@ -88,13 +88,15 @@ WICI.dictionary_fr = {
 
 	chooseProduct_ReadTandC                           :                         "Lire les modalités",
 
-	personalData_TellUsAboutYourself                  :                         "RENSEIGNEMENTS PERSONNELS",
+	personalData_TellUsAboutYourself                  :                         "IDENTIFICATION DU CLIENT",
 	personalData_IDType                               :                         "Type de pièce d’identité",
-	personalData_PlaceOfIssue                         :                         "Lieu de délivrance",
+	personalData_PlaceOfIssue                         :                         "Province émettrice de l’identification",
 	personalData_IDNumber                             :                         "N° de la pièce d’identité",
 
 	personalData_DOB_18YearsError                     :                         "Vous devez être âgé de 18 ans ou plus pour faire une demande.",
 	personalData_DOB_19YearsError                     :                         "Vous devez être âgé de 19 ans ou plus pour faire une demande",
+
+	personalData_ApplicantInfo 						  : 	                    "RENSEIGNEMENT SUR LE DEMANDEUR",
 
 	personalData_Title                                :                         "Titre de civilité",
 	personalData_MR                                   :                         " M.",
@@ -111,7 +113,7 @@ WICI.dictionary_fr = {
 	personalData_HomePhone                            :                         "Téléphone (rés.)",
 	personalData_CellPhone                            :                         "Téléphone (cell.)",
 
-	personalData_Correspondence                       :                         "Langue de correspondance :",
+	personalData_Correspondence                       :                         "Langue de correspondance:",
 	personalData_English                              :                         "Anglais",
 	personalData_French                               :                         "Français",
 
@@ -122,7 +124,7 @@ WICI.dictionary_fr = {
 
 	personalData2_Address_AddressLine1                :                         "Rue",
 	personalData2_Address_AddressLine2                :                         "Ligne d'Adresse 2",
-	personalData2_Address_SuiteUnit                   :                         "App./Unité",
+	personalData2_Address_SuiteUnit                   :                         "App. / Bureau / Unité",
 	personalData2_Address_City                        :                         "Ville",
 	personalData2_Address_Province                    :                         "Province",
 
@@ -133,7 +135,7 @@ WICI.dictionary_fr = {
 	personalData2_Address_Other                       :                         "Autre",
 
 	personalData2_Address_MonthlyPayment              :                         "Loyer / hypothèque (montant mensuel)",
-	personalData2_Address_Duration                    :                         "Depuis quand habitez-vous à cette adresse? ",
+	personalData2_Address_Duration                    :                         "Depuis combien de temps habitez-vous à votre adresse actuelle? ",
 	personalData2_Address_DurationYears               :                         "Années",
 	personalData2_Address_DurationMonths              :                         "Mois",
 
@@ -147,12 +149,12 @@ WICI.dictionary_fr = {
 
 	personalData2_PreviousAddress_AddressLine1        :                         "Rue",
 	personalData2_PreviousAddress_AddressLine2        :                         "Ligne d'Adresse 2",
-	personalData2_PreviousAddress_SuiteUnit           :                         "App./Unité",
+	personalData2_PreviousAddress_SuiteUnit           :                         "App. / Bureau / Unité",
 	personalData2_PreviousAddress_City                :                         "Ville",
 	personalData2_PreviousAddress_Province            :                         "Province",
 
 	finEmpInfo_PageTitle                              :                         "RENSEIGNEMENTS FINANCIERS ET EMPLOI",
-	finEmpInfo_BankingProducts                        :                         "Produits bancaires",
+	finEmpInfo_BankingProducts                        :                         "Sélectionnez les produits bancaires que vous utilisez actuellement.",
 	finEmpInfo_VISAMCAMEX                             :                         "Visa/MC/Amex",
 	finEmpInfo_StoreCard                              :                         "Carte de grand magasin ",
 	finEmpInfo_GasCard                                :                         "Carte de poste d’essence ",
@@ -228,7 +230,7 @@ WICI.dictionary_fr = {
 	IdTypesList_BC                                    :                         'INSURANCE CORPORATION OF BRITISH COLUMBIA',
 	IdTypesList_IN                                    :                         'CERTIFICAT DU STATUT D’INDIEN',
 	IdTypesList_AB                                    :                         'ALBERTA REGISTRIES',
-	IdTypesList_RE                                    :                         ' FICHE D’ÉTABLISSEMENT',
+	IdTypesList_RE                                    :                         'FICHE RELATIVE AU DROIT D’ÉTABLISSEMENT',
 	IdTypesList_NS                                    :                         'SERVICES NOUVELLE-ÉCOSSE ET RELATIONS AVEC LES MUNICIPALITÉS ',
 	IdTypesList_NB                                    :                         'SERVICES NOUVEAU-BRUNSWICK',
 	IdTypesList_NL                                    :                         'DEPT. OF GOVERNMENT SERVICES AND LANDS OF NEWFOUNDLAND AND LABRADOR',
@@ -275,24 +277,25 @@ WICI.dictionary_fr = {
 	optionalProducts_Proceed                          :                         "PASSER À LA CONFIRMATION",
 	optionalProducts_PageTitle                        :                         "ADHÉSION À DES PRODUITS FACULTATIFS<sup>&#8224;&#8224;</sup>",
 
-	optionalProducts_SignatureAgreement1				:	"<i>Je comprends que ce ou ces produits facultatifs sont offerts séparément de la carte MasterCard de Canadian Tire et qu’il n’est pas nécessaire d’obtenir la carte MasterCard de Canadian Tire. Je comprends que le ou les produits facultatifs que je choisis ne seront fournis que si je signe et accepte les frais indiqués. Si j’ai fait la demande d’une carte MasterCard de Canadian Tire et que celle-ci a été approuvée, j’autorise les Services Financiers Canadian Tire Limitée à porter à mon compte MasterCard de Canadian Tire le montant du paiement périodique indiqué ci-dessus. J’ai lu et compris les détails du produit indiqués dans la documentation comprenant les renseignements juridiques et je consens à m’inscrire au(x) produit(s) facultatif(s) susmentionné(s).</i>",
-	optionalProducts_SignatureAgreement2				:	"Votre signature pour adhérer au(x) produit(s) facultatif(s).",
+	optionalProducts_SignatureAgreement1				:	"<i>Je comprends que ce ou ces produits facultatifs sont offerts séparément de la carte MasterCard de Canadian Tire et qu’il n’est pas nécessaire d’obtenir la carte MasterCard de Canadian Tire. Je comprends que le ou les produits facultatifs que je choisis ne seront fournis que si je signe et accepte les frais indiqués. Si j’ai fait la demande d’une carte MasterCard de Canadian Tire et que celle-ci a été approuvée, j’autorise les Services Financiers Canadian Tire Limitée à porter à mon compte MasterCard de Canadian Tire le montant du paiement périodique indiqué ci-dessus. J’ai lu et compris les détails du produit indiqués dans la documentation comprenant les modalités et je consens à m’inscrire au(x) produit(s) facultatif(s) susmentionné(s).</i>",
+	optionalProducts_SignatureAgreement2				:	"En signant et en cochant la case ci-dessous, j’accepte de m’inscrire à ce(s) produit(s) facultatif(s) et j’accepte les modalités et les frais indiqués.",
 
 	optionalProducts_ProtectionAdvantage_Title			:	"Avantage protection<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span></span>de Canadian Tire",
 	optionalProducts_ProtectionAdvantage_Text			:	"<br><i>(non disponible en Saskatchewan)</i><br><br>Recevez une couverture complète grâce à la souscription à la fois au programme  Couverture-crédit<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/Couverture-crédit<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>**- Âge d'or ** et Surveillance d’identité Classique." +
 															"<ul type=\"disc\"><li>La prime de Couverture-crédit<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/Couverture-crédit – Âge d’or<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>** est de 1,10 $ par tranche de 100 $* du solde du mois courant chaque mois où le solde de votre compte est de 10 $ ou plus, et la prime de Surveillance d’identité Classique est de 4,99 $*** payable en avance chaque mois une fois votre première transaction effectuée avec votre carte de crédit de marque Canadian Tire.</li>" +
 															"<li>Par exemple, si votre solde était de 200 $ au moment de l’impression de votre relevé, vous ne paieriez que 2,20 $, taxe en sus.</li>" +
 															"</ul>",
-	optionalProducts_ProtectionAdvantage_Additions		:	"*Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques	ou votre Certificat d’assurance pour prendre connaissance de toutes les modalités, conditions, limitations et les exclusions relatives à votre solde. Certaines conditions s’appliquent." +
-															"<br>**Si vous êtes âgé de moins de 66 ans, vous adhérerez à Couverture-crédit. Si vous êtes âgé de 66 à 75 ans, vous adhérerez à Couverture-crédit – Âge d’or. Couverture-crédit et Couverture-crédit – Âge d’or est souscrite auprès de American Bankers, Compagnie d’Assurance Vie de la Floride, et de American Bankers, Compagnie d’Assurances Générales de la Floride, filiales de Assurant Solutions<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>." +
-															"<br>***Plus les taxes applicables. Les frais d’adhésion débuteront une fois la première transaction effectuée avec votre carte de crédit de marque Canadian Tire. Par la suite, les frais d’adhésion seront facturés tous les mois à l'avance sur votre carte de crédit de marque Canadian Tire. Voir le document d'information juridique pour toutes les modalités, conditions, restrictions et exclusions. Certaines conditions s’appliquent.",
+															  
+	optionalProducts_ProtectionAdvantage_Additions		:	"*Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques ou votre Certificat d’assurance pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s’appliquent." +
+															"<br>**Si vous êtes âgé de moins de 66 ans, vous serez inscrit à Couverture-crédit. Si vous êtes âgé de 66 à 75 ans, vous serez inscrit à Couverture-crédit – Âge d’or. Couverture-crédit et Couverture-crédit – Âge d’or sont souscrites auprès de American Bankers, compagnie d’assurance vie de la Floride, et de American Bankers, compagnie d’assurances générales de la Floride. American Bankers, compagnie d’assurance vie de la Floride et American Bankers, compagnie d’assurances générales de la Floride, et leurs filiales et sociétés affiliées exercent des activités au Canada sous le nom d’Assurant Solutions." +
+															"<br>***Taxes applicables en sus. Vos frais d’adhésion commenceront après la première transaction effectuée à l’aide de votre carte de crédit Canadian Tire. Par la suite, les frais d’adhésion seront portés en avance chaque mois à votre compte de carte de crédit de marque Canadian Tire. Veuillez consulter le document Renseignements juridiques pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s’appliquent.",
 	optionalProducts_CreditProtector_Title				:	"Couverture-crédit<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>** et Couverture crédit – Âge d’or<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>**",
 	optionalProducts_CreditProtector_Text				:	"<br>(non disponible pour les résidents de la Saskatchewan)<br><ul type=\"disc\">" +
 															"<li>La prime est de 1,10 $ par tranche de 100 $ du solde mensuel courant, moins toute prime d’assurance impayée, chaque mois où le solde de votre compte est de 10 $ ou plus et est portée à votre compte MasterCard<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> de Canadian Tire<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span></li>" +
 															"<li>Par exemple, si votre solde était de 200 $ au moment de l’impression de votre relevé, vous ne paieriez que 2,20 $, taxe en sus.</li>" +
 															"</ul>",
-	optionalProducts_CreditProtector_Additions			:	"*Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques et votre Certificat d’assurance pour prendre connaissance de toutes les modalités, conditions, limitations et les exclusions relatifs à votre solde. Certaines conditions s’appliquent." +
-															"<br>**Si vous êtes âgé de moins de 66 ans, vous adhérerez à Couverture-crédit. Si vous êtes âgé de 66 à 75 ans, vous adhérerez à Couverture-crédit – Âge d’or. Couverture-crédit et Couverture-crédit – Âge d’or est souscrite auprès de American Bankers, Compagnie d’Assurance Vie de la Floride, et de American Bankers, Compagnie d’Assurances Générales de la Floride, filiales de Assurant Solutions<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>",
+	optionalProducts_CreditProtector_Additions			:	"*Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques ou votre Certificat d’assurance pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s’appliquent." +
+															"<br>**Si vous êtes âgé de moins de 66 ans, vous serez inscrit à Couverture-crédit. Si vous êtes âgé de 66 à 75 ans, vous serez inscrit à Couverture-crédit – Âge d’or. Couverture-crédit et Couverture-crédit – Âge d’or sont souscrites auprès de American Bankers, compagnie d’assurance vie de la Floride, et de American Bankers, compagnie d’assurances générales de la Floride. American Bankers, compagnie d’assurance vie de la Floride et American Bankers, compagnie d’assurances générales de la Floride, et leurs filiales et sociétés affiliées exercent des activités au Canada sous le nom d’Assurant Solutions.",
 
 	optionalProducts_IdentityWatch_Title				:	"<strong>Surveillance d’identité classique</strong>",
 	optionalProducts_IdentityWatch_Text					:	"<br>Protégez vos renseignements personnels et ceux de votre famille grâce à Surveillance d’identité Classique.<br>" +
@@ -304,8 +307,8 @@ WICI.dictionary_fr = {
 															"<li>   4,99 $*** payable en avance chaque mois une fois votre première transaction effectuée avec votre carte de crédit de marque Canadian Tire.</li>" +
 															"</ul>" +
 															"Si vous souscrivez au programme Surveillance d’identité Classique, votre adhésion prendra effet à compter de la date d’inscription indiquée sur votre lettre de bienvenue, laquelle est comprise dans votre trousse de bienvenue du programme Surveillance d’identité Classique.",
-
-	optionalProducts_IdentityWatch_Additions			:	"<br><br>***Plus les taxes applicables. Les frais d’adhésion débuteront une fois la première transaction effectuée avec votre carte de crédit de marque Canadian Tire. Par la suite, les frais d’adhésion seront facturés tous les mois à l'avance sur votre carte de crédit de marque Canadian Tire. Voir le document d'information juridique pour toutes les modalités, conditions, restrictions et exclusions. Certaines conditions s’appliquent.",
+                                                                     
+	optionalProducts_IdentityWatch_Additions			:	"<br><br>***Taxes applicables en sus. Vos frais d’adhésion commenceront après la première transaction effectuée à l’aide de votre carte de crédit Canadian Tire. Par la suite, les frais d’adhésion seront portés en avance chaque mois à votre compte de carte de crédit de marque Canadian Tire. Veuillez consulter le document Renseignements juridiques pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s’appliquent.",
 
 	optionalProducts_TermsAndConditions_PA_Title		:	"<strong>Modalités relatives au programme Avantage Protection<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> de Canadian Tire</strong>",
 
@@ -388,7 +391,7 @@ WICI.dictionary_fr = {
 	optionalProducts_TermsAndConditions14             :                         "Le créancier a un intérêt financier dans la vente de Couverture-crédit.",
 	optionalProducts_TermsAndConditions15             :                         "Si vous souhaitez obtenir plus de renseignements sur Couverture-crédit, vous pouvez obtenir un certificat d’assurance complet et des renseignements détaillés en visitant le site www.ctfs.com ou en appelant au 1 800 459-6415. ",
 
-	optionalProducts_TermsAndConditions16             :                         "J’accepte les modalités.",
+	optionalProducts_TermsAndConditions16             :                         "J’ai lu et compris les modalités et les détails relatifs au produit et je consens à m’inscrire au(x) produit(s) facultatif(s) susmentionné(s).",
 	optionalProducts_TermsAndConditions17             :                         "Date : ",
 
 	optionalProducts_TermsAndConditions18             :                         "Je comprends que l’adhésion à l’assurance n’est pas requise pour obtenir la carte MasterCard de Canadian Tire et que l’assurance ne me sera pas fournie à moins que je n’appose ma signature pour signifier mon acceptation des coûts indiqués.",
@@ -405,9 +408,14 @@ WICI.dictionary_fr = {
 																				"<br><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> Couverture-crédit et Couverture-crédit – Âge d’or sont des marques de commerce déposées des Services Financiers Canadian Tire Limitée, et sont utilisées sous licence. Le programme Surveillance d’identité classique est commandité par les Services Financiers Canadian Tire Limitée et fourni par Aimia Proprietary Loyalty Canada Inc." +
 																				"<br>Rebound<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span> est une marque de commerce déposée de Aimia Proprietary Loyalty Canada Inc." +
 																				"<br><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence." +
-																				"<br><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated.",
+																				"<br><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span>/<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MC</sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated." +
+																				"<br>Assurant Solutions<span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>MD</sup></span> est une marque de commerce déposée de Assurant Inc.",
 																				
 	//................................................................
+	optionalProducts_WarningHeader 					  :                         "VEUILLEZ LIRE ATTENTIVEMENT CE QUI CONCERNE<br> PRODUITS FACULTATIFS",
+	optionalProducts_PAProducts					      : 						"Programme Avantage Protection de Canadian Tire, lequel comprend :<i><ul><li>Couverture-crédit / Couverture-crédit – Âge d’or</li><li>Surveillance d’identité Classique</li></ul></i>",
+	optionalProducts_CPProducts						  : 						"<ul><li>Couverture-crédit / Couverture-crédit – Âge d’or</li></ul>",
+	optionalProducts_IWProducts						  : 						"<ul><li>Surveillance d’identité Classique</li></ul>",	
 
 	jobCategoriesList_null                            :                         'Veuillez sélectionner...',
 	jobCategoriesList_DR                              :                         'CHAUFFEUR',
@@ -469,21 +477,26 @@ WICI.dictionary_fr = {
 	signatureScreen_License1_1                        :                         " (la « carte »).",
 	signatureScreen_License1_2                        :                         "Canadian Tire ",
 	signatureScreen_License2                          :                         "S’il ne vous est pas possible d’approuver ma demande de carte prévoyant un taux d’intérêt annuel de 21,99 % pour les avances de fonds et les frais afférents et un taux d’intérêt annuel de 19,99 % pour tous les autres types de débit, j’accepte que vous traitiez la présente demande comme s’il s’agissait d’une demande de carte à un taux d’intérêt annuel de 25,99 % pour tous les types de débit sans que vous n’ayez à m’en aviser spécifiquement.",
-	signatureScreen_License3                          :                         "La carte est émise par la Banque Canadian Tire (la « BCT »), et le compte est administré par les Services Financiers Canadian Tire Limitée (les « SFCTL »).",
-	signatureScreen_License4                          :                         "La BCT et les SFCTL peuvent procéder à la collecte, à l’utilisation et à la communication de renseignements personnels me concernant aux fins décrites dans la politique en matière de protection des renseignements personnels de Canadian Tire qui se trouve dans le document accompagnant le présent formulaire de demande de carte, notamment à des fins de commercialisation et de vente par courriel, téléphone, dispositif de composition et d’annonce automatique ou toute autre forme de télécommunication.",
+	signatureScreen_License3                          :                         "La carte est émise par la Banque Canadian Tire (la « BCT »).",
+	signatureScreen_License4                          :                         "La BCT peut procéder à la collecte, à l’utilisation et à la communication de renseignements personnels me concernant aux fins décrites dans la politique en matière de protection des renseignements personnels de Canadian Tire qui se trouve dans le document accompagnant le présent formulaire de demande de carte, notamment à des fins de commercialisation et de vente par courriel, téléphone, dispositif de composition et d’annonce automatique ou toute autre forme de télécommunication.",
 	signatureScreen_License5                          :                         "Je serai lié par les modalités du contrat du titulaire de carte de la Banque Canadian Tire que je recevrai avec la carte, lequel peut être modifié de temps à autre. Je serai la seule personne responsable de tous les débits imputés à ce compte, y compris ceux portés au compte par toute personne pour laquelle je vous ai demandé d’émettre une carte additionnelle. Je serai la seule personne qui recevra un relevé de compte mensuel.",
 	signatureScreen_License6                          :                         "Vous pouvez obtenir des renseignements sur mes antécédents de crédit et d’autres renseignements personnels me concernant auprès d’agences d’évaluation du crédit et communiquer de tels renseignements à ces agences.",
 	signatureScreen_License7                          :                         "Chaque personne pour laquelle je vous ai demandé d’émettre une carte additionnelle m’a autorisé à vous fournir les renseignements ci-dessus la concernant.",
 	signatureScreen_License8                          :                         "Si je vous fournis mon numéro d’assurance sociale, vous pouvez l’utiliser à des fins d’identification, notamment auprès d’agences d’évaluation du crédit.",
 	signatureScreen_License9                          :                         "J’ai lu et compris le texte figurant sur la présente demande de carte et ai reçu un document contenant des renseignements additionnels concernant cette demande.",
 
-	signatureScreen_Reset_Button_Label                :                         "Recommencer",
+	signatureScreen_Reset_Button_Label                :                         "Éfface la Signature",
 
-	signatureScreen_TermsAndConditions_AcceptBox      :                         "J’accepte les modalités.",
+	signatureScreen_TermsAndConditions_AcceptBox      :                         "Je confirme avoir lu, compris et accepté les modalités présentées ci-dessus, lesquelles sont relatives à la carte ",
 
 	signatureScreen_validation_acceptAgreement        :                         "Veuillez accepter les modalités.",
 	signatureScreen_validation_signature              :                         "Veuillez signer.",
 	signatureScreen_validation_signDate               :                         "La date de signature n’est pas valide.",
+
+
+	signatureScreen_WarningHeader              		  :   						"Veuillez lire attentivement",
+	signatureScreen_WarningText1              		  :                         "En signant et en cochant la case ci-dessous, vous consentez à soumettre une demande pour la carte :",
+
 
 	     // Signature screen END ................................................................
 
@@ -501,9 +514,9 @@ WICI.dictionary_fr = {
 	summary_SelectProduct_PromoCode                   :                         "Code promotionnel",
 	summary_SelectProduct_Province                    :                         "Province",
 
-	summary_TellAboutYourself_SubTitle                :                         "Renseignements personnels",
+	summary_TellAboutYourself_SubTitle                :                         "Identification du client",
 	summary_TellAboutYourself_IDType                  :                         "Type de pièce d’identité",
-	summary_TellAboutYourself_PlaceOfIssue            :                         "Lieu de délivrance",
+	summary_TellAboutYourself_PlaceOfIssue            :                         "Province émettrice de l’identification",
 	summary_TellAboutYourself_IDNumber                :                         "N° de la pièce d’identité",
 
 	summary_TellAboutYourself_Title                   :                         "Titre de civilité",
@@ -514,7 +527,7 @@ WICI.dictionary_fr = {
 	summary_TellAboutYourself_Email                   :                         "Adresse électronique",
 	summary_TellAboutYourself_HomePhone               :                         "Téléphone (rés.)",
 	summary_TellAboutYourself_CellPhone               :                         "Téléphone (cell.)",
-	summary_TellAboutYourself_Correspondence          :                         "Correspondance ",
+	summary_TellAboutYourself_Correspondence          :                         "Langue de correspondance",
 
 	summary_Address_SubTitle                          :                         "Adresse",
 
@@ -522,19 +535,19 @@ WICI.dictionary_fr = {
 	summary_Address_StreetNumber                      :                         "Numéro d'Adresse ",
 	summary_Address_StreetName                        :                         "Rue",
 	summary_Address_AddressLine2                      :                         "Ligne d'Addresse 2",
-	summary_Address_SuiteUnit                         :                         "App./Unité ",
+	summary_Address_SuiteUnit                         :                         "App. / Bureau / Unité ",
 	summary_Address_City                              :                         "Ville",
 	summary_Address_Province                          :                         "Province",
 
 	summary_Address_ResidenceType                     :                         "Type de résidence ",
 	summary_Address_MonthlyHousePayment               :                         "Hypothèque / Loyer mensuel ",
-	summary_Address_DurationCurrentAddress            :                         "Depuis quand habitez-vous à cette adresse?",
+	summary_Address_DurationCurrentAddress            :                         "Depuis combien de temps habitez-vous à votre adresse actuelle?",
 
 	summary_PreviousAddress_SubTitle                  :                         "Ancienne adresse",
 
 	summary_FinEmp_SubTitle1                          :                         "Renseignements financiers et ",
 	summary_FinEmp_SubTitle2                          :                         "professionnel",
-	summary_FinEmp_BankingProducts                    :                         "Produits bancaires ",
+	summary_FinEmp_BankingProducts                    :                         "Sélectionnez les produits bancaires que vous utilisez actuellement.",
 
 	summary_FinEmp_EmploymentType                     :                         "Type d’emploi",
 	summary_FinEmp_GrossAnnualIncome                  :                         "Revenu annuel brut",
@@ -562,7 +575,7 @@ WICI.dictionary_fr = {
 	summary_SupCard_Address_StreetNumber              :                         "Numéro d'Adresse",
 	summary_SupCard_Address_StreetName                :                         "Rue",
 	summary_SupCard_Address_AddressLine2              :                         "Ligne d'Addresse 2",
-	summary_SupCard_Address_SuiteUnit                 :                         "App./Unité",
+	summary_SupCard_Address_SuiteUnit                 :                         "App. / Bureau / Unité",
 	summary_SupCard_Address_City                      :                         "Ville",
 	summary_SupCard_Address_Province                  :                         "Province",
 
@@ -590,8 +603,11 @@ WICI.dictionary_fr = {
 	summary_submitError                               :                         "Malheureusement, votre demande n’a pu être envoyée Aucune tentative d’envoi supplémentaire ne sera permise. Veuillez abandonner la demande en cours et remplir un formulaire imprimé de demande. Nous sommes désolés de cet inconvénient.",
 	summary_submitInitError							  :							"Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème de back-end. S'il vous plaît essayer à nouveau.",
 
-	summary_dataIntegrity_Error							:						"Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème interne. S'il vous plaît essayer à nouveau.",
+	summary_dataIntegrity_Error						  :						    "Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème interne. S'il vous plaît essayer à nouveau.",
 
+    summary_TellAboutYourself_ApplicantInfo			  :                         "Renseignement sur le demandeur",
+    summary_highlighter_SubTitle                      :                         "Votre demande doit être vérifiée par un représentant du magasin Canadian Tire.",
+	summary_highlighterHeader                         : 				        "IMPORTANT",
 		// Summary screen END ................................................................
 
 		// Print screen START ..............................................................
@@ -703,5 +719,8 @@ WICI.dictionary_fr = {
 	personalDataC_Yes									: "Oui",
 	personalDataC_No								    : "Non",
 	personalData1_validation_ReceiveEmail				: 'Sélectionnez intérêt légitime par e-mail',
-	summary_TellAboutYourself_Email_Consent             : "e-mail marketing consentement?"  
+	summary_TellAboutYourself_Email_Consent             : "e-mail marketing consentement?",
+	signature_OptionsMasterCard 					    : "MasterCard Options de Canadian Tire",
+	signature_GasAdvantageMasterCard 					: "MasterCard Avantage Essence",
+	signature_CashAdvantageMasterCard					: "MasterCard Avantage Remise"    
 };

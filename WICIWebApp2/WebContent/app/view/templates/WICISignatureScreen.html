@@ -128,32 +128,71 @@
 			<!--<li><span data-translationKey="signatureScreen_License5"/></li>//-->	
 		</ul>
 		<br>
-		<center>
+		<div class="warningDIV" id="warningDIVSig" name="warningDIVSig">
+		<center>		
+		<p class="warningHeader" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
+	    <table class="warningTable" id="warningTableSig" name="warningTableSig" >
+        <tr>
+            <td>
+							{{if CardType === 'OMR' }}
+								 <img src="app/images/omr.jpg" style="margin-top:10px;"></img>
+							{{else CardType === 'OMP' }}
+								<img src="app/images/omp.gif" style="margin-top:10px;"></img>
+							{{else}}
+								<img src="app/images/omc.gif" style="margin-top:10px;"></img>
+							{{/if}}	
+							<br/>
+           </td>
+            <td style="padding:25px;">
+                <span data-translationKey="signatureScreen_WarningText1" ></span><br/><br/><b>
+							{{if CardType === 'OMR' }}
+								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+							{{else CardType === 'OMP' }}
+								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+							{{else}}
+								<span data-translationKey="signature_OptionsMasterCard" ></span>
+							{{/if}}	
+							
+				</b>
+            </td>
+        </tr>
+        </table><br />
+        
 			<div class="signatureContainer sugnatureFixes" >
 				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">				
 					<div class="signature" id="signature"/>															
 				</div>
 			</div>
 			<br>
-			<span id="signature_Reset_Button" class="button grayflat proceedButtonWidth">
+			<span id="signature_Reset_Button" class="button grayflat sigResetButton proceedButtonWidth">
         		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
 			</span>
 		</center>
-		<label id="signatureScreen_UserName">${ClientName}</label>				
-		<p>
-			<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
-		</p>		
-		<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer">
-			<div class="rightContaier">
-					<div class="wiciCheckBox" >	
-						<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />		
-						<label for="signatureScreen_AcceptAgreement"/>									
+			<br/>
+			<div style="padding-left:15px;"> <!-- To move this away from the RED border a little -->
+				<label id="signatureScreen_UserName">${ClientName}</label>				
+		
+				<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
+						
+				<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer">
+					<div class="rightContaier">
+							<div class="wiciCheckBox" >	
+								<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />		
+								<label for="signatureScreen_AcceptAgreement"/>									
+							</div>
 					</div>
+					<div class="leftContainer  opCheckBoxLabel">
+						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />{{if CardType === 'OMR' }}
+								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+							{{else CardType === 'OMP' }}
+								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+							{{else}}
+								<span data-translationKey="signature_OptionsMasterCard" ></span>
+							{{/if}}	
+					</div>
+				</div>
 			</div>
-			<div class="leftContainer  opCheckBoxLabel">
-				<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />
-			</div>
-		</div>		
+		</div>
 		<br>
 		<br>
 		<br>		

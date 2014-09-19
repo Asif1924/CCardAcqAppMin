@@ -132,6 +132,9 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         createFlips();               
         
         removePAandCPifSKProvince();
+        
+        // To ensure the DIVS are styled based on the checkbox state on navigation into the page
+        toggleAllWarningDIVs();
     }
 
     //---------------------------------------------------------------------------------------
@@ -409,13 +412,26 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 		$(refs.signDateIW).bind('translatorFinished',function(){
 			showDateIW();
 		});
+		
+		$(refs.optionalProducts_PA_Agreement).click(function(){    	
+      toggleWarningDIV($(refs.optionalProducts_PA_Agreement), "PA");
+    });
+    
+    $(refs.optionalProducts_CP_Agreement).click(function(){    	
+      toggleWarningDIV($(refs.optionalProducts_CP_Agreement), "CP");
+    });
+    
+    $(refs.optionalProducts_IW_Agreement).click(function(){    	
+      toggleWarningDIV($(refs.optionalProducts_IW_Agreement), "IW");
+    });
+		
     }
     //---------------------------------------------------------------------------------------
     function updateOptionalProductsVisibility()
     {        
     	showHideOptionalProductsIW();
-        showHideOptionalProductsCP();
-        showHideOptionalProductsPA();
+      showHideOptionalProductsCP();
+      showHideOptionalProductsPA();
         
         // TODO: refactor this code - move to separated methods
 	    $(refs.signature_PA).jSignature ('setData', [], 'native');
@@ -430,6 +446,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 	    $(refs.resetSignature3).removeClass('blackflat');
         $(refs.resetSignature3).addClass('grayflat');
         $(refs.resetSignature3).unbind('click', onResetSignatureClicked3);
+      
+      toggleAllWarningDIVs();
     }
     //---------------------------------------------------------------------------------------
     function createSignatureControl1() {        
@@ -700,4 +718,29 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         flow.next();
     }
     //---------------------------------------------------------------------------------------
+    
+    //---------------------------------------------------------------------------------------
+	function toggleWarningDIV(objCheckbox, targetItemsSuffix)
+	{				
+		console.log(targetItemsSuffix);		
+		if (objCheckbox.is(":checked"))
+		{			
+			$("#warningDIV" + targetItemsSuffix).removeClass("warningDIV").addClass("warningDIVCleared");
+			$("#warningHeader" + targetItemsSuffix).removeClass("warningHeader").addClass("warningHeaderCleared");	 
+			$("#warningText" + targetItemsSuffix).removeClass("warningText").addClass("warningTextCleared");	   		
+		}	   			
+		else
+		{
+			$("#warningDIV" + targetItemsSuffix).removeClass("warningDIVCleared").addClass("warningDIV");
+			$("#warningHeader" + targetItemsSuffix).removeClass("warningHeaderCleared").addClass("warningHeader");
+			$("#warningText" + targetItemsSuffix).removeClass("warningTextCleared").addClass("warningText");	 
+		}
+	}
+	
+	function toggleAllWarningDIVs()
+	{							
+		toggleWarningDIV($(refs.optionalProducts_PA_Agreement), "PA");    
+    toggleWarningDIV($(refs.optionalProducts_CP_Agreement), "CP");
+    toggleWarningDIV($(refs.optionalProducts_IW_Agreement), "IW");
+	}
 };

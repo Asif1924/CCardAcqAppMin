@@ -81,6 +81,7 @@
 
 	</table>
 </div>
+
 <div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
 	<br> <br>
 	<center>
@@ -143,53 +144,54 @@
 											<span class="TandC_Content_Format"
 												data-translationKey="optionalProducts_TermsAndConditions_IW_Additions" />
 										</p>
-<p >
-							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>
+										<p >
+										<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/></p>
+										<!-- ALTERED -->
 										<p>
-											<span
-												data-translationKey="optionalProducts_SignatureAgreement1" />
+												<span class="" data-translationKey="optionalProducts_SignatureAgreement1" />
 										</p>
-
-										<p>
-											<span
-												data-translationKey="optionalProducts_SignatureAgreement2" />
-										</p>
-										<p>
+										</div>						
+										<div class="warningDIV" id="warningDIVPA" name="warningDIVPA">
+											<center>
+											<p class="warningHeader" id="warningHeaderPA" name="warningHeaderPA"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+										</center>
+										<div class="warningText" id="warningTextPA" name="warningTextPA" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
 											<p>
-											<span data-translationKey="sigScreen_Date" /><label
-												id="optionalProducts_SignDatePA">
-											
-										</p>
+												<span data-translationKey="optionalProducts_SignatureAgreement2" />
+											</p>
+											<p>
+												<span data-translationKey="optionalProducts_PAProducts" />
+											</p>
+											<p>
+												<span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDatePA">																							
 											</p>
 										</div>
-										<center>
-											<div class="signatureContainer sugnatureFixes">
-												<div class="signatureBorder"
-												id="optionalProductsScreen_PA_SingnatureContainer">
-													<div class="signature" id="signature_PA" />
+											<center>
+												<div class="signatureContainer sugnatureFixes">
+													<div class="signatureBorder"
+													id="optionalProductsScreen_PA_SingnatureContainer">
+														<div class="signature" id="signature_PA" />
+													</div>
 												</div>
+												<br> <span id="signature_Reset_Button1" class="button grayflat sigResetButton proceedButtonWidth"> <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+												</span>
+											</center>
+											<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
+												<label id="signatureScreen_UserName">${ClientName}</label> <br>
+												<div class="agreementBoxContainerEX" id="optionalProduct_PA_AcceptBox_Area">
+													<div class="rightContaier">
+														<div class="wiciCheckBox">
+															<input type="checkbox" id="optionalProducts_PA_Agreement">
+															<label for="optionalProducts_PA_Agreement"></label>
+														</div>
+													</div>
+													<div class="leftContainer  opCheckBoxLabel">
+														<label data-translationkey="optionalProducts_TermsAndConditions16"></label>
+													</div>
 											</div>
-											<br> <span id="signature_Reset_Button1"
-											class="button grayflat proceedButtonWidth"> <span
-											class="buttonText"
-											data-translationKey="signatureScreen_Reset_Button_Label"></span>
-											</span>
-										</center>
-										<label id="signatureScreen_UserName">${ClientName}</label> <br>
-										<div class="agreementBoxContainerEX"
-										id="optionalProduct_PA_AcceptBox_Area">
-											<div class="rightContaier">
-												<div class="wiciCheckBox">
-													<input type="checkbox" id="optionalProducts_PA_Agreement">
-													<label for="optionalProducts_PA_Agreement"></label>
-												</div>
-											</div>
-											<div class="leftContainer  opCheckBoxLabel">
-												<label
-												data-translationkey="signatureScreen_TermsAndConditions_AcceptBox">I
-													accept the terms and conditions</label>
-											</div>
+										</div>
+										</div>
+										<!-- /ALTERED -->
 <br>
 <p  class="paddingLeft60">
 	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
@@ -260,26 +262,27 @@
 											</p>
 											<br>
 											
-							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-
-											<p>
-											
+											<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>										
 											<p>
 												<span
 													data-translationKey="optionalProducts_SignatureAgreement1" />
 											</p>
-												<span
-													data-translationKey="optionalProducts_SignatureAgreement2" />
+											</div>						
+											<div class="warningDIV" id="warningDIVCP" name="warningDIVCP">
+												<center>
+												<p class="warningHeader" id="warningHeaderCP" name="warningHeaderCP"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+											</center>
+											<div class="warningText" id="warningTextCP" name="warningTextCP" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
+											<p>
+												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
 											<p>
-											
+												<span data-translationKey="optionalProducts_CPProducts" />
+											</p>
 											<p>
-												<span data-translationKey="sigScreen_Date" /><label
-													id="optionalProducts_SignDateCP">
-											
+												<span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDateCP">
 											</p>
-											</p>
-										</div>
+											</div>
 
 										<br>
 										<center>
@@ -290,11 +293,12 @@
 												</div>
 											</div>
 											<br> <span id="signature_Reset_Button2"
-												class="button grayflat proceedButtonWidth"> <span
+												class="button grayflat sigResetButton proceedButtonWidth"> <span
 												class="buttonText"
 												data-translationKey="signatureScreen_Reset_Button_Label"></span>
 											</span>
 										</center>
+										<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
 										<label id="signatureScreen_UserName">${ClientName}</label>
 										<div class="agreementBoxContainerEX"
 											id="optionalProduct_CP_AcceptBox_Area">
@@ -306,9 +310,10 @@
 												</div>
 											</div>
 											<div class="leftContainer  opCheckBoxLabel">
-												<label
-													data-translationkey="signatureScreen_TermsAndConditions_AcceptBox">I
-													accept the terms and conditions</label>
+												<label data-translationkey="optionalProducts_TermsAndConditions16"></label>
+											</div>
+											</div>
+											</div>
 											</div>
 <br>
 <p  class="paddingLeft60">
@@ -378,19 +383,22 @@
 												<span class="TandC_Content_Format"
 													data-translationKey="optionalProducts_TermsAndConditions_IW_Additions" />
 											</p>
-
-
-							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
+											<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
 											<p>
-												<span
-													data-translationKey="optionalProducts_SignatureAgreement1" />
+												<span data-translationKey="optionalProducts_SignatureAgreement1" />
+											</p>
+											</div>						
+											<div class="warningDIV" id="warningDIVIW" name="warningDIVIW">
+												<center>
+												<p class="warningHeader" id="warningHeaderIW" name="warningHeaderIW"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+											</center>
+											<div class="warningText" id="warningTextIW" name="warningTextIW" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
+											<p>
+												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
 											<p>
-												<span
-													data-translationKey="optionalProducts_SignatureAgreement2" />
+												<span data-translationKey="optionalProducts_IWProducts" />
 											</p>
-											<p>
-											
 											<p>
 												<span data-translationKey="sigScreen_Date" /><label
 													id="optionalProducts_SignDateIW">
@@ -407,24 +415,27 @@
 												</div>
 											</div>
 											<br> <span id="signature_Reset_Button3"
-												class="button grayflat proceedButtonWidth"> <span
+												class="button grayflat sigResetButton proceedButtonWidth"> <span
 												class="buttonText"
 												data-translationKey="signatureScreen_Reset_Button_Label"></span>
 											</span>
 										</center>
 										<br>
-										<div class="agreementBoxContainerEX"
-											id="optionalProduct_IW_AcceptBox_Area">
-											<div class="rightContaier">
-												<div class="wiciCheckBox">
-													<input type="checkbox" id="optionalProducts_IW_Agreement">
-													<label for="optionalProducts_IW_Agreement"></label>
+										<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
+											<div class="agreementBoxContainerEX"
+												id="optionalProduct_IW_AcceptBox_Area">
+												<div class="rightContaier">
+													<div class="wiciCheckBox">
+														<input type="checkbox" id="optionalProducts_IW_Agreement">
+														<label for="optionalProducts_IW_Agreement"></label>
+													</div>
+												</div>
+												<div class="leftContainer  opCheckBoxLabel">
+													<label
+														data-translationkey="optionalProducts_TermsAndConditions16"></label>
 												</div>
 											</div>
-											<div class="leftContainer  opCheckBoxLabel">
-												<label
-													data-translationkey="signatureScreen_TermsAndConditions_AcceptBox">I
-													accept the terms and conditions</label>
+											</div>
 											</div>
 <br>
 <p  class="paddingLeft60">
@@ -458,7 +469,7 @@
 								<input 
 								id="optionalProducts_NA_CheckField" type="radio" 
 								name="additionalInformation_OptionalProducts"/>
- <label for="optionalProducts_NA_CheckField"></label> </div>
+ 								<label for="optionalProducts_NA_CheckField"></label> </div>
 							</td>
 							<td class="fieldValuesCell marginTop23"><span
 								class="elementWithBoldFont marginTopMinus3"

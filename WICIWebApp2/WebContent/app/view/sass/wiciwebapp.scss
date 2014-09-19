@@ -103,26 +103,26 @@ html,body {
 }
 
 .Login_CanadianTireLogo{
-	background-image: #{inline-image("CTFS_LoginScreen_Logo_English.png")};
+	background-image: #{inline-image("CTB_LoginScreen_Logo_English.png")};
     height: 120px;
     width: 477px;
 	background-size: 100%;
 }
 .Login_CanadianTireLogo_French{
-	background-image: #{inline-image("CTFS_LoginScreen_Logo_French.png")};
+	background-image: #{inline-image("CTB_LoginScreen_Logo_French.png")};
     height: 120px;
     width: 477px;
 	background-size: 100%;
 }
 
 .PageHeader_CanadianTireLogo{
-	background-image: #{inline-image("CTFS_Navbar_Logo_English.png")};
+	background-image: #{inline-image("CTB_Navbar_Logo_English.png")};
     height: 60px;
     width: 247px;
 	background-size: 100%;
 }
 .PageHeader_CanadianTireLogo_French{
-	background-image: #{inline-image("CTFS_Navbar_Logo_French.png")};
+	background-image: #{inline-image("CTB_Navbar_Logo_French.png")};
     height: 60px;
     width: 247px;
 	background-size: 100%;
@@ -1789,3 +1789,108 @@ margin-top: -23px;
 .nowrap{
 	white-space: nowrap;
 }
+/* Summary - Submit button clearly to the customer  */
+.highlighterDIV {
+  border: 1px solid;
+  border-color: orange;
+  box-shadow: 0 0 10px orange;
+  -webkit-box-shadow: 0 0 10px orange;
+  -moz-box-shadow: 0 0 10px orange;
+  border-radius: 7px;
+  -webkit-appearance: none;
+  padding-bottom:15px;  
+}
+.highlighterHeader {
+  color: white;
+  background-color: orange;
+  font-size: 21pt;
+  padding: 5px;
+  margin:0;
+  margin-bottom:15px;
+}
+.highlighterTable{
+  color: orange; 
+  text-align:left;
+  width:70%;
+  padding:5px;
+  border: 0px;
+  font-size: 12pt;
+}
+.warningTable tr td{
+	border: 0px;
+}
+
+
+/* JG - Addition of CSS Items to Display signature areas more clearly to the customer */
+.warningDIV {
+  border: 1px solid;
+  border-color: red;
+  box-shadow: 0 0 10px red;
+  -webkit-box-shadow: 0 0 10px red;
+  -moz-box-shadow: 0 0 10px red;
+  border-radius: 7px;
+  -webkit-appearance: none;
+  padding-bottom:15px;  
+}
+.warningHeader {
+  color: white;
+  background-color: red;
+  font-size: 21pt;
+  padding: 5px;
+  margin:0;
+  margin-bottom:15px;
+}
+.warningTable{
+  color: red; 
+  text-align:left;
+  width:70%;
+  padding:5px;
+  border: 0px;
+  font-size: 12pt;
+}
+.warningTable tr td{
+	border: 0px;
+}
+.warningText{
+  color: red; 
+  text-align:left;  
+  font-size: 12pt;
+}
+.warningDIVCleared {
+  border: 1px solid;
+  border-color: #1e940a;
+  box-shadow: 0 0 10px #1e940a;
+  -webkit-box-shadow: 0 0 10px #1e940a;
+  -moz-box-shadow: 0 0 10px #1e940a;
+  border-radius: 7px;
+  -webkit-appearance: none;
+  padding-bottom:15px;  
+}
+.warningHeaderCleared {
+  color: white;
+  background-color: #1e940a;
+  font-size: 21pt;
+  padding: 5px;
+  margin:0;
+  margin-bottom:15px;
+}
+.warningTableCleared{
+  color: black; 
+  text-align:left;
+  width:70%;
+  padding:5px;
+  border: 0px;
+  font-size: 12pt;
+}
+.warningTableCleared tr td{
+	border: 0px;
+}
+.warningTextCleared{
+  color: black; 
+  text-align:left;  
+  font-size: 12pt;
+}
+.sigResetButton{	
+	height:20px !important;
+}
+/* END OF JG - Addition of CSS Items to Display more clearly to the customer */

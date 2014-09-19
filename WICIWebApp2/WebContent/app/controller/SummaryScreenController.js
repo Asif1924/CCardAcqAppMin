@@ -265,6 +265,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
                	action			:	"retrieve"
             };
             new WICI.PollingController(connectivityController, requestParams, pollResponseReceived, pollFailed).startPolling();
+            console.log("QueueTransactionID from Middleware:" + QueueTransactionID);
         }
         else
         	failedInitActivate( argResponse );

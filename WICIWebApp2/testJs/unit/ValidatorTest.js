@@ -261,14 +261,14 @@ describe("Validator", function() {
 	    it("will make sure value has correct format", function() {
 	    	expect(sut.streetNumber("1")).toBeTruthy();
 	    	expect(sut.streetNumber("12D")).toBeTruthy();
-	    	expect(sut.streetNumber("135AC")).toBeTruthy();
+	    	expect(sut.streetNumber("135ABC")).toBeTruthy();
 	    	expect(sut.streetNumber("14-5F")).toBeTruthy();
 	    	expect(sut.streetNumber(" 14-5F  ")).toBeTruthy();
 	    	expect(sut.streetNumber("1-'E'")).toBeTruthy();
 	    	
-	    	expect(sut.streetNumber("145ABC")).toBeFalsy();
+	    	expect(sut.streetNumber("145ABCD")).toBeFalsy();
 	    	expect(sut.streetNumber("#14_A")).toBeFalsy();
-	    	expect(sut.streetNumber("14ert")).toBeFalsy();
+	    	expect(sut.streetNumber("14ertf")).toBeFalsy();
 	    });     
 	});
 	

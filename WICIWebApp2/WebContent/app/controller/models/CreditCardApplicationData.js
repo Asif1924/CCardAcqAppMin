@@ -331,6 +331,7 @@ WICI.CreditCardApplicationData = function() {
 
 	this.setQueueTransactionID = function(argQueueTransactionID) {
 		var queueModel = this.getModel("queueModel");
+		console.log("QueueTransactionID:" + QueueTransactionID);
 		queueModel.set("queueTransactionID", argQueueTransactionID);
 	};
 

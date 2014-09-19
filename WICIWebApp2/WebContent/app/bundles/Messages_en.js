@@ -54,15 +54,15 @@ WICI.dictionary_en = {
 	validation_failed_must_have_value					:	"Please enter a value for %s",
 		
 	breadCrumbItem_ProductSelection						:	"Product Selection",
-	breadCrumbItem_PersonalData							:	"Application Data",
+	breadCrumbItem_PersonalData							:	"Applicant Info",
 	breadCrumbItem_OptionalProducts						:	"Optional Products",
 	breadCrumbItem_Confirmation							:	"Confirmation",
 		
 	loginScreen_UserID_Label							:	"User ID",
 	loginScreen_EmployerID_Label						:	"Employer ID",
-	loginScreen_AgentID_Label 							: 	"Agent ID",
+	loginScreen_AgentID_Label 							: 	"Agent ID / WeCare No.",
 	loginScreen_Password_Label 							: 	"Password (Case Sensitive)",
-	loginScreen_Location_Number 						: 	"Location Number (e.g. 324)",
+	loginScreen_Location_Number 						: 	"Store or Location No.",
 	loginScreen_Button_Label 							: 	"LOG IN",
 	
 	loginScreen_Dialog_ErrorTitle						:	"Login Error",
@@ -87,14 +87,15 @@ WICI.dictionary_en = {
 	
 	chooseProduct_ReadTandC								:	"Read Terms and Conditions",
 
-	personalData_TellUsAboutYourself					:	"TELL US ABOUT YOURSELF",
+	personalData_TellUsAboutYourself					:	"CUSTOMER IDENTIFICATION",
 	personalData_IDType									:	"ID Type",
-	personalData_PlaceOfIssue							:	"Place of Issue",
+	personalData_PlaceOfIssue							:	"Issuing Province of ID",
 	personalData_IDNumber								:	"ID Number",
 	
 	personalData_DOB_18YearsError						:	"Must be 18 years of age or older to apply",
 	personalData_DOB_19YearsError						:	"Must be 19 years of age or older to apply",
 	
+	personalData_ApplicantInfo 							: 	"APPLICANT INFORMATION",
 	personalData_Title 									: 	"Title",
     personalData_MR 									: 	"MR",
     personalData_MRS 									: 	"MRS",
@@ -110,18 +111,18 @@ WICI.dictionary_en = {
 	personalData_HomePhone								:	"Home Phone",
 	personalData_CellPhone								:	"Cellular Phone",
 
-	personalData_Correspondence							:	"Correspondence:",
+	personalData_Correspondence							:	"Preferred Language:",
 	personalData_English								:	"English",
 	personalData_French									:	"French",
 	
 	personalData2_AddressInformation					:	"ADDRESS INFORMATION",
 	personalData2_Address_PostalCode					:	"Postal Code",
 	personalData2_Address_StreetNumber					:	"Street Number",
-	personalData2_Address_Button_Label					:	"ADDRESS LOOKUP",
+	personalData2_Address_Button_Label					:	"FIND ADDRESS",
 	
 	personalData2_Address_AddressLine1					:	"Street Name",	
 	personalData2_Address_AddressLine2					:	"Address Line 2",
-	personalData2_Address_SuiteUnit						:	"Suite/Unit",
+	personalData2_Address_SuiteUnit						:	"Apt # / Suite / Unit",
 	personalData2_Address_City							:	"City",
 	personalData2_Address_Province						:	"Province",
 	
@@ -132,7 +133,7 @@ WICI.dictionary_en = {
 	personalData2_Address_Other							:	"Other",
 	
 	personalData2_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
-	personalData2_Address_Duration						:	"Duration at Current Address",	
+	personalData2_Address_Duration						:	"How long have you lived at your current address?",	
 	personalData2_Address_DurationYears					:	"Years",
 	personalData2_Address_DurationMonths				:	"Months",
 		
@@ -142,16 +143,16 @@ WICI.dictionary_en = {
 	personalData2_PreviousAddress_PostalCode			:	"Postal Code",	
 	personalData2_PreviousAddress_StreetNumber			:	"Street Number",	
 
-	personalData2_PreviousAddress_Button_Label			:	"ADDRESS LOOKUP",
+	personalData2_PreviousAddress_Button_Label			:	"FIND ADDRESS",
 		
 	personalData2_PreviousAddress_AddressLine1			:	"Street Name",	
 	personalData2_PreviousAddress_AddressLine2			:	"Address Line 2",
-	personalData2_PreviousAddress_SuiteUnit				:	"Suite/Unit",
+	personalData2_PreviousAddress_SuiteUnit				:	"Apt # / Suite / Unit",
 	personalData2_PreviousAddress_City					:	"City",
 	personalData2_PreviousAddress_Province				:	"Province",
 	
 	finEmpInfo_PageTitle								:	"FINANCIAL AND EMPLOYMENT INFORMATION",
-	finEmpInfo_BankingProducts							:	"Banking Products",
+	finEmpInfo_BankingProducts							:	"Select the banking products you have",
 	finEmpInfo_VISAMCAMEX								:	"Visa/MC/Amex",
 	finEmpInfo_StoreCard								:	"Store Card",
 	finEmpInfo_GasCard									:	"Gas Card",
@@ -274,24 +275,27 @@ WICI.dictionary_en = {
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
 	optionalProducts_PageTitle						    :	"OPTIONAL PRODUCT(s)<sup>&#8224;&#8224;</sup> ENROLMENT",
 		
-	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the legal information booklet and give my consent to be enrolled in the above selected optional product(s).</i>",
-	optionalProducts_SignatureAgreement2				:	"Your signature to enrol in optional product(s).",
+	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enroled in the above selected optional product(s).</i>",																	
+	optionalProducts_SignatureAgreement2				:	"By signing and checking the box below, I agree to enrol in the(se) optional product(s), accept the terms and conditions and to the cost(s) disclosed.",
 
 	optionalProducts_ProtectionAdvantage_Title			:	"Canadian Tire Protection Advantage<sup>&trade;</sup>",
     optionalProducts_ProtectionAdvantage_Text			:	"<br><i>(not available in Saskatchewan)</i><br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-<i>Senior</i><sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>. " + 
     														"<ul type=\"disc\"><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector <i>Senior</i>** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card for Identity Watch Classic." + 
 															"<br><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes.</li>" +
 															"</ul>",
-    optionalProducts_ProtectionAdvantage_Additions		:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions.Terms and conditions apply." +
-    														"<br>**If you are less than age 66, you will be enrolled in Credit Protector.If you are between 66-75 you will be enrolled in Credit Protector-<i>Senior</i>. Credit Protector and Credit Protector-<i>Senior</i> are underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&reg;</sup> companies." +
-    														"<br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",
+
+    optionalProducts_ProtectionAdvantage_Additions		:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply." +
+    														"<br>**If you are less than age 66, you will be enroled in Credit Protector. If you are between 66-75 you will be enroled in Credit Protector-<i>Senior</i>. Credit Protector and Credit Protector-<i>Senior</i> are underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions." +
+    														"<br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, Subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
+    														
 	optionalProducts_CreditProtector_Title				:	"Credit Protector<sup>&reg;</sup>**/Credit Protector-Senior<sup>&reg;</sup>**",
+	
     optionalProducts_CreditProtector_Text				:	"<br><i>(not available for residents of Saskatchewan)</i><br><ul type=\"disc\">" + 
     														"<li>$1.10 per $100* of your monthly statement balance, less any amount of insurance premium charged, in any month with a statement balance of $10 or more charged to the Canadian Tire<sup>&reg;</sup> MasterCard<sup>&reg;</sup>." +
     														"<br><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes." +
     														"</li></ul>",
-    optionalProducts_CreditProtector_Additions			:	"*Plus applicable taxes, payable monthly. See the Legal Information handout and your Certificate of Insurance for all terms, conditions, limitations and exclusions.Terms and conditions apply." + 
-    														"<br>**If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-<i>Senior</i>. Credit Protector and Credit Protector-<i>Senior</i> are underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida Assurant Solutions<sup>&reg;</sup> companies.",
+    optionalProducts_CreditProtector_Additions			:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply." +
+      														"<br>**If you are less than age 66, you will be enroled in Credit Protector. If you are between 66-75 you will be enroled in Credit Protector-<i>Senior</i>. Credit Protector and Credit Protector-<i>Senior</i> are underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions.",
 
 	optionalProducts_IdentityWatch_Title				:	"<strong>Identity Watch Classic<sup>&trade;</sup></strong>",
 	optionalProducts_IdentityWatch_Text					:	"<br>Help protect your and your family’s private and valuable information with Identity Watch Classic. <br>" +
@@ -302,8 +306,8 @@ WICI.dictionary_en = {
 															"<li>Plus Card Protection, Online Data Backup, Credit Card Theft Reward Service*** a $3,000 CDN reward.</li>" +
 															"<li>$4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</li></ul>" +
 															"If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",
-	optionalProducts_IdentityWatch_Additions			:	"<br><br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",												
-		
+	optionalProducts_IdentityWatch_Additions			:	"<br><br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",												
+																		 		
 	optionalProducts_TermsAndConditions_PA_Title		:	"<strong>Terms and Conditions for Canadian Tire Protection Advantage<sup>&trade;</sup></strong>",
 	   
 	//................................................................Start Terms and Conditions for Credit Protector.......................
@@ -355,7 +359,7 @@ WICI.dictionary_en = {
 	optionalProducts_IdentityWatch   					:   "- Enrol me in Identity Watch<sup>&trade;</sup",
 	optionalProducts_ProtectionAdvantage   				:   "- Enrol me in Protection Advantage<sup>&trade;</sup",
 	optionalProducts_DoNotEnrolMe 						:   "Not at this time",		
-	optionalProducts_Details							:	"For only $1.10 per $100, plus applicable taxes, of my current month's statement balance. No premium will be charged in any month where my balance is less than $10.00 If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-Senior.",
+	optionalProducts_Details							:	"For only $1.10 per $100, plus applicable taxes, of my current month's statement balance. No premium will be charged in any month where my balance is less than $10.00 If you are less than age 66, you will be enroled in Credit Protector. If you are between 66-75 you will be enroled in Credit Protector-Senior.",
 	optionalProducts_Details1							:   "Terms and Conditions.",
 	optionalProducts_Details2							:   "$4.99 per month charged to the Canadian Tire<sup>&reg;</sup> MasterCard<sup>&reg;</sup>. I understand that Identity Watch Classic being offered separately from the Canadian Tire MasterCard, that it is not provided on an ancillary,  incidental or additional basis to the Canadian Tire MasterCard. I understand Identity Watch Classic will only be provided if I sign and thereby agree to the cost disclosed and that I am not required to obtain Identity Watch Classic in order to receive a Canadian Tire Master Card. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize you to charge my Canadian Tire Master Card account in the amount and time period indicated above. My coverage will begin when my Canadian Tire Master Card account is approved.",
 	optionalProducts_Details3							:   "$1.10 per $100.00* of your monthly statement balance in any month with a statement balance of $10.00 or more for Credit Protector/Credit Protector-Senior** and $4.99 per month for Identity Watch Classic, charged to the Canadian Tire<sup>&reg;</sup> MasterCard<sup>&reg;</sup>. I understand Identity Watch Classic will only be provided if I sign and thereby agree to the cost disclosed and that I am not required to obtain Identity Watch Classic in order to receive a Canadian Tire MasterCard. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize you to charge my Canadian Tire MasterCard account in the amount and time period indicated above. My coverage will begin when my Canadian Tire MasterCard account is approved.",
@@ -365,11 +369,11 @@ WICI.dictionary_en = {
 	//................................................................
 															
 	optionalProducts_CreditProtector 					:	"- Enrol me in Credit Protector/Credit Protector Senior.",
-	optionalProducts_TermsAndConditions16				:	"I accept the terms and conditions",
+	optionalProducts_TermsAndConditions16				:	"I have read and understand the product details, terms and conditions and give my consent to be enroled in the above selected optional product(s).",
     optionalProducts_TermsAndConditions17				:	"Date: ",
   
 	optionalProducts_TermsAndConditions18				:	"I understand that these products are not required to obtain the <i>Canadian Tire</i> MasterCard and will not be provided unless I sign and thereby agree to the cost disclosed.",
-    optionalProducts_TermsAndConditions19				:	"** If you are less than age 66, you will be enroled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-Senior.",
+    optionalProducts_TermsAndConditions19				:	"** If you are less than age 66, you will be enroled in Credit Protector. If you are between 66-75 you will be enroled in Credit Protector-Senior.",
     optionalProducts_TermsAndConditions20				:	"** Credit Protector<sup>&reg;1</sup>",
     optionalProducts_TermsAndConditions21				:	"** Credit Protector-Senior<sup>&reg;1</sup>",
     optionalProducts_TermsAndConditions22				:	"Available to Cardmembers ages 66 - 75 years.",
@@ -383,7 +387,8 @@ WICI.dictionary_en = {
     													 	"<br>The Identity Watch Classic program is sponsored by Canadian Tire Financial Services Limited and provided by Aimia Proprietary Loyalty Canada Inc." +
     													 	"<br>Rebound<sup>&reg;</sup> is a registered trademarks of Aimia Proprietary Loyalty Canada Inc." +
     													 	"<br><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence." +
-    													 	"<br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",  
+    													 	"<br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated." +
+    													 	"<br><sup>&reg;</sup> Assurant Solutions is a registered trademark of Assurant Inc.",  
 	optionalProducts_TermsAndConditions27 				:	"Identity Watch Classic is $4.99/month, plus applicable taxes. This product includes the following features:",
 	optionalProducts_TermsAndConditions28				:	" Debit and/or Credit Card Registration, On-line Data Backup, Credit Card Theft Reward Service of up to $3,000 CDN, Internet Personal Information Patrol<sup>&reg;</sup> (iPiP)<sup>&reg;</sup>, Rebound Asset Return ",
 	optionalProducts_TermsAndConditions29				:	"Service and Computer Tune-Up Reimbursement of $75 CDN in any twelve (12) month period.",
@@ -402,6 +407,11 @@ WICI.dictionary_en = {
 	optionalProducts_TermsAndConditions42				:	"obtain a features and benefits guide by visiting www.identitywatchclassic.ca or by calling 1-800-263-1020.",
 	optionalProducts_TermsAndConditions43				:	"<br><br><sup>&reg;</sup>/<sup>&trade;</sup> iPiP and Rebound are trademarks of Aimia Proprietary Loyalty Canada Inc." + "<br><sup>&reg;</sup>/<sup>&trade;</sup> Identity Watch Classic is a trademark of Canadian Tire Corporation Limited used under licence.",
 
+	optionalProducts_WarningHeader 						:   "PLEASE READ CAREFULLY REGARDING<br/>OPTIONAL PRODUCTS",
+	optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector/Credit Protector-Senior</li><li>Identity Watch Classic</li></ul></i>",
+	optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector/Credit Protector-Senior</li></ul></i>",
+	optionalProducts_IWProducts							:   "<i><ul><li>Identity Watch Classic</li></ul></i>",
+	
 	
 	jobCategoriesList_null								: 	'Please select...',
 	jobCategoriesList_DR								: 	'DRIVER',
@@ -460,8 +470,8 @@ WICI.dictionary_en = {
 	signatureScreen_License1_1							:	" (the \"Card\").",
 	signatureScreen_License1_2							:	"Canadian Tire ",
 	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
-	signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\") and the account is administered by Canadian Tire Financial Services Limited (\"CTFSL\").",
-	signatureScreen_License4							:	"CTB and CTFSL may collect, use and disclose personal information about me for the purposes described in the Canadian Tire Privacy Charter in the brochure that accompanies this application, including marketing and selling by way of e-mail, telephone, automatic dialing-announcing device or other form of telecommunication.",
+	signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
+	signatureScreen_License4							:	"CTB may collect, use and disclose personal information about me for the purposes described in the Canadian Tire Privacy Charter in the brochure that accompanies this application, including marketing and selling by way of e-mail, telephone, automatic dialing-announcing device or other form of telecommunication.",
 	signatureScreen_License5							:	"I will be bound by the terms and conditions of the CTB Cardmember Agreement that I will receive with the Card, as such agreement may be amended from time to time. I will be solely liable for any charges to the account, including charges made by anyone to whom I have asked that you issue a supplementary card. I will be the only person who receives a monthly statement.",
 	signatureScreen_License6							:	"You may obtain credit and other personal information about me from, and exchange such information with, credit reporting agencies.",
 	signatureScreen_License7							:	"Each person to whom I have asked that you issue a supplementary card has authorized me to provide you with the above information about them.",
@@ -469,16 +479,19 @@ WICI.dictionary_en = {
 	signatureScreen_License9							:	"I have read and understood this application and I have received a brochure containing additional disclosure relating to this application.",
 	
 	
-	signatureScreen_Reset_Button_Label               	:    "Reset",
-     
-    signatureScreen_TermsAndConditions_AcceptBox     	:    "I accept the terms and conditions",
-     
-    signatureScreen_validation_acceptAgreement       	:    "Please accept Terms And Contitions",
-    signatureScreen_validation_signature             	:    "Please leave your signature",
-    signatureScreen_validation_signDate              	:    "Signature date is not valid",
-                                                          
-     // Signature screen END ................................................................
-    
+		signatureScreen_Reset_Button_Label             	:    "Clear Signature",
+	 
+	signatureScreen_TermsAndConditions_AcceptBox     	:    "I have read, understood and agree to the terms and conditions set out above for the ",
+	 
+	signatureScreen_validation_acceptAgreement       	:    "Please accept Terms And Contitions",
+	signatureScreen_validation_signature             	:    "Please leave your signature",
+	signatureScreen_validation_signDate              	:    "Signature date is not valid",
+
+	signatureScreen_WarningHeader                  		:    "PLEASE READ CAREFULLY",
+	signatureScreen_WarningText1              			:    "By signing and checking the box below, you consent to submitting an application for the:",
+	                                                      
+	 // Signature screen END ................................................................
+      
      // Summary screen START ..............................................................
 	summary_PageTitle                                 	:   "APPLICATION SUMMARY",
 	summary_SubmitButton                              	:   "SUBMIT APPLICATION",
@@ -493,11 +506,12 @@ WICI.dictionary_en = {
 	summary_SelectProduct_PromoCode						:	"Promo Code",
 	summary_SelectProduct_Province						:	"Province",
 	
-	summary_TellAboutYourself_SubTitle					:	"Tell Us About Yourself",	
+	summary_TellAboutYourself_SubTitle                  :	"Customer Identification" ,
 	summary_TellAboutYourself_IDType					:	"ID Type",	
-	summary_TellAboutYourself_PlaceOfIssue				:	"Place of Issue",	
+	summary_TellAboutYourself_PlaceOfIssue				:	"Issuing Province of ID",	
 	summary_TellAboutYourself_IDNumber					:	"ID Number",	
-		
+	
+	summary_TellAboutYourself_ApplicantInfo				:	"Applicant Information",	
 	summary_TellAboutYourself_Title						:	"Title",	
 	summary_TellAboutYourself_FirstName					:	"First Name",	
 	summary_TellAboutYourself_Initial					:	"Middle Initial",	
@@ -506,7 +520,7 @@ WICI.dictionary_en = {
 	summary_TellAboutYourself_Email						:	"Email Address",	
 	summary_TellAboutYourself_HomePhone					:	"Home Phone",	
 	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",	
-	summary_TellAboutYourself_Correspondence			:	"Correspondence",	
+	summary_TellAboutYourself_Correspondence			:	"Preferred Language",	
 
 	summary_Address_SubTitle							:	"Address Information",	
 		
@@ -514,19 +528,19 @@ WICI.dictionary_en = {
 	summary_Address_StreetNumber						:	"Street Number",	
 	summary_Address_StreetName							:	"Street Name",	
 	summary_Address_AddressLine2						:	"Address Line 2",	
-	summary_Address_SuiteUnit							:	"Suite/Unit",	
+	summary_Address_SuiteUnit							:	"Apt # / Suite / Unit",	
 	summary_Address_City								:	"City",	
 	summary_Address_Province							:	"Province",
 	
 	summary_Address_ResidenceType						:	"Residence Type",	
 	summary_Address_MonthlyHousePayment					:	"Monthly House Payment",	
-	summary_Address_DurationCurrentAddress				:	"Duration at Current Address",
+	summary_Address_DurationCurrentAddress				:	"How long have you lived at your current address?",
 	
 	summary_PreviousAddress_SubTitle					:	"Previous Address Information",	
 
 	summary_FinEmp_SubTitle1							:	"Financial Information and ",
 	summary_FinEmp_SubTitle2							:	"Employment Information",
-	summary_FinEmp_BankingProducts						:	"Banking Products",	
+	summary_FinEmp_BankingProducts						:	"Select the banking products you have",	
 	
 	summary_FinEmp_EmploymentType						:	"Employment Type",
 	summary_FinEmp_GrossAnnualIncome					:	"Gross Annual Income",
@@ -554,7 +568,7 @@ WICI.dictionary_en = {
 	summary_SupCard_Address_StreetNumber				:	"Street Number",
 	summary_SupCard_Address_StreetName					:	"Street Name",
 	summary_SupCard_Address_AddressLine2				:	"Address Line 2",
-	summary_SupCard_Address_SuiteUnit					:	"Suite/Unit",
+	summary_SupCard_Address_SuiteUnit					:	"Apt # / Suite / Unit",
 	summary_SupCard_Address_City						:	"City",
 	summary_SupCard_Address_Province					:	"Province",
 	
@@ -582,6 +596,9 @@ WICI.dictionary_en = {
 	summary_submitInitError								:	"Unfortunately, the application could not be submitted due to a back-end issue. Please try again.",
 
 	summary_dataIntegrity_Error							:	"Unfortunately, the application could not be submitted due to an internal issue. Please try again.",
+
+    summary_highlighterHeader                           :   "IMPORTANT",  
+    summary_highlighter_SubTitle                        :   "Your application must be verified by a Canadian Tire store representative",       
 
 	// Summary screen END ................................................................
 	
@@ -687,12 +704,15 @@ WICI.dictionary_en = {
 	//******************************************
 	before_gross										: "$ ",
 	after_gross											: " ",
-	personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&ldquo;CTC&rdquo;), Canadian Tire Financial Services Limited (&ldquo;CTFS&rdquo;), and Canadian Tire Bank (&ldquo;CTB&rdquo;), including from their respective business units operating under the Canadian Tire,  Canadian Tire 'Money' Rewards Program (or Canadian Tire 'Money' Advantage<sup>&reg;</sup> Program if you are a resident of Nova Scotia), Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&trade;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+	personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&ldquo;CTC&rdquo;), Canadian Tire Financial Services Limited (&ldquo;CTFS&rdquo;), and Canadian Tire Bank (&ldquo;CTB&rdquo;), including from their respective business units operating under the Canadian Tire,  Canadian Tire 'Money' Rewards Program (or Canadian Tire 'Money' Advantage<sup>&reg;</sup> Program if you are a resident of Nova Scotia), Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
 	personalData_Yes								    : "&nbsp;&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData_No								        : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalDataC_Yes								    : "Yes",
 	personalDataC_No								    : "No",
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',
-	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?"  
+	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?",
+	signature_OptionsMasterCard 					    : 	"Canadian Tire Options MasterCard",
+	signature_GasAdvantageMasterCard 					: 	"Gas Advantage MasterCard",
+	signature_CashAdvantageMasterCard					: 	"Cash Advantage MasterCard"  
 };	
 
