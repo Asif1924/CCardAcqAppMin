@@ -1,5 +1,6 @@
 package com.ctfs.WICI.Helper;
 
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -13,6 +14,8 @@ import com.ctc.ctfs.channel.accountacquisition.ProvinceStateType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
+import com.ctfs.WICI.Helper.ApplicationConfiguration;
+
 import com.google.gson.Gson;
 
 public class AccountApplicationRequestTypeConverter
@@ -27,6 +30,11 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
+	private static final String ASC_ECTM="3377";
+	private static final String ASC_DEFAULT="5577";
+	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
+	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
+	
 	
 
 	static Logger log = Logger.getLogger(AccountApplicationRequestTypeConverter.class.getName());
@@ -423,7 +431,27 @@ public class AccountApplicationRequestTypeConverter
 
 				// agency = model.get("userID").substring(0,1);
 				agency = model.get("employerID");
-				argAccAppRequest.setAcquistionStrategyCode("0" + agency + "5577");
+				
+                //US3103 - Sep 16 2014 Release
+				ApplicationConfiguration.readApplicationConfiguration();
+				Map toggleMap = ApplicationConfiguration.getCategoryKeys(TOGGLE_SECTION);
+				log.info("Toggle is set to "+toggleMap.get(TOGGLE_KEY));
+								
+				if(("OFF".equals(toggleMap.get(TOGGLE_KEY)))||("ON_NS".equals(toggleMap.get(TOGGLE_KEY))))
+				{
+					log.info("Setting ASC to " +ASC_DEFAULT);
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_DEFAULT); 
+				}
+				else if("ON_AOC".equals(toggleMap.get(TOGGLE_KEY)))
+				{
+					log.info("Setting ASC to " +ASC_ECTM + " for All Of Canada");
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_ECTM);
+				}
+				else
+				{
+					log.info("Setting ASC to " +ASC_DEFAULT);
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_DEFAULT);
+				} 
 			}
 		}
 		catch (Exception e)

@@ -51,7 +51,8 @@ public class LoginServlet extends WICIServlet
 		log.info(sMethod + "::agentID: " + agentID);
 		log.info(sMethod + "::userLocation: " + userLocation);
 		log.info(sMethod + "::apkVersion: " + apkVersion);
-
+		
+		
 		WICIResponse appResponse = new WICIResponse();
 		WICILoginResponse loginResponse = new WICILoginResponse();
 
@@ -61,6 +62,9 @@ public class LoginServlet extends WICIServlet
 
 			AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
 
+			//US3125 - Sep 16th 2014 Release
+			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+			
 			ApplicationApkVersionValidator applicationApkVersionValidator = new ApplicationApkVersionValidator();
 			applicationApkVersionValidator.validateApkVersion(employerID, agentID, userLocation, apkVersion, values);
 

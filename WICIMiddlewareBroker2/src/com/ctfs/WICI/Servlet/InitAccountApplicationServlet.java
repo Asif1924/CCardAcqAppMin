@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
+import com.ctfs.WICI.Helper.UniqueIDGenerator;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
@@ -98,8 +99,11 @@ public class InitAccountApplicationServlet extends WICIServlet
 		log.info(sMethod);
 
 		WICIResponse databaseResponse = null;
-		String transactionID = ((BaseModel) incomingCreditCardApplicationData.getModel("queueModel")).get("queueTransactionID");
+		//WASA2 FIX Sep19th 2014 Release
+		//String transactionID = ((BaseModel) incomingCreditCardApplicationData.getModel("queueModel")).get("queueTransactionID");
+		UniqueIDGenerator uID = new UniqueIDGenerator();
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
+		String transactionID = "WICI_" + userID +"_"+ uID.getUniqueID()  + "-";
 		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString();
 
 		//log.log(Level.FINE, "---Attempting to insert the requestData into table=" + requestData);
