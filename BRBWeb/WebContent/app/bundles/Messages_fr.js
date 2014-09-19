@@ -225,6 +225,7 @@ BRB.dictionary_fr = {
 
 		//----------------------------------------- Overview Nova Scotia section ------------------------------
 		
+		//--------------------------------------------- </old> ----------------------------------------------------
 		overview_NS_Error									:	"Malheureusement, en raison du programme de fidélisation en vigueur en Nouvelle-Écosse, les services de crédits instantanés ne sont pas disponibles pour le moment.<br>Pour présenter une demande de carte de crédit, rendez-vous à l’adresse <a href='http://www.ctfs.com/faitesunedemande' target='_blank'>www.ctfs.com/faitesunedemande</a>",
 		
 		overview_NS_TableLeftColTitle						:	"Aux clients de la Nouvelle-Écosse :",
@@ -290,7 +291,33 @@ BRB.dictionary_fr = {
 		
 		overview_NS_moneyPlusOMCImage						:	'<a href="#" id="moneyPlusOMCImage" class="moneyPlusOMCImageBlock_fr"></a>',
 
-
+		//--------------------------------------------- </old> ----------------------------------------------------
+		
+		overview_NS_LeftProgramAlertText0					:   "Voici une nouvelle réjouissante!",
+		overview_NS_LeftProgramSidebarText					:   "UNE FAÇON PLUS RAPIDE D’OBTENIR DE L’« ARGENT » CANADIAN TIRE",
+		overview_NS_LeftProgramAlertText					:	"Le programme de primes auquel participe la carte MasterCard<span class=\"superscriptsFootnote\"><sup>MD</sup></span> Options<span class=\"superscriptsFootnote\"><sup>MD</sup></span> de Canadian Tire change",
+		overview_NS_LeftHeadingText2						:   "Si vous faites la demande d’une carte MasterCard Options ailleurs qu’en Nouvelle-Écosse :",
+		overview_NS_TableLeftColTxt4						:   "Le programme de primes en « Argent » Canadian Tire associé à votre carte MasterCard<span class=\"superscriptsFootnote\"><sup>MD</sup></span> Options<span class=\"superscriptsFootnote\"><sup>MD</sup></span> de Canadian Tire sera remplacé le 28 octobre prochain par le programme Mon « Argent » Canadian Tire<span class=\"superscriptsFootnote\"><sup>MC</sup></span>.",
+		overview_NS_TableLeftColTxt5						:   "Au lieu de primes en « Argent » Canadian Tire avec la Carte<span class=\"superscriptsFootnote\"><sup>MD</sup></span>, vous obtiendrez désormais de l’« @rgent » Canadian Tire.",
+		overview_NS_LeftHeadingText1	    				:	"Si vous faites la demande d’une carte MasterCard Options en Nouvelle-Écosse :",
+		overview_NS_TableLeftColTxt1						:   "Le programme Avantage « Argent » Canadian Tire<span class=\"superscriptsFootnote\"><sup>MD</sup></span> deviendra le programme Mon « Argent » Canadian Tire<span class=\"superscriptsFootnote\"><sup>MC</sup></span> le 10 octobre",
+		overview_NS_TableLeftColTxt2						:   "Accumulez maintenant de l’ « @rgent » Canadian Tire<span class=\"superscriptsFootnote\"><sup>MD</sup></span> au lieu de points Avantage « Argent » Canadian Tire dans nos magasins et sur le site canadiantire.ca lorsque vous achetez des articles admissibles.",
+		overview_NS_TableLeftColTxt3						:   "Remarque : Le taux auquel vous obtiendrez de l’« @rgent » Canadian Tire est différent de celui auquel vous accumulez des points Avantage « Argent »<sup>2</sup>.",
+		overview_NS_LeftHeadingText3						:   "Dans le cadre de ce nouveau programme, exclusivement pour vous, en tant que titulaire de carte MasterCard Options :",
+		overview_NS_TableLeftColTxt7					    :   "Obtenez 10X les primes en « @rgent » Canadian Tire<sup>1</sup> tous les jours aux magasins Canadian Tire, y compris aux centres-autos, aux magasins Partsource<span class=\"superscriptsFootnote\"><sup>MD</sup></span>, Mark’s / L’Équipeur<span class=\"superscriptsFootnote\"><sup>MD</sup></span> et Sport Chek<span class=\"superscriptsFootnote\"><sup>MD 1</sup></span>.",
+		overview_NS_TableLeftColTxt8						:   "Obtenez 2X les primes en « @rgent » Canadian Tire partout ailleurs où vous magasinez<sup>1</sup>.",
+		overview_NS_TableLeftColTxt9						:   "Obtenez de l’« @rgent » Canadian Tire dans les postes d’essence Canadian Tire participants<sup>3</sup>.",
+		overview_NS_TableLeftColTxt10						:   "C’est facile d’échanger votre « @rgent » Canadian Tire – directement à la caisse des magasins Canadian Tire ou en ligne pour les cartes-cadeaux, à l’adresse canadiantire.ca",
+		overview_NS_TableLeftColTxt11						:   "Surveillez votre courrier pour en savoir plus!",
+							 
+		overview_NS_FootnotesTxt1							:   "<sup>1</sup> Les titulaires de carte MasterCard Options de Canadian Tire obtiennent de l’« @rgent » Canadian Tire à un taux qui est 10X (ou 2X selon le cas) le taux auquel les autres membres du programme Mon « Argent » Canadian Tire obtiennent de l’« @rgent » Canadian Tire lors d’achats effectués par ces membres dans les magasins Canadian Tire (si ces membres payent en argent comptant, avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation). Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange.",
+		overview_NS_FootnotesTxt2							:   "<sup>2</sup> L’« @rgent » Canadian Tire obtenu dans les magasins Canadian Tire ou en ligne à canadiantire.ca est calculé sur le montant avant taxes des achats admissibles et est arrondi au cent le plus proche. Pour connaître les taux actuels, composez le 1-800-226-8473.",
+		overview_NS_FootnotesTxt3							:   "<sup>3</sup> Un montant d’achat d’essence minimum peut être requis. Le taux peut varier d’une région à l’autre. Rendez-vous aux postes d’essence locaux pour en savoir plus.",
+		overview_NS_FootnotesTxt5							:   "<span class=\"superscriptsFootnote\"><sup>MD</sup></span>/<span class=\"superscriptsFootnote\"><sup>MC</sup></span> Canadian Tire, « Argent » Canadian Tire avec la Carte, Avantage « Argent » Canadian Tire, Options de Canadian Tire, PartSource et le triangle de Canadian Tire sont des marques de commerce déposées et Mon « Argent » Canadian Tire et « @rgent » Canadian Tire sont des marques de commerce de La Société Canadian Tire Limitée.",
+		overview_NS_FootnotesTxt6						    :   "<span class=\"superscriptsFootnote\"><sup>MD</sup></span>/<span class=\"superscriptsFootnote\"><sup>MC</sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées et <i>PayPass</i> est une marque de commerce de MasterCard International Incorporated. ",
+		
+		 
+		
 		//--------------- END --------------------- Overview Nova Scotia section -------------- END -----------	
 		
 		
@@ -300,7 +327,7 @@ BRB.dictionary_fr = {
 		
 		personalInformation_CTProfileLabel					:	"Cliquez ici pour copier les renseignements du profil MonCT.",
 		
-		personalInformation_LoyaltyMembershipNumberError	:	"Veuillez entrer dix chiffres",
+		personalInformation_LoyaltyMembershipNumberError	:	"Veuillez entrer seize chiffres",
 		personalInformation_LoyaltyMembershipNumberPreError	:	"Veuillez entrer six chiffres",
 		
 		personalInformation_TitleError						:	"Veuillez sélectionner votre titre de civilité",

@@ -34,7 +34,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		
     		loyaltyMembershipNumber			:	'#personalInformation_MoneyAdvantage_TextField',
     		moneyAdvantageContainer 		: 	'#personalInformation_MoneyAdvantage_FieldContainer',
-    		loyaltyMembershipNumberPrefix	:	'#personalInformation_MoneyAdvantagePrefix_TextField',
+    		//loyaltyMembershipNumberPrefix	:	'#personalInformation_MoneyAdvantagePrefix_TextField',
     		
     		provincesDropDown				:	'#personalInformation_Province_TextField',
     		employmentType_DropDown			:	'#personalInformation_EmploymentType_TextField',
@@ -144,7 +144,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         data:[
                 {name: 'title',         			value: null, validation: {type: 'presence', message: 'personalInformation_TitleError', group: [1]}},
                 {name: 'loyaltyMembershipNumber',   value: null, validation: {type: 'minSize', message: 'personalInformation_LoyaltyMembershipNumberError', canBeEmpty: true, minlength: 16, group: [1]}},
-                {name: 'loyaltyMembershipNumberPrefix',   value:null, validation: {type: 'minSize', message: 'personalInformation_LoyaltyMembershipNumberPreError', minlength: 6, group: [1]}},
+               // {name: 'loyaltyMembershipNumberPrefix',   value:null, validation: {type: 'minSize', message: 'personalInformation_LoyaltyMembershipNumberPreError', minlength: 6, group: [1]}},
                 {notField:true, name: 'loyaltyMembershipNumberInternal',  value: null, validation: null },
                 {name: 'firstName',     			value: null, validation: { type: 'personName',  message: 'personalInformation_FirstNameError', group:[1]} },
                 {name: 'initial',       			value: null, validation: { type: 'format',      message: '', group:[1], matcher: /^[a-z\u00C0-\u017F]{1}/i, canBeEmpty: true } },
@@ -375,7 +375,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         $(refs.postalcode2_prev).val(model.get('postalcode_prev').substr(3, 3));
         
         $(refs.loyaltyMembershipNumber).val(model.get('loyaltyMembershipNumberInternal'));
-        $(refs.loyaltyMembershipNumberPrefix).val(model.get('loyaltyMembershipNumberPrefix'));
+       // $(refs.loyaltyMembershipNumberPrefix).val(model.get('loyaltyMembershipNumberPrefix'));
         restoreSinceYearsField();
 	}
 	
@@ -593,11 +593,11 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         currentModel.set('postalcode_prev',    $(refs.postalcode1_prev).val().toUpperCase() + $(refs.postalcode2_prev).val().toUpperCase());
         
         var membershipNumber = $(refs.loyaltyMembershipNumber).val();
-        model.set('loyaltyMembershipNumberPrefix', $(refs.loyaltyMembershipNumberPrefix).val()) ;
-        currentModel.set('loyaltyMembershipNumberPrefix', $(refs.loyaltyMembershipNumberPrefix).val()) ;
-        if (membershipNumber && membershipNumber.length > 0) {        
+        // model.set('loyaltyMembershipNumberPrefix', $(refs.loyaltyMembershipNumberPrefix).val()) ;
+        //currentModel.set('loyaltyMembershipNumberPrefix', $(refs.loyaltyMembershipNumberPrefix).val()) ;
+        if (membershipNumber && membershipNumber.length > 0 && membershipNumber != "636574") {        
         	model.set('loyaltyMembershipNumberInternal', $(refs.loyaltyMembershipNumber).val()) ;        	
-        	model.set('loyaltyMembershipNumber', model.get('loyaltyMembershipNumberPrefix') + model.get('loyaltyMembershipNumberInternal')) ;
+        	model.set('loyaltyMembershipNumber', model.get('loyaltyMembershipNumberInternal')) ;
         	currentModel.set('loyaltyMembershipNumberInternal', model.get('loyaltyMembershipNumberInternal') ) ;
         	currentModel.set('loyaltyMembershipNumber', model.get('loyaltyMembershipNumber')) ;
         } else {

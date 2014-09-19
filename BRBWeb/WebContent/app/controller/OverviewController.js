@@ -299,7 +299,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
             }   
 	    }
 	    
-	    if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
+	    //if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
+	    if (!isNSPageDisplayed) {
 			$("#choseProduct").hide();
 			$("#overviewPageContents").hide();
 			$("#BreadcrumbTrailArea2").show();

@@ -223,6 +223,7 @@ BRB.dictionary_en = {
 	
 	//----------------------------------------- Overview Nova Scotia section ------------------------------
 	
+	//--------------------------------------------- <old> ----------------------------------------------------
 	overview_NS_Error									:	"Unfortunately due to the rewards program being run in Nova Scotia instant credit services are unavailable at this time.<br>Go to <a href='http://www.ctfs.com/applynow' target='_blank'>www.ctfs.com/applynow</a> to submit a credit card application.",
 	
 	overview_NS_TableLeftColTitle						:	"Attention Nova Scotia Customers",
@@ -287,6 +288,30 @@ BRB.dictionary_en = {
 	overview_NS_FootnotesText8							:	"<sup>*</sup> Contest commences February 24, 2012 and ends December 31, 2013. To enter, apply for the Options MasterCard. Eighty-five percent (85%) of all coupons printed in the Contest will have a value of five hundred  (500) Canadian Tire 'Money' Advantage<sup>&trade;</sup> points (retail value $5.00), ten percent (10%) of all coupons printed in the Contest will have a value of one thousand (1,000) Canadian Tire 'Money' Advantage<sup>&trade;</sup> points (retail value $10.00), and five percent (5%) of all coupons printed in the Contest will have a value of two thousand (2,000) Canadian Tire 'Money' Advantage<sup>&trade;</sup> points (retail value $20.00). Only open to residents of Canada who have reached the age of majority. You must make a purchase with your new Options MasterCard prior to the expiry date to use the Coupon. Correct answer to skill-testing question required. For complete Contest Rules, please see the Canadian Tire credit card representative or visit ctfs.com/ncbpc.",
 
 	overview_NS_moneyPlusOMCImage						:	'<a href="#" id="moneyPlusOMCImage" class="moneyPlusOMCImageBlock"></a>',
+	//--------------------------------------------- </old> ----------------------------------------------------
+	
+	overview_NS_LeftProgramAlertText0					:   "Exciting News!",
+	overview_NS_LeftProgramSidebarText					:   "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'",
+	overview_NS_LeftProgramAlertText					:	"The Canadian Tire Options<sup>&reg;</sup> MasterCard<sup>&reg;</sup> rewards program participates in is changing",
+	overview_NS_LeftHeadingText2						:   "If you are applying for an Options MasterCard from outside of Nova Scotia:",
+	overview_NS_TableLeftColTxt4						:   "The Canadian Tire 'Money' rewards program on your Canadian Tire Options MasterCard is changing on Oct 28<sup>th</sup> to the My Canadian Tire 'Money'<sup>&trade;</sup> Program.",
+	overview_NS_TableLeftColTxt5						:   "Instead of collecting Canadian Tire ‘Money’ On The Card<sup>&reg;</sup> awards, you’ll be collecting e-Canadian Tire ‘Money’<sup>&trade;</sup>.",
+	overview_NS_LeftHeadingText1	    				:	"If you are applying for an Options MasterCard from Nova Scotia:",
+	overview_NS_TableLeftColTxt1						:   "The Canadian Tire ‘Money’ Advantage<sup>&reg;</sup> program will be changing on October 10<sup>th</sup> to the My Canadian Tire ‘Money’ Program.",
+	overview_NS_TableLeftColTxt2						:   "Now collect e-Canadian Tire ‘Money’ instead of Canadian Tire ‘Money’ Advantage points at our stores including at canadiantire.ca when you purchase qualifying merchandise.",
+	overview_NS_TableLeftColTxt3						:   "Please note: The rate at which you’ll collect e-Canadian Tire ‘Money’ is different than the rate at which Canadian Tire ‘Money’ Advantage points can be collected.<sup>2</sup>",
+	overview_NS_LeftHeadingText3						:   "As part of the new program, exclusive to you as an Options MasterCard cardmember:",
+	overview_NS_TableLeftColTxt7					    :   "Collect 10X e-Canadian Tire ‘Money’<sup>1</sup> every day at Canadian Tire stores, including on automotive service, at Partsource<sup>&reg;</sup>, Mark’s<sup>&reg;</sup> and at Sportcheck<sup>&reg;1</sup>.",
+	overview_NS_TableLeftColTxt8						:   "Collect 2X e-Canadian Tire ‘Money’ everywhere else you shop<sup>1</sup>.",
+	overview_NS_TableLeftColTxt9						:   "Collect e-Canadian Tire ‘Money’ at participating Canadian Tire gas bars<sup>3</sup>.",
+	overview_NS_TableLeftColTxt10						:   "Redeeming is easy, right at the checkout at Canadian Tire stores or online for gift cards at canadiantire.ca.",
+	overview_NS_TableLeftColTxt11						:   "Watch your mail for details about this exciting news!",
+						 
+	overview_NS_FootnotesTxt1							:   "<sup>1</sup> Canadian Tire Options MasterCard cardmembers collect e-Canadian Tire ‘Money’ at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire ‘Money’ program collect e-Canadian Tire ‘Money’ on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions.",
+	overview_NS_FootnotesTxt2							:   "<sup>2</sup> e-Canadian Tire ‘Money’ collected at Canadian Tire stores or online at canadiantire.ca is calculated on the pre-tax amount of the qualifying purchase, and is rounded to the nearest penny. For current rate(s) call 1-800-226-8473.",
+	overview_NS_FootnotesTxt3							:   "<sup>3</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details.",
+	overview_NS_FootnotesTxt5							:   "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire, Canadian Tire ‘Money’ On The Card, Canadian Tire ‘Money’ Advantage, Canadian Tire Options, PartSource and the Canadian Tire triangle design are registered trademarks, and My Canadian Tire ‘Money’ and e-Canadian Tire ‘Money’ are trademarks, of Canadian Tire Corporation, Limited.",
+	overview_NS_FootnotesTxt6						    :   "<sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
 	
 	//--------------- END --------------------- Overview Nova Scotia section -------------- END -----------	
 	
@@ -297,7 +322,7 @@ BRB.dictionary_en = {
 	
 	personalInformation_CTProfileLabel					:	"Click here to copy available information from My CT Profile",
 	
-	personalInformation_LoyaltyMembershipNumberError	:	"Please enter ten digits",
+	personalInformation_LoyaltyMembershipNumberError	:	"Please enter sixteen digits",
 	personalInformation_LoyaltyMembershipNumberPreError	:	"Please enter six digits",
 	
 	personalInformation_TitleError						:	"Please select your title",  
