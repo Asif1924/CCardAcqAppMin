@@ -127,6 +127,7 @@
 					<xsd:restriction base="tns:UpperCaseStringType">
 						<xsd:enumeration value="005577"></xsd:enumeration>
 						<xsd:enumeration value="004477"></xsd:enumeration>
+						<xsd:enumeration value="003377"></xsd:enumeration>
 <!-- 						<xsd:maxLength value="6" /> -->
 					</xsd:restriction>
 				</xsd:simpleType>

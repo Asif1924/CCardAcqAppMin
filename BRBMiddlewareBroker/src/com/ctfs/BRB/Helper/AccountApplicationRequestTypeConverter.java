@@ -1,9 +1,11 @@
 package com.ctfs.BRB.Helper;
 
 import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +21,17 @@ import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
 import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.BaseModel;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
+import com.ctfs.BRB.Helper.ApplicationConfiguration;
 import com.google.gson.Gson;
 
 public class AccountApplicationRequestTypeConverter
 {
+	private static final String ASC_CTMA="004477";
+	private static final String ASC_ECTM="003377";
+	private static final String ASC_DEFAULT="005577";
+	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
+	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
+	
 	public static enum InsuranceCodeTypes
 	{
 		N("N"), CP("CP"), IL("IL"), W4("W4");
@@ -305,17 +314,55 @@ public class AccountApplicationRequestTypeConverter
 				ar.setCurrentEmailAddress(model.get("email"));
 				ar.setCurrentPostalCode(model.get("postalcode"));
 				ar.setCurrentProvince(ProvinceType.valueOf(model.get("province")));
-				if (ProvinceType.valueOf(model.get("province")) == ProvinceType.NS)
+				
+				//US3103 - Sep 16 2014 Release
+				
+				ApplicationConfiguration.readApplicationConfiguration();
+				Map toggleMap = ApplicationConfiguration.getCategoryKeys(TOGGLE_SECTION);
+				log.info("Toggle is set to "+toggleMap.get(TOGGLE_KEY));
+				log.info("Province is "+model.get("province"));
+				
+				if("OFF".equals(toggleMap.get(TOGGLE_KEY)))
 				{
+					if (ProvinceType.valueOf(model.get("province")) == ProvinceType.NS)
+					{
+						log.info("Setting ASC to " +ASC_CTMA +" for NS");
+						ar.setLoyaltyMembershipNumber(model.get("loyaltyMembershipNumber"));
+						ar.setAcquistionStrategyCode(ASC_CTMA);
+					}
+					else
+					{
+						log.info("Setting ASC to " +ASC_DEFAULT);
+						ar.setAcquistionStrategyCode(ASC_DEFAULT); 
+					} 
+				}
+				else if("ON_NS".equals(toggleMap.get(TOGGLE_KEY)))
+				{
+					if (ProvinceType.valueOf(model.get("province")) == ProvinceType.NS)
+					{
+						log.info("Setting ASC to " +ASC_ECTM + " for NS");
+						ar.setLoyaltyMembershipNumber(model.get("loyaltyMembershipNumber"));
+						ar.setAcquistionStrategyCode(ASC_ECTM);
+					}
+					else
+					{
+						log.info("Setting ASC to " +ASC_DEFAULT);
+						ar.setAcquistionStrategyCode(ASC_DEFAULT); 
+					} 
+				}
+				else if("ON_AOC".equals(toggleMap.get(TOGGLE_KEY)))
+				{
+					log.info("Setting ASC to " +ASC_ECTM + " for All Of Canada");
 					ar.setLoyaltyMembershipNumber(model.get("loyaltyMembershipNumber"));
-					ar.setAcquistionStrategyCode("004477");
+					ar.setAcquistionStrategyCode(ASC_ECTM);
 				}
 				else
 				{
-					ar.setAcquistionStrategyCode("005577");
+					log.info("Setting ASC to " +ASC_DEFAULT);
+					ar.setAcquistionStrategyCode(ASC_DEFAULT);
 				}
+				
 				ar.setCurrentTelephoneNumber(model.get("primaryPhone"));
-
 				ar.setPreferedLanguage(model.get("correspondence"));
 				ar.setEmailConsentFlag(model.get("receiveEmail"));
 				ar.setCurrentAddressType(model.get("house"));
