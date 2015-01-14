@@ -7,6 +7,9 @@ WICI.TranslationExtender = function () {
 	this.changeLogoToFrench = changeLogoToFrench;
 	this.changeLogoToEnglish = changeLogoToEnglish;
 	
+	this.changeCTMLogoToFrench = changeCTMLogoToFrench;
+	this.changeCTMLogoToEnglish = changeCTMLogoToEnglish;
+	
 	function init(translationLibrary) {		
 		translationLib = translationLibrary;
 		$.subscribe('languageChangedEvent', onLanguageChangedEventHandler);
@@ -23,11 +26,13 @@ WICI.TranslationExtender = function () {
 			//THIS reference is important because with it SINON will create SPY
 			changeLogoToEnglish();
 			changeSmallLogoToEnglish();
+			changeCTMLogoToEnglish();
 		}
 		else {
 			//THIS reference is important because with it SINON will create SPY
 			changeLogoToFrench();
 			changeSmallLogoToFrench();
+			changeCTMLogoToFrench();
 		}		
 	}
 	
@@ -59,6 +64,18 @@ WICI.TranslationExtender = function () {
 		$('#finEmpInfo_EmpType_Group').trigger('translatorFinished');
 		$('#supCardRequestType_Group').trigger('translatorFinished');
 		$('#personalData2_Address_ResidenceType').trigger('translatorFinished');
+	};
+	
+	function changeCTMLogoToFrench() {
+		var node = $(".ctmLogo_eng");
+		node.removeClass("ctmLogo_eng");
+		node.addClass("ctmLogo_fr");
+	};
+	
+	function changeCTMLogoToEnglish() {
+		var node = $(".ctmLogo_fr");
+		node.removeClass("ctmLogo_fr");
+		node.addClass("ctmLogo_eng");
 	};
 	
 	function changeLogoToFrench() {

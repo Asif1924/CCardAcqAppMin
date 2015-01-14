@@ -16,6 +16,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
 	this.syncUserData = syncUserData;
 	var refs = {
+		
+		moneyAdvantageContainer : 	'#personalData_MyCTMArea',
+	    loyaltyMembershipNumber	:	'#personalData_CTMNumber_TextField',
+    			
 		placeofissue : '#personalData_PlaceOfIssue_TextField',
 		idtype : '#personalData_IDType_TextField',
 		idnumbers : '#personalData_IDNumber_TextField',
@@ -47,18 +51,27 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		receiveemail_optout : '#personalData_Optout_RadioButton'
 			
 	};
-
+	
 	var model = new WICI.BaseModel({
 		name : 'personalData',
 		refs : refs,
 		data : [ {
+			name: 'loyaltyMembershipNumber',
+			value: null, validation: {
+				type: 'mod10', 
+				message: 'personalData1_validation_loyaltyMembershipNumber', 
+				canBeEmpty: true, 
+				minlength: 16,
+				group: [ 1 ]
+			 }
+		}, {
 			name : 'placeofissue',
 			value : null,
 			validation : {
 				type : 'presence',
 				message : 'personalData1_validation_placeofissue',
 				group: [ 1 ]
-			}
+			 }
 		}, {
 			name : 'idtype',
 			value : null,
@@ -198,6 +211,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		setUIElementsMasks();
 		
 		onEmailChangesHandler(); 
+		hideShowMoneyAdvantage ();
+		
 	}
 	// ---------------------------------------------------------------------------------------
 	function show() {
@@ -217,6 +232,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			useDelimeter : true,
 			delimeter : '-'
 		});
+		$(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999999999', mDec:'0',wEmpty: '', aSep:''});
+		
 	}
 	// ---------------------------------------------------------------------------------------
 	function createView() {
@@ -244,7 +261,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	function syncUserData() {
 		var sMethod = 'syncUserData() ';
 		console.log(logPrefix + sMethod);
-
+	   	
+    	model.set('loyaltyMembershipNumber', $(refs.loyaltyMembershipNumber).val()) ;
+    	
 		model.set('placeofissue', $(refs.placeofissue).val());
 
 		model.set('idtype', $(refs.idtype).val());
@@ -265,7 +284,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	function restoreCreditCardData() {
 		var sMethod = "restoreCreditCardData()";
 		console.log(logPrefix + sMethod);
-
+		
+		$(refs.loyaltyMembershipNumber).val(model.get('loyaltyMembershipNumber'));
+		
 		$(refs.placeofissue).val(model.get('placeofissue'));
 		$(refs.idtype).val(model.get('idtype'));
 		$(refs.idnumbers).val(model.get('idnumbers'));
@@ -537,6 +558,17 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	function selectDOBFileld() {
 		app.validationDecorator.focusControl(refs.birthDate);
 	}
-
+	
+	//---------------------------------------------------------------------------------------
+	function hideShowMoneyAdvantage (){
+		
+		cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard')
+		if(cardTypeGlobal === 'OMC') {
+			$(refs.moneyAdvantageContainer).show();	
+		}
+		else {
+			$(refs.moneyAdvantageContainer).hide();	
+		}
+	}
 	// ---------------------------------------------------------------------------------------
 };

@@ -407,8 +407,15 @@
 	                			<div class="congratulationsTextContent">
 		                			<span data-translationKey="identityVerification_FinalText1"></span>
 		                			<br>
-		                			<span data-translationKey="identityVerification_FinalText2"></span>
-		                			<br>
+		                		<!--{{if !app.isNSSelected() }}
+									<span data-translationKey="identityVerification_FinalText2old"></span>
+		                			{{/if}}
+									{{if app.isNSSelected() }}
+									<span data-translationKey="identityVerification_FinalText2"></span>
+		                			{{/if}}-->
+									<!-- US3011 -->
+									<span data-translationKey="identityVerification_FinalText2"></span>
+									<br>
 		                			<span data-translationKey="identityVerification_FinalText3"></span>
 		                			<br>
 		                			<b><a id="identityVerification_customerEmail" class="emailField" href="mailto:customer@mail.com">customer@mail.com.</a>.</b>
@@ -490,13 +497,35 @@
 				</div>
 			</div>
 		</center>
-			
 			<div id="identityVerification_PageFooter" class="footerText" >
-				<span id="identityVerification_FooterNote" class="identityVerificationFooterNote" data-translationKey="identityVerification_FooterText1"></span>
+			<!-- {{if !app.isNSSelected() }} 
+				<span id="identityVerification_FooterNote" class="identityVerificationFooterNote" data-translationKey="identityVerification_FooterText1old"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText2old"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText3old"></span>
+				{{/if}}
+				{{if app.isNSSelected() }} 
+				<span data-translationKey="identityVerification_FooterText1"></span>
 				<br>
 				<span data-translationKey="identityVerification_FooterText2"></span>
 				<br>
 				<span data-translationKey="identityVerification_FooterText3"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText4"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText5"></span>
+				{{/if}}-->
+				<!-- US3011 -->
+				<span data-translationKey="identityVerification_FooterText1"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText2"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText3"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText4"></span>
+				<br>
+				<span data-translationKey="identityVerification_FooterText5"></span>				
 			<div>
 			<br><br><br>
 	</div>

@@ -97,7 +97,10 @@ WICI.BaseModel = function(config) {
         }
             
         switch(validation.type){
-            case 'presence':
+           case 'mod10':
+			isError = !validator.mod10(value, validation.minlength);
+			break;
+        	case 'presence':
                 isError = !value;
                 break;
             case 'format':

@@ -1625,7 +1625,7 @@ a.continueButtonFocused:focus{
 
 #choseProduct {
 	margin-top: 80px;
-	height: 235px;
+	height: 250px;
 }
 
 #productListBlock {
@@ -1825,6 +1825,7 @@ a.continueButtonFocused:focus{
 	font-weight: bold;
 	padding-left: 10px !important;
 	padding-right: 10px !important;
+	border-radius: 1px;
 }
 
 #overviewCenterTableTextMargin {
@@ -2052,12 +2053,12 @@ a.continueButtonFocused:focus{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	margin-top: 60px;
-	border: 0px;
+	/*border : 0px;*/ 
     position: inherit;
     min-width: inherit;
 	td {
 		vertical-align: top;
-		border: 0px;
+		/*border : 0px;*/ 
 		padding-left: 10px;
 		padding-right: 10px;
 	}
@@ -2119,6 +2120,16 @@ a.continueButtonFocused:focus{
 	font-size: 14px;
 }
 #rightBannerNSImage {
+	display: block;
+	text-decoration: none;
+	position: relative;
+	width: 304px;
+	height: 276px;
+	/*margin-top: -100px;*/
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+#rightBannerROCImage {
 	display: block;
 	text-decoration: none;
 	position: relative;
@@ -3377,5 +3388,87 @@ text-align: center;
 .fieldLabelsCell15{
   width:15%;
 }
+/*----US3083----*/
+#omcCardLoyalty {
+  background: #{inline_image("omcloyalty.png")};
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+
+}
+
+.creditCardBlockLoyalty {
+  display: block;
+  text-decoration: none;
+  position: relative;
+}
+
+.piDescriptionList .creditCardBlockLoyalty {
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+
+.firstListIteml
+{
+  width: 230px;
+  border:none;
+
+}
+/*--------new Fr and eng ------------*/
+
+#topBanner10XImage {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+}  
+.topBanner10XImageBlock {
+  background: #{inline_image("omcloyalty.png")};
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+.topBanner10XImageBlock_fr {
+  background: #{inline_image("omcloyalty_fr.png")};
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+.topBanner10XImageBlock_ie8 {
+  background: #{inline_image("omcloyalty.jpg")};
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+.topBanner10XImageBlock_fr_ie8 {
+  background: #{inline_image("omcloyalty_fr.jpg")};
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: 5px;
+  /*width: 180px;*/
+  height: 120px;
+  margin: 0px auto;
+  outline-style: none;
+}
+ 
+
 
 

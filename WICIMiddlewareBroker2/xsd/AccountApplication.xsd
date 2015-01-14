@@ -81,6 +81,7 @@
 						IC - denotes ENDO assisted channel
 						WP - Web Postal - denotes customer applying online or BRB
 						IP - denotes assisted channel - application is done through FMR
+						DP - Auto Service Reps
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
@@ -88,6 +89,7 @@
 						<xsd:enumeration value="IC"></xsd:enumeration>
 						<xsd:enumeration value="WP"></xsd:enumeration>
 						<xsd:enumeration value="IP"></xsd:enumeration>
+						<xsd:enumeration value="DP"></xsd:enumeration>
 						<xsd:length value="2"></xsd:length>
 					</xsd:restriction>
 				</xsd:simpleType>

@@ -50,8 +50,20 @@ public class AccountApplicationRequestTypeConverter
 
 		GUIDGenerator guidGenerator = new GUIDGenerator();
 		populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
-
-		populatedAccountApplicationRequest.setChannelIndicator("IP");
+		
+		//populatedAccountApplicationRequest.setChannelIndicator("IP");
+		//log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
+		//US3162  
+		if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
+		    {
+			   populatedAccountApplicationRequest.setChannelIndicator("DP");
+			}
+			else
+			{
+			   populatedAccountApplicationRequest.setChannelIndicator("IP");
+			} 
+		//log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
+	
 		populatedAccountApplicationRequest.setCurrentCountry("CA");
 		populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
 		//populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
@@ -368,6 +380,11 @@ public class AccountApplicationRequestTypeConverter
 			model = argCreditCardData.getModel(MODEL_PERSONAL_DATA);
 			if (model != null)
 			{
+				//US3012
+				if("ON_AOC".equals(ApplicationConfiguration.getCategoryKeys(TOGGLE_SECTION).get(TOGGLE_KEY)))
+				{
+				 argAccAppRequest.setLoyaltyMembershipNumber(model.get("loyaltyMembershipNumber"));
+				}
 				argAccAppRequest.setFirstName(model.get("firstName"));
 				argAccAppRequest.setMiddleInitial(model.get("initial"));
 				argAccAppRequest.setLastName(model.get("lastName"));
@@ -432,7 +449,7 @@ public class AccountApplicationRequestTypeConverter
 				// agency = model.get("userID").substring(0,1);
 				agency = model.get("employerID");
 				
-                //US3103 - Sep 16 2014 Release
+                //US3103 - Sep 16 2014 Release  
 				ApplicationConfiguration.readApplicationConfiguration();
 				Map toggleMap = ApplicationConfiguration.getCategoryKeys(TOGGLE_SECTION);
 				log.info("Toggle is set to "+toggleMap.get(TOGGLE_KEY));
@@ -440,17 +457,17 @@ public class AccountApplicationRequestTypeConverter
 				if(("OFF".equals(toggleMap.get(TOGGLE_KEY)))||("ON_NS".equals(toggleMap.get(TOGGLE_KEY))))
 				{
 					log.info("Setting ASC to " +ASC_DEFAULT);
-					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_DEFAULT); 
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency.toUpperCase() + ASC_DEFAULT); //US3012 - changed agency.toUpperCase()
 				}
 				else if("ON_AOC".equals(toggleMap.get(TOGGLE_KEY)))
 				{
 					log.info("Setting ASC to " +ASC_ECTM + " for All Of Canada");
-					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_ECTM);
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency.toUpperCase() + ASC_ECTM);  //US3012 - changed agency.toUpperCase()
 				}
 				else
 				{
 					log.info("Setting ASC to " +ASC_DEFAULT);
-					argAccAppRequest.setAcquistionStrategyCode("0" + agency + ASC_DEFAULT);
+					argAccAppRequest.setAcquistionStrategyCode("0" + agency.toUpperCase() + ASC_DEFAULT); //US3012 - changed agency.toUpperCase()
 				} 
 			}
 		}

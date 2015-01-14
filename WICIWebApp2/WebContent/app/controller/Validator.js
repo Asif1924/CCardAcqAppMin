@@ -8,13 +8,37 @@ WICI.Validator = function() {
 	this.notEmpty = notEmpty;
 	
 	function empty(value) {
-		return _.isString(value) && value.trim() === "";
+		return _.isString(value) && $.trim(value) === "";
 	}
 	this.empty = empty;
 	
+	//---------------------------------------------------------------------------------------
 	this.maxSize = function(value, length) {
 		return _.isString(value) && value.length <= length;
 	};
+	//---------------------------------------------------------------------------------------
+	this.mod10 = function(value, length) {
+           var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+            var counter = 0;
+            var incNum;
+            var odd = false;
+
+            for (var i = value.length-1; i >= 0; --i)
+            {
+            	incNum = parseInt(value.charAt(i), 10);
+                counter += (odd = !odd)? incNum : luhnArr[incNum];
+            }
+            if( ! ( _.isString(value) && value.length >= length)){
+            	return false;
+            }
+            
+            if ((counter%10)==0){
+            	return true;
+	 		}
+	 		else{	 
+				return false;
+			}
+    };
 	//---------------------------------------------------------------------------------------
 	this.postalCode = function(value) {
         // return notEmpty(value) && regexMatch(/^[a-z]\d[a-z]\d[a-z]\d$/i, value.trim());

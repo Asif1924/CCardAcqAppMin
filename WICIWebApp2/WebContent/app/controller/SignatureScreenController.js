@@ -282,7 +282,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		cardNameGlobal = translator.translateKey(cardNameGlobal).replace("<br>", "");
 		if(cardTypeGlobal === 'OMC')
 		{
-			cardNameGlobal = translator.translateKey('signatureScreen_License1_2') + cardNameGlobal; 
+			cardNameGlobal = translator.translateKey('chooseProduct_OptionsMasterCard_sig'); 
 		}
 	}
 	

@@ -75,7 +75,37 @@
 			</tr>
 		</table>
 	</div>	
+<!--							 
+	personalData_CTMField								    :	"",
+	personalData_CTMNumber_TextField						:	"",
+	personalData_CTMAccountText	                            :   "", 
+	//-->
 	<div class="ScreenLayout" id="PersonalDataScreen_PageContents">
+		<br>
+		<br>
+		<center>
+			<div id="personalData_MyCTMArea" >
+			<br>
+			<br>
+	            <table id="myCTMTable" class="stretchThisTable">
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33 selectedBreadcrumb">
+	                        <span data-translationKey="personalData_CTMField"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_CTMNumber_TextField" type="text" maxlength="16" tabindex=1/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td  style="border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<p><span data-translationKey="personalData_CTMAccountText"></span></p>	
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
 		<br>
 		<br>
 		<center>
@@ -92,7 +122,7 @@
 	                    </td>
 	                    <td class="fieldValuesTopCell">
 	                        <!-- input class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" type="text"/-->
-	                        <select class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" tabindex=1>
+	                        <select class="fieldValuesTextField" id="personalData_PlaceOfIssue_TextField" tabindex=2>
 							</select>
 	                    </td>
 	                </tr>
@@ -102,7 +132,7 @@
 	                    </td>
 	                    <td class="fieldValuesCell">
 	                        <!--input class="fieldValuesTextField" id="personalData_IDType_TextField" type="text"/-->
-							<select class="fieldValuesTextField" id="personalData_IDType_TextField" type="text" tabindex=2>
+							<select class="fieldValuesTextField" id="personalData_IDType_TextField" type="text" tabindex=3>
 							</select>
 	                    </td>
 	                </tr>	                
@@ -111,7 +141,7 @@
 	                        <span data-translationKey="personalData_IDNumber"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_IDNumber_TextField" type="text" maxlength="20" tabindex=3/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_IDNumber_TextField" type="text" maxlength="20" tabindex=4/>
 	                    </td>
 	                </tr>
 	            </table>
@@ -179,7 +209,7 @@
 	                        <span data-translationKey="personalData_FirstName"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=4/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=5/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -187,7 +217,7 @@
 	                        <span data-translationKey="personalData_Initial"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" maxlength="1" tabindex=5/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" maxlength="1" tabindex=6/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -195,7 +225,7 @@
 	                        <span data-translationKey="personalData_LastName"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=6/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=7/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -204,7 +234,7 @@
 	                    </td>
 	                    <td class="fieldValuesCell">
 	                        <!--<input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" data-role='datebox' data-options='{"mode":"datebox", "useNewStyle":false, "dialogEnable":true, "dialogForce":true}' tabindex=7/> -->
-	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" type="date" tabindex=7></input>
+	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" type="date" tabindex=8></input>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -212,7 +242,7 @@
 	                        <span data-translationKey="personalData_EmailAddress"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" tabindex=8/>
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" tabindex=9/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -220,7 +250,7 @@
 	                        <span data-translationKey="personalData_HomePhone"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=9/>
+	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=10/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -228,7 +258,7 @@
 	                        <span data-translationKey="personalData_CellPhone"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=10/>
+	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=11/>
 	                    </td>
 	                </tr>
 	            </table>

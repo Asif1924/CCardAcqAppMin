@@ -257,6 +257,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			// Work around IE8 page-proofs issue
 			updatePageStylesheet(true);			
 		}
+		toggle10XImege();
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -285,10 +286,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	
 	//---------------------------------------------------------------------------------------
 	function hideNovaScotiaSection (){
-		var overviewModel = activationItems.getModel('overview');
-		if(overviewModel.get('provinces') !== 'NS') {
-			$(refs.moneyAdvantageContainer).hide();	
-		}
+		//US3011 var overviewModel = activationItems.getModel('overview');
+		//US3011 if(overviewModel.get('provinces') !== 'NS') {
+		//US3011 $(refs.moneyAdvantageContainer).hide(); 	
+		//US3011 }
 	}
 	
 	//---------------------------------------------------------------------------------------	
@@ -377,6 +378,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         $(refs.loyaltyMembershipNumber).val(model.get('loyaltyMembershipNumberInternal'));
        // $(refs.loyaltyMembershipNumberPrefix).val(model.get('loyaltyMembershipNumberPrefix'));
         restoreSinceYearsField();
+        toggle10XImege();
 	}
 	
 	function restoreSinceYearsField() {
@@ -845,6 +847,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		}
 		createAndIsertToDomInputsWithPlaceHolder();
 		bindInputTranslations();
+		 toggle10XImege();
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -936,6 +939,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			restoreDataAfterTranslation();
 			setMoneyNumericFormat();
 			updatePageStylesheet();
+			toggle10XImege();
 		});
     }
     
@@ -1202,6 +1206,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		jobTitlesList.fillSelectControl(refs.jobTitle_DropDown);
 		
 		fillDaysControl(refs.dateOfBirth_Day);
+		toggle10XImege();
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -1483,5 +1488,15 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		
 		return strValue.replace(/\B(?=(\d{3})+(?!\d))/g, sepChar);;
 	}
-
+	function toggle10XImege() {
+		if (app.ieUIHelper.isIe8Browser()){
+		   app.ieUIHelper.toggleNSImege(translator);
+		}else{
+			translator.getCurrentLanguage() == 'en' ? $('#PersonalInformationScreen a#topBanner10XImage').addClass(
+			'topBanner10XImageBlock').removeClass(
+			'topBanner10XImageBlock_fr') : $('#PersonalInformationScreen a#topBanner10XImage')
+			.addClass('topBanner10XImageBlock_fr').removeClass(
+					'topBanner10XImageBlock');  
+		}
+	}  
 }

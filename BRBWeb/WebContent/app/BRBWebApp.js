@@ -351,6 +351,14 @@ BRB.BRBWebApp = function() {
 	        	 return province == 'SK';
 	        }
    }
+   this.isNSSelected = function isNSSelected(){
+		 var overViewModel = creditCardData.getModel("overview");
+	        if(overViewModel != null && overViewModel != undefined){
+	        	var province = overViewModel.get("provinces");
+	        	// according to user story 1165
+	        	 return province == 'NS';
+	        }
+ }
    this.getCurrentProvince = function getCurrentProvince(){
 		 var overViewModel = creditCardData.getModel("personalInformation");
 	        if(overViewModel != null && overViewModel != undefined){

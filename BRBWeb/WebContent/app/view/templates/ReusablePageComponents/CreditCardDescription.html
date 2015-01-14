@@ -1,5 +1,39 @@
 <script id="creditCardDescription-template" type="text/x-jquery-tmpl">
-	<div id="creditCardDescription" class="creditCard"> 
+<!-- US3011 -->
+<div id="creditCardDescription" class="creditCard"> 
+			<ul id="piTopList" class="piDescriptionList">
+				
+				<li class ="firstListIteml">
+					<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+	        	</li>
+	        	
+				<li class="listItem">
+					<div class="liContent">
+						<span class="liTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></span>
+						<br>
+						<ul class="simpleList" id="rewardsOnPurchasList">
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></span>
+							</li>
+							
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
+							</li>
+							
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
+							</li>
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
+							</li>
+						</ul>
+					</div>
+		</li>
+	</ul>
+</div>
+<!--  US3083 
+{{if !app.isNSSelected() }}
+<div id="creditCardDescription" class="creditCard"> 
 			<ul id="piTopList" class="piDescriptionList">
 				
 				<li class ="firstListItem">
@@ -28,7 +62,42 @@
 						</ul>
 					</div>
 	        	</li>
-					
+</ul>
+		</div>
+{{/if}} 
+{{if app.isNSSelected() }}
+<div id="creditCardDescription" class="creditCard"> 
+			<ul id="piTopList" class="piDescriptionList">
+				
+				<li class ="firstListIteml">
+					<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+	        	</li>
+	        	
+				<li class="listItem">
+					<div class="liContent">
+						<span class="liTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></span>
+						<br>
+						<ul class="simpleList" id="rewardsOnPurchasList">
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></span>
+							</li>
+							
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
+							</li>
+							
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
+							</li>
+							<li>
+								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
+							</li>
+						</ul>
+					</div>
+		</li>
+	</ul>
+</div>	
+{{/if}}  -->		
 <!--				<li class="listItem">
 					<div class="liContent">
 						<span class="liTitle" data-translationKey="personalInformation_liTitle2"></span>
@@ -54,6 +123,5 @@
 						</ul>
 					</div>
 	  </li> -->
-			</ul>
-		</div>
+			
 </script>

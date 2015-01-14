@@ -141,6 +141,38 @@
 	                </tr>
 	            </table>
 			</div>
+        <!--</center>//-->		
+		<!-- 
+	  personalData_CTMNumber_TextField					:	"",	
+	  personalData_CTMAccountText      					:	""
+		//-->
+		{{if activationItems.getModel('chooseProductModel').get('productCard')=='OMC' }}
+		  <center>
+			<div id="personalData_MyCTMArea" >
+			<br>
+			<br>
+	            <table id="myCTMTable" class="stretchThisTable">
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33 selectedBreadcrumb">
+	                        <span data-translationKey="personalData_CTMField"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell">
+	                         ${activationItems.getModel('personalData').get('loyaltyMembershipNumber')}
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td  style="border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
+	                    </td>
+	                    <td class="fieldValuesCell">
+							<p><span data-translationKey="personalData_CTMAccountText"></span></p>	
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		</center>
+         {{/if}}
+
+
 		<!--</center>//-->		
 		<!--
 	summary_TellAboutYourself_SubTitle					:	"Tell Us About Yourself",	

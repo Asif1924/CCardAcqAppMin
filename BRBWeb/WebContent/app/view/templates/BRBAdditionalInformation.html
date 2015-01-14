@@ -628,14 +628,34 @@
 	</div>
 
 	{{/if}}
-
+	
 	<div id="additionalInformation_FootnoteBlock" class="footnoteContentBlock">
+<!-- {{if !app.isNSSelected() }}
 		<span class="footnoteContentText">
-			<span data-translationKey="additionalInformation_footnoteContentText1"></span>
+			<span data-translationKey="additionalInformation_footnoteContentText1old"></span>
 			<span class="overviewLinkGray" data-translationKey="additionalInformation_footnoteContentText1Link"/>
 			<br>
-			<span data-translationKey="additionalInformation_footnoteContentText2"></span>
+			<span data-translationKey="additionalInformation_footnoteContentText2old"></span>
   			{{if !isSkSelected }}
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText3old"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText4old"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText5old"></span>
+			{{/if}}
+			<br>			
+			<span data-translationKey="additionalInformation_footnoteContentText6old"></span>
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText7old"></span>
+		<span>
+	 {{/if}} 
+	 {{if app.isNSSelected() }}	 
+		<span class="footnoteContentText">
+			{{if !isSkSelected }}
 				<br>
 				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
 				<span data-translationKey="additionalInformation_footnoteContentText3"></span>
@@ -646,13 +666,39 @@
 				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
 				<span data-translationKey="additionalInformation_footnoteContentText5"></span>
 			{{/if}}
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText1"></span> 
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText2"></span>
 			<br>			
 			<span data-translationKey="additionalInformation_footnoteContentText6"></span>
 			<br>
 			<span data-translationKey="additionalInformation_footnoteContentText7"></span>
 		<span>
-	</div>
-
+ 	{{/if}}  -->
+		<!-- US3011 --> 
+		<span class="footnoteContentText">
+			{{if !isSkSelected }}
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText3"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText4"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
+				<span data-translationKey="additionalInformation_footnoteContentText5"></span>
+			{{/if}}
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText1"></span> 
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText2"></span>
+			<br>			
+			<span data-translationKey="additionalInformation_footnoteContentText6"></span>
+			<br>
+			<span data-translationKey="additionalInformation_footnoteContentText7"></span>
+		<span>
+	</div>    
 	<br>
 	<br>
 

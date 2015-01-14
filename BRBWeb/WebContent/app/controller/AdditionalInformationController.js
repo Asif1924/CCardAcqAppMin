@@ -181,6 +181,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			// Work around IE8 page-proofs issue
 			updatePageStylesheet(true);			
 		}
+		toggle10XImege();
+		
 	}    
 	//---------------------------------------------------------------------------------------
 	function initUI(){
@@ -195,6 +197,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		showHideSuplementaryCard();
 		showHideAddressContainer();
 		updateOptionalInsuranceVisibility();
+		toggle10XImege();
 	}
 	//---------------------------------------------------------------------------------------
 	
@@ -243,7 +246,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	    	 
 	    	 currentModel.set('postalCode',        $(refs.postalCode_1).val().toUpperCase() + $(refs.postalCode_2).val().toUpperCase());
 	     }		     
-	     
+	      
 	}
 	//---------------------------------------------------------------------------------------
 	function syncInsuranceData(currentModel)
@@ -279,7 +282,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
        	var sMethod = 'syncAllUserData() ';
         BRB.Log(logPrefix + sMethod);
         syncSuplementaryCardArea();
-        syncInsuranceData();            
+        syncInsuranceData();     
+           
     }
     //---------------------------------------------------------------------------------------
     function syncUserData(currentModel){
@@ -303,7 +307,6 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         {
         	syncAllUserData();
         }
-        
     }
     //---------------------------------------------------------------------------------------
     function changeIsSkSelectedFlag(){
@@ -327,6 +330,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$(refs.footnoteBlock).hide();
 		$screenContainer.fadeIn(1000);
 		translator.run("AdditionalInformationScreen");
+		toggle10XImege();
 		focusFirstElement();
 		initUI();
 	}
@@ -390,6 +394,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		
 		// Work around IE8 page-proofs issue
 		updatePageStylesheet();
+		toggle10XImege();
 	}
 	//---------------------------------------------------------------------------------------
 	function updatePageStylesheet(isPoup) {
@@ -408,6 +413,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$('body').css('height','0%');
 		$('body').css('height','100%');
 		//window.scrollBy(0, 0);
+		toggle10XImege();
 	}
 	//---------------------------------------------------------------------------------------
 	function hide(){
@@ -424,8 +430,6 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		}else{
 			assemblePageHTML($screenContainer, "#BRBAdditionalInformation-template");
 		}
-		
-		
 		if(blockName)
 		{
 			$(refs.breadcrumbTrailArea).hide();
@@ -543,6 +547,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 
 		if (!argPopup) {
 			bindTranslationCallbacks();
+			toggle10XImege();
 		}
 	}
     //---------------------------------------------------------------------------------------
@@ -555,13 +560,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			unbindEvents();
 			initUI();
 			validationDecorate(_validationResult, true);
-			var ieHelper = new BRB.IeUIHelper();
+			var ieHelper = new BRB.IeUIHelper(); 
+			toggle10XImege();
 			if(ieHelper.needToAddValueToInput()){
 				addValuesToInputs(ieHelper);
 			} else {
 				addValuesToInputs();
-			}
+			} 
 		});
+		
     }
     //---------------------------------------------------------------------------------------
 	function unbindEvents() {
@@ -693,6 +700,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		relationshipList.fillSelectControl(refs.relationship);
 		
 		fillDaysControl(refs.dateOfBirth_Day);
+		
 	}
 	//---------------------------------------------------------------------------------------
 	function fillDaysControl(controlId)
@@ -972,6 +980,21 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         
         return rez.concat(rez6);
 	}
+	
+	
+	function toggle10XImege() {
+		if (app.ieUIHelper.isIe8Browser()){
+			app.ieUIHelper.toggleNSImege(translator);
+		}else{
+			translator.getCurrentLanguage() == 'en' ? $('#AdditionalInformationScreen a#topBanner10XImage').addClass(
+			'topBanner10XImageBlock').removeClass(
+			'topBanner10XImageBlock_fr') : $('#AdditionalInformationScreen a#topBanner10XImage')
+			.addClass('topBanner10XImageBlock_fr').removeClass(
+					'topBanner10XImageBlock');  
+		}
+	}
+	
+	
 	//---------------------------------------------------------------------------------------
 	function createAndIsertToDomInputsWithPlaceHolder(){
 		var personalInformation_YearID= createInputWithPlaceHolder('additionalInformation_DateOfBirth_Year','additionalInformation_DateOfBirth_Year',refs.additionalBirthDateID);

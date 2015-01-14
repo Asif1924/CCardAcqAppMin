@@ -80,7 +80,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 		populateProvinces();
 		
 		restoreCreditCardData();
-
+		
 		app.idleTimeService.start();
 
 		app.logOutTriggerActionService.setActionMethod(function() {
@@ -115,6 +115,12 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 			console.log(logPrefix + sMethod + " Exception: " + e);
 		}
 	}
+	//----------------------------------------------------------------------------------------
+	function setFrenchCTMlogo(){ 
+		 if( translator.getCurrentLanguageFSDPFormat() === "F"){ 
+			app.translationExtender.changeCTMLogoToFrench();
+		}
+	}
 	// ---------------------------------------------------------------------------------------
 	function initModel() {
 		// Get model from the store
@@ -130,6 +136,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 		$screenContainer.show();
 
 		updatePageTranslation();
+		setFrenchCTMlogo();
 	}
 	// ---------------------------------------------------------------------------------------
 	function hide() {
@@ -180,7 +187,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 		bindOmpCardHandler();
 		$(refs.province).on("change", function() {			
 			var str = this.value;
-			if (str == "ON" || str == "QC" || str == "NB" || str == "NL" || str == "PE") {
+			
+			//if (str == "ON" || str == "QC" || str == "NB" || str == "NL" || str == "PE") {
+			//US3012 Enable OMC & OMP products for NS
+			if (str == "ON" || str == "QC" || str == "NB" || str == "NL" || str == "PE" || str == "NS" ) {
 				$("#ompCard").show();
 				bindOmpCardHandler();
 			} else {
@@ -193,11 +203,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 				// need to show OMP because OMP is only available
 				omcHandler(false);
 			};
-			if (str == "NS") {
+			//US3012 Enable NS start
+			/*if (str == "NS") {
 				showMessageForNS();				
 			} else {				
 				selectedProvince = $(refs.province).val();
-			}		 
+			}*/
+			selectedProvince = $(refs.province).val();
+			//end
 		});
 		
 		$(refs.agencyProgram).on("change", function(obj){
@@ -511,4 +524,12 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 		syncUserData();
 		$(refs.agencyProgram).trigger("change");
     };
+    //---------------------------------------------------------------------------------------
+    function toggleCTMLogo() {
+	     	translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner10XImage').addClass(
+			'topBanner10XImageBlock').removeClass(
+			'topBanner10XImageBlock_fr') : $('#choseProduct a#topBanner10XImage')
+			.addClass('topBanner10XImageBlock_fr').removeClass(
+					'topBanner10XImageBlock');
+	}  
 };

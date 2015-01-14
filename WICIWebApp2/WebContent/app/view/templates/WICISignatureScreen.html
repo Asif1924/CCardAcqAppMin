@@ -98,11 +98,17 @@
 				<span data-translationKey="signatureScreen_License1" />
 				<span id="singnatureCardName" />
 				<span data-translationKey="signatureScreen_License1_1" />
+				<span data-translationKey="signatureScreen_License1_2" />
 			</li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License2"/></li>
 			<br>
-			<li><span data-translationKey="signatureScreen_License3"/></li>
+				{{if CardType === 'OMP' }}
+					<li><span data-translationKey="signatureScreen_License3_OMP"/></li>
+				{{else}}
+					<li><span data-translationKey="signatureScreen_License3"/></li>
+				{{/if}}
+			
 			<br>
 			<li><span data-translationKey="signatureScreen_License4"/></li>
 			<br>
@@ -116,6 +122,12 @@
 			<br>
 			<li><span data-translationKey="signatureScreen_License7"/></li>
 			<br>
+			{{if CardType === 'OMC' }}
+				<li><span data-translationKey="signatureScreen_License7a"/></li>
+				<br>
+				<li><span data-translationKey="signatureScreen_License7b"/></li>
+				<br>
+			{{/if}}	
 			<li><span data-translationKey="signatureScreen_License8"/></li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License9"/></li>

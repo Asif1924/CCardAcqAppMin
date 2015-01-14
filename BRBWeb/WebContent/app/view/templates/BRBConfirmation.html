@@ -142,6 +142,33 @@
 								<ul class="privacylist">
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item1"></span></li>
 									<br>
+								   <!-- {{if !app.isNSSelected() }}
+									<li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2old"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3old"></span></li>
+									<br>
+									<li>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1old"></span>
+										<span class="privacylistItemText">
+											<span class="redSpan" data-translationKey="confirmation_Application_Authorization_Item4_2old"/>
+										</span>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_3old"></span>
+									</li>
+									{{/if}}
+									{{if app.isNSSelected() }}
+									<li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									<br>
+									<li>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1"></span>
+										<span class="privacylistItemText">
+											<span class="redSpan" data-translationKey="confirmation_Application_Authorization_Item4_2"/>
+										</span>
+										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_3"></span>
+									</li>
+									{{/if}} -->
+									<!-- US3011-->
 									<li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2"></span></li>
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
@@ -159,6 +186,10 @@
 									<li><a href="#" class="privacylistItemLargeText boldSpan" data-translationKey="confirmation_Application_Authorization_Item6"/></li>
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7a"></span></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7b"></span></li>
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item8"></span></li>
 									<br>
@@ -233,7 +264,7 @@
 	</div>
 
 <div class="footnoteContentBlock">
-			<span class="footnoteContentText">
+		<!--US3083 <span class="footnoteContentText">
 				<span data-translationKey="confirmation_footnoteContentText1"></span>
 				<span class="overviewLinkGray" data-translationKey="confirmation_footnoteContentText1Link"/>
 				<br>
@@ -242,7 +273,52 @@
 				<span data-translationKey="confirmation_footnoteContentText4"></span>
 				<br>
 				<span data-translationKey="confirmation_footnoteContentText5"></span>
-			<span>
+			<span> -->
+	    <span class="footnoteContentText">
+			<!--	{{if !app.isNSSelected() }}
+					<span data-translationKey="confirmation_footnoteContentText1"></span>
+					<span class="overviewLinkGray" data-translationKey="confirmation_footnoteContentText1Link"/>
+					<br>
+					<span data-translationKey="confirmation_footnoteContentText2"></span>
+					<br>
+					<span data-translationKey="confirmation_footnoteContentText4"></span>
+					<br>
+					<span data-translationKey="confirmation_footnoteContentText5"></span>
+				{{/if}}
+				{{if app.isNSSelected() }}  
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
+				<span data-translationKey="confirmation_footnoteContentText01"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
+				<span data-translationKey="confirmation_footnoteContentText02"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
+				<span data-translationKey="confirmation_footnoteContentText02a"></span>
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText03"></span> 
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText04"></span>
+				<br>			
+				<span data-translationKey="confirmation_footnoteContentText05"></span> 
+		 		{{/if}}	-->
+             <!-- US3011 -->
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">*</sup>
+				<span data-translationKey="confirmation_footnoteContentText01"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
+				<span data-translationKey="confirmation_footnoteContentText02"></span>
+				<br>
+				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
+				<span data-translationKey="confirmation_footnoteContentText02a"></span>
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText03"></span> 
+				<br>
+				<span data-translationKey="confirmation_footnoteContentText04"></span>
+				<br>			
+				<span data-translationKey="confirmation_footnoteContentText05"></span> 
+		<span>
 		</div>
 		<br>
 		<br>

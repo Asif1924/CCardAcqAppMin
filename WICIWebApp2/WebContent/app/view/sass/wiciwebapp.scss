@@ -954,11 +954,17 @@ tr td{
 
 	@media handhelds and (device-width: 1280px) {
 
+		#ctmLogo {
+			background-repeat: no-repeat;
+			background-position: 0px 190px; 
+		}
+
 		#omcCard {
 			background: #{inline_image("omc.png")};
 			background-repeat: no-repeat;
 			background-position: 35px 30px; 
 		}
+		
 		
 		#ompCard {
 			background: #{inline_image("omp.png")};
@@ -975,12 +981,17 @@ tr td{
 	
 	@media handhelds and (device-width: 800px) {
 
+		#ctmLogo {
+			background-repeat: no-repeat;
+			background-position: 0px 190px; 
+		}
+
 		#omcCard {
 			background: #{inline_image("omc.png")};
 			background-repeat: no-repeat;
 			background-position: 35px 30px; 
 		}
-		
+		 
 		#ompCard {
 			background: #{inline_image("omp.png")};
 			background-repeat: no-repeat;
@@ -1002,6 +1013,11 @@ tr td{
 	}
 
 	@media not handhelds {
+	
+		#ctmLogo {
+			background-repeat: no-repeat;
+			background-position: 0px 190px; 
+		}
 
 		#omcCard {
 			background: #{inline_image("omc.png")};
@@ -1009,7 +1025,7 @@ tr td{
 			background-position: 15px 15px;
 			background-size: 205px;
 		}
-		
+		 
 		#ompCard {
 			background: #{inline_image("omp.png")};
 			background-repeat: no-repeat;
@@ -1026,7 +1042,7 @@ tr td{
 	}
 	
 	#creditCardProductList ul {
-		height:205px;
+		height:250px;
 		list-style: none;
 		padding: 0px;
 		margin: 0px;
@@ -1041,7 +1057,7 @@ tr td{
 			top: 170px;
 			display: inline-block;
 			text-align: center;
-			width: 110px;
+			width: 170px;
 			text-shadow: none;
 			font-size: 12px;
 			left: -20px;
@@ -1049,7 +1065,7 @@ tr td{
 	}
 	
 	#creditCardProductList {
-		height: 205px;
+		height: 250px;
 		width: 100%;
 		min-width: 500px;
 		overflow: hidden;
@@ -1061,17 +1077,18 @@ tr td{
 		list-style-type: none;
 		float: left;
 		width: 50%; /* 100% / productsNumber */
-		height: 205px;
+		height: 220px;
 		margin-bottom: 25px;
 	}				
 
 	#creditCardProductList .creditCardProductClickableProduct {
 		border-radius: 5px;
 		width: 235px;
-		height: 205px;
+		height: 190px;
 		margin: 0px auto;
 		outline-style: none;
 	}
+	
 	
 	#creditCardProductList .creditCardSelectedBgColor {
 		background-color: #aaaaaa;
@@ -1081,8 +1098,8 @@ tr td{
 		top: 150px;
 		color: #000000;
 		font-size: 14px;
-		width: 150px;
-		left: 40px;
+		width: 170px;
+		left: 30px;
 	}
 	
 	/* END - Product Images Clickable */	
@@ -1893,4 +1910,46 @@ margin-top: -23px;
 .sigResetButton{	
 	height:20px !important;
 }
+
+/*US3012 Start*/
+	.ctmLogo_eng {
+			background: #{inline_image("ctm_logo_eng.png")};
+			background-repeat: no-repeat;
+			/*background-position: 180px 0px;*/ 
+			display: block;
+		    text-decoration: none;
+		    position: relative;
+		    width: 450px;
+		    height: 250px;
+	}
+	.ctmLogo_fr {
+			background: #{inline_image("ctm_logo_fr.png")};
+			background-repeat: no-repeat;
+			/*background-position: 180px 0px;*/ 
+			display: block;
+		    text-decoration: none;
+		    position: relative;
+		    width: 450px;
+		    height: 250px;
+	}
+	#creditCardProductList #ctmLogo .ctmLogo_eng .ctmLogo_fr {
+		border-radius: 5px;
+		width: 400px;
+		height: 40px;
+		margin: 0px auto;
+		outline-style: none;
+	}
+	.ectmemtycellCell {
+  	 -moz-border-radius-topleft: 0px;  
+ 	 -moz-border-radius-bottomleft: 0px;
+  	 -webkit-border-top-left-radius: 0px;
+ 	 -webkit-border-top-right-radius: 11px;
+ 	 -webkit-border-bottom-right-radius: 0px;
+  	 -webkit-border-bottom-left-radius: 0px;
+	}
+	
+	/*US3012 End*/
+
+
+
 /* END OF JG - Addition of CSS Items to Display more clearly to the customer */

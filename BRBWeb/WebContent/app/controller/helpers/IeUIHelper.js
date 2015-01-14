@@ -132,6 +132,8 @@ BRB.IeUIHelper = function() {
 		return borderRadius;
 	}
 	// --------------------------------------------------------------------------------------
+ 
+	// --------------------------------------------------------------------------------------
 	function toggleNSImege (translator) {
 		$('#rightBannerNSImage').removeClass(
 				'rightBannerNSBlock_fr, rightBannerNSBlock');
@@ -140,8 +142,66 @@ BRB.IeUIHelper = function() {
 						'rightBannerNSBlock_fr_ie8') : $('#rightBannerNSImage')
 				.addClass('rightBannerNSBlock_fr_ie8').removeClass(
 						'rightBannerNSBlock_ie8');
+						
+		$('#rightBannerROCImage').removeClass(
+						'rightBannerNSBlock_fr, rightBannerNSBlock');
+				translator.getCurrentLanguage() == 'en' ? $('#rightBannerROCImage')
+						.addClass('rightBannerNSBlock_ie8').removeClass(
+								'rightBannerNSBlock_fr_ie8') : $('#rightBannerROCImage')
+						.addClass('rightBannerNSBlock_fr_ie8').removeClass(
+								'rightBannerNSBlock_ie8');	
+								
+								
+								$('#PersonalInformationScreen a#topBanner10XImage').removeClass(
+								'topBanner10XImageBlock_fr, topBanner10XImageBlock');
+								translator.getCurrentLanguage() == 'en' ? $('#PersonalInformationScreen a#topBanner10XImage').addClass(
+								'topBanner10XImageBlock_ie8').removeClass(
+								'topBanner10XImageBlock_fr_ie8') : $('#PersonalInformationScreen a#topBanner10XImage')
+								.addClass('topBanner10XImageBlock_fr_ie8').removeClass(
+										'topBanner10XImageBlock_ie8'); 
+								
+								$('#AdditionalInformationScreen a#topBanner10XImage').removeClass(
+								'topBanner10XImageBlock_fr, topBanner10XImageBlock');
+								translator.getCurrentLanguage() == 'en' ? $('#AdditionalInformationScreen a#topBanner10XImage').addClass(
+								'topBanner10XImageBlock_ie8').removeClass(
+								'topBanner10XImageBlock_fr_ie8') : $('#AdditionalInformationScreen a#topBanner10XImage')
+								.addClass('topBanner10XImageBlock_fr_ie8').removeClass(
+										'topBanner10XImageBlock_ie8');
+								
+								$('#choseProduct a#topBanner10XImage').removeClass(
+								'topBanner10XImageBlock_fr, topBanner10XImageBlock');
+								translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner10XImage').addClass(
+								'topBanner10XImageBlock_ie8').removeClass(
+								'topBanner10XImageBlock_fr_ie8') : $('#choseProduct a#topBanner10XImage')
+								.addClass('topBanner10XImageBlock_fr_ie8').removeClass(
+										'topBanner10XImageBlock_ie8'); 
+								
 	}
 	// --------------------------------------------------------------------------------------
+	
+	function toggle10XImegePI (translator) {
+	
+		$('#PersonalInformationScreen a#topBanner10XImage').removeClass(
+		'topBanner10XImageBlock_fr, topBanner10XImageBlock');
+		translator.getCurrentLanguage() == 'en' ? $('#PersonalInformationScreen a#topBanner10XImage').addClass(
+		'topBanner10XImageBlock_ie8').removeClass(
+		'topBanner10XImageBlock_fr_ie8') : $('#PersonalInformationScreen a#topBanner10XImage')
+		.addClass('topBanner10XImageBlock_fr_ie8').removeClass(
+				'topBanner10XImageBlock_ie8');  
+	}
+	// ----------------------------------------------------------------------------------------------------
+	function toggle10XImegeAI (translator) {
+		$('#AdditionalInformationScreen a#topBanner10XImage').removeClass(
+		'topBanner10XImageBlock_fr, topBanner10XImageBlock');
+		translator.getCurrentLanguage() == 'en' ? $('#AdditionalInformationScreen a#topBanner10XImage').addClass(
+		'topBanner10XImageBlock_ie8').removeClass(
+		'topBanner10XImageBlock_fr_ie8') : $('#AdditionalInformationScreen a#topBanner10XImage')
+		.addClass('topBanner10XImageBlock_fr_ie8').removeClass(
+				'topBanner10XImageBlock_ie8');  
+		
+		
+	}
+	// ---------------------------------------------------------------------------------------------------
 	function fixCardaLayout(sheet){
 		sheet.addRule('.card', 'margin-top: 50px;');
 	}

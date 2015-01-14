@@ -123,6 +123,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		
 		// Work around IE8 page-proofs issue
 		updatePageStylesheet();
+		
 	}
 	//---------------------------------------------------------------------------------------
 	function updatePageStylesheet() {

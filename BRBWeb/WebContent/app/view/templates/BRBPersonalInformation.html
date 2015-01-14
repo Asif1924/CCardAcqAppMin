@@ -70,7 +70,7 @@
 	            <tbody>
   					<tr class="fieldRow" id="personalInformation_MoneyAdvantage_FieldContainer">
 	                    <td class="fieldLabelsCell fieldLabelsTopCell fieldCellSize25 alignToTop elementTopBottom10">
-	                        <span data-translationKey="personalInformation_MoneyAdvantageField"></span>
+	                        <span data-translationKey="personalInfo_CTM_label"></span>
 	                    </td>						
 						<td class="fieldValuesCell elementTopBottom10">
 		                    	<table class="grayTableForInputsGroup">
@@ -99,7 +99,7 @@
   							            
 		                        	</tr>
 										<td class="fieldValuesTextField fieldLabelsCellWithTopAlign fieldCellSize100" colspan="4">
-		                        			<span class="alignToBottom" data-translationKey="personalInformation_MoneyAdvantage_MessageField"/>						
+		                        			<span class="alignToBottom" data-translationKey="personalInfo_CTM_Text"/>						
 										</td>
 									<tr>
 									</tr>
@@ -236,7 +236,7 @@
 											<input class="fieldValuesCheckBoxField elementTopMargin8" id="personalInformation_ReceiveEmail_TextField" type="checkbox" />
 										</td>
 										<td class="fieldValuesTextField fieldLabelsCellWithTopAlign fieldCellSize100">
-											<span data-translationKey="personalInformation_ReceiveEmail"></span>
+											<span data-translationKey="personalInfo_Email_Text"></span>
 										</td>
 		                        	</tr>
 		                        </table>
@@ -880,27 +880,51 @@
 		        	</div>
         	</div>
         </div>
+
+
+
         <div class="footnoteContentBlock overviewNSBorderTop">
+		<!--	{{if !app.isNSSelected() }}
 			<span class="footnoteContentText">
 				<sup>1</sup>
 				<span data-translationKey="overview_footnoteContentText1Extended"></span>
 				<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
 				<span ></span>
 				<span>   </span>
-				<!--<span class="overviewLinkGray" data-translationKey="overview_footnoteContentTextLinkBack"></span> -->
 				<br>
 				<sup>2</sup>
 				<span data-translationKey="overview_footnoteContentText2"></span>
 				<span> </span>
-			<!--	<span class="overviewLinkGray" data-translationKey="overview_footnoteContentTextLinkBack"></span> -->
 				<br>
 				<span data-translationKey="overview_footnoteContentText4"></span>
 				<br>
 				<span data-translationKey="overview_footnoteContentText5"></span>
-<!--
+			</span>
+			{{/if}} 
+		    {{if app.isNSSelected() }}
+			<span class="footnoteContentText">
+				<span data-translationKey="personalInfo_LegalText1"></span>
 				<br>
-				<span data-translationKey="overview_footnoteContentText6"></span>
--->
+				<span data-translationKey="personalInfo_LegalText2"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText3"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText4"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText5"></span>
+			</span>
+			{{/if}} -->
+			<!-- US3011 -->
+			<span class="footnoteContentText">
+				<span data-translationKey="personalInfo_LegalText1"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText2"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText3"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText4"></span>
+				<br>
+				<span data-translationKey="personalInfo_LegalText5"></span>
 			</span>
 		</div>
 		<br>

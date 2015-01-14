@@ -65,7 +65,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		createView();
 		
 		// Start session timeout service
-		app.sessionTimeoutActionService.start();		
+		app.sessionTimeoutActionService.start();
+		toggle10XImege();		
 	}    
 	//---------------------------------------------------------------------------------------
     function fillControlsWithData()
@@ -148,6 +149,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		insertAfterElement($("#OverviewScreen #BreadcrumbTrailArea1"), "#chooseProduct-template");
 		$("#BreadcrumbTrailArea2").hide();
 		$("#overviewNSPageContents").hide();
+		$("#overviewROCPageContents").hide();
+		$("#overviewROCNSFooterContents").hide();
+		
 	}
 	//---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
@@ -159,7 +163,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
     }
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-		//var html = $(templateName).tmpl();
+		//var html = $(templateName).tmpl(); 
 		var html = $(templateName).tmpl({'screenIsPopup':false}); 
 		$element.append(html);
 	}
@@ -236,6 +240,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			bindContinueButtonEvents();
 			restoreDataAfterTranslation();
 			toggleImege();
+			toggle10XImege();
 		});
 	}    
     //---------------------------------------------------------------------------------------
@@ -299,21 +304,41 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
             }   
 	    }
 	    
-	    //if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
-	    if (!isNSPageDisplayed) {
-			$("#choseProduct").hide();
-			$("#overviewPageContents").hide();
-			$("#BreadcrumbTrailArea2").show();
-			$("#overviewNSPageContents").show();
-			isNSPageDisplayed = true;
-			BRB.AppConfig.TrackingScreenID = 2;
-			window.scrollTo(0, 0);
-		toggleImege();
+	   //US3084 if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
+	   //US3083 if (!isNSPageDisplayed) {   
+	   // if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
+	   //	$("#choseProduct").hide();
+		//	$("#overviewPageContents").hide();
+		//	$("#BreadcrumbTrailArea2").show();
+		//	$("#overviewNSPageContents").show();
+		//	$("#overviewROCPageContents").hide();
+		//	$("#overviewROCNSFooterContents").show();
+		//	$("#p_ROC_Footnotes").hide();
+		//	isNSPageDisplayed = true;
+		//	BRB.AppConfig.TrackingScreenID = 2;
+		//	window.scrollTo(0, 0);
+		//toggleImege();
 	    	
 	    	//messageDialog.error(translator.translateKey('overview_NS_Error'));
-	    } else {
-	    	flow.next();
-	    }
+	   // }else  if (($(refs.provinces).val() !== 'NS') && !isNSPageDisplayed) {
+	   //  $("#choseProduct").hide();
+		//	$("#overviewPageContents").hide();
+		//	$("#BreadcrumbTrailArea2").show();
+		//	$("#overviewNSPageContents").hide();
+		//	$("#overviewROCPageContents").show();
+		//	$("#overviewROCNSFooterContents").show();
+		//	$("#p_NS_Footnotes").hide();
+		//	isNSPageDisplayed = true;
+		//	BRB.AppConfig.TrackingScreenID = 2;
+		//	window.scrollTo(0, 0);
+		//toggleImege();
+	   // } else {
+	   //  	flow.next();
+	    //}
+	   //US3011
+	   flow.next(); 
+	    
+	    
 	}	
 	//---------------------------------------------------------------------------------------
 	function showPrevScreen(){
@@ -341,6 +366,28 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			'rightBannerNSBlock_fr') : $('#rightBannerNSImage')
 			.addClass('rightBannerNSBlock_fr').removeClass(
 					'rightBannerNSBlock');
+					
+					
+			translator.getCurrentLanguage() == 'en' ? $(
+			'#rightBannerROCImage').addClass(
+			'rightBannerNSBlock').removeClass(
+			'rightBannerNSBlock_fr') : $('#rightBannerROCImage')
+			.addClass('rightBannerNSBlock_fr').removeClass(
+					'rightBannerNSBlock');	
+						
+					
 		}
 	}
+	//-------------------------------------------------------------------------------------------
+	function toggle10XImege() {
+		if (app.ieUIHelper.isIe8Browser()){
+		   app.ieUIHelper.toggleNSImege(translator);
+		}else{
+		 	translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner10XImage').addClass(
+			'topBanner10XImageBlock').removeClass(
+			'topBanner10XImageBlock_fr') : $('#choseProduct a#topBanner10XImage')
+			.addClass('topBanner10XImageBlock_fr').removeClass(
+					'topBanner10XImageBlock');  
+		}
+	}  
 };

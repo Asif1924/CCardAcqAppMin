@@ -49,6 +49,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *               &lt;enumeration value="IC"/>
  *               &lt;enumeration value="WP"/>
  *               &lt;enumeration value="IP"/>
+ *               &lt;enumeration value="DP"/>
  *               &lt;length value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
