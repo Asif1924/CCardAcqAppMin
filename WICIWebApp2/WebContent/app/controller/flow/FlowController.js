@@ -229,6 +229,25 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		activeScreenName = storedScreen.name;
 		activeScreen = storedScreen.screen;
 	}
+	
+	/*
+	this.tearDownNavigationBarAtTop = tearDownNavigationBarAtTop;
+	
+    function tearDownNavigationBarAtTop() {
+        $("#pageHeader-template").template("pageHeader");
+        $.tmpl("pageHeader", {
+            "logo_En" : translator.currentLanguageEnglish(),
+            "settingsButtonId" : "PendingScreen_SettingsButton",
+            "isNotEmployee" : activationItems.getModel('loginScreen').get('employerID').toLowerCase() !== "e"
+        }).appendTo("#ChooseProductScreen");
+
+        $('#chooseProductScreen_SettingsButton').addClass('rightPosition');
+        $('#chooseProductScreen_SettingsButton').attr("chooseProductMenuItem",
+            "false")
+    }	
+	*/
+	this.bindSettingsButtonEvent = bindSettingsButtonEvent;
+	
 	//---------------------------------------------------------------------------------------	
 	function bindSettingsButtonEvent()
 	{
@@ -279,30 +298,43 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 			app.language.setLanguage(translate.getCurrentLanguageFSDPFormat());
 		}
 	}
-	
-	
-	//---------------------------------------------------------------------------------------	
+
 	function logOutClick()
 	{	    
 	    var sMethod = 'logOutClick() ';
         console.log(logPrefix + sMethod);
         
-        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), logOut, $.noop, 
-        						translate.translateKey("backButtonPrompt_title"));
+        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), logOut, $.noop, translate.translateKey("backButtonPrompt_title"));
 	}
     this.logOutClick = logOutClick;
-	//---------------------------------------------------------------------------------------	
-	function logOut()
+
+	function logOut(argScreen)
 	{
 		var sMethod = 'logOut() ';
         console.log(logPrefix + sMethod);
+        /*
+        if(argScreen){
+        	console.log(logPrefix + sMethod + " argScreen =" + argScreen);
+        	argScreen.hide();
+        }*/
         
+        hidePendingScreen();
 		forceExitFlow();
-        activationItems.clearAllModels();
+        activationItems.clearAllModels();        
         app.init();
 	}
 	this.logOut = logOut;
-	//---------------------------------------------------------------------------------------	
+	
+	function hidePendingScreen(){
+		var sMethod = 'hidePendingScreen() ';
+        console.log(logPrefix + sMethod);  
+        if( app.navigationController.adhocPendingScreen!==null )
+        	app.navigationController.adhocPendingScreen.destroy();
+        if( app.navigationController.adhocPrintDemoScreen!==null )
+        	app.navigationController.adhocPrintDemoScreen.destroy();
+	}
+	this.hidePendingScreen = hidePendingScreen;	
+	
 	function chooseProductClick()
 	{
 		var sMethod = 'chooseProductClick() ';
@@ -316,23 +348,66 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 	{
 		var sMethod = 'goToChooseProduct() ';
         console.log(logPrefix + sMethod);
-		
+        
+        hidePendingScreen();        
 		forceExitFlow();
-        activationItems.clearToLoginScreen();
+        activationItems.clearToLoginScreen();        
         start();
 	}
-	//---------------------------------------------------------------------------------------
+	
+	function exitFlow_clearActivationItems_startOver(){
+		forceExitFlow();
+        activationItems.clearToLoginScreen();        
+        start();		
+	}
+	
 	function retrieveClick()
 	{
-		var sMethod = 'retrieve() ';
-        var sessionStorageHelper = new WICI.SessionStorageHelper(window);
+		var sMethod = 'retrieveClick() ';
         console.log(logPrefix + sMethod);
-     	sessionStorageHelper.setLastPage(activeScreenName);
-     	activeScreen.hide();
-     	retrieveClick.pendingScreen.init(null, "Retrieve");
-     	retrieveClick.pendingScreen.show();
+        if(app.navigationController.adhocPendingScreen && !app.navigationController.adhocPendingScreen.isShown){
+        	messageDialog.htmlConfirm(translate.translateKey("pendingScreen_Retrieve_InvocationMessage"), handleRetrieveClick, $.noop, translate.translateKey("pendingScreen_Retrieve_Title"));
+        }else if(!app.navigationController.adhocPendingScreen && app.navigationController.adhocPendingScreen===null){
+        	handleRetrieveClick();
+        }else if(app.navigationController.adhocPendingScreen && app.navigationController.adhocPendingScreen.isShown ){
+        	app.navigationController.adhocPendingScreen.clearFields();
+        }
 	}
-	retrieveClick.pendingScreen = new WICI.PendingScreenController(activationItems, translate, messageDialog);
+	
+	function handleRetrieveClick(){
+		var sMethod = 'handleRetrieveClick() ';
+        console.log(logPrefix + sMethod);
+        
+        //Instantiate and init the pending screen
+        if( app.navigationController.adhocPendingScreen===null ){
+            console.log(logPrefix + sMethod + " Instantiating pending screen for the first time...");
+         	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translate, messageDialog, self);
+         	app.navigationController.adhocPendingScreen.init(self, "RETRIEVEPEND", activeScreenName, null);
+        }
+        
+        //Show the pending screen if not already showing
+        if( app.navigationController.adhocPendingScreen!==null && !app.navigationController.adhocPendingScreen.isShown ){
+            console.log(logPrefix + sMethod + " Attempting to show pending screen...");
+        	exitFlow_clearActivationItems_startOver();
+            
+         	app.navigationController.adhocPendingScreen.show();
+            activeScreen.hide();
+         	bindSettingsButtonEvent();
+         	return;
+        }
+        //When the user clicks again on "Retrieve Application" in the settings menu
+        //and the pending screen is currently showing
+        if(app.navigationController.adhocPendingScreen!==null && app.navigationController.adhocPendingScreen.isShown){
+        	console.log(logPrefix + sMethod + " Pending screen already shown, just clear fields...");
+        	
+        	new WICI.LoadingScreenIndicator().show();
+        	exitFlow_clearActivationItems_startOver();        	
+        	app.navigationController.adhocPendingScreen.clearFields();
+        	new WICI.LoadingScreenIndicator().hide();
+        	return;
+        }
+		
+	}
 	
 	function reEstablishWifiClick() {
 		var deferred = WICI.WIFIHelper.createWICINetwork();

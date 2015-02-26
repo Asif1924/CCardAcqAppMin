@@ -40,6 +40,7 @@ WICI.cordovaExecDeferred = function(pluginName, pluginMethod, args) {
 WICI.WICIWebApp = function() {
     var logPrefix = ' ----- [WICI.WICIWebApp]::';
 
+    this.navigationController = null;
     this.messageDialog=null;
     this.translator = null;
     this.validationsOn = true;
@@ -101,7 +102,8 @@ WICI.WICIWebApp = function() {
         app.deviceInfoHelper = new WICI.DeviceInfoHelper();
         app.deviceInfoHelper.init();
 
-        new WICI.AppNavigatorController().init( this.translator, this.messageDialog);
+        this.navigationController = new WICI.AppNavigatorController();
+        this.navigationController.init( this.translator, this.messageDialog);
 
         if(this.hardwareEventsController===null){
             this.hardwareEventsController = new WICI.HardwareEventsController(this.translator, this.messageDialog);
@@ -148,7 +150,7 @@ WICI.WICIWebApp = function() {
 
         if (WICI.debuggingMode) {
             // to be able to login at debugging mode
-            app.apkVersionHelper.getAPKVersion = function() {return "1.1.0.0.730";}
+            app.apkVersionHelper.getAPKVersion = function() {return "1.1.976.0.976";}
             app.deviceInfoHelper.getDeviceInfo = function() {return {MfgSerial : "SCOOBY" , BuildSerial : "123213123213"};}
             WICI.AppConfig.defaultPrinterMacAddress = "ac:3f:a4:19:46:fd";
         }

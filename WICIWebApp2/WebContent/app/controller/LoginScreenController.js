@@ -394,6 +394,9 @@ WICI.LoginScreenController = function(app) {
     }
     // ---------------------------------------------------------------------------------------
     function handleSuccessfulLoginRequest(argResponse) {
+        var sMethod = 'handleSuccessfulLoginRequest() ';
+        console.log(logPrefix + sMethod);
+    	
         var loginHelper = new WICI.LoginResponseHelper();
         loginHelper.setLoginResponseObject(argResponse);
 
@@ -406,6 +409,12 @@ WICI.LoginScreenController = function(app) {
 
         if (loginHelper.loginSuccessful()) {
             if (!app.getDemoMode()) {
+            	
+            	if( loginHelper.getPendRetrievalConfig() )
+            		WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved = loginHelper.getPendRetrievalConfig().MaxRetrievalsForApproved;
+            	
+            	console.log(logPrefix + sMethod + "-WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved=" + WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved);
+            	
                 $.when.apply(null, retrieveLatestDictionary(argResponse)).always(function() {
                     respondToUserLocationLookup(argResponse);
                 });
@@ -559,7 +568,8 @@ WICI.LoginScreenController = function(app) {
     }
     //-------------------------------------------------------------------------------------
     function testPrintOnLogin (isTurnedOn, isDemo, isDevice) {
-        if (isTurnedOn && isDemo && isDevice) {
+        //if (isTurnedOn && isDemo && isDevice) {
+    	if (isTurnedOn && isDevice) {
             new WICI.TestPrintHelper(translator, messageDialog).testPrint();
         }
     }

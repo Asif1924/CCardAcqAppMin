@@ -1,7 +1,7 @@
 'use strict';
 ensureNamespaceExists();
 
-(function () {
+(function ( ) {
     var LOG_TAG = 'BluetoothHelper ';
 
     WICI.BluetothHelper = {

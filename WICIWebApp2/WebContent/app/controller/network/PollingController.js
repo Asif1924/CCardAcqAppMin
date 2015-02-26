@@ -1,15 +1,30 @@
 ensureNamespaceExists();
 
-WICI.PollingController = function( argConnectivityController, argRequestParams, argSuccessCallback, argFailureCallback) {
+WICI.PollingController = function( argConnectivityController, argRequestParams, argSuccessCallback, argFailureCallback, argPendingPageType, argPollTriggerCallback, argPollingConfig ) {
 	var logPrefix = '[WICI.PollingController]::';
 	var timeout = "";
 	var startTime = new Date();
 	var elapsed = 0;
 	var respAn = new WICI.PollingResponseAnalyzer();
+	var pendingPageType=argPendingPageType;
 
+	var delay = 0;
+	var maxTime = 0;
+	
 	function startPolling() {
 		var sMethod = "startPolling";
 		console.log(logPrefix+sMethod);
+		
+		delay = WICI.AppConfig.PollingConfig.POLL_DELAY;
+		maxTime = WICI.AppConfig.PollingConfig.POLL_MAXTIME;
+		if( argPollingConfig ){
+			delay = argPollingConfig.pollDelay;
+			maxTime = argPollingConfig.pollMaxTime;
+		}
+			
+		console.log(logPrefix+sMethod + " delay=" + delay);
+		console.log(logPrefix+sMethod + " maxTime=" + maxTime);
+		
 		startTime = new Date();
 		elapsed = 0;
 		doPollWait();
@@ -19,7 +34,8 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 	function doPollWait() {
 		var sMethod = "doPollWait";
 		console.log(logPrefix+sMethod);
-		timeout = setTimeout(poll, WICI.AppConfig.PollingConfig.POLL_DELAY);
+
+		timeout = setTimeout(poll, delay );
 	};
 
 	function poll() {
@@ -29,30 +45,112 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 
 		console.log("elapsed time=" + elapsed);
 
-		if (elapsed <= WICI.AppConfig.PollingConfig.POLL_MAXTIME) {
+		if (elapsed <= maxTime) {
 			console.log("polling...");
 			argConnectivityController.poll(argRequestParams, responseReceived, responseFailed, doPollWait);
 		} else {
 			stopPolling();
 		}
 	}
+	
+	function pendFeatureEnabled(){
+		return !(WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines);  
+	}
 
 	function responseReceived(argResponse) {
 		var sMethod = "responseReceived";
-		console.log( logPrefix+sMethod );		
-		if( responseIsNullOrEmpty(argResponse) || responseExistsNoErrorButNotSufficient(argResponse)  ){
-			doPollWait();
-		}			
-		else{
-			if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) ){
-				console.log( logPrefix+sMethod + " Application Status:" + respAn.getAppStatus(argResponse));
-				argSuccessCallback(argResponse);
-			} else if (responseExistsAndHasError(argResponse)) {
-				stopPolling(respAn.getData(argResponse));
+		console.log( logPrefix+sMethod );
+		console.log( logPrefix+sMethod+"  pendFeatureEnabled()=" + pendFeatureEnabled() );
+		if( responseCanBeRetrieved(argResponse) ){
+			console.log( logPrefix+sMethod+"  response can be retrieved..." );
+			if( !pendFeatureEnabled() )
+			{ 
+				
+				if( responseIsNullOrEmpty(argResponse) || responseExistsNoErrorButNotSufficient(argResponse) )
+				{
+					console.log( logPrefix+sMethod+"  continue polling...");
+					doPollWait();
+				}
+				else if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) ) 
+				{
+					console.log( logPrefix+sMethod + " Application Status:" + respAn.getAppStatus(argResponse));
+					//argSuccessCallback(argResponse);
+				} 
+				else if (responseExistsAndHasError(argResponse)) 
+				{
+					console.log( logPrefix+sMethod+"  error in response...");
+					stopPolling(respAn.getData(argResponse));			
+				}			
 			}
+			else if ( pendFeatureEnabled() )
+			{
+				
+				console.log( logPrefix+sMethod+"  pendingPageType=" + pendingPageType );
+				if( pendingPageType==="INSESSION" )
+				{
+					if ( responseExistsNoErrorButNotSufficient(argResponse) )
+					{
+						//argPollResponseReceivedCallback(argResponse);
+						argPollTriggerCallback(argResponse);
+						doPollWait();
+					}
+					else if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) ) 
+					{
+						argSuccessCallback(argResponse);
+					}
+					else if (responseExistsAndHasError(argResponse)) 
+					{
+						stopPolling(respAn.getData(argResponse));			
+					}				
+				}			
+				else if( pendingPageType==="RETRIEVEPEND" )
+				{
+					if ( responseIsPending(argResponse) )
+					{
+						//argPollResponseReceivedCallback(argResponse);
+						argPollTriggerCallback(argResponse);
+						doPollWait();
+					}
+					else if ( responseExistsNoErrorButNotSufficient(argResponse) ) 
+					{
+						stopPolling(respAn.getData(argResponse));
+					}
+					else if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) && responseIsApprovedOrDeclined(argResponse) ) 
+					{
+						argSuccessCallback(argResponse);
+					}				
+				}			
+			}			
 		}
+		else if (responseIsNullOrEmpty(argResponse) || responseExistsNoErrorButNotSufficient(argResponse))
+		{
+			doPollWait();
+		}
+		else{
+			console.log( logPrefix+sMethod+"  response cannot be retrieved..." );
+			//stopPolling(respAn.getData(argResponse));
+			stopPolling(argResponse);
+		}
+
+
 	}
 
+	function responseCanBeRetrieved( argResponse ){
+		return respAn.isWithinRetrievalThreshold(argResponse);
+	}
+	
+	function responseIsApprovedAndAlreadyRetrievedOnce( argResponse ){
+		return respAn.isApprovedResponse(argResponse) && respAn.getRetrievalCount(argResponse)!==null && respAn.getRetrievalCount(argResponse)==="1";
+	}
+	
+	function responseIsApprovedOrDeclined( argResponse ){
+		return respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse);
+	}
+	
+	function responseIsPending( argResponse ){
+		return respAn.isPendingResponse(argResponse);
+	}
+	
 	function responseExistsAndHasError( argResponse ){
 		return respAn.isErrorResponse(argResponse);
 	}
@@ -84,6 +182,15 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 		argFailureCallback(argResponse);
 	};
 	this.stopPolling = stopPolling;
+	
+	//UAT Defects #44 – Polling issue (critical) 
+	function destroyPolling(){
+		var sMethod = "destroyPolling";
+		console.log(logPrefix+sMethod);
+		clearTimeout(timeout);
+	};
+	this.destroyPolling = destroyPolling;
+	
 
 	function immediatePoll(){
 		var sMethod = "immediatePoll";

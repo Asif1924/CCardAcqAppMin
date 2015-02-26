@@ -10,6 +10,7 @@ WICI.LoginResponseHelper = function() {
 	this.getBundleCodeForErrorMessage = getBundleCodeForErrorMessage;
 	this.incorrectApkVersion = incorrectApkVersion;
 	this.getLatestDictionaryInfo = getLatestDictionaryInfo;
+	this.getPendRetrievalConfig = getPendRetrievalConfig;
 	
 	function setLoginResponseObject( argLoginResponseObject ){
 		loginResponseObject = argLoginResponseObject;
@@ -36,4 +37,8 @@ WICI.LoginResponseHelper = function() {
 	function getLatestDictionaryInfo(){
 		return loginResponseObject.data.dictionaryInfo;
 	}
+	function getPendRetrievalConfig(){
+		return loginResponseObject.data.pendRetrievalConfig;
+	}
+	
 };

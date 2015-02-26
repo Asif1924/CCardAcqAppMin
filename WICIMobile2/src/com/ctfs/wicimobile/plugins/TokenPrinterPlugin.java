@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class TokenPrinterPlugin extends PluginProxy {
-    private static final String LOG_TAG = "LangPlugin";
+    private static final String LOG_TAG = "TokenPrinterPlugin";
 
     private String readTemplate(String templateName) throws IOException {
         Activity activity = cordova.getActivity();

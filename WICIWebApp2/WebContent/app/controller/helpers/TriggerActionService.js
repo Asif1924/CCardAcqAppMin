@@ -42,7 +42,7 @@ WICI.TriggerActionService = function(serviceName) {
 	//---------------------------------------------------------------------------------------
 	function checkIntervalMethod() {
 		var sMethod = 'checkIntervalMethod()';
-		console.log(logPrefix + sMethod);
+		//console.log(logPrefix + sMethod);
 		
 		if(triggerMethod && actionMethod && triggerMethod()){
 			actionMethod();

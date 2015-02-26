@@ -7,15 +7,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ctfs.WICI.Helper.ApplicationApkVersionValidator;
+import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.DictionaryInfoValidator;
+import com.ctfs.WICI.Helper.EmployerIDCodeValidator;
 import com.ctfs.WICI.Helper.LoginInvocationHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
+import com.ctfs.WICI.Model.AuthfieldValue;
+import com.ctfs.WICI.Model.DictionaryInfo;
+import com.ctfs.WICI.Model.IllegalAppVersionException;
+import com.ctfs.WICI.Model.InvalidDictionaryInformationException;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
-import com.ctfs.WICI.Helper.EmployerIDCodeValidator;
-import com.ctfs.WICI.Helper.AuthorizationHelper;
-import com.ctfs.WICI.Model.AuthfieldValue;
-import com.ctfs.WICI.Model.IllegalAppVersionException;
 
 public class LoginServlet extends WICIServlet
 {
@@ -83,7 +86,11 @@ public class LoginServlet extends WICIServlet
 				loginResponse = loginInvocationHelper.checkLocation(requestMediator, derivedUserID);
 				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
 			}
-
+			
+			DictionaryInfoValidator dictInfoValidator = new DictionaryInfoValidator();
+			DictionaryInfo dictInfo = dictInfoValidator.validateDictionaryInformation();						
+			loginResponse.setDictionaryInfo(dictInfo);
+			
 			appResponse.setError(false);
 			appResponse.setMsg(loginResponse.getMessage());
 			appResponse.setData(loginResponse);
@@ -102,6 +109,21 @@ public class LoginServlet extends WICIServlet
 			appResponse.setMsg(errrorMsg);
 			appResponse.setData(loginResponse);
 		}
+		catch (InvalidDictionaryInformationException ex)
+		{
+			log.info(sMethod + " Exception: " + ex.getMessage());
+			String errorMessage = "One of the values are null for the dictionary configuration keys";
+
+			// Prepare login response
+			loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION));
+			loginResponse.setMessage(errorMessage);
+
+			// Prepare request response
+			appResponse.setError(false);
+			appResponse.setMsg(errorMessage);
+			appResponse.setData(loginResponse);
+		}
+		
 		catch (Exception ex)
 		{
 			log.warning(sMethod + " Exception: " + ex.getMessage());

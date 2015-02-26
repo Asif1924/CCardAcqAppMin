@@ -17,12 +17,17 @@ public class WICIAccountApplicationResponse
 	{
 		this.accountNumber = accountNumber;
 	}
+	public String getAppStatus()
+	{
+		return appStatus;
+	}
 
 	String accountReference;
 	String expiryDate;
 	String creditLimit;
 	String apr;
 	String cashAPR;
+
 	String appStatus;
 	String customerValueInd;
 
@@ -41,7 +46,6 @@ public class WICIAccountApplicationResponse
 
 		try
 		{
-			// result.accountNumber = Base64.encode(entity.getAccountNumber());
 			result.accountNumber = Base64.encodeBase64String(entity.getAccountNumber());
 		}
 		catch (Exception e)

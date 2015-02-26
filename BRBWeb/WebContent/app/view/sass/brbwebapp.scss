@@ -753,6 +753,13 @@ tr td{
   	-webkit-border-bottom-left-radius: 0px;
 }
 
+.fieldValuesTopAndBottomCell10{
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
 .fieldValuesOneCell
 {
   padding-left: 15px;
@@ -783,6 +790,11 @@ tr td{
 
 .tableWithPaddingBottom15 {
 	padding-bottom: 15px;
+}
+
+.tableWithPadding30 {
+	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 .tableWithPadding50 {
@@ -861,6 +873,13 @@ tr td{
 .fieldHeight20
 {
   height: 20px;
+  width: 0px;
+}
+
+td.fieldHeight20
+{
+  height: 20px;
+  width: 0px;
 }
 /* luk: used in ValidationDecorator */
 .errorField{
@@ -1719,6 +1738,36 @@ a.continueButtonFocused:focus{
 	height: auto;
 	list-style-image: #{inline_image("bullet.png")};
 	list-style-type: square;
+}
+
+.simpleHyphenList > ul {
+	list-style-position: inside;
+	//list-style-image: #{inline_image("hyphen.png")};
+	list-style-type: none;
+}
+
+.simpleHyphenList > li {
+	list-style-type: inherit;
+	margin: 5px;
+	height: auto;
+	//list-style-image: #{inline_image("hyphen.png")};
+	list-style-type: none;
+}
+
+ul.simpleFootList {
+	padding-left: 0px;
+}
+
+.simpleFootList > ul {
+	list-style-position: inside;
+	list-style-type: none;
+}
+
+.simpleFootList > li {
+	list-style-type: inherit;
+	margin: 10px;
+	height: auto;
+	list-style-type: none;
 }
 
 .listItemText {
@@ -2642,6 +2691,10 @@ a.continueButtonFocused:focus{
 
 .separatorCell25_OptionalProducts {
 	height: 25px !important;
+}
+
+.separatorCell15_OptionalProducts {
+	height: 15px !important;
 }
 
 .separatorCell45_OptionalProducts {

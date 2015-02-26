@@ -521,20 +521,10 @@ BRB.dictionary_en = {
 	
 	additionalInformation_AuthorizeSupplementaryCardmember	:	"! I would like to authorize a supplementary cardmember for this account and request a FREE supplementary card with his/her name.",
 	
-	additionalInformation_OptionalInsurance_IdentityWatch   :   "- Enrol me in Identity Watch Classic<sup>&trade;</sup",
-	additionalInformation_OptionalInsurance_ProtectionAdvantage   :   "- Enrol me in Protection Advantage<sup>&trade;</sup",
-	additionalInformation_OptionalInsurance_DoNotEnrolMe 	:   "- Do not Enrol me in Optional Insurance.",
-	
-	
-	additionalInformation_OptionalInsurance_Details			:	"<i>(not available for residents of Saskatchewan)</i><ul><li>$1.10 per $100* of your monthly statement balance, less any amount of insurance premium charged, in any month with a statement balance of $10 or more charged to the <i>Canadian Tire</i><sup>&reg;</sup> MasterCard<sup>&reg;</sup>.</li></ul><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes.",
-	additionalInformation_OptionalInsurance_Details1		:   " ",
-	additionalInformation_OptionalInsurance_Details2		:   "Help protect your and your family’s private and valuable information with Identity Watch Classic."
-															+ "<ul><li>Online monitoring  of your registered personal information</li>"
-															+ "<li>Rebound<sup>&reg;</sup> Asset Return Service*** which may help you recover lost or stolen items</li>"
-															+ "<li>Computer Tune-Up Reimbursement*** of up to $75 CDN, inclusive of taxes, per subscription year.</li>"
-															+ "<li>Plus Card Protection, Online Data Backup, Credit Card Theft Reward Service*** a $3,000 CDN reward.</li>"
-															+ "<li>$4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</li></ul>"
-															+ "<br>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",															
+	additionalInformation_OptionalInsurance_CreditProtector_enroll	:	"- Enrol me in Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>*** ",
+	additionalInformation_OptionalInsurance_IdentityWatch   		:   "- Enrol me in Identity Watch Classic<sup>&trade;</sup",
+	additionalInformation_OptionalInsurance_ProtectionAdvantage   	:   "- Enrol me in Protection Advantage<sup>&trade;</sup",
+	additionalInformation_OptionalInsurance_DoNotEnrolMe 			:   "- Do not Enrol me in Optional Insurance.",																
 		 
 	additionalInformation_Final_Details                     :   "A Few Final Details",
 	additionalInformation_Final_Details_Language            :   "Preferred Language",
@@ -559,6 +549,84 @@ BRB.dictionary_en = {
 	additionalInformation_DateOfBirth_Year					: 'Year',
 	additionalInformation_Relationship_TextField			: '<select class="fieldValuesSelectField addressProvinceField" id="additionalInformation_Relationship_TextField"/>',
 	additionalInformation_Province_TextField				: '<select class="fieldValuesSelectField addressProvinceField" id="additionalInformation_Province_TextField"/>',
+	
+	// Starting of US3307 changes
+	additionalInformation_OptionalProducts					:	"OPTIONAL PRODUCT(S)<sup>&#8224;</sup><sup>&#8224;</sup>",
+	additionalInformation_OptionalInsurance_CreditProtector :	"Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>*** ",
+	additionalInformation_OptionalInsurance_CreditProtector_subtle	:	"<i>(not available for residents of Saskatchewan)</i>",
+	
+	//additionalInformation_OptionalInsurance_Details3		:   "<i>(not available in Saskatchewan)</i> <br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>."
+	//															+ "<ul><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector Senior** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card for Identity Watch Classic.</li></ul>"
+	//															+ "<br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes for Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>.",
+	
+	additionalInformation_OptionalInsurance_Details			:	"<i>(not available for residents of Saskatchewan)</i><ul><li>$1.10 per $100* of your monthly statement balance, less any amount of insurance premium charged, in any month with a statement balance of $10 or more charged to the <i>Canadian Tire</i><sup>&reg;</sup> MasterCard<sup>&reg;</sup>.</li></ul><br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes.",
+	additionalInformation_OptionalInsurance_Details1		:   " ",
+	additionalInformation_OptionalInsurance_Details2		:   "Help protect your and your family’s private and valuable information with Identity Watch Classic."
+															+ "<ul><li>Online monitoring  of your registered personal information</li>"
+															+ "<li>Rebound<sup>&reg;</sup> Asset Return Service*** which may help you recover lost or stolen items</li>"
+															+ "<li>Computer Tune-Up Reimbursement*** of up to $75 CDN, inclusive of taxes, per subscription year.</li>"
+															+ "<li>Plus Card Protection, Online Data Backup, Credit Card Theft Reward Service*** a $3,000 CDN reward.</li>"
+															+ "<li>$4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</li></ul>"
+															+ "<br>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",
+	additionalInformation_OptionalInsurance_Details3		:   "This credit card balance insurance can help pay your outstanding credit card balance on your Canadian Tire branded credit card when you and your family need it most.",
+	additionalInformation_OptionalInsurance_Details4		:   "Credit Protector (cardmembers aged 18-65 years) can:",
+	additionalInformation_OptionalInsurance_Details5_Bullet1	:   "&#45; pay a monthly benefit of 3% of the outstanding balance on a Canadian Tire branded credit card (not including Special Payment Plans) subject to a monthly maximum of $1,000 and a maximum benefit payment of $20,000 should you lose your job through no fault of your own or become totally disabled*;",
+	additionalInformation_OptionalInsurance_Details5_Bullet2	:	"&#45; pay the outstanding balance on your Canadian Tire branded credit card if you or your spouse pass away or are diagnosed with a terminal illness*, to a maximum of $20,000.",
+	additionalInformation_OptionalInsurance_Details6		:   "Credit Protector-<i>Senior</i> (cardmembers aged 66-75 years) can: ",
+	additionalInformation_OptionalInsurance_Details7_Bullet1	:	"&#45; pay the outstanding balance on your Canadian Tire branded credit card if you or your spouse pass away or are diagnosed with a terminal illness*, to a maximum of $20,000.",
+	additionalInformation_OptionalInsurance_Details8		:	"CreditProtector/Credit Protector-<i>Senior</i> costs $1.10* per $100 of the current month’s outstanding balance, less any amount of insurance premium charged that month and any Special Payment Plans, plus applicable taxes. No premium will be charged in any month where the outstanding balance is less than $10 at the time the statement prints. For example, if your balance is $200 at the time your statement prints, you would pay just $2.20* plus applicable taxes.",
+	
+	additionalInformation_OptionalInsurance_Details9		:   "Enrolment in Credit Protector/Credit Protector-<i>Senior</i> is voluntary and can be cancelled at any time. If you enrol in Credit Protector/Credit Protector-<i>Senior</i>, your coverage is effective upon enrolment.  You will receive a welcome package to confirm your enrolment.  It contains a Certificate of Insurance (Quebec residents also receive a copy of the Distribution Guide) and the complete details of the coverage such as benefits, limitations, exclusions and information on how to cancel or make a claim.",
+	additionalInformation_OptionalInsurance_Details10		:   "There exists other insurance products on the market that may include coverage similar to those offered by Credit Protector/Credit Protector-<i>Senior</i>.  You may want to verify whether or not you already have insurance that provides similar coverage.",
+	additionalInformation_OptionalInsurance_Details11		:   "Canadian Tire Bank receives compensation when you purchase Credit Protector/Credit Protector-<i>Senior</i>.",
+	
+	additionalInformation_OptionalInsurance_Details13		:   "Identity Watch Classic<sup>&trade;</sup>",
+	additionalInformation_OptionalInsurance_Details14		:   "Help safeguard you and your family’s private and valuable information.",
+	additionalInformation_OptionalInsurance_Details14_Bullet1	:	"&#45; Online monitoring of your registered personal information**** ",
+	additionalInformation_OptionalInsurance_Details14_Bullet2	:	"&#45; Card Protection, Online Data Backup and Credit Theft Reward Service of up to $3,000****",
+	additionalInformation_OptionalInsurance_Details14_Bullet3	:	"&#45; A Computer Tune-Up Reimbursement of up to $75, inclusive of taxes, per subscription year****",
+	additionalInformation_OptionalInsurance_Details14_Bullet4	:	"&#45; Rebound<sup>&reg;</sup> Asset Return Service**** which may help you recover lost or stolen items",
+	additionalInformation_OptionalInsurance_Details14_Bullet5	:	"&#45; Costs $4.99**** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.",
+	additionalInformation_OptionalInsurance_Details14_1		:   "If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the Welcome Package.",
+																
+	additionalInformation_OptionalInsurance_Details15		:   "YES, PLEASE ENROL ME IN THE FOLLOWING OPTIONAL PRODUCTS:",
+	
+	additionalInformation_OptionalProducts_Title1			:	"Canadian Tire Protection Advantage<sup>&trade;</sup>",
+	additionalInformation_OptionalProducts_Title1_1			:	"<i>(not available for residents of Saskatchewan)</i>",
+	additionalInformation_OptionalProducts_Title1_2			:	"Enrolment in both Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.. ",
+	additionalInformation_OptionalProducts_Title2			:	"Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>** ",
+	additionalInformation_OptionalProducts_Title2_1			:	"<i>(not available for residents of Saskatchewan)</i>",
+	additionalInformation_OptionalProducts_Title3			:	"Identity Watch Classic<sup>&trade;</sup>",
+	additionalInformation_OptionalProducts_Title4			:	"Not at this time",
+														
+	//additionalInformation_footnoteContentText3				:	"Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
+	//additionalInformation_footnoteContentText4				:	"If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-Senior. Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida.  Credit Protector - Senior is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions<sup>&reg;</sup>.",
+	//additionalInformation_footnoteContentText5				:	"Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",
+	//additionalInformation_footnoteContentText1				:	"<sup>1</sup> In the form of e-Canadian Tire 'Money'. Terms, conditions and restrictions apply. See program rules at www.canadiantire.ca or www.ctfs.com/ctm for more details.  ",
+	additionalInformation_footnoteContentText1Link			:	"<a href='https://www.ctfs.com/Products/CreditCards/OptionsMasterCard/CTMoneyRewards/' target='_blank'>ctfs.com/ctm.</a>",
+	//additionalInformation_footnoteContentText2				:	"<sup>2</sup> Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect e-Canadian Tire ‘Money’ at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire ‘Money’ program collect e-Canadian Tire ‘Money’<sup>&trade;</sup> on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions."+
+	//															"<br><sup>3</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details. ",
+	
+	//additionalInformation_footnoteContentText6				:	"<sup>&#8224;</sup> These are optional products offered to all customers approved for a Canadian Tire MasterCard. The information on this application is used to determine eligibility for a Canadian Tire MasterCard and not for the optional products, which are offered to all Canadian Tire MasterCard holders.<br>" +
+	//                                                            "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire, Canadian Tire Options, PartSource and the Canadian Tire triangle design are registered trademarks, and My Canadian Tire ‘Money’ and e-Canadian Tire ‘Money’ are trademarks, of Canadian Tire Corporation, Limited.",
+	//additionalInformation_footnoteContentText7				:   "<sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited and used under licence.<br>The Identity Watch Classic program is sponsored by Canadian Tire Financial Services Limited and provided by Aimia Proprietary Loyalty Canada Inc.<br>" +
+	//															"Rebound<sup>&reg;</sup> is a registered trademark of Aimia Proprietary Loyalty Canada Inc.<br>"+
+	//															"<sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc.<br>" +	
+	//															"<sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
+	
+	additionalInformation_footnoteContentText1				:	"* Plus applicable taxes, payable monthly. See the Legal Information handout and your Certificate of Insurance for all exclusions,  restrictions,  limitations, terms and conditions.",
+	additionalInformation_footnoteContentText2				:	"** If you are less then age 66, you will be enroled in Credit Protector.  At age 66, the Life and Dismemberment coverage becomes Accidental Death and Dismemberment coverage. ",
+	additionalInformation_footnoteContentText3				:	"*** If you are between the ages of 66-75 you will be enroled in Credit Protector-<i>Senior</i>. Please note: Involuntary Unemployment and Total Disability coverage is not included in  Credit Protector – <i>Senior</i>.  At age 76, the Life and Dismemberment coverage becomes Accidental Death and Dismemberment coverage.",
+	additionalInformation_footnoteContentText4				:	"Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. Credit Protector-<i>Senior</i> is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name Assurant Solutions<sup>&reg;</sup>.",
+	additionalInformation_footnoteContentText5				:	"**** Plus applicable taxes. Subscription fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, Subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
+	additionalInformation_footnoteContentText6				:	"The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.",
+	additionalInformation_footnoteContentText7				:	"<sup>&#8224;</sup><sup>&#8224;</sup> These are optional products offered to all customers approved for a Canadian Tire MasterCard. The information on this application is used to determine eligibility for a Canadian Tire MasterCard and not for the optional products, which are offered to all Canadian Tire MasterCard holders.",
+	additionalInformation_footnoteContentText8				:	"<sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
+	additionalInformation_footnoteContentText9				:	"<sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector and Credit Protector-<i>Senior</i> are registered trademarks of Canadian Tire Bank.",
+	additionalInformation_footnoteContentText10				:	"Rebound<sup>&reg;</sup> is a registered trademark of by Aimia Proprietary Loyalty Canada Inc.",
+	additionalInformation_footnoteContentText11				:	"<sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc.",
+	additionalInformation_footnoteContentText12				:	"<sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and PayPass is a trademark of MasterCard International Incorporated.",
+	// Ending of US3307 changes
 	
 	//--------------- END --------------------- OPTIONAL PRODUCTS section -------------- END -----------
 	
@@ -697,28 +765,6 @@ BRB.dictionary_en = {
 	personalInfo_LegalText4                                : "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire, Canadian Tire Options, PartSource and the Canadian Tire triangle design are registered trademarks, and My Canadian Tire ‘Money’ and e-Canadian Tire ‘Money’ are trademarks, of Canadian Tire Corporation, Limited. ",
 	personalInfo_LegalText5                                : "<sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
 	
-	additionalInformation_OptionalProducts					:	"Optional Products<sup>&#8224;</sup> Enrolment",
-	additionalInformation_OptionalInsurance_CreditProtector :	"- Enrol me in Credit Protector<sup>&reg;</sup><sup>**</sup>/Credit Protector Senior<sup>&reg;</sup><sup>**</sup>.",
-		
-	additionalInformation_OptionalInsurance_Details3		:   "<i>(not available in Saskatchewan)</i> <br>Receive comprehensive coverage with the combination of Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>** and Identity Watch Classic<sup>&trade;</sup>."
-																+ "<ul><li>$1.10 per $100* of your monthly statement balance in any month with a statement balance of $10 or more for Credit Protector/Credit Protector Senior** and $4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card for Identity Watch Classic.</li></ul>"
-																+ "<br>For example if your balance is $200 at the time your statement prints you would pay just $2.20 plus applicable taxes for Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup>.",
-		
-	additionalInformation_footnoteContentText3				:	"Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
-	additionalInformation_footnoteContentText4				:	"If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-Senior. Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida.  Credit Protector - Senior is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions<sup>&reg;</sup>.",
-	additionalInformation_footnoteContentText5				:	"Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",
-	additionalInformation_footnoteContentText1				:	"<sup>1</sup> In the form of e-Canadian Tire 'Money'. Terms, conditions and restrictions apply. See program rules at www.canadiantire.ca or www.ctfs.com/ctm for more details.  ",
-	additionalInformation_footnoteContentText1Link			:	"<a href='https://www.ctfs.com/Products/CreditCards/OptionsMasterCard/CTMoneyRewards/' target='_blank'>ctfs.com/ctm.</a>",
-	additionalInformation_footnoteContentText2				:	"<sup>2</sup> Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect e-Canadian Tire ‘Money’ at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire ‘Money’ program collect e-Canadian Tire ‘Money’<sup>&trade;</sup> on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions."+
-																"<br><sup>3</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details. ",
-	
-	additionalInformation_footnoteContentText6				:	"<sup>&#8224;</sup> These are optional products offered to all customers approved for a Canadian Tire MasterCard. The information on this application is used to determine eligibility for a Canadian Tire MasterCard and not for the optional products, which are offered to all Canadian Tire MasterCard holders.<br>" +
-	                                                            "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire, Canadian Tire Options, PartSource and the Canadian Tire triangle design are registered trademarks, and My Canadian Tire ‘Money’ and e-Canadian Tire ‘Money’ are trademarks, of Canadian Tire Corporation, Limited.",
-	additionalInformation_footnoteContentText7				:   "<sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited and used under licence.<br>The Identity Watch Classic program is sponsored by Canadian Tire Financial Services Limited and provided by Aimia Proprietary Loyalty Canada Inc.<br>" +
-																"Rebound<sup>&reg;</sup> is a registered trademark of Aimia Proprietary Loyalty Canada Inc.<br>"+
-																"<sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc.<br>" +	
-																"<sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
-																								 
 	confirmation_Application_Authorization_Item2           :   "If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.",
 	confirmation_Application_Authorization_Item3           :   "The Card is issued by CTB. The My Canadian Tire ‘Money’ Program is provided and administered by Canadian Tire Corporation, Limited.",
 	confirmation_Application_Authorization_Item4_1         :   "CTB may collect, use and share personal information about me for the purposes described in the ",

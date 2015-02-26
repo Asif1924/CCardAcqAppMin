@@ -50,6 +50,7 @@ WICI.CreditCardApplicationData = function() {
 	};
 
 	var accountApplicationResponse = null;
+	var newAccountApplicationResponse = null;
 
 	var provincesList = new WICI.ProvincesList();
 
@@ -76,10 +77,18 @@ WICI.CreditCardApplicationData = function() {
 		accountApplicationResponse = argResponseObject;
 	};
 
+	this.setNewAccountApplicationResponse = function(argResponseObject) {
+		newAccountApplicationResponse = argResponseObject;
+	};
+	
 	this.getAccountApplicationResponse = function() {
 		return accountApplicationResponse;
 	};
 
+	this.getNewAccountApplicationResponse = function() {
+		return newAccountApplicationResponse;
+	};
+	
 	this.getAccountApplicationStatus = function() {
 
 		var returnValue = 'printScreen_UnknownStatus';

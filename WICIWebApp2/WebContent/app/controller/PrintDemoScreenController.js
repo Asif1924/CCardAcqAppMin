@@ -1,16 +1,24 @@
 ensureNamespaceExists();
 
-WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMessageDialog) {
+WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMessageDialog, argPendScreenInfo) {
     var logPrefix = '[WICI.PrintDemoScreenController]::';
     var $screenContainer = $("#PrintDemoScreen");
     var translator;
     var messageDialog;
     var	flow = null;
     var testPrintFailedAttempts = 0;
-
+    
+    var appStatus = "";
+    var tokenValue;
+    var respAn = null;
+    var activationItemsFromServer = null;
+    var fromPendScreen = false;
+    var self = this;
+    
     this.show = show;
     this.hide = hide;
     this.init = init;
+    this.destroy=destroy;
 
     this.syncUserData = syncUserData;
 
@@ -18,7 +26,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         prevBtn     			: 	'#printScreen_PrevButton',
         startNewApplicationBtn  : 	'#print_StartNewApplicationButton',
         logOutBtn               : 	'#print_LogOutButton',
-        printButton             :   '#printScreen_PrintButton'
+        printButton             :   '#printScreen_PrintButton',
+        tokenField				:	'#printScreenTokenField'
     };
 
     var model = new WICI.BaseModel({
@@ -35,14 +44,36 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         messageDialog = argMessageDialog; 	//(AA)Dependency Injection Principle: Allows for proper unit testing
         translator = argTranslator; 		//(AA)Dependency Injection Principle: Allows for proper unit testing
 
+        respAn = new WICI.PollingResponseAnalyzer();        
+        tokenValue = respAn.getRetrievalToken(activationItems.getNewAccountApplicationResponse());
+
+        if(argPendScreenInfo){
+            console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);
+            
+            appStatus = respAn.getAppStatus(respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse));
+            console.log(logPrefix + sMethod + " appStatus=" + appStatus);
+            
+            if(argPendScreenInfo.activationItemsFromServer){
+            	activationItemsFromServer = argPendScreenInfo.activationItemsFromServer;
+            	fromPendScreen = argPendScreenInfo.fromPendScreen;
+            }	
+            if( fromPendScreen ){
+            	var currentAccountApplicationResponse =  respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse);
+            	var newAccountApplicationResponse = argPendScreenInfo.accountApplicationResponse;
+            	
+            	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems( activationItemsFromServer );
+            	activationItems.setAccountApplicationResponse(currentAccountApplicationResponse);
+            	activationItems.setNewAccountApplicationResponse(newAccountApplicationResponse);
+
+            	console.log(logPrefix + sMethod + "  activationItems.getAccountApplicationStatus()=" + activationItems.getAccountApplicationStatus());
+            }
+        }
+        
         testPrintFailedAttempts = 0;
-
         createView();
-
+        $(refs.tokenField).val(tokenValue);
         $(refs.printButton).hide();
-
-        bindEvents();
-			
+        bindEvents();			
     }
     //---------------------------------------------------------------------------------------
     function syncUserData(){
@@ -54,6 +85,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'show() ';
         console.log(logPrefix + sMethod);
     	
+        $(refs.tokenField).val(tokenValue);
+        
         $screenContainer.show();
         translator.run("PrintDemoScreen");
 
@@ -68,19 +101,40 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     }
     //---------------------------------------------------------------------------------------
     function hide(){
+        var sMethod = 'hide() ';
+        console.log(logPrefix + sMethod);
+    	
+    	$(".pageHeader").remove();
         $screenContainer.hide();
     }
+    
+    function destroy(){
+        var sMethod = 'destroy() ';
+        console.log(logPrefix + sMethod);
+    	
+    	hide();
+    	app.navigationController.adhocPrintDemoScreen = null;
+    }    
+    
     //---------------------------------------------------------------------------------------
     function createView() {
+        var sMethod = 'createView() ';
+        console.log(logPrefix + sMethod);
+
         $screenContainer.empty();
         assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(6, $screenContainer, activationItems);
+        if( !fromPendScreen ){
+        	WICI.BreadcrumbsHelper.assembleBreadcrumbs(6, $screenContainer, activationItems);
+        }
         assemblePageHTML($screenContainer, "#WICIPrintDemoScreen-template");
         $screenContainer.addClass("breadcrumbPadding");
     }
 
     //---------------------------------------------------------------------------------------
     function assembleNavigationBarAtTop() {
+        var sMethod = 'assembleNavigationBarAtTop() ';
+        console.log(logPrefix + sMethod);
+        
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
             "logo_En" : translator.currentLanguageEnglish(),
@@ -92,11 +146,36 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         $('#printScreen_SettingsButton').addClass('rightPosition');
     }
 
-    //---------------------------------------------------------------------------------------
+    function getKeyForCardSelection(  ){
+        var sMethod = 'getKeyForCardSelection() ';
+        //console.log(logPrefix + sMethod + " card=" + activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
+        if(appStatus==="DECLINED")
+        	return "chooseProduct_NoSpecificCard";
+       
+   		return (activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
+    }
+    
+    function getKeyForApplicationStatus(  ){
+        var sMethod = 'getKeyForApplicationStatus() ';
+        //console.log(logPrefix + sMethod + " status=" + activationItems.getAccountApplicationStatus());
+        if(appStatus==="DECLINED")
+        	return "printScreen_ApplicationDeclined";
+        
+   		return activationItems.getAccountApplicationStatus();     		
+    }
+    
     function assemblePageHTML($element, templateName) {
-        $(templateName).template("printDemoScreenPage");
+        var sMethod = 'assemblePageHTML() ';
+        console.log(logPrefix + sMethod);
+       
+       $(templateName).template("printDemoScreenPage");
         $.tmpl("printDemoScreenPage", {
-            activationItems: activationItems
+              keyForDisplayingCardSelection: getKeyForCardSelection(),
+              keyForDisplayingApplicationStatus: getKeyForApplicationStatus(),
+            activationItems: activationItems,
+            tokenValue:tokenValue,
+            appStatus:appStatus,
+            fromPendingScreen:fromPendScreen
         }).appendTo($element);
     }
     //---------------------------------------------------------------------------------------
@@ -110,7 +189,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         });
 
         $(refs.logOutBtn).click(function(){
-            app.flowController.logOutClick();
+        	handleLogout();
+            
         });
 
         $(refs.printButton).click(function() {
@@ -120,7 +200,15 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             // Print response again
             WICI.BluetothHelper.toggle().done(printFile).fail(alert);
         });
+        app.flowController.bindSettingsButtonEvent();
     }
+    
+    function handleLogout(){
+    	if(fromPendScreen)
+    		hide();
+    	app.flowController.logOutClick(self);
+    }
+    
     //---------------------------------------------------------------------------------------
     function startNewApplication(){
         flow.startApplication();
@@ -140,37 +228,50 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     function printFile() {
         var sMethod = 'printFile() ';
         console.log(logPrefix + sMethod);
+        var isDevice = new WICI.DeviceDetectionHelper().any();
+        var respAn = new WICI.PollingResponseAnalyzer();
+        
+        if( isDevice ){
+            if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
+                showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
 
-        if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
-            showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
+                return;
+            }
 
-            return;
+            try
+            {
+                new WICI.LoadingIndicatorController().show();
+
+                // Get application server response                
+                //var applicationResponse = activationItems.getAccountApplicationResponse().data;
+                var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+                console.log(logPrefix + sMethod + "app response = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
+                //messageDialog.info(applicationResponse.data, "Print Info");
+                
+                if(fromPendScreen){
+                	//activationItems = argPendScreenInfo.activationItemsFromServer;
+                	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems(argPendScreenInfo.activationItemsFromServer);
+                }
+                
+                app.zebraPrinterWrapper.printFile(
+                    activationItems,
+                    applicationResponseData,
+                    printFileSuccess,
+                    printFileFailure);
+            }
+            catch (error){
+                console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
+                new WICI.LoadingIndicatorController().hide();
+                //printFileFailure();
+                //messageDialog = app.messageDialog;
+                //messageDialog.error(error, "Print File Failed");
+            }
+        }else{
+            var applicationResponse = respAn.getWICIResponse(activationItems.getAccountApplicationResponse());
+        	messageDialog.info("Receipt printed status = " + respAn.getAppStatus(applicationResponse), "Web Printer");
+        	printFileSuccess();
         }
 
-        try
-        {
-            new WICI.LoadingIndicatorController().show();
-
-            // Get application server response
-            var respAn = new WICI.PollingResponseAnalyzer();
-            //var applicationResponse = activationItems.getAccountApplicationResponse().data;
-            var applicationResponse = respAn.getWICIResponse(activationItems.getAccountApplicationResponse()).data;
-            console.log(logPrefix + sMethod + "app response = "+applicationResponse.appStatus);
-            //messageDialog.info(applicationResponse.data, "Print Info");
-            
-            app.zebraPrinterWrapper.printFile(
-                activationItems,
-                applicationResponse,
-                printFileSuccess,
-                printFileFailure);
-        }
-        catch (error){
-            console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
-            new WICI.LoadingIndicatorController().hide();
-            //printFileFailure();
-            //messageDialog = app.messageDialog;
-            //messageDialog.error(error, "Print File Failed");
-        }
     }
     //---------------------------------------------------------------------------------------
     function setupPrinterMacAddress (macAddress) {

@@ -8,12 +8,12 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     var messageDialog = null;
     var valideteSubmitFields = false;
     var connectivityController = null;
+    var pollingController =  null;
     var isAliveInterval = null;
     this.syncUserData = syncUserData;
     this.show = show;
     this.init = init;
     this.hide = hide;
-    var pendingScreen;
     var respAn = new WICI.PollingResponseAnalyzer();
     var	flow = null;
 
@@ -380,7 +380,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
                	transactionID	:	argResponse.data,
                	action			:	"retrieve"
             };
-            new WICI.PollingController(connectivityController, requestParams, pollResponseReceived, pollFailed).startPolling();
+            pollingController = new WICI.PollingController(connectivityController, requestParams, pollResponseReceived, pollFailed, "INSESSION",$.noop,null);
+            pollingController.startPolling();
             //console.log("QueueTransactionID from Middleware:" + QueueTransactionID);
             console.log("QueueTransactionID from Middleware:" + requestParams.transactionID);
         }
@@ -441,22 +442,23 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		    if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) || (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse)) ){
 		    	//activationItems.setAccountApplicationResponse(argResponse);
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
 	            flow.next();
 	            return;
 		    }
 		    
 		    //if( argResponse.data.appStatus==="PENDING" ){
 		    if( !WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse) ){
-		    	//alert( "Pending logic here");
-		    	//activationItems.setAccountApplicationResponse(argResponse);
 		    	activationItems.setAccountApplicationResponse(argResponse);
+		    	//activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
 		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
 		    	if( respAn.isNewResponseType(argResponse))
 		    		console.log(logPrefix + sMethod + "New Pending Page Response: RetrievalToken=" + respAn.getRetrievalToken(argResponse) );
 		    	hide();
-		    	pendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog, flow);
-		    	pendingScreen.init(flow,"ShowOnly");
-		    	pendingScreen.show();
+		    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
+		    	app.navigationController.adhocPendingScreen.show();
 		    }
 		    	
 		} else {
@@ -471,6 +473,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     function failedActivate(argResponse) {
         var sMethod = 'failedActivate() ';
         console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod + " MaxRetrievals = " + WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved);
+        
         if (argResponse) {
         	console.log(logPrefix + sMethod + "\n" + argResponse);
         }
@@ -483,6 +487,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	messageDialog.error(translator.translateKey('summary_submitError'));
         	$(refs.submitBtn).addClass('grayflat');
         	$(refs.submitBtn).removeClass('greenflat');
+        } else if (!respAn.isWithinRetrievalThreshold(argResponse)){
+        	messageDialog.error(translator.translateKey("pendingScreen_RetrieveFailed"));
         } else {
         	messageDialog.error(translator.translateKey("summary_SubmitApplicationError"));
         }

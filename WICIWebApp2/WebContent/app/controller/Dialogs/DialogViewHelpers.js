@@ -22,18 +22,22 @@ WICI.DialogViewHelper = function() {
 		return MESSAGE_DIALOG_ID;
 	}
 
-	function startAutoCloseTimer (dialog, callback) {
+	function startAutoCloseTimer (dialog, callback, timeout, restrictDialogNoCallback) {
 		dialogObj = dialogObj || dialog;
-
+		var timeout = timeout || WICI.AppConfig.PrintDialogAutoCloseDelay;
 	    autoCloseTimerId = setTimeout(function () {
 	        if (dialogObj.isShowing()) {
+	        		if (restrictDialogNoCallback && dialog.setRestrictNoCallback) {
+	        			dialog.setRestrictNoCallback(true);
+	        		}
+	        	
 	        	if (callback && typeof callback === 'function') {
 	        		callback();
 	        	}
 
 	            $("#" + getMessageDialogId()).dialog('close');
 	        }
-	    }.bind(this), WICI.AppConfig.PrintDialogAutoCloseDelay);
+	    }.bind(this), timeout);
 	}
 
 	function resetAutoCloseTimer () {

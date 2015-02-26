@@ -57,14 +57,14 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 			servletMediator = new WICIServletMediator(request, response);
 
 			// Skip "sanitization" DeviceAdmin servlet
-			if (this instanceof DeviceAdminServlet)
+			if (this instanceof DeviceAdminServlet || this instanceof ReceiveAccountResponseServlet)
 			{
 				skipSanitization = true;
 			}
 
 			servletMediator.IntializeMediator(skipSanitization);
 
-			if (this instanceof DeviceAdminServlet || this instanceof VersionServlet || servletMediator.deviceAuthorizationPassed())
+			if (this instanceof ReceiveAccountResponseServlet || this instanceof DeviceAdminServlet || this instanceof VersionServlet || servletMediator.deviceAuthorizationPassed())
 			{
 				handleRequest(servletMediator);
 			}

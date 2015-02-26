@@ -128,11 +128,11 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
     private class ZebraPrintTask extends AsyncTask<Void, Void, Void> {
         private CallbackContext _callbackContext;
-        private WICICardmemberModel _carmemberModel;
+        private WICICardmemberModel _cardmemberModel;
 
-        public ZebraPrintTask(WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
+        public ZebraPrintTask(WICICardmemberModel cardmemberModel, CallbackContext callbackContext) {
             _callbackContext = callbackContext;
-            _carmemberModel = carmemberModel;
+            _cardmemberModel = cardmemberModel;
         }
 
         protected Void doInBackground(Void... args) {
@@ -141,7 +141,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 ZebraPrinter printer = PrinterManager.getInstance().getZebraPrinterWrapper();
 
                 if (printer != null) {
-                    sendZPLFile(printer, _carmemberModel);
+                    sendZPLFile(printer, _cardmemberModel);
                 } else {
                     disconnect();
                 }
@@ -206,19 +206,19 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             }
         }
 
-        private void sendZPLFile(ZebraPrinter printer, WICICardmemberModel carmemberModel) {
+        private void sendZPLFile(ZebraPrinter printer, WICICardmemberModel cardmemberModel) {
             try {
                 // Initialize data
                 WICIFileHelper fileHelper = new WICIFileHelper();
 
-                if (carmemberModel != null) {
-                    WICIReplacementHelper replacementHelper = new WICIReplacementHelper(carmemberModel, getCurrentContext(), printer);
+                if (cardmemberModel != null) {
+                    WICIReplacementHelper replacementHelper = new WICIReplacementHelper(cardmemberModel, getCurrentContext(), printer);
 
                     // Process file
                     fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper,
-                            carmemberModel.getCardType(),
-                            carmemberModel.getResponseStatus(),
-                            carmemberModel.getProvince());
+                            cardmemberModel.getCardType(),
+                            cardmemberModel.getResponseStatus(),
+                            cardmemberModel.getProvince());
                 }
                 else {
                     // Print test file

@@ -11,8 +11,11 @@ describe("LoginResponseHelper Test", function() {
 	
 	var updatedLogin_with_Invalid_EmployerID = {"error":false,"msg":"Invalid Employer Id. Please correct and try again","data":{"statusCode":"403","message":"Invalid Employer Id. Please correct and try again"}};
 	
-	//DDD Feature
+	//DDD Feature //01/08/2015
 	var loginWithDDDResponse = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user a23","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user a23","roles":"[\"FMR\"]","checkLocation":{"message":"SUCCESS","outletName":"ASSOCIATE STORE     ","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3"},"dictionaryInfo":{"LatestDictionaryVersion":"1.1","DictionaryURLEnglish":"https://www.ctfs.com/SharedContent/wici/dict/preprod/Messages_en.js","DictionaryURLFrench":"https://www.ctfs.com/SharedContent/wici/dict/preprod/Messages_fr.js","OlderDictionaryAllowable":true}}};
+	
+	//Max Retrieve Feature //01/14/2015
+	var newLoginResponseWithPendRetrievalConfig = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user a23","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user a23","roles":"[FMR]","checkLocation":{"message":"SUCCESS","outletName":"ASSOCIATE STORE     ","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Pending4City","outletProvince":"ON","outletPostal":"L5M0M2"},"dictionaryInfo":{"LatestDictionaryVersion":"1","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"pendRetrievalConfig":{"MaxRetrievalsForApproved":"2"}}};
 	
 	beforeEach(function() {
 		sut = new WICI.LoginResponseHelper();
@@ -78,6 +81,21 @@ describe("LoginResponseHelper Test", function() {
 		
 		sut.setLoginResponseObject(loginWithDDDResponse);		
 		expect(sut.getLatestDictionaryInfo()).not.toEqual(null);
+		
+		sut.setLoginResponseObject(newLoginResponseWithPendRetrievalConfig);
+		expect(sut.getLatestDictionaryInfo()).not.toEqual(null);
 	});
 
+	it(" will extract the PendRetrievalConfig from the new login response object", function() {		
+		sut.setLoginResponseObject(newLoginResponseWithPendRetrievalConfig);
+		expect(sut.getPendRetrievalConfig()).not.toEqual(null);
+		expect(sut.getPendRetrievalConfig()).toEqual({"MaxRetrievalsForApproved":"2"});
+		expect(sut.getPendRetrievalConfig().MaxRetrievalsForApproved).toEqual("2");
+	});
+	
+	it(" will not choke trying to extracting the PendRetrievalConfig object from the old login response object if it doesnt exist", function() {		
+		sut.setLoginResponseObject(loginWithDDDResponse);
+		expect(sut.getPendRetrievalConfig()).toEqual(undefined);
+	});
+	
 });

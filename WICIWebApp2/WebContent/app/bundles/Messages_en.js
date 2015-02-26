@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_en = {
-	version												:	"1",
+	version												:	"2",
 	yes 												: 	"Yes",
 	no 													: 	"No",
 	cancel  											:  	"Cancel",
@@ -79,6 +79,7 @@ WICI.dictionary_en = {
     chooseProduct_OptionsMasterCard 					: 	"Canadian Tire Options<sup>&reg;</sup> MasterCard<sup>&reg;</sup>",
 	chooseProduct_GasAdvantageMasterCard 				: 	"Gas Advantage MasterCard",
 	chooseProduct_CashAdvantageMasterCard				: 	"Cash Advantage MasterCard",
+	chooseProduct_NoSpecificCard						:	"card",
 
 	chooseProduct_PromoCode								:	"Promo code",
 	chooseProduct_Program								:	"Program",
@@ -426,7 +427,7 @@ WICI.dictionary_en = {
 	signatureScreen_License9							:	"I have read and understood this application and I have received a brochure containing additional disclosure relating to this application.",
 
 
-		signatureScreen_Reset_Button_Label             	:    "Clear Signature",
+	signatureScreen_Reset_Button_Label             		:    "Clear Signature",
 
 	signatureScreen_TermsAndConditions_AcceptBox     	:    "I have read, understood and agree to the terms and conditions set out above for the ",
 
@@ -542,7 +543,8 @@ WICI.dictionary_en = {
 	printScreen_SubTitle								:	"Thank you for applying for the",
 	printScreen_Button_Label                            :   "Reprint",
 
-
+	printScreen_TokenLabel								: 	"Reference&nbsp;#&nbsp;",
+	
 	printScreen_UnknownStatus                   		:   "Unknown application status",
 	printScreen_ApplicationApproved                   	:   "Your application has been APPROVED.",
 	printScreen_ApplicationDeclined                   	:   "Unfortunately, we could not process your application response at this time. Please check your mail regularly.",
@@ -558,8 +560,8 @@ WICI.dictionary_en = {
     printResponseStatus_LogOut_Button		            :	"Logout",
 
     scanDialog_yes                                      :   "Continue",
-    scanDialog_holdText                                       :   "Hold ID to be scanned behind tablet as shown in the picture above so the ID barcode is in view of the camera. Scanning will happen automatically. When you hear the beep, the scan is successful. The app will close, and you will return to the current page.",
-    scanDialog_pressText                                       :   "Press Continue to launch Scan Driver's Licence",
+    scanDialog_holdText									:   "Hold ID to be scanned behind tablet as shown in the picture above so the ID barcode is in view of the camera. Scanning will happen automatically. When you hear the beep, the scan is successful. The app will close, and you will return to the current page.",
+    scanDialog_pressText								:   "Press Continue to launch Scan Driver's Licence",
 
 	print_StartNewApplicationMessage					:	"Are you sure you would like to start a new application?",
 	confirmDialogPritTest_Message                       :   "Do you want to send a test print?",
@@ -572,18 +574,29 @@ WICI.dictionary_en = {
 	pendingScreen_TokenLabel							: 	"Reference&nbsp;#&nbsp;",
 	pendingScreen_PhoneNumberLabel						:	"Phone Number",
 	
-	pendingScreen_Check60 								: 	"We'll check again in 60 seconds (Attempt ",
-	pendingScreen_OfAttempt15							: 	" of 15)",
+	pendingScreen_Retrieve_InvocationMessage 			: 	"You have chosen to retrieve an application. The information collected on your current application will be permanently deleted and cannot be retained. Are you sure you want to continue?",
+	pendingScreen_Retrieve_Title 						: 	"Retrieve Pending Application",
 	
-	pendingScreen_ParaBlock_PleaseWait					:	"Please wait while your application is being reviewed.<br>This process could take up to 15 minutes.<br><br>We're checking the status of your application...<br><br>If you would like to shop in the store while you're waiting, you can print your reference number using the button below and check back within 30 minutes to see the status of your application.",
+	pendingScreen_Check60Seconds_Attempt				: 	"We'll check again in 60 seconds (Attempt ",
+	pendingScreen_CheckXXSeconds_Text1					: 	"We'll check again in ",
+	pendingScreen_CheckXXSeconds_Text2					:	" seconds ( Attempt ",
+	pendingScreen_OfAttemptYY_Text1						: 	" of ", 
+	pendingScreen_OfAttemptYY_Text2						:	" )",
+	
+	pendingScreen_ParaBlock_PleaseWait					:	"Please wait while your application is being reviewed.<br>This process could take up to 15 minutes.<br><br>",
+	pendingScreen_Parablock_We_are_checking				:	"We're checking the status of your application...",
+	pendingScreen_ParaBlock_IfYouShop					:	"<br><br>If you would like to shop in the store while you're waiting, you can print your reference number using the button below and check back within 30 minutes to see the status of your application.",	
+	
 	pendingScreen_Label_RefGood30mins					: 	"(Please note: the reference # is only valid for 30 minutes)<br><br><br>",
 	pendingScreen_ParaBlock_IfUnable					:	"<br><br>OR<br><br>If you are unable to wait at this time and would prefer your application status confirmation to be mailed to you, press the button below and we will send you an update in the mail.<br>",
 	pendingScreen_ParaBlock_NoteDays					:	"<br>Please note: if can take 7-10 days for you to receive the information.<br><br><br>",
 		
 	pendingScreen_PrintButtonLabel 						: 	"PRINT REFERENCE # AND CHECK STATUS IN 30 MINUTES",
 	pendingScreen_EmailButtonLabel 						: 	"RECEIVE STATUS IN THE MAIL",
-	
+	pendingScreen_PrintToken_Error						:	"Unfortunately, your token could not be printed. Please try again.",
 	pendingScreen_CheckAppStatusLabel 					: 	"CHECK APPLICATION STATUS",
+	
+	pendingScreen_RetrieveFailed						:	"Cannot retrieve this application. Please try again.",
 	
 	// Pending screen end
 
@@ -735,7 +748,7 @@ WICI.dictionary_en = {
         "<div style=\"font-size: 10pt\"><p>**** Plus applicable taxes. Subscription fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, " +
         "Subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, " +
         "conditions, limitations and exclusions. Terms and conditions apply.</p>" +
-        "<p>Tahe Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.</p></div>",
+        "<p>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.</p></div>",
     end                                                 : ""
 };
 

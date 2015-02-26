@@ -1,15 +1,19 @@
 package com.ctfs.WICI.TestCase;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,9 +22,14 @@ import com.channel.ctfs.ctc.webicgateway.RequestBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
+import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
 import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupResponse;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Model.AccountApplicationPostRequest;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
+import com.ctfs.WICI.Servlet.Model.WICIResponse;
+import com.ctfs.WICI.Test.Resources.TestFiles;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -51,6 +60,22 @@ public class WICIObjectsHelperTest
 	}
 
 	@Test
+	public void test_that_it_creates_an_unretrievable_response_that_indicates_the_response_is_not_retrievable()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+
+		WICIResponse wiciResponse = sut.createUnretrievableResponse();
+		//{"error":true,"msg":"UNRETRIEVABLE"}
+		Gson gson = new Gson();
+		String jsonResponse = gson.toJson(wiciResponse, WICIResponse.class);		
+		
+		//Assert.assertEquals("{\"error\":true,\"msg\":\"UNRETRIEVABLE\",\"data\":\"\"}", jsonResponse);
+		//Assert.assertEquals("{\"error\":false,\"msg\":\"\",\"data\":{\"ResponseData\":{\"appStatus\":\"UNRETRIEVABLE\"}}}", jsonResponse);
+		Assert.assertEquals("{\"error\":true,\"msg\":\"UNRETRIEVABLE\"}", jsonResponse);
+	}
+
+	
+	@Test
 	public void test_that_it_converts_a_WebICAddressLookupResponse_class_to_JSON()
 	{
 		WICIObjectsHelper sut = new WICIObjectsHelper();
@@ -61,6 +86,280 @@ public class WICIObjectsHelperTest
 		Assert.assertEquals("{\"standardPostalCode\":\"L5M0M2\"}", sut.convertObjectToJSON(testObject));
 	}
 
+	@Test
+	public void test_that_it_deserializes_ApplicationRequestXML_to_AccountApplicationRequestType()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String accountApplicationRequestXML = fileHelper.getFileContents("AA_Request_Body.xml");
+
+		String deserializedRefId = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getExternalReferenceId();		
+		XMLGregorianCalendar deserializedDateOfBirth = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getDateOfBirth();
+		XMLGregorianCalendar deserializedDateSigned = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getDateSigned();
+		
+        XMLGregorianCalendar dateOfBirth = getXGCalendar("1975-03-08");
+		XMLGregorianCalendar dateSigned = getXGCalendar("2014-12-18");
+		
+		Assert.assertEquals("56F26250-766A-4E52-BCED-7C4413D1C8FC", deserializedRefId);	
+		Assert.assertEquals(dateOfBirth, deserializedDateOfBirth);
+		Assert.assertEquals(dateSigned, deserializedDateSigned);
+	}
+
+	@Test
+	public void test_that_it_deserializes_ApplicationRequestXML_From_File_Test1_to_AccountApplicationRequestType()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String accountApplicationRequestXML = fileHelper.getFileContents("AA_Request_Test1.xml");
+		
+		String requestedProductType = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getRequestedProductType();
+		String firstName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getFirstName();
+		
+		String middleInitial = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getMiddleInitial();
+		String lastName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getLastName();
+		byte[] applicantSignature = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getApplicantSignature();
+
+		ProvinceType currentProvince = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getCurrentProvince();
+		String preferredLanguage = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getPreferedLanguage();
+		
+		String insuranceCode = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getInsuranceCode();
+		int storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
+		
+		Assert.assertEquals("OMC", requestedProductType);	
+		Assert.assertEquals("DEO", firstName);
+		
+		Assert.assertEquals(null, middleInitial);
+		Assert.assertEquals("GESINGHAUS", lastName);
+		
+		Assert.assertTrue(applicantSignature!=null);
+		
+		Assert.assertEquals("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAsALEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2aioZLZJLiKdmlDw7toWVlU5GDuUHDe2QcdsVNQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABUcwmZAIJERs8l0LDH0BFSUUAVfL1D/AJ+rb/wHb/4ujy9Q/wCfq2/8B2/+Lq1RQBV8vUP+fq2/8B2/+Lo8vUP+fq2/8B2/+Lq1RQBV8vUP+fq2/wDAdv8A4ujy9Q/5+rb/AMB2/wDi6tUUAVfL1D/n6tv/AAHb/wCLo8vUP+fq2/8AAdv/AIurVFAFXy9Q/wCfq2/8B2/+Lo8vUP8An6tv/Adv/i6tUUAVfL1D/n6tv/Adv/i6PL1D/n6tv/Adv/i6tUUAVfL1D/n6tv8AwHb/AOLo8vUP+fq2/wDAdv8A4urVFAFXy9Q/5+rb/wAB2/8Ai6PL1D/n6tv/AAHb/wCLq1RQBV8vUP8An6tv/Adv/i6PL1D/AJ+rb/wHb/4urVFAEUKzqD58kbntsjK4/MmpaKKACiiigD//2Q==",new String(Base64.encodeBase64(applicantSignature)));
+		
+		Assert.assertEquals(ProvinceType.MB, currentProvince);
+		Assert.assertEquals("E", preferredLanguage);
+		Assert.assertEquals("N", insuranceCode);
+		
+		Assert.assertEquals(1, storeNumber);
+		/*
+        [activationItems.getModel('chooseProductModel').get('productCard'),
+         activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+         activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+         activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+
+         applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+         applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+         applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+         applicationResponse.apr ? applicationResponse.apr : "",
+         applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+
+         activationItems.getModel('signatureModel').get('userSingnature'),
+
+         applicationResponse.appStatus,
+
+         activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+         activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+
+         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+
+         activationItems.getModel('loginScreen').get('locationFieldID'),""]
+                          
+		 */		
+	}	
+
+	@Test
+	public void test_that_it_deserializes_ApplicationRequestXML_From_File_Test1_to_AccountApplicationRequestType_and_We_know_the_applicationSignature_is_not_Base64_but_decoded_Base64_into_byte_array()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String accountApplicationRequestXML = fileHelper.getFileContents("AA_Request_Test1.xml");
+		
+		byte[] applicantSignature = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getApplicantSignature();
+
+		//Assert.assertTrue(applicantSignature!=null);
+		Assert.assertTrue(!Base64.isBase64(applicantSignature));
+		
+	}	
+
+	@Test
+	public void test_that_it_deserializes_ApplicationRequestXML_From_File_With_Wrong_Tags_to_AccountApplicationRequestType()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String accountApplicationRequestXML = fileHelper.getFileContents("AA_Request_WrongTags.xml");
+		
+		String requestedProductType = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getRequestedProductType();
+		String firstName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getFirstName();
+		
+		String middleInitial = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getMiddleInitial();
+		String lastName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getLastName();
+		byte[] applicantSignature = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getApplicantSignature();
+
+		ProvinceType currentProvince = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getCurrentProvince();
+		String preferredLanguage = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getPreferedLanguage();
+		
+		String insuranceCode = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getInsuranceCode();
+		int storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
+		
+		Assert.assertEquals("OMC", requestedProductType);	
+		Assert.assertEquals("DEO", firstName);
+		
+		Assert.assertEquals(null, middleInitial);
+		Assert.assertEquals("GESINGHAUS", lastName);
+		
+		Assert.assertTrue(applicantSignature!=null);
+		
+		Assert.assertEquals("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAsALEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2aioZLZJLiKdmlDw7toWVlU5GDuUHDe2QcdsVNQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABUcwmZAIJERs8l0LDH0BFSUUAVfL1D/AJ+rb/wHb/4ujy9Q/wCfq2/8B2/+Lq1RQBV8vUP+fq2/8B2/+Lo8vUP+fq2/8B2/+Lq1RQBV8vUP+fq2/wDAdv8A4ujy9Q/5+rb/AMB2/wDi6tUUAVfL1D/n6tv/AAHb/wCLo8vUP+fq2/8AAdv/AIurVFAFXy9Q/wCfq2/8B2/+Lo8vUP8An6tv/Adv/i6tUUAVfL1D/n6tv/Adv/i6PL1D/n6tv/Adv/i6tUUAVfL1D/n6tv8AwHb/AOLo8vUP+fq2/wDAdv8A4urVFAFXy9Q/5+rb/wAB2/8Ai6PL1D/n6tv/AAHb/wCLq1RQBV8vUP8An6tv/Adv/i6PL1D/AJ+rb/wHb/4urVFAEUKzqD58kbntsjK4/MmpaKKACiiigD//2Q==",new String(Base64.encodeBase64(applicantSignature)));
+		
+		Assert.assertEquals(ProvinceType.MB, currentProvince);
+		Assert.assertEquals("E", preferredLanguage);
+		Assert.assertEquals("N", insuranceCode);
+		
+		Assert.assertEquals(1, storeNumber);
+		/*
+        [activationItems.getModel('chooseProductModel').get('productCard'),
+         activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+         activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+         activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+
+         applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+         applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+         applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+         applicationResponse.apr ? applicationResponse.apr : "",
+         applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+
+         activationItems.getModel('signatureModel').get('userSingnature'),
+
+         applicationResponse.appStatus,
+
+         activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+         activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+
+         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+
+         activationItems.getModel('loginScreen').get('locationFieldID'),""]
+                          
+		 */		
+	}	
+	
+	
+	/*
+	@Test
+	public void test_that_it_gets_CustomerInfoForPrintout_from_ApplicationRequestXML_In_File_Test1()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		String accountApplicationRequestXML = fileHelper.getFileContents("AA_Request_Test1.xml");
+
+		CustomerInfoForPrintout printedFields = sut.getNecessaryCustomerInformationForPrintout(accountApplicationRequestXML);
+		
+		String requestedProductType = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getRequestedProductType();
+		String firstName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getFirstName();
+		
+		String middleInitial = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getMiddleInitial();
+		String lastName = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getLastName();
+		byte[] applicantSignature = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getApplicantSignature();
+
+		ProvinceType currentProvince = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getCurrentProvince();
+		String preferredLanguage = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getPreferedLanguage();
+		
+		String insuranceCode = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getInsuranceCode();
+		int storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
+		
+		Assert.assertEquals("OMC", requestedProductType);	
+		Assert.assertEquals("DEO", firstName);
+		
+		Assert.assertEquals(null, middleInitial);
+		Assert.assertEquals("GESINGHAUS", lastName);
+		
+		Assert.assertTrue(applicantSignature!=null);
+		Assert.assertEquals(ProvinceType.MB, currentProvince);
+		Assert.assertEquals("E", preferredLanguage);
+		Assert.assertEquals("N", insuranceCode);
+		
+		Assert.assertEquals(1, storeNumber);
+		/*
+        [activationItems.getModel('chooseProductModel').get('productCard'),
+         activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+         activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+         activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+
+         applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+         applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+         applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+         applicationResponse.apr ? applicationResponse.apr : "",
+         applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+
+         activationItems.getModel('signatureModel').get('userSingnature'),
+
+         applicationResponse.appStatus,
+
+         activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+         activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+
+         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+
+         activationItems.getModel('loginScreen').get('locationFieldID'),""]
+                          
+		 	
+	}	
+	*/
+	
+	private XMLGregorianCalendar getXGCalendar( String argStringDate )
+	{
+		GregorianCalendar gCalendar = new GregorianCalendar();
+        gCalendar.clear();
+        Calendar parsedCalendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+        Date rawDate = null;
+		try
+		{
+			rawDate = sdf.parse( argStringDate );
+		}
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        parsedCalendar.setTime( rawDate );        
+        
+		try
+		{
+			XMLGregorianCalendar gGalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+		}
+		catch (DatatypeConfigurationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        gCalendar.set( parsedCalendar.get(Calendar.YEAR), parsedCalendar.get(Calendar.MONTH), parsedCalendar.get(Calendar.DATE));        
+        
+        XMLGregorianCalendar xmlCalendar = null;
+        
+        try {
+            xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+        } catch (DatatypeConfigurationException ex) {
+            ex.printStackTrace();
+        }
+
+        //reader.moveDown();
+        //xmlCalendar.setYear(year);
+        //xmlCalendar.setMonth(month);
+        //xmlCalendar.setDay(day);   
+        
+        xmlCalendar.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        //xmlCalendar.setTimezone( null );
+        xmlCalendar.setFractionalSecond( null );
+		return xmlCalendar;
+	}	
+	
 	@Test
 	public void test_that_it_serializes_AccountApplicationRequest_with_XMLGregorianCalendar_DateField_To_String_Not_XMLGregorianCalendar_complex_Type()
 	{
@@ -227,6 +526,203 @@ public class WICIObjectsHelperTest
 		Assert.assertTrue(expectedString.indexOf("<dateOfBirth>") != -1);
 	}
 
+	@Test
+	public void test_that_it_deserializes_APPROVED_PendAccountApplicationRequest_xml_to_PendAccountApplicationRequest_object()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String pendAccountApplicationRequestXML = fileHelper.getFileContents("APPROVED_PendAccountApplicationRequest.xml");
+		
+		String deserializedAppStatus = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAppStatus();
+		String deserializedRefId = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getExternalReferenceId();
+		String deserializedAppID = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getApplicationId();
+		String deserializedPANBase64Encrypted = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAccountNumber();
+		String deserializedExpiryDate = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getExpiryDate();
+		String deserializedCreditLimit = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getCreditLimit();
+		String deserializedAPR = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getApr();
+		String deserializedCashAPR = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getCashAPR();
+		String deserializedValueInd = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getCustomerValueInd();
+		
+		/*
+		<externalReferenceId>E9AC04AA-383D-45FA-9B42-2494F504492A</externalReferenceId>	
+		<applicationID>034480989</applicationID>
+		<accountNumber>maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=</accountNumber>
+		<expiryDate>1811</expiryDate>
+		<creditLimit>5000</creditLimit>
+		<apr>19.99</apr>
+		<cashAPR>21.99</cashAPR>
+		<appStatus>APPROVED</appStatus>
+		<customerValueInd>0</customerValueInd>		
+		 */
+		
+		Assert.assertEquals("APPROVED", deserializedAppStatus);
+		Assert.assertEquals("E9AC04AA-383D-45FA-9B42-2494F504492A", deserializedRefId);	
+		Assert.assertEquals("034480989", deserializedAppID);	
+		Assert.assertEquals("maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=", deserializedPANBase64Encrypted);	
+		Assert.assertEquals("1811", deserializedExpiryDate);
+		Assert.assertEquals("5000", deserializedCreditLimit);
+		Assert.assertEquals("19.99", deserializedAPR);
+		Assert.assertEquals("21.99", deserializedCashAPR);
+		Assert.assertEquals("0", deserializedValueInd);
+	}
+
+	@Test
+	public void test_that_converts_APPROVED_PendAccountApplicationRequest_object_to_WICIResponse_for_insertion_into_WICI_REQUEST_QUEUE()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+				
+		String pendAccountApplicationRequestObjectAsXMLString = fileHelper.getFileContents("APPROVED_PendAccountApplicationRequest.xml");
+		
+		PendAccountApplicationRequest PAARequest = (PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestObjectAsXMLString);
+
+		WICIResponse wiciResponse = sut.convertPendAccountApplicationRequestToWICIResponse(PAARequest);
+		//{"error":false,"msg":"","data":{"appStatus":"DECLINED"}}
+		
+		Gson gson = new Gson();
+		String jsonResponse = gson.toJson(wiciResponse, WICIResponse.class);		
+		
+		Assert.assertEquals("{\"error\":false,\"msg\":\"\",\"data\":{\"accountNumber\":\"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8\\u003d\",\"expiryDate\":\"1811\",\"creditLimit\":\"5000\",\"apr\":\"19.99\",\"cashAPR\":\"21.99\",\"appStatus\":\"APPROVED\",\"customerValueInd\":\"0\"}}", jsonResponse);
+		
+	}	
+	
+	
+	@Test
+	public void test_that_converts_DECLINED_PendAccountApplicationRequest_object_to_WICIResponse_for_insertion_into_WICI_REQUEST_QUEUE()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+				
+		String pendAccountApplicationRequestObjectAsXMLString = fileHelper.getFileContents("DECLINED_PendAccountApplicationRequest.xml");
+		
+		PendAccountApplicationRequest PAARequest = (PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestObjectAsXMLString);
+
+		WICIResponse wiciResponse = sut.convertPendAccountApplicationRequestToWICIResponse(PAARequest);
+		//{"error":false,"msg":"","data":{"appStatus":"DECLINED"}}
+		
+		Gson gson = new Gson();
+		String jsonResponse = gson.toJson(wiciResponse, WICIResponse.class);		
+		
+		Assert.assertEquals("{\"error\":false,\"msg\":\"\",\"data\":{\"appStatus\":\"DECLINED\"}}", jsonResponse);
+		
+	}	
+	
+	
+	@Test
+	public void test_that_converts_PENDING_PendAccountApplicationRequest_object_to_WICIResponse_for_insertion_into_WICI_REQUEST_QUEUE()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+				
+		String pendAccountApplicationRequestObjectAsXMLString = fileHelper.getFileContents("PENDING_PendAccountApplicationRequest.xml");
+		
+		PendAccountApplicationRequest PAARequest = (PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestObjectAsXMLString);
+
+		WICIResponse wiciResponse = sut.convertPendAccountApplicationRequestToWICIResponse(PAARequest);
+		//{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
+		
+		Gson gson = new Gson();
+		String jsonResponse = gson.toJson(wiciResponse, WICIResponse.class);		
+		
+		Assert.assertEquals("{\"error\":false,\"msg\":\"\",\"data\":{\"appStatus\":\"PENDING\"}}", jsonResponse);
+		
+	}	
+	
+	@Test
+	public void test_that_it_deserializes_PENDING_PendAccountApplicationRequest_xml_to_PendAccountApplicationRequest_object()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String pendAccountApplicationRequestXML = fileHelper.getFileContents("PENDING_PendAccountApplicationRequest.xml");
+		
+		String deserializedAppStatus = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAppStatus();
+		String deserializedRefId = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getExternalReferenceId();
+		String deserializedAppID = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getApplicationId();
+		String deserializedPANBase64Encrypted = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAccountNumber();
+		
+		/*
+		<PendAccountApplicationRequest>
+			<externalReferenceId>E9AC04AA-383D-45FA-9B42-2494F504492A</externalReferenceId>	
+			<applicationId>034480989</applicationId>
+			<appStatus>PENDING</appStatus>
+		</PendAccountApplicationRequest>		 
+		*/
+		
+		Assert.assertEquals("PENDING", deserializedAppStatus);
+		Assert.assertEquals("E9AC04AA-383D-45FA-9B42-2494F504492A", deserializedRefId);	
+		Assert.assertEquals("034480989", deserializedAppID);
+		Assert.assertEquals(null, deserializedPANBase64Encrypted);	
+		
+	}
+
+	@Test
+	public void test_that_it_deserializes_DECLINED_PendAccountApplicationRequest_xml_to_PendAccountApplicationRequest_object()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		TestFiles fileHelper = new TestFiles();
+		
+		String pendAccountApplicationRequestXML = fileHelper.getFileContents("DECLINED_PendAccountApplicationRequest.xml");
+		
+		String deserializedAppStatus = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAppStatus();
+		String deserializedRefId = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getExternalReferenceId();
+		String deserializedAppID = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getApplicationId();
+		String deserializedPANBase64Encrypted = ((PendAccountApplicationRequest) sut.deserializeXMLToPendAccountApplicationRequestObject(pendAccountApplicationRequestXML)).getAccountNumber();
+		
+		/*
+		<PendAccountApplicationRequest>
+			<externalReferenceId>E9AC04AA-383D-45FA-9B42-2494F504492A</externalReferenceId>	
+			<applicationId>034480989</applicationId>
+			<appStatus>DECLINED</appStatus>
+		</PendAccountApplicationRequest>		 
+		*/
+		
+		Assert.assertEquals("DECLINED", deserializedAppStatus);
+		Assert.assertEquals("E9AC04AA-383D-45FA-9B42-2494F504492A", deserializedRefId);	
+		Assert.assertEquals("034480989", deserializedAppID);
+		Assert.assertEquals(null, deserializedPANBase64Encrypted);	
+	}
+	
+	@Test
+	public void test_that_it_serializes_SUCCESS_PendAccountApplicationResponse_object_to_PendAccountApplicationResponse_xml()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		
+		PendAccountApplicationResponse PAAResponse = new PendAccountApplicationResponse();
+		PAAResponse.setStatus("SUCCESS");
+		/*
+		<PendAccountApplicationResponse>	
+			<Status>SUCCESS</Status>		
+			<Message></Message>
+		</PendAccountApplicationResponse>
+		 */
+		
+		String xmlResponse = sut.serializePendAccountApplicationResponse(PAAResponse);
+		
+		Assert.assertEquals(true, xmlResponse.contains("SUCCESS"));
+	}	
+	
+	@Test
+	public void test_that_it_serializes_FAILURE_PendAccountApplicationResponse_object_to_PendAccountApplicationResponse_xml()
+	{
+		WICIObjectsHelper sut = new WICIObjectsHelper();
+		
+		PendAccountApplicationResponse PAAResponse = new PendAccountApplicationResponse();
+		PAAResponse.setStatus("FAILURE");
+		/*
+		<PendAccountApplicationResponse>	
+			<Status>FAILURE</Status>		
+			<Message>java.lang.NullPointerException</Message>
+		</PendAccountApplicationResponse>
+		 */
+		
+		String xmlResponse = sut.serializePendAccountApplicationResponse(PAAResponse);
+		
+		Assert.assertEquals(true, xmlResponse.contains("FAILURE"));
+	}	
+
+	
 	@Test
 	public void test_that_it_deserializes_accountapplicationresponse_xml_to_accountapplicationresponse_object()
 	{

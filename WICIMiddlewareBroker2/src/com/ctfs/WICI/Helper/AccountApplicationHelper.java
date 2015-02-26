@@ -1,6 +1,5 @@
 package com.ctfs.WICI.Helper;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
@@ -16,28 +15,10 @@ import com.ctfs.WICI.Servlet.Model.WICIMessageType;
 public class AccountApplicationHelper
 {
 	static Logger log = Logger.getLogger(AccountApplicationHelper.class.getName());
-
-	public WICIAccountApplicationResponse doRequest(WICIServletMediator requestMediatort) throws Exception
+	
+	public WICIAccountApplicationResponse doRequest(CreditCardApplicationData argCardData, AccountApplicationRequestType argAARequestObject ) throws Exception
 	{
-		String sMethod = this.getClass().getName() + "[doRequest HttpServletRequest] ";
-		log.info(sMethod);
-
-		return this.doRequest(new CreditCardApplicationData(requestMediatort));
-	}
-
-	public WICIAccountApplicationResponse doRequest(StringBuffer argCardDataAsString) throws Exception
-	{
-		String sMethod = this.getClass().getName() + "[doRequest StringBuffer] ";
-		log.info(sMethod);
-
-		log.log(Level.INFO, sMethod + "::argCardDataAsString::" + argCardDataAsString);
-
-		return this.doRequest(new CreditCardApplicationData(argCardDataAsString));
-	}
-
-	public WICIAccountApplicationResponse doRequest(CreditCardApplicationData argCardData) throws Exception
-	{
-		String sMethod = this.getClass().getName() + "[doRequest CreditCardApplicationData] ";
+		String sMethod = this.getClass().getName() + "[doRequest( CreditCardApplicationData, AccountApplicationRequestType )] ";
 		log.info(sMethod);
 
 		RequestBody requestBody = new RequestBody();
@@ -47,11 +28,9 @@ public class AccountApplicationHelper
 
 		try
 		{
-			AccountApplicationRequestType accountRequest = argCardData.convertToAccountApplicationRequest();
-			String requestBodyString = serializeRequest(accountRequest);
+			String requestBodyString = serializeRequest(argAARequestObject);
 
 			log.info(sMethod + "::requestBodyString::" + requestBodyString);
-			//log.log(Level.FINE, sMethod + "::requestBodyString::" + requestBodyString);
 
 			requestBody.setRequestBody(requestBodyString);
 			responseBody = accountApplicationProxy.processRequest((new WICIObjectsHelper()).createMessageHeader(WICIMessageType.ACCOUNT_APPLICATION), requestBody);
@@ -88,7 +67,6 @@ public class AccountApplicationHelper
 		}
 
 		log.info(sMethod + "::accountApplicationResponseXML::" + accountApplicationResponseXML);
-		//log.log(Level.FINE, sMethod + "::accountApplicationResponseXML::" + accountApplicationResponseXML);
 
 		try
 		{
@@ -112,4 +90,11 @@ public class AccountApplicationHelper
 		WICIObjectsHelper wiciObjectsHelper = new WICIObjectsHelper();
 		return (wiciObjectsHelper.accountApplicationSerialize(obj));
 	}
+
+	public String getRetrievalToken(AccountApplicationRequestType argRequest) {
+		String externalRefId = argRequest.getExternalReferenceId();
+		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(externalRefId);
+		return retrievalToken;
+	}
+
 }

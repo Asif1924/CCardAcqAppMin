@@ -249,11 +249,5 @@ public class CreditCardApplicationDataHelperTest
 		// Assert.assertEquals(sut.getSOAPRequestBodyString(),"");
 	}
 
-	/*
-	 * @Test public void
-	 * test_that_CreditCardApplicationData_can_unmarshal_HTTPServletRequest_with_chooseProductModel_to_BaseModel_representation_of_chooseProductModel
-	 * (){ HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-	 *
-	 * }
-	 */
+
 }

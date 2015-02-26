@@ -150,6 +150,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
        ]
     });    
     
+    var url = {    
+    		OptionalInsuranceCP			:	'https://www.ctfs.com/ApplyNow/CreditProtector/SummaryOfCoverages/',
+    		OptionalInsuranceIW			:	'https://www.ctfs.com/Products/TermsandConditions/IDWatch/',
+    		OptionalInsurancePA			:	'https://www.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/',
+    		OptionalInsuranceCP_fr		:	'https://www.ctfs.com/lang/fr/ApplyNow/CreditProtector/SummaryOfCoverages/',
+    		OptionalInsuranceIW_fr		:	'https://www.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/',
+    		OptionalInsurancePA_fr		:	'https://www.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/'
+    };
+    
     //---------------------------------------------------------------------------------------
 	function init( argFlow ) {
         var sMethod = 'init() ';
@@ -754,7 +763,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			$(refs.addressLine2).show();
 		}
 	}//---------------------------------------------------------------------------------------
-    function showHideOptionalInsuranceCP(){
+	function showHideOptionalInsuranceCP(){
         var sMethod = 'showHideOptionalInsuranceCP() ';
         BRB.Log(logPrefix + sMethod);    
         
@@ -764,6 +773,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_CP_Area).show();
+            if(translator.getCurrentLanguage() == 'en') {
+            	var win = window.open(url.OptionalInsuranceCP, '_blank');
+                win.focus();
+            }
+            else {
+            	var win = window.open(url.OptionalInsuranceCP_fr, '_blank');
+                win.focus();
+            }
         }
     }
     //---------------------------------------------------------------------------------------
@@ -777,6 +794,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_IW_Area).show();
+            if(translator.getCurrentLanguage() == 'en') {
+            	var win = window.open(url.OptionalInsuranceIW, '_blank');
+                win.focus();
+            }
+            else {
+            	var win = window.open(url.OptionalInsuranceIW_fr, '_blank');
+                win.focus();
+            }
         }
     }
 	//---------------------------------------------------------------------------------------
@@ -790,6 +815,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_PA_Area).show();
+            if(translator.getCurrentLanguage() == 'en') {
+            	var win = window.open(url.OptionalInsurancePA, '_blank');
+                win.focus();
+            }
+            else {
+            	var win = window.open(url.OptionalInsurancePA_fr, '_blank');
+                win.focus();
+            }
         }
     }
 	//---------------------------------------------------------------------------------------

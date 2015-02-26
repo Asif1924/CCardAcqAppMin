@@ -34,7 +34,7 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 			toggleLanguageButton: toggleLanguageButton,
 			chancelButton: chancelButton,
 			retrieveButton: retrieveButton,
-			retrieveButtonDisplayed: WICI.AppConfig.PendingFeature.AllowAppRetrieval &&  !WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines,
+			retrieveButtonDisplayed: WICI.AppConfig.PendingFeature.AllowAppRetrieval,
 			reEstablishWifiButton: reEstablishWifiButton
 		}).appendTo("body");
 		
@@ -81,11 +81,11 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 		$("#settings_printerSetupButton").on("click", function(event){
 			action = "printerSetup";
 		});
-		
+		/*
 		$("#settings_printerSetupButton").on("click", function(event){
 			action = "printerSetup";
 		});		
-		
+		*/
 		$("#settings_testPrintButton").on("click", function(event){
 			action = "testPrint";
 		});
@@ -129,5 +129,5 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 			showNextDialogCallback();
 		});
 	}
-	
+			
 };

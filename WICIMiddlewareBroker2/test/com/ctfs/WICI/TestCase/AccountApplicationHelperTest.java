@@ -1,9 +1,13 @@
 package com.ctfs.WICI.TestCase;
 
 import static org.junit.Assert.fail;
-import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.InputStream;
+import java.util.logging.Logger;
+
+import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.Helper.AccountApplicationHelper;
@@ -11,13 +15,70 @@ import com.ctfs.WICI.Helper.CheckLocationHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.WICIAccountApplicationResponse;
+import com.ctfs.WICI.Test.Resources.TestFiles;
 import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 
 public class AccountApplicationHelperTest
 {
 
 	static Logger log = Logger.getLogger(AccountApplicationHelper.class.getName());
 
+	@Test
+	public void test_that_resource_file_exists(){
+		InputStream inputStr = com.ctfs.WICI.Test.Resources.TestFiles.class.getResourceAsStream("AA_Request_Body.xml");
+		Assert.assertNotNull(com.ctfs.WICI.Test.Resources.TestFiles.class);		
+		Assert.assertNotNull(inputStr);		
+	}
+
+	@Test
+	public void test_that_mock_object_can_be_created_from_an_existing_resource_file() {
+
+		InputStream inputStr = com.ctfs.WICI.Test.Resources.TestFiles.class.getResourceAsStream("AA_Request_Body_no_date.xml");
+		Assert.assertNotNull(com.ctfs.WICI.Test.Resources.TestFiles.class);
+		Assert.assertNotNull(inputStr);
+
+		AccountApplicationRequestType mockAARequest = createMock(inputStr);
+		
+		Assert.assertEquals(mockAARequest.getFirstName(), "ASIF" );
+	}	
+
+	@Test
+	public void test_that_it_returns_retrieval_token(){
+		AccountApplicationHelper sut = new AccountApplicationHelper();
+		AccountApplicationRequestType mockRequest = createMock("AA_Request_Body_no_date.xml");
+		String retrievalToken = sut.getRetrievalToken( mockRequest );
+		
+		Assert.assertEquals(retrievalToken,"7C4413D1C8FC");
+	}	
+	
+	private AccountApplicationRequestType createMock( String argMockFilename ){
+		InputStream inputStr = com.ctfs.WICI.Test.Resources.TestFiles.class.getResourceAsStream(argMockFilename);
+		return createMock( inputStr );
+	}
+	
+	private AccountApplicationRequestType createMock(InputStream inputStr) {
+
+		String xmlStr = new TestFiles().getFileContents(inputStr);
+		
+		
+		com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType deserializedAccountApplicationRequestObject = new AccountApplicationRequestType();
+		
+		XStream xstream = new XStream(new DomDriver());
+
+		xstream.alias("AccountApplicationRequestType", com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType.class);
+
+		deserializedAccountApplicationRequestObject = (com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType) xstream.fromXML(xmlStr);
+		
+		return deserializedAccountApplicationRequestObject;
+	}
+
+	
+	//AA: Major refactoring needs to be done on the below code here because the previous team
+	//did not know how to do unit tests!
+	
 	@Test
 	public void test_that_it_creates_wellformed_xml_in_the_request()
 	{

@@ -1,6 +1,7 @@
 package com.ctfs.WICI.Servlet.Model;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -15,15 +16,21 @@ import com.google.gson.reflect.TypeToken;
 
 public class CreditCardApplicationData
 {
-
 	static Logger log = Logger.getLogger(CreditCardApplicationData.class.getName());
 
 	public List<BaseModel> models;
 	private StringBuffer requestBodyStr;
 
+	public CreditCardApplicationData(){
+		String sMethod = this.getClass().getName() + "[CreditCardApplicationData].CreditCardApplicationData() ";
+		log.info(sMethod);
+		
+		models = new ArrayList<BaseModel>();
+	}
+	
 	public CreditCardApplicationData(WICIServletMediator requestMediator)
 	{
-		String sMethod = this.getClass().getName() + "[CreditCardApplicationData] ";
+		String sMethod = this.getClass().getName() + "[CreditCardApplicationData].CreditCardApplicationData(WICIServletMediator) ";
 		log.info(sMethod);
 
 		requestBodyStr = requestMediator.getPostRequestBody();
@@ -85,7 +92,7 @@ public class CreditCardApplicationData
 		String sMethod = this.getClass().getName() + "[getSOAPRequestBodyString] ";
 		log.info(sMethod);
 
-		AccountApplicationRequestType accountRequestObject = (new AccountApplicationRequestTypeConverter()).convert(this);
+		AccountApplicationRequestType accountRequestObject = (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this);
 		String SOAPRequestBodyString = null;
 		try
 		{
@@ -98,12 +105,29 @@ public class CreditCardApplicationData
 		return SOAPRequestBodyString;
 	}
 
+	public String getSOAPRequestBodyString( AccountApplicationRequestType argAARequestType )
+	{
+		String sMethod = this.getClass().getName() + "[getSOAPRequestBodyString( AccountApplicationRequestType )] ";
+		log.info(sMethod);
+
+		String SOAPRequestBodyString = null;
+		try
+		{
+			SOAPRequestBodyString = new WICIObjectsHelper().accountApplicationSerialize(argAARequestType);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return SOAPRequestBodyString;
+	}	
+	
 	public AccountApplicationRequestType convertToAccountApplicationRequest()
 	{
 		String sMethod = this.getClass().getName() + "[convertToAccountApplicationRequest] ";
 		log.info(sMethod);
 
-		return (new AccountApplicationRequestTypeConverter()).convert(this);
+		return (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this);
 	}
 
 	public BaseModel getModel(String name)

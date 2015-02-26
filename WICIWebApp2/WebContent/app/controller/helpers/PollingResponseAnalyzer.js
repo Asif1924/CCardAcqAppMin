@@ -1,3 +1,5 @@
+ensureNamespaceExists();
+
 WICI.PollingResponseAnalyzer =  function () { 
 	
 	this.isOldPendingResponse = isOldPendingResponse;
@@ -26,6 +28,49 @@ WICI.PollingResponseAnalyzer =  function () {
 	this.getData = getData;
 	this.getRetrievalToken = getRetrievalToken;
 	this.getWICIResponse = getWICIResponse;
+	
+	this.getRetrievalCount = getRetrievalCount;
+	this.isWithinRetrievalThreshold = isWithinRetrievalThreshold;
+	
+	this.getActivationItems = getActivationItems;
+	
+	this.cannotFindApp = cannotFindApp;
+	
+	function cannotFindApp(argResponse){
+		//{"error":false,"data":{}};		
+		if( argResponse && !argResponse.error && argResponse.data && $.isEmptyObject(argResponse.data)) return true;
+	}
+	
+	function getActivationItems(argResponse){
+		if( isOldResponseType(argResponse) )
+			return null;
+		if( isNewResponseType(argResponse) && argResponse.data.ActivationItems && argResponse.data.ActivationItems!==null )
+			return argResponse.data.ActivationItems;
+
+		return null;
+	}
+	
+	function isWithinRetrievalThreshold( argResponse ){
+		//{"error":true,"msg":"UNRETRIEVABLE"}; <-- this determines that an app is not retrievable
+		
+		if( argResponse && argResponse.error && argResponse.msg==="UNRETRIEVABLE" ){
+			return false;
+		}
+		return true;
+
+	}
+	
+	function getRetrievalCount( argResponse ){
+		if( isOldResponseType(argResponse) )
+			return null;
+		if( isNewResponseType(argResponse) && argResponse.data.RetrievalCount && argResponse.data.RetrievalCount!==null ){
+			if( Number(argResponse.data.RetrievalCount) === "NaN")
+				return argResponse.data.RetrievalCount;
+			else if( Number(argResponse.data.RetrievalCount) !=="NaN" )
+				return Number(argResponse.data.RetrievalCount);
+		}
+		return null;
+	}
 	
 	function getWICIResponse( argResponse ){
 		if( isOldResponseType(argResponse) )
@@ -68,6 +113,9 @@ WICI.PollingResponseAnalyzer =  function () {
 	}
 	
 	function isIndeterminableResponse( argResponse ){
+		//{"error":true,"msg":"UNRETRIEVABLE"}
+		if( argResponse.error && argResponse.msg==="UNRETRIEVABLE") return false;
+		
 		if( isOldResponseType(argResponse) || isNewResponseType(argResponse) ) return false;
 		return ( (argResponse && (argResponse.data===1 || $.isEmptyObject(argResponse.data))) || (typeof argResponse.data.ResponseData==="undefined") ); 
 		
@@ -97,7 +145,7 @@ WICI.PollingResponseAnalyzer =  function () {
 	//{"error":true,"msg":"java.lang.NullPointerException"}
 	function isErrorResponse( argResponse ){
 		//{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
-		return ( argResponse && argResponse.error  );
+		return ( (argResponse && argResponse.error) || (argResponse && !argResponse.error && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.error)  );
 	}
 
 	//Pending

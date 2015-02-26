@@ -1,9 +1,9 @@
 <script id="WICIPendingScreen-template" type="text/x-jquery-tmpl">
-    <div class="ScreenLayout pageHeaderPadding" id="pendingScreen_PageContents">
+    <div class="ScreenLayout" id="pendingScreen_PageContents">
 	<center>
-	{{if pendingScreenState==='ShowOnly' }}
-		
-		<div data-role="fieldcontain" class="pageHeaderPadding">
+	<div id="pendingScreen_DisplayArea">
+	{{if pendingScreenState==="INSESSION" || pendingScreenState==="RETRIEVEPEND_START"}}
+		<div class="pageHeaderPadding">
 			
         	<span class="pageTitle" data-translationKey="pendingScreen_ThankYou"></span>
         	<span class="summaryPageSubTitle" data-translationKey="${cardName}"></span>
@@ -15,7 +15,7 @@
 						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>						
 					</td>
 					<td class="fieldValuesOneCell fieldCellSize60">
-						<span> ${token} </span>
+						<span class='uppercase'> ${token} </span>
 					</td>
 				</tr>
 			</table>
@@ -23,8 +23,10 @@
 			<br>
 
 			<div data-translationKey="pendingScreen_ParaBlock_PleaseWait"></div>
+			<div id="pendingScreen_StaticStatusMessage" data-translationKey="pendingScreen_Parablock_We_are_checking" ></div>
+			<div id="pendingScreen_DynamicStatusMessage"> <span data-translationKey="pendingScreen_CheckXXSeconds_Text1"></span><span id="pendingScreen_pollDelay">60</span><span data-translationKey="pendingScreen_CheckXXSeconds_Text2"></span> <span id="pendingScreen_AttemptNumber">1</span> <span data-translationKey="pendingScreen_OfAttemptYY_Text1"></span><span id="pendingScreen_maxAttempts">15</span><span data-translationKey="pendingScreen_OfAttemptYY_Text2"></span></div>
+			<div data-translationKey="pendingScreen_ParaBlock_IfYouShop"></div>
 			
-			<!--<div> <span data-translationKey="pendingScreen_Label2_1"></span> <span id="pendingScreen_Attempt">${attempt}</span> <span data-translationKey="pendingScreen_Label2_2"></span> </div>//-->
 			
 			<div class="elementWithFontSize10" data-translationKey="pendingScreen_Label_RefGood30mins"></div>
 
@@ -39,10 +41,10 @@
 
 		<span id="pendingScreen_EmailButton" class="button greenflat pendingScreen_EmailButtonSize">
 	    	<span class="buttonText" data-translationKey="pendingScreen_EmailButtonLabel"></span>
-		</span>	 	
-	{{/if}}
-	{{if pendingScreenState==='Retrieve' }}
-		<div data-role="fieldcontain" class="pageHeaderPadding">
+		</span>	
+	{{/if}}	
+	{{if pendingScreenState==="RETRIEVEPEND"}}
+		<div class="pageHeaderPadding">
 			<br>
 			<br>
 			<table class="fieldCellSize80" id="pendingScreen_tokenInfo">
@@ -51,7 +53,7 @@
 						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>
 					</td>
 					<td class="fieldValuesTopCell fieldCellSize50">
-						<input class="fieldValuesTextField" id="pendingScreenReferenceField" type="text" />
+						<input class="fieldValuesTextField uppercase" id="pendingScreenReferenceField" type="text" />
 					</td>
 				</tr>
 				<tr class="fieldRow">
@@ -69,8 +71,8 @@
 		<span id="checkApplicationStatusButton" class="button greenflat">
 	    	<span class="buttonText" data-translationKey="pendingScreen_CheckAppStatusLabel"></span>
 		</span>
-
-	{{/if}}
+	{{/if}}	
+	</div>
 	</center>
 	</div>
 </script>

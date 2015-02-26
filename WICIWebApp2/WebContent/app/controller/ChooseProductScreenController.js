@@ -118,6 +118,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                         .log(logPrefix
                             + sMethod
                             + " abandonApplicationTriggerActionService :: setActionMethod");
+                    app.idleTimeService.setAbandoned();
                     flow.startApplication();
                 });
         } catch (e) {

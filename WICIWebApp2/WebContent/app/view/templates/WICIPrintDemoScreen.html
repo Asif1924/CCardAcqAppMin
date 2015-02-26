@@ -8,13 +8,32 @@
         	<span class="pageTitle" data-translationKey="printScreen_Title"></span>
          	<br>
 			<br>
-			<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span>
-			<!--<span class="pageSubTitle">${ activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')) }</span>//-->
-			<span class="summaryPageSubTitle" data-translationKey="${ activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')) }"></span></span>
+
+				<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span>		
+				<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span></span>
+
          	<br>
 			<br>
-			<span class="summaryPageSubTitle" data-translationKey="${ activationItems.getAccountApplicationStatus() }" />
+
+				<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+
 			<br>
+			
+			       {{if appStatus==="PENDING"}}
+					<br>			
+                     <br>
+                     <table class="fieldCellSize60" id="pendingScreen_tokenInfo">
+                           <tr>
+                                  <td class="fieldLabelsSingleCell fieldCellSize60">
+                                         <span id="printScreenTokenLabel" class="fieldLabelsTitle" data-translationKey="printScreen_TokenLabel"></span>                                   
+                                  </td>
+                                  <td class="fieldValuesOneCell fieldCellSize60">
+                                         <span id="printScreenTokenField" class='uppercase'>${tokenValue}</span>
+                                  </td>
+                           </tr>
+                     </table>
+                     <br>
+                     {{/if}}       
 
         </div>
 		<br>

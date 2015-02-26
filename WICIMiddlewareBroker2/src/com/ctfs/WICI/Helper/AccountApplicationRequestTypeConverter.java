@@ -39,10 +39,10 @@ public class AccountApplicationRequestTypeConverter
 
 	static Logger log = Logger.getLogger(AccountApplicationRequestTypeConverter.class.getName());
 
-	public AccountApplicationRequestType convert(CreditCardApplicationData argCreditCardApplicationData)
+	public AccountApplicationRequestType createAccountApplicationRequestFromCreditCardApplicationData(CreditCardApplicationData argCreditCardApplicationData)
 	{
 
-		String sMethod = "[convert()]";
+		String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
 		log.info(sMethod);
 
 		com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
@@ -422,6 +422,9 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
+				
+				argAccAppRequest.setRequestedCreditLimit(model.getInt("requestedCreditLimit")); //US3270 Feb 17th, 2015
+				
 				
 			}
 		}

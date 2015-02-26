@@ -1,12 +1,17 @@
 ensureNamespaceExists();
 
-WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, yesButton, noButton, autoClose, autoCloseCallback) {
+WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, yesButton, noButton, restrictnoCallbackOnClose, autoClose, autoCloseCallback) {
 	var dialogViewHelper = new WICI.DialogViewHelper(),
 	 	answerIsYes = false,
 	 	showing = false;
 
 	this.isShowing = isShowing;
 	this.show = show;
+	var restrictNoCallbackOnClose = {value: false}; //this must be an object to use "call by reference, not call by value"
+	
+	this.setRestrictNoCallback = function(val) {
+		restrictNoCallbackOnClose.value = val;
+	};
 
 	function show(showNextDialogCallback) {
 		appendDialog();
@@ -39,13 +44,15 @@ WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, ye
 			answerIsYes = true;
 		});
 
-		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function() {
+		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', {restrictNoCallbackOnClose: restrictNoCallbackOnClose}, function(event) {
 			dialogViewHelper.removeDialog();
 			try {
 				if (answerIsYes)
 					yesCallback();
 				else
-					noCallback();
+					if (!event.data.restrictNoCallbackOnClose.value) {
+						noCallback();
+					}
 			} catch (e) {
 				console.log("Internal WICI error after Confirm dialog box");
 			}

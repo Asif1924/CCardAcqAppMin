@@ -5,7 +5,8 @@ WICI.IdleTimeService = function(document) {
 	var logPrefix = '[WICI.IdleTimeService]::';
 	
 	var idleTime = new Date().getTime();
-	
+    var justAbandoned = false;
+
 	var serviceStateEnum = {
 			working			: "working",
 			stopped			: "stopped"
@@ -54,28 +55,47 @@ WICI.IdleTimeService = function(document) {
 	//---------------------------------------------------------------------------------------
 	this.getIdleTime = function() {
 		var sMethod = 'getIdleTime() ';
-		console.log(logPrefix + sMethod + "idleTime: "+idleTime  +" service state: "+ getServiceState());
+		//console.log(logPrefix + sMethod + "idleTime: "+idleTime  +" service state: "+ getServiceState());
 		
 		if(getServiceState() === serviceStateEnum.stopped){
 			console.log(logPrefix + sMethod + "WARNING!!! service is not started!");
 			return 0;
 		}
-		
-		return (new Date().getTime() - idleTime) / 60000;
+
+		var currentTime = new Date().getTime();
+        //console.log("currentTime = " + currentTime + "; idleTime = " + idleTime + "; diff = " + (currentTime - idleTime) + "; in minutes = " + ((currentTime - idleTime) / 60000));
+
+        return (currentTime - idleTime) / 60000;
+	};
+	//---------------------------------------------------------------------------------------
+	this.setAbandoned = function() {
+		var sMethod = 'setAbandoned() ';
+		console.log(logPrefix + sMethod + "idleTime: "+idleTime  +" service state: "+ getServiceState());
+
+		if(getServiceState() === serviceStateEnum.stopped){
+			console.log(logPrefix + sMethod + "WARNING!!! service is not started!");
+			return 0;
+		}
+
+        justAbandoned = true;
 	};
 	//---------------------------------------------------------------------------------------
 	var subscribeToUserEvents = function() {
 		var sMethod = 'subscribeToUserEvents() ';
 		console.log(logPrefix + sMethod);
-		
-        document.on('blur change click contextmenu focusin focusout hashchange keydown mousedown scroll select touchstart touchend touchcancel touchleave', function (e) {
-			if(getServiceState() === serviceStateEnum.stopped){
+
+        document.on('mousemove keydown touchstart touchend', function (e) {
+            if(getServiceState() === serviceStateEnum.stopped){
 				return;
 			}
-	        idleTime = new Date().getTime();
+
+            if(!justAbandoned) {
+                idleTime = new Date().getTime();
+            }
+            justAbandoned = false;
 	    });
 	};
-	//---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
 	init();
 	subscribeToUserEvents();
 	//---------------------------------------------------------------------------------------

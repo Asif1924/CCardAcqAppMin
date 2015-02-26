@@ -384,10 +384,21 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         };
         if (emplType in emplTypesWithDefaults) {
             hideSelectOptions(refs.jobCategory);
+        } else {
+            // debugger;
+            // $(refs.jobCategory).val(model.get('jobCategory'));
+            // $(refs.employerName).val(model.get('employerName'));
+
+            // $(refs.employerCity).val(model.get('employerCity'));
+
+            // $(refs.employerPhone).val(model.get('employerPhone'));
+
+            // $(refs.months_Slider).val(model.get('howLongMonthes'));
+            // $(refs.years_Slider).val(model.get('howLongYears'));
         }
     }
     // ---------------------------------------------------------------------------------------
-    function populateEmplTypes() {
+    function populateEmplTypes(doNotClear) {
         var sMethod = 'populateEmplTypes() ';
         console.log(logPrefix + sMethod);
 
@@ -406,7 +417,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             $(refs.employmentType + " [value='" + employmentType + "']").attr(
                 "selected", "selected");
         }
+        if (!doNotClear) {
         updateEmploymentType();
+        }
     }
     // ---------------------------------------------------------------------------------------
 
@@ -578,6 +591,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         $(refs.tdGrossIncomeLable).addClass('withBorderTop');
         $(refs.tdGrossIncomeValue).addClass('withBorderTop');
 
+
     }
 
     function onUnHiredStatusClick(category, categoryTranslationKey, ignoreCategory) {
@@ -646,7 +660,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         $.subscribe('translatorFinished', function() {
             console.log(refs.employmentType + 'subscribe(translatorFinished)');
-            populateEmplTypes();
+            populateEmplTypes(true);
             $(refs.employmentType).val(model.get("employmentType"));
         });
 

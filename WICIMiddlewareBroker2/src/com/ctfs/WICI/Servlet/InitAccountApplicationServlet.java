@@ -7,13 +7,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 
+import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
+import com.ctfs.WICI.Helper.AccountApplicationRequestTypeConverter;
+import com.ctfs.WICI.Helper.ExternalReferenceIdHelper;
 import com.ctfs.WICI.Helper.UniqueIDGenerator;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
+import com.ctfs.WICI.Servlet.Model.DatabaseResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ibm.websphere.asynchbeans.WorkException;
 import com.ibm.websphere.asynchbeans.WorkItem;
@@ -56,19 +60,22 @@ public class InitAccountApplicationServlet extends WICIServlet
 		log.info(sMethod);
 
 		String transactionID = "";		
-		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);
-				
-		WICIResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData);
+		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);		
+		
+		DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData);
 		
 		if (!dbInsertionResponse.isError())
 		{
-			transactionID = (String) dbInsertionResponse.getData();
+			//transactionID = (String) dbInsertionResponse.getData();
+			transactionID = (String) dbInsertionResponse.getAccountApplicationRequestType().getExternalReferenceId();
 			WICIResponse databaseResponse = new WICIResponse(false, AppConstants.QUEUE_REQUEST_SUBMIT, transactionID);
 						
+			final AccountApplicationRequestType aaObject = dbInsertionResponse.getAccountApplicationRequestType();
+			
 			// Update response
 			requestMediator.processHttpResponse(databaseResponse);
 
-			AccountApplicationRequestThread concurrentAccountApplicationRequest = new AccountApplicationRequestThread(transactionID, incomingCreditCardApplicationData);
+			AccountApplicationRequestThread concurrentAccountApplicationRequest = new AccountApplicationRequestThread(transactionID, incomingCreditCardApplicationData, aaObject);
 
 			try
 			{
@@ -93,33 +100,31 @@ public class InitAccountApplicationServlet extends WICIServlet
 		}
 	}
 
-	private WICIResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData)
+	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData)
 	{
 		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
 		log.info(sMethod);
 
-		WICIResponse databaseResponse = null;
-		//WASA2 FIX Sep19th 2014 Release
-		//String transactionID = ((BaseModel) incomingCreditCardApplicationData.getModel("queueModel")).get("queueTransactionID");
-		UniqueIDGenerator uID = new UniqueIDGenerator();
+		DatabaseResponse databaseResponse = null;
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
-		String transactionID = "WICI_" + userID +"_"+ uID.getUniqueID()  + "-";
-		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString();
-
-		//log.log(Level.FINE, "---Attempting to insert the requestData into table=" + requestData);
+		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData);
+		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString(aaObject);
+		String transactionID = aaObject.getExternalReferenceId();
+		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
+		String currentTelephone = aaObject.getCurrentTelephoneNumber();
 		
 		try
 		{
 			WICIDBHelper wicidbHelper = new WICIDBHelper();
-			wicidbHelper.insertAccountApplicationData(transactionID, userID, requestData);
+			wicidbHelper.insertAccountApplicationData(transactionID, userID, requestData, retrievalToken,currentTelephone);
 
-			databaseResponse = new WICIResponse(false, "INSERT_SUCCESS", transactionID);
+			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}
 		catch (Exception e)
 		{
 			log.warning(sMethod + "---Problem inserting the requestData into table=" + e.getMessage());
 
-			databaseResponse = new WICIResponse(true, "INSERT_FAILED", e.getMessage());
+			databaseResponse = new DatabaseResponse(true, "INSERT_FAILED", e.getMessage(),aaObject);
 
 			e.printStackTrace();
 		}

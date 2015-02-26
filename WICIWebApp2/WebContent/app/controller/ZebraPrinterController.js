@@ -4,6 +4,26 @@ WICI.ZebraPrinterController = function () {
     var logPrefix = ' ---- [WICI.ZebraPrinterController]::';
     //var printerMacAddress = null;
     var printerMacAddress = WICI.AppConfig.defaultPrinterMacAddress;
+    
+    this.printToken = function (argToken, successCallback, failureCallback){
+        var sMethod = 'printToken() ';
+        console.log(logPrefix + sMethod + "token=" + argToken);   
+        
+        try {
+        	console.log('cordova Object:');
+    		console.log(JSON.stringify(cordova));
+
+            cordova.exec(successCallback,
+                    failureCallback,
+                    "TokenPrinterPlugin",
+                    "printToken",
+                    [argToken]);
+        } catch (err) {
+            failureCallback(err);
+            console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
+        }        
+    }
+    
     //---------------------------------------------------------------------------------------
     this.getStoredPrinterMacAddress = function (successCallback, failureCallback) {
         cordova.exec(successCallback, failureCallback, "ZebraPrinterPlugin", "getStoredPrintMacAddress", []);

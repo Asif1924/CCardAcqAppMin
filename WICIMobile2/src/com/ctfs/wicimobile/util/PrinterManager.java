@@ -58,12 +58,13 @@ public class PrinterManager {
     }
 
     public void setSelectedPrinter(DiscoveredPrinter printer) {
+    	/*
         for (int i = 0; i < selectedPrinterHistory.size(); i++) {
             if (selectedPrinterHistory.get(i).address.equals(printer.address)) {
                 selectedPrinterHistory.remove(i);
                 break;
             }
-        }
+        }*/
         selectedPrinterHistory.add(0, printer);
         if (selectedPrinterHistory.size() > MAX_HISTORY_SIZE) {
             selectedPrinterHistory.remove(selectedPrinterHistory.size() - 1);

@@ -4,6 +4,10 @@ WICI.AppNavigatorController = function() {
 	var translator = null;
 	var messageDialog = null;
 	
+	var currentScreen = "";
+	this.adhocPendingScreen = null;
+	this.adhocPrintDemoScreen = null;
+	
 	this.init = init;
 	
 	function init(argTranslator, argMessageDialog){

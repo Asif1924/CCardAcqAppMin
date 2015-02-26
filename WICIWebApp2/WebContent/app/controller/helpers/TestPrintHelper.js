@@ -24,32 +24,22 @@ WICI.TestPrintHelper = function(translate, messageDialog) {
 
 	function testPrintYes () {
 	   indicatorHideTimeout = setTimeout(function(){ 
-            printTestFileFailure();
+            printTestFileCallback();
         }, WICI.AppConfig.TestPrintConfig.timeout);
 
         loadingIndicator.show();
-	    app.zebraPrinterWrapper.testPrint(printTestFileSuccess, printTestFileFailure);
+	    app.zebraPrinterWrapper.testPrint(printTestFileCallback, printTestFileCallback);
 	}
 
 	//---------------------------------------------------------------------------------------
-    function printTestFileSuccess(result) {
-        var sMethod = 'printTestFileSuccess() ';
+    function printTestFileCallback(result) {
+        var sMethod = 'printTestFileCallback() ';
         console.log(logPrefix + sMethod);
         clearTimeout(indicatorHideTimeout);
         loadingIndicator.hide();
         var dialog = messageDialog.confirm(translate.translateKey("testPrintStatusMsg"), $.noop, testPrintConfirmationNo, translate.translateKey("printResponseStatusTitle"));
         
-        (new WICI.DialogViewHelper()).startAutoCloseTimer(dialog, clearLoadingTimeout);
-
-    }
-    //---------------------------------------------------------------------------------------
-    function printTestFileFailure(error) {
-        var sMethod = 'printTestFileFailure() ';
-        console.log(logPrefix + sMethod);
-        clearTimeout(indicatorHideTimeout);
-        loadingIndicator.hide();
-        var dialog = messageDialog.confirm(translate.translateKey("testPrintStatusMsg"), $.noop, testPrintConfirmationNo, translate.translateKey("printResponseStatusTitle"));
-       (new WICI.DialogViewHelper()).startAutoCloseTimer(dialog, clearLoadingTimeout);
+        (new WICI.DialogViewHelper()).startAutoCloseTimer(dialog, clearLoadingTimeout, WICI.AppConfig.TestPrintConfig.dialogTimeout, true);
 
     }
     //---------------------------------------------------------------------------------------
@@ -60,7 +50,6 @@ WICI.TestPrintHelper = function(translate, messageDialog) {
         console.log(logPrefix + sMethod + "::testPrintFailedAttempts::" + testPrintFailedAttempts);
 
 		if (testPrintFailedAttempts > WICI.AppConfig.TestPrintConfig.MAX_TEST_PRINT_RETRIES - 1) {
-			testPrintFailedAttempts = 0;
 //    	        if (app.accountProfileHelper.isAdminProfile()) {
 //    	            messageDialog.printerSetup(app.zebraPrinterWrapper.getPrinterMacAddress(), setupPrinterMacAddressCallback);
 //    	        } else {
@@ -68,13 +57,13 @@ WICI.TestPrintHelper = function(translate, messageDialog) {
 //    	        }
 
 	        app.accountProfileHelper.showNoPrinterSetupWarning();
+            setTimeout(function() {
+                testPrintFailedAttempts = 0;
+            }, 0);
 		} else {
 			console.log(logPrefix + sMethod + "::FALSE::");
 			++testPrintFailedAttempts;
             WICI.BluetothHelper.toggle().done(testPrintYes).fail(alert);
-            indicatorHideTimeout = setTimeout(function(){ 
-                printTestFileFailure();
-            }, WICI.AppConfig.TestPrintConfig.timeout);
 		}
     }
     //---------------------------------------------------------------------------------------

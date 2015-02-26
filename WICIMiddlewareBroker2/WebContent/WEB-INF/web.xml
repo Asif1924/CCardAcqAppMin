@@ -76,6 +76,13 @@
 		<servlet-name>DeviceAdminServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.DeviceAdminServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ReceiveAccountResponseServlet</display-name>
+		<servlet-name>ReceiveAccountResponseServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.ReceiveAccountResponseServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>
@@ -103,6 +110,11 @@
 	<servlet-mapping>
 		<servlet-name>DeviceAdminServlet</servlet-name>
 		<url-pattern>/DeviceAdmin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReceiveAccountResponseServlet</servlet-name>
+		<url-pattern>
+		/ReceiveAccountResponse</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

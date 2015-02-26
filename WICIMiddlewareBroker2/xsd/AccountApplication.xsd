@@ -1068,6 +1068,8 @@
 				</xsd:simpleType>
 			</xsd:element>
 			
+			
+			
 			<xsd:element name="emailConsentFlag" maxOccurs="1" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>Optional field, required if channel is WP

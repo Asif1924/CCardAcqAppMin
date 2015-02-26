@@ -11,14 +11,25 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 import com.ctfs.WICI.AppConstants;
+import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
+import com.ctfs.WICI.Model.DictionaryInfo;
+import com.ctfs.WICI.Model.PendingApplicationDatabaseUpdateException;
+import com.ctfs.WICI.Model.PendingApplicationRetrievalException;
+import com.ctfs.WICI.Model.ReceiptCustomerInfo;
+import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
+import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ctfs.WICI.dblayer.ConfigurationTableEntity;
 import com.ctfs.WICI.dblayer.interfaces.IConfigurationTableEntity;
+import com.google.gson.Gson;
 
 public class WICIDBHelper
 {
 	static Logger log = Logger.getLogger(WICIDBHelper.class.getName());
 	static final String EMPTY_STRING = "";
-	public static final String WICICONFIGTBL = "webic_app.WICI_CONFIG";
+	//public static final String WICICONFIGTBL = "webic_app.WICI_CONFIG";
+	public static final String WICICONFIGTBL = "WICI_CONFIG";
 	public static final String WICIREQUESTQUEUETBL = "WICI_REQUESTQUEUE";
 	public static final String WICI_WHITELIST_TABLE = "WICI_WHITELIST";
 
@@ -170,6 +181,55 @@ public class WICIDBHelper
 	 * END WiciConfigurationTable Logic
 	 */
 
+	public DictionaryInfo getLatestDictionaryInfo() throws SQLException
+	{
+		String sMethod = "[getLatestDictionaryInfo] ";
+		log.info(sMethod + "::Called::");
+
+		DictionaryInfo dictInfo = new DictionaryInfo();
+
+		String sql = "SELECT CONFIG_NAME, CONFIG_VALUE FROM WICI_CONFIG WHERE CONFIG_NAME IN ('OLDER_DICTIONARY_ALLOWABLE', 'DICTIONARY_VERSION', 'DICTIONARY_CMS_URL_EN', 'DICTIONARY_CMS_URL_FR')";
+		String configValue = null;
+		String configName = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setMaxRows(4);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next())
+			{
+				configName = resultSet.getString("CONFIG_NAME");
+				configValue = resultSet.getString("CONFIG_VALUE");
+				
+				log.info(sMethod + "::Called:: configName = " + configName + ", configValue = " + configValue);				
+				
+				if( configName.equals("OLDER_DICTIONARY_ALLOWABLE")) dictInfo.setOlderDictionaryAllowable(new Boolean(configValue));
+				if( configName.equals("DICTIONARY_VERSION")) dictInfo.setLatestDictionaryVersion(configValue);
+				if( configName.equals("DICTIONARY_CMS_URL_EN")) dictInfo.setDictionaryURLEnglish(configValue);
+				if( configName.equals("DICTIONARY_CMS_URL_FR")) dictInfo.setDictionaryURLFrench(configValue);				
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			return dictInfo;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return dictInfo;
+	}
+
+	
 	public boolean isDeviceWhitelisted(String argMfgSerial, String argBuildSerial) throws SQLException
 	{
 		String sMethod = "[isDeviceWhitelisted] ";
@@ -427,14 +487,14 @@ public class WICIDBHelper
 		return deviceExists;
 	}
 
-	public String insertAccountApplicationData(String transactionID, String userID, String requestData) throws Exception
+	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone) throws Exception
 	{
 		String sMethod = "[insertAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter transactionID:" + transactionID + "::userID::" + userID + "::requestData::" + requestData);
+		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone);
 
 		// Create sql statement
-		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA)"
-				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?)";
+		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?)";
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -455,6 +515,9 @@ public class WICIDBHelper
 			Reader clobReader = new StringReader(requestData);
 			preparedStatement.setCharacterStream(5, clobReader, requestData.length());
 
+			preparedStatement.setString(6, retrievalToken);
+			preparedStatement.setString(7, currentTelephone);
+			
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -471,11 +534,244 @@ public class WICIDBHelper
 		return transactionID;
 	}
 
+	public boolean isApprovedAppRetrievable( String argTransactionID, String argToken, String argPhone  ){
+		String sMethod = "[isApprovedAppRetrievable] ";
+		log.info(sMethod + "::Called::");
+		Integer retrievalCountForThisApp = null;
+		String maxRetrievalsForApprovedApps = getMaxRetrievalsForApprovedApps();
+		if( argTransactionID!=null || argTransactionID.equals(""))
+			argTransactionID = getTransactionIDForApprovedApp(argToken,argPhone);
+		
+		retrievalCountForThisApp = getRetrievalCountForApprovedApp(argTransactionID);
+		//else
+		//	retrievalCountForThisApp = getRetrievalCountForApprovedApp(argToken, argPhone);
+		
+		int max = new Integer(maxRetrievalsForApprovedApps).intValue();
+		
+		int count = retrievalCountForThisApp.intValue();
+
+		log.info(sMethod + "::Comparing max(" + max + ") to count (" + count + "):: for transactionID=" + argTransactionID);
+		
+		return count<=max;		
+	}
+	
+	public String getMaxRetrievalsForApprovedApps()
+	{
+		String sMethod = "[getMaxRetrievalsForApprovedApps] ";
+		log.info(sMethod + "::Called::");
+
+		String maxRetrievalsForApproved = "";
+		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = 'MAX_RETRIEVALS_FOR_APPROVED'";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();			
+
+			while (resultSet.next())
+			{
+				maxRetrievalsForApproved = resultSet.getString("CONFIG_VALUE");
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		log.info(sMethod + "::Max Retrievals for Approved Apps = " + maxRetrievalsForApproved);
+
+		return maxRetrievalsForApproved;
+	}
+	
+	
+	public String getTransactionIDForApprovedApp( String argToken, String argPhone )
+	{
+		String sMethod = "[getTransactionIDForApprovedApp] ";
+		log.info(sMethod + "::Called::");
+
+		String transID = "";
+		String sql = "SELECT TRANSACTION_ID FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, argToken);
+			preparedStatement.setString(2, argPhone);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();			
+
+			while (resultSet.next())
+			{
+				transID = resultSet.getString("TRANSACTION_ID");
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return transID;
+	}
+	
+	
+	public Integer getRetrievalCountForApprovedApp( String argToken, String argPhone )
+	{
+		String sMethod = "[getRetrievalCountForApprovedApp] ";
+		log.info(sMethod + "::Called with argToken = " + argToken);
+		log.info(sMethod + "::Called with argPhone = " + argPhone);
+
+		Integer retrievalCount = 0;
+		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'" ;
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, argToken);
+			preparedStatement.setString(1, argPhone);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();			
+
+			while (resultSet.next())
+			{
+				retrievalCount = new Integer(resultSet.getInt("RETRIEVAL_COUNT"));
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		log.info(sMethod + "::RetrievalCount = " + retrievalCount);
+		return retrievalCount;
+	}	
+	public Integer getRetrievalCountForApprovedApp( String argTransactionID )
+	{
+		String sMethod = "[getRetrievalCountForApprovedApp] ";
+		log.info(sMethod + "::Called with transactionID = " + argTransactionID);
+
+		Integer retrievalCount = 0;
+		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'" ;
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, argTransactionID);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();			
+
+			while (resultSet.next())
+			{
+				retrievalCount = new Integer(resultSet.getInt("RETRIEVAL_COUNT"));
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		log.info(sMethod + "::RetrievalCount = " + retrievalCount);
+		return retrievalCount;
+	}
+	
+
+	public void updateRetrievalCountForApprovedApp(String argTransactionID) throws Exception
+	{
+		String sMethod = "[updateRetrievalCountForApprovedApp] ";
+		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID);
+
+		// Create sql statement
+		//update WICI_REQUESTQUEUE SET RETRIEVAL_COUNT=1 WHERE TRANSACTION_ID='D7BC4391-BA4C-47BA-9AA1-21231B9ED185' AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'
+		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RETRIEVAL_COUNT = ? WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try
+		{
+			Integer currentRetrievalCount = getRetrievalCountForApprovedApp(argTransactionID);
+			int newValue = currentRetrievalCount.intValue() + 1;
+			
+			log.info(sMethod + "::Updating with new value = " + newValue );
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1,newValue);
+			preparedStatement.setString(2, argTransactionID);
+
+			preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+
+	}	
+	
 	public String updateAccountApplicationData(String argTransactionID, String argAccountApplicationResponse, String argTransactionState) throws Exception
 	{
 		String sMethod = "[updateAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter argTransactionID:" + argTransactionID + "::argAccountApplicationResponse::" + argAccountApplicationResponse + "::argTransactionState::"
-				+ argTransactionState);
+		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID + ", RESPONSE_DATA=" + argAccountApplicationResponse + ", TRANSACTION_STATE=" + argTransactionState);
 
 		// Create sql statement
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ? WHERE TRANSACTION_ID = ?";
@@ -487,6 +783,7 @@ public class WICIDBHelper
 
 		try
 		{
+			
 			connection = connectToDB(false);
 
 			preparedStatement = connection.prepareStatement(sql);
@@ -513,19 +810,150 @@ public class WICIDBHelper
 		return argTransactionID;
 	}
 
-	public String getAccountApplicationData(String argTransactionID) throws Exception
+	public PendAccountApplicationResponse updatePendingAccountApplicationData(PendAccountApplicationRequest argPAARequestObject) throws PendingApplicationDatabaseUpdateException
 	{
-		String sMethod = "[getAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter argTransactionID:" + argTransactionID);
+		String sMethod = "[updatePendingAccountApplicationData] ";
+		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?, ADM_APP_ID = ? WHERE TRANSACTION_ID = ?";
+		log.info(sMethod + "::SQL::" + sql);
 
+		WICIResponse convertedRequestToResponse = new WICIObjectsHelper().convertPendAccountApplicationRequestToWICIResponse(argPAARequestObject);
+		Gson gson = new Gson();
+		
+		String responseJSON = gson.toJson(convertedRequestToResponse, WICIResponse.class);		
+		String transactionState = ( "PENDING".equalsIgnoreCase(argPAARequestObject.getAppStatus()) ? AppConstants.QUEUE_REQUEST_PENDING : AppConstants.QUEUE_REQUEST_COMPLETE );
+		String admAppId = argPAARequestObject.getApplicationId();
+		String transactionId = argPAARequestObject.getExternalReferenceId();
+
+		log.info(sMethod + " Attempting to update with the following values: ");		
+		log.info(sMethod + " responseJSON= " + responseJSON);
+		log.info(sMethod + " transactionState= " + transactionState);
+		log.info(sMethod + " admAppId= " + admAppId);
+		log.info(sMethod + " transactionId= " + transactionId);
+		
+		PendAccountApplicationResponse updateResponse = new PendAccountApplicationResponse();
+		updateResponse.setStatus(AppConstants.PEND_ACCOUNT_APPLICATION_REQUEST_UPDATE_FAILURE);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			preparedStatement.setString(1, responseJSON);
+			preparedStatement.setString(2, transactionState);
+			preparedStatement.setString(3, admAppId);
+			preparedStatement.setString(4, transactionId);
+
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+			updateResponse.setStatus(AppConstants.PEND_ACCOUNT_APPLICATION_REQUEST_UPDATE_SUCCESS);
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::EXCEPTION::" + ex.getMessage());
+			throw new PendingApplicationDatabaseUpdateException(ex.getMessage());			
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+
+		return updateResponse;	
+	}
+	
+	
+	public AccountApplicationSubmissionResponse retrievePendingApplicationData( String argRetrievalToken, String argPhoneNumber ) throws PendingApplicationRetrievalException
+	{
+		String sMethod = "[retrievePendingApplicationData] ";
+		argRetrievalToken=argRetrievalToken.toUpperCase();
+		log.info(sMethod + "::Called with parameter RETRIEVAL_TOKEN=" + argRetrievalToken + ", CURRENT_TELEPHONE=" + argPhoneNumber);
+
+		AccountApplicationSubmissionResponse submissionResponse = new AccountApplicationSubmissionResponse();
+		
 		// Create sql statement
-		String sql = "SELECT RESPONSE_DATA FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_TYPE = ? AND TRANSACTION_STATE = ?";
+		String sql = "SELECT REQUEST_DATA, RETRIEVAL_COUNT, TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? AND TRANSACTION_STATE IN (?,?)";
 		log.info(sMethod + "::SQL::" + sql);
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		String accountApplicationResponse = "";
+		int rowCount = 0;
+		
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			preparedStatement.setString(1, argRetrievalToken);
+			preparedStatement.setString(2, argPhoneNumber);
+			preparedStatement.setString(3, AppConstants.QUEUE_REQUEST_COMPLETE);
+			preparedStatement.setString(4, AppConstants.QUEUE_REQUEST_PENDING);
+
+			// Get only the first row from the table
+			preparedStatement.setMaxRows(1);
+
+			// Execute a query
+			resultSet = preparedStatement.executeQuery();
+
+			
+			// Extract data from result set
+			while (resultSet.next())
+			{
+				rowCount ++;
+				// Retrieve accountApplication response
+				submissionResponse.setTransactionState(resultSet.getString("TRANSACTION_STATE"));
+
+				String responseDataString = resultSet.getString("RESPONSE_DATA");
+				
+				Gson gson = new Gson();
+				WICIResponse responseData = gson.fromJson(responseDataString, WICIResponse.class);								
+				submissionResponse.setResponseData(responseData);
+				
+				submissionResponse.setRetrievalToken(resultSet.getString("RETRIEVAL_TOKEN"));
+
+				if(responseDataString.contains("APPROVED") || responseDataString.contains("DECLINED")){
+				
+					String requestDataString = resultSet.getString("REQUEST_DATA");
+					ReceiptCustomerInfoHelper activationItemsBuilder = new ReceiptCustomerInfoHelper();
+					ReceiptCustomerInfo customerInformationPortionOfReceipt = activationItemsBuilder.getCustomerInformationPortionOfReceipt(requestDataString);				
+					CreditCardApplicationData activationItems = activationItemsBuilder.convertToCreditCardApplicationDataForPrintout(customerInformationPortionOfReceipt);
+					
+					submissionResponse.setActivationItems(activationItems);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::EXCEPTION::" + ex.getMessage());
+			throw new PendingApplicationRetrievalException(ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return submissionResponse;		
+	}
+	
+	public AccountApplicationSubmissionResponse retrieveAccountApplicationResponse(String argTransactionID) throws Exception
+	{
+		String sMethod = "[retrieveAccountApplicationResponse] ";
+		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID + ", TRANSACTION_STATE IN (" + AppConstants.QUEUE_REQUEST_COMPLETE + ", " +AppConstants.QUEUE_REQUEST_PENDING + ")");
+
+		AccountApplicationSubmissionResponse submissionResponse = new AccountApplicationSubmissionResponse();
+		
+		// Create sql statement
+		String sql = "SELECT TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_TYPE = ? AND TRANSACTION_STATE IN ( ?,? )";
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try
 		{
@@ -536,6 +964,7 @@ public class WICIDBHelper
 			preparedStatement.setString(1, argTransactionID);
 			preparedStatement.setString(2, TRANSACTION_TYPE);
 			preparedStatement.setString(3, AppConstants.QUEUE_REQUEST_COMPLETE);
+			preparedStatement.setString(4, AppConstants.QUEUE_REQUEST_PENDING);			//
 
 			// Get only the first row from the table
 			preparedStatement.setMaxRows(1);
@@ -547,7 +976,18 @@ public class WICIDBHelper
 			while (resultSet.next())
 			{
 				// Retrieve accountApplication response
-				accountApplicationResponse = resultSet.getString("RESPONSE_DATA");
+				//accountApplicationResponse = resultSet.getString("RESPONSE_DATA");
+				//retrievalToken = resultSet.getString("RETRIEVAL_TOKEN");
+				submissionResponse.setTransactionState(resultSet.getString("TRANSACTION_STATE"));
+				
+				String responseDataString = resultSet.getString("RESPONSE_DATA");
+				
+				Gson gson = new Gson();
+				WICIResponse responseData = gson.fromJson(responseDataString, WICIResponse.class);								
+				submissionResponse.setResponseData(responseData);
+				
+				submissionResponse.setRetrievalToken(resultSet.getString("RETRIEVAL_TOKEN"));
+				
 			}
 		}
 		catch (Exception ex)
@@ -560,13 +1000,13 @@ public class WICIDBHelper
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
-		return accountApplicationResponse;
+		return submissionResponse;
 	}
 
 	public int deleteAccountApplicationData(String argTransactionID) throws Exception
 	{
 		String sMethod = "[deleteAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter argTransactionID:" + argTransactionID);
+		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID);
 
 		// Create sql statement
 		String sql = "DELETE FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID=?";
@@ -614,7 +1054,7 @@ public class WICIDBHelper
 	}
 
 	/**
-	 * USE IT ONLY FOR UNIT TEST`S
+	 * USE IT ONLY FOR UNIT TESTS
 	 */
 	private Connection mockedConnection;
 
@@ -622,4 +1062,7 @@ public class WICIDBHelper
 	{
 		this.mockedConnection = mockedConnection;
 	}
+
+	
 }
+

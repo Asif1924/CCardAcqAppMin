@@ -19,6 +19,7 @@ import com.ctfs.WICI.Interfaces.IResponse;
 import com.ctfs.WICI.Model.AuthfieldValue;
 import com.ctfs.WICI.Model.UnauthorizedDeviceException;
 import com.ctfs.WICI.Model.XSSAttackException;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
 import com.ctfs.WICI.Servlet.Model.WICIAuthorizationFailedResponse;
 import com.ctfs.WICI.Servlet.Model.WICILoginFailedResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
@@ -204,6 +205,42 @@ public class WICIServletMediator
 	}
 
 
+	public void processXMLResponse(PendAccountApplicationResponse response){
+		String sMethod = "[processXMLResponse]";
+		log.info(sMethod + "::Called!");
+		
+		PrintWriter writer = null;
+		try
+		{
+			validateServletResponse(servletResponse);
+			validateResponse(response);
+			updateResponseHeaderXML();
+			String responseAsXML = new WICIObjectsHelper().serializePendAccountApplicationResponse(response);
+			responseAsXML = responseAsXML.replace("com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse", "PendAccountApplicationResponse");
+			writer = this.servletResponse.getWriter();
+			writer.append(responseAsXML);
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + "::Error occurred during process servlet response::" + e.getMessage());
+		}
+		finally
+		{
+			if (writer != null)
+			{
+				try
+				{
+					writer.flush();
+					writer.close();
+				}
+				catch (Exception e)
+				{
+					log.warning(sMethod + "::Error occurred during close 'PrintWriter' stream::" + e.getMessage());
+				}
+			}
+		}
+	}
+	
 	public void processHttpResponse(IResponse response)
 	{
 		processHttpResponse(response, null);
@@ -214,7 +251,7 @@ public class WICIServletMediator
 		String sMethod = "[processHttpResponse]";
 		log.info(sMethod + "::Called!");
 
-		GsonBuilder gson = new GsonBuilder();
+		GsonBuilder gson = new GsonBuilder().disableHtmlEscaping();
 
 		PrintWriter writer = null;
 
@@ -256,10 +293,18 @@ public class WICIServletMediator
 		}
 	}
 
+	protected void updateResponseHeaderXML()
+	{
+		servletResponse.setContentType("text/xml");
+		servletResponse.addHeader("X-Frame-Options", "SAMEORIGIN");
+		servletResponse.addHeader("Access-Control-Allow-Origin", "*");
+	}	
+	
 	protected void updateResponseHeader()
 	{
 		servletResponse.setContentType("application/json");
 		servletResponse.addHeader("X-Frame-Options", "SAMEORIGIN");
+		servletResponse.addHeader("Access-Control-Allow-Origin", "*");
 	}
 
 	protected void grabRequestBody() throws Exception
@@ -407,7 +452,7 @@ public class WICIServletMediator
 
 	private JsonElement processJsonRequestBody(String postRequestBody)
 	{
-		String sMethod = "[tryGetBRBTransactionIdParam]";
+		String sMethod = "[processJsonRequestBody]";
 		log.info(String.format("%s::Called with parameters:: PostRequestBody='%s'", sMethod, postRequestBody));
 
 		JsonParser jParser = new JsonParser();

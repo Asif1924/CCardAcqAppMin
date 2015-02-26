@@ -553,7 +553,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "acquirerCode",
     "tuSessionID",
     "tuExamResult",
-    "emailConsentFlag"
+    "emailConsentFlag",
+    "requestedCreditLimit" //US3270 Feb 17th, 2015
 })
 public class AccountApplicationRequestType
     implements Serializable
@@ -722,7 +723,9 @@ public class AccountApplicationRequestType
     protected String tuExamResult;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String emailConsentFlag;
-
+    
+    protected Integer requestedCreditLimit;  //US3270 Feb 17th, 2015
+    
     /**
      * Gets the value of the externalReferenceId property.
      * 
@@ -2678,5 +2681,34 @@ public class AccountApplicationRequestType
     public void setEmailConsentFlag(String value) {
         this.emailConsentFlag = value;
     }
+    
+    
+    //US3270 Feb 17th, 2015
+        
+    
+    /**
+     * Gets the value of the requestedCreditLimit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getRequestedCreditLimit() {
+        return requestedCreditLimit;
+    }
+
+    /**
+     * Sets the value of the requestedCreditLimit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setRequestedCreditLimit(Integer value) {
+        this.requestedCreditLimit = value;
+    }
+    
 
 }

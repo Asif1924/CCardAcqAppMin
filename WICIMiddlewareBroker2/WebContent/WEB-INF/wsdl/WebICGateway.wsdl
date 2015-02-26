@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:ns="http://www.channel.ctfs.ctc.com/AccountAcquisition/" xmlns:ns1="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.ctc.ctfs.channel.com/WebICGateway/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="WebICGateway" targetNamespace="http://www.ctc.ctfs.channel.com/WebICGateway/">
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WebICGateway" targetNamespace="http://www.ctc.ctfs.channel.com/WebICGateway/" xmlns:ns="http://www.channel.ctfs.ctc.com/AccountAcquisition/" xmlns:ns1="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.ctc.ctfs.channel.com/WebICGateway/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <wsdl:types>
     <xsd:schema targetNamespace="http://www.ctc.ctfs.channel.com/WebICGateway/" xsi:schemaLocation="http://www.channel.ctfs.ctc.com/AccountAcquisition/AccountApplication.xsd">
 			<xsd:element name="processRequest">
@@ -122,22 +122,30 @@
 			</xsd:simpleType>
 		</xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ProcessRequestResponse">
-    <wsdl:part element="tns:MessageHeader" name="messageHeader"/>
-    <wsdl:part element="tns:ResponseBody" name="responseBody"/>
-  </wsdl:message>
   <wsdl:message name="ProcessRequestRequest">
-    <wsdl:part element="tns:MessageHeader" name="messageHeader"/>
-    <wsdl:part element="tns:RequestBody" name="requestDocument"/>
+    <wsdl:part element="tns:MessageHeader" name="messageHeader">
+    </wsdl:part>
+    <wsdl:part element="tns:RequestBody" name="requestDocument">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProcessRequestResponse">
+    <wsdl:part element="tns:MessageHeader" name="messageHeader">
+    </wsdl:part>
+    <wsdl:part element="tns:ResponseBody" name="responseBody">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:message name="ProcessRequest_faultMsg">
-    <wsdl:part element="tns:messageFault" name="messageFault"/>
+    <wsdl:part element="tns:messageFault" name="messageFault">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="WebICGateway">
     <wsdl:operation name="ProcessRequest">
-      <wsdl:input message="tns:ProcessRequestRequest"/>
-      <wsdl:output message="tns:ProcessRequestResponse"/>
-      <wsdl:fault message="tns:ProcessRequest_faultMsg" name="fault"/>
+      <wsdl:input message="tns:ProcessRequestRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ProcessRequestResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ProcessRequest_faultMsg" name="fault">
+    </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="AccountAcquisitionPortal" type="tns:WebICGateway">
@@ -161,7 +169,7 @@
   </wsdl:binding>
   <wsdl:service name="WebICGateway">
     <wsdl:port binding="tns:AccountAcquisitionPortal" name="AccountAcquisitionPortal">
-      <soap:address location="http://localhost:9080/WebICGateway/services/AccountAcquisitionPortal"/>
+      <soap:address location="http://dev8.ctal.ctc:80/WebICGateway/services/AccountAcquisitionPortal"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_fr = {
-	version											:							"1",
+	version											:							"2",
 	yes 											: 							"Oui",
 	no                                 				  :                         "Non",
 	cancel  										  : 						"Annuler",
@@ -23,7 +23,7 @@ WICI.dictionary_fr = {
 	settings_chooseProductButton                      :                         "Annuler demande de carte",
 	settings_printerSetupButton                       :                         "Configuration de l'imprimante",
 	settings_testPrintButton						  :							"Impression d'essai",
-	settings_retrieveButton 						  : 						"FR_ Retrieve Application",
+	settings_retrieveButton 						  : 						"Retrouver demande",
 	settings_reEstablishWifiButton  				  :                         "Re-établir la connexion WIFI",
 	settings_reEstablishWifiSuccess  				  :                         "Profil WIFI Re-créé",
 	settings_reEstablishWifiFailure  				  :                         "Échec recréer le profil WIFI",
@@ -79,6 +79,8 @@ WICI.dictionary_fr = {
 	chooseProduct_OptionsMasterCard                   :                         "MasterCard<sup>MD</sup> Options<sup>MD</sup> de Canadian Tire",
 	chooseProduct_GasAdvantageMasterCard              :                         "Carte MasterCard Avantage Essence",
 	chooseProduct_CashAdvantageMasterCard             :                         "Carte MasterCard Avantage Remise",
+	chooseProduct_NoSpecificCard					  :							"carte",
+
 
 	chooseProduct_PromoCode                           :                         "Code promotionnel",
 	chooseProduct_Program							  :							"Programme ",
@@ -553,6 +555,8 @@ WICI.dictionary_fr = {
 	printScreen_SubTitle                              :                         "Merci de demander la",
 	printScreen_Button_Label                          :                         "Imprimer à nouveau",
 
+	printScreen_TokenLabel								: 						"Reference&nbsp;#&nbsp;",
+	
 	printScreen_UnknownStatus                         :                         "État de demande inconnu",
 	printScreen_ApplicationApproved                   :                         "Votre demande a été APPROUVÉE.",
 	printScreen_ApplicationDeclined                   :                         "Malheureusement, la réponse à votre demande n'a pu être traitée. Veuillez vérifier votre courrier régulièrement.",
@@ -578,23 +582,34 @@ WICI.dictionary_fr = {
 	// Print screen END ..............................................................
 
 	// Pending screen START
-	pendingScreen_ThankYou 								: 	"fr_Thank you for applying for the",
-	pendingScreen_Token 								: 	"fr_Reference&nbsp;#&nbsp;",
-	pendingScreen_PhoneNumberLabel						:	"fr_Phone Number",
+	pendingScreen_ThankYou 								: 	"Nous vous remercions d'avoir présenté une demande de carte ",
+	pendingScreen_TokenLabel							: 	"N<sup>o</sup> de référence",
+	pendingScreen_PhoneNumberLabel						:	"Téléphone",
 	
+	pendingScreen_Retrieve_InvocationMessage 			: 	"Vous avez choisi de récupérer une demande. Les renseignements saisis sur votre demande actuelle ne pourront pas être conservés et seront supprimés définitivement. Voulez-vous continuer?",
+	pendingScreen_Retrieve_Title 						: 	"Récupérer une demande en cours",
+
 	pendingScreen_Check60 								: 	"fr_We'll check again in 60 seconds (Attempt ",
-	pendingScreen_OfAttempt15							: 	"fr_ of 15)",
+	pendingScreen_CheckXXSeconds_Text1					: 	"Nous revérifierons l'état de votre demande dans ",
+	pendingScreen_CheckXXSeconds_Text2					:	" secondes (tentative ",
+	pendingScreen_OfAttemptYY_Text1						: 	"de ", 
+	pendingScreen_OfAttemptYY_Text2						:	" )",
 	
-	pendingScreen_ParaBlock_PleaseWait					:	"fr_Please wait while your application is being reviewed.<br>This process could take up to 15 minutes.<br><br>We're checking the status of your application...<br><br>If you would like to shop in the store while you're waiting, you can print your reference number using the button below and check back within 30 minutes to see the status of your application.",
-	pendingScreen_Label_RefGood30mins					: 	"fr_(Please note: the reference # is only valid for 30 minutes)<br><br><br>",
-	pendingScreen_ParaBlock_IfUnable					:	"fr_<br><br>OR<br><br>If you are unable to wait at this time and would prefer your application status confirmation to be mailed to you, press the button below and we will send you an update in the mail.<br>",
-	pendingScreen_ParaBlock_NoteDays					:	"fr_<br>Please note: if can take 7-10 days for you to receive the information.<br><br><br>",
+	pendingScreen_ParaBlock_PleaseWait					:	"Veuillez patienter pendant que votre demande est en cours de traitement.<br>Le traitement pourrait prendre 15 minutes.<br><br>",
+	pendingScreen_Parablock_We_are_checking				:	"Nous vérifions l'état de votre demande…",
+	pendingScreen_ParaBlock_IfYouShop					:	"<br><br>Si vous voulez magasiner pendant ce temps, vous pouvez imprimer votre numéro de référence en appuyant sur le bouton ci-dessous. Revenez dans 30 minutes pour connaître l'état de votre demande.",	
+
+	pendingScreen_Label_RefGood30mins					: 	"(Veuillez noter : le n° de référence est valide pour 30 minutes seulement.)<br><br><br>",
+	pendingScreen_ParaBlock_IfUnable					:	"<br><br>OU<br><br>Si vous ne pouvez pas attendre et que vous préférez recevoir par la poste une confirmation de l'état de votre demande, appuyez sur le bouton ci-dessous.<br>",
+	pendingScreen_ParaBlock_NoteDays					:	"Veuillez noter : vous devez prévoir 7 à 10 jours avant de recevoir la confirmation.<br><br><br>",
 	
 	
-	pendingScreen_PrintButtonLabel 						: 	"fr_PRINT REFERENCE # AND CHECK STATUS IN 30 MINUTES",
-	pendingScreen_EmailButtonLabel 						: 	"fr_RECEIVE STATUS IN THE MAIL",
-	
-	pendingScreen_CheckAppStatusLabel 					: 	"fr_CHECK APPLICATION STATUS",
+	pendingScreen_PrintButtonLabel 						: 	"<span style='font-size:16px'>IMPRIMER N° DE RÉFÉRENCE ET VÉRIFIER LA DEMANDE DANS 30 MINUTES</span>",
+	pendingScreen_EmailButtonLabel 						: 	"<span style='font-size:16px'>ENVOYER CONFIRMATION PAR LA POSTE</span>",
+	pendingScreen_PrintToken_Error						:	"Malheureusement, votre numéro de référence n'a pas pu être imprimé. Veuillez réessayer.",
+	pendingScreen_CheckAppStatusLabel 					: 	"VÉRIFIER L'ÉTAT DE LA DEMANDE",
+
+	pendingScreen_RetrieveFailed						:	"La demande ne peut être repérée. Veuillez réessayer.",
 	
 	// Pending screen end
 

@@ -27,6 +27,9 @@ import com.channel.ctfs.ctc.webicgateway.ResponseModeType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationResponse;
+import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
+import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIMessageType;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
@@ -123,7 +126,7 @@ public class WICIObjectsHelper
 
 	public WebICCheckLocationResponse deserializeXMLToWebICCheckLocationResponseObject(String xmlStr)
 	{
-		String sMethod = this.getClass().getName() + "[deserializeXMLToWebICCheckLocationResponseObject] ";
+		String sMethod = this.getClass().getName() + "[deserializeXMLToWebICCheckLocationResponseObject] xmlStr=" + xmlStr;
 		log.info(sMethod);
 
 		WebICCheckLocationResponse result = null;
@@ -239,6 +242,97 @@ public class WICIObjectsHelper
 
 		dateString = dateFormatter.format(theDate);
 		return dateString;
+	}
+
+	public PendAccountApplicationRequest deserializeXMLToPendAccountApplicationRequestObject(String pendAccountApplicationRequestXML)
+	{
+		String sMethod = this.getClass().getName() + "[deserializeXMLToPendAccountApplicationRequestObject] ";
+		log.info(sMethod);
+
+		PendAccountApplicationRequest deserializedPendAccountApplicationResponseObject = new PendAccountApplicationRequest();
+		XStream xstream = new XStream(new DomDriver());
+		xstream.alias("PendAccountApplicationRequest", PendAccountApplicationRequest.class);
+		
+		deserializedPendAccountApplicationResponseObject = (PendAccountApplicationRequest) xstream.fromXML(pendAccountApplicationRequestXML);
+
+		return deserializedPendAccountApplicationResponseObject;
+	}
+
+	public String serializePendAccountApplicationResponse(PendAccountApplicationResponse argPAAResponse)
+	{
+		XStream xstream = new XStream();
+		String pendAAResponseXML = xstream.toXML(argPAAResponse);
+		return pendAAResponseXML;
+	}
+
+	public WICIResponse convertPendAccountApplicationRequestToWICIResponse(PendAccountApplicationRequest pAARequest)
+	{
+		
+		WICIResponse convertedResponse = new WICIResponse();
+		PendAccountApplicationRequest mangledPendAARequest = new PendAccountApplicationRequest();
+		if( "PENDING".equalsIgnoreCase(pAARequest.getAppStatus()) || "DECLINED".equalsIgnoreCase(pAARequest.getAppStatus()) ){
+			mangledPendAARequest.setAppStatus(pAARequest.getAppStatus());
+			convertedResponse.setData(mangledPendAARequest);
+		}else if( "APPROVED".equalsIgnoreCase(pAARequest.getAppStatus())){
+			
+			mangledPendAARequest.setAccountNumber(pAARequest.getAccountNumber());
+			mangledPendAARequest.setAppStatus(pAARequest.getAppStatus());
+			mangledPendAARequest.setApr(pAARequest.getApr());
+			mangledPendAARequest.setCashAPR(pAARequest.getCashAPR());
+			mangledPendAARequest.setCreditLimit(pAARequest.getCreditLimit());
+			mangledPendAARequest.setCustomerValueInd(pAARequest.getCustomerValueInd());
+			mangledPendAARequest.setExpiryDate(pAARequest.getExpiryDate());
+			
+			mangledPendAARequest.setAccountReference(null);
+			mangledPendAARequest.setExternalReferenceId(null);
+			mangledPendAARequest.setApplicationId(null);
+			convertedResponse.setData(mangledPendAARequest);
+		}
+		
+		return convertedResponse;
+	}
+
+	public AccountApplicationRequestType deserializeXMLToAccountApplicationRequestType(String argAccountApplicationRequestXML)
+	{
+		String sMethod = this.getClass().getName() + "[deserializeXMLToAccountApplicationRequestType] ";
+		log.info(sMethod);
+
+		//String convertedAccountApplicationRequestXML = argAccountApplicationRequestXML;
+		String convertedAccountApplicationRequestXML = convertToProperTags(argAccountApplicationRequestXML);
+		
+		AccountApplicationRequestType deserializedAccountApplicationResponseObject = new AccountApplicationRequestType();
+		XStream xstream = new XStream(new DomDriver());
+		xstream.alias("AccountApplicationRequestType", AccountApplicationRequestType.class);
+		xstream.registerConverter(new XMLGregorianCalendarConverter());
+		//xstream.alias("dateOfBirth", String.class); XMLGregorianCalendar
+		xstream.alias("dateOfBirth", XMLGregorianCalendar.class);
+		deserializedAccountApplicationResponseObject = (AccountApplicationRequestType) xstream.fromXML(convertedAccountApplicationRequestXML);
+
+		return deserializedAccountApplicationResponseObject;
+	}
+	
+	private String convertToProperTags( String argWrongTagVersion ){
+		String correctedTagVersion = new String();
+		if( argWrongTagVersion.indexOf("AccountApplicationRequest")>0){
+		//if( argWrongTagVersion.substring("<AccountApplicationRequest>")!=-1){
+		//if( argWrongTagVersion.contains("AccountApplicationRequest")){
+			correctedTagVersion = argWrongTagVersion.replace("AccountApplicationRequest", "AccountApplicationRequestType");
+			//correctedTagVersion = correctedTagVersion.replace("</AccountApplicationRequest>", "</AccountApplicationRequestType>");
+		}
+		System.out.println (correctedTagVersion);
+		return correctedTagVersion;
+	}
+
+	public WICIResponse createUnretrievableResponse()
+	{
+		//We need to build this
+		//{"error":true,"msg":"UNRETRIEVABLE"}
+		WICIResponse unretrievableResponse = new WICIResponse();
+		
+		unretrievableResponse.setError(true);
+		unretrievableResponse.setData(null);
+		unretrievableResponse.setMsg("UNRETRIEVABLE");
+		return unretrievableResponse;
 	}
 
 }
