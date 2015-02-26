@@ -10,8 +10,12 @@
 			<a href="#" id="settings_chooseProductButton" data-rel="back" data-role="button" data-theme="c">${chooseProductButton}</a>
 			<a href="#" id="settings_printerSetupButton" data-rel="back" data-role="button" data-theme="c">${printerSetupButton}</a>
 			<a href="#" id="settings_testPrintButton" data-rel="back" data-role="button" data-theme="c">${testPrintButton}</a>
+			{{if retrieveButtonDisplayed}}
+				<a href="#" id="settings_retrieveButton" data-rel="back" data-role="button" data-theme="c">${retrieveButton}</a>
+			{{/if}}
+			<a href="#" id="settings_reEstablishWifiButton" data-rel="back" data-role="button" data-theme="c">${reEstablishWifiButton}</a>
 			<a href="#" id="settings_toggleLanguageButton" data-rel="back" data-role="button" data-theme="c">${toggleLanguageButton}</a>
-			<a href="#" id="settings_chancelButton" data-rel="back" data-role="button" data-theme="c">${chancelButton}</a>
+			<a href="#" id="cancel" data-rel="back" data-role="button" data-theme="c">${chancelButton}</a>
 		</div>
 	</div>
 </div>

@@ -1,96 +1,11 @@
 <script id="WICISignatureScreen-template" type="text/x-jquery-tmpl">
-	
-	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-	
-<!--
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
-				</td>
-				<td class="unselectedBreadcrumbCell">
-					<div class="visitedLeftCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<div class="notVisitedCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
--->
-
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
-					</div>
-					<div class="breadcrumbTextDivFirst" >
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
-					</div>
-				</td>
-				<td class="unselectedBreadcrumbCell">
-					<div class="visitedLeftCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb rightalign">3.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle unselectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-					</div
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<div class="notVisitedCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell nowrap">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
-
-		</table>
-	</div>
-	
-	<div class="ScreenLayout" id="SignatureScreen_PageContents">	
+	<div class="ScreenLayout" id="SignatureScreen_PageContents">
 		<br>
-		<br>				
+		<br>
 		<center>
 			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
-		</center>		
-		<br>		
+		</center>
+		<br>
 		<p><span data-translationKey="signatureScreen_Header"/></p>
 
 		<ul>
@@ -108,7 +23,7 @@
 				{{else}}
 					<li><span data-translationKey="signatureScreen_License3"/></li>
 				{{/if}}
-			
+
 			<br>
 			<li><span data-translationKey="signatureScreen_License4"/></li>
 			<br>
@@ -127,32 +42,32 @@
 				<br>
 				<li><span data-translationKey="signatureScreen_License7b"/></li>
 				<br>
-			{{/if}}	
+			{{/if}}
 			<li><span data-translationKey="signatureScreen_License8"/></li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License9"/></li>
-			
+
 			<!--<br>//-->
 			<!--<br>//-->
 			<!--<li><span data-translationKey="signatureScreen_License4"/></li>//-->
 			<!--<br>//-->
 			<!--<br>//-->
-			<!--<li><span data-translationKey="signatureScreen_License5"/></li>//-->	
+			<!--<li><span data-translationKey="signatureScreen_License5"/></li>//-->
 		</ul>
 		<br>
 		<div class="warningDIV" id="warningDIVSig" name="warningDIVSig">
-		<center>		
+		<center>
 		<p class="warningHeader" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
 	    <table class="warningTable" id="warningTableSig" name="warningTableSig" >
         <tr>
             <td>
 							{{if CardType === 'OMR' }}
-								 <img src="app/images/omr.jpg" style="margin-top:10px;"></img>
+								 <img src="app/images/omr.jpg" style="margin-top:10px;"/>
 							{{else CardType === 'OMP' }}
-								<img src="app/images/omp.gif" style="margin-top:10px;"></img>
+								<img id="SignatureImage" src="app/images/omp_en.png" style="margin-top:10px;"/>
 							{{else}}
-								<img src="app/images/omc.gif" style="margin-top:10px;"></img>
-							{{/if}}	
+								<img id="SignatureImage" src="app/images/omc_en.gif" data-lang-src width="180" style="margin-top:10px;"/>
+							{{/if}}
 							<br/>
            </td>
             <td style="padding:25px;">
@@ -163,16 +78,16 @@
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
 							{{else}}
 								<span data-translationKey="signature_OptionsMasterCard" ></span>
-							{{/if}}	
-							
+							{{/if}}
+
 				</b>
             </td>
         </tr>
         </table><br />
-        
+
 			<div class="signatureContainer sugnatureFixes" >
-				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">				
-					<div class="signature" id="signature"/>															
+				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
+					<div class="signature" id="signature"/>
 				</div>
 			</div>
 			<br>
@@ -181,40 +96,40 @@
 			</span>
 		</center>
 			<br/>
-			<div style="padding-left:15px;"> <!-- To move this away from the RED border a little -->
-				<label id="signatureScreen_UserName">${ClientName}</label>				
-		
+			<div class="signatureCredentialsContainer signatureTopPadding">
+				<label id="signatureScreen_UserName">${ClientName}</label>
+
 				<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
-						
-				<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer">
-					<div class="rightContaier">
-							<div class="wiciCheckBox" >	
-								<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />		
-								<label for="signatureScreen_AcceptAgreement"/>									
+
+				<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer align-vertical-middle-container">
+					<div class="rightContaier align-vertical-middle-item">
+							<div class="wiciCheckBox" >
+								<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />
+								<label for="signatureScreen_AcceptAgreement"/>
 							</div>
 					</div>
-					<div class="leftContainer  opCheckBoxLabel">
+					<div class="leftContainer opCheckBoxLabel align-vertical-middle-item">
 						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />{{if CardType === 'OMR' }}
 								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
 							{{else CardType === 'OMP' }}
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
 							{{else}}
 								<span data-translationKey="signature_OptionsMasterCard" ></span>
-							{{/if}}	
+							{{/if}}
 					</div>
 				</div>
 			</div>
 		</div>
 		<br>
 		<br>
-		<br>		
+		<br>
 		<center>
             <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
-            	<span class="buttonText" data-translationKey="sigScreen_ProceedToOptProducts"></span>
+            	<span class="buttonText" data-translationKey="sigScreen_ProceedToConfirmation"></span>
 			</span>
         </center>
 		<br>
 		<br>
 		<br>
-	</div>		
+	</div>
 </script>

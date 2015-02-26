@@ -1,81 +1,4 @@
 <script id="WICIPrintDemoScreen-template" type="text/x-jquery-tmpl">
-	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-<!--	
-		<tr>
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">3.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
--->
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
-					</div>
-					<div class="breadcrumbTextDivFirst" >
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">3.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-					</div
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell nowrap">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
-		</table>
-	</div>
-
     <div class="ScreenLayout" id="printScreen_PageContents">
 	<br>
 	<br>
@@ -92,19 +15,22 @@
 			<br>
 			<span class="summaryPageSubTitle" data-translationKey="${ activationItems.getAccountApplicationStatus() }" />
 			<br>
-			
-        </div>			
-		<br>	
+
+        </div>
 		<br>
-		<br>		
-	    <span id="printScreen_PrintButton" class="button blackflat applyButtonWidth">
+		<br>
+		<br>
+	    <span id="printScreen_PrintButton" class="button blackflat afterPrintButtonWidth">
 	    	<span class="buttonText" data-translationKey="printScreen_Button_Label"><span class="pageTitle" data-translationKey="printScreen_Button_LabelPrint"></span>
-		</span>	
+		</span>
 	 </center>
-	 <br><br><br><br><br><br><br><br><br>
-	 <center>
-            <span id="print_StartNewApplicationButton" class="button greenflat applyButtonWidth submitButton">
+	 <br>
+	    <center>
+            <span id="print_StartNewApplicationButton" class="button greenflat afterPrintButtonWidth uppercase">
             	<span class="buttonText" data-translationKey="printResponseStatus_StartNewApplication_Button"></span>
+			</span><br>
+			<span id="print_LogOutButton" class="button darkgrayflat afterPrintButtonWidth uppercase">
+            	<span class="buttonText" data-translationKey="printResponseStatus_LogOut_Button"></span>
 			</span>
         </center>
     </div>

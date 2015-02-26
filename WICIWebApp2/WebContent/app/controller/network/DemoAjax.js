@@ -78,7 +78,7 @@ WICI.Demo_LookupResponse = {
 	"error" : false,
 	"msg" : "SUCCESSFUL find address for user epamfmr",
 	"data" : {
-		"standardAddressLine1" : [ "100 Demo Street" ],
+		"standardAddressLine1" : [ "100 Demo Street", "200 DEMO STREET" ],
 		"standardAddressLine2" : [ "" ],
 		"standardCityName" : "Oakville",
 		"standardProvince" : "ON",

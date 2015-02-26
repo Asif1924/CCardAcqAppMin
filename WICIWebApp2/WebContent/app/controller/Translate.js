@@ -36,6 +36,8 @@ WICI.Translate = function(translationLibrary, languages) {
 		var translateConf = buildTranslateConf(useAlternateLanguage);
 		setDictionary(translateConf.language);
 		translate(pageToTranslateId, translateConf.callback);
+		translateClasses(pageToTranslateId);
+        translateImgSources(pageToTranslateId);
 	}
 
 	function buildTranslateConf(useAlternateLanguage) {
@@ -61,6 +63,27 @@ WICI.Translate = function(translationLibrary, languages) {
 		callback();
 	}
 
+    function translateClasses(pageToTranslateId) {
+        $((pageToTranslateId ? "#" + pageToTranslateId + " " : "")  + "[data-lang-class]").each(function() {
+            if (currentLanguageEnglish()) {
+                $(this).removeClass('fr');
+            } else {
+                $(this).addClass('fr');
+            }
+        });
+    }
+
+    function translateImgSources(pageToTranslateId) {
+        $((pageToTranslateId ? "#" + pageToTranslateId + " " : "")  + "[data-lang-src]").each(function() {
+            var src = $(this).prop('src');
+            if (currentLanguageEnglish()) {
+                $(this).prop('src', src.replace('_fr', '_en'));
+            } else {
+                $(this).prop('src', src.replace('_en', '_fr'));
+            }
+        });
+    }
+
 	function translateKey() {
 		return translationLibrary._(arguments[0], _.rest(arguments, 1));
 	}
@@ -73,11 +96,11 @@ WICI.Translate = function(translationLibrary, languages) {
 	function toggleLanguage(needToRefreshFlips) {
 		if (currentLanguage === languages.english) {
 			currentLanguage = languages.french;
-			moment.lang('fr');			
+			moment.lang('fr');
 			alternateLanguage = languages.english;
 		} else {
 			currentLanguage = languages.english;
-			moment.lang('en');			
+			moment.lang('en');
 			alternateLanguage = languages.french;
 		}
 		persistCurrentLanguage();
@@ -85,14 +108,14 @@ WICI.Translate = function(translationLibrary, languages) {
 		if (!needToRefreshFlips) {
 			// Notify subscribers about refreshFlipsEvent event
 			$.publish('refreshFlipsEvent', currentLanguage);
-		}	
-		
+		}
+
 		// Notify subscribers about languageChangedEvent event
 		$.publish('languageChangedEvent', currentLanguage);
-	}	 
+	}
 	
 	function setDictionary(language) {
-		translationLibrary.setDictionary(WICI["dictionary_" + language]);
+		translationLibrary.setDictionary(WICI.LocalStorageHelper(window).getVocabulary(language));
 	}
 
 	function setInitialLanguage() {

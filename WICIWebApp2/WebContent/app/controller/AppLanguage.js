@@ -9,17 +9,17 @@ WICI.AppLanguage = function () {
     this.init = function(translator) {
 		var sMethod = 'init() ';
         console.log(logPrefix + sMethod);
-        
         translate = translator;
         try {
         	if (cordova) {
-        		cordova.exec(retrieveStoredLanguageSuccess, retrieveStoredLanguageFailure, "AppLanguagePlugin", "getAppLanguage", []);
+                WICI.cordovaExecDeferred('AppLanguagePlugin', 'getAppLanguage')
+                    .done(retrieveStoredLanguageSuccess).fail(retrieveStoredLanguageFailure);
         	} else {
         		console.log(logPrefix + sMethod + "- Initiate ERROR: cordova === NULL");
         	}
         } catch (err) {
             console.log(logPrefix + sMethod + "- Initiate ERROR: " + err);            
-        }; 
+        }
     };
     
     function retrieveStoredLanguageSuccess(result) {
@@ -35,8 +35,8 @@ WICI.AppLanguage = function () {
         	
 		if ((appLanguage) && (translate) && (appLanguage != translate.getCurrentLanguageFSDPFormat())) {
 			translate.toggleLanguage();
-		};        
-    };
+		}
+    }
 
     function retrieveStoredLanguageFailure(error) {
 		var sMethod = 'retrieveStoredLanguageFailure():: ' + error;
@@ -44,8 +44,8 @@ WICI.AppLanguage = function () {
         
         if (translate) {
         	appLanguage = translate.getCurrentLanguageFSDPFormat();
-        };
-    };
+        }
+    }
     
     // ===========================================================================================
 	
@@ -64,23 +64,23 @@ WICI.AppLanguage = function () {
         
         try {
         	if (cordova) {
-        		cordova.exec(storeLanguageSuccess, storeLanguageFailure, "AppLanguagePlugin", "setAppLanguage", [language]);
+                WICI.cordovaExecDeferred('AppLanguagePlugin', 'setAppLanguage', [language])
+                    .done(storeLanguageSuccess).fail(storeLanguageFailure);
         	} else {
         		console.log(logPrefix + sMethod + "- Initiate ERROR: cordova === NULL");
         	}
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);            
-        };         	
+        }
 	};
 	
-    function storeLanguageSuccess(result) {
+    function storeLanguageSuccess(/*result*/) {
 		var sMethod = 'storeLanguageSuccess():: ';
         console.log(logPrefix + sMethod);
-    };
+    }
 
     function storeLanguageFailure(error) {
 		var sMethod = 'storeLanguageFailure():: ' + error;
         console.log(logPrefix + sMethod);
-    };	
-	
+    }
 };

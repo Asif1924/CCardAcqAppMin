@@ -1,83 +1,4 @@
-<script id="WICISummaryScreen-template" type="text/x-jquery-tmpl">	
-	
-	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-<!--
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>			
-					
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">3.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
--->
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
-					</div>
-					<div class="breadcrumbTextDivFirst" >
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">3.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-					</div
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell nowrap">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
-		</table>
-	</div>
+<script id="WICISummaryScreen-template" type="text/x-jquery-tmpl">
 	<div class="ScreenLayout" id="SummaryScreen_PageContents">
 	 	<br>
 	 	<br>
@@ -90,11 +11,11 @@
 		<br>
 		<div class="highlighterDIV" id="highlighterDIVPA" name="highlighterDIVPA">
 				<center>
-						<p class="highlighterHeader" id="highlighterHeaderPA" name="highlighterHeaderPA"><span data-translationKey="summary_highlighterHeader"/></p>									   
-				</center> 				
-			<center>				
+						<p class="highlighterHeader" id="highlighterHeaderPA" name="highlighterHeaderPA"><span data-translationKey="summary_highlighterHeader"/></p>
+				</center>
+			<center>
 			<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span>
-			</center>	 
+			</center>
 		</div>
         <br>
 		<br>
@@ -108,7 +29,7 @@
 			<!--
 	summary_SelectProduct_Card							:	"Card",
 	summary_SelectProduct_PromoCode						:	"Promo Code",
-	summary_SelectProduct_Province						:	"Province",			
+	summary_SelectProduct_Province						:	"Province",
 			//-->
 			<div id="summary_SelectedProduct_Area" >
 				<span class="pageSubTitle" data-translationKey="summary_SelectProduct_SubTitle"></span>
@@ -128,7 +49,7 @@
 	                        <span data-translationKey="summary_SelectProduct_PromoCode"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
-							<span data-translationKey=${activationItems.getModel('chooseProductModel').get('agencyProgram') == "BLANK"? "BLANK": /*activationItems.getModel('chooseProductModel').get('agencyPromoCode')*/ app.agencyPromoCode}></span>
+							<span id="promocode" data-translationKey=${activationItems.getModel('chooseProductModel').get('agencyProgram') == "BLANK"? "BLANK": /*activationItems.getModel('chooseProductModel').get('agencyPromoCode')*/ app.agencyPromoCode}></span>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -141,13 +62,13 @@
 	                </tr>
 	            </table>
 			</div>
-        <!--</center>//-->		
-		<!-- 
-	  personalData_CTMNumber_TextField					:	"",	
+		<!--</center>//-->
+		<!--
+		personalData_CTMNumber_TextField					:	"",
 	  personalData_CTMAccountText      					:	""
 		//-->
-		{{if activationItems.getModel('chooseProductModel').get('productCard')=='OMC' }}
-		  <center>
+        {{if activationItems.getModel('chooseProductModel').get('productCard')=='OMC' }}
+        <center>
 			<div id="personalData_MyCTMArea" >
 			<br>
 			<br>
@@ -164,25 +85,24 @@
 	                    <td  style="border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
 	                    </td>
 	                    <td class="fieldValuesCell">
-							<p><span data-translationKey="personalData_CTMAccountText"></span></p>	
+							<p><span data-translationKey="personalData_CTMAccountText"></span></p>
 	                    </td>
 	                </tr>
 	            </table>
 			</div>
 		</center>
-         {{/if}}
+        {{/if}}
 
-
-		<!--</center>//-->		
+		<!--</center>//-->
 		<!--
-	summary_TellAboutYourself_SubTitle					:	"Tell Us About Yourself",	
-	summary_TellAboutYourself_IDType					:	"ID Type",	
-	summary_TellAboutYourself_PlaceOfIssue				:	"Place of Issue",	
-	summary_TellAboutYourself_IDNumber					:	"ID Number",	
-		
-		
-		//-->				
-			<div id="summary_TellUsAboutYourself_Area1" >
+	summary_TellAboutYourself_SubTitle					:	"Tell Us About Yourself",
+	personalData_IDType					:	"ID Type",
+	personalData_PlaceOfIssue				:	"Place of Issue",
+	personalData_IDNumber					:	"ID Number",
+
+
+		//-->
+			<div id="summary_TellUsAboutYourself_Area1">
 				<br>
 				<br>
 				<span class="pageSubTitle" data-translationKey="summary_TellAboutYourself_SubTitle"></span>
@@ -191,7 +111,7 @@
 	            <table id="summary_TellUsAboutYourself_Table" class="stretchThisTable">
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_IDType"></span>
+	                        <span data-translationKey="personalData_IDType"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
 	                        <span data-translationKey=${activationItems.getPersonalDataIdTypeNameByValue(activationItems.getModel('personalData').get('idtype'))}></span>
@@ -200,7 +120,7 @@
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_PlaceOfIssue"></span>
+	                        <span data-translationKey="personalData_PlaceOfIssue"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                    	<span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('personalData').get('placeofissue'))}></span>
@@ -209,26 +129,26 @@
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsBottomCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_IDNumber"></span>
+	                        <span data-translationKey="personalData_IDNumber"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesBottomCell">
 	                         ${activationItems.getModel('personalData').get('idnumbers')}
 	                    </td>
 	                </tr>
 	            </table>
-			</div>		
+			</div>
 <!--
 	summary_TellAboutYourself_ApplicantInfo             :   "Applicant Information",
-    summary_TellAboutYourself_Title						:	"Title",	
-	summary_TellAboutYourself_FirstName					:	"First Name",	
-	summary_TellAboutYourself_Initial					:	"Initial",	
-	summary_TellAboutYourself_LastName					:	"Last Name",	
-	summary_TellAboutYourself_DateOfBirth				:	"Date of Birth",	
-	summary_TellAboutYourself_Email						:	"Email Address",
+    personalData_Title                                  : "Title",
+	summary_TellAboutYourself_FirstName					:	"First Name",
+	summary_TellAboutYourself_Initial					:	"Initial",
+	summary_TellAboutYourself_LastName					:	"Last Name",
+	summary_TellAboutYourself_DateOfBirth				:	"Date of Birth",
+	personalData_EmailAddress                           :   "Email Address",
 	summary_TellAboutYourself_Email_Consent             :   "E-mail Marketing Consent?",
-	summary_TellAboutYourself_HomePhone					:	"Home Phone",	
-	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",	
-	summary_TellAboutYourself_Correspondence			:	"Correspondence",	
+	summary_TellAboutYourself_HomePhone					:	"Home Phone",
+	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",
+	summary_TellAboutYourself_Correspondence			:	"Correspondence",
 //-->
             <br>
 				<br>
@@ -241,11 +161,11 @@
 	            <table id="summary_TellUsAboutYourself_Table" class="stretchThisTable">
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_Title"></span>
+	                        <span data-translationKey="personalData_Title"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
 	                        <!-- ${ activationItems.getModel('personalData').get('title') == null ? '' :  activationItems.getModel('personalData').get('title')} -->
-							<span id="summary_nameTitle">${ activationItems.getModel('personalData').get('title') == null ? '' : activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title'))}</span>
+							<span id="summary_nameTitle">${ activationItems.getModel('personalData').get('title') == null ? '' : activationItems.getModel('personalData').get('title')}</span>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -283,7 +203,7 @@
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_Email"></span>
+	                        <span data-translationKey="personalData_EmailAddress"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData').get('email')}
@@ -294,7 +214,7 @@
 	                        <span data-translationKey="summary_TellAboutYourself_Email_Consent"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
-	                     <span data-translationKey="${ activationItems.getModel('personalData').get('receiveEmail') == "Y" ? "personalDataC_Yes" : activationItems.getModel('personalData').get('receiveEmail') == "N"? "personalDataC_No" : "" }"></span>   
+	                     <span data-translationKey="${ activationItems.getModel('personalData').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('personalData').get('receiveEmail') == "N"? "no" : "" }"></span>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -325,23 +245,23 @@
 	                    </td>
 	                </tr>
 	            </table>
-			</div>			
+			</div>
 <!--
-	summary_Address_SubTitle							:	"Address Information",	
-			
-	summary_Address_PostalCode							:	"Postal Code",	
-	summary_Address_StreetNumber						:	"Street Number",	
-	summary_Address_StreetName							:	"Street Name",	
-	summary_Address_AddressLine2						:	"Address Line 2",	
-	summary_Address_SuiteUnit							:	"Suite/Unit",	
-	summary_Address_City								:	"City",	
+	summary_Address_SubTitle							:	"Address Information",
+
+	summary_Address_PostalCode							:	"Postal Code",
+	summary_Address_StreetNumber						:	"Street Number",
+	summary_Address_StreetName							:	"Street Name",
+	summary_Address_AddressLine2						:	"Address Line 2",
+	summary_Address_SuiteUnit							:	"Suite/Unit",
+	summary_Address_City								:	"City",
 	summary_Address_Province							:	"Province",
-	
-	summary_Address_ResidenceType						:	"Residence Type",	
-	summary_Address_MonthlyHousePayment					:	"Monthly House Payment",	
+
+	summary_Address_ResidenceType						:	"Residence Type",
+	summary_Address_MonthlyHousePayment					:	"Monthly House Payment",
 	summary_Address_DurationCurrentAddress				:	"Duration at Current Address",
-	
-//-->		
+
+//-->
 
 			<div id="summary_Address_Area1" >
 				<br>
@@ -429,22 +349,22 @@
 	                        <span data-translationKey="summary_Address_DurationCurrentAddress"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesBottomCell">
-	                         ${activationItems.getDurationValue(activationItems.getModel('personalData2_Address').get('years'))} <span data-translationKey="summary_Years" />, 
+	                         ${activationItems.getDurationValue(activationItems.getModel('personalData2_Address').get('years'))} <span data-translationKey="summary_Years" />,
 							 ${activationItems.getDurationValue(activationItems.getModel('personalData2_Address').get('months'))} <span data-translationKey="summary_Months" />
 	                         <!--${activationItems.getModel('personalData2_Address').get('years')} -->
 	                    </td>
 	                </tr>
 	            </table>
-			</div>	
+			</div>
 		<!--
-	summary_PreviousAddress_SubTitle					:	"Previous Address Information",			
-	summary_Address_PostalCode							:	"Postal Code",	
-	summary_Address_StreetNumber						:	"Street Number",	
-	summary_Address_StreetName							:	"Street Name",	
-	summary_Address_AddressLine2						:	"Address Line 2",	
-	summary_Address_SuiteUnit							:	"Suite/Unit",	
-	summary_Address_City								:	"City",	
-	summary_Address_Province							:	"Province",		
+	summary_PreviousAddress_SubTitle					:	"Previous Address Information",
+	summary_Address_PostalCode							:	"Postal Code",
+	summary_Address_StreetNumber						:	"Street Number",
+	summary_Address_StreetName							:	"Street Name",
+	summary_Address_AddressLine2						:	"Address Line 2",
+	summary_Address_SuiteUnit							:	"Suite/Unit",
+	summary_Address_City								:	"City",
+	summary_Address_Province							:	"Province",
 		//-->
 		{{if activationItems.getModel('personalData2_Address').get('years')<2 }}
 			<div id="summary_Address_Area2" >
@@ -512,13 +432,13 @@
 	                    </td>
 	                </tr>
 	            </table>
-			</div>	
-		{{/if}}				
+			</div>
+		{{/if}}
 <!--
 	summary_FinEmp_SubTitle1							:	"Financial Information and ",
 	summary_FinEmp_SubTitle2							:	"Employment Information",
 	summary_FinEmp_BankingProducts						:	"Banking Products",
-		
+
 	summary_FinEmp_EmploymentType						:	"Employment Type",
 	summary_FinEmp_GrossAnnualIncome					:	"Gross Annual Income",
 	summary_FinEmp_SIN									:	"Social Insurance Number",
@@ -543,7 +463,7 @@
 	                        <span data-translationKey="summary_FinEmp_BankingProducts"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
-	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardVISAMCAMEX'))}></span>, &nbsp  
+	                        <span data-translationKey="finEmpInfo_VISAMCAMEX"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardVISAMCAMEX'))}></span>, &nbsp
 	                        <span data-translationKey="finEmpInfo_BankLoan"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardBankLoan'))}></span>, &nbsp
 	                        <span data-translationKey="finEmpInfo_StoreCard"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardStoreCard'))}></span>, &nbsp
 	                        <span data-translationKey="finEmpInfo_ChequingAcct"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardChequingAcct'))}></span>, &nbsp
@@ -557,7 +477,6 @@
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                        <span data-translationKey=${activationItems.getEmploymentTypeFriendlyName(activationItems.getModel('financialData').get('employmentType'))}></span>
-	                        <!-- ${activationItems.getModel('financialData').get('employmentType')} -->
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -568,50 +487,54 @@
 								<span id="summary_grossIncome" ></span>
 	                    </td>
 	                </tr>
-	                
+
 	                <tr class="fieldRow">
 	                    {{if activationItems.getModel('financialData').get('employmentType')=='R' }}
 	                    	<td class="fieldLabelsBottomCell fieldCellSize33">
-	                    {{/if}}	
+	                    {{/if}}
 	                    {{if activationItems.getModel('financialData').get('employmentType')!='R' }}
 	                    	<td class="fieldLabelsCell fieldCellSize33">
-	                    {{/if}}	
+	                    {{/if}}
 	                        <span data-translationKey="summary_FinEmp_SIN"></span>
 	                    </td>
 	                    {{if activationItems.getModel('financialData').get('employmentType')=='R' }}
 	                    	<td class="fieldLabelsCell fieldValuesBottomCell">
-	                    {{/if}}	
+	                    {{/if}}
 	                    {{if activationItems.getModel('financialData').get('employmentType')!='R' }}
 	                    	<td class="fieldLabelsCell">
-	                    {{/if}}	
+	                    {{/if}}
 	                         ${activationItems.getModel('financialData').get('sin')}
 	                    </td>
 	                </tr>
-	                
-	                {{if activationItems.getModel('financialData').get('employmentType')!='R' }}
+	                <tr class="fieldRow">
+			            <td class="fieldLabelsCell fieldCellSize33">
+			                <span data-translationKey="summary_FinEmp_JobTitle"></span>
+			            </td>
+			            <td class="fieldLabelsCell">
+			            	{{if  activationItems.getModel('financialData').get('employmentType')!='R' && activationItems.getModel('financialData').get('employmentType')!='U' && activationItems.getModel('financialData').get('employmentType')!='H'}}
+			               		${activationItems.getModel('financialData').get('jobTitle')}
+			                  {{else}}
+			                 	<span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
+			                 {{/if}}
+			                </td>
+			        </tr>
+			        <tr class="fieldRow">
+			            <td class="fieldLabelsCell fieldCellSize33">
+			                <span data-translationKey="summary_FinEmp_JobCategory"></span>
+			            </td>
+			            <td class="fieldLabelsCell">
+			                <span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
+			                <!--${activationItems.getModel('financialData').get('jobCategory')} -->
+			            </td>
+			        </tr>
+
+	                {{if activationItems.getModel('financialData').get('employmentType')!='R' && activationItems.getModel('financialData').get('employmentType')!='U' && activationItems.getModel('financialData').get('employmentType')!='H' }}
 						<tbody>
 			                <tr class="fieldRow">
-			                    <td class="fieldLabelsCell fieldCellSize33">
-			                        <span data-translationKey="summary_FinEmp_JobTitle"></span>
-			                    </td>
-			                    <td class="fieldLabelsCell">
-			                         ${activationItems.getModel('financialData').get('jobTitle')}
-			                    </td>
-			                </tr>
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsCell fieldCellSize33">
-			                        <span data-translationKey="summary_FinEmp_JobCategory"></span>
-			                    </td>
-			                    <td class="fieldLabelsCell">
-			                         <span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
-			                         <!--${activationItems.getModel('financialData').get('jobCategory')} -->
-			                    </td>
-			                </tr>
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsCell fieldCellSize33">
+			                    <td class="fieldLabelsCell fieldCellSize33 withBorderTop">
 			                        <span data-translationKey="summary_FinEmp_EmpName"></span>
 			                    </td>
-			                    <td class="fieldLabelsCell">
+			                    <td class="fieldLabelsCell withBorderTop">
 			                         ${activationItems.getModel('financialData').get('employerName')}
 			                    </td>
 			                </tr>
@@ -623,7 +546,7 @@
 			                         ${activationItems.getModel('financialData').get('employerCity')}
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsCell fieldCellSize33">
 			                        <span data-translationKey="summary_FinEmp_EmpPhone"></span>
@@ -638,22 +561,22 @@
 			                        <span data-translationKey="summary_FinEmp_DurationCurrentEmp"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesBottomCell">
-			                         ${activationItems.getDurationValue(activationItems.getModel('financialData').get('howLongYears'))} <span data-translationKey="summary_Years" />, 
+			                         ${activationItems.getDurationValue(activationItems.getModel('financialData').get('howLongYears'))} <span data-translationKey="summary_Years" />,
 							 		 ${activationItems.getDurationValue(activationItems.getModel('financialData').get('howLongMonthes'))} <span data-translationKey="summary_Months" />
 			                    </td>
 			                </tr>
 		                <tbody>
 	                {{/if}}
 	            </table>
-			</div>		
+			</div>
 <!--
 	summary_SupCard_SubTitle							:	"Supplementary Card Information",
 	summary_SupCard_OptedIn								:	"Wants supplementary card",
 	summary_SupCard_ForWhom								:	"Supplementary card for",
-	summary_SupCard_FirstName							:	"First Name",
-	summary_SupCard_Initial								:	"Initial",
-	summary_SupCard_LastName							:	"Last Name",
-	summary_SupCard_DateOfBirth							:	"Date of Birth",
+	personalData_FirstName							:	"First Name",
+	personalData_Initial								:	"Initial",
+	personalData_LastName							:	"Last Name",
+	personalData_DateOfBirth							:	"Date of Birth",
 	summary_SupCard_Telephone							:	"Telephone",
 
 	summary_SupCard_Address_SubTitle					:	"Address Information",
@@ -663,7 +586,7 @@
 	summary_SupCard_Address_AddressLine2				:	"Address Line 2",
 	summary_SupCard_Address_SuiteUnit					:	"Suite/Unit",
 	summary_SupCard_Address_City						:	"City",
-	summary_SupCard_Address_Province					:	"Province",
+	chooseProduct_Province                              :   "Province",
 //-->
 			<div id="summary_SupCard_Area1" >
 				<br>
@@ -692,144 +615,139 @@
 		                        <!--${activationItems.getModel('supCardRequestData').get('cardYesNo')} -->
 		                    </td>
 		                </tr>
-		                
-		                
+                        {{if activationItems.getModel('supCardRequestData').get('cardYesNo')==='Y' }}
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_ForWhom"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                    <span data-translationKey=${activationItems.getSupCardForFriendlyNames(activationItems.getModel('supCardRequestData').get('cardRequestFor')) }></span>
+                                    <!--${activationItems.getModel('supCardRequestData').get('cardRequestFor')}-->
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="personalData_FirstName"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('firstName')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="personalData_Initial"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('initial')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="personalData_LastName"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('lastName')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="personalData_DateOfBirth"></span>
+                                </td>
+                                <td id="birthDate_id_2" class="fieldLabelsCell">
+                                     ${activationItems.getFormatedDate(activationItems.getModel('supCardRequestData').get('birthDate'))}
+                                     <!--${activationItems.getModel('supCardRequestData').get('birthDate')} -->
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Telephone"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getFormatedPhone(activationItems.getModel('supCardRequestData').get('phone'))}
+                                     <!-- ${activationItems.getModel('supCardRequestData').get('phone')} -->
+                                </td>
+                            </tr>
+
+                            <tr class="fieldRow">
+                                {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='Y' }}
+                                    <td class="fieldLabelsBottomCell fieldCellSize33">
+                                {{/if}}
+                                {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
+                                    <td class="fieldLabelsCell fieldCellSize33">
+                                {{/if}}
+                                    <span data-translationKey="supCardRequest_SameAddyPrimaryApplicant"></span>
+                                </td>
+                                {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='Y' }}
+                                    <td class="fieldLabelsCell fieldValuesBottomCell">
+                                {{/if}}
+                                {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
+                                    <td class="fieldLabelsCell fieldCellSize33">
+                                {{/if}}
+                                    <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('supCardRequestData').get('sameAddressYesNo')) }></span>
+                                </td>
+                            </tr>
+
+                            {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_PostalCode"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('postalCode')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_StreetNumber"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('streetNumber')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_StreetName"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('addressLine1')}
+                                </td>
+                            </tr>
+                          <!--  <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_AddressLine2"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('addressLine2')}
+                                </td>
+                            </tr>  -->
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_SuiteUnit"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('suiteUnit')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_City"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('city')}
+                                </td>
+                            </tr>
+                            <tr class="fieldRow">
+                                <td class="fieldLabelsBottomCell fieldCellSize33">
+                                    <span data-translationKey="chooseProduct_Province"></span>
+                                </td>
+                                <td class="fieldLabelsCell fieldValuesBottomCell">
+                                    <span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('supCardRequestData').get('province'))}></span>
+                                     <!-- ${activationItems.getModel('supCardRequestData').get('province')} -->
+                                </td>
+                            </tr>
+                            {{/if}}
+                        {{/if}}
 					</tbody>
-					
-					{{if activationItems.getModel('supCardRequestData').get('cardYesNo')==='Y' }}
-					<tbody>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_ForWhom"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                        <span data-translationKey=${activationItems.getSupCardForFriendlyNames(activationItems.getModel('supCardRequestData').get('cardRequestFor')) }></span>
-		                        <!--${activationItems.getModel('supCardRequestData').get('cardRequestFor')}-->
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_FirstName"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('firstName')}
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Initial"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('initial')}
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_LastName"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('lastName')}
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_DateOfBirth"></span>
-		                    </td>
-		                    <td id="birthDate_id_2" class="fieldLabelsCell">
-		                         ${activationItems.getFormatedDate(activationItems.getModel('supCardRequestData').get('birthDate'))}
-		                         <!--${activationItems.getModel('supCardRequestData').get('birthDate')} -->
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Telephone"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getFormatedPhone(activationItems.getModel('supCardRequestData').get('phone'))}
-		                         <!-- ${activationItems.getModel('supCardRequestData').get('phone')} -->
-		                    </td>
-		                </tr>
-						
-						<tr class="fieldRow">
-		                    {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='Y' }}
-		                    	<td class="fieldLabelsBottomCell fieldCellSize33">
-		                    {{/if}}
-		                    {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
-		                    	<td class="fieldLabelsCell fieldCellSize33">
-		                    {{/if}}
-		                        <span data-translationKey="supCardRequest_SameAddyPrimaryApplicant"></span>
-		                    </td>
-		                    {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='Y' }}
-		                    	<td class="fieldLabelsCell fieldValuesBottomCell">
-		                    {{/if}}
-		                    {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
-		                    	<td class="fieldLabelsCell fieldCellSize33">
-		                    {{/if}}
-		                        <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('supCardRequestData').get('sameAddressYesNo')) }></span>
-		                    </td>
-		                </tr>
-						
-						{{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}						
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_PostalCode"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('postalCode')}
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_StreetNumber"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('streetNumber')}
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_StreetName"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('addressLine1')}
-		                    </td>
-		                </tr>
-		              <!--  <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_AddressLine2"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('addressLine2')} 
-		                    </td>
-		                </tr>  -->
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_SuiteUnit"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('suiteUnit')} 
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_City"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell">
-		                         ${activationItems.getModel('supCardRequestData').get('city')} 
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsBottomCell fieldCellSize33">
-		                        <span data-translationKey="summary_SupCard_Address_Province"></span>
-		                    </td>
-		                    <td class="fieldLabelsCell fieldValuesBottomCell">
-		                    	<span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('supCardRequestData').get('province'))}></span>
-		                         <!-- ${activationItems.getModel('supCardRequestData').get('province')} --> 
-		                    </td>
-		                </tr>
-						{{/if}}
-					</tbody>
-					{{/if}}
 	            </table>
 			</div>
 
@@ -846,10 +764,10 @@
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
 	                        <img src=${activationItems.getModel('signatureModel').get('userSingnature') } class="signatureSummary" />
-	                        
+
 	                    </td>
 	                </tr>
-	                
+
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="summary_Signature_Accept"></span>
@@ -858,7 +776,7 @@
 	                        <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('signatureModel').get('userAcceptAgreement')) }></span>
 	                    </td>
 	                </tr>
-	                
+
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsBottomCell fieldCellSize33">
 	                        <span data-translationKey="summary_Signature_SignDate"></span>
@@ -871,11 +789,12 @@
 
 	            </table>
 			</div>
-
+			{{if isNotEmployee}}
 			<div id="summary_OptProductBenefit_Area" >
+
 				<br>
 				<br>
-				<span class="pageSubTitle" data-translationKey="summary_OptProds_SubTitle"></span>
+				<span class="pageSubTitle" data-translationKey="breadCrumbItem_OptionalProducts"></span>
 				<br>
 				<br>
  				 <table id="summary_SelectedProductTable" class="stretchThisTable">
@@ -888,7 +807,7 @@
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_PA"></span>			                        
+									<span data-translationKey="summary_OptProds_ProdName_PA"></span>
 			                    </td>
 			                </tr>
 
@@ -898,19 +817,19 @@
 			                    </td>
 			                    <td class="fieldLabelsCell">
 			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_PA') } class="signatureSummary" />
-			                        
+
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_Accept"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell">
-			                        <span data-translationKey="confirmDialog_yes"></span>
+			                        <span data-translationKey="yes"></span>
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsBottomCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_SignDate"></span>
@@ -931,7 +850,7 @@
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_CP"></span>			                        
+									<span data-translationKey="summary_OptProds_ProdName_CP"></span>
 			                    </td>
 			                </tr>
 
@@ -941,19 +860,19 @@
 			                    </td>
 			                    <td class="fieldLabelsCell">
 			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_CP') } class="signatureSummary" />
-			                        
+
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_Accept"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell">
-			                       <span data-translationKey="confirmDialog_yes"></span>
+			                       <span data-translationKey="yes"></span>
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsBottomCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_SignDate"></span>
@@ -974,7 +893,7 @@
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_IW"></span>			                        
+									<span data-translationKey="summary_OptProds_ProdName_IW"></span>
 			                    </td>
 			                </tr>
 
@@ -984,19 +903,19 @@
 			                    </td>
 			                    <td class="fieldLabelsCell">
 			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_IW') } class="signatureSummary" />
-			                        
+
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_Accept"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell">
-			                        <span data-translationKey="confirmDialog_yes"></span>
+			                        <span data-translationKey="yes"></span>
 			                    </td>
 			                </tr>
-			                
+
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsBottomCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_SignDate"></span>
@@ -1016,7 +935,7 @@
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesOneCell">
-									<span data-translationKey="summary_OptProds_ProdName_NA"></span>			                        
+									<span data-translationKey="summary_OptProds_ProdName_NA"></span>
 			                    </td>
 			                </tr>
 		                </tbody>
@@ -1024,16 +943,58 @@
 			<!--  End Not this time case -->
 	            </table>
 			</div>
+		{{/if}}
 		<br>
 		<div>
-		<br>			 
+		<br>
+
 		<center>
-            <span id="summary_SubmitButton" class="button grayflat applyButtonWidth submitButton">
+			<div class="wrapLoginTable">
+	            <table id="loginFieldsTable">
+	            	{{if activationItems.getModel('loginScreen').get('employerID').toLowerCase() === 'e'}}
+	                <tr class="fieldRow">
+
+	                    <td class="fieldLabelsTopCell fieldSize55">
+	                        <span data-translationKey="loginScreen_First_Name"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="summaryFirstNameTextField" maxlength="22" type="text" tabindex=1/>
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell  fieldSize55">
+	                        <span data-translationKey="loginScreen_Last_Name"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell ">
+	                        <input class="fieldValuesTextField upperCaseField" id="summaryLastNameTextField" maxlength="22" type="text" tabindex=2/>
+	                    </td>
+	                </tr>
+	                {{/if}}
+	                {{if activationItems.getModel('loginScreen').get('employerID').toLowerCase() !== 'e'}}
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsSingleCell fieldSize55">
+	                        <span data-translationKey="loginScreen_AgentID_Label"></span>
+	                    </td>
+	                    <td class="fieldValuesOneCell">
+	                        <input class="fieldValuesTextField upperCaseField" id="summaryAgentIDTextField" type="text" maxlength="8" tabindex=3/>
+	                    </td>
+	                </tr>
+	                {{/if}}
+	            </table>
+			</div>
+			<br>
+			<br>
+			<div>
+            <span id="summary_SubmitButton" class="button grayflat applyButtonWidth">
             	<span class="buttonText" data-translationKey="summary_SubmitButton"></span>
 			</span>
+			<br>
+			<br>
+			<div class="logoIcon logoIconUnclicked"></div>
         </center>
 		<br>
+		<div>
 		<br>
-		<div>	
+
 	</div>
 </script>

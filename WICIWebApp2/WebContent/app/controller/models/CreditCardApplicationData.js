@@ -5,7 +5,7 @@ WICI.CreditCardApplicationData = function() {
 	// Choose Product Screen
 	// ---------------------------------------------------------------
 	var logPrefix = '[WICI.CreditCardApplicationData]';
-	
+
     var nameTitleList = new WICI.TitlesList();
 
 	var translator;
@@ -15,23 +15,26 @@ WICI.CreditCardApplicationData = function() {
 	}
 
 	var cardFriendlyNames = {
-		'omc' : 'chooseProduct_OptionsMasterCard',
-		'omp' : 'chooseProduct_GasAdvantageMasterCard',
-		'omr' : 'chooseProduct_CashAdvantageMasterCard'
+		'omc' 	: 'chooseProduct_OptionsMasterCard',
+		'omp' 	: 'chooseProduct_GasAdvantageMasterCard',
+		'omr' 	: 'chooseProduct_CashAdvantageMasterCard'
 	};
 
 	var employmentTypeFriendlyNames = {
 		'F' : 'finEmpInfo_FullTime',
 		'S' : 'finEmpInfo_Seasonal',
 		'P' : 'finEmpInfo_PartTime',
-		'R' : 'finEmpInfo_Retired'
+		'H' : 'finEmpInfo_Homemaker',
+		'R' : 'finEmpInfo_Retired',
+		'U' : 'finEmpInfo_Unemployed',
+		'O' : 'finEmpInfo_Other'
 	};
 
 	var residenceTypeFriendlyNames = {
-		'O' : 'personalData2_Address_Own',
-		'R' : 'personalData2_Address_Rent',
-		'P' : 'personalData2_Address_Parents',
-		'M' : 'personalData2_Address_Other'
+		'O' : 'personalData_Address_Own',
+		'R' : 'personalData_Address_Rent',
+		'P' : 'personalData_Address_Parents',
+		'M' : 'personalData_Address_Other'
 	};
 
 	var correspondenceFriendlyNames = {
@@ -80,28 +83,37 @@ WICI.CreditCardApplicationData = function() {
 	this.getAccountApplicationStatus = function() {
 
 		var returnValue = 'printScreen_UnknownStatus';
-		if (this.getAccountApplicationResponse()) {
-			if (this.getAccountApplicationResponse().data
-					&& this.getAccountApplicationResponse().data.appStatus) {
-				var status = this.getAccountApplicationResponse().data.appStatus;
-				if (status === 'PENDING' || status === 'DECLINED') {
-					returnValue = 'printScreen_ApplicationDeclined';
-				} else if (status === 'APPROVED') {
-					returnValue = 'printScreen_ApplicationApproved';
-				}
+		var respAn = new WICI.PollingResponseAnalyzer();
+		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
+			var status = respAn.getAppStatus(this.getAccountApplicationResponse());
+			switch (status) {
+				case 'PENDING': 
+					if (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines) {
+						returnValue = 'printScreen_ApplicationDeclined';
+					} else {
+						returnValue = 'printScreen_ApplicationPending';
+					}
+					break;
+				case 'DECLINED': returnValue = 'printScreen_ApplicationDeclined'; break;
+				case 'APPROVED': returnValue = 'printScreen_ApplicationApproved'; break;
+				default: break;
 			}
 		}
-
 		return returnValue;
+	};
+
+	this.isPending = function() {
+		var respAn = new WICI.PollingResponseAnalyzer();
+		return respAn.isPendingResponse(this.getAccountApplicationResponse());
 	};
 
 	this.getCheckBoxValueFriendlyName = function(value) {
 		if (value === 'Y') {
-			return "messageDialog_yes";
+			return "yes";
 
 		}
-		return "messageDialog_no"; 
-		
+		return "no";
+
 
 	};
 
@@ -115,13 +127,13 @@ WICI.CreditCardApplicationData = function() {
 
 	this.getFormatedCurrency = function(value) {
 		var newValue = value.replace(',', '.').replace(/(\d)(?=(\d{3})+\b)/g, '$1,');
-		if (translator.getCurrentLanguageFSDPFormat() == 'F') {
+		if (app.translator.getCurrentLanguageFSDPFormat() == 'F') {
 			newValue = newValue.replace(/,/g, " ") + ' $';
 		} else {
 			newValue = '$ ' + newValue;
 		};
 		return newValue;
-			
+
 	};
 
 	this.getDurationValue = function(value) {
@@ -270,12 +282,12 @@ WICI.CreditCardApplicationData = function() {
     this.getGroupedData = function(){
         var sMethod = 'getGroupedData() ';
         console.log(logPrefix + sMethod);
-        
+
         var rez =[];
         $.each(models, function(index, item) {
             rez.push({model: item.name, data: item.getNotEmtyData()});
         });
-        
+
         console.log(logPrefix + sMethod + 'done. Length: '+ rez.length);
         return rez;
     };
@@ -314,8 +326,9 @@ WICI.CreditCardApplicationData = function() {
     	console.log("clearAllModels");
     	//models = [];
     	models = [queueModel];
+    	//accountApplicationResponse=null;
     };
-    
+
     this.clearToLoginScreen = function()
     {
     	console.log("clearToLoginScreen");
@@ -325,6 +338,7 @@ WICI.CreditCardApplicationData = function() {
     		//models = [];
     		models = [queueModel];
     		this.addModel(loginScreenModel);
+    		//accountApplicationResponse=null;
     	}
     };
 	// ---------------------------------------------------------------
@@ -339,12 +353,12 @@ WICI.CreditCardApplicationData = function() {
 		var queueModel = this.getModel("queueModel");
 		return queueModel.get("queueTransactionID");
 	};
-	
+
 	this.getTranslationForPromoCode = function(argString){
-		
-		return translator.translateKey(argString);
+
+		return app.translator.translateKey(argString);
 	};
-	
+
     //---------------------------------------------------------------
     this.getNameTitleByValue = function(value) {
 
@@ -352,19 +366,19 @@ WICI.CreditCardApplicationData = function() {
             return "";
         }
         var nameTitle = null;
-        $.each(nameTitleList.data, function(index, item) {  
+        $.each(nameTitleList.data, function(index, item) {
             if(item.value == value){
             	nameTitle = item;
                 return;
             }
-        });   
-        
+        });
+
         if (nameTitle) {
-        	//return app.translator.translateKey(nameTitle.text);
-        	return translator.translateKey(nameTitle.text);
+        	//return translator.translateKey(nameTitle.text);
+        	return app.translator.translateKey(nameTitle.text);
         } else {
         	return '';
         }
-    };	
+    };
 
 };

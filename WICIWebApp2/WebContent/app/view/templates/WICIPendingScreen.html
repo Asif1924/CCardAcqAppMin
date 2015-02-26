@@ -1,0 +1,76 @@
+<script id="WICIPendingScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout pageHeaderPadding" id="pendingScreen_PageContents">
+	<center>
+	{{if pendingScreenState==='ShowOnly' }}
+		
+		<div data-role="fieldcontain" class="pageHeaderPadding">
+			
+        	<span class="pageTitle" data-translationKey="pendingScreen_ThankYou"></span>
+        	<span class="summaryPageSubTitle" data-translationKey="${cardName}"></span>
+         	<br>
+			<br>
+			<table class="fieldCellSize60" id="pendingScreen_tokenInfo">
+				<tr>
+					<td class="fieldLabelsSingleCell fieldCellSize60">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>						
+					</td>
+					<td class="fieldValuesOneCell fieldCellSize60">
+						<span> ${token} </span>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+
+			<div data-translationKey="pendingScreen_ParaBlock_PleaseWait"></div>
+			
+			<!--<div> <span data-translationKey="pendingScreen_Label2_1"></span> <span id="pendingScreen_Attempt">${attempt}</span> <span data-translationKey="pendingScreen_Label2_2"></span> </div>//-->
+			
+			<div class="elementWithFontSize10" data-translationKey="pendingScreen_Label_RefGood30mins"></div>
+
+        </div>
+
+	    <span id="pendingScreen_PrintButton" class="button greenflat pendingScreen_PrintButtonSize">
+	    	<div class="buttonText" data-translationKey="pendingScreen_PrintButtonLabel"></div>
+		</span>
+
+		<span data-translationKey="pendingScreen_ParaBlock_IfUnable"></span>
+		<span data-translationKey="pendingScreen_ParaBlock_NoteDays"></span>
+
+		<span id="pendingScreen_EmailButton" class="button greenflat pendingScreen_EmailButtonSize">
+	    	<span class="buttonText" data-translationKey="pendingScreen_EmailButtonLabel"></span>
+		</span>	 	
+	{{/if}}
+	{{if pendingScreenState==='Retrieve' }}
+		<div data-role="fieldcontain" class="pageHeaderPadding">
+			<br>
+			<br>
+			<table class="fieldCellSize80" id="pendingScreen_tokenInfo">
+				<tr class="fieldRow">
+					<td class="fieldLabelsTopCell fieldCellSize50">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>
+					</td>
+					<td class="fieldValuesTopCell fieldCellSize50">
+						<input class="fieldValuesTextField" id="pendingScreenReferenceField" type="text" />
+					</td>
+				</tr>
+				<tr class="fieldRow">
+					<td class="fieldLabelsBottomCell fieldCellSize50">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_PhoneNumberLabel"></span>
+					</td>
+					<td class="fieldValuesBottomCell fieldCellSize50">
+						<input class="fieldValuesTextField" id="pendingScreenPhoneNumberField" type="tel" maxlength="10" />
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+        </div>
+		<span id="checkApplicationStatusButton" class="button greenflat">
+	    	<span class="buttonText" data-translationKey="pendingScreen_CheckAppStatusLabel"></span>
+		</span>
+
+	{{/if}}
+	</center>
+	</div>
+</script>

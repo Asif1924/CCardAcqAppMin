@@ -90,14 +90,26 @@
     <import file="${sdk.dir}/tools/ant/build.xml" />
     <target name="build.full.debug" description="Clean and build full debug version" depends="import.wici.webapp.production.artifacts,-pre-clean,clean,debug"/>
 
-    <target name="build.full.release" description="Clean and build full release version" depends="import.wici.webapp.production.artifacts,-pre-clean,clean,release"/>
+    <target name="build.full.release" description="Clean and build full release version" depends="import.wici.webapp.production.artifacts,create.wifi.profile,-pre-clean,clean,release"/>
 
-	<target name="jenkins.build.full.release" description="Clean and build full release version" depends="set.apk.version,import.wici.webapp.production.artifacts,-pre-clean,clean,release"/>
+	<target name="jenkins.build.full.release" description="Clean and build full release version" depends="set.apk.version,import.wici.webapp.production.artifacts,create.wifi.profile,-pre-clean,clean,release"/>
 
     <target name="build.full.release.copy" description="Clean and build full release version" depends="build.full.release,copy.release.apk.file.somewhere"/>
 
     <target name="jenkins.build.full.release.copy" description="Clean and build full release version" depends="jenkins.build.full.release,copy.release.apk.file.somewhere"/>
 
+    <target name="create.wifi.profile">
+        <echo message="Creating WIFI profile..."/>
+        <echo message="Setting WIFI SSID to ${wifi.ssid}..."/>
+        <echo message="Setting WIFI Password to ${wifi.password}..."/>
+        <echo message="Setting WIFI Reconnect Delay (millis) to ${wifi.reconnectDelayMillis}..."/>
+        <echo file="assets/wifi_credentials.conf">wifi.ssid=${wifi.ssid}
+wifi.password=${wifi.password}
+wifi.reconnectDelayMillis=${wifi.reconnectDelayMillis}
+</echo>        
+        <echo message="WIFI Profile created."/>
+    </target>
+    
 	<target name="set.apk.version">
 		<echo message="Copying Original_AndroidManifest.xml to AndroidManifest.xml"/>
 		<copy overwrite="true" tofile="AndroidManifest.xml">

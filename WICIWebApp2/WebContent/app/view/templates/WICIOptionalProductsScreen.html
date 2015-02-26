@@ -1,87 +1,5 @@
 <script id="WICIOptionalProductsScreen-template"
 	type="text/x-jquery-tmpl">
-
-<div id="BreadcrumbTrailArea1"
-	class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">
-	<table id="BreadcrumbTable"
-		class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px"
-		cellpadding="0px">
-		
-
-<!--	<tr>
-			<td class="selectedBreadcrumbCell">
-				<span	class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
-				<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
-			</td>
-			<td class="selectedBreadcrumbCell">
-				<div class="visitedCrumbSeparator" />
-			</td>
-			<td class="selectedBreadcrumbCell">
-				<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span> 
-				<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
-			</td>
-			<td class="selectedBreadcrumbCell">
-				<div class="visitedCrumbSeparator" />
-			</td>
-			<td class="selectedBreadcrumbCell">
-				<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">3.</span> 
-				<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-			</td>
-			<td class="unselectedBreadcrumbCell">
-				<div class="visitedLeftCrumbSeparator" />
-			</td>
-			<td class="unselectedBreadcrumbCell">
-				<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span> 
-				<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-			</td>
-		</tr>
--->
-
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
-					</div>
-					<div class="breadcrumbTextDivFirst" >
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">3.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-					</div
-				</td>				
-				<td class="unselectedBreadcrumbCell">
-					<div class="visitedLeftCrumbSeparator"/>
-				</td>				
-				<td class="unselectedBreadcrumbCell nowrap">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
-
-
-
-	</table>
-</div>
-
 <div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
 	<br> <br>
 	<center>
@@ -89,22 +7,23 @@
 			data-translationKey="optionalProducts_PageTitle"></span>
 	</center>
 <br>
+<div data-translationKey="optionalProducts_SellingLanguageText"></div>
 	<div id="optionalProductsList">
 		<center>
-			<table class="stretchThisTable grayTableNoBorder tableWithPaddingTopAndBottom20  elementWithFontSize12" id="optionalProductsTable">				
+			<table class="stretchThisTable grayTableNoBorder tableWithPaddingTopAndBottom20  elementWithFontSize12" id="optionalProductsTable">
 <thead class="height0">
+<tr><td colspan="2" class="fieldLabelsCell fieldLabelsCellWithTopAlign elementWithTop5"><span data-translationKey="optionalProducts_TableTitle"></span></td></tr>
 </thead>
 <tbody>
 					<!-- Start Protection Advantage  -->
 					<tr class="fieldRow" id="optionalProductsProtectionAdvantageItem">
 						<td class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop5">
 						<div class="wiciRadioButton">
-							<input id="optionalProducts_PA_CheckField" type="radio" 
+							<input id="optionalProducts_PA_CheckField" type="radio"
 							name="additionalInformation_OptionalProducts" /><label for="optionalProducts_PA_CheckField"></label> </div></td>
 						<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
 							data-translationKey="optionalProducts_ProtectionAdvantage_Title" class="elementWithBoldFont"></span>
 							<span data-translationKey="optionalProducts_ProtectionAdvantage_Text"></span>
-							<span class="TandC_Content_Format" data-translationKey="optionalProducts_ProtectionAdvantage_Additions"></span>
 							<br>
 						</td>
 					</tr>
@@ -150,12 +69,12 @@
 										<p>
 												<span class="" data-translationKey="optionalProducts_SignatureAgreement1" />
 										</p>
-										</div>						
+										</div>
 										<div class="warningDIV" id="warningDIVPA" name="warningDIVPA">
 											<center>
-											<p class="warningHeader" id="warningHeaderPA" name="warningHeaderPA"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+											<p class="warningHeader" id="warningHeaderPA" name="warningHeaderPA"><span data-translationKey="optionalProducts_WarningHeader"/></p>
 										</center>
-										<div class="warningText" id="warningTextPA" name="warningTextPA" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
+										<div class="warningText signatureCredentialsContainer" id="warningTextPA" name="warningTextPA">
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
@@ -163,7 +82,7 @@
 												<span data-translationKey="optionalProducts_PAProducts" />
 											</p>
 											<p>
-												<span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDatePA">																							
+												<span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDatePA">
 											</p>
 										</div>
 											<center>
@@ -176,16 +95,16 @@
 												<br> <span id="signature_Reset_Button1" class="button grayflat sigResetButton proceedButtonWidth"> <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
 												</span>
 											</center>
-											<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
+											<div class="signatureCredentialsContainer">
 												<label id="signatureScreen_UserName">${ClientName}</label> <br>
-												<div class="agreementBoxContainerEX" id="optionalProduct_PA_AcceptBox_Area">
+												<div class="agreementBoxContainerEX" style="display: table" id="optionalProduct_PA_AcceptBox_Area">
 													<div class="rightContaier">
 														<div class="wiciCheckBox">
 															<input type="checkbox" id="optionalProducts_PA_Agreement">
 															<label for="optionalProducts_PA_Agreement"></label>
 														</div>
 													</div>
-													<div class="leftContainer  opCheckBoxLabel">
+													<div class="leftContainer  opCheckBoxLabel" style="padding-top: 0; display: table-cell; vertical-align: middle;">
 														<label data-translationkey="optionalProducts_TermsAndConditions16"></label>
 													</div>
 											</div>
@@ -197,16 +116,16 @@
 	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
 </p>
 <br>
-										</div>
+										</div> 
 <br>
 <br>
 										<!--<div style="padding-left: 60px;" >
 	<input class="fieldValuesCheckBoxField" id="optionalProduct_PA_AcceptBox_Area" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>	
+	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
 </div>-->
 									</div>
 									</div>
-							
+
 						</td>
 						</tr>
 					</div>
@@ -229,8 +148,6 @@
 								data-translationKey="optionalProducts_CreditProtector_Title"></span>
 								<span
 								data-translationKey="optionalProducts_CreditProtector_Text"></span>
-								<span class="TandC_Content_Format"
-								data-translationKey="optionalProducts_CreditProtector_Additions"></span>
 							</td>
 						</tr>
 					<tr  class="fieldRow">
@@ -261,18 +178,18 @@
 													data-translationKey="optionalProducts_TermsAndConditions_CP_Additions" />
 											</p>
 											<br>
-											
-											<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>										
+
+											<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
 											<p>
 												<span
 													data-translationKey="optionalProducts_SignatureAgreement1" />
 											</p>
-											</div>						
+											</div>
 											<div class="warningDIV" id="warningDIVCP" name="warningDIVCP">
 												<center>
-												<p class="warningHeader" id="warningHeaderCP" name="warningHeaderCP"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+												<p class="warningHeader" id="warningHeaderCP" name="warningHeaderCP"><span data-translationKey="optionalProducts_WarningHeader"/></p>
 											</center>
-											<div class="warningText" id="warningTextCP" name="warningTextCP" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
+											<div class="warningText signatureCredentialsContainer" id="warningTextCP" name="warningTextCP">
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
@@ -298,9 +215,9 @@
 												data-translationKey="signatureScreen_Reset_Button_Label"></span>
 											</span>
 										</center>
-										<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
+										<div class="signatureCredentialsContainer">
 										<label id="signatureScreen_UserName">${ClientName}</label>
-										<div class="agreementBoxContainerEX"
+										<div class="agreementBoxContainerEX" style="display: table"
 											id="optionalProduct_CP_AcceptBox_Area">
 											<div class="rightContaier">
 												<div class="wiciCheckBox">
@@ -309,7 +226,7 @@
 														for="optionalProducts_CP_Agreement"></label>
 												</div>
 											</div>
-											<div class="leftContainer  opCheckBoxLabel">
+											<div class="leftContainer  opCheckBoxLabel" style="padding-top: 0; display: table-cell; vertical-align: middle;">
 												<label data-translationkey="optionalProducts_TermsAndConditions16"></label>
 											</div>
 											</div>
@@ -318,14 +235,14 @@
 <br>
 <p  class="paddingLeft60">
 	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>									
-<br>											
+</p>
+<br>
 										</div>
 <br>
 <br>
 										<!--<div style="padding-left: 60px;" >
 	<input class="fieldValuesCheckBoxField" id="optionalProducts_CP_Agreement" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>		
+	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
 </div> -->
 									</div>
 								</div>
@@ -342,7 +259,7 @@
 							<td
 								class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop5">
 <div class="wiciRadioButton">
-								<input 
+								<input
 								id="optionalProducts_IW_CheckField" type="radio"
 								name="additionalInformation_OptionalProducts" />
 <label for="optionalProducts_IW_CheckField"></label>
@@ -351,10 +268,6 @@
 							<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
 								class="elementWithBoldFont"
 								data-translationKey="optionalProducts_IdentityWatch_Title"></span>
-								<span
-								data-translationKey="optionalProducts_IdentityWatch_Text"></span>
-								<span class="TandC_Content_Format"
-								data-translationKey="optionalProducts_IdentityWatch_Additions"></span>
 							</td>
 						</tr>
 <tr>
@@ -387,12 +300,12 @@
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement1" />
 											</p>
-											</div>						
+											</div>
 											<div class="warningDIV" id="warningDIVIW" name="warningDIVIW">
 												<center>
-												<p class="warningHeader" id="warningHeaderIW" name="warningHeaderIW"><span data-translationKey="optionalProducts_WarningHeader"/></p>									   
+												<p class="warningHeader" id="warningHeaderIW" name="warningHeaderIW"><span data-translationKey="optionalProducts_WarningHeader"/></p>
 											</center>
-											<div class="warningText" id="warningTextIW" name="warningTextIW" style="padding:15px;"> <!-- To move this away from the RED border a little -->	
+											<div class="warningText signatureCredentialsContainer" id="warningTextIW" name="warningTextIW"> 
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
@@ -402,7 +315,7 @@
 											<p>
 												<span data-translationKey="sigScreen_Date" /><label
 													id="optionalProducts_SignDateIW">
-											
+
 											</p>
 											</p>
 										</div>
@@ -421,8 +334,8 @@
 											</span>
 										</center>
 										<br>
-										<div style="padding:15px;"> <!-- To move this away from the RED border a little -->
-											<div class="agreementBoxContainerEX"
+										<div class="signatureCredentialsContainer"> 
+											<div class="agreementBoxContainerEX" style="display: table"
 												id="optionalProduct_IW_AcceptBox_Area">
 												<div class="rightContaier">
 													<div class="wiciCheckBox">
@@ -430,7 +343,7 @@
 														<label for="optionalProducts_IW_Agreement"></label>
 													</div>
 												</div>
-												<div class="leftContainer  opCheckBoxLabel">
+												<div class="leftContainer  opCheckBoxLabel" style="padding-top: 0; display: table-cell; vertical-align: middle;">
 													<label
 														data-translationkey="optionalProducts_TermsAndConditions16"></label>
 												</div>
@@ -440,19 +353,19 @@
 <br>
 <p  class="paddingLeft60">
 	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>									
-<br>	
+</p>
+<br>
 										</div>
 <br>
 <br>
 										<!--<div style="padding-left: 60px;" >
 	<input class="fieldValuesCheckBoxField" id="optionalProducts_IW_Agreement" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>		
+	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
 </div> -->
 
 									</div>
 									<div>
-							
+
 							</td>
 						</tr>
 					</div>
@@ -466,8 +379,8 @@
 							<td
 								class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop17">
 								 <div class="wiciRadioButton marginTop23">
-								<input 
-								id="optionalProducts_NA_CheckField" type="radio" 
+								<input
+								id="optionalProducts_NA_CheckField" type="radio"
 								name="additionalInformation_OptionalProducts"/>
  								<label for="optionalProducts_NA_CheckField"></label> </div>
 							</td>
@@ -476,10 +389,10 @@
 								data-translationKey="optionalProducts_DoNotEnrolMe"></span>
 							</td>
 						</tr>
-					</div>	
+					</div>
 			</tbody>
 			<tfoot class="height0">
-			</tfoot>			
+			</tfoot>
 			</table>
 		</center>
 	</div>

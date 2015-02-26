@@ -1,84 +1,4 @@
 <script id="WICISupCardScreen-template" type="text/x-jquery-tmpl">	
-	
-	<div id="BreadcrumbTrailArea" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayoutFullWidth">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-<!--			
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell">1.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_ProductSelection"></span>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>				
-				<td class="selectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle selectedBreadcrumb">2.</span>
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalData"></span>
-				</td>
-				<td class="unselectedBreadcrumbCell">
-					<div class="visitedLeftCrumbSeparator"/>
-				</td>				
-				<td class="unselectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">3.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-				</td>				
-				<td class="unselectedBreadcrumbCell">
-					<div class="notVisitedCrumbSeparator"/>
-				</td>				
-				<td class="unselectedBreadcrumbCell">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
--->
-
-			<tr>
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv breadcrumbNumberDivFirst" >
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb selectedFirstBreadcrumbCell rightalign">1.</span>
-					</div>
-					<div class="breadcrumbTextDivFirst" >
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_ProductSelection"></span>
-					</div>
-				</td>
-				<td class="selectedBreadcrumbCell">
-					<div class="visitedCrumbSeparator"/>
-				</td>
-				
-				<td class="selectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle selectedBreadcrumb rightalign">2.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle selectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_PersonalData"></span>
-					</div>
-				</td>
-				<td class="unselectedBreadcrumbCell">
-					<div class="visitedLeftCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<div class="breadcrumbNumberDiv">
-						<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb rightalign">3.</span>
-					</div>
-					<div class="breadcrumbTextDiv">
-						<span class="BreadcrumbTextStyle unselectedBreadcrumb leftAlign" data-translationKey="breadCrumbItem_OptionalProducts"></span>
-					</div
-				</td>
-				
-				<td class="unselectedBreadcrumbCell">
-					<div class="notVisitedCrumbSeparator"/>
-				</td>
-				
-				<td class="unselectedBreadcrumbCell nowrap">
-					<span class="BreadcrumbTextNumberStyle unselectedBreadcrumb">4.</span>
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
-			</tr>
-
-
-		</table>
-	</div>	
 	<div class="ScreenLayout" id="SupCardScreen_PageContents">
 		<br>		
 		<br>		
@@ -114,7 +34,7 @@
 							<span class="fieldLabelsTitle" data-translationKey="supCardRequest_ForWhom"></span>						
 						</td>
 					</tr>
-					<tr class="sizeSelector">
+					<tr>
 						<td>
 							<center>
 								<fieldset  id="supCardRequestType" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
@@ -221,11 +141,11 @@
 		<br>
 		<div id="supAddressPanel" >			
 			<center>
-				<div id="personalData2_AddressLookupArea" >
+				<div id="personalData_AddressLookupArea" >
 		            <table id="addressLookupTable" class="stretchThisTable">
 		                <tr class="fieldRow">
 		                    <td class="fieldLabelsTopCell fieldCellSize33">
-		                        <span data-translationKey="personalData2_Address_PostalCode"></span>
+		                        <span data-translationKey="personalData_Address_PostalCode"></span>
 		                    </td>
 		                    <td class="fieldValuesTopCell">
 		                        <input class="fieldValuesTextField upperCaseField" id="sup_PostalCode" type="text" maxlength="6" tabindex=6/>
@@ -233,7 +153,7 @@
 		                </tr>
 		                <tr class="fieldRow">
 		                    <td class="fieldLabelsBottomCell fieldCellSize33">
-		                        <span data-translationKey="personalData2_Address_StreetNumber"></span>
+		                        <span data-translationKey="personalData_Address_StreetNumber"></span>
 		                    </td>
 		                    <td class="fieldValuesBottomCell">
 		                        <input class="fieldValuesTextField upperCaseField" id="sup_Address_StreetNumber_TextField" type="text" maxlength="6" tabindex=7/>
@@ -244,7 +164,7 @@
 			</center>
 			<br>
 	        <span id="sup_AddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
-	        	<span class="buttonText lookupSpan" data-translationKey="personalData2_Address_Button_Label"></span>
+	        	<span class="buttonText lookupSpan" data-translationKey="personalData_Address_Button_Label"></span>
 			</span>	
 			<br>
 			<br>
@@ -253,11 +173,11 @@
 			<br>
 			<br>			
 			<center>
-			<div id="personalData2_AddressArea" >
+			<div id="personalData_AddressArea" >
 	            <table id="personalInfoTable" class="stretchThisTable">
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine1"></span>
+	                        <span data-translationKey="personalData_PreviousAddress_AddressLine1"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
 	                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine1_TextField" type="text" maxlength="40" tabindex=8/>
@@ -270,7 +190,7 @@
 	                </tr>
 	            <!--    <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData2_PreviousAddress_AddressLine2"></span>
+	                        <span data-translationKey="personalData_PreviousAddress_AddressLine2"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
 	                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine2_TextField" type="text" maxlength="40" tabindex=9/>
@@ -283,7 +203,7 @@
 	                </tr>    -->
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData2_PreviousAddress_SuiteUnit"></span>
+	                        <span data-translationKey="personalData_PreviousAddress_SuiteUnit"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
 	                        <input class="fieldValuesTextField upperCaseField" id="sup_SuiteUnit_TextField" type="text" maxlength="5" tabindex=10/>
@@ -291,7 +211,7 @@
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData2_PreviousAddress_City"></span>
+	                        <span data-translationKey="personalData_PreviousAddress_City"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
 	                        <input class="fieldValuesTextField upperCaseField" id="sup_City_TextField" type="text" maxlength="24" tabindex=11/>
@@ -299,10 +219,10 @@
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsBottomCell fieldCellSize33">
-	                        <span data-translationKey="personalData2_PreviousAddress_Province"></span>
+	                        <span data-translationKey="personalData_PreviousAddress_Province"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <!-- input class="fieldValuesTextField" id="personalData2_PreviousAddress_Province_TextField" type="text"/ -->
+	                        <!-- input class="fieldValuesTextField" id="personalData_PreviousAddress_Province_TextField" type="text"/ -->
 							<select class="fieldValuesTextField" id="sup_Province_TextField" tabindex=12>
 							</select>
 	                    </td>

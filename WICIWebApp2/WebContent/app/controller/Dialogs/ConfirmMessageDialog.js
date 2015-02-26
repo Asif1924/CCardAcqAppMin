@@ -1,26 +1,29 @@
 ensureNamespaceExists();
 
-WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, yesButton, noButton){
-	var dialogViewHelper = new WICI.DialogViewHelper();
-	
-	var answerIsYes = false;
-	var showing = false;
-	
+WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, yesButton, noButton, autoClose, autoCloseCallback) {
+	var dialogViewHelper = new WICI.DialogViewHelper(),
+	 	answerIsYes = false,
+	 	showing = false;
+
 	this.isShowing = isShowing;
 	this.show = show;
-	
+
 	function show(showNextDialogCallback) {
 		appendDialog();
 		dialogViewHelper.showDialog();
 		addEvents(showNextDialogCallback);
 		showing = true;
+
+		if (autoClose) {
+			dialogViewHelper.startAutoCloseTimer(this, autoCloseCallback);
+		}
 	}
 
 	function isShowing() {
 		return showing;
 	}
-	
-	function appendDialog(){
+
+	function appendDialog() {
 		$("#confirmMessageDialog-template").template("dialogTemplate");
 		$.tmpl("dialogTemplate", {
 			title : title,
@@ -29,14 +32,14 @@ WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, ye
 			noButton : noButton
 		}).appendTo("body");
 	}
-	
-	function addEvents(showNextDialogCallback){
+
+	function addEvents(showNextDialogCallback) {
 		// DANGER, we use .one( but remember to make sure the events don't stack up if making changes
 		$("#confirm_confirmButton").one("click", function(event){
 			answerIsYes = true;
 		});
-		
-		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function(){
+
+		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function() {
 			dialogViewHelper.removeDialog();
 			try {
 				if (answerIsYes)
@@ -50,5 +53,5 @@ WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, ye
 			showNextDialogCallback();
 		});
 	}
-	
+
 };

@@ -229,7 +229,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		$(refs.postalCode).val(model.get('postalCode'));
 		$(refs.addressLine1).val(model.get('addressLine1'));
-		/* changes for task CTCOFSMB-1431, disabling address line 2 
+		/* changes for task CTCOFSMB-1431, disabling address line 2
 		$(refs.addressLine2).val(model.get('addressLine2'));
 		*/
 		$(refs.suiteUnit).val(model.get('suiteUnit'));
@@ -259,7 +259,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			$(refs.addressLine1_MultipleControl).hide();
 			$(refs.addressLine1).val($addressLine1);
 		}
-		/* changes for task CTCOFSMB-1431, disabling address line 2 
+		/* changes for task CTCOFSMB-1431, disabling address line 2
 		if ($addressLine2 && $addressLine2.length > 1) {
 			$(refs.addressLine2_MultipleControl).show();
 			repopulateAddressLineControl($addressLine2,
@@ -339,8 +339,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		connectivityController.init();
 	}
 	function createFlips() {
-		$(refs.flipSupplementaryCard_no + ","+ refs.flipSameAddress_no).text(translator.translateKey("messageDialog_no"));
-		$(refs.flipSupplementaryCard_yes + ","+ refs.flipSameAddress_yes).text(translator.translateKey("messageDialog_yes"));
+		$(refs.flipSupplementaryCard_no + ","+ refs.flipSameAddress_no).text(translator.translateKey("no"));
+		$(refs.flipSupplementaryCard_yes + ","+ refs.flipSameAddress_yes).text(translator.translateKey("yes"));
 		$(refs.flipCardYesNo).slider();
 		$(refs.flipSameAddress).slider();
 	}
@@ -379,7 +379,9 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	function createView() {
 		$screenContainer.empty();
 		assembleNavigationBarAtTop();
+		WICI.BreadcrumbsHelper.assembleBreadcrumbs(4, $screenContainer, activationItems);
 		assemblePageHTML($screenContainer, "#WICISupCardScreen-template");
+		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");
 		hideAddressLookupSelectionDropDowns();
 		disableAddressline2();
@@ -401,10 +403,18 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 							"settingsButtonId" : "SupplementaryCardRequestScreen_SettingsButton"
 						}).appendTo("#SupplementaryCardRequestScreen");
 	}
+	 // ---------------------------------------------------------------------------------------
+	function assembleNavigationBarAtBottom(){
+		$("#pageFooter-template").template("pageFooter");
+		$.tmpl("pageFooter", {
+			"previousButtonId" : "SupplementaryCardRequestScreen_PrevButton",
+			"nextButtonId" : "SupplementaryCardRequestScreen_NextButton"
+			}
+		).appendTo("#SupplementaryCardRequestScreen");
+	}
 	// ---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-		var html = $(templateName).tmpl();
-		$element.append(html);
+	    $(templateName).tmpl().appendTo($element);
 	}
 	// ---------------------------------------------------------------------------------------
 	function bindEvents() {
@@ -414,28 +424,24 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		bindNavigationHandlingControls();
 		bindAddressHandlingControls();
 		bindRadioHandlingControls();
-		
-		
-			
-		$(refs.province).on("change", function() {			
+
+		$(refs.province).on("change", function() {
 			console.log(refs.province + '::change');
 			model.set("province", $(refs.province).val());
 		});
-			
-		$(refs.province).bind('translatorFinished', function(event) {
-				console.log(refs.province + 'bind(translatorFinished)');
-				populateProvinces();	
-				$(refs.province).val(model.get("province"));
 
+		$.subscribe('translatorFinished', function(event) {
+				console.log(refs.province + 'subscribe(translatorFinished)');
+				populateProvinces();
+				$(refs.province).val(model.get("province"));
 		});
-	
 	}
 	// ---------------------------------------------------------------------------------------
 	function bindNavigationHandlingControls() {
-		$('#SupplementaryCardRequestScreen_NextButton').click(function() {
+		$('.SupplementaryCardRequestScreen_NextButton').click(function() {
 			showNextScreen();
 		});
-		$('#SupplementaryCardRequestScreen_PrevButton').click(function() {
+		$('.SupplementaryCardRequestScreen_PrevButton').click(function() {
 			showPrevScreen();
 		});
 	}
@@ -565,7 +571,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		$(refs.addressLine1_SelectField).change(function() {
 			$(refs.addressLine1).val($(refs.addressLine1_SelectField).val());
 		});
-		/* changes for task CTCOFSMB-1431, disabling address line 2 
+		/* changes for task CTCOFSMB-1431, disabling address line 2
 		$(refs.addressLine1_SelectField).change(function() {
 			$(refs.addressLine2).val($(refs.addressLine2_SelectField).val());
 		});
@@ -684,7 +690,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	function populateProvinces() {
 		var sMethod = 'populateProvinces() ';
 		console.log(logPrefix + sMethod);
-		
+
 		var provinceVal = model.get('province');
 
 		var controlRef = $(refs.province);

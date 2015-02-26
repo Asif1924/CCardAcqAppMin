@@ -5,6 +5,7 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 	var timeout = "";
 	var startTime = new Date();
 	var elapsed = 0;
+	var respAn = new WICI.PollingResponseAnalyzer();
 
 	function startPolling() {
 		var sMethod = "startPolling";
@@ -38,33 +39,42 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 
 	function responseReceived(argResponse) {
 		var sMethod = "responseReceived";
-		console.log(logPrefix+sMethod);
-		console.log( "responseReceived:" + argResponse);
-		if( argResponse==="" || argResponse===null )
+		console.log( logPrefix+sMethod );		
+		if( responseIsNullOrEmpty(argResponse) || responseExistsNoErrorButNotSufficient(argResponse)  ){
 			doPollWait();
+		}			
 		else{
-			if( argResponse && !argResponse.error ){
-				console.log("---attempting to purge request");
-	            var purgeRequestParams = {
-	                   	transactionID	:	argRequestParams.transactionID,
-	                   	action			:	"purge"
-	            };
-				argConnectivityController.poll(purgeRequestParams, $.noop, $.noop, $.noop);
+			if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) ){
+				console.log( logPrefix+sMethod + " Application Status:" + respAn.getAppStatus(argResponse));
 				argSuccessCallback(argResponse);
-			} else if (argResponse && argResponse.error) {
-				stopPolling(argResponse);
-				//argFailureCallback(argResponse);
+			} else if (responseExistsAndHasError(argResponse)) {
+				stopPolling(respAn.getData(argResponse));
 			}
 		}
 	}
 
+	function responseExistsAndHasError( argResponse ){
+		return respAn.isErrorResponse(argResponse);
+	}
+	
+	function responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid( argResponse ){
+		return respAn.isValidResponse(argResponse);
+	}
+	
+	function responseIsNullOrEmpty( argResponse ){
+		return respAn.isBadResponse(argResponse);
+	}
+	
+	function responseExistsNoErrorButNotSufficient( argResponse ){
+		return respAn.isIndeterminableResponse(argResponse);
+	}
+	
 	function responseFailed(argResponse){
 		var sMethod = "responseFailed";
 		console.log(logPrefix + sMethod);
 		if( argResponse )
 			console.log( "responseFailed:" + argResponse);
 		stopPolling(argResponse);
-//		argFailureCallback(argResponse);
 	}
 
 	function stopPolling(argResponse){

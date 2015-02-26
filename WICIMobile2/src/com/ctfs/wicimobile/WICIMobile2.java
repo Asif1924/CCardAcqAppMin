@@ -19,6 +19,8 @@
 
 package com.ctfs.wicimobile;
 
+import com.ctfs.wicimobile.plugins.AppLanguagePlugin;
+import com.ctfs.wicimobile.util.WICIAppSettingsStorageManager;
 import org.apache.cordova.Config;
 import org.apache.cordova.DroidGap;
 import android.os.Bundle;
@@ -26,73 +28,37 @@ import android.util.Log;
 
 import com.ctfs.wicimobile.util.PrinterManager;
 
-public class WICIMobile2 extends DroidGap
-//public class WICIMobile2 extends Activity implements CordovaInterface 
-{
-	
-	//private 	ExecutorService 		threadPool;
-	//private		CordovaWebView			cwv;
+public class WICIMobile2 extends DroidGap {
+	private static final String LOG_TAG = "WICIMobile2";
 	
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-    	Log.i("WICIMobile2", "onCreate");
+    public void onCreate(Bundle savedInstanceState) {
+    	Log.i(LOG_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         
         //setContentView(R.layout.main);
-        
-        // Restore printers history 
+
+        WICIAppSettingsStorageManager.init(this);
+        String lang = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings().getAppLanguage();
+        if ("F".equals(lang)) {
+            AppLanguagePlugin.changeSystemLang(this, lang);
+        }
+
+        // Restore printers history
         PrinterManager.getInstance().populatePrinterHistoryFromPreferences(this);
 
         //Orphaned and only relevant for DroidGap inheritance
-        super.loadUrl(Config.getStartUrl());    
-        //super.loadUrl("file:///android_asset/www/production/index.html");
-
-        //cwv = (CordovaWebView) findViewById(R.id.WICIWebView);        
-        //cwv.getSettings().setDefaultTextEncodingName("utf-8");
-        //cwv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        
-        //Config.init(this);
-        //cwv.loadUrl(Config.getStartUrl());        
+        super.loadUrl(Config.getStartUrl());
     }
     
     @Override
     protected void onStop() {
         super.onStop();
-        
+
         // Save printers history
         PrinterManager.getInstance().storePrinterHistoryInPreferences(this);
+
+        Log.i(LOG_TAG, "WICIMobile2 stopped");
     }
-
-    /*
-	@Override
-	public Activity getActivity() {
-		// Need to return this otherwise the app crashes.
-		//return this;
-	}
-
-	@Override
-	public ExecutorService getThreadPool() {
-		//return threadPool;
-	}
-
-	@Override
-	public Object onMessage(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setActivityResultCallback(CordovaPlugin arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void startActivityForResult(CordovaPlugin arg0, Intent arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-     */
 }

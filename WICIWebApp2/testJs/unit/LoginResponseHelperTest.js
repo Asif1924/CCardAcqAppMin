@@ -11,6 +11,9 @@ describe("LoginResponseHelper Test", function() {
 	
 	var updatedLogin_with_Invalid_EmployerID = {"error":false,"msg":"Invalid Employer Id. Please correct and try again","data":{"statusCode":"403","message":"Invalid Employer Id. Please correct and try again"}};
 	
+	//DDD Feature
+	var loginWithDDDResponse = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user a23","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user a23","roles":"[\"FMR\"]","checkLocation":{"message":"SUCCESS","outletName":"ASSOCIATE STORE     ","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3"},"dictionaryInfo":{"LatestDictionaryVersion":"1.1","DictionaryURLEnglish":"https://www.ctfs.com/SharedContent/wici/dict/preprod/Messages_en.js","DictionaryURLFrench":"https://www.ctfs.com/SharedContent/wici/dict/preprod/Messages_fr.js","OlderDictionaryAllowable":true}}};
+	
 	beforeEach(function() {
 		sut = new WICI.LoginResponseHelper();
 	});	
@@ -65,4 +68,16 @@ describe("LoginResponseHelper Test", function() {
 		expect(sut.loginSuccessful()).toEqual(false);
 		expect(sut.getBundleCodeForErrorMessage()).toEqual("loginScreen_FailureMessage");
 	});	
+	it(" will confirm that a successful authentication and authorization can be determined by status code 200, LTPA TOKEN exists and no error on new response object with DDD response object", function() {
+		//.loginSuccessful makes a decision based on several rules which will determine if the login is good or bad
+		sut.setLoginResponseObject(loginWithDDDResponse);		
+		expect(sut.loginSuccessful()).toEqual(true);
+	});	
+	
+	it(" will extract the Dictionary config info from the login response object", function() {
+		
+		sut.setLoginResponseObject(loginWithDDDResponse);		
+		expect(sut.getLatestDictionaryInfo()).not.toEqual(null);
+	});
+
 });

@@ -11,8 +11,7 @@ WICI.AppNavigatorController = function() {
 		
 		translator = argTranslator;
 		messageDialog = argMessageDialog;
-		
-		var loginScreen = new WICI.LoginScreenController();
+		var loginScreen = new WICI.LoginScreenController(app);
 		loginScreen.init(translator, messageDialog);
 		loginScreen.show();		
 	}

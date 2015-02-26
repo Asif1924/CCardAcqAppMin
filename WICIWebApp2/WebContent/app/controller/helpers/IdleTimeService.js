@@ -4,18 +4,12 @@ ensureNamespaceExists();
 WICI.IdleTimeService = function(document) {
 	var logPrefix = '[WICI.IdleTimeService]::';
 	
-	var idleTime = 0; 			
-	var idleIncrement = WICI.AppConfig.BackgroundServicesConfig.IDLE_INCREMENT;
-	var idleIntervalId = null;	
+	var idleTime = new Date().getTime();
 	
 	var serviceStateEnum = {
 			working			: "working",
 			stopped			: "stopped"
 		};
-	//---------------------------------------------------------------------------------------
-	this.setIdleIncrement = function(value) {
-		idleIncrement = value;
-	};
 	//---------------------------------------------------------------------------------------
 	this.getServiceState = function() {
 		return serviceState;
@@ -33,18 +27,9 @@ WICI.IdleTimeService = function(document) {
 		var sMethod = 'init()';
 		console.log(logPrefix + sMethod);
 		
-		idleTime = 0;
+		idleTime = new Date().getTime();
 		setServiceState(serviceStateEnum.stopped);
-		
-		clearInterval(idleIntervalId);
 	};
-	//---------------------------------------------------------------------------------------
-	function timerIncrement() {
-		var sMethod = 'timerIncrement()' + " idleTime: "+idleTime;
-		console.log(logPrefix + sMethod);
-		
-		idleTime = idleTime + 1;
-	}
 	//---------------------------------------------------------------------------------------
 	this.start = function() {
 		var sMethod = 'start() ';
@@ -57,13 +42,12 @@ WICI.IdleTimeService = function(document) {
 		
 		init();
 		
-		idleIntervalId = setInterval(timerIncrement, idleIncrement); 
 		setServiceState(serviceStateEnum.working);
 	};
 	//---------------------------------------------------------------------------------------	 
 	this.stop = function() {
 		var sMethod = 'stop() ';
-		console.log(logPrefix + sMethod + "idleIntervalId: "+idleIntervalId);
+		console.log(logPrefix + sMethod);
 		
 		init();
 	};
@@ -77,44 +61,18 @@ WICI.IdleTimeService = function(document) {
 			return 0;
 		}
 		
-		return idleTime;
+		return (new Date().getTime() - idleTime) / 60000;
 	};
 	//---------------------------------------------------------------------------------------
 	var subscribeToUserEvents = function() {
 		var sMethod = 'subscribeToUserEvents() ';
 		console.log(logPrefix + sMethod);
 		
-		if(!document || !document.mousemove){
-			console.log(logPrefix + sMethod + " WARNING: 'document' is null or have no mousemove event!");
-			return;
-		}
-		
-		//Zero the idle timer on mouse movement.
-		document.mousemove(function (e) {
-			var sMethod = 'mousemove()';
-			//console.log(logPrefix + sMethod);
-			
+        document.on('blur change click contextmenu focusin focusout hashchange keydown mousedown scroll select touchstart touchend touchcancel touchleave', function (e) {
 			if(getServiceState() === serviceStateEnum.stopped){
 				return;
 			}
-			
-	        idleTime = 0;
-	    });
-
-		if(!document.keypress){
-			console.log(logPrefix + sMethod + " WARNING: 'document' have no keypress event!");
-			return;
-		}
-
-		document.keypress(function (e) {
-			var sMethod = 'keypress()';
-			//console.log(logPrefix + sMethod);
-
-			if(getServiceState() === serviceStateEnum.stopped){
-				return;
-			}
-
-	        idleTime = 0;
+	        idleTime = new Date().getTime();
 	    });
 	};
 	//---------------------------------------------------------------------------------------

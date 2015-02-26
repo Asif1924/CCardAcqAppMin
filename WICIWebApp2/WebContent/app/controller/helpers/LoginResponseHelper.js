@@ -9,6 +9,7 @@ WICI.LoginResponseHelper = function() {
 	this.getLoginResponseMessage = getLoginResponseMessage;
 	this.getBundleCodeForErrorMessage = getBundleCodeForErrorMessage;
 	this.incorrectApkVersion = incorrectApkVersion;
+	this.getLatestDictionaryInfo = getLatestDictionaryInfo;
 	
 	function setLoginResponseObject( argLoginResponseObject ){
 		loginResponseObject = argLoginResponseObject;
@@ -27,9 +28,12 @@ WICI.LoginResponseHelper = function() {
 	}
 	
 	function getBundleCodeForErrorMessage(){
-		if( loginResponseObject && loginResponseObject.msg && loginResponseObject.msg==="Invalid Employer Id. Please correct and try again"){
+		if( loginResponseObject && loginResponseObject.msg === "Invalid Employer Id. Please correct and try again"){
 			return "loginScreen_EmployerIDLookup_FailedMessage";	
 		}
 		return "loginScreen_FailureMessage";
+	}
+	function getLatestDictionaryInfo(){
+		return loginResponseObject.data.dictionaryInfo;
 	}
 };

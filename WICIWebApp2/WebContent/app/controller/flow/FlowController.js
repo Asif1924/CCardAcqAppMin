@@ -10,6 +10,9 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 	var backStack = [];
 	
 	var testPrintFailedAttempts = null;
+	var printerMethods = new WICI.TestPrintHelper(translate, messageDialog);
+	var testPrintClick = printerMethods.testPrint;
+	var printerSetupClick = printerMethods.setup;
 	
 	//---------------------------------------------------------------------------------------	
 	//entry point into flow
@@ -248,11 +251,11 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		            		}
 		    				if($(item).attr('chooseProductMenuItem') && $(item).attr('chooseProductMenuItem') === 'false')
 		    				{
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, null, printerSetupClick, testPrintClick, toggleLanguageClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick);
 		    				}
 		    				else
 		    				{
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, toggleLanguageClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick);
 		    				}	
 		    	        });
 		            }
@@ -260,113 +263,34 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		}
 	}
 	//---------------------------------------------------------------------------------------	
-	function printerSetupClick()
-	{
-	    var sMethod = 'printerSetupClick() ';
-        console.log(logPrefix + sMethod);
-	    try{	       
-	        messageDialog.printerSetup(app.zebraPrinterWrapper.getPrinterMacAddress(), setupPrinterMacAddress);
-	    } catch (err){
-	        console.log(logPrefix + sMethod + "ERROR: " + err);
-	    }
-	}
 	
-	function testPrintClick()
-	{
-		var sMethod = 'testPrintClick() ';
-		console.log(logPrefix + sMethod);
-		
-		testPrintFailedAttempts = 0;
-		
-		testPrintYes();
-	}
 	
 	function toggleLanguageClick()
 	{
 		var sMethod = 'toggleLanguageClick() ';
 		console.log(logPrefix + sMethod);
-		
-		translate.toggleLanguage();
-		
-		app.language.setLanguage(translate.getCurrentLanguageFSDPFormat());
-		
-//		if(translate.getCurrentLanguageFSDPFormat() === 'E') {
-//			$('#settings_toggleLanguageButton').text("Français");
-//		} else {
-//			$('#settings_toggleLanguageButton').text("English");
-//		}		
-	}
-	
-	//---------------------------------------------------------------------------------------
-	function testPrintYes () {
-	    new WICI.LoadingIndicatorController().show();
-	    app.zebraPrinterWrapper.testPrint(printTestFileSuccess, printTestFileFailure);	    
-	}
-	
-	//---------------------------------------------------------------------------------------
-    function printTestFileSuccess(result) {
-        var sMethod = 'printTestFileSuccess() ';
-        console.log(logPrefix + sMethod);
-       
-        new WICI.LoadingIndicatorController().hide();                
-        messageDialog.confirm(translate.translateKey("testPrintStatusMsg"), $.noop, testPrintConfirmationNo, translate.translateKey("printResponseStatusTitle"));
-    }
-    //---------------------------------------------------------------------------------------
-    function printTestFileFailure(error) {
-        var sMethod = 'printTestFileFailure() ';
-        console.log(logPrefix + sMethod);
-        
-        new WICI.LoadingIndicatorController().hide();        
-        messageDialog.confirm(translate.translateKey("testPrintStatusMsg"), $.noop, testPrintConfirmationNo, translate.translateKey("printResponseStatusTitle"));
-    }
-    //---------------------------------------------------------------------------------------
-    function testPrintConfirmationNo () {
-        var sMethod = 'printConfirmationNo() ';
-        console.log(logPrefix + sMethod);
-        
-        console.log(logPrefix + sMethod + "::testPrintFailedAttempts::" + testPrintFailedAttempts);
-     
-		if (testPrintFailedAttempts > WICI.AppConfig.TestPrintConfig.MAX_TEST_PRINT_RETRIES - 1) {
-			testPrintFailedAttempts = 0;
-//    	        if (app.accountProfileHelper.isAdminProfile()) {
-//    	            messageDialog.printerSetup(app.zebraPrinterWrapper.getPrinterMacAddress(), setupPrinterMacAddressCallback);    
-//    	        } else {
-//    	        	app.accountProfileHelper.showNoPrinterSetupWarning();
-//    	        }
-			
-	        app.accountProfileHelper.showNoPrinterSetupWarning();
-		} else {
-			console.log(logPrefix + sMethod + "::FALSE::");
-			++testPrintFailedAttempts;    			
-    		testPrintYes();
+
+		try {
+			translate.toggleLanguage();
+		} catch (e) {
+			console.log(logPrefix + sMethod + ' Exception: ' + e);
+		} finally {
+			// even if .toggleLanguage throw exception language still should be changed in Java plugin
+			app.language.setLanguage(translate.getCurrentLanguageFSDPFormat());
 		}
-    }
-    
-    
-	//---------------------------------------------------------------------------------------	
-	function setupPrinterMacAddress (macAddress) {	    
-	    var sMethod = 'setupPrinterMacAddress() ';
-        console.log(logPrefix + sMethod);
-        
-	    app.zebraPrinterWrapper.setPrinterMacAddress(macAddress, storePrinterMacAddressCallback, storePrinterMacAddressCallback);
-	}	
-	//---------------------------------------------------------------------------------------
-    function storePrinterMacAddressCallback () {   
-        var sMethod = 'storePrinterMacAddressCallback() ';
-        console.log(logPrefix + sMethod);
-        
-        messageDialog.confirm(translate.translateKey("confirmDialogPritTest_Message"), testPrintYes, $.noop);
-    }       
-    
+	}
+	
+	
 	//---------------------------------------------------------------------------------------	
 	function logOutClick()
 	{	    
 	    var sMethod = 'logOutClick() ';
         console.log(logPrefix + sMethod);
         
-        messageDialog.htmlConfirm(translate.translateKey("settings_exitMessage"), logOut, $.noop, 
+        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), logOut, $.noop, 
         						translate.translateKey("backButtonPrompt_title"));
 	}
+    this.logOutClick = logOutClick;
 	//---------------------------------------------------------------------------------------	
 	function logOut()
 	{
@@ -384,7 +308,7 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		var sMethod = 'chooseProductClick() ';
         console.log(logPrefix + sMethod);
         
-        messageDialog.htmlConfirm(translate.translateKey("settings_exitMessage"), goToChooseProduct, $.noop, 
+        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), goToChooseProduct, $.noop, 
         						  translate.translateKey("backButtonPrompt_title"));
 	}
 	//---------------------------------------------------------------------------------------	
@@ -397,6 +321,32 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         activationItems.clearToLoginScreen();
         start();
 	}
+	//---------------------------------------------------------------------------------------
+	function retrieveClick()
+	{
+		var sMethod = 'retrieve() ';
+        var sessionStorageHelper = new WICI.SessionStorageHelper(window);
+        console.log(logPrefix + sMethod);
+     	sessionStorageHelper.setLastPage(activeScreenName);
+     	activeScreen.hide();
+     	retrieveClick.pendingScreen.init(null, "Retrieve");
+     	retrieveClick.pendingScreen.show();
+	}
+	retrieveClick.pendingScreen = new WICI.PendingScreenController(activationItems, translate, messageDialog);
+	
+	function reEstablishWifiClick() {
+		var deferred = WICI.WIFIHelper.createWICINetwork();
+		deferred.done(function() {
+			console.log('WIFIHelper.createWICINetwork success');
+			messageDialog.info(translate.translateKey('settings_reEstablishWifiSuccess'), translate.translateKey("infoDialog_defaultTitle"));
+
+		});
+		deferred.fail(function(msg) {
+			console.log('WIFIHelper.createWICINetwork fail: ' + msg);
+			messageDialog.error(translate.translateKey('settings_reEstablishWifiFailure'), translate.translateKey("errorDialog_defaultTitle"));
+		});
+	}
+
 	
 	this.startApplication = goToChooseProduct;
 	//---------------------------------------------------------------------------------------	

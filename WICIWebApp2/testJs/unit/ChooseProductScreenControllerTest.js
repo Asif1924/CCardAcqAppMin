@@ -6,7 +6,7 @@ describe("ChooseProductScreenController", function() {
 	    var chooseProductModel = null;
 
 		beforeEach(function() {
-			chooseProductController = new WICI.ChooseProductScreenController();
+			chooseProductController = new WICI.ChooseProductScreenController({getModel: sinon.stub().returns({ get:sinon.stub()}) });
 			if (chooseProductController) {
 				chooseProductModel = chooseProductController.innerModel;
 			}

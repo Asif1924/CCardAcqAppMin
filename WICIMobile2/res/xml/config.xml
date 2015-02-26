@@ -62,6 +62,10 @@
     <plugin name="AppLanguagePlugin" value="com.ctfs.wicimobile.plugins.AppLanguagePlugin"/>
     <plugin name="AppVersionPlugin" value="com.ctfs.wicimobile.plugins.AppVersionPlugin"/>
     <plugin name="DeviceInfoPlugin" value="com.ctfs.wicimobile.plugins.DeviceInfoPlugin"/>    
+    <plugin name="BluetoothPlugin" value="com.ctfs.wicimobile.plugins.BluetoothPlugin"/>
+    <plugin name="Pdf417Scanner" value="com.ctfs.wicimobile.plugins.Pdf417Scanner"/>
+    <plugin name="WifiPlugin" value="com.ctfs.wicimobile.plugins.WifiPlugin"/>
+    <plugin name="TokenPrinterPlugin" value="com.ctfs.wicimobile.plugins.TokenPrinterPlugin"/>
 </plugins>
 </cordova>
 

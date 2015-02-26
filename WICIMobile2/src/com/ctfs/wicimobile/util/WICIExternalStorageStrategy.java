@@ -131,7 +131,13 @@ public class WICIExternalStorageStrategy implements StorageStrategy {
                 } else if (name.equals(PRINTER_TYPE_KEY)) {
                     appSettings.setPrinterType(PrinterNetworkType.valueOf(reader.nextString()));
                 } else if (name.equals(APP_LANGUAGE_KEY)) {
-                	appSettings.setAppLanguage(reader.nextString());
+                    String lang;
+                    try {
+                        lang = reader.nextString();
+                    } catch (IllegalStateException e) {
+                        lang = null;
+                    }
+                    appSettings.setAppLanguage(lang);
                 } else {
                     reader.skipValue();
                 }

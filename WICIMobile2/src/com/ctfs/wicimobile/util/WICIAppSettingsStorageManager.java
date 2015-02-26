@@ -3,7 +3,8 @@ package com.ctfs.wicimobile.util;
 import android.content.Context;
 
 public class WICIAppSettingsStorageManager {
-    private static WICIAppSettingsStorageManager instance = null;
+    private static WICIAppSettingsStorageManager instance;
+
     private StorageStrategy _appStorageStrategy;
     private StorageStrategy _appExternalStorageStrategy;
     private Settings _appSettings;
@@ -14,10 +15,16 @@ public class WICIAppSettingsStorageManager {
         _appSettings = new WICIApplicationSettings();
     }
 
-    public static WICIAppSettingsStorageManager getInstance(Context appContext) {
-        if (instance == null) {
-            instance = new WICIAppSettingsStorageManager(appContext);
-        }
+    /**
+     * Should be called only once - form application activity
+     * @param appContext application context
+     */
+    public static void init(Context appContext) {
+        instance = new WICIAppSettingsStorageManager(appContext);
+        instance.restoreAppSettins();
+    }
+
+    public static WICIAppSettingsStorageManager getInstance() {
         return instance;
     }
     
@@ -27,18 +34,16 @@ public class WICIAppSettingsStorageManager {
     	return _appSettings;
     }
 
-    public void saveAppSettins(Settings appSettings) {
+    public void saveAppSettins() {
         try {
-        	_appSettings = appSettings;
-        	
-            _appStorageStrategy.saveData(appSettings);
-            _appExternalStorageStrategy.saveData(appSettings);
+            _appStorageStrategy.saveData(_appSettings);
+            _appExternalStorageStrategy.saveData(_appSettings);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Settings restoreAppSettins() {        
+    private void restoreAppSettins() {
         try {
             _appSettings = _appStorageStrategy.getData();
             
@@ -48,8 +53,6 @@ public class WICIAppSettingsStorageManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        return _appSettings;
     }
     
     public void cleanAppSettings () {

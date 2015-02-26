@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
-WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, toggleLanguageCallback,  
-								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, toggleLanguageButton, chancelButton)
+WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback,
+								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, chancelButton)
 {
 	var dialogViewHelper = new WICI.DialogViewHelper();
 	
@@ -32,7 +32,10 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 			printerSetupButton: printerSetupButton,
 			testPrintButton: testPrintButton,
 			toggleLanguageButton: toggleLanguageButton,
-			chancelButton: chancelButton
+			chancelButton: chancelButton,
+			retrieveButton: retrieveButton,
+			retrieveButtonDisplayed: WICI.AppConfig.PendingFeature.AllowAppRetrieval &&  !WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines,
+			reEstablishWifiButton: reEstablishWifiButton
 		}).appendTo("body");
 		
 		if(chooseProductCallback === null || chooseProductCallback === $.noop)
@@ -90,31 +93,34 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 		$("#settings_toggleLanguageButton").on("click", function(event){
 			action = "toggleLanguage";
 		});
+		$("#settings_retrieveButton").on("click", function(event){
+			action = "retrieve";
+		});
+		$("#settings_reEstablishWifiButton").on("click", function(event){
+			action = "settings_reEstablishWifi";
+		});
 		
 		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function(){
 			dialogViewHelper.removeDialog();
 			try {
-				if (action === "logOut")
-				{
-					logOutCallback();
+				switch(action) {
+					case "logOut": logOutCallback();
+						break;
+					case "chooseProduct": chooseProductCallback();
+						break;
+					case "printerSetup": printerSetupCallback();
+						break;
+					case "testPrint": testPrintCallback();
+						break;
+					case "toggleLanguage": toggleLanguageCallback();
+						break;
+					case "retrieve": retrieveCallback();
+						break;
+					case "settings_reEstablishWifi": reEstablishWifiCallback();
+						break;
+					default:  throw new Error("invalid selection");
+						break;
 				}
-				else if(action === "chooseProduct")
-				{
-					chooseProductCallback();
-				}
-				else if(action === "printerSetup")
-				{
-					printerSetupCallback();
-				}
-				else if(action === "testPrint")
-				{
-					testPrintCallback();
-				}	
-				else if(action === "toggleLanguage")
-				{
-					toggleLanguageCallback();
-				}
-				
 			} catch (e) {
 				console.log("Internal WICI error after Settings dialog box :: " + e);
 			}

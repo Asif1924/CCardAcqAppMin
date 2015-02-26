@@ -1,45 +1,45 @@
 ensureNamespaceExists();
 
 WICI.BaseModel = function(config) {
-    
+
     this.name = config.name;
     this.data = config.data;
-    this.refs = config.refs; 
-    var refs = this.refs; 
+    this.refs = config.refs;
+    var refs = this.refs;
     var validator = new WICI.Validator();
     var logPrefix = '[WICI.BaseModel ('+this.name+')]:: ';
     //---------------------------------------------------------------
-    
+
     this.getData = function(bIncludeNonFields){
         var sMethod = 'getData() ';
         console.log(logPrefix + sMethod);
-        
+
         var rez=[];
         $.each(this.data, function(index, item) {
             if(!item.notField || (bIncludeNonFields && item.notField)){
                 rez.push({name: item.name, value: item.value});
             }
         });
-        
+
         return rez;
     };
     //---------------------------------------------------------------
     this.getNotEmtyData = function(bIncludeNonFields){
         var sMethod = 'getData() ';
         console.log(logPrefix + sMethod);
-        
+
         var rez=[];
         $.each(this.data, function(index, item) {
             if(!item.notField || (bIncludeNonFields && item.notField)){
-            	 // Don't add empty field to the request 
+            	 // Don't add empty field to the request
                 if (!_.isEmpty(item.name)  && item.value && !_.isEmpty(item.value.toString()) && programCheck(item)) {
                 	 rez.push({name: item.name, value: item.value});
                 }
             }
         });
-        
+
         return rez;
-    };    
+    };
     //---------------------------------------------------------------
     this.toString=function(){
         var rez="";
@@ -53,12 +53,12 @@ WICI.BaseModel = function(config) {
         if(value==='null'){
             value = null;
         }
-        
+
         $.each(this.data, function(index, item) {
            if(item.name===name){
                item.value = value;
                return item;
-           } 
+           }
         });
     };
     //---------------------------------------------------------------
@@ -68,7 +68,7 @@ WICI.BaseModel = function(config) {
            if(item.name===name){
                value = item.value;
                return;
-           } 
+           }
         });
         return value;
     };
@@ -79,7 +79,7 @@ WICI.BaseModel = function(config) {
            if(item.name===name){
                value = item;
                return;
-           } 
+           }
         });
         return value;
     };
@@ -87,27 +87,27 @@ WICI.BaseModel = function(config) {
     var isValid = function(validation, name, value){
         var rez = null;
         var isError = false;
-        
+
         if(!validation){
             return null;
         }
-        
+
         if(validation.canBeEmpty && !value){
             return null;
         }
-            
+
         switch(validation.type){
-           case 'mod10':
-			isError = !validator.mod10(value, validation.minlength);
-			break;
-        	case 'presence':
+            case 'mod10':
+                isError = !validator.mod10(value, validation.minlength);
+                break;
+            case 'presence':
                 isError = !value;
                 break;
             case 'format':
                 if(value === null){
                     isError = true;
                 } else {
-                    //var regRez = value.trim().match(validation.matcher);     //shouldnt be trimming before evaluating           	
+                    //var regRez = value.trim().match(validation.matcher);     //shouldnt be trimming before evaluating
                 	var regRez = value.match(validation.matcher);
                     isError = !regRez;
                 }
@@ -127,6 +127,9 @@ WICI.BaseModel = function(config) {
             case 'personName':
                 isError=!validator.personName(value);
                 break;
+            case 'jobTitle':
+                isError=!validator.jobTitle(value);
+                break;
             case 'city':
                 isError=!validator.city(value);
                 break;
@@ -145,7 +148,7 @@ WICI.BaseModel = function(config) {
             case 'suiteUnit':
             	isError=!validator.suiteUnit(value);
                 break;
-                
+
         }
 
         if(isError){
@@ -154,11 +157,11 @@ WICI.BaseModel = function(config) {
         }
         return rez;
     };
-    //---------------------------------------------------------------  
+    //---------------------------------------------------------------
     this.validate = function(groupName) {
         console.log('WICI.BaseModel::isGroupValid(' + groupName + ')');
 
-        var rez = []; 
+        var rez = [];
         $.each(this.data, function(index, item) {
 
             if (!groupName || (item.validation && $.inArray(groupName, item.validation.group) != -1)) {
@@ -173,7 +176,7 @@ WICI.BaseModel = function(config) {
         });
         return rez;
     };
-    
+
     this.validateFieldByName = function(fieldName, fieldValue)
     {
     	console.log('WICI.BaseModel::ValidateFieldByName(' + fieldName + ')');
@@ -182,7 +185,7 @@ WICI.BaseModel = function(config) {
     	if(fieldName && fieldName!=='' && fieldValue && fieldValue !== '')
     	{
 	    	$.each(this.data, function(index, item) {
-	
+
 	    		if(item.name === fieldName)
 	    		{
 	    			var fieldValidationResult = isValid(item.validation, item.name, fieldValue);
@@ -196,48 +199,48 @@ WICI.BaseModel = function(config) {
 
     	return result;
     };
-    
+
     this.validateAge = function(model, province) {
     	var rez;
-    	
+
     	var dateParts = model.get('birthDate').split("-");
 		var date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 		var now = moment()._d;
-		
+
 		var fullYears = ( now.getFullYear() - date.getFullYear() - ((now.getMonth() - date.getMonth()||now.getDate() - date.getDate())<0) );
 
 		console.log('WICI.BaseModel::validateEdge FullYears=' + fullYears);
-		
+
 		var item = model.getItemByName('birthDate');
-    	
+
     	var itemName =  item === null ? '' : item.name;
-    	var itemuiid = model.refs == null ? '' : model.refs[item.name]; 
-		
+    	var itemuiid = model.refs == null ? '' : model.refs[item.name];
+
     	if(fullYears < 18)
     	{
     		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
     	}
     	else if (fullYears == 18 && province !== null && province != '') {
-    		
-    		if(province === 'NF' || 
-    		   province === 'NB' || 
+
+    		if(province === 'NF' ||
+    		   province === 'NB' ||
     		   province === 'NS' ||
     		   province === 'BC' ||
     		   province === 'YT' ||
     		   province === 'NT' ||
     		   province === 'NL' ||
-    		   province === 'NU' ) 
+    		   province === 'NU' )
     		{
     			rez= {name: itemName, err: 'personalData_DOB_19YearsError', uiid: itemuiid, province: province};
     		}
-        		
+
     	}
-    	
+
     	return rez;
     };
     // ---------------------------------------------------------------
     programCheck = function(item){
-    	return !(item.name == "agencyPromoCode" &&  (item.value == "BLANK" || item.value == "S.O."));	
+    	return !(item.name == "agencyPromoCode" &&  (item.value == "BLANK" || item.value == "S.O."));
     };
     //---------------------------------------------------------------
     console.log(logPrefix + 'constructor end.');

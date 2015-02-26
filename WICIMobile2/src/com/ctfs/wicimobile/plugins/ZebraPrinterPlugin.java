@@ -32,21 +32,21 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
         if (action.equals("getStoredPrintMacAddress")) {
             try {
-                DiscoveredPrinter latestPrinter = PrinterManager.getInstance().getSelectedPrinter();
-                if (latestPrinter == null) {
+                String macAddress = PrinterManager.getInstance().getMacAddress();
+                if (macAddress == null) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Not found"));
                     return true;
                 }
 
                 // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, latestPrinter.address);
+                PluginResult result = new PluginResult(PluginResult.Status.OK, macAddress);
                 // Send search results to Web UI side
                 callbackContext.sendPluginResult(result);
 
                 return true;
             } catch (Exception ex) {
                 ex.printStackTrace();
-                
+
                 if (callbackContext != null) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -65,7 +65,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 return true;
             } catch (Exception ex) {
                 ex.printStackTrace();
-                
+
                 if (callbackContext != null) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -77,7 +77,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 return true;
             } catch (Exception ex) {
                 ex.printStackTrace();
-                
+
                 if (callbackContext != null) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -89,7 +89,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 return true;
             } catch (Exception ex) {
                 ex.printStackTrace();
-                
+
                 if (callbackContext != null) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -100,27 +100,24 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
     }
 
     private void printRequestedFile(Boolean isPrintTestFile, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        String macAddress;
-        WICICardmemberModel carmemberModel = null;
-        
+        WICICardmemberModel cardMemberModel = null;
+
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
         pluginResult.setKeepCallback(true);
         callbackContext.sendPluginResult(pluginResult);
 
-        macAddress = args.getString(0);
-
         if (!isPrintTestFile) {
-            carmemberModel = new WICICardmemberModel();
-            carmemberModel.initializeModel(args, 1);
+            cardMemberModel = new WICICardmemberModel();
+            cardMemberModel.initializeModel(args);
         }
 
-        this.printFile(macAddress, carmemberModel, callbackContext);
+        this.printFile(cardMemberModel, callbackContext);
     }
 
-    private void printFile(String argMACAddress, WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
-        Log.i(getClass().getSimpleName(), "ZebraPrinterPlugin.printFile to " + argMACAddress);
+    private void printFile(WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
+        Log.i(getClass().getSimpleName(), "ZebraPrinterPlugin.printFile");
         try {
-            new ZebraPrintTask(argMACAddress, carmemberModel, callbackContext).execute(null, null, null);
+            new ZebraPrintTask(carmemberModel, callbackContext).execute(null, null, null);
         } catch (Exception ex) {
             ex.printStackTrace();
             if (callbackContext != null) {
@@ -133,19 +130,9 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
         private CallbackContext _callbackContext;
         private WICICardmemberModel _carmemberModel;
 
-        public ZebraPrintTask(String printerMACAddress, WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
+        public ZebraPrintTask(WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
             _callbackContext = callbackContext;
             _carmemberModel = carmemberModel;
-            try {
-                DiscoveredPrinter printer = new DiscoveredPrinterBluetooth(printerMACAddress, EMPTY_STRING);
-                PrinterManager.getInstance().setSelectedPrinter(printer);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-
-                if (_callbackContext != null) {
-                    _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
-                }
-            }
         }
 
         protected Void doInBackground(Void... args) {
@@ -164,7 +151,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
-            } catch (ZebraPrinterLanguageUnknownException ex) {             
+            } catch (ZebraPrinterLanguageUnknownException ex) {
                 ex.printStackTrace();
                 disconnect();
 
@@ -223,21 +210,20 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             try {
                 // Initialize data
                 WICIFileHelper fileHelper = new WICIFileHelper();
-                
-                if (carmemberModel != null) {                
+
+                if (carmemberModel != null) {
                     WICIReplacementHelper replacementHelper = new WICIReplacementHelper(carmemberModel, getCurrentContext(), printer);
-                    
+
                     // Process file
-                    fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper, 
-                    		carmemberModel.getCardType(), 
-                    		carmemberModel.getResponseStatus(), 
-                    		carmemberModel.getProvince(), 
-                    		carmemberModel.getCorrespondenceLanguage());
+                    fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper,
+                            carmemberModel.getCardType(),
+                            carmemberModel.getResponseStatus(),
+                            carmemberModel.getProvince());
                 }
                 else {
                     // Print test file
                     fileHelper.printTestFile(printer, getCurrentContext());
-                }                               
+                }
 
                 // Call UI callback with search results
                 PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");

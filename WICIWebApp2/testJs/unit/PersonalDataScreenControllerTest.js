@@ -1,6 +1,6 @@
 describe("PersonalDataScreenController", function() {
 	
-	describe("Inner Model", function() {
+	xdescribe("Inner Model", function() {
 
 		var personalDataController = null;	
 	    var personalDataModel = null;
@@ -145,7 +145,182 @@ describe("PersonalDataScreenController", function() {
     		personalDataModel.set('correspondence', ''); // <---
 
     		expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
-	    });	 	 	
+	    });
+        
+         it("will ensure 'postalcode' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', ''); // <---
+            personalDataModel.set('streetnumber', '123');
+            personalDataModel.set('addressline1', 'CITY STREET');
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'postalcode' cannot contain more than 6 characters", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1A1'); // <--- 
+            personalDataModel.set('streetnumber', '123');
+            personalDataModel.set('addressline1', 'CITY STREET');
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });     
+        
+        it("will ensure 'postalcode' cannot contain less than 6 characters", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A'); // <--- 
+            personalDataModel.set('streetnumber', '123');
+            personalDataModel.set('addressline1', 'CITY STREET');
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });         
+        
+        it("will ensure 'postalcode' has correct alphanumeric format", function() {
+            
+            personalDataModel.set('postalcode', 'D1A1A1'); // <---  'D' is not valid as a first character
+            personalDataModel.set('streetnumber', '123');
+            personalDataModel.set('addressline1', 'CITY STREET');
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });     
+        
+        it("will ensure 'streetnumber' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', ''); // <---
+            personalDataModel.set('addressline1', 'CITY STREET');
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });  
+        
+        it("will ensure 'addressline1' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', ''); // <---
+            personalDataModel.set('city', 'CITY');
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'city' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', ''); // <---
+            personalDataModel.set('province', 'NS');
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'province' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', ''); // <---
+            
+            personalDataModel.set('house', 'O');
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });         
+        
+        it("will ensure 'house' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', 'NS'); 
+            
+            personalDataModel.set('house', ''); // <---
+            personalDataModel.set('years', '6');
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'years' cannot be empty", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', 'NS'); 
+            
+            personalDataModel.set('house', 'O'); 
+            personalDataModel.set('years', ''); // <---
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'years' value cannot be less than 2 without setting previous address", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', 'NS'); 
+            
+            personalDataModel.set('house', 'O'); 
+            personalDataModel.set('years', '1'); // <---
+            
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });
+        
+        it("will ensure 'years' value can be less than 2 if previous address set", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', 'NS'); 
+            
+            personalDataModel.set('house', 'O'); 
+            personalDataModel.set('years', '1'); // <---
+            
+            personalDataModel.set('postalcode_prev', 'A1A1A1');
+            personalDataModel.set('streetnumber_prev', '321');
+            personalDataModel.set('addressline1_prev', 'STREET CITY');
+            personalDataModel.set('city_prev', 'PREV CITY');
+            personalDataModel.set('suiteunit_prev', '123');
+            personalDataModel.set('province_prev', 'AB');            
+
+            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+        });         	 	 	
 		
 	});
 	

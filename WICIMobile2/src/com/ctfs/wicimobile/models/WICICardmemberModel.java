@@ -48,26 +48,25 @@ public class WICICardmemberModel {
     	_storeNumber = "";
     }   
     
-    public void initializeModel(JSONArray source, int shift) {
+    public void initializeModel(JSONArray source) {
         try {
-            _cardType = source.getString(shift);
-            _firstName = source.getString(shift + 1);
-            _middleInitial = source.getString(shift + 2);            
-            _lastName = source.getString(shift + 3);            
-            _accountNumber = source.getString(shift + 4);            
-            _expiryDate = source.getString(shift + 5);            
-            _creditLimit = source.getString(shift + 6);
-            _apr = source.getString(shift + 7);
-            _cashAPR = source.getString(shift + 8);
-            _signture = source.getString(shift + 9);
-            _responseStatus = ServerResponseStatus.valueOf(source.getString(shift + 10));
-            _province = source.getString(shift + 11);
-            _correspondenceLanguage = source.getString(shift + 12);
-            _creditProtectorYesNo = source.getString(shift + 13);
-            _identityWatchYesNo = source.getString(shift + 14);
-            
-            _storeNumber = source.getString(shift + 15);
-            _todayDate = source.getString(shift + 16);
+            _cardType = source.getString(0);
+            _firstName = source.getString(1);
+            _middleInitial = source.getString(2);            
+            _lastName = source.getString(3);            
+            _accountNumber = source.getString(4);            
+            _expiryDate = source.getString(5);            
+            _creditLimit = source.getString(6);
+            _apr = source.getString(7);
+            _cashAPR = source.getString(8);
+            _signture = source.getString(9);
+            _responseStatus = ServerResponseStatus.valueOf(source.getString(10));
+            _province = source.getString(11);
+            _correspondenceLanguage = source.getString(12);
+            _creditProtectorYesNo = source.getString(13);
+            _identityWatchYesNo = source.getString(14);
+            _storeNumber = source.getString(15);
+            _todayDate = source.getString(16);
                  
         } catch (JSONException e) {            
             e.printStackTrace();
@@ -206,7 +205,7 @@ public class WICICardmemberModel {
     }
 
     /**
-     * @param ResponseStatus the _responseStatus to set
+     * @param responseStatus the _responseStatus to set
      */
     public void setResponseStatus(ServerResponseStatus responseStatus) {
         this._responseStatus = responseStatus;

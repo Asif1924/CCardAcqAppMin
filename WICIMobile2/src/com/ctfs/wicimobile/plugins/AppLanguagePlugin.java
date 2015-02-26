@@ -1,75 +1,66 @@
 package com.ctfs.wicimobile.plugins;
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.util.Log;
+import com.ctfs.wicimobile.frw.CordovaMethod;
+import com.ctfs.wicimobile.frw.PluginProxy;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.api.CallbackContext;
-import org.apache.cordova.api.CordovaPlugin;
-import org.apache.cordova.api.PluginResult;
+import org.apache.cordova.api.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.Activity;
-
 import com.ctfs.wicimobile.util.Settings;
 import com.ctfs.wicimobile.util.WICIAppSettingsStorageManager;
-import com.ctfs.wicimobile.util.WICIApplicationSettings;
 
+import java.util.Locale;
 
-public class AppLanguagePlugin extends CordovaPlugin {
-    protected static final String EMPTY_STRING = "";
-    
-    public Activity getCurrentContext() {
-        return this.cordova.getActivity();
-    }
-    
+public class AppLanguagePlugin extends PluginProxy {
+    private static final String LOG_TAG = "AppLanguagePlugin";
+
+    private Settings appSettings;
+
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {   
-    
-		if (action.equals("getAppLanguage")) {
-			try {
-				String language = null;
-				Settings appSettings = WICIAppSettingsStorageManager.getInstance(getCurrentContext()).getCurrentAppSettings();
-				
-				language = appSettings.getAppLanguage();
-                if (language == null) {
-                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Not found"));
-                    return true;
-                }			
-                
-                // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, language);
-                // Send search results to Web UI side
-                callbackContext.sendPluginResult(result);                
-				
-				return true;
-			} catch (Exception ex) {
-                ex.printStackTrace();
-                
-                if (callbackContext != null) {
-                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
-                }
-            }
-		} else if (action.equals("setAppLanguage")) {
-			try {
-				String language = args.getString(0);
-				
-				Settings appSettings = WICIAppSettingsStorageManager.getInstance(getCurrentContext()).getCurrentAppSettings();				
-			
-				appSettings.setAppLanguage(language);
-				
-                // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, EMPTY_STRING);
-                // Send search results to Web UI side
-                callbackContext.sendPluginResult(result);				
-				
-				return true;
-			} catch (Exception ex) {
-                ex.printStackTrace();
-                
-                if (callbackContext != null) {
-                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
-                }
-            }			
-		}		
-		
-		return false;
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+        appSettings = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings();
+    }
+
+    @CordovaMethod
+    @SuppressWarnings("unused")
+    public void getAppLanguage(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        String language = appSettings.getAppLanguage();
+        Log.d(LOG_TAG, "getAppLanguage()==" + language);
+        if (language == null) {
+            callbackContext.error("Not found");
+        } else {
+            callbackContext.success(language);
+        }
+    }
+
+    @CordovaMethod
+    @SuppressWarnings("unused")
+    public void setAppLanguage(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        String language = args.getString(0);
+        changeSystemLang(cordova.getActivity(), language);
+        appSettings.setAppLanguage(language);
+        WICIAppSettingsStorageManager.getInstance().saveAppSettins();
+        callbackContext.success();
+    }
+
+    /**
+     * Need to change button names in barcode scanner
+     * @param lang new language
+     */
+    public static void changeSystemLang(Activity activity, String lang) {
+        String systemLang = "F".equalsIgnoreCase(lang) ? "fr" : "en";
+        Log.i(LOG_TAG, "change lang: " + systemLang);
+
+        Resources res = activity.getResources();
+        // Change locale settings in the app.
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(systemLang);
+        res.updateConfiguration(conf, res.getDisplayMetrics());
     }
 }

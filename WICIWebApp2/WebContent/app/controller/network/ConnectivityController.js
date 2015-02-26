@@ -45,17 +45,19 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			return;
 		}
         
-        //function AJAXrequest(url, httpVerb, requestParams, successCallback, failureCallback, beforeSendCall, onCompleteCall, isSilent) 
         AJAXrequest(
-        	serviceNameEnum.IsAlive,
-        	connRequestBuilder.getHttpType(),
-            null,  
+        	{
+        		serviceName: 	serviceNameEnum.IsAlive,
+        		httpVerb: 	connRequestBuilder.getHttpType(),
+            	isSilent: 	isSilent,
+            	callTimeout: 	3000 
+            },
             successCallback,
-            failureCallback, null, null, isSilent, 3000   
+            failureCallback  
         );
     };
 
-    this.initAccountApplication = function( argCreditCardData, argSuccessCallback, argFailureCallback, argIsSilent) {
+    this.initAccountApplication = function(argCreditCardData, argSuccessCallback, argFailureCallback, argIsSilent) {
         var sMethod = 'initAccountApplication() ';
         console.log(logPrefix + sMethod);
 
@@ -96,27 +98,29 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 
         console.log("Invoking initAccountApplication request now...");
         AJAXrequest(
-        	serviceNameEnum.InitAccountApplication,
-        	connRequestBuilder.getHttpType(),
-            connRequestBuilder.getParamString(),
+        	{
+        		serviceName: 	serviceNameEnum.InitAccountApplication,
+        		httpVerb: 	connRequestBuilder.getHttpType(),
+				requestParams: 	connRequestBuilder.getParamString()
+        	},        		
             argSuccessCallback,
             wrappedErrorCallback    //failureCallback
         );
     };
 
-	this.poll = function (argRequestParams, argSuccessCallback, argFailureCallback, argIsSilent ){
-        var sMethod = 'pollAccountApplicationQueue() ';
+	this.poll = function(argRequestParams, argSuccessCallback, argFailureCallback, argIsSilent) {
+        var sMethod = 'pollAccountApplicationResponse() ';
         console.log(logPrefix + sMethod);
 
         argFailureCallback = argFailureCallback || $.noop;
 
         var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate, argIsSilent);
 
-        connRequestBuilder.setHttpType( "POST" );
+        connRequestBuilder.setHttpType("POST");
 		connRequestBuilder.setParams(argRequestParams);
 
         var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
-            if(sessionLiveCheck(jqXHR)){
+            if (sessionLiveCheck(jqXHR)) {
                 console.log("AccountApplication Error Response: " + textStatus + "\n" + errorThrown);
                 argFailureCallback();
             } else {
@@ -124,16 +128,18 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
             }
         };
         AJAXrequest(
-        		serviceNameEnum.PollAccountApplicationResponse,
-        		connRequestBuilder.getHttpType(),
-            	connRequestBuilder.getParamString(),
-            	argSuccessCallback,
-            	wrappedErrorCallback
+        	{
+        		serviceName: 	serviceNameEnum.PollAccountApplicationResponse,
+        		httpVerb: 	connRequestBuilder.getHttpType(),
+				requestParams: 	connRequestBuilder.getParamString()
+            },
+            argSuccessCallback,
+            wrappedErrorCallback
         );
 	};
 
     //---------------------------------------------------------------------------------------
-    this.Login = function(argEmployerID, argAgentID, argUserID, argPassword, argUserLocation, argAPKVersion, argSuccessCallback, argFailureCallback) {
+    this.Login = function(argEmployerID, argAgentID, argUserID, argPassword, argUserLocation, argAPKVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'Login() ';
         console.log(logPrefix + sMethod);
         
@@ -156,33 +162,37 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		connRequestBuilder.setParams(requestParams);
 
 		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
-    		if(sessionLiveCheck(jqXHR)){
+    		if (sessionLiveCheck(jqXHR)) {
     			console.log("Login Error Response: " + textStatus + "\n" + errorThrown);
     			argFailureCallback();
 			} else {
 				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("Login");
         	}
     	};
-		
+
 		AJAXrequest(
-			serviceNameEnum.Login,
-			connRequestBuilder.getHttpType(),
-        	connRequestBuilder.getParamString(),
-        	argSuccessCallback,
-        	wrappedErrorCallback
+			{
+				serviceName: serviceNameEnum.Login,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString()
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
 		);
     };
 
-    this.GetVersion = function(argSuccessCallback, argFailureCallback,argCompleteCallback) {
+    this.GetVersion = function(argSuccessCallback, argFailureCallback, argCompleteCallback) {
     	console.log("GetVersion");
     	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
-		var requestParams = {
-			};
-		connRequestBuilder.setHttpType( "POST" );
+		var requestParams = {};
+		connRequestBuilder.setHttpType("POST");
 		connRequestBuilder.setParams(requestParams);
 
 		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
-    		if(sessionLiveCheck(jqXHR)){
+    		if (sessionLiveCheck(jqXHR)) {
     			console.log("GetVersion Error Response: " + textStatus + "\n" + errorThrown);
     			argFailureCallback(jqXHR,textStatus,errorThrown);
 			} else {
@@ -191,9 +201,12 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
     	};
 
 		AJAXrequest(
-			serviceNameEnum.GetVersion,
-			connRequestBuilder.getHttpType(),
-        	connRequestBuilder.getParamString(),
+			{
+				serviceName: 	serviceNameEnum.GetVersion,
+				httpVerb: 	connRequestBuilder.getHttpType(),
+				requestParams: 	connRequestBuilder.getParamString()
+			},
+			
         	argSuccessCallback,
         	wrappedErrorCallback,
         	$.noop(),
@@ -201,6 +214,34 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
 
+    this.loadDictionary = function(language, scriptURL, argSuccessCallback, argFailureCallback, argBeforesenCallback, argCompleteCallback) {
+    	console.log("loadDictionary");
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+		var requestParams = {};
+		connRequestBuilder.setHttpType("POST");
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if(sessionLiveCheck(jqXHR)){
+    			console.log("loadDictionary Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback(jqXHR,textStatus,errorThrown);
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("loadDictionary");
+        	}
+    	};
+
+		return AJAXrequest(
+			{
+				dataType: 	"script",
+				httpVerb: 	connRequestBuilder.getHttpType(),
+				url: scriptURL,
+				callTimeout : WICI.AppConfig.ConnectivityConfig.SCRIPT_REQUEST_INTERVAL
+			},
+        	argSuccessCallback,
+        	wrappedErrorCallback,
+        	argBeforesenCallback,
+        	argCompleteCallback
+		);
+    };
     // ---------------------------------------------------------------------------------------
     this.AddressLookup = function(argPostalCode, argStreetNumber, argSuccessCallback, argFailureCallback) {
     	console.log("AddressLookup");
@@ -222,58 +263,111 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
     	};
 		
 		AJAXrequest(
-			serviceNameEnum.AddressLookup,
-			connRequestBuilder.getHttpType(),
-			connRequestBuilder.getParamString(),
+			{
+				serviceName: 	serviceNameEnum.AddressLookup,
+				httpVerb: 	connRequestBuilder.getHttpType(),
+				requestParams: 	connRequestBuilder.getParamString()
+			},
         	argSuccessCallback,
         	wrappedErrorCallback
 		);
     };
-   
-    function AJAXrequest(serviceName, httpVerb, requestParams, successCallback, failureCallback, beforeSendCall, onCompleteCall, isSilent, callTimeout) {
+
+	/**
+	 * @param {Object} descriptor
+	 * @param {Function} successCallback
+	 * @param {Function} failureCallback
+	 * @param {Function} [beforeSendCall]
+	 * @param {Function} [onCompleteCall]
+	 * @param {Function} [offlineCallback]
+	 * @returns {jqXHR} $.ajax result object
+	 */
+    function AJAXrequest(descriptor, successCallback, failureCallback, beforeSendCall, onCompleteCall, offlineCallback) {
 		var sMethod = 'AJAXrequest() ';
 		console.log(logPrefix + sMethod);
-
-		var url = buildRequestBaseURL(serviceName);
-		console.log(logPrefix + sMethod + "httpVerb: " + httpVerb + " url: "+ url);
-		console.log(logPrefix + sMethod + "params: \n" + requestParams);
+		var url, defer;
+		if (descriptor.serviceName) {
+			url = buildRequestBaseURL(descriptor.serviceName);
+		} else {
+			url = descriptor.url;
+		}
+		
+		console.log(logPrefix + sMethod + "httpVerb: " + descriptor.httpVerb + " url: "+ url);
+		console.log(logPrefix + sMethod + "params: \n" + descriptor.requestParams);
 
 		beforeSendCall = beforeSendCall || $.noop;
 		onCompleteCall = onCompleteCall || $.noop;
-		isSilent = isSilent || false;
+		offlineCallback = offlineCallback || failureCallback;
+		var isSilent = descriptor.isSilent || false;
 		
-		callTimeout = callTimeout || ajaxCallTimeout; 
+		var callTimeout = descriptor.callTimeout || ajaxCallTimeout;
 		console.log(logPrefix + sMethod + "callTimeout: "+callTimeout);
 
-		if(isDemoConnection()){
+		var ajaxContext = this;
+		var ajaxArguments = arguments;
+
+		if (isDemoConnection()){
 			console.log(logPrefix + sMethod + " starting demo ajax request...");
-			(new WICI.DemoAjax()).AJAXrequest(serviceName, httpVerb, requestParams, successCallback, failureCallback, beforeSendCall, onCompleteCall, isSilent, callTimeout);
+			(new WICI.DemoAjax()).AJAXrequest(descriptor.serviceName, descriptor.httpVerb, descriptor.requestParams, successCallback, failureCallback, beforeSendCall, onCompleteCall, isSilent, callTimeout, descriptor.dataType||'json');
 			return;
 		}
-		
+
+		/**
+		 * @param {Number} count retry count left
+		 */
+		function tryConnect(count) {
+			console.log(logPrefix + sMethod + 'tryConnection('+count+')');
+			if (count === 0) {
+				offlineCallback();
+				return;
+			}
+
+			var deferred = WICI.WIFIHelper.tryConnect;
+			deferred.done(function() {
+				console.log(logPrefix + sMethod + 'connection reestablished, retry AJAXrequest...');
+				AJAXrequest.apply(ajaxContext, ajaxArguments);
+			});
+			deferred.fail(function() {
+				tryConnect(count--);
+			});
+		}
+
 		if (connectionStatus.healthy()) {
-			$.ajax({
+			defer = $.ajax({
 				url : url,
-				contentType : "application/x-www-form-urlencoded; charset=utf-8",
-				type : httpVerb,
-				dataType : 'json',
+				//contentType : "application/x-www-form-urlencoded; charset=utf-8",
+				type : descriptor.httpVerb,
+				dataType : descriptor.dataType || 'json',
 				beforeSend : beforeSendCall,
 				timeout : callTimeout,
-				data : requestParams,
-				//success : successCallback,
-				
+				data : descriptor.requestParams,
 				success : function(arg){
 					// Generic check if application is logged in an is authorized 
-					if(!checkForLoginAuthorizationFailed(arg))					
-					{
+					if (!checkForLoginAuthorizationFailed(arg)) {
 						successCallback(arg);
 					}
+					onCompleteCall();
 				}, 
 				
-				error : failureCallback,
-				complete : onCompleteCall
+				error : function(jqXHR, textStatus, errorThrow)  {
+					var headers = jqXHR.getAllResponseHeaders();
+					var offline = headers === '';
+					if (offline) {
+						console.log(logPrefix + sMethod + 'offline');
+						// TODO: uncomment to enable autoconnect
+						//if (WICI.AppConfig.ConnectivityConfig.AUTO_CONNECT_WIFI) {
+						//	tryConnect(WICI.AppConfig.ConnectivityConfig.AUTO_CONNECT_RETRIES);
+						//}
+						offlineCallback();
+						onCompleteCall();
+					} else {
+						failureCallback.apply(null, arguments);
+						onCompleteCall();
+					}
+				}
 			});
 		} else {
+			// TODO: what to do here
 			new WICI.LoadingIndicatorController().hide();
 			if (!isSilent) {
 				var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
@@ -282,15 +376,15 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 
 			onCompleteCall();
 		}
+		return defer;
     }
 
     function sessionLiveCheck(jqXHR) {
     	var sMethod = 'sessionLiveCheck() ';
         console.log(logPrefix + sMethod);
-		var result = true;
-		//TODO: Implement logic to determine what qualifies a live session 
-		return result;
-	} 
+		//TODO: Implement logic to determine what qualifies a live session
+		return true;
+	}
     
     function checkForLoginAuthorizationFailed(arg){
     	if(arg && arg.data && arg.data.isAuthorizationFailed)

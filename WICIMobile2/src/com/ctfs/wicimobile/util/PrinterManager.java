@@ -42,8 +42,13 @@ public class PrinterManager {
         }
     }
 
+    public String getMacAddress() {
+        DiscoveredPrinter latestPrinter = PrinterManager.getInstance().getSelectedPrinter();
+        return latestPrinter == null ? null : latestPrinter.address;
+    }
+
     public DiscoveredPrinter[] getPrinterHistory() {
-        return selectedPrinterHistory.toArray(new DiscoveredPrinter[] {});
+        return selectedPrinterHistory.toArray(new DiscoveredPrinter[selectedPrinterHistory.size()]);
     }
 
     public void populatePrinterHistory(DiscoveredPrinter[] newHistory) {
@@ -85,7 +90,7 @@ public class PrinterManager {
 
     public void storePrinterHistoryInPreferences(Context appContext) {
         try {            
-            Settings appSettings = WICIAppSettingsStorageManager.getInstance(appContext).getCurrentAppSettings();            		
+            Settings appSettings = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings();
             
             DiscoveredPrinter thisPrinter = getSelectedPrinter();
             
@@ -105,37 +110,8 @@ public class PrinterManager {
                 appSettings.setPrinterName(thisPrinterBluetooth.friendlyName);
                 appSettings.setPrinterType(PrinterNetworkType.Bluetooth);
             }            
-            
-            WICIAppSettingsStorageManager.getInstance(appContext).saveAppSettins(appSettings);            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void storeA(Context appContext) {
-        try {            
-            Settings appSettings = new WICIApplicationSettings();
-            
-            DiscoveredPrinter thisPrinter = getSelectedPrinter();
-            
-            if (thisPrinter ==  null ) return;
-            
-            if (thisPrinter instanceof DiscoveredPrinterNetwork) {
-                DiscoveredPrinterNetwork thisPrinterNetwork = (DiscoveredPrinterNetwork) thisPrinter;
-                String addressToStore = thisPrinterNetwork.address + ":" + thisPrinterNetwork.getDiscoveryDataMap().get("PORT_NUMBER");
-                
-                appSettings.setPrinterMacAddress(addressToStore);
-                appSettings.setPrinterName(thisPrinterNetwork.getDiscoveryDataMap().get("DNS_NAME"));
-                appSettings.setPrinterType(PrinterNetworkType.Network);
-            } else if (thisPrinter instanceof DiscoveredPrinterBluetooth) {
-                DiscoveredPrinterBluetooth thisPrinterBluetooth = (DiscoveredPrinterBluetooth) thisPrinter;
-                
-                appSettings.setPrinterMacAddress(thisPrinterBluetooth.address);
-                appSettings.setPrinterName(thisPrinterBluetooth.friendlyName);
-                appSettings.setPrinterType(PrinterNetworkType.Bluetooth);
-            }            
-            
-            WICIAppSettingsStorageManager.getInstance(appContext).saveAppSettins(appSettings);            
+
+            WICIAppSettingsStorageManager.getInstance().saveAppSettins();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,7 +119,7 @@ public class PrinterManager {
 
     public void populatePrinterHistoryFromPreferences(Context appContext) {
         try {
-            Settings appSettings = WICIAppSettingsStorageManager.getInstance(appContext).restoreAppSettins();
+            Settings appSettings = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings();
             
             if (appSettings == null) { return; }
             
