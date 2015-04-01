@@ -82,7 +82,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
             optionalInsurance_PA_Area       :   '#additionalInformation_OptionalInsurance_PA_Area', 
             optionalInsurance_PA_Table      :   '#additionalInformation_OptionalInsurance_PA_Table',
             optionalInsurance_PA_Agreement  :   '#additionalInformation_optionalInsurance_PA_Agreement',
-            
+                       
             optionalInsurance_NA            :   '#additionalInformation_OptionalInsurance_NA_CheckField',
             
     		continueButtonContainer			:   '#additionalInformation_continueButtonContainer',
@@ -151,12 +151,12 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     });    
     
     var url = {    
-    		OptionalInsuranceCP			:	'https://www.ctfs.com/ApplyNow/CreditProtector/SummaryOfCoverages/',
-    		OptionalInsuranceIW			:	'https://www.ctfs.com/Products/TermsandConditions/IDWatch/',
-    		OptionalInsurancePA			:	'https://www.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/',
-    		OptionalInsuranceCP_fr		:	'https://www.ctfs.com/lang/fr/ApplyNow/CreditProtector/SummaryOfCoverages/',
-    		OptionalInsuranceIW_fr		:	'https://www.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/',
-    		OptionalInsurancePA_fr		:	'https://www.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/'
+    		OptionalInsuranceCP_en		:	'https://customer.ctfs.com/Products/Insurance/CreditProtector/CreditProtectorTandC/',
+    		OptionalInsuranceIW_en		:	'https://customer.ctfs.com/Products/TermsandConditions/IDWatch/',
+    		OptionalInsurancePA_en		:	'https://customer.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/',
+    		OptionalInsuranceCP_fr		:	'https://customer.ctfs.com/lang/fr/Products/Insurance/CreditProtector/CreditProtectorTandC/',
+    		OptionalInsuranceIW_fr		:	'https://customer.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/',
+    		OptionalInsurancePA_fr		:	'https://customer.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/'
     };
     
     //---------------------------------------------------------------------------------------
@@ -774,7 +774,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         else{
             $(refs.optionalInsurance_CP_Area).show();
             if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsuranceCP, '_blank');
+            	var win = window.open(url.OptionalInsuranceCP_en, '_blank');
                 win.focus();
             }
             else {
@@ -795,7 +795,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         else{
             $(refs.optionalInsurance_IW_Area).show();
             if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsuranceIW, '_blank');
+            	var win = window.open(url.OptionalInsuranceIW_en, '_blank');
                 win.focus();
             }
             else {
@@ -816,7 +816,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         else{
             $(refs.optionalInsurance_PA_Area).show();
             if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsurancePA, '_blank');
+            	var win = window.open(url.OptionalInsurancePA_en, '_blank');
                 win.focus();
             }
             else {

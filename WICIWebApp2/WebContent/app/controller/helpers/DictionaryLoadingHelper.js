@@ -25,7 +25,9 @@ WICI.DictionaryLoadingHelper =  function (messageDialog, translator, argDictiona
         console.log(currVersion);
         console.log(dictionaryInfoHelper.getLatestDictionaryVersion());
         if( dictionaryInfoHelper.dictionaryInfoExists(argDictionaryFromLoginResponse) ){
-        	if (currVersion < dictionaryInfoHelper.getLatestDictionaryVersion()) {
+        	 console.log("currVersion-->" + currVersion + " ,Latest Dic Ver-->" + dictionaryInfoHelper.getLatestDictionaryVersion());
+        	//if (currVersion < dictionaryInfoHelper.getLatestDictionaryVersion()) {   -- US3398
+        	 if ( ( parseInt(currVersion) > 0 ? parseInt(currVersion)  : 0 ) < parseInt(dictionaryInfoHelper.getLatestDictionaryVersion())) { 
                 for (var language in WICI.AppConfig.LanguageEnum) {
                     var lan = WICI.AppConfig.LanguageEnum[language];
                     pendingRequests.push(loadDictionary(lan, dictionaryInfoHelper.getOlderDictionaryAllowable()));

@@ -133,7 +133,7 @@ BRB.dictionary_fr = {
 		chooseProduct_Description5_2						:	"21,99 %",
 		
 		overview_Title										:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.",
-		overview_PrintDownload_LinkText						:	"<a href='https://www.ctfs.com/SharedContent/documents/f_online_disclosure.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
+		overview_PrintDownload_LinkText						:	"<a href='https://customer.ctfs.com/SharedContent/documents/f_online_disclosure.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
 		
 		overview_TopTableLeftColTitle						:	"Suis-je admissible?",
 		overview_TopTableLeftCol1							:	"Vous devez résider au Canada.",
@@ -203,7 +203,7 @@ BRB.dictionary_fr = {
 		overview_SecurityMessaging_Title					:	"Message concernant la sécurité",
 		overview_SecurityMessaging_Content					:	"Chez Canadian Tire, nous attachons une grande importance à la sécurité de vos renseignements personnels. Prenez connaissance des mesures mises en œuvre pour protéger les renseignements personnels de nos clients.",
 		overview_SecurityMessaging_MoreInfo					:	"Pour obtenir de plus amples renseignements, consultez notre",
-		overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://www.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>politique en matière de protection des renseignements personnels.</a>",
+		overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://customer.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>politique en matière de protection des renseignements personnels.</a>",
 		
 		overview_AutoTimeout_Title							:	"Fin de session automatique",
 		overview_AutoTimeout_Content						:	"Pour votre protection, votre session expirera automatiquement au bout de 30 minutes d’activité ou 10 minutes d’inactivité.",
@@ -547,7 +547,7 @@ BRB.dictionary_fr = {
 		//additionalInformation_OptionalInsurance_Details3		:   "<i>(non disponible en Saskatchewan)</i><br>Recevez une couverture complète grâce à la souscription à la fois au programme Couverture-crédit<span class=\"superscripts\"><sup>MD</sup></span> / Couverture-crédit – Âge d’or<span class=\"superscripts\"><sup>MD</sup></span>** et Surveillance d’identité Classique."
 		//															+ "<ul><li>La prime de Couverture-crédit<span class=\"superscripts\"><sup>MD</sup></span> / Couverture-crédit – Âge d’or<span class=\"superscripts\"><sup>MD</sup></span>** est de 1,10 $ par tranche de 100 $* du solde du mois courant chaque mois où le solde de votre compte est de 10 $ ou plus, et la prime de Surveillance d’identité Classique est de 4,99 $*** payable en avance chaque mois une fois votre première transaction effectuée avec votre carte de crédit de marque Canadian Tire. </li>"
 		//															+ "<li>Par exemple, si votre solde était de 200 $ au moment de l’impression de votre relevé, vous ne paieriez que 2,20 $, taxe en sus. </li></ul>",
-		
+				
 		// Starting of US3307 changes
 		additionalInformation_OptionalProducts					:	"PRODUITS FACULTATIFS<sup>&#8224;</sup><sup>&#8224;</sup>",
 		additionalInformation_OptionalInsurance_CreditProtector :	"Couverture-crédit<sup>MD**</sup> / Couverture-crédit – <i>Âge d’or</i><sup>MD***</sup>",
@@ -621,9 +621,9 @@ BRB.dictionary_fr = {
 		additionalInformation_Daughter							:	"Fille",
 		additionalInformation_Relative							:	"Parent",
 		additionalInformation_Other								:	"Autre",
-		additionalInformation_Credit_Protector_Text             :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/ApplyNow/CreditProtector/SummaryOfCoverages/' target='_blank'>modalités</a> de Couverture-crédit / Couverture-crédit – Âge d’or.",
-		additionalInformation_Identity_Watch_Text               :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/' target='_blank'>modalités</a> de Surveillance d’identité.",	
-		additionalInformation_ProtectionAdvantage_Text          :   "J’ai lu et j’accepte les <a href='https://www.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>modalités</a> du programme Avantage Protection.",
+		additionalInformation_Credit_Protector_Text             :   "J’ai lu et j’accepte les <a href='https://customer.ctfs.com/lang/fr/Products/Insurance/CreditProtector/CreditProtectorTandC/' target='_blank'>modalités</a> de Couverture-crédit / Couverture-crédit – Âge d’or.",
+		additionalInformation_Identity_Watch_Text               :   "J’ai lu et j’accepte les <a href='https://customer.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/' target='_blank'>modalités</a> de Surveillance d’identité.",	
+		additionalInformation_ProtectionAdvantage_Text          :   "J’ai lu et j’accepte les <a href='https://customer.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>modalités</a> du programme Avantage Protection.",
 
 		additionalInformation_IdentityWatch_Terms				: " ",//we need this empty string because french and english templates have different structure
 		additionalInformation_ProtectionAdvantage_Terms			: " ",//we need this empty string because french and english templates have different structure
@@ -644,7 +644,7 @@ BRB.dictionary_fr = {
 		confirmation_Title									:   "Confirmation",
 		confirmation_Edit_Button_Label                      :   "Modifier",
 		confirmation_Terms_Conditions                       :   "Modalités et autorisation aux fins de la demande de carte",
-		confirmation_Privacy_Charter                        :	"<a href='https://www.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>Consultez notre politique en matiere de protection des renseignements personnels.</a>",  
+		confirmation_Privacy_Charter                        :	"<a href='https://customer.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>Consultez notre politique en matiere de protection des renseignements personnels.</a>",  
 		confirmation_Privacy_Charter_Text                   :   "En cochant cette case, j'accepte les modalités décrites dans l'autorisation aux fins de la demande de carte.",
 		confirmation_Application_Authorization_Title        :   "Autorisation aux fins de la demande de carte",
 		confirmation_Application_Authorization_SubTitle     :   "En cochant la case ci-dessous, j'accepte ce qui suit :",

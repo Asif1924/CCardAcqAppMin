@@ -148,7 +148,7 @@
 	</wsdl:binding>
 	<wsdl:service name="ResponseService">
 		<wsdl:port binding="tns:BasicHttpBinding_IResponseService" name="BasicHttpBinding_IResponseService">
-			<soap:address location="http://t5olap1.internal.ctfst.com:8080/ResponseService.svc"/>
+			<soap:address location="http://t5olap1.internal.ctfst.com/brbecommsimdev/ResponseService.svc"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

@@ -132,7 +132,7 @@ BRB.dictionary_en = {
 	chooseProduct_Description5_2						:	"21.99%",
 	
 	overview_Title										:	"Please read the information below and click 'Start Application' to continue.",
-	overview_PrintDownload_LinkText						:	"<a href='https://www.ctfs.com/SharedContent/documents/e_online_disclosure.pdf' target='_blank'>Print or Download PDF version of disclosure.</a>",
+	overview_PrintDownload_LinkText						:	"<a href='https://customer.ctfs.com/SharedContent/documents/e_online_disclosure.pdf' target='_blank'>Print or Download PDF version of disclosure.</a>",
 	
 	overview_TopTableLeftColTitle						:	"Am I Eligible for this Card?",
 	overview_TopTableLeftCol1							:	"You must be a Canadian resident",
@@ -202,7 +202,7 @@ BRB.dictionary_en = {
 	overview_SecurityMessaging_Title					:	"Security Messaging",
 	overview_SecurityMessaging_Content					:	"Canadian Tire takes the security of your personal information very seriously. Find out how we safeguard the personal information of our customers.",
 	overview_SecurityMessaging_MoreInfo					:	"For more information, visit our",
-	overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://www.ctfs.com/SecurityCentre/PrivacyAndSecurity/' target='_blank'>Privacy Charter.</a>",
+	overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://customer.ctfs.com/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>Privacy Charter.</a>",
 	
 	overview_AutoTimeout_Title							:	"Auto Timeout",
 	overview_AutoTimeout_Content						:	"For your protection, auto timeout will end your application session 30 minutes of total time or 10 minutes of inactivity.",
@@ -536,9 +536,9 @@ BRB.dictionary_en = {
 	additionalInformation_Daughter							:	"Daughter",
 	additionalInformation_Relative							:	"Relative",
 	additionalInformation_Other								:	"Other",
-	additionalInformation_Credit_Protector_Text             :   "I have read and fully agree to the <a href='https://www.ctfs.com/ApplyNow/CreditProtector/SummaryOfCoverages/' target='_blank'>Terms and Conditions</a> of the Credit Protector/Credit Protector Senior.",
-	additionalInformation_Identity_Watch_Text               :   "I have read and fully agree to the <a href='https://www.ctfs.com/Products/TermsandConditions/IDWatch/' target='_blank'>Terms and Conditions</a> of identity Watch.",	
-	additionalInformation_ProtectionAdvantage_Text          :   "I have read and fully agree to the <a href='https://www.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>Terms and Conditions</a> of Protection Advantage.",
+	additionalInformation_Credit_Protector_Text             :   "I have read and fully agree to the <a href='https://customer.ctfs.com/Products/Insurance/CreditProtector/CreditProtectorTandC/' target='_blank'>Terms and Conditions</a> of the Credit Protector/Credit Protector Senior.",
+	additionalInformation_Identity_Watch_Text               :   "I have read and fully agree to the <a href='https://customer.ctfs.com/Products/TermsandConditions/IDWatch/' target='_blank'>Terms and Conditions</a> of identity Watch.",	
+	additionalInformation_ProtectionAdvantage_Text          :   "I have read and fully agree to the <a href='https://customer.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>Terms and Conditions</a> of Protection Advantage.",
 	
 	additionalInformation_IdentityWatch_Terms				: " ",
 	additionalInformation_ProtectionAdvantage_Terms			: " ",
@@ -637,7 +637,7 @@ BRB.dictionary_en = {
 	confirmation_Title									:   "Confirmation",
 	confirmation_Edit_Button_Label                      :   "Edit",
 	confirmation_Terms_Conditions                       :   "Application Authorization and Terms and Conditions",
-	confirmation_Privacy_Charter                        :   "<a href='https://www.ctfs.com/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>See our Privacy Charter</a>",
+	confirmation_Privacy_Charter                        :   "<a href='https://customer.ctfs.com/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>See our Privacy Charter</a>",
 	confirmation_Privacy_Charter_Text                   :   "By clicking this checkbox, I accept and agree to the Application Authorization.",
 	confirmation_Application_Authorization_Title        :   "Application Authorization:",
 	confirmation_Application_Authorization_SubTitle     :   "By clicking the checkbox below I agree as follows:",
@@ -768,7 +768,7 @@ BRB.dictionary_en = {
 	confirmation_Application_Authorization_Item2           :   "If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.",
 	confirmation_Application_Authorization_Item3           :   "The Card is issued by CTB. The My Canadian Tire ‘Money’ Program is provided and administered by Canadian Tire Corporation, Limited.",
 	confirmation_Application_Authorization_Item4_1         :   "CTB may collect, use and share personal information about me for the purposes described in the ",
-	confirmation_Application_Authorization_Item4_2         :   "<a href='https://www.ctfs.com/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>\"Canadian Tire Privacy Charter\"</a>",
+	confirmation_Application_Authorization_Item4_2         :   "<a href='https://customer.ctfs.com/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>\"Canadian Tire Privacy Charter\"</a>",
 	confirmation_Application_Authorization_Item4_3         :   " including marketing and selling by way of e-mail, telephone, automatic dialing-announcing device or other form of telecommunication.",
 	
 	confirmation_Application_Authorization_Item7a          :   "If I am not already a member, I will also be automatically enrolled in the My Canadian Tire ‘Money’ Program, even if I am not approved for the Card.",

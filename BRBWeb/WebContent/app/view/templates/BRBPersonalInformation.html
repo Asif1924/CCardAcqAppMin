@@ -1,5 +1,4 @@
-
-<script id="BRBPersonalInformation-template" type="text/x-jquery-tmpl"> 
+<script id="BRBPersonalInformation-template" type="text/x-jquery-tmpl">
 	
 	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">		
 		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
@@ -377,7 +376,17 @@
 	                        		<td class="separatorCell" />
 	                        			
 	                        		<td class="fieldValuesCell">
-										<input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="40" />	                        			
+										<!-- US3303 --> 
+											<!-- Before Change --> 
+											<!-- <input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="40" /> --> 
+											<!-- After Change --> 
+											<!-- <input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="28" /> --> 
+											<!-- Comment -->  
+											<!--  In Broker, Street No, Street Name and Suit is accepted as one in currentAddressLine1. -->
+											<!-- So it exceeds 40 in present. So in end street name is limited to 28 -->
+											<!-- In broker for clubbing street no, street name and App suit we are using separator like Hyphen and Space. -->  
+											<!-- So instead of 30, we are limiting it to 28. -->
+										<input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="28" />	                        			
 	                        		</td>
 	                        		
 	                        		<td class="separatorCell" />

@@ -351,10 +351,10 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'printTokenConfirmationNo() ';
         console.log(logPrefix + sMethod);
 
-        new WICI.BluetoothToggler().toggle(printToken,printTokenSuccess);
+        //new WICI.BluetoothToggler().toggle(printToken,printTokenSuccess); //old code UAT #89 March31st 
         //WICI.BluetothHelper.toggle().done(printToken);        
         //WICI.BluetothHelper.toggle().fail(printTokenSuccess);                
-        //WICI.BluetothHelper.toggle().done(printToken).fail(printTokenSuccess);
+        WICI.BluetothHelper.toggle().done(printToken).fail(printTokenSuccess); //new code
     }    
     
     function successPendPoll( argResponse ) {

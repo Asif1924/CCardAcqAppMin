@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="result" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="decision" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="error" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="errors" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="alerts" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="reports" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="earnPoints" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -45,8 +45,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
+
+/* US3400 */
+/* As per WebICIdentityExamination.xsd, element name for error is "error". From Gateway, this field is receiving as "errors". */
+/* So it throws Exception in Broker */
+/* So Changing this element name to "errors" in Broker to receive error message to avoid Exception. */
+
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "IdentityExam", propOrder = { "id", "sessionId", "externalId", "channel", "transactionId", "score", "result", "decision", "state", "error", "alerts", "reports", "earnPoints",
+@XmlType(name = "IdentityExam", propOrder = { "id", "sessionId", "externalId", "channel", "transactionId", "score", "result", "decision", "state", "errors", "alerts", "reports", "earnPoints",
 		"possiblePoints", "questions" })
 public class IdentityExam implements Serializable
 {
@@ -63,7 +69,7 @@ public class IdentityExam implements Serializable
 	protected String result;
 	protected String decision;
 	protected String state;
-	protected List<String> error;
+	protected List<String> errors;
 	protected List<String> alerts;
 	protected List<String> reports;
 	protected String earnPoints;
@@ -301,11 +307,11 @@ public class IdentityExam implements Serializable
 	 */
 	public List<String> getError()
 	{
-		if (error == null)
+		if (errors == null)
 		{
-			error = new ArrayList<String>();
+			errors = new ArrayList<String>();
 		}
-		return this.error;
+		return this.errors;
 	}
 
 	/**

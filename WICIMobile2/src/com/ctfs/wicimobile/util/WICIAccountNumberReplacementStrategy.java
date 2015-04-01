@@ -1,8 +1,11 @@
 package com.ctfs.wicimobile.util;
 
+
+
 import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
 
 import android.content.Context;
+import android.util.Log;
 
 public class WICIAccountNumberReplacementStrategy implements ReplacementStrategy {
     private static final String EMPTY_STRING = "";
@@ -24,14 +27,18 @@ public class WICIAccountNumberReplacementStrategy implements ReplacementStrategy
     private String processAccountNumber(String cryptedAccountNumber, Context context) {
         if (cryptedAccountNumber == null || cryptedAccountNumber.isEmpty() || context == null){
             return EMPTY_STRING;
-        }        
-        
+        }   
+       
+        //Log.i("cryptedAccountNumber",cryptedAccountNumber == null ? "" : cryptedAccountNumber);
         String accountNumber = EMPTY_STRING;
         StringBuilder formattedAccountNumber = new StringBuilder();
         int offset = 0;
         try {
             
-            accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+        	if("4111111111111111".equals(cryptedAccountNumber))  //US3433 March 31st Release
+        		accountNumber = cryptedAccountNumber;
+        	else
+        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
             
             if (accountNumber == null  || accountNumber.isEmpty()) {
                 return EMPTY_STRING;

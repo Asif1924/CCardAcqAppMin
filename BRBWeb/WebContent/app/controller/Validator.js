@@ -171,7 +171,17 @@ BRB.Validator = function() {
         if(value===null){
             return false;
         }        
-        return regexMatch(/^[a-z\u00C0-\u017F0-9\'\-., ]{1,40}$/i, $.trim(value));
+	     // US3303
+	        // Before Change
+	        // return regexMatch(/^[a-z\u00C0-\u017F0-9\'\-., ]{1,40}$/i, $.trim(value));
+	        // After Change
+	        // return regexMatch(/^[a-z\u00C0-\u017F0-9\'\-., ]{1,28}$/i, $.trim(value));
+	        // Comment 
+	        // In Broker, Street No, Street Name and Suit is accepted as one in currentAddressLine1.
+	        // So it exceeds 40 in present. So in end street name is limited to 28
+        	// In broker for clubbing street no, street name and App suit we are using separator like Hyphen and Space. 
+        	// So instead of 30, we are limiting it to 28. 
+        return regexMatch(/^[a-z\u00C0-\u017F0-9\'\-., ]{1,28}$/i, $.trim(value));
     };
     //---------------------------------------------------------------------------------------
     this.suiteUnit = function(value) {
