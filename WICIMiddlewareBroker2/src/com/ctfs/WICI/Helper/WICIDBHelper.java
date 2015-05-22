@@ -561,7 +561,7 @@ public class WICIDBHelper
 		log.info(sMethod + "::Called::");
 
 		String maxRetrievalsForApproved = "";
-		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = 'MAX_RETRIEVALS_FOR_APPROVED'";
+		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = 'MAX_RETRIEVALS_LIMIT'";
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -648,7 +648,9 @@ public class WICIDBHelper
 		log.info(sMethod + "::Called with argPhone = " + argPhone);
 
 		Integer retrievalCount = 0;
-		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'" ;
+		// US3436
+		// Update decline print to use max_retrieval configuration
+		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')" ;
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -690,7 +692,9 @@ public class WICIDBHelper
 		log.info(sMethod + "::Called with transactionID = " + argTransactionID);
 
 		Integer retrievalCount = 0;
-		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'" ;
+		// US3436
+		// Update decline print to use max_retrieval configuration
+		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')" ;
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -734,7 +738,9 @@ public class WICIDBHelper
 
 		// Create sql statement
 		//update WICI_REQUESTQUEUE SET RETRIEVAL_COUNT=1 WHERE TRANSACTION_ID='D7BC4391-BA4C-47BA-9AA1-21231B9ED185' AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'
-		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RETRIEVAL_COUNT = ? WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'";
+		// US3436
+		// Update decline print to use max_retrieval configuration
+		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RETRIEVAL_COUNT = ? WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')";
 
 		log.info(sMethod + "::SQL::" + sql);
 

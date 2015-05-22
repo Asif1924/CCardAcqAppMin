@@ -29,7 +29,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         Log.i(getClass().getSimpleName(), "ZebraPrinterPlugin.printText");
-
+        
         if (action.equals("getStoredPrintMacAddress")) {
             try {
                 String macAddress = PrinterManager.getInstance().getMacAddress();
@@ -72,7 +72,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             }
         } else if (action.equals("testPrint")) {
             try {
-                printRequestedFile(true, args, callbackContext);
+                printRequestedFile(true, false, args, callbackContext);
 
                 return true;
             } catch (Exception ex) {
@@ -84,7 +84,20 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             }
         } else if (action.equals("printOutMockup")) {
             try {
-                printRequestedFile(false, args, callbackContext);
+                printRequestedFile(false, false, args, callbackContext);
+
+                return true;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+                if (callbackContext != null) {
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
+                }
+            }
+        } // US3462 
+        else if (action.equals("printOutCoupon")) { 
+            try {
+            	printRequestedFile(false, true, args, callbackContext);
 
                 return true;
             } catch (Exception ex) {
@@ -99,25 +112,28 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
         return false;
     }
 
-    private void printRequestedFile(Boolean isPrintTestFile, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    private void printRequestedFile(Boolean isPrintTestFile, Boolean isFileOrCoupon, JSONArray args, CallbackContext callbackContext) throws JSONException {
         WICICardmemberModel cardMemberModel = null;
 
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
         pluginResult.setKeepCallback(true);
         callbackContext.sendPluginResult(pluginResult);
-
+                
         if (!isPrintTestFile) {
             cardMemberModel = new WICICardmemberModel();
             cardMemberModel.initializeModel(args);
         }
-
-        this.printFile(cardMemberModel, callbackContext);
+        
+        if(isFileOrCoupon == true)
+        this.printFile(true, cardMemberModel, callbackContext);
+        else 
+        this.printFile(false, cardMemberModel, callbackContext);
     }
-
-    private void printFile(WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
+   
+    private void printFile(Boolean isFileOrCoupon, WICICardmemberModel carmemberModel, CallbackContext callbackContext) {
         Log.i(getClass().getSimpleName(), "ZebraPrinterPlugin.printFile");
         try {
-            new ZebraPrintTask(carmemberModel, callbackContext).execute(null, null, null);
+            new ZebraPrintTask(isFileOrCoupon, carmemberModel, callbackContext).execute(null, null, null);
         } catch (Exception ex) {
             ex.printStackTrace();
             if (callbackContext != null) {
@@ -125,12 +141,14 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             }
         }
     }
-
+   
     private class ZebraPrintTask extends AsyncTask<Void, Void, Void> {
-        private CallbackContext _callbackContext;
+    	private Boolean _isFileOrCoupon;
+    	private CallbackContext _callbackContext;
         private WICICardmemberModel _cardmemberModel;
-
-        public ZebraPrintTask(WICICardmemberModel cardmemberModel, CallbackContext callbackContext) {
+        
+        public ZebraPrintTask(Boolean isFileOrCoupon, WICICardmemberModel cardmemberModel, CallbackContext callbackContext) {
+        	_isFileOrCoupon = isFileOrCoupon;
             _callbackContext = callbackContext;
             _cardmemberModel = cardmemberModel;
         }
@@ -141,7 +159,10 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 ZebraPrinter printer = PrinterManager.getInstance().getZebraPrinterWrapper();
 
                 if (printer != null) {
-                    sendZPLFile(printer, _cardmemberModel);
+                	if(_isFileOrCoupon == true)
+                    sendZPLCoupon(printer, _cardmemberModel);
+                	else
+                	sendZPLFile(printer, _cardmemberModel);	
                 } else {
                     disconnect();
                 }
@@ -213,7 +234,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 if (cardmemberModel != null) {
                     WICIReplacementHelper replacementHelper = new WICIReplacementHelper(cardmemberModel, getCurrentContext(), printer);
-
+                    
                     // Process file
                     fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper,
                             cardmemberModel.getCardType(),
@@ -225,6 +246,51 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     fileHelper.printTestFile(printer, getCurrentContext());
                 }
 
+                // Call UI callback with search results
+                PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+                result.setKeepCallback(false);
+
+                // Send search results to Web UI side
+                _callbackContext.sendPluginResult(result);
+            } catch (ConnectionException ex) {
+                ex.printStackTrace();
+
+                if (_callbackContext != null) {
+                    _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+
+                if (_callbackContext != null) {
+                    _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+                if (_callbackContext != null) {
+                    _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
+                }
+            }
+        }
+        
+        // US3462
+        private void sendZPLCoupon(ZebraPrinter printer, WICICardmemberModel cardmemberModel) {
+            try {
+                // Initialize data
+                WICIFileHelper fileHelper = new WICIFileHelper();
+
+                if (cardmemberModel != null) {
+                    WICIReplacementHelper replacementHelper = new WICIReplacementHelper(cardmemberModel, getCurrentContext(), printer);                  
+                    // Process file
+                    fileHelper.processMockupCoupon(printer, getCurrentContext(), replacementHelper,
+                            cardmemberModel.getCardType(),
+                            cardmemberModel.getProvince(),
+                            cardmemberModel.getFirstName(),
+                            cardmemberModel.getMiddleInitial(),
+                            cardmemberModel.getLastName(),
+                            cardmemberModel.getStoreNumber()
+                            );
+                }
                 // Call UI callback with search results
                 PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
                 result.setKeepCallback(false);
