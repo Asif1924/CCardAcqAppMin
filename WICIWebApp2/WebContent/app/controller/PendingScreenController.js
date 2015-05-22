@@ -223,10 +223,28 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     	
     	if( pendingScreenState==="RETRIEVEPEND" ){
 
-	    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
-	    	app.navigationController.adhocPendingScreen.init(flow,"RETRIEVEPEND_START",{ retrievalToken:retrievalTokenRefNum || argToken, phoneNumber:argPhoneNumber},responseObject);
-	    	app.navigationController.adhocPendingScreen.show();
-
+    		// US3436 
+    		// In retrieving application, page should not move to Pending screen.
+    		// Based on response it should show message or go to Print screen
+    		
+    		// New Code Start  
+    		new WICI.LoadingIndicatorController().show();
+    		connectivityController = new WICI.ConnectivityController(new WICI.ConnectionStatus(), messageDialog, translator, WICI.AppConfig.ConnectivityConfig);
+    		connectivityController.init();    		
+    	            var requestParams = {
+    	            		retrievalToken	:	retrievalTokenRefNum || argToken,
+    	                   	phone			:	argPhoneNumber,
+    	                   	action			:	"retrievePend",    
+    	            };
+	         pollingController = new WICI.PollingController(connectivityController, requestParams, singlepollResponseReceived, pollFailed, "RETRIEVEPEND",$.noop,null);
+    	     pollingController.singlePoll();
+    		// New Code End
+    		
+    		// Old Code Start
+    	     /*app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+ 	    	app.navigationController.adhocPendingScreen.init(flow,"RETRIEVEPEND_START",{ retrievalToken:retrievalTokenRefNum || argToken, phoneNumber:argPhoneNumber},responseObject);
+ 	    	app.navigationController.adhocPendingScreen.show();*/	
+    		// Old Code End    		    			    
     	}
     	
     	if( pendingScreenState==="RETRIEVEPEND_START" || pendingScreenState==="INSESSION") {
@@ -253,6 +271,25 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     	console.log(logPrefix + sMethod + "attempCount=" + attemptCount);           
     }
     
+    // US3436 Single Poll - Start
+    function singlepollResponseReceived( argResponse ){
+        var sMethod = 'singlepollResponseReceived() ';
+        console.log(logPrefix + sMethod );
+        if(argResponse)
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);        
+        if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) )
+        	successPendPoll(argResponse);
+        else if( respAn.isPendingResponse(argResponse) )
+        {
+        	new WICI.LoadingIndicatorController().hide();
+        	// Pend dialog
+        	messageDialog.info(translator.translateKey("pendingScreen_ApplicationPending"));         	
+        }
+        else
+        	failedPendPoll(argResponse);
+    }
+    // US3436 Single Poll - End
+    
     function pollResponseReceived( argResponse ){
         var sMethod = 'pollResponseReceived() ';
         console.log(logPrefix + sMethod );
@@ -262,7 +299,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) )
         	successPendPoll(argResponse);
         else if( respAn.isPendingResponse(argResponse) )
-        {
+        {  
         	updateAttemptNumber(attemptCount++);
         	console.log(logPrefix + sMethod + "attempCount=" + attemptCount);        	
         	pollingController.immediatePoll();
@@ -362,9 +399,22 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         console.log(logPrefix + sMethod);
 
         new WICI.LoadingIndicatorController().hide();
+        // UAT Defect #103 - Start
 		hide();
+		// End
     	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
     	activationItems.setNewAccountApplicationResponse(argResponse);
+    	// US3436
+    	// Here redirect screen happens, based on response.   	     	    
+    	/*if(respAn.isPendingResponse( argResponse )){    		
+    		messageDialog.info(translator.translateKey("pendingScreen_ApplicationPending"));    		
+    	} else if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) ){    		
+    		var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+    	    app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
+    	    app.navigationController.adhocPrintDemoScreen.init(flow);
+    	    app.navigationController.adhocPrintDemoScreen.show();   			
+    	}*/
+    	    	
     	var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
     	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
     	app.navigationController.adhocPrintDemoScreen.init(flow);

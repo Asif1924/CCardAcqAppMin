@@ -417,8 +417,12 @@ WICI.dictionary_fr = {
 	Program_Other										:"Autres",
 	BLANK												:"S.O.",
 	ATTN 												:"ATTN1",
+	// US3499 Marks Store
+	Program_MW999										:"Magasin Marks",
+	// For QC specific french change
+	Program_MW999_QC									:"L'Equipeur",
 
-		// Signature screen START ................................................................
+	// Signature screen START ................................................................
 
 
 
@@ -610,6 +614,8 @@ WICI.dictionary_fr = {
 	pendingScreen_CheckAppStatusLabel 					: 	"VÉRIFIER L'ÉTAT DE LA DEMANDE",
 
 	pendingScreen_RetrieveFailed						:	"La demande ne peut être repérée. Veuillez réessayer.",
+	// US3436
+	pendingScreen_ApplicationPending				  	:	"Nous vous remercions de votre patience. Votre demande est encore à l’étude par notre équipe du service à la clientèle. Veuillez revenir dans 30 minutes.",
 	
 	// Pending screen end
 

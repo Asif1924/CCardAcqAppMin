@@ -143,6 +143,7 @@ load:
     <!--<target name="js.test.unit" description="unit test" depends="js.test.configure">//-->
     <target name="js.test.unit" description="unit test">
         <echo message="Running JS Unit Tests..."/>
+    	<echo message="Browser path... ${browser.path}"/> 
         <delete dir="${js.test.unit.report.dir}"/>
         <mkdir dir="${js.test.unit.report.dir}"/>
         <mkdir dir="${js.test.unit.report.dir}/coverage"/>

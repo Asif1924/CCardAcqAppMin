@@ -44,8 +44,8 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 		'Page4' : {
 			'screenConstructor' : WICI.SignatureScreenController,
 			'transitionOut' : function() {
-				var employerID = activationItems.getModel('loginScreen').get('employerID').toLowerCase();
-				if (employerID === 'e') {
+				var employerID = activationItems.getModel('loginScreen').get('employerID').toUpperCase();
+				if (employerID === 'E') {
 					var model = new WICI.BaseModel({
 				    	name: 'OptionalProductsModel',
 				        data: [

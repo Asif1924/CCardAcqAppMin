@@ -22,7 +22,7 @@ WICI.ZebraPrinterController = function () {
             failureCallback(err);
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
         }        
-    }
+    };
     
     //---------------------------------------------------------------------------------------
     this.getStoredPrinterMacAddress = function (successCallback, failureCallback) {
@@ -63,7 +63,7 @@ WICI.ZebraPrinterController = function () {
     this.printFile = function (activationItems, applicationResponse, successCallback, failureCallback) {
         var sMethod = 'printFile() ';
         console.log(logPrefix + sMethod);
-        console.log('----------test----------');
+        console.log('---------- printFile ----------');
         console.log(activationItems.getModel('personalData').get('correspondence'));
         console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
         console.log('--------------------');
@@ -88,11 +88,52 @@ WICI.ZebraPrinterController = function () {
                  activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                  prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
                  prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-                 activationItems.getModel('loginScreen').get('locationFieldID'),""]);
+                 activationItems.getModel('loginScreen').get('locationFieldID'),
+                 ""]);
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
         }
       };
+      // US3462
+      //---------------------------------------------------------------------------------------
+      this.printCoupon = function (activationItems, successCallback, failureCallback) {
+          var sMethod = 'printCoupon() ';
+          console.log(logPrefix + sMethod);
+          console.log('---------- printCoupon ----------');         
+          console.log(activationItems.getModel('chooseProductModel').get('productCard'));
+          console.log(activationItems.getModel('personalData').get('firstName'));
+          console.log(activationItems.getModel('personalData').get('initial'));
+          console.log(activationItems.getModel('personalData').get('lastName'));
+          console.log(activationItems.getModel('chooseProductModel').get('province')); 
+          console.log(activationItems.getModel('loginScreen').get('locationFieldID'));
+          console.log('--------------------');
+          try {
+              // Send response to mobile side
+              cordova.exec(successCallback,
+                  failureCallback,
+                  "ZebraPrinterPlugin",
+                  "printOutCoupon", 
+                  [activationItems.getModel('chooseProductModel').get('productCard'),
+                   activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+                   activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+                   activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+                   "",
+                   "",
+                   "",
+                   "",
+                   "",
+                   "",
+                   "DECLINED",
+                   activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+                   activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+                   prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                   prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                   activationItems.getModel('loginScreen').get('locationFieldID'),
+                   ""]);             
+          } catch (err) {
+              console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
+          }
+        };
       //---------------------------------------------------------------------------------------
       this.getPrinterMacAddress = function () {
          return  printerMacAddress;

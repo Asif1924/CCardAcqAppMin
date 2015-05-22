@@ -8,6 +8,7 @@ WICI.ProgramsList = function() {
           { value: '4022', text: 'Program_4022'},
           { value: '4024', text: 'Program_4024'},
           { value: '4029', text: 'Program_4029'},
+          { value: 'MW999', text: 'Program_MW999'},
           { value: "other", text: 'Program_Other'},
       ];    
 };

@@ -406,9 +406,14 @@ WICI.dictionary_en = {
 	Program_4022										:	'Eastern CTP Local - 4022',
 	Program_4024										:	'Western CTP Gas Event - 4024',
 	Program_4029										:	'Western CTP Local - 4029',
-	Program_Other										:	'Other',
+	Program_Other										:	'Other',	
 	BLANK									            :	'BLANK',
 	ATTN 												: 	'ATTN1',
+	// US3499 Marks Store
+	Program_MW999										:	'Marks Store',
+	// For QC specific french change
+	Program_MW999_QC									:	'Marks Store',
+	
 	// Signature screen START ................................................................
 
 
@@ -597,7 +602,8 @@ WICI.dictionary_en = {
 	pendingScreen_CheckAppStatusLabel 					: 	"CHECK APPLICATION STATUS",
 	
 	pendingScreen_RetrieveFailed						:	"Cannot retrieve this application. Please try again.",
-	
+	// US3436
+	pendingScreen_ApplicationPending					:	"We appreciate your patience, however your application is still being reviewed by our customer service team. Please check again in 30 minutes.",
 	// Pending screen end
 
 	//Added by DPS ***************************

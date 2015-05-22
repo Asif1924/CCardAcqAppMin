@@ -137,7 +137,7 @@ WICI.LoginScreenController = function(app) {
     function syncUserData() {
         var sMethod = 'syncUserData() ';
         console.log(logPrefix + sMethod);
-        model.set('employerID', $(refs.employerID).val().toLowerCase());
+        model.set('employerID', $(refs.employerID).val().toUpperCase());
         //model.set('userID', $(refs.userID).val());
         model.set('agentID', $(refs.agentID).val().toLowerCase());
         //model.set('passwordFieldID', $(refs.passwordFieldID).val());
@@ -199,7 +199,7 @@ WICI.LoginScreenController = function(app) {
 
         $(refs.loginButtonID).click(function() {
             generateAgentId();
-            invokeLogin($(refs.employerID).val(), $(refs.agentID).val(), "", "", $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+            invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", "", $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -219,9 +219,9 @@ WICI.LoginScreenController = function(app) {
 
     function generateAgentId() {
         var agentId = {},
-            employerId = $(refs.employerID).val().toLowerCase();
+            employerId = $(refs.employerID).val().toUpperCase();
 
-        if (employerId === 'e') {
+        if (employerId === 'E') {
             agentId.firstName = getFirstFourChars($(refs.firstName).val());
             agentId.lastName = getFirstFourChars($(refs.lastName).val());
 
@@ -238,8 +238,8 @@ WICI.LoginScreenController = function(app) {
     }
 
     function employerIdChanged(e) {
-        switch (e.target.value.toLowerCase()) {
-            case 'e':
+        switch (e.target.value.toUpperCase()) {
+            case 'E':
                 changeFormForEmployer();
                 validateNameFields = true;
                 break;

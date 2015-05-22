@@ -37,14 +37,14 @@ WICI._AppConfig = function() {
 		CSR: {
 			firstName: "demo",
 		    lastName: "demo",
-		    employerID: ["e"]
+		    employerID: ["E"]
 		},
 		FMR: {
 		    agentID: "demo",
-		    employerID: ["d", "k", "c", "f", "j", "0"]
+		    employerID: ["D", "K", "C", "F", "J", "0"]
 		},
 		admin: {
-			employerID: ["d"],
+			employerID: ["D"],
 		    agentID: "admin"
 		}
 

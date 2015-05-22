@@ -84,7 +84,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         //restoreCreditCardData();
         //showCOCD();
 
-        if(loginModel.get('employerID').toLowerCase() === 'e' && loginModel.get('agentID').toLowerCase() !== 'demo') {
+        if(loginModel.get('employerID').toUpperCase() === 'E' && loginModel.get('agentID').toLowerCase() !== 'demo') {
             loadCSRWorkflowOMC();
         }
 
@@ -181,7 +181,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $.tmpl("pageHeader", {
             "logo_En" : translator.currentLanguageEnglish(),
             "settingsButtonId" : "chooseProductScreen_SettingsButton",
-            "isNotEmployee" : activationItems.getModel('loginScreen').get('employerID').toLowerCase() !== "e"
+            "isNotEmployee" : activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"
         }).appendTo("#ChooseProductScreen");
 
         $('#chooseProductScreen_SettingsButton').addClass('rightPosition');
@@ -234,6 +234,34 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             };
 
             selectedProvince = $(refs.province).val();
+            
+            // US3499 
+            // Auto populate program desc
+            var employerID = loginModel.get('employerID');       
+            var storeNumber = loginModel.get('locationFieldID');
+            if(storeNumber >= "6000" && storeNumber <= "6999"){        	
+            	if (employerID.toUpperCase() === "E") {
+                    model.set('agencyProgram', 'MW999');
+                    model.set('agencyPromoCode', 'MW999');
+                    hideProgram();
+                } else {
+                    model.set('agencyProgram', 'MW999');
+                    model.set('agencyPromoCode', 'MW999');
+                    }                        	
+            } else if (employerID.toUpperCase() === "E") {
+                    model.set('agencyProgram', 'other');
+                    model.set('agencyPromoCode', 'CTR1');
+                    hideProgram();
+            }        
+            
+            var program = model.get('agencyProgram');
+            if (program){
+            	console.log(program);
+                selectProgram(program, model.get('agencyPromoCode'));
+            }
+
+            $(refs.agencyProgram).trigger("change");
+            
         });
 
         $(refs.agencyProgram).on("change", function(obj){
@@ -255,7 +283,23 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 $(refs.agencyPromoCode).val(translator.translateKey("BLANK"))
                     .attr('disabled', true);
                 $(refs.agencyPromoCode).addClass('promoCodeDisabled');
-            } else {
+            } 
+            // US3499 Promo code editable - start
+            else if (val==="MW999" && promoValue && promoValue == model.get('agencyPromoCode')){
+            	// IP channel promo code editable and DP channel promo code non-editable
+            	var employerID = loginModel.get('employerID');
+            	if(employerID.toUpperCase() == "E"){
+            		$(refs.agencyPromoCode).val(promoValue)
+            		.removeAttr('disabled');
+            		$(refs.agencyPromoCode).removeClass('promoCodeDisabled');
+            	} else {
+            		$(refs.agencyPromoCode).val(promoValue)
+                    .attr('disabled', true);
+            		$(refs.agencyPromoCode).addClass('promoCodeDisabled');
+            	}
+            } 
+            // end
+            else {
                 $(refs.agencyPromoCode).val(val)
                     .attr('disabled', true);
                 $(refs.agencyPromoCode).addClass('promoCodeDisabled');
@@ -521,12 +565,25 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         controlRef.empty();
         var list = new WICI.ProgramsList();
         populateDropDown(controlRef, list.data);
-        var employerID = loginModel.get('employerID');
-        if (employerID.toLowerCase() === "e") {
-            model.set('agencyProgram', 'other');
-            model.set('agencyPromoCode', 'CTR1');
-            hideProgram();
-        }
+                
+        // US3499
+        // Marks Store Promo Code auto populate program code
+        var employerID = loginModel.get('employerID');       
+        var storeNumber = loginModel.get('locationFieldID');
+        if(storeNumber >= "6000" && storeNumber <= "6999"){        	
+        	if (employerID.toUpperCase() === "E") {
+                model.set('agencyProgram', 'MW999');
+                model.set('agencyPromoCode', 'MW999');
+                hideProgram();
+            } else {
+                model.set('agencyProgram', 'MW999');
+                model.set('agencyPromoCode', 'MW999');
+                }                    	 
+        } else if (employerID.toUpperCase() === "E") {
+                model.set('agencyProgram', 'other');
+                model.set('agencyPromoCode', 'CTR1');
+                hideProgram();
+        } 
 
         var program = model.get('agencyProgram');
         if (program){
@@ -548,8 +605,20 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function selectProgram(programToSelect, promoCode) {
         console.log("selectProgram" + promoCode);
+        // US3499
+        // Update program desc in drop down for french
+        var employerID = loginModel.get('employerID');       
+        var storeNumber = loginModel.get('locationFieldID');
         $(refs.agencyProgram + " [value='" +programToSelect + "']").attr("selected",
-            "selected");
+        "selected");    
+	    if(storeNumber >= "6000" && storeNumber <= "6999" && employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
+	    {	 
+	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect + "_QC") );
+	    }else if (storeNumber >= "6000" && storeNumber <= "6999" && employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
+	    	
+	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect) );
+	    }
+	    
         if(promoCode){
             $(refs.agencyPromoCode).val(promoCode);
         }

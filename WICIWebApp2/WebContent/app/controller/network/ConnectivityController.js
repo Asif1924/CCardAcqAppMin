@@ -60,7 +60,11 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
     this.initAccountApplication = function(argCreditCardData, argSuccessCallback, argFailureCallback, argIsSilent) {
         var sMethod = 'initAccountApplication() ';
         console.log(logPrefix + sMethod);
-
+        
+        // US3462
+        // When app is submitted, printing coupon then adjudication is called. So loading indicator is show while adjudication. 
+        new WICI.LoadingIndicatorController().show();
+        
         argFailureCallback = argFailureCallback || $.noop;
 
         var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate, argIsSilent);

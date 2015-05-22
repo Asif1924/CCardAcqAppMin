@@ -37,7 +37,18 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 
 		timeout = setTimeout(poll, delay );
 	};
-
+	
+	// US3436 Single Poll - start	
+	this.singlePoll = singlePoll;
+	
+	function singlePoll() {
+		var sMethod = "singlePoll";
+		console.log(logPrefix+sMethod);			
+		console.log("polling...");
+		argConnectivityController.poll(argRequestParams, singlePollResponseReceived, responseFailed, doPollWait);		
+	}
+	// US3436 Single Poll - end
+	
 	function poll() {
 		var sMethod = "poll";
 		console.log(logPrefix+sMethod);
@@ -56,6 +67,33 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 	function pendFeatureEnabled(){
 		return !(WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines);  
 	}
+	
+	// US3436 Single Poll - start
+	function singlePollResponseReceived(argResponse) {
+		var sMethod = "singlePollResponseReceived";
+		console.log( logPrefix+sMethod );
+		
+		if( responseCanBeRetrieved(argResponse) ){
+			console.log( logPrefix+sMethod+"  response can be retrieved..." );
+							
+				console.log( logPrefix+sMethod+"  pendingPageType=" + pendingPageType );
+				if( pendingPageType === "RETRIEVEPEND" )
+				{
+					if( (responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) && responseIsApprovedOrDeclined(argResponse)) ||  responseIsPending(argResponse) ) 
+					{
+						argSuccessCallback(argResponse);
+					} else {
+						argFailureCallback(argResponse);
+					}				
+				}								
+		}		
+		else{
+			console.log( logPrefix+sMethod+"  response cannot be retrieved..." );
+			//stopPolling(respAn.getData(argResponse));
+			stopPolling(argResponse);
+		}
+	}
+	// US3436 Single Poll - end
 
 	function responseReceived(argResponse) {
 		var sMethod = "responseReceived";
@@ -73,7 +111,7 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 				}
 				else if( responseExistsNotEmptyHasDataAndDataHasAppStatusThatIsValid(argResponse) ) 
 				{
-					console.log( logPrefix+sMethod + " Application Status:" + respAn.getAppStatus(argResponse));
+					console.log( logPrefix+sMethod + " Application Status:" + respAn.getAppStatus(argResponse));					
 					//argSuccessCallback(argResponse);
 				} 
 				else if (responseExistsAndHasError(argResponse)) 
@@ -107,7 +145,6 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 				{
 					if ( responseIsPending(argResponse) )
 					{
-						//argPollResponseReceivedCallback(argResponse);
 						argPollTriggerCallback(argResponse);
 						doPollWait();
 					}

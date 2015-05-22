@@ -42,7 +42,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     checkedElements = [];
     var itemsToSet = {};
 
-    if (activationItems.getModel('loginScreen').get('employerID').toLowerCase() !== "e") {
+    if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E") {
         refs.summaryAgentID = "#summaryAgentIDTextField";
         dataFields.push({
                     name: 'summaryAgentID',
@@ -226,7 +226,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		$(templateName).template("summaryScreenPage");
 		$.tmpl("summaryScreenPage",{
             activationItems: activationItems,
-            isNotEmployee: activationItems.getModel('loginScreen').get('employerID') !== 'e'
+            isNotEmployee: activationItems.getModel('loginScreen').get('employerID').toUpperCase !== 'E'
      }).appendTo($element);
     }
     // ---------------------------------------------------------------------------------------
@@ -349,6 +349,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	new WICI.LoadingIndicatorController().show();
 
         	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
+        		// US3462 
+        		// Print Coupon after submit app if cardtype is OMC
+        		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMC"){
+        			printCoupon();
+        		}             
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
         	}else{
         		showMessageForDataValidationIssue();
@@ -357,6 +362,47 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         catch(Ex){
         	failedInitActivate();
         }
+    }
+    
+    // US3462
+    //---------------------------------------------------------------------------------------
+    function printCoupon() {
+        var sMethod = 'printCoupon() ';
+        console.log(logPrefix + sMethod);
+        var isDevice = new WICI.DeviceDetectionHelper().any();
+        
+        if( isDevice ){
+        
+            if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
+                showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
+                return;
+            }
+            new WICI.LoadingIndicatorController().show();
+            try {                
+                
+                app.zebraPrinterWrapper.printCoupon(
+                    activationItems,
+                    printFileSuccess,
+                    printFileFailure);
+            }
+            catch (error){
+                console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
+            }
+        }else{
+        	// Web print
+        }
+        return;
+    }
+    
+  //---------------------------------------------------------------------------------------
+    function printFileSuccess(result) {
+        var sMethod = 'printFileSuccess() ';
+        console.log(logPrefix + sMethod);
+    }
+    //---------------------------------------------------------------------------------------
+    function printFileFailure() {
+        var sMethod = 'printFileFailure() ';
+        console.log(logPrefix + sMethod);
     }
 
     function showMessageForDataValidationIssue(){
