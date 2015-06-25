@@ -366,7 +366,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     
     // US3462
     //---------------------------------------------------------------------------------------
-    function printCoupon() {
+   /* old code - back end issues  fix -  function printCoupon() {
         var sMethod = 'printCoupon() ';
         console.log(logPrefix + sMethod);
         var isDevice = new WICI.DeviceDetectionHelper().any();
@@ -392,6 +392,33 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	// Web print
         }
         return;
+    }*/
+    
+    //---------------------------------------------------------------------------------------
+	    function printCoupon() {
+		var sMethod = 'printCoupon() ';
+		console.log(logPrefix + sMethod);
+		try {
+			var isDevice = new WICI.DeviceDetectionHelper().any();
+
+			if (isDevice) {
+
+				if (!app.zebraPrinterWrapper.verifyPrinterMacAddress()) {
+					app.accountProfileHelper.showNoPrinterSetupWarning ();	
+					return;
+				}
+				new WICI.LoadingIndicatorController().show();
+
+				app.zebraPrinterWrapper.printCoupon(activationItems,
+						printFileSuccess, printFileFailure);
+
+			} else {
+				// Web print
+			}
+		} catch (error) {
+			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+		}
+		return;
     }
     
   //---------------------------------------------------------------------------------------

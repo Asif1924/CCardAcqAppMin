@@ -539,7 +539,8 @@ WICI.dictionary_en = {
 
     summary_highlighterHeader                           :   "IMPORTANT",
     summary_highlighter_SubTitle                        :   "Your application must be verified by a Canadian Tire store representative",
-
+    //US3556
+    summary_marks_highlighter_SubTitle					:	"Your application must be verified by a Mark’s store representative.",
 	// Summary screen END ................................................................
 
 	// Print screen START ..............................................................

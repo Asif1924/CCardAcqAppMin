@@ -150,12 +150,14 @@ html,body {
 .Login_CanadianTireLogo{
   background-image: inline-image("CTB_LoginScreen_Logo_English.png");
   height: 120px;
+  /*height: 230px; Mark's Logo removed*/
   width: 477px;
   background-size: 100%;
 }
 .Login_CanadianTireLogo_French{
   background-image: inline-image("CTB_LoginScreen_Logo_French.png");
-  height: 120px;
+  height: 120px;  
+  /*height: 230px; Mark's Logo removed*/
   width: 477px;
   background-size: 100%;
 }

@@ -1,6 +1,7 @@
 package com.ctfs.BRB.Helper.Factory;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -8,11 +9,12 @@ import javax.xml.namespace.QName;
 
 import com.ctfs.BRB.Interfaces.IConfiguration;
 import com.ctfs.BRB.Model.Configuration;
+import com.ctfs.BRB.Helper.*;
 
 public abstract class ConfigurationFactory
 {
 	static Logger log = Logger.getLogger(ConfigurationFactory.class.getName());
-
+	private static final String CONFIGURATION_PROPERTIES="BRB_ENVIROINMENT_CONFIGURATION";
 	/**
 	 * This scaffolding is to allow proper unit tests
 	 */
@@ -58,7 +60,10 @@ public abstract class ConfigurationFactory
 
 		return conf;
 	}
-
+	
+		
+	//US3538 BRB – Externalize BRBMiddlewareBroker configuration - back out
+	/*
 	protected String getPropertyFromConfigurationFile(String argPropertyName) throws Exception
 	{
 		String sMethod = "[getEndpointAddressFromConfigurationFile( " + argPropertyName + ")]";
@@ -99,7 +104,8 @@ public abstract class ConfigurationFactory
 
 		return propertyValue;		
 	}
-	
+	*/
+	/*
 	protected String getPropertyFromConfigurationFile() throws Exception
 	{
 		String sMethod = "[getEndpointAddressFromConfigurationFile]";
@@ -141,6 +147,68 @@ public abstract class ConfigurationFactory
 		return propertyValue;
 	}
 
+	
+	*/
+	
+	protected String getPropertyFromConfigurationFile(String argPropertyName) throws Exception
+	{
+		String sMethod = "[getEndpointAddressFromConfigurationFile( " + argPropertyName + ")]";
+		String propertyValue = null;  
+		
+		
+		try
+		{			
+			ApplicationConfiguration.readApplicationConfiguration();
+			Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
+			log.info("getPropertyFromConfigurationFile( " + argPropertyName + ") : "+ enviroinmentMap.get(argPropertyName));
+				
+			propertyValue = enviroinmentMap.get(argPropertyName).toString();// getEndpointFromConfigurationFile();
+		  	
+			// Validate endpointProperty value
+			validateEndpointPropertyValue(propertyValue);
+
+			propertyValue += getEndpointSuffix();
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}		 
+
+		return propertyValue;		
+	}
+		 
+	protected String getPropertyFromConfigurationFile() throws Exception
+	{
+		String sMethod = "[getEndpointAddressFromConfigurationFile]";
+		String propertyValue = null;
+		
+		
+		try
+		{			
+			ApplicationConfiguration.readApplicationConfiguration();
+			Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
+			log.info("getPropertyFromConfigurationFile( " + getPropertyName() + ") : "+ enviroinmentMap.get(getPropertyName()));
+				
+			propertyValue = enviroinmentMap.get(getPropertyName()).toString();// getEndpointFromConfigurationFile();
+		  	
+			// Validate endpointProperty value
+			validateEndpointPropertyValue(propertyValue);
+
+			propertyValue += getEndpointSuffix();
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}		 
+
+		return propertyValue;  
+		 
+	} 
+	
 	protected String getEndpointSuffix()
 	{
 		String sMethod = "[getEndpointSuffix]";

@@ -1032,37 +1032,81 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 currModel.set("province", lookupHelper.getProvince());
                 selectedPersonalProvince = lookupHelper.getProvince();
 
-                if( lookupHelper.getAddressLine1().length>1){
-                    $("#addressLookup_Address_AddressLine1_MultipleControl").show();
-                    repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_Address_AddressLine1_SelectField"), 'addressline1_Array');
-                    $("#personalData_Address_AddressLine1_SelectField").prop('selectedIndex', -1);
-                }
-                if( lookupHelper.getAddressLine1().length<=1){
-                    $("#addressLookup_Address_AddressLine1_MultipleControl").hide();
-                    $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
-                }
-
-                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
-                $("#personalData_Address_Province_TextField").val(lookupHelper.getProvince());
+                /* US2825 WICI - Address Look Up Enhancement
+                 * if( lookupHelper.getAddressLine1().length>1){
+	                    $("#addressLookup_Address_AddressLine1_MultipleControl").show();
+	                    repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_Address_AddressLine1_SelectField"), 'addressline1_Array');
+	                    $("#personalData_Address_AddressLine1_SelectField").prop('selectedIndex', -1);
+	                }
+	                if( lookupHelper.getAddressLine1().length<=1){
+	                    $("#addressLookup_Address_AddressLine1_MultipleControl").hide();
+	                    $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+	                }
+	
+	                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
+	                $("#personalData_Address_Province_TextField").val(lookupHelper.getProvince());
+                 * */
+                
+                // US2825 begin 
+                if( lookupHelper.getAddressLine1().length < 1 ) {            	
+                	$("#personalData_Address_AddressLine1_TextField").val("");
+                	$("#addressLookup_Address_AddressLine1_MultipleControl").hide();
+                	$("#personalData_Address_SuiteUnit_TextField").val("");
+                	$("#personalData_Address_City_TextField").val("");
+                	$("#personalData_Address_Province_TextField").val("");            	
+                	messageDialog.error(translator.translateKey("addressLookup_noResults"));
+                } else
+	            {	
+                	if( lookupHelper.getAddressLine1().length>1){
+	                    $("#addressLookup_Address_AddressLine1_MultipleControl").show();
+	                    repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_Address_AddressLine1_SelectField"), 'addressline1_Array');
+	                    $("#personalData_Address_AddressLine1_SelectField").prop('selectedIndex', -1);
+	                }
+	                if( lookupHelper.getAddressLine1().length<=1){
+	                    $("#addressLookup_Address_AddressLine1_MultipleControl").hide();
+	                    $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+	                }
+	
+	                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
+	                $("#personalData_Address_Province_TextField").val(lookupHelper.getProvince());
+	           }
+               // End
             }
-            else if($addressLookupButtonClicked.attr('id')=="personalData_PreviousAddressLookupButton")
-            {
-                currModel.set("province_prev", lookupHelper.getProvince());
-                selectedPrevProvince = lookupHelper.getProvince();
+             else if ($addressLookupButtonClicked.attr('id') == "personalData_PreviousAddressLookupButton") {
+				currModel.set("province_prev", lookupHelper.getProvince());
+				selectedPrevProvince = lookupHelper.getProvince();
 
-                if( lookupHelper.getAddressLine1().length>1){
-                    $("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").show();
-                    repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_PreviousAddress_AddressLine1_SelectField"), 'addressline1_prev_Array');
-                    $("#personalData_PreviousAddress_AddressLine1_SelectField").prop('selectedIndex', -1);
-                }
-                if( lookupHelper.getAddressLine1().length<=1){
-                    $("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
-                    $("#personalData_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
-                }
+				 // US2825 begin
+				if (lookupHelper.getAddressLine1().length < 1) {
+					$("#personalData_PreviousAddress_AddressLine1_TextField").val("");
+                	$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
+                	$("#personalData_PreviousAddress_SuiteUnit_TextField").val("");
+                	$("#personalData_PreviousAddress_City_TextField").val("");
+                	$("#personalData_PreviousAddress_Province_TextField").val("");
+                	messageDialog.error(translator.translateKey("addressLookup_noResults"));
+				} else {  //End
+					if (lookupHelper.getAddressLine1().length > 1) {
+						$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl")
+								.show();
+						repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_PreviousAddress_AddressLine1_SelectField"),'addressline1_prev_Array');
+						$("#personalData_PreviousAddress_AddressLine1_SelectField").prop('selectedIndex', -1);
+					}
+					if (lookupHelper.getAddressLine1().length <= 1) {
+						$(
+								"#addressLookup_PreviousAddress_AddressLine1_MultipleControl")
+								.hide();
+						$(
+								"#personalData_PreviousAddress_AddressLine1_TextField")
+								.val(lookupHelper.getAddressLine1());
+					}
 
-                $("#personalData_PreviousAddress_City_TextField").val(lookupHelper.getCityName());
-                $("#personalData_PreviousAddress_Province_TextField").val(lookupHelper.getProvince());
-            }
+					$("#personalData_PreviousAddress_City_TextField").val(
+							lookupHelper.getCityName());
+					$("#personalData_PreviousAddress_Province_TextField").val(
+							lookupHelper.getProvince());
+				}
+				
+			}
         }
         else{
             messageDialog.error(translator.translateKey("addressLookup_noResults"));

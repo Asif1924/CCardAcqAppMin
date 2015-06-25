@@ -550,6 +550,8 @@ WICI.dictionary_fr = {
     summary_TellAboutYourself_ApplicantInfo			  :                         "Renseignement sur le demandeur",
     summary_highlighter_SubTitle                      :                         "Votre demande doit être vérifiée par un représentant du magasin Canadian Tire.",
 	summary_highlighterHeader                         : 				        "IMPORTANT",
+	//US3556
+    summary_marks_highlighter_SubTitle				  :							"Votre demande doit être vérifiée par un représentant du magasin L'Équipeur.",
 		// Summary screen END ................................................................
 
 		// Print screen START ..............................................................

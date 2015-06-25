@@ -606,11 +606,21 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			console.log("Province:" + lookupHelper.getProvince());
 			model.set("province", lookupHelper.getProvince());
 			selectedSupProvince = lookupHelper.getProvince();
+			//US2825 - Jun23rd release - Begin
+			if( lookupHelper.getAddressLine1() == null || lookupHelper.getAddressLine1() == "" ) {            	
+            	$("#sup_AddressLine1_TextField").val("");
+            	$("#addressLookup_sup_AddressLine1_MultipleControl").hide();
+            	$("#sup_SuiteUnit_TextField").val("");
+            	$("#sup_City_TextField").val("");
+            	$("#sup_Province_TextField").val("");
+            	messageDialog.error(translator.translateKey("addressLookup_noResults"));
+            } else { //End
 			updateLookUpControls(lookupHelper.getAddressLine1(), lookupHelper
 					.getAddressLine2());
 
 			$(refs.city).val(lookupHelper.getCityName());
 			$(refs.province).val(lookupHelper.getProvince());
+            }
 		} else {
 			messageDialog.error(translator
 					.translateKey("addressLookup_noResults"));

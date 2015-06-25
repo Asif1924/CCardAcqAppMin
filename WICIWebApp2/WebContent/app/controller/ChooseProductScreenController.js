@@ -239,7 +239,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // Auto populate program desc
             var employerID = loginModel.get('employerID');       
             var storeNumber = loginModel.get('locationFieldID');
-            if(storeNumber >= "6000" && storeNumber <= "6999"){        	
+            if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){        	
             	if (employerID.toUpperCase() === "E") {
                     model.set('agencyProgram', 'MW999');
                     model.set('agencyPromoCode', 'MW999');
@@ -570,7 +570,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // Marks Store Promo Code auto populate program code
         var employerID = loginModel.get('employerID');       
         var storeNumber = loginModel.get('locationFieldID');
-        if(storeNumber >= "6000" && storeNumber <= "6999"){        	
+        if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){        	
         	if (employerID.toUpperCase() === "E") {
                 model.set('agencyProgram', 'MW999');
                 model.set('agencyPromoCode', 'MW999');
@@ -611,10 +611,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var storeNumber = loginModel.get('locationFieldID');
         $(refs.agencyProgram + " [value='" +programToSelect + "']").attr("selected",
         "selected");    
-	    if(storeNumber >= "6000" && storeNumber <= "6999" && employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
+	    if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999 && employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
 	    {	 
 	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect + "_QC") );
-	    }else if (storeNumber >= "6000" && storeNumber <= "6999" && employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
+	    }else if (parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999 && employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
 	    	
 	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect) );
 	    }

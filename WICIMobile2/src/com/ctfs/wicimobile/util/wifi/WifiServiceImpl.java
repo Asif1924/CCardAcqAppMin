@@ -39,7 +39,18 @@ public class WifiServiceImpl implements WifiService {
         
         //Step 3. Check the list of profiles to find the one we want to add, if not found add it
         int networkId = 0;
+        /*  if( !wifiProfileFound(wifiProfile) ){
+        	networkId = wifiManager.addNetwork(wifiProfile);
+        	Log.i(LOG_TAG, "created new network \"" + ssid + "\" configuration id=" + networkId);
+        }*/
+        
         if( !wifiProfileFound(wifiProfile) ){
+        	networkId = wifiManager.addNetwork(wifiProfile);
+        	Log.i(LOG_TAG, "created new network \"" + ssid + "\" configuration id=" + networkId);
+        }else //US3546 WICI - Reconnect WIFI fix for SSID in bad states
+        {
+        	Log.i(LOG_TAG, "Remove Wifi Profile....");
+        	removeWifiProfile(wifiProfile);
         	networkId = wifiManager.addNetwork(wifiProfile);
         	Log.i(LOG_TAG, "created new network \"" + ssid + "\" configuration id=" + networkId);
         }
@@ -58,11 +69,20 @@ public class WifiServiceImpl implements WifiService {
         
         callback.success(null);
     }
-    
+    private void removeWifiProfile(WifiConfiguration argWIFIProfile) {
+    	List<WifiConfiguration> wifiSSIDList = wifiManager.getConfiguredNetworks();
+    	for( WifiConfiguration thisWIFIConfiguration : wifiSSIDList ) {
+    		if(thisWIFIConfiguration.SSID != null && thisWIFIConfiguration.SSID.equals("" + argWIFIProfile.SSID + "")) {
+    	    	 wifiManager.removeNetwork(thisWIFIConfiguration.networkId);
+    	    	 Log.i(LOG_TAG, "Remove network \"" + thisWIFIConfiguration.SSID + "\" configuration id=" + thisWIFIConfiguration.networkId);
+    	   }           
+    	 } 
+	}
     private boolean wifiProfileFound(WifiConfiguration argWIFIProfile) {
     	List<WifiConfiguration> wifiSSIDList = wifiManager.getConfiguredNetworks();
     	for( WifiConfiguration thisWIFIConfiguration : wifiSSIDList ) {
-    	    if(thisWIFIConfiguration.SSID != null && thisWIFIConfiguration.SSID.equals("\"" + argWIFIProfile.SSID + "\"")) {
+    		Log.i(LOG_TAG, "SSIDList -> \"" + thisWIFIConfiguration.SSID + "\" ..." );
+    		if(thisWIFIConfiguration.SSID != null && thisWIFIConfiguration.SSID.equals("" + argWIFIProfile.SSID + "")) {
     	         //wifiManager.disconnect();
     	         //wifiManager.enableNetwork(thisWIFIConfiguration.networkId, true);
     	         //wifiManager.reconnect();               

@@ -659,6 +659,14 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 			{
 				model.set("province", lookupHelper.getProvince());
 				selectedPersonalProvince = lookupHelper.getProvince();
+				// US2825 WICI - Address Look Up Enhancement 
+				if( lookupHelper.getAddressLine1().length < 1 ) {            	
+                	$("#personalData2_Address_AddressLine1_TextField").val("");
+                	$("#personalData2_Address_SuiteUnit_TextField").val("");
+                	$("#personalData2_Address_City_TextField").val("");
+                	$("#personalData2_Address_Province_TextField").val("");            	
+                	messageDialog.error(translator.translateKey("addressLookup_noResults"));
+                } else {
 				if( lookupHelper.getAddressLine1().length>1){
 					$("#addressLookup_Address_AddressLine1_MultipleControl").show();
 					repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData2_Address_AddressLine1_SelectField"), 'addressline1_Array');
@@ -680,32 +688,41 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 				}*/
 				$("#personalData2_Address_City_TextField").val(lookupHelper.getCityName());
 				$("#personalData2_Address_Province_TextField").val(lookupHelper.getProvince());
+                }
 			}
 			else if($addressLookupButtonClicked.attr('id')=="personalData2_PreviousAddressLookupButton")
 			{
 				model.set("province_prev", lookupHelper.getProvince());
 				selectedPrevProvince = lookupHelper.getProvince();
-				if( lookupHelper.getAddressLine1().length>1){
-					$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").show();
-					repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData2_PreviousAddress_AddressLine1_SelectField"), 'addressline1_prev_Array');
-					$("#personalData2_PreviousAddress_AddressLine1_SelectField").prop('selectedIndex', -1);
-				}				
-				if( lookupHelper.getAddressLine1().length<=1){
-					$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
-					$("#personalData2_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+				if( lookupHelper.getAddressLine1() == null || lookupHelper.getAddressLine1() == "" ) {            	
+                	$("#personalData2_Address_AddressLine1_TextField").val("");
+                	$("#personalData2_Address_SuiteUnit_TextField").val("");
+                	$("#personalData2_Address_City_TextField").val("");
+                	$("#personalData2_Address_Province_TextField").val("");            	
+                	messageDialog.error(translator.translateKey("addressLookup_noResults"));
+                } else {
+						if( lookupHelper.getAddressLine1().length>1){
+							$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").show();
+							repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData2_PreviousAddress_AddressLine1_SelectField"), 'addressline1_prev_Array');
+							$("#personalData2_PreviousAddress_AddressLine1_SelectField").prop('selectedIndex', -1);
+						}				
+						if( lookupHelper.getAddressLine1().length<=1){
+							$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
+							$("#personalData2_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+						}
+						/*	changes for task CTCOFSMB-1431, disabling address line 2 				
+						if( lookupHelper.getAddressLine2().length>1){
+							$("#addressLookup_PreviousAddress_AddressLine2_MultipleControl").show();
+							repopulateAddressLineControl(lookupHelper.getAddressLine2(),$("#personalData2_PreviousAddress_AddressLine2_SelectField"), 'addressline2_prev_Array');
+							$("#personalData2_PreviousAddress_AddressLine2_SelectField").prop('selectedIndex', -1);
+						}				
+						if( lookupHelper.getAddressLine2().length<=1){
+							$("#addressLookup_PreviousAddress_AddressLine2_MultipleControl").hide();
+							$(refs.addressline2_prev).val(lookupHelper.getAddressLine2());
+						}*/
+						$("#personalData2_PreviousAddress_City_TextField").val(lookupHelper.getCityName());
+						$("#personalData2_PreviousAddress_Province_TextField").val(lookupHelper.getProvince());
 				}
-				/*	changes for task CTCOFSMB-1431, disabling address line 2 				
-				if( lookupHelper.getAddressLine2().length>1){
-					$("#addressLookup_PreviousAddress_AddressLine2_MultipleControl").show();
-					repopulateAddressLineControl(lookupHelper.getAddressLine2(),$("#personalData2_PreviousAddress_AddressLine2_SelectField"), 'addressline2_prev_Array');
-					$("#personalData2_PreviousAddress_AddressLine2_SelectField").prop('selectedIndex', -1);
-				}				
-				if( lookupHelper.getAddressLine2().length<=1){
-					$("#addressLookup_PreviousAddress_AddressLine2_MultipleControl").hide();
-					$(refs.addressline2_prev).val(lookupHelper.getAddressLine2());
-				}*/
-				$("#personalData2_PreviousAddress_City_TextField").val(lookupHelper.getCityName());
-				$("#personalData2_PreviousAddress_Province_TextField").val(lookupHelper.getProvince());
 			}
 		}
 		else{
