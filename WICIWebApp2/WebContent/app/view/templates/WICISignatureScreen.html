@@ -1,4 +1,4 @@
-<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl">
+<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl"> 
 	<div class="ScreenLayout" id="SignatureScreen_PageContents">
 		<br>
 		<br>
@@ -64,9 +64,9 @@
 							{{if CardType === 'OMR' }}
 								 <img src="app/images/omr.jpg" style="margin-top:10px;"/>
 							{{else CardType === 'OMP' }}
-								<img id="SignatureImage" src="app/images/omp_en.png" style="margin-top:10px;"/>
+								<img id="SignatureImage" src="app/images/omp_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{else}}
-								<img id="SignatureImage" src="app/images/omc_en.gif" data-lang-src width="180" style="margin-top:10px;"/>
+								<img id="SignatureImage" src="app/images/omc_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{/if}}
 							<br/>
            </td>

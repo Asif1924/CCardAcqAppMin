@@ -45,7 +45,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         optionalProducts_PA_Table       :   '#optionalProducts_PA_Table',
         optionalProducts_PA_Agreement   :   '#optionalProducts_PA_Agreement',
         optionalProduct_PA_AcceptBox	:	'#optionalProduct_PA_AcceptBox_Area',
-
+		
         optionalProducts_CP_Item		:   '#optionalProductsCreditProtectorItem',
         optionalProducts_CP             :   '#optionalProducts_YesNoTextField',
         optionalProducts_CP_Area        :   '#optionalProducts_CP_Area',
@@ -329,8 +329,15 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         ).appendTo("#OptionalProductsScreen");
     }
     // ---------------------------------------------------------------------------------------
-    function assemblePageHTML ($element, templateName) {
-        $(templateName).tmpl().appendTo($element);
+    function assemblePageHTML ($element, templateName) {    	
+    	// UAT 39 - CP Revitalization, Missed Requirement
+    	var personalSK = activationItems.getModel("personalData2_Address").get('province') === 'SK';
+    	var chooseProductSK = activationItems.getModel("chooseProductModel").get('province') === 'SK';
+    	$(templateName).template("optionalScreenPage");
+		$.tmpl("optionalScreenPage",{
+            activationItems: activationItems,
+            cpEnable : personalSK || chooseProductSK 
+     }).appendTo($element);
     }
     //---------------------------------------------------------------------------------------
     function hideOptionalProductsSections() {
@@ -585,13 +592,22 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     //Delete Protection Advantage and Credit Protector items for SK province
     function removePAandCPifSKProvince() {
  	var personalDataModel = activationItems.getModel("personalData2_Address");
-
-       if(personalDataModel.get('province') === 'SK') {
+ 	// UAT 39 - CP Revitalization, Missed Requirement
+ 	var chooseProductDataModel = activationItems.getModel('chooseProductModel');
+ 	console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
+ 	console.log("---------"+"personalDataModel: "+personalDataModel.get('province')+"--------"); 	
+       if(chooseProductDataModel.get('province') === 'SK' || personalDataModel.get('province') === 'SK') {       		
             $(refs.optionalProducts_PA_Item).hide();//Protection Advantage hiding
             $('#lineSeparatorForPA').hide();
             $(refs.optionalProducts_CP_Item).hide();//Credit Protector hiding
             $('#lineSeparatorForCP').hide();
-
+            // Hiding PA and CP content and unchecking selected PA/CP
+            $(refs.optionalProducts_PA).attr('checked', false);
+            $(refs.optionalProducts_PA_Table).hide();
+            $(refs.optionalProducts_PA_Agreement).attr('checked', false);
+            $(refs.optionalProducts_CP).attr('checked', false);
+            $(refs.optionalProducts_CP_Table).hide();
+            $(refs.optionalProducts_CP_Agreement).attr('checked', false);
         };
     }
     //---------------------------------------------------------------------------------------

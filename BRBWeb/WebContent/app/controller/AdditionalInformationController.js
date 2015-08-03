@@ -335,7 +335,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		popupHideEventHandler = popupHideCallback;
 		savedFlow = argFlow;
 		init(null);	
-		changeIsSkSelectedFlag();
+		// UAT 38 - July 22, CP Revitalization
+		// changeIsSkSelectedFlag();
 		$(refs.footnoteBlock).hide();
 		$screenContainer.fadeIn(1000);
 		translator.run("AdditionalInformationScreen");
@@ -396,7 +397,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	}
 	//---------------------------------------------------------------------------------------
 	function show(){
-		changeIsSkSelectedFlag();
+		// UAT 38 - July 22, CP Revitalization
+		// changeIsSkSelectedFlag();
 		$screenContainer.show();
 		translator.run("AdditionalInformationScreen");
 		initUI();

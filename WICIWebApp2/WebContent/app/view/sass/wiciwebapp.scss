@@ -1,6 +1,6 @@
 @import "_mixins";
 @import "_const";
-@import "_breadcrumbs";
+@import "_breadcrumbs"; 
 @import "_jquery-custom";
 @import "_cocd_table";
 
@@ -1233,6 +1233,13 @@ tr {
   font-size: 14pt;
 }
 
+.TandC_subTitle_Format{
+  font-family: Arial;
+  font-weight: bold;
+  color: #A4040F;
+  font-size: 13pt;
+}
+
 .TandC_Content_Format{
   font-family: Arial;
   color: #727272;
@@ -1784,6 +1791,11 @@ div.ui-slider-switch
 
 .elementWithTop5 {
   padding-top: 5px;
+}
+
+/* US3381 */
+.elementWithLeft10 {
+  margin-left: 10px;
 }
 
 .elementWithTop17 {

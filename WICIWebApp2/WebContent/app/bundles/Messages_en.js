@@ -1,6 +1,6 @@
 ensureNamespaceExists();
 
-WICI.dictionary_en = {
+WICI.dictionary_en =  {
 	version												:	"2",
 	yes 												: 	"Yes",
 	no 													: 	"No",
@@ -91,7 +91,10 @@ WICI.dictionary_en = {
     overview_CostOfCreditDisclosure_MainTitle           :   "Please read the information below and click 'Start Application' to continue.",
     overview_CostOfCreditDisclosure_Title           :   "Cost of Credit Disclosure for Credit Card Applications",
     overview_CostOfCreditDisclosure_Left1           :   "Annual Interest Rate",
-    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash advances and related fees) - <strong>19.99%</strong></p> <p>Cash advances and related fees - <strong>21.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash advances and related fees) and <strong>27.99%</strong> for cash advances and related fees.</p>",
+    
+    // Old line
+    // overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash advances and related fees) - <strong>19.99%</strong></p> <p>Cash advances and related fees - <strong>21.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash advances and related fees) and <strong>27.99%</strong> for cash advances and related fees.</p>",
+    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
     overview_CostOfCreditDisclosure_Left2       :   "Interest-Free Grace Period",
     overview_CostOfCreditDisclosure_Right2      :   "<p>At least <strong>21</strong> days or, if you are a resident of Quebec, at least <strong>26</strong> days.</p><p> You will benefit from an interest-free grace period of at least <strong>21</strong> days (at least <strong>26</strong> days if you are a resident of Quebec) on new purchases if we receive payment in full of the balance due on your current statement by the payment due date.</p><p> There is no grace period for cash transactions, such as convenience cheques, balance transfers or cash advances, or for fees for such transactions.</p>",
     overview_CostOfCreditDisclosure_Left3       :   "Minimum Payment",
@@ -101,8 +104,13 @@ WICI.dictionary_en = {
     overview_CostOfCreditDisclosure_Left5       :   "Annual Fees",
     overview_CostOfCreditDisclosure_Right5      :   "None",
     overview_CostOfCreditDisclosure_Left6       :   "Other Fees",
-    overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> Overlimit Fee: $29</strong> - Unless you reside in Quebec, we will charge you an overlimit fee of <strong>$29.00</strong> if on a statement date your balance exceeds your credit limit and your balance is equal to or more than <strong>$2,000.00</strong>.  However, for determining whether you must pay an overlimit fee, we will not include in that balance any amounts that have been billed on that statement for interest charges, or for credit insurance on your account that is offered by us or one of our affiliates.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
 
+	// Old line
+	// overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> Overlimit Fee: $29</strong> - Unless you reside in Quebec, we will charge you an overlimit fee of <strong>$29.00</strong> if on a statement date your balance exceeds your credit limit and your balance is equal to or more than <strong>$2,000.00</strong>.  However, for determining whether you must pay an overlimit fee, we will not include in that balance any amounts that have been billed on that statement for interest charges, or for credit insurance on your account that is offered by us or one of our affiliates.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
+    overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
+    // US3381
+    overview_EffectiveDate						:	"Information effective as of July 23, 2015",
+    
 	personalData_TellUsAboutYourself					:	"Tell us about yourself",
 	personalData_IDType									:	"ID Type",
 	personalData_ScanID 								: 	"Scan ID",
@@ -281,7 +289,9 @@ WICI.dictionary_en = {
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
 	optionalProducts_PageTitle						    :	"OPTIONAL PRODUCT(s)<sup>&#8224;&#8224;</sup>",
 
-	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
+	// Old line
+	// optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
+	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire Bank issued MasterCard and that they are not required to obtain the Canadian Tire Bank issued MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
 	optionalProducts_SignatureAgreement2				:	"By signing and checking the box below, I agree to enrol in the(se) optional product(s), accept the terms and conditions and to the cost(s) disclosed.",
 
     optionalProducts_CreditProtector_Additions			:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply." +
@@ -298,11 +308,20 @@ WICI.dictionary_en = {
 															"If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",
 	optionalProducts_IdentityWatch_Additions			:	"<br><br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
 
-	optionalProducts_TermsAndConditions_PA_Title		:	"<strong>Terms and Conditions for Canadian Tire Protection Advantage<sup>&trade;</sup></strong>",
+	optionalProducts_TermsAndConditions_PA_Title		:	"<strong>Terms and Conditions for Canadian Tire Protection Advantage<sup>&trade;</sup></strong><br><br>",
 
 	//................................................................Start Terms and Conditions for Credit Protector.......................
-	optionalProducts_TermsAndConditions_CP_Title		:	"<strong>Terms and Conditions for Credit Protector </strong>",
-  	optionalProducts_TermsAndConditions_CP				:	"CREDIT PROTECTOR<sup>&reg;</sup><sup>1</sup>"
+	// Old code
+	/*
+	 optionalProducts_TermsAndConditions_CP_Title		:	"<strong>Terms and Conditions for Canadian Tire Protection Advantage<sup>&trade;</sup></strong>" +
+															"<br><strong>Credit Protector Summary of Insurance Coverage: </strong>",
+	*/
+	// UAT 12 - CP Revitalization
+	optionalProducts_TermsAndConditions_CP_Title		:	"<strong>Credit Protector Summary of Insurance Coverage </strong>",
+	
+	// Old line
+	/*
+	optionalProducts_TermsAndConditions_CP				:	"CREDIT PROTECTOR<sup>&reg;</sup><sup>1</sup>"
 															+ "<br>**Credit Protector<sup>&reg;</sup><sup>&trade;</sup><sup>1</sup>"
 															+ "<br>Available to Cardmembers ages 18-65 years."
 															+ " If you become disabled, or if you lose your job through no fault of your own<sup>2</sup>, Credit Protector can cover 3% of the outstanding balance on your <i>Canadian Tire</i><sup>&reg</sup> MasterCard<sup>&reg</sup> account, up to $1,000 per month, until you return to work or your balance is paid off, to a maximum of $20,000."
@@ -315,6 +334,30 @@ WICI.dictionary_en = {
 															+ "<br><br>FOR CREDIT PROTECTOR AND CREDIT PROTECTOR-SENIOR: Group insurance coverage underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&reg</sup> companies, PO Box 7000, Kingston, Ontario K7L 5V3."
 															+ "<br><br>CREDIT PROTECTOR INSURANCE PREMIUM PAYMENT"
 															+ "<br>Price is $1.10 per $100 of the outstanding balance on your monthly account statement less the outstanding amount of any Special Payment Plans plus applicable taxes. No premium will be charged on your <i>Canadian Tire</i> MasterCard account in any month where such outstanding balance calculation is less than $10.00. For example if your statement balance after deducting the insurance premiums charged on the statement and the amount of any Special Payment Plans is $200 you would pay $2.20 plus applicable taxes. There is no premium charged in any month where balance is less than $10.00<sup>5</sup>.",
+	*/
+  	optionalProducts_TermsAndConditions_CP				:	"<strong>IMPORTANT INSURANCE INFORMATION: </strong>"
+															+ "<br>This summary provides a description of the insurance coverages and other important information concerning the Credit Protector Insurance group creditor insurance program. The Total Disability (excluding Quebec), Life, Terminal Illness, Dismemberment, Accidental Death and Accidental Dismemberment insurance coverages are underwritten by American Bankers Life Assurance Company of Florida (ABLAC) and the Involuntary Unemployment and Total Disability (Quebec only) insurance coverages are underwritten by American Bankers Insurance Company of Florida (ABIC). ABLAC, ABIC, their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions<sup>&reg;</sup>. The Primary Cardmember (person whose name the account for a Canadian Tire Bank issued credit card has been opened) will receive, within 30 days of the insurance coming into force, a Certificate of Insurance including full details of coverage, such as definitions, benefits, limitations, restrictions and exclusions, if the Primary Cardmember elects to purchase the insurance and meets the eligibility requirements indicated below. Read the Certificate of Insurance carefully for full details upon receipt and store in a safe place with your other valuable documents. The Primary Cardmember is free to cancel the insurance coverage at any time. See the Termination/Cancellation/Modification of Coverage section below for details with regard to cancellation and termination provisions. Premium rates are subject to change. "
+															+ "<br><br><strong>PREMIUM: </strong>"
+															+ "<br>Premiums are calculated as $1.10 per $100 of the average daily balance on the Canadian Tire Bank issued credit card (less the outstanding amount of any Special Payment Plans), plus applicable taxes. For example, if your average daily balance is $350 you would pay just $3.85, plus applicable taxes. No insurance premium will be charged in any month where the average daily balance on the Canadian Tire Bank issued credit card is less than $10. At age 80, the premium rate reduces to $0.59 per $100 of the average daily balance (less the outstanding amount of any Special Payment Plan), plus applicable taxes."
+															+ "<br><br><strong>ELIGIBILITY FOR ALL COVERAGES: </strong>"
+															+ "<br>To be eligible for Credit Protector insurance coverages the Primary Cardmember must be an individual, at least 18 years of age and less than 76 years of age at the time of enrolment, indebted under the Canadian Tire Bank issued credit card to which the premium for Credit Protector is billed."
+															+ "<br><br><strong>BENEFITS FOR TOTAL DISABILITY AND INVOLUNTARY LOSS OF EMPLOYMENT COVERAGES: </strong>"
+															+ "<br>Coverage for Total Disability (excluding Quebec) is provided under Group Master Policy number 960913L-1. Coverage for Total Disability (Quebec only) and Involuntary Unemployment is provided under Group Master Policy number 960913-1. If the Primary Cardmember becomes totally disabled, or involuntarily unemployed, these insurance coverages could pay a monthly benefit of 5% of the Primary Cardmember’s Canadian Tire Bank issued credit card’s outstanding balance, as of the statement date coinciding with or immediately before the date of total disability or involuntary unemployment, subject to a monthly maximum of $1,000 and a maximum benefit payment of $20,000 per Canadian Tire Bank issued credit card. Special Payment Plans are not included in the benefit payments. The Primary Cardmember must be working for salary or wages for at least 25 hours per week for a single employer, not including temporary or contract employment, at the date of loss. The Primary Cardmember is eligible for benefits after 30 consecutive days of total disability or involuntary loss of employment. Benefits are payable as of the 31<sup>st</sup> day and are based on the Primary Cardmember’s Canadian Tire Bank issued credit card’s outstanding balance as of the statement date coinciding with or immediately before the date of total disability or involuntary loss of employment. Total Disability benefits are payable only if the Primary Cardmember is continuously totally disabled, is unable to perform all of the regular duties of his or her employment and is under the regular care and treatment of a qualified medical doctor, and satisfactory proof has been provided by the doctor to the insurer. Restrictions for loss of employment coverage include: conviction for an offence under the <i>Criminal Code</i> (Canada), loss of temporary, contract or part-time employment (less than 25 hours per week), loss of self-employment unless due to a creditor-initiated bankruptcy evidenced by a court order, or end of normal seasonal employment. Charges to the Canadian Tire Bank issued credit card made after the date of loss will not be covered unless the Primary Cardmember remains insured, returns to work for more than 30 consecutive days, and is subsequently totally disabled or involuntarily unemployed under the terms of the Group Master Policy."
+															+ "<br><br><strong>BENEFITS FOR LIFE AND DISMEMBERMENT COVERAGE: </strong>"
+															+ "<br>Coverage is provided under Group Master Policy number 960913L-1. The Life and Dismemberment benefits, which will be paid only once, extend to the Primary Cardmember (and the Primary Cardmember’s spouse) under the age of  80.  Upon receipt of proof of death or dismemberment, as defined in the Group Master Policy, these coverages could pay the outstanding balance of the Canadian Tire Bank issued credit card as at the date of death or dismemberment, subject to a maximum benefit payment of $20,000 per account. Excluded from life insurance coverage is self-inflicted injury or suicide if committed within 6 months from the effective date of insurance coverage.  "
+															+ "<br><br><strong>The Life and Dismemberment coverage changes to Accidental Death and Accidental Dismemberment coverage at age 80</strong> and continues as long as the Primary Cardmember (and the Primary Cardmember’s spouse) are covered by the Group Master Policy. Accidental death or accidental dismemberment must be directly caused by an accident, not from any natural causes. "
+															+ "<br><br>If the death of the Primary Cardmember and the Primary Cardmember’s spouse occur simultaneously, only one benefit will be paid."
+															+ "<br><br><strong>BENEFITS FOR TERMINAL ILLNESS COVERAGE: </strong>"
+															+ "<br>Insurance coverage is provided under Group Master Policy number 960913L-1. The Terminal Illness benefit, which will be paid only once, extends to the Primary Cardmember (and the Primary Cardmember’s spouse) and receipt of proof of terminal illness with a life expectancy of less than 12 months from the time of diagnosis, as defined in the Group Master Policy, could pay the outstanding balance of the Canadian Tire Bank issued credit card as at the date of diagnosis, subject to a maximum benefit payment of $20,000 per account."
+															+ "<br><br>Excluded from insurance coverage is any diagnosis of a terminal illness that occurs within the first 6 months from the effective date of insurance coverage resulting from a medical condition which the Primary Cardmember (or Primary Cardmember’s spouse) had symptoms or received medical treatment during the 6 months immediately before the effective date."
+															+ "<br><br>The Terminal Illness coverage continues as long as the Primary Cardmember (and the Primary Cardmember’s spouse) is covered by the Group Master Policy."
+															+ "<br><br>In the event of simultaneous terminal illness of both the Primary Cardmember and the Primary Cardmember’s spouse, only one benefit will be paid."
+															+ "<br><br><strong>CLAIM PROCEDURES: </strong>"
+															+ "<br>In order to file a claim, contact the insurer by telephone at 1-800-480-1853, or by writing to Assurant Solutions, P.O. Box 7000, Kingston, Ontario, K7L 5V3, and a claim form will be sent. This form is to be filed with the insurer within 90 days from the date of loss, except for life insurance claims."
+															+ "<br><br><strong>TERMINATION/CANCELLATION/MODIFICATION OF COVERAGE: </strong>"
+															+ "<br>The Primary Cardmember may cancel this insurance coverage at any time by contacting Canadian Tire Bank in writing or by calling 1-800-459-6415. If the Primary Cardmember cancels within forty-five (45) days of issuance of the Certificate of Insurance, the insurer will credit the entire premium paid to the Primary Cardmember’s Canadian Tire Bank issued credit card statement; however, if the Primary Cardmember terminates the Canadian Tire Bank issued credit card prior to the date of termination of insurance coverage, the Primary Cardmember will receive a refund by cheque. Coverage will automatically terminate upon the earliest of the following: the date the Primary Cardmember requests cancellation; the date on which monthly payments on the Canadian Tire Bank issued credit card are more than 90 days past due (coverage is automatically reinstated on the statement date following the date when the Canadian Tire Bank issued credit card is once again in good standing); the date on which the Primary Cardmember’s Canadian Tire Bank issued credit card is cancelled; the date on which a life, terminal illness or accidental death claim benefit is paid; the date of death of the Primary Cardmember; and upon termination of one or more of the Group Master Policies if 30 days’ notice of such termination is given to the Primary Cardmember."
+															+ "<br><br><strong>CONTACTING INSURER/INTEREST OF CREDITOR: </strong>"
+															+ "<br>Please contact the insurers as directed above for further information or clarification regarding the insurance coverage. Canadian Tire Bank has a financial interest in the sale of this insurance.",
 	optionalProducts_TermsAndConditions_CP_Additions	:	 "<br><sup>1</sup> Coverage is subject to the terms, conditions, limitations and restrictions outlined in the Certificate of Insurance. There are terms and conditions that may limit or exclude coverage. If approved the coverage will be effective today. Note that a job loss in the next 30 days is not covered. The coverage is month to month and if you want to cancel your coverage at any time please call the Customer Service number located on the back of your Canadian Tire branded credit card. Should you cancel your coverage within the first 30 days of receiving your Certificate of Insurance the Insurer will refund any premium that was paid. For further information call 1-800-459-6415."
 															+ "<br><sup>2</sup> Must be working for salary or wages for at least 25 hours per week for a single employer at the time you become involuntarily unemployed or disabled. Must remain disabled or unemployed for 30 days to qualify for benefits. Disability coverage excludes an attempt at suicide and self-inflicted injury. Disability coverage also excludes coverage for claims resulting from certain pre-existing conditions occurring within the first 6 months of coverage, commission or attempted commission of a criminal offence, normal pregnancy, an air travel accident (unless a paying passenger on a regularly scheduled commercial airline flight) and travel or residence outside Canada or the United States. Exclusions for involuntary unemployment benefits include unemployment known by you to be impending at the time of application for the insurance, voluntary unemployment including parental leave, labour dispute or strike, or job loss occurring within the first 30 days of coverage or for cause or for conviction of a criminal offence, voluntary or mandatory retirement, normal seasonal unemployment, unemployment due to accident, illness or pregnancy, loss of temporary employment and loss of self employment."
 															+ "<br><sup>3</sup> Life & Dismemberment coverage excludes suicide and intentionally self-inflicted injury that occurs"
@@ -355,8 +398,12 @@ WICI.dictionary_en = {
 
 
 	optionalProducts_WarningHeader 						:   "PLEASE READ CAREFULLY REGARDING<br/>OPTIONAL PRODUCTS",
-	optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector/Credit Protector-Senior</li><li>Identity Watch Classic</li></ul></i>",
-	optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector/Credit Protector-Senior</li></ul></i>",
+	
+	// Old line
+	// optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector/Credit Protector-Senior</li><li>Identity Watch Classic</li></ul></i>",
+	// optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector/Credit Protector-Senior</li></ul></i>",
+	optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector<sup>&reg;</sup> Insurance</li><li>Identity Watch Classic</li></ul></i>",
+	optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector<sup>&reg;</sup> Insurance</li></ul></i>",
 	optionalProducts_IWProducts							:   "<i><ul><li>Identity Watch Classic</li></ul></i>",
 
 	jobCategoriesList_null 								:  	"Please select...",
@@ -421,8 +468,12 @@ WICI.dictionary_en = {
 	signatureScreen_Header								:	"By signing below, I agree as follows:",
 	signatureScreen_License1							:	"Please open an account in my name for the ",
     signatureScreen_License1_1                          :   " (the \"Card\") ",
-    signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees.",
-	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
+    // UAT 25 - Jul 22, CP Revitalization
+    // Old code
+    // signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees.",
+	// signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
+    signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees.",
+	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash transactions and related fees.",
 	signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
 	signatureScreen_License4							:	'CTB may collect, use and share personal information about me for the purposes described in the "Canadian Tire Privacy Charter" including marketing and selling by way of  telephone, automatic dialing-announcing device or other form of telecommunication.',
 	signatureScreen_License5							:	"I will be bound by the terms and conditions of the CTB Cardmember Agreement that I will receive with the Card, as such agreement may be amended from time to time. I will be solely liable for any charges to the account, including charges made by anyone to whom I have asked that you issue a supplementary card. I will be the only person who receives a monthly statement.",
@@ -615,7 +666,9 @@ WICI.dictionary_en = {
 	legal_omc_fives_chapter                             : "<sup>&reg;/&trade;</sup> Canadian Tire, the Canadian Tire triangle design, the Canadian Tire Bank design, Canadian Tire Options, Gas Advantage, PartSource and Canadian Tire Home Services are registered trademarks, and e-Canadian Tire 'Money' and My Canadian Tire 'Money' are trademarks of Canadian Tire Corporation, Limited and are used under licence." +
                                                           "<br/><sup>&reg;/&trade;</sup> Sport Chek is a registered trademark of FGL Sports Ltd., used under licence." +
                                                           "<br/><sup>&reg;/&trade;</sup> Mark's is a registered trademark of Mark's Work Warehouse Ltd., used under licence.",
-    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and Paypass and MasterPass are trademarks, of MasterCard International Incorporated.",
+    // Old line
+    // legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and Paypass and MasterPass are trademarks, of MasterCard International Incorporated.",
+    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire gas bars during the following monthly billing period and that is charged to your Gas Advantage MasterCard.",
 	legal_omp_second_chapter							: "The discount that you receive in a billing period will be reduced to 2&cent; per litre after you have made purchases of more than $700 for gasoline, diesel fuel or any other sundry items at Canadian Tire gas bars during that billing period using your Gas Advantage MasterCard. For complete terms and conditions, refer to the Gas Advantage MasterCard customer handout or visit ctfs.com/gasadvantage.",
@@ -624,14 +677,20 @@ WICI.dictionary_en = {
 	legal_omp_fives_chapter 							: "   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup> companies.",
 	legal_omp_six_chapter 								: "   To receive discount, use your Gas Advantage MasterCard to make an eligible purchase anywhere within 45 days from receipt of your card. Your activation bonus begins on the date your first purchase is posted to your account. The discount will then apply for 30 consecutive days. When the 30 days are completed, you will revert to your qualified discount level indicated on your monthly statement. Valid for 1 gas purchase per day during the activation bonus period. Discount reduced to 2 cents/litre after $700 in purchases of gasoline, diesel, fuel or other items is made at Canadian Tire gas bars during the 30 day period.",
 	legal_omp_seven_chapter 							: "<sup>&reg;/&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
-	legal_omp_eight_chapter 							: "<sup>&reg;/&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited.",
-	legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard, the MasterCard Brand Mark, Cirrus and MasterCard SecureCode are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
+	// Old code
+	// legal_omp_eight_chapter 							: "<sup>&reg;/&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited.",
+	legal_omp_eight_chapter 							: "<sup>&reg;/&trade;</sup> Credit Protector is a registered trademark of Canadian Tire Bank.",
+	// Old line
+	// legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard, the MasterCard Brand Mark, Cirrus and MasterCard SecureCode are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
+	legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated.",
 	//OMR_LEGAL
 	legal_omr_first_chapter 							: " Annual rewards will reduce the balance for determining the Minimum Due but not for the purpose of calculating interest or any balance-based insurance premium. Other Terms and Conditions apply. For details visit ctfs.com/cashadvantage.",
 	legal_omr_second_chapter 							: " Cash advance fee: $4.00.  Interest is charged on cash advances from the day the transaction is posted to your account.",
 	legal_omr_third_chapter 							: " Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
 	legal_omr_fourth_chapter 							: " Credit Protector is a registered trademark of Canadian Tire Financial Services Limited.",
-	legal_omr_fives_chapter 							: " MasterCard, the MasterCard Brand Mark, Cirrus and MasterCard SecureCode are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
+	// Old line
+	// legal_omr_fives_chapter 							: " MasterCard, the MasterCard Brand Mark, Cirrus and MasterCard SecureCode are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
+	legal_omr_fives_chapter 							: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated.",
 	/// OMC
     omc_first_chapter 								: "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'",
     omc_second_chapter 								: "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Mondey'.<br /> Simply use pay with your Options MasterCard and collect e-Canadian Tire 'Money' everywhere you shop - it's accepted worldwide.",
@@ -662,7 +721,9 @@ WICI.dictionary_en = {
 	omp_12_chapter 										: "<b>3 ways to pay your bill:</b> at Canadian Tire stores, at your bank or by mail. See your Benefits Booklet or statement back for details.",
 	omp_13_chapter 										: "Guard your card online with <b>MasterCard SecureCode<sup>&reg;</sup></b>",
 	omp_14_chapter 										: "You can also help protect your card:",
-	omp_15_chapter 										: "Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup><sup>1</sup>",
+	// Old code
+	// omp_15_chapter 										: "Credit Protector<sup>&reg;</sup>/Credit Protector-Senior<sup>&reg;</sup><sup>1</sup>",
+	omp_15_chapter 										: "Credit Protector<sup>&reg;</sup>",
 	//OMR
 	omr_1_chapter 										: "Get valuable benefits as a cardholder:",
 	omr_2_chapter 										: "<b>Earn up to 1.5% cash back</b> on all your eligible purchases",
@@ -701,27 +762,38 @@ WICI.dictionary_en = {
     personalData_CTMField                               : "My Canadian Tire 'Money' Account Number",
     personalData_CTMAccountText                         : "If you are already a Member, please enter your My Canadian Tire 'Money' Account number. If you are approved for the credit card that you are applying for, your My Canadian Tire 'Money' Account will be linked to your new Canadian Tire Options MasterCard. If left blank, a My Canadian Tire 'Money' Account number will be assigned to you.",
     personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire 'Money'<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
-    signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.</b>",
+    // UAT 25 - Jul 22, CP Revitalization
+    // Old code
+    // signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.</b>",
+    signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash transactions and related fees) and 27.99% for cash transactions and related fees.</b>",
     signatureScreen_License3                            : "The Card is issued by CTB. The My Canadian Tire 'Money' Program is provided and administered by Canadian Tire Corporation, Limited.",
     signatureScreen_License3_OMP                        : "The Card is issued by CTB.",
     signatureScreen_License7a                           : "If I am not already a member, I will also be automatically enrolled in the My Canadian Tire 'Money' Program, even if I am not approved for the Card.",
     signatureScreen_License7b                           : "I will be bound by the My Canadian Tire 'Money' Program rules, a copy of which are available at canadiantire.ca or ctfs.com/ctm",
 
     optionalProducts_ProtectionAdvantage_Title          :   "Canadian Tire Protection Advantage<sup>&trade;</sup>",
-    optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup>**/Credit Protector-Senior<sup>&reg;</sup>** <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
+    // Old line
+    // optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup>**/Credit Protector-Senior<sup>&reg;</sup>** <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
+    optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup> Insurance <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
 
-    optionalProducts_CreditProtector_Title              :   "Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>**",
+	// Old line
+	// optionalProducts_CreditProtector_Title              :   "Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>**",
+    optionalProducts_CreditProtector_Title              :   "Credit Protector<sup>&reg;</sup> Insurance",
     optionalProducts_CreditProtector_Text               :   "<br><i>(not available for residents of Saskatchewan)</i>",
-
-    optionalProducts_TermsAndConditions25               :   "<sup>&#8224;&#8224;</sup> These are optional products offered to all customers approved for a <i>Canadian Tire</i> MasterCard. The information on this application is used to determine eligibility for a <i>Canadian Tire</i> MasterCard and not for the optional products, which are offered to all <i>Canadian Tire</i> MasterCard holders." +
-                                                            "<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence." +
-                                                            "<br><br><sup>&reg;</sup>/<sup>&trade;</sup>Credit Protector and Credit Protector-<i>Senior</i> are registered trademarks of Canadian Tire Bank." +
-                                                            "<br><br>Rebound<sup>&reg;</sup> is a registered trademark of Aimia Proprietary Loyalty Canada Inc." +
-                                                            "<br><br><sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc." +
-                                                            "<br><br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
-
+    
+    // UAT 39 - Jul 22, CP Revitalization
+    optionalProducts_TermsAndConditions25_Top           :   "<sup>&#8224;&#8224;</sup> These are optional products offered to all customers approved for a <i>Canadian Tire</i> MasterCard. The information on this application is used to determine eligibility for a <i>Canadian Tire</i> MasterCard and not for the optional products, which are offered to all <i>Canadian Tire</i> MasterCard holders." +
+                                                            "<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",                                                                                                                                                                                    
+    optionalProducts_TermsAndConditions25_CP			:	"<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector is a registered trademark of Canadian Tire Bank.",                                                            
+    optionalProducts_TermsAndConditions25_Bottom		:	"<br><br>Rebound<sup>&reg;</sup> is a registered trademark of Aimia Proprietary Loyalty Canada Inc." +
+                                                        	"<br><br><sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc." +
+                                                        	"<br><br><sup>&reg;</sup>/<sup>&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated.",
+    
     optionalProducts_TableTitle                         :   "YES, PLEASE ENROL ME IN THE FOLLOWING OPTIONAL PRODUCTS:",
-    optionalProducts_SellingLanguageText                :   "<p><strong>Credit Protector<sup>&reg;</sup>**/Credit Protector - <em>Senior<sup>&reg;</sup>***</em></strong><em><br/>(not available for residents of Saskatchewan)</em></p>" +
+
+	// Old line
+	/*
+	optionalProducts_SellingLanguageText                :   "<p><strong>Credit Protector<sup>&reg;**</sup>/Credit Protector - <em>Senior<sup>&reg;</sup>***</em></strong><em><br/>(not available for residents of Saskatchewan)</em></p>" +
         "<p>This credit card balance insurance can help pay your outstanding credit card balance on your Canadian Tire branded credit card when you and your family need it most. </p>" +
         "<ul style=\"list-style-type: none;\">" +
         "<li><strong>Credit Protector (cardmembers aged 18-65 years)</strong> can: </li>" +
@@ -745,6 +817,37 @@ WICI.dictionary_en = {
         "<p>***If you are between the ages of 66-75 you will be enrolled in Credit Protector - <em>Senior. </em>Please note:<em> </em>Involuntary Unemployment and Total Disability coverage is not included in    <em> Credit Protector &#8211; Senior</em>. At age 76, the Life and Dismemberment coverage becomes Accidental Death and Dismemberment coverage.</p>" +
         "<p>Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. Credit Protector-    <em>Senior</em> is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name Assurant Solutions<sup>&reg;</sup>.</p></div>" +
         "<hr/><br/><p><strong>Identity Watch Classic<sup>TM</sup><em></em></strong></p>" +
+        "<p>Help safeguard you and your family's private and valuable information." +
+        "<br/> - Online monitoring of your registered personal information****" +
+        "<br/> - Card Protection, Online Data Backup and Credit Theft Reward Service of up to $3,000****" +
+        "<br/> - A Computer Tune-Up Reimbursement of up to $75, inclusive of taxes, per subscription year****" +
+        "<br/> - Rebound<sup>&reg;</sup> Asset Return Service**** which may help you recover lost or stolen items" +
+        "<br/> - Costs $4.99**** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</p>" +
+        "<p>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the Welcome Package.</p>" +
+        "<div style=\"font-size: 10pt\"><p>**** Plus applicable taxes. Subscription fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, " +
+        "Subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, " +
+        "conditions, limitations and exclusions. Terms and conditions apply.</p>" +
+        "<p>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.</p></div>", 
+*/
+    // UAT 39 - CP Revitalization, Missed Requirement
+    optionalProducts_CPInsuranceText				:	"<p><strong>Credit Protector<sup>&reg;</sup> Insurance</strong></p>" +
+        "<p>This credit card balance insurance on your Canadian Tire Bank issued credit card can help pay your outstanding credit card balance or make your monthly payments, up to the policy maximum of $20,000, when you and your family need it most.</p>" +
+        "<ul style=\"list-style-type: none;\">" +
+        "<li><strong>Credit Protector (available for card members age 18 to under 76) can:</strong></li>" +
+        "<li> - pay a monthly benefit of 5% of the outstanding balance (not including Special Payment Plans) as of the statement date coinciding with or immediately before the date of loss on a Canadian Tire Bank issued credit card subject to a monthly maximum of $1,000 and a maximum benefit payment of $20,000 should you lose your job through no fault of your own or become totally disabled*; <br/><br/></li>" +
+        "<li> -	pay the outstanding balance on your Canadian Tire Bank issued credit card if you or your spouse pass away, suffer a dismemberment, or are diagnosed with a terminal illness*, to a maximum of $20,000.</li></ul>" +        
+        "<p>Credit Protector Insurance costs $1.10 per $100* of your average daily balance (less the outstanding amount of any Special Payment Plan) in any month with an average daily balance of $10 or more For example, if your average daily balance is $350, you would pay just $3.85* plus applicable taxes.  At age 80, the premium rate reduces to $0.59 per $100* of the average daily balance, less and the outstanding amount of any Special Payment Plan..  </p>" +
+        "<p>Enrolment in Credit Protector Insurance is voluntary and can be cancelled at any time.  If you cancel within the first 45 days of issuance of the Certificate of Insurance, you will receive a full refund of premiums paid.  If you enrol in Credit Protector Insurance, your coverage is effective upon enrollment.  You will receive a welcome package to confirm your enrolment.  It contains a Certificate of Insurance (Quebec residents also receive a copy of the Distribution Guide) and the complete details of the coverage such as definitions, benefits, limitations, restrictions and exclusions and information on how to cancel or make a claim.</p>" +
+        "<p>There exists other insurance products on the market that may include coverage similar to those offered by Credit Protector Insurance.  You may want to verify whether or not you already have insurance that provides similar coverage.</p>" +
+        "<p>Canadian Tire Bank has a financial interest in the sale of this insurance.</p>" +
+        "<div style=\"font-size: 10pt\"><p>* Plus applicable taxes, payable monthly.  See the Legal Information handout and your Certificate of Insurance for all terms, conditions, restrictions, exclusions and limitations. At age 80, the Life and Dismemberment coverage changes to Accidental Death and Accidental Dismemberment coverage.</p>" +
+        "<p>Credit Protector Insurance is group creditor insurance underwritten by American Bankers Life Assurance Company of Florida (ABLAC) and American Bankers Insurance Company of Florida (ABIC). ABLAC , ABIC, their subsidiaries and affiliates carry on business in Canada under the name Assurant Solutions<sup>&reg;</sup>.</p>" +
+        "<p><sup>&reg;</sup> Assurant Solutions is a registered trademark of Assurant, Inc.</p>" +
+        "<p><sup>&reg;</sup> Credit Protector is a registered trademark of Canadian Tire Bank.</p>"+
+        "<p><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited.</p></div><hr/><br/>",
+        
+    // UAT 39 - CP Revitalization, Missed Requirement
+    optionalProducts_SellingLanguageText                :   "<p><strong>Identity Watch Classic<sup>TM</sup><em></em></strong></p>" +
         "<p>Help safeguard you and your family's private and valuable information." +
         "<br/> - Online monitoring of your registered personal information****" +
         "<br/> - Card Protection, Online Data Backup and Credit Theft Reward Service of up to $3,000****" +

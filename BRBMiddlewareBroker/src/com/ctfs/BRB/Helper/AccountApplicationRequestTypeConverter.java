@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 public class AccountApplicationRequestTypeConverter
 {
 	private static final String ASC_CTMA="004477";
-	private static final String ASC_ECTM="003377";
+	private static final String ASC_ECTM="002277"; //New Asc for US3382 - CP Revitalization //ASC_ECTM="003377"; 
 	private static final String ASC_DEFAULT="005577";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";

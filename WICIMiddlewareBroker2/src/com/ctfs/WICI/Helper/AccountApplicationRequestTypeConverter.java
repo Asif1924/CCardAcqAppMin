@@ -30,7 +30,7 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
-	private static final String ASC_ECTM="3377";
+	private static final String ASC_ECTM="2277"; //New Asc for US3381 - CP Revitalization //ASC_ECTM="3377";  
 	private static final String ASC_DEFAULT="5577";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";

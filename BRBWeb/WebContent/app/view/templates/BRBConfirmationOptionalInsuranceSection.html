@@ -2,23 +2,43 @@
 	<table class="stretchThisTable grayTable grayTableSpacerTop">
 				<tbody>
 				<!-- US3459 -->
-				<!-- 
-					{{if activationItems.getModel("personalInformation").get("province") != 'SK'}}
+				<!-- Start -->
+				<!-- US3382 -->
+				<!-- UAT 38, CP Revitalization -->
+				<!-- SK related "if" condition is removed, since after commenting also it's applying condition. So if condition is removed from here. -->	
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldLabelsBottomCell fieldCellWithBoldFontSize14" colspan="2">
 							<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_CP'))}></span>
 							<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_CreditProtector_enroll"></span>
 						</td>
 					</tr>	
-					<tr class="fieldRow elementWithBottomMargin15">
+					<!-- US3382 -->
+					<!-- Start -->
+					<!-- Old code Start -->
+					<!-- <tr class="fieldRow elementWithBottomMargin15">
 									<td	class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix">
 										<span data-translationKey="additionalInformation_OptionalInsurance_Details"></span>
 										<span class="continueShoppingButton redSpan"
 										data-translationKey="additionalInformation_OptionalInsurance_Details1"></span>
 									</td>
-						</tr>
-					{{/if}}
-				 -->
+						</tr> -->
+					<!-- Old code End-->
+												
+						<tr class="fieldRow">					
+						<td class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix"  colspan="2">
+							<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet1"></span><br><br>
+							<span class="floatLeft boldSpan" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet2"></span>
+							<ul class="floatLeft simpleHyphenList">
+								<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet3"></li>
+								<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet4"></li>
+          					</ul>          					
+						</td>
+					</tr>
+					<!-- End -->	
+					<!-- US3382 -->
+					<!-- UAT 38, CP Revitalization -->
+					<!-- SK related "if" condition is removed, since after commenting also it's applying condition. So if condition is removed from here. -->	
+				 <!-- End -->
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldLabelsBottomCell fieldCellWithBoldFontSize14"  colspan="2">
 							<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_IW'))}></span>
@@ -34,8 +54,10 @@
 									</td>
 								</tr>
 					<!-- US3459 -->
-					<!--
-					 {{if activationItems.getModel("personalInformation").get("province") != 'SK'}}
+					<!-- Start -->
+					<!-- US3382 -->
+					<!-- UAT 38, CP Revitalization -->
+					<!-- SK related "if" condition is removed, since after commenting also it's applying condition. So if condition is removed from here. -->	
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldLabelsBottomCell fieldCellWithBoldFontSize14">
 							<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_PA'))}></span>
@@ -48,9 +70,11 @@
 										<span class="continueShoppingButton redSpan"
 										data-translationKey="additionalInformation_ProtectionAdvantage_Terms"></span>
 									</td>
-								</tr>
-								{{/if}}
-					-->			
+								</tr>		
+      				<!-- US3382 -->
+					<!-- UAT 38, CP Revitalization -->
+      				<!-- SK related "if" condition is removed, since after commenting also it's applying condition. So if condition is removed from here. -->							
+					<!-- End -->			
 					<tr class="fieldRow">
 						<td class="fieldLabelsCell fieldValuesTopCell" colspan="2">
         					<div class="floatToRight fieldValueWithMargins" id="confirmation_OptionalInsurance_EditButton">
