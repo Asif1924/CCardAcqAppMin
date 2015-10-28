@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.content.Context;
 import android.util.Log;
+
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
+import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.printer.ZebraPrinter;
-import android.content.Context;
 
 public class WICIFileHelper {
     private static final String LOG_TAG = "WICIFileHelper";
@@ -21,15 +23,21 @@ public class WICIFileHelper {
     public final static String PrintOutMockupProvinceSuffix = "_555";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
     public final static String PrintOutMockupMarkssuffix = "_MARKS";
+    public final static String PrintOutMockupTokensuffix = "_TOKEN";
     String templateName, templateFileName;
     
-    public void processMockupFile(
+    @SuppressWarnings("null")
+	public void processMockupFile(
             ZebraPrinter printer,
             Context context, 
             WICIReplacementHelper replacementHelper, 
             String cardType,
             ServerResponseStatus serverResponseStatus,
-            String province) throws ConnectionException, IOException {
+            String cryptedAccountNumber,
+            String maskedPAN,
+            String province,
+            String storeNumber,
+            String employeeId) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
@@ -59,7 +67,44 @@ public class WICIFileHelper {
 	        	// cardType += PrintOutMockupQCProvinceSuffix;
 	             templateFileName += PrintOutMockupProvinceSuffix;
 	        }*/	        
-        	
+	        
+	        if(cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
+	        	
+	        	String accountNumber = "";
+	        	// UAT204
+	        	if("4111111111111111".equals(cryptedAccountNumber))
+	        		accountNumber = cryptedAccountNumber;
+	        	else
+	        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+	        	
+		        String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
+	        	double storeNo = Double.parseDouble(_storeNumber);
+	        	boolean isMarksStore = false;
+	        	// US3692
+	        	// Print token for CTR store only, not Marks/Gas store
+	        	if(storeNo > 0){
+			        if(storeNo >= 6000 && storeNo <= 6999 ) {
+			        	templateFileName = templateFileName;
+			        	isMarksStore = true;
+			        } else {
+			        	int offset = 0;      	        	        	       	    	        
+				        // E && !Marks && Demo than tokrn prn			        	
+			        	if(!isMarksStore && "4111111111111111".equals(accountNumber) ) {
+			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        } else if(isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
+				        	templateFileName = templateFileName;
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        }
+			        }
+	        	}
+	        }
+	              	        	       
+	        	       	                
         	InputStream inputStream = readTemplate(context, templateFileName);
             
             if ( inputStream != null ) {
@@ -234,5 +279,9 @@ public class WICIFileHelper {
                 connection.close();
             }
         }        
+    }
+    
+    private String DecryptAccountNumber (Context context, String cryptedAccountNumber) {
+        return WICICryptoHelper.getInstance().decryptRSA(context, cryptedAccountNumber);
     }
 }

@@ -22,7 +22,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="accountNumber" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
+ *       &lt;element name="accountNumber" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
+ *       &lt;element name="maskedPAN" maxOccurs="1"	minOccurs="0">
+ *       &lt;simpleType>
+ *             &lt;restriction base="{http://www.channel.ctfs.ctc.com/accountAcquisition/}UpperCaseStringType">
+ *               &lt;maxLength value="16"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *       &lt;/element>
  *         &lt;element name="accountReference" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}acctReferenceType" minOccurs="0"/>
  *         &lt;element name="expiryDate" minOccurs="0">
  *           &lt;simpleType>
@@ -82,7 +89,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "apr",
     "cashAPR",
     "appStatus",
-    "customerValueInd"
+    "customerValueInd",
+    "maskedPAN"
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -99,6 +107,7 @@ public class AccountApplicationResponseType
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String appStatus;
     protected String customerValueInd;
+    protected String maskedPAN;
 
     /**
      * Gets the value of the accountNumber property.
@@ -288,6 +297,29 @@ public class AccountApplicationResponseType
      */
     public void setCustomerValueInd(String value) {
         this.customerValueInd = value;
+    }
+    /**
+     * Gets the value of the maskedPAN property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMaskedPAN() {
+        return maskedPAN;
+    }
+
+    /**
+     * Sets the value of the maskedPAN property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMaskedPAN(String value) {
+        this.maskedPAN = value;
     }
 
 }

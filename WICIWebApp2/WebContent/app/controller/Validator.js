@@ -104,17 +104,19 @@ WICI.Validator = function() {
     };
     //---------------------------------------------------------------------------------------
     this.jobTitle = function(value) {
-        // length:50
+        // length:30
         // value:
-        // "A-Z 0-9 -'
+        // "A-Z 0-9 -'/
         // Alpha Numeric (Upper Case)
         // Hyphen
         // Single Quote"
+    	// Backslash /
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9,_'-.~@\[\]\}\{\)\( ]+$/, value.trim());
+        return regexMatch(/^[A-Z0-9,_'-.~@\[\]\}\{\)\(\/\\ ]{1,30}$/, value.trim());
     };
+
     //---------------------------------------------------------------------------------------
     this.phone= function(value) {
         if(value===null){

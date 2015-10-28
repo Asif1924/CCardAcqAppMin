@@ -21,8 +21,11 @@
                         </td>
                     </tr>
                     <tr class="fieldRow">
-                        <td  style="border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
-                        </td>
+                       <td  style="padding-left:5px;border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
+                         <span id="personalData_ScanLoyaltyButton" class="button greenflat scanLoyaltyButtonWidth bottomSpacing">
+        					<span class="buttonText lookupSpan driversLicenseSpan" data-translationKey="personalData_Scan_Loyalty_Label"></span>
+					     </span>
+						</td>
                         <td class="fieldValuesCell">
                             <p><span data-translationKey="personalData_CTMAccountText"></span></p>
                         </td>
@@ -380,15 +383,33 @@
 
 										</div>
 										</td>
-								   	</tr>
+								   	</tr>								   								   								   	
 								</table>
 							</div>
 
-	                    </td>
-	                </tr>
+	                    </td>	                   	                 	                    
+	                </tr>	                	                
 
 					<!-- ...Address duration block -->
-
+				
+				<!-- US3623 Start --> 
+	            <div>	            
+	            <tr class="fieldRow" id="personalData_PreviousAddressYesNO">
+	                <td class="fieldLabelsBottomCell fieldCellSize33">
+	                    	<span data-translationKey="personalData_PreviousAddressWasInCanada"></span>
+	                    </td>	                    
+	                    <td class="fieldValuesTopCell">
+	                        <div >
+		                        <select name="flipPrevWasInCanada" id="flipPrevWasInCanada" data-role="slider">
+									<option id="flipPrevWasInCanada_no" value="N">No</option>
+									<option id="flipPrevWasInCanada_yes" value="Y" selected>Yes</option>
+								</select>
+							</div> 
+	                    </td>
+	            </tr>	            
+	            </div>    
+	            <!-- End -->
+	            
 	            </table>
 			</div>
 		</center>
@@ -402,8 +423,10 @@
 	<!--
 		personalData_PreviousAddress_Title					:	"Previous Address",
 		personalData_PreviousAddress_Description			:	"Only required if less than 2 years at current address",
-	//-->
+	//-->	
 
+	<!-- US3623 Start -->
+	<div id='personalData_PreviousAddressDetailsArea' >
 			<center>
 				<span class="pageSubTitle" data-translationKey="personalData_PreviousAddress_Title"></span>
 				<br>
@@ -501,6 +524,8 @@
 		            </table>
 				</div>
 			</div>
+			<!-- US3623 End -->
+		</div>
 		</center>
 		<br>
 		<br>

@@ -144,58 +144,71 @@ WICI.PollingResponseAnalyzer =  function () {
 	//{"error":true,"msg":"Internal Error"}
 	//{"error":true,"msg":"java.lang.NullPointerException"}
 	function isErrorResponse( argResponse ){
-		//{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
-		return ( (argResponse && argResponse.error) || (argResponse && !argResponse.error && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.error)  );
-	}
+        //{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
 
-	//Pending
-	function isOldPendingResponse( argResponse ){
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}
-		//{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
-		return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="PENDING" ) ;
-	}
-	
-	function isNewPendingResponse( argResponse){
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}
-		//{"error":false,"msg":"PENDING","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"PENDING"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"PENDING"}}
-		return ( argResponse && !argResponse.error && argResponse.msg==="PENDING" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="PENDING" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="PENDING" ) ;
-	}
+			// US3626		   
+            if((argResponse && argResponse.error ) || (argResponse && !argResponse.error && argResponse.data  && argResponse.data.ResponseData && _.isEmpty(argResponse.data.ResponseData.data) ) )
+        	{
+        	  return true;
+        	}
+		
+        return ( (argResponse && argResponse.error) || (argResponse && !argResponse.error && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.error)  );
+  }
 
-	//Declined
-	function isOldDeclinedResponse( argResponse ){
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}
-		//{"error":false,"msg":"","data":{"appStatus":"DECLINED"}}
-		return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="DECLINED" ) ;
-	}
-	
-	function isNewDeclinedResponse( argResponse){
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}		
-		//{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"DECLINED"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
-		return ( argResponse && !argResponse.error && argResponse.msg==="COMPLETE" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="DECLINED" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ) ;
-	}
+  //Pending
+  function isOldPendingResponse( argResponse ){
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }
+        //{"error":false,"msg":"","data":{"appStatus":"PENDING"}}
+        return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="PENDING" ) ;
+  }
+  
+  function isNewPendingResponse( argResponse){
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }
+        
+        //{"error":false,"msg":"PENDING","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"PENDING"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"PENDING"}}
+        return ( argResponse && !argResponse.error && argResponse.msg==="PENDING" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="PENDING" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="PENDING" ) ;
+  }
 
-	//Approved
-	function isOldApprovedResponse( argResponse ){
-		//{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0"}}
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}
-		return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="APPROVED" && argResponse.data.accountNumber!=="" && argResponse.data.expiryDate!=="") ;
-	}
-	
-	function isNewApprovedResponse( argResponse){
-		if(typeof argResponse === 'undefined' || argResponse===null ){
-			return false;
-		}		
-		//{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
-		return ( argResponse && !argResponse.error && argResponse.msg==="COMPLETE" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="APPROVED" && argResponse.data.ResponseData.data.accountNumber!=="" && argResponse.data.ResponseData.data.expiryDate!=="" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ) ;
-	}
+  //Declined
+  function isOldDeclinedResponse( argResponse ){
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }
+        
+        //{"error":false,"msg":"","data":{"appStatus":"DECLINED"}}
+        return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="DECLINED" ) ;
+  }
+  
+  function isNewDeclinedResponse( argResponse){
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }
+       
+        //{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"DECLINED"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
+        return ( argResponse && !argResponse.error && argResponse.msg==="COMPLETE" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="DECLINED" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ) ;
+  }
+
+  //Approved
+  function isOldApprovedResponse( argResponse ){
+        //{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0"}}
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }
+        
+        return ( argResponse && !argResponse.error && argResponse.data && argResponse.data.appStatus==="APPROVED" && argResponse.data.accountNumber!=="" && argResponse.data.expiryDate!=="") ;
+  }
+  
+  function isNewApprovedResponse( argResponse){
+        if(typeof argResponse === 'undefined' || argResponse===null ){
+              return false;
+        }     
+       
+        //{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
+        return ( argResponse && !argResponse.error && argResponse.msg==="COMPLETE" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="APPROVED" && argResponse.data.ResponseData.data.accountNumber!=="" && argResponse.data.ResponseData.data.expiryDate!=="" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ) ;
+  }
+
 };

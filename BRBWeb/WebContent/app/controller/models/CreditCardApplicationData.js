@@ -11,6 +11,7 @@ BRB.CreditCardApplicationData = function() {
     var employmentTypeList = new BRB.EmploymentTypeList();
     var jobTitleList = new BRB.JobTitlesList();
     var relationshipTypeList = new BRB.RelationshipList();
+    var jobDescOptionList = new BRB.JobDescOptionList();
     
     this.getAllData=function(){
         var sMethod = 'getAllData() ';
@@ -252,6 +253,22 @@ BRB.CreditCardApplicationData = function() {
         });
         
         return category.text;
+    };    
+    //---------------------------------------------------------------
+    // US3622
+    this.getJobTitleNameByValue = function(value) {
+        var sMethod = '[getJobTitleNameByValue()] ';
+        BRB.Log(sMethod+ ' title:'+value);
+        
+        var title= null;
+        $.each(jobDescOptionList.data, function(index, item) {  
+            if(item.value == value){
+                title = item;
+            return;
+            }
+        });
+        
+        return title.text;
     };
     //---------------------------------------------------------------
     this.getCheckBoxValueFriendlyName = function(value){

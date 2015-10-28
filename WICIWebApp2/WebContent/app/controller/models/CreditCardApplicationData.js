@@ -57,6 +57,8 @@ WICI.CreditCardApplicationData = function() {
 	var personalDataIdTypesList = new WICI.IdTypesList();
 
 	var jobCategorysList = new WICI.JobCategoriesList;
+	
+	var jobTitlesList = new WICI.JobTitlesList();
 
 	var queueModel = new WICI.BaseModel({
 		name : 'queueModel',
@@ -225,6 +227,24 @@ WICI.CreditCardApplicationData = function() {
 		console.log(sMethod + 'exit [getJobCategoryNameByValue()] if: '
 				+ category);
 		return category.text;
+	};
+	
+	// US3621
+	this.getJobTitleNameByValue = function(value) {
+		var sMethod = '[getJobTitleNameByValue()] ';
+		console.log(sMethod + ' title:' + value);
+
+		var title = null;
+		$.each(jobTitlesList.data, function(index, item) {
+			if (item.value == value) {
+				title = item;
+				return;
+			}
+		});
+
+		console.log(sMethod + 'exit [getJobTitleNameByValue()] if: '
+				+ title);
+		return title.text;
 	};
 
 	this.getCardFriendlyName = function(argCardCode) {

@@ -31,17 +31,28 @@
 		                    </td>
 		                    <td class="fieldValuesTopCell">
 		                        <!--<input class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" type="text"/> -->
-		                        <select class="fieldValuesTextField" id="finEmpInfo_JobCategory_TextField" tabindex=2>
+		                        <select class="fieldValuesTextField" id="finEmpInfo_JobCategory_SelectField" tabindex=2>
 		                    </td>
 		                </tr>
 		                <tr class="fieldRow">
 		                    <td class="fieldLabelsCell fieldCellSize33">
 		                        <span data-translationKey="finEmpInfo_JobTitle"></span>
 		                    </td>
-		                    <td class="fieldValuesCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_JobTitle_TextField" type="text" maxlength="10" tabindex=3/>
+		                    <td class="fieldValuesCell">		                        		                        	
+			                        <select class="fieldValuesTextField" id="finEmpInfo_JobTitle_SelectField" type="text"> </select>						
 		                    </td>
 		                </tr>
+		                <!-- US3621 -->
+		                <!-- Start -->		                
+		                <tr class="fieldRow" id="finEmpInfo_JobTitleOtherArea">
+		                    <td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="finEmpInfo_JobTitleOther"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">		                        
+		                        <input class="fieldValuesTextField upperCaseField" id="finEmpInfo_JobTitle_TextField" type="text" maxlength="30" tabindex=3/>
+		                    </td>
+		                </tr>		                
+		                <!-- End -->
 		                <tr class="fieldRow">
 		                    <td class="fieldLabelsCell fieldCellSize33">
 		                        <span data-translationKey="finEmpInfo_EmployerName"></span>

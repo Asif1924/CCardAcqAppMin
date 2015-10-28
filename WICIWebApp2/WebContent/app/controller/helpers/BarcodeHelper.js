@@ -8,7 +8,10 @@ ensureNamespaceExists();
      * Scan these barcode types
      * Available: "PDF417", "QR Code", "Code 128", "Code 39", "EAN 13", "EAN 8", "ITF", "UPCA", "UPCE"
      */
-    var types = ["PDF417"];
+    
+    //var types = ["PDF417"];
+    //For US3625 added Code 128  
+    var types = ["PDF417","Code 128"];
 
     /**
      * Initiate scan with options

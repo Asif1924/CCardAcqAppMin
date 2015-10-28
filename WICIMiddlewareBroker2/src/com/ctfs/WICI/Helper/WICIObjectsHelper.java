@@ -275,6 +275,11 @@ public class WICIObjectsHelper
 			convertedResponse.setData(mangledPendAARequest);
 		}else if( "APPROVED".equalsIgnoreCase(pAARequest.getAppStatus())){
 			
+			
+			
+			//US3692
+			mangledPendAARequest.setMaskedPAN(pAARequest.getMaskedPAN());
+			 
 			mangledPendAARequest.setAccountNumber(pAARequest.getAccountNumber());
 			mangledPendAARequest.setAppStatus(pAARequest.getAppStatus());
 			mangledPendAARequest.setApr(pAARequest.getApr());

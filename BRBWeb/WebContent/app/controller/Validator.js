@@ -243,11 +243,12 @@ BRB.Validator = function() {
           return true;
       };  
       //---------------------------------------------------------------------------------------
+      // US3622
       this.jobDescription = function(value){
     	  if(value===null){
               return false;
           }        
-          return regexMatch(/^[a-z\u00C0-\u017F0-9,_'-.~@\[\]\}\{\)\( ]{1,10}$/i, $.trim(value));
+          return regexMatch(/^[a-z\u00C0-\u017F0-9,_'-.~@\[\]\}\{\)\(\/\\ ]{1,30}$/i, $.trim(value));
       };
       
       //---------------------------------------------------------------------------------------

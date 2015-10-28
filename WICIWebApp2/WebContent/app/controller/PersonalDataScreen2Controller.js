@@ -746,7 +746,8 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
     }
 	//---------------------------------------------------------------------------------------
 	function buildOptionItem( argDisplayText, argValue){
-		return "<option value='" + argValue + "'>" + argDisplayText + "</option>"; 
+		// US3598
+        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>"; 
 	}
 
 	//---------------------------------------------------------------------------------------

@@ -1,11 +1,9 @@
 package com.ctfs.wicimobile.util;
 
-
-
-import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
-
 import android.content.Context;
 import android.util.Log;
+
+import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
 
 public class WICIAccountNumberReplacementStrategy implements ReplacementStrategy {
     private static final String EMPTY_STRING = "";
@@ -30,31 +28,31 @@ public class WICIAccountNumberReplacementStrategy implements ReplacementStrategy
         }   
        
         //Log.i("cryptedAccountNumber",cryptedAccountNumber == null ? "" : cryptedAccountNumber);
-        String accountNumber = EMPTY_STRING;
+        String accountNumber = cryptedAccountNumber;
         StringBuilder formattedAccountNumber = new StringBuilder();
         int offset = 0;
-        try {
-            
-        	if("4111111111111111".equals(cryptedAccountNumber))  //US3433 March 31st Release
-        		accountNumber = cryptedAccountNumber;
-        	else
-        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+        try {          
             
             if (accountNumber == null  || accountNumber.isEmpty()) {
                 return EMPTY_STRING;
+            }            
+            // US3692
+            if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) || ("4111111111111111".equals(accountNumber)) ) {
+	            do {
+	                String number = accountNumber.substring(offset, offset + 4);
+	                formattedAccountNumber.append(number);
+	                formattedAccountNumber.append(" ");
+	                offset += 4;
+	            } while (offset < accountNumber.length());
+	
+	            // Remove last " " substring
+	            formattedAccountNumber.delete(formattedAccountNumber.length() - 1, formattedAccountNumber.length());
+	            Log.i("WICIAccountNumberReplacementStrategy", "processAccountNumber() : " + formattedAccountNumber.toString());
+	            return formattedAccountNumber.toString();	            
+            } else if(Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) {
+            	Log.i("WICIAccountNumberReplacementStrategy", "processAccountNumber() : " + accountNumber.toString());
+            	return accountNumber.toString();
             }
-            
-            do {
-                String number = accountNumber.substring(offset, offset + 4);
-                formattedAccountNumber.append(number);
-                formattedAccountNumber.append(" ");
-                offset += 4;
-            } while (offset < accountNumber.length());
-
-            // Remove last " " substring
-            formattedAccountNumber.delete(formattedAccountNumber.length() - 1, formattedAccountNumber.length());
-            
-            return formattedAccountNumber.toString();
         } catch (Exception e) {
             e.printStackTrace();            
         }    

@@ -517,8 +517,12 @@
 			                <span data-translationKey="summary_FinEmp_JobTitle"></span>
 			            </td>
 			            <td class="fieldLabelsCell">
-			            	{{if  activationItems.getModel('financialData').get('employmentType')!='R' && activationItems.getModel('financialData').get('employmentType')!='U' && activationItems.getModel('financialData').get('employmentType')!='H'}}
-			               		${activationItems.getModel('financialData').get('jobTitle')}
+			            	{{if  activationItems.getModel('financialData').get('employmentType')!='R' && activationItems.getModel('financialData').get('employmentType')!='U' && activationItems.getModel('financialData').get('employmentType')!='H'}}			            		
+			               		{{if $.inArray(activationItems.getModel('financialData').get('jobTitle_SelectField'), ['TR_OR', 'DR_OR', 'MI_OR', 'PR_OR', 'FA_OR', 'GU_OR', 'MA_OR', 'OW_OR', 'OT_OR', 'SA_OR', 'SE_OR', 'RE_OR', 'LA_OR', 'OF_OR']) != -1 }}
+			               			${activationItems.getModel('financialData').get('jobTitle')}
+			               		{{else}}
+			               			<span data-translationKey=${activationItems.getJobTitleNameByValue(activationItems.getModel('financialData').get('jobTitle_SelectField'))}></span>
+			               		{{/if}}
 			                  {{else}}
 			                 	<span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
 			                 {{/if}}

@@ -126,7 +126,12 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 				console.log( logPrefix+sMethod+"  pendingPageType=" + pendingPageType );
 				if( pendingPageType==="INSESSION" )
 				{
-					if ( responseExistsNoErrorButNotSufficient(argResponse) )
+					// US3626
+					if (responseExistsAndHasError(argResponse)) 
+					{
+						stopPolling(argResponse);			
+					}
+					else if ( responseExistsNoErrorButNotSufficient(argResponse) )
 					{
 						//argPollResponseReceivedCallback(argResponse);
 						argPollTriggerCallback(argResponse);
@@ -136,10 +141,6 @@ WICI.PollingController = function( argConnectivityController, argRequestParams, 
 					{
 						argSuccessCallback(argResponse);
 					}
-					else if (responseExistsAndHasError(argResponse)) 
-					{
-						stopPolling(respAn.getData(argResponse));			
-					}				
 				}			
 				else if( pendingPageType==="RETRIEVEPEND" )
 				{

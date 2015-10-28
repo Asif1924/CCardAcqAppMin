@@ -21,7 +21,19 @@ public class WICIAccountApplicationResponse
 	{
 		return appStatus;
 	}
-
+	
+	
+	String	maskedPAN; //US3692
+	public String getMaskedPAN()
+	{
+		return maskedPAN;
+	}
+	public void setMaskedPAN(String maskedPAN)
+	{
+		this.maskedPAN = maskedPAN;
+	}
+	
+	
 	String accountReference;
 	String expiryDate;
 	String creditLimit;
@@ -77,6 +89,18 @@ public class WICIAccountApplicationResponse
 		{
 			result.cashAPR = null;
 		}
+		
+		
+		//US3692
+		try
+		{
+			result.maskedPAN = entity.getMaskedPAN().toString();
+		}
+		catch (Exception e)
+		{
+			result.maskedPAN = null;
+		}
+		
 
 		return result;
 	}

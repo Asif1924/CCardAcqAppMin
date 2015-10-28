@@ -48,7 +48,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         correspondence : '#personalData_Correspondence_Group',
         correspondence_eng : '#personalData_English_RadioButton',
         correspondence_fre : '#personalData_French_RadioButton',
-
+        
         receiveemailArea:'#personalData_ReceiveEmailArea',
         receiveEmail : '#personalData_ReceiveEmail_Group',
         receiveemail_optin : '#personalData_Optin_RadioButton',
@@ -76,7 +76,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         months:             '#personalData_Address_Duration_months_TextField',
 
         previousAddressArea:'#personalData_PreviousAddressArea',
-
+        
+        // US3623        
+        flipPrevWasInCanada_no	:	'#flipPrevWasInCanada_no',
+        flipPrevWasInCanada_yes	:	'#flipPrevWasInCanada_yes',
+        flipPrevWasInCanada	:		'#flipPrevWasInCanada',        
+        personalData_PreviousAddressYesNO	:	'#personalData_PreviousAddressYesNO',
+        
         postalcode_prev:    '#personalData_PreviousAddress_PostalCode_TextField',
         streetnumber_prev:  '#personalData_PreviousAddress_StreetNumber_TextField',
 
@@ -244,7 +250,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             {name: 'city_prev',         value: null, validation: {type: 'city',         message: '', group: [4]} },
             {name: 'suiteunit_prev',    value: null, validation: {type: 'suiteUnit',    message: '', group: [4], canBeEmpty: true} },
             {name: 'province_prev',     value: null, validation: {type: 'presence',     message: '', group: [4]} },
-
+            // US3623            
+            {name: 'flipPrevWasInCanada',  value: null, validation: null },
+            
             {notField:true, name: 'addressline1_prev_Array', value: null } ]
     });
     var models = {
@@ -295,6 +303,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         onEmailChangesHandler();
         hideShowMoneyAdvantage();
+        
+        // US3623
+         createFlips();
     }
     // ---------------------------------------------------------------------------------------
     function show() {
@@ -421,15 +432,20 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('housingpayment', $(refs.housingpayment).val().replace(/,/g,'').replace(' $ ','').replace('.',','));
         currModel.set('years',          $(refs.years).val());
         currModel.set('months',         $(refs.months).val());
-
-        currModel.set('postalcode_prev',    $(refs.postalcode_prev).val().toUpperCase());
-        currModel.set('streetnumber_prev',  $(refs.streetnumber_prev).val().toUpperCase());
-        currModel.set('addressline1_prev',  $(refs.addressline1_prev).val().toUpperCase());
-        currModel.set('addressline2_prev',  '');
-        currModel.set('city_prev',          $(refs.city_prev).val().toUpperCase());
-        currModel.set('suiteunit_prev',     $(refs.suiteunit_prev).val().toUpperCase());
-        currModel.set('province_prev',      $(refs.province_prev).val());
-
+        
+        // US3623 Start
+        currModel.set('flipPrevWasInCanada', $(refs.flipPrevWasInCanada + ' ' + 'option:selected').val());
+        
+        if(currModel.get('flipPrevWasInCanada') === 'Y') {
+        	currModel.set('postalcode_prev',    $(refs.postalcode_prev).val().toUpperCase());
+            currModel.set('streetnumber_prev',  $(refs.streetnumber_prev).val().toUpperCase());
+            currModel.set('addressline1_prev',  $(refs.addressline1_prev).val().toUpperCase());
+            currModel.set('addressline2_prev',  '');
+            currModel.set('city_prev',          $(refs.city_prev).val().toUpperCase());
+            currModel.set('suiteunit_prev',     $(refs.suiteunit_prev).val().toUpperCase());
+            currModel.set('province_prev',      $(refs.province_prev).val());
+        }        
+        // End               
         for (var currModel in models) {
             console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
         }
@@ -527,8 +543,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function buildOptionItem(argDisplayText, argValue) {
         argDataMember = argDisplayText;
-        return "<option value='" + argValue + "'>" + argDisplayText
-            + "</option>";
+        // US3598
+        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>";
     }
     //-----------------------------------------------------------------------------------------
     function onEmailChangesHandler(){
@@ -561,18 +577,22 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         var sMethod = 'onDurationChangesHandler() ';
         console.log(logPrefix + sMethod);
 
-        syncUserData();
-
-        var currModel = models.addressModel;
-
+        syncUserData();   
+        // US3623                            
+        var currModel = models.addressModel;        
         if(currModel.get('years')>=2 || (currModel.get('years')==='' && currModel.get('months')==='')){
             $(refs.previousAddressArea).hide();
+            $(refs.personalData_PreviousAddressYesNO).hide();
         }
-        else{
-            $(refs.previousAddressArea).show();
+        else {        	
+        	$(refs.personalData_PreviousAddressYesNO).show();
+        	if(currModel.get('flipPrevWasInCanada') === 'Y') {
+        		$(refs.previousAddressArea).show();                
+        	}            
         }
 
     }
+   
     //-----------------------------------------------------------------------------------------
     function bindEvents() {
         var sMethod = 'bindEvents() ';
@@ -627,7 +647,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $("#personalData_ScanIdButton").click(function() {
             messageDialog.scan(null, onScanSuccessCallback, onScanErrorCallback, null, null, translator);
         });
-
+       // US3625 Loyalty Scanner
+        $("#personalData_ScanLoyaltyButton").click(function() {
+            messageDialog.scanLoyalty(null, onScanLoyaltySuccessCallback, onScanErrorCallback, null, null, translator);
+        });
+        
         $(refs.title_MR).click(function() {
             clearRadios('title');
             $(refs.title_MR).addClass('ui-btn-active');
@@ -658,7 +682,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.correspondence_fre).addClass('ui-btn-active');
             models.personalDataModel.set('correspondence', 'F');
         });
-
+        
         $(refs.receiveemail_optin).click(function() {
             clearRadios('receiveEmail');
             $(refs.receiveemail_optin).addClass('ui-btn-active');
@@ -675,6 +699,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         currModel = models.addressModel;
 
+        // US3623        
+        $(refs.flipPrevWasInCanada).on("change", function() {
+        	console.log(refs.flipPrevWasInCanada + '::change');
+        	models.addressModel.set('flipPrevWasInCanada', $(refs.flipPrevWasInCanada + ' ' + 'option:selected').val());
+        	bindPreviousAddress();        	
+        });
+        
         $(refs.province).on("change", function() {
             console.log(refs.province + '::change');
             models.addressModel.set("province", $(refs.province).val());
@@ -700,7 +731,35 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         checkForMsButton();
     }
-    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------    
+	// US3623 Start
+    function setSlidersText() {
+    	models.addressModel.set('flipPrevWasInCanada', $(refs.flipPrevWasInCanada + ' ' + 'option:selected').val());
+        $(refs.flipPrevWasInCanada_no).text(translator.translateKey("no"));
+        $(refs.flipPrevWasInCanada_yes).text(translator.translateKey("yes"));
+    }
+
+    function createSliders() {
+        $(refs.flipPrevWasInCanada).slider();
+    }
+
+    function createFlips() {
+        setSlidersText();
+        createSliders();
+    }
+    
+    function bindPreviousAddress() {
+    	var flipPrevWasInCanada = models.addressModel.get('flipPrevWasInCanada');
+    	
+    	if(flipPrevWasInCanada === 'Y') {
+    		$(refs.previousAddressArea).show();            
+    	} else if(flipPrevWasInCanada === 'N') {
+    		$(refs.previousAddressArea).hide();            
+    	}    	
+    }
+	// End
+    // ---------------------------------------------------------------------------------------
+    
     function bindRealTimeDurationControl(){
         $(refs.years).change(function(){
             onDurationChangesHandler();
@@ -896,7 +955,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.house_Rent).removeClass('ui-btn-active');
             $(refs.house_Parents).removeClass('ui-btn-active');
             $(refs.house_Other).removeClass('ui-btn-active');
-
         }
     }
 
@@ -1147,17 +1205,22 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                } else {
                     temprez = models.addressModel.validate(i);
                }
-
+               
                 //custom validation for e-mail
                 if (i === emailValidationIndex && validEmail.test(models.personalDataModel.get('email').trim()) != true ) {
                     continue;
                 }
                 //custom validation for previous adress
-                if (i === prevAdressValidationIndex) {
-                    if ( enteredYears >= 2) {
+               if (i === prevAdressValidationIndex) {
+                    if ( enteredYears >= 2) {                    	
                         continue;
+                    } else if ( enteredYears < 2) {                    	                    		                   
+                    	if (models.addressModel.get('flipPrevWasInCanada') === 'N') {	                    	
+	                    	continue;
+	                    } 
                     }
                 }
+                
                 //custom validation for duration
                 if (i === durationValidationIndex) {
                     if (temprez.length == 2) {
@@ -1188,7 +1251,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-
+                
                 app.validationDecorator.applyErrAttribute(rez);
                 return;
             }
@@ -1224,6 +1287,62 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         }
     }
 
+    function mod10(value, length) {
+        var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9],
+            counter = 0,
+            odd = false,
+            incNum, i;
+
+        for (i = value.length - 1; i >= 0; --i) {
+            incNum = parseInt(value.charAt(i), 10);
+            counter += (odd =! odd) ? incNum : luhnArr[incNum];
+        }
+
+        if (!(_.isString(value) && value.length >= length)) {
+            return false;
+        }
+
+        if ((counter % 10) === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    
+    // US3625 Loyalty Scanner
+    // ---------------------------------------------------------------------------------------
+    function onScanLoyaltySuccessCallback(response) {
+         
+    	console.log('onScanLoyaltySuccessCallback - response: ' + response.data);
+    	
+        try {
+            rez = response.data;
+            if (!rez) {
+                throw ('ERROR! Got the empty data.');
+            }
+            if((rez.indexOf('PDF') === -1) && (mod10(rez,16)) )
+            {	
+               	$('#personalData_CTMNumber_TextField').val(rez);
+            }else
+            	{
+            	$('#personalData_CTMNumber_TextField').val('');
+            	messageDialog.error(
+            			 translator.translateKey('scanLoyalty_parsingErrorText'),
+                         translator.translateKey('personalData_Scan_Loyalty_Label'),
+                         $.noop
+                );
+            }
+             
+        } catch (e) {
+        	$('#personalData_CTMNumber_TextField').val('');
+            messageDialog.error(
+                 translator.translateKey('scanLoyalty_parsingErrorText'),
+                 translator.translateKey('personalData_Scan_Loyalty_Label'),
+                     $.noop
+            );
+        }
+    }
+    
     // ---------------------------------------------------------------------------------------
     function onScanSuccessCallback(response) {
         var parser = new WICI.ScanDataMappingHelper(),

@@ -40,6 +40,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		employmentType_DropDown			:	'#personalInformation_EmploymentType_TextField',
     		residentialStatus_DropDown		:	'#personalInformation_ResidentialStatus_TextField',
     		jobTitle_DropDown				:	'#personalInformation_JobTitle_TextField',
+    		// US3622    		
+    		jobDesc_OtherArea				:	'#personalInformation_JobDescription_OtherArea',
+    		jobTitle_SelectField			:	'#personalInformation_JobDescription_SelectField',
+    		jobDescription_temp				:	'#personalInformation_JobDescription_SelectField',
     		
     		prevProvincesDropDown			:	'#personalInformation_PrevProvince_TextField',
     		
@@ -186,7 +190,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {name: 'employerName',     			value: null, validation: {type: 'employerName', message: 'personalInformation_EmployerError', group:[4]}},
                 {name: 'employerCity',         		value: null, validation: { type: 'city', message: 'personalInformation_EmployerCityError', group:[4]} },
                 {name: 'jobTitle',  				value: null, validation: {type: 'presence', message: 'personalInformation_JobTitleError', group:[4]} },
+                // US3622
+                {name: 'jobDescription_temp',       value: null, validation: {type: 'presence', message: 'personalInformation_JobDescriptionError', group:[4]} },
                 {name: 'jobDescription',       		value: null, validation: {type: 'jobDescription', message: 'personalInformation_JobDescriptionError', group:[4]}},
+                                
                 {name: 'howLongMonthes',    		value: null, validation: {type: 'month',   message: 'personalInformation_EmployerSinceMonthError', group:[4]} },
                 {name: 'howLongYears',			    value: null, validation: {type: 'year',   message: 'personalInformation_EmployerSinceYearError', group:[4]} },
                 {name: 'grossIncome',     			value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualIncomeError', matcher: /\d+/, group:[5] }, containerUiid: 'grossIncomeContainer' },
@@ -412,7 +419,25 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         $(refs.employerName).val(model.get('employerName'));
         $(refs.employerCity).val(model.get('employerCity'));
         $(refs.jobTitle).val(model.get('jobTitle'));
-        $(refs.jobDescription).val(model.get('jobDescription'));
+        
+        // US3622        
+        var filteredData = new BRB.JobDescListMapping();
+        var jobDescription_temp = model.get('jobDescription_temp');
+                        
+        if(jobDescription_temp === null) {
+        	$(refs.jobDescription).val(null);        	        	
+        } else if ($.inArray(jobDescription_temp, ['TR_OR', 'DR_OR', 'MI_OR', 'PR_OR', 'FA_OR', 'GU_OR', 'MA_OR', 'OW_OR', 'OT_OR', 'SA_OR', 'SE_OR', 'RE_OR', 'LA_OR', 'OF_OR']) != -1) {
+        	populateJobTitlesList(true);
+        	$(refs.jobTitle_SelectField + ' [value="' + jobDescription_temp + '"]').attr( 'selected', 'selected' );
+        	$(refs.jobDescription).val(model.get('jobDescription'));        	
+        	$(refs.jobDesc_OtherArea).show();
+    	} else {
+    		populateJobTitlesList();
+    		$(refs.jobTitle_SelectField + ' [value="' + jobDescription_temp + '"]').attr( 'selected', 'selected' );
+    		$(refs.jobDescription).val(filteredData.getJobDescByJobValue(jobDescription_temp));
+    		$(refs.jobDesc_OtherArea).hide();
+    	}
+
         $(refs.howLongMonthes).val(model.get('howLongMonthes'));
         $(refs.howLongYears).val(model.get('howLongYears'));
         
@@ -469,7 +494,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         //$(refs.employmentType).val(model.get('employmentType'));
         $(refs.jobTitle).val(model.get('jobTitle'));
         $(refs.howLongMonthes).val(model.get('howLongMonthes'));
-        $(refs.howLongYears).val(model.get('howLongYears'));        
+        $(refs.howLongYears).val(model.get('howLongYears'));  
+        // US3622
+        restoreEmploymentInformationUserData();
         updateEmployerInformationArea();
 	}
 	
@@ -623,6 +650,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         currentModel.set('employerCity',  		$(refs.employerCity).val().toUpperCase());
         currentModel.set('jobTitle', 			$(refs.jobTitle).val() ==='null' ? null : $(refs.jobTitle).val().toUpperCase());
         currentModel.set('jobDescription', 	$(refs.jobDescription).val().toUpperCase());
+        // US3622        
+        currentModel.set('jobDescription_temp', 	$(refs.jobTitle_SelectField).val());
         currentModel.set('howLongMonthes',   	$(refs.howLongMonthes).val());
         currentModel.set('howLongYears',   	$(refs.howLongYears).val());
     }
@@ -919,10 +948,41 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			model.set('title', $(refs.title).val());
 		});
 		
+		// US3622
+		$(refs.jobTitle_DropDown).change(function() {
+			model.set("jobTitle", $(refs.jobTitle_DropDown).val());
+			populateJobTitlesList();
+		});
+		
+		$(refs.jobTitle_SelectField).change(function() {			
+			bindJobTitleOther();
+		});
+		
 		if(!argPopup) {
 			bindTranslationCallbacks();
 		}
 	}
+    
+    // US3622
+    function bindJobTitleOther() {
+    	var sMethod = 'bindJobTitleOther', jobTitle;
+    	
+    	$(refs.jobDesc_OtherArea).hide();
+    
+    	jobTitle = $(refs.jobTitle_SelectField).val();    
+    	var filteredMapperData = new BRB.JobDescListMapping();
+    	$(refs.jobDescription).val(filteredMapperData.getJobDescByJobValue(jobTitle));
+    	model.set('jobDescription', $(refs.jobDescription).val());
+    	model.set('jobDescription_temp', $(refs.jobTitle_SelectField).val());
+    	
+    	if ($.inArray(jobTitle, ['TR_OR', 'DR_OR', 'MI_OR', 'PR_OR', 'FA_OR', 'GU_OR', 'MA_OR', 'OW_OR', 'OT_OR', 'SA_OR', 'SE_OR', 'RE_OR', 'LA_OR', 'OF_OR']) != -1) {
+    		$(refs.jobDesc_OtherArea).show();
+    		$(refs.jobDescription).val(null);
+    	} else {
+    		$(refs.jobDesc_OtherArea).hide();
+    	}
+    	    	    	
+    }
     
     function bindTranslationCallbacks() {
 		$('#choseProduct').bind('translationStart', function() {
@@ -1207,6 +1267,72 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		
 		fillDaysControl(refs.dateOfBirth_Day);
 		toggle10XImege();
+		
+		// US3622
+	    $(refs.jobDesc_OtherArea).hide();	   		
+	}
+	
+	//---------------------------------------------------------------------------------------
+	// US3622
+	function populateJobTitlesList(restore) {
+		
+		var jobTitle, jobDescription_temp, controlRef;
+		
+		jobTitle = model.get('jobTitle');
+		jobDescription_temp = model.get('jobDescription_temp');				
+				
+		/*if ($.inArray(jobTitle, ['HO', 'RT', 'UN', 'ST']) != -1) {
+			$(refs.jobDesc_OtherArea).hide();        	                
+        }            
+        else */if ($.inArray(jobTitle, ['DR', 'GU', 'LA', 'MA', 'MI', 'OF', 'OW', 'FA', 'PR', 'RE', 'SA', 'SE', 'TR', 'OT', 'HO', 'RT', 'UN', 'ST']) != -1) {        	                	        	
+        	if($(refs.jobDescription).val()){
+        		model.set('jobDescription', $(refs.jobDescription).val());        		
+        	} else {
+        		$(refs.jobDescription).val(null);
+        	}
+		
+		$(refs.jobDesc_OtherArea).hide();				
+	     
+		if(_.isEmpty($(refs.jobTitle_DropDown).val()) || $(refs.jobTitle_DropDown).val()=='null') {			
+			$(refs.jobDescription).val(null);
+			$(refs.jobDesc_OtherArea).hide();
+			$(refs.jobTitle_SelectField).empty();
+		} else {
+			var JobDescOption = new BRB.JobDescOptionList(translator);
+		    JobDescOption.fillJobDesc(jobTitle);
+		}
+	    
+	      	
+        if(model.get('jobDescription')){ 
+        	var filteredMapperData = new BRB.JobDescListMapping(translator);
+            
+        	if( filteredMapperData.getJobDescByJobValue(jobDescription_temp) === null ){
+        		$(refs.jobTitle_SelectField + ' [value="' + jobDescription_temp + '"]').attr( 'selected', 'selected' );
+            	$(refs.jobDescription).val();
+            	$(refs.jobDesc_OtherArea).hide();
+        	} else if ($.inArray(jobDescription_temp, ['TR_OR', 'DR_OR', 'MI_OR', 'PR_OR', 'FA_OR', 'GU_OR', 'MA_OR', 'OW_OR', 'OT_OR', 'SA_OR', 'SE_OR', 'RE_OR', 'LA_OR', 'OF_OR']) != -1) { 
+            	$(refs.jobTitle_SelectField + ' [value="' + jobDescription_temp + '"]').attr( 'selected', 'selected' );
+            	$(refs.jobDescription).val();          
+            	if(restore) {
+            		$(refs.jobDesc_OtherArea).show();
+            		$(refs.jobDescription).val(model.get('jobDescription'));
+            	}
+            	else {
+            		$(refs.jobDesc_OtherArea).hide();
+            	}
+        	} else {                 		
+        		$(refs.jobTitle_SelectField + ' [value="' + jobDescription_temp + '"]').attr( 'selected', 'selected' );
+        		$(refs.jobDescription).val(filteredMapperData.getJobDescByJobValue(jobDescription_temp));
+        		$(refs.jobDesc_OtherArea).hide();
+        	}            	
+        }
+        if (jobTitle) {
+            $(refs.jobTitle + ' [value="' + jobTitle + '"]').attr(
+                'selected', 'selected'
+            );
+        }
+    }
+        
 	}
 	
 	//---------------------------------------------------------------------------------------

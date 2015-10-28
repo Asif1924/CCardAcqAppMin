@@ -39,7 +39,11 @@
                       	<span data-translationKey="personalInformation_JobDescription"></span>	                        
                   	</td>	
                   	<td class="fieldValuesCell fieldCellWithBoldFontSize14">
-					${ activationItems.getModel('personalInformation').get('jobDescription')}
+                  	{{if $.inArray(activationItems.getModel('personalInformation').get('jobDescription_temp'), ['TR_OR', 'DR_OR', 'MI_OR', 'PR_OR', 'FA_OR', 'GU_OR', 'MA_OR', 'OW_OR', 'OT_OR', 'SA_OR', 'SE_OR', 'RE_OR', 'LA_OR', 'OF_OR']) != -1 }}
+                  		${ activationItems.getModel('personalInformation').get('jobDescription')}
+                  	{{else}}
+                  		<span data-translationKey=${ activationItems.getJobTitleNameByValue(activationItems.getModel('personalInformation').get('jobDescription_temp'))}></span>						
+					{{/if}}
                   	</td>
               	</tr>
               	<tr class="fieldRow">

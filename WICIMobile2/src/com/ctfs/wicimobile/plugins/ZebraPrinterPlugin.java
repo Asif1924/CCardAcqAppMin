@@ -234,12 +234,16 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 if (cardmemberModel != null) {
                     WICIReplacementHelper replacementHelper = new WICIReplacementHelper(cardmemberModel, getCurrentContext(), printer);
-                    
+                    // US3692
                     // Process file
                     fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper,
                             cardmemberModel.getCardType(),
                             cardmemberModel.getResponseStatus(),
-                            cardmemberModel.getProvince());
+                            cardmemberModel.getAccountNumber(),
+                            cardmemberModel.getMaskedPAN(),        
+                            cardmemberModel.getProvince(),
+                            cardmemberModel.getStoreNumber(),
+                            cardmemberModel.getEmployeeId());
                 }
                 else {
                     // Print test file

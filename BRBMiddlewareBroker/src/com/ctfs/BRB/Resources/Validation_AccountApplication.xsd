@@ -591,9 +591,9 @@
 					<xsd:documentation></xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
-					<xsd:restriction base="tns:UpperCaseStringType">
+					<xsd:restriction base="tns:UpperCaseJobTitleStringType">
 						<xsd:minLength value="1" />
-						<xsd:maxLength value="10" />
+						<xsd:maxLength value="30" />
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
@@ -1401,6 +1401,12 @@
 	<xsd:simpleType name="UpperCaseStringType">
 		<xsd:restriction base="xsd:token">
 			<xsd:pattern value="([A-Z0-9,_'-.~@\[\]\}\{\)\( ]*)" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="UpperCaseJobTitleStringType">
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([A-Z0-9,_'-.~@\[\]\}\{\)\(/\\\\ ]*)" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	

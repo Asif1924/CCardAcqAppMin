@@ -647,8 +647,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	// ---------------------------------------------------------------------------------------
 	function buildOptionItem(argDisplayText, argValue) {
 		argDataMember = argDisplayText;
-		return "<option value='" + argValue + "'>" + argDisplayText
-				+ "</option>";
+		// US3598
+        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>";
 	}
 
 	// ---------------------------------------------------------------------------------------

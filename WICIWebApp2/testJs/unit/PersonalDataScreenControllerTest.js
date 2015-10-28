@@ -1,6 +1,6 @@
 describe("PersonalDataScreenController", function() {
 	
-	xdescribe("Inner Model", function() {
+	describe("Inner Model", function() {
 
 		var personalDataController = null;	
 	    var personalDataModel = null;
@@ -8,7 +8,7 @@ describe("PersonalDataScreenController", function() {
 		beforeEach(function() {
 			personalDataController = new WICI.PersonalDataScreenController();
 			if (personalDataController) {
-				personalDataModel = personalDataController.innerModel;
+				personalDataModel = personalDataController.innerModels.personalDataModel;
 			}
 		});
 		
@@ -287,7 +287,8 @@ describe("PersonalDataScreenController", function() {
             expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
         });
         
-        it("will ensure 'years' value cannot be less than 2 without setting previous address", function() {
+        // US3626 - Start
+        it("will ensure 'years' value can be less than 2 without setting previous address", function() {
             
             personalDataModel.set('postalcode', 'A1A1A1'); 
             personalDataModel.set('streetnumber', '123'); 
@@ -298,8 +299,26 @@ describe("PersonalDataScreenController", function() {
             personalDataModel.set('house', 'O'); 
             personalDataModel.set('years', '1'); // <---
             
-            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
+            personalDataModel.set('flipPrevWasInCanada', 'N'); // <---
+            
+            expect(!_.isEmpty(personalDataModel.validate())).toEqual(true);
         });
+        
+        it("will ensure 'years' value can be more than 2 without previous address", function() {
+            
+            personalDataModel.set('postalcode', 'A1A1A1'); 
+            personalDataModel.set('streetnumber', '123'); 
+            personalDataModel.set('addressline1', 'STREET CITY'); 
+            personalDataModel.set('city', 'CITY'); 
+            personalDataModel.set('province', 'NS'); 
+            
+            personalDataModel.set('house', 'O'); 
+            personalDataModel.set('years', '2'); // <---
+            
+            personalDataModel.set('flipPrevWasInCanada', 'Y'); // <---                                   
+
+            expect(!_.isEmpty(personalDataModel.validate())).toEqual(true);
+        });                    
         
         it("will ensure 'years' value can be less than 2 if previous address set", function() {
             
@@ -312,6 +331,8 @@ describe("PersonalDataScreenController", function() {
             personalDataModel.set('house', 'O'); 
             personalDataModel.set('years', '1'); // <---
             
+            personalDataModel.set('flipPrevWasInCanada', 'Y'); // <---
+            
             personalDataModel.set('postalcode_prev', 'A1A1A1');
             personalDataModel.set('streetnumber_prev', '321');
             personalDataModel.set('addressline1_prev', 'STREET CITY');
@@ -319,8 +340,8 @@ describe("PersonalDataScreenController", function() {
             personalDataModel.set('suiteunit_prev', '123');
             personalDataModel.set('province_prev', 'AB');            
 
-            expect(_.isEmpty(personalDataModel.validate())).toEqual(false);
-        });         	 	 	
+            expect(!_.isEmpty(personalDataModel.validate())).toEqual(true);
+        });
 		
 	});
 	

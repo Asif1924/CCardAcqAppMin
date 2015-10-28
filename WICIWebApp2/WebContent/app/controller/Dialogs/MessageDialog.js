@@ -10,6 +10,7 @@ WICI.MessageDialog = function(translate){
 	this.settings = settings;
 	this.printerSetup = printerSetup;
 	this.scan = scan;
+	this.scanLoyalty = scanLoyalty;
 
 	function error(message, title, callback, uiDecoration, dialogTemplateOverride){
 		console.log("MessageDialog.error: message=" + message);
@@ -103,7 +104,19 @@ WICI.MessageDialog = function(translate){
                 translate);
 		dialogQueue.enqueue(dialog);
 	}
-
+	// US3625 Loyalty Scanner
+	function scanLoyalty(title, onScanSuccessCallback, onScanErrorCallback, yesButton, noButton, translate) {
+		console.log("MessageDialog.Scan:");
+		var dialog = new WICI.ScanLoyaltyDialog(
+				buildTitle(title, "personalData_Scan_Loyalty_Label"),
+                buildCallback(onScanSuccessCallback),
+                buildCallback(onScanErrorCallback),
+                buildButton(yesButton, "scanLoyaltyDialog_yes"),
+                buildButton(noButton, "cancel"),
+                translate);
+		dialogQueue.enqueue(dialog);
+	}
+	
 	function screen(message, yesCallback, noCallback, title, yesButton, noButton) {
 		var dialog = new WICI.ScreenDialog(message,
 				buildCallback(yesCallback),

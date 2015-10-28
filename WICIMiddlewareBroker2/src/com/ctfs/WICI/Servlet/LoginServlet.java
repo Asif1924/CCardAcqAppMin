@@ -11,12 +11,14 @@ import com.ctfs.WICI.Helper.AuthorizationHelper;
 import com.ctfs.WICI.Helper.DictionaryInfoValidator;
 import com.ctfs.WICI.Helper.EmployerIDCodeValidator;
 import com.ctfs.WICI.Helper.LoginInvocationHelper;
+import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.AuthfieldValue;
 import com.ctfs.WICI.Model.DictionaryInfo;
 import com.ctfs.WICI.Model.IllegalAppVersionException;
 import com.ctfs.WICI.Model.InvalidDictionaryInformationException;
+import com.ctfs.WICI.Model.LoginInfo;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 
@@ -85,6 +87,22 @@ public class LoginServlet extends WICIServlet
 				LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
 				loginResponse = loginInvocationHelper.checkLocation(requestMediator, derivedUserID);
 				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
+				
+				try {
+					WICIDBHelper wicidbHelper = new WICIDBHelper();
+					LoginInfo logonInfo = new LoginInfo();
+					logonInfo.setAgentID(agentID);
+					logonInfo.setApkVersion(apkVersion);
+					logonInfo.setBuildSerial((values.getBuildSerial()));
+					logonInfo.setEmployerID(employerID);
+					logonInfo.setMfgSerial(values.getMfgSerial());
+					logonInfo.setUserLocation(userLocation);
+					
+					wicidbHelper.logonInfo(logonInfo);
+					
+				} catch (Exception e) {
+					log.info("Error :: Update Logon info into DB");
+				}
 			}
 			
 			DictionaryInfoValidator dictInfoValidator = new DictionaryInfoValidator();

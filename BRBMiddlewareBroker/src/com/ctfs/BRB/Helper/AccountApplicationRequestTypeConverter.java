@@ -520,7 +520,8 @@ public class AccountApplicationRequestTypeConverter
 		cal.setTime(d);
 		int subtrahendMonth = cal.get(Calendar.MONTH);
 		int subtrahendYear = cal.get(Calendar.YEAR);
-		return (((minuendYear - subtrahendYear) * cal.getMaximum(Calendar.MONTH)) + (minuendMonth - subtrahendMonth));
+		// DE1549
+		return ((((minuendYear - subtrahendYear) * (cal.getMaximum(Calendar.MONTH) + 1))) + (minuendMonth - subtrahendMonth));
 	}
 
 }

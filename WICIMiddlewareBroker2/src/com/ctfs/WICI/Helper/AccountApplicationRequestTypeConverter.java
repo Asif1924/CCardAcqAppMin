@@ -40,122 +40,138 @@ public class AccountApplicationRequestTypeConverter
 	static Logger log = Logger.getLogger(AccountApplicationRequestTypeConverter.class.getName());
 
 	public AccountApplicationRequestType createAccountApplicationRequestFromCreditCardApplicationData(CreditCardApplicationData argCreditCardApplicationData)
-	{
+    {
 
-		String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
-		log.info(sMethod);
+                    String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
+                    log.info(sMethod);
 
-		com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
-		AccountApplicationRequestType populatedAccountApplicationRequest = objectFactory.createAccountApplicationRequestType();
+                    com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
+                    AccountApplicationRequestType populatedAccountApplicationRequest = objectFactory.createAccountApplicationRequestType();
 
-		GUIDGenerator guidGenerator = new GUIDGenerator();
-		populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
-		
-		//populatedAccountApplicationRequest.setChannelIndicator("IP");
-		//log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
-		//US3162  
-		if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
-		    {
-			   populatedAccountApplicationRequest.setChannelIndicator("DP");
-			}
-			else
-			{
-			   populatedAccountApplicationRequest.setChannelIndicator("IP");
-			} 
-		//log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
-	
-		populatedAccountApplicationRequest.setCurrentCountry("CA");
-		populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
-		//populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
-		BaseModel model_supp;
-		try
-		{
-			model_supp = argCreditCardApplicationData.getModel(MODEL_SUP_CARD_REQUEST_DATA);
-			if (model_supp != null && model_supp.get("cardYesNo").equals("Y"))
-			{
-				populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
-			}
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			e.printStackTrace();
-		}
-		populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA);
+                    GUIDGenerator guidGenerator = new GUIDGenerator();
+                    populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
+                    
+                    //populatedAccountApplicationRequest.setChannelIndicator("IP");
+                    //log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
+                    //US3162  
+                    if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
+                        {
+                                       populatedAccountApplicationRequest.setChannelIndicator("DP");
+                                    }
+                                    else
+                                    {
+                                       populatedAccountApplicationRequest.setChannelIndicator("IP");
+                                    } 
+                    //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
+    
+                    populatedAccountApplicationRequest.setCurrentCountry("CA");
+                    BaseModel model;
+                    model = argCreditCardApplicationData.getModel(MODEL_PERSONAL_DATA2_ADDRESS);
+                    if (model != null)
+                    {
+                    				// US3623
+                                    if("Y".equalsIgnoreCase(model.get("flipPrevWasInCanada")))
+                                    {
+                                    	populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
+                                    }
+                                    else
+                                    {
+                                        populatedAccountApplicationRequest.setPreviousCountry(CountryType.OT);
+                                    }
+                       
+                    }
+                    
+                    //populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+                    BaseModel model_supp;
+                    try
+                    {
+                                    model_supp = argCreditCardApplicationData.getModel(MODEL_SUP_CARD_REQUEST_DATA);
+                                    if (model_supp != null && model_supp.get("cardYesNo").equals("Y"))
+                                    {
+                                                    populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+                                    }
+                    }
+                    catch (Exception e)
+                    {
+                                    log.warning(sMethod + " Exception: " + e.getMessage());
+                                    e.printStackTrace();
+                    }
+                    populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA);
 
-		// From AccountApplication.xsd v1.14 this filed have been removed
-		// populatedAccountApplicationRequest.setRoadsideOnRequestFlag("N");
+                    // From AccountApplication.xsd v1.14 this filed have been removed
+                    // populatedAccountApplicationRequest.setRoadsideOnRequestFlag("N");
 
-		populateLoginModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populateChooseProductModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populatePersonalDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populatePersonalData2Model(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populateFinancialDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populateSuplementaryDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populateSignatureModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
-		populateOptionalProductsModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateLoginModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateChooseProductModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populatePersonalDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populatePersonalData2Model(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateFinancialDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateSuplementaryDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateSignatureModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateOptionalProductsModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
 
-		try
-		{
-			Gson gson = new Gson();
-			String result = gson.toJson(populatedAccountApplicationRequest);
-			log.info(sMethod + " accountApplicationRequest populated with data: " + result);
-		}
-		catch (Exception e)
-		{
-		}
+                    try
+                    {
+                                    Gson gson = new Gson();
+                                    String result = gson.toJson(populatedAccountApplicationRequest);
+                                    log.info(sMethod + " accountApplicationRequest populated with data: " + result);
+                    }
+                    catch (Exception e)
+                    {
+                    }
 
-		return populatedAccountApplicationRequest;
-	}
+                    return populatedAccountApplicationRequest;
+    }
 
-	private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
-	{
-		String sMethod = "[OptionalProductsModel()]";
-		log.info(sMethod);
+    private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
+    {
+                    String sMethod = "[OptionalProductsModel()]";
+                    log.info(sMethod);
 
-		BaseModel model;
-		try
-		{
-			model = argCreditCardData.getModel(MODEL_OPTIONAL_PRODUCTS_MODEL);
-			if (model == null)
-			{
-				return;
-			}
+                    BaseModel model;
+                    try
+                    {
+                                    model = argCreditCardData.getModel(MODEL_OPTIONAL_PRODUCTS_MODEL);
+                                    if (model == null)
+                                    {
+                                                    return;
+                                    }
 
-			argAccAppRequest.setInsuranceAgreedFlag(model.get("insuranceAgreedFlag"));
-			argAccAppRequest.setInsuranceCode(model.get("insuranceCode"));
+                                    argAccAppRequest.setInsuranceAgreedFlag(model.get("insuranceAgreedFlag"));
+                                    argAccAppRequest.setInsuranceCode(model.get("insuranceCode"));
 
-			if (argAccAppRequest.getInsuranceAgreedFlag().equals("Y"))
-			{
-				argAccAppRequest.setInsuranceSignatureFlag("Y");
+                                    if (("Y").equalsIgnoreCase(argAccAppRequest.getInsuranceAgreedFlag()))
+                                    {
+                                                    argAccAppRequest.setInsuranceSignatureFlag("Y");
 
-				// (AA): This decoding is necessary before setting the value
-				// because
-				// apparently, the XSD takes care of BASE64 Encoding
-				// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
-				byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature"));
-				argAccAppRequest.setInsuranceSignature(decodedBase64Image);
+                                                    // (AA): This decoding is necessary before setting the value
+                                                    // because
+                                                    // apparently, the XSD takes care of BASE64 Encoding
+                                                    // argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature"));
+                                                    argAccAppRequest.setInsuranceSignature(decodedBase64Image);
 
-				try
-				{
-					XMLGregorianCalendar xgc;
-					xgc = model.getGregorianDate("signDate");
-					argAccAppRequest.setInsuranceDateSigned(xgc);
-				}
-				catch (DatatypeConfigurationException e)
-				{
-					log.warning(sMethod + " MODEL_OPTIONAL_PRODUCTS_MODEL::signDate Exception: " + e.getMessage());
-					e.printStackTrace();
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
+                                                    try
+                                                    {
+                                                                    XMLGregorianCalendar xgc;
+                                                                    xgc = model.getGregorianDate("signDate");
+                                                                    argAccAppRequest.setInsuranceDateSigned(xgc);
+                                                    }
+                                                    catch (DatatypeConfigurationException e)
+                                                    {
+                                                                    log.warning(sMethod + " MODEL_OPTIONAL_PRODUCTS_MODEL::signDate Exception: " + e.getMessage());
+                                                                    e.printStackTrace();
+                                                    }
+                                    }
+                    }
+                    catch (Exception e)
+                    {
+                                    log.warning(sMethod + " Exception: " + e.getMessage());
+                                    e.printStackTrace();
+                    }
+    }
 
+    
 	private void populateSignatureModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
 		String sMethod = "[SignatureModel()]";

@@ -81,6 +81,14 @@ public class PendAccountApplicationRequest
 	{
 		this.customerValueInd = customerValueInd;
 	}
+	public String getMaskedPAN()
+	{
+		return maskedPAN;
+	}
+	public void setMaskedPAN(String maskedPAN)
+	{
+		this.maskedPAN = maskedPAN;
+	}
 	String 	externalReferenceId;
 	String 	applicationId;
 	String 	accountReference;
@@ -91,5 +99,6 @@ public class PendAccountApplicationRequest
 	String	cashAPR;
 	String 	appStatus;
 	String	customerValueInd;
+	String	maskedPAN; //US3692
 	
 }

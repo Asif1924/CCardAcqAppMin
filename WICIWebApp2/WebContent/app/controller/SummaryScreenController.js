@@ -563,7 +563,22 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         } else if (!respAn.isWithinRetrievalThreshold(argResponse)){
         	messageDialog.error(translator.translateKey("pendingScreen_RetrieveFailed"));
         } else {
-        	messageDialog.error(translator.translateKey("summary_SubmitApplicationError"));
+        	// messageDialog.error(translator.translateKey("summary_SubmitApplicationError"));
+        	
+        	// US3626        	        	    	
+        	new WICI.LoadingIndicatorController().hide();
+            hide();
+            var respdummy = JSON.parse('{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"DECLINED"}},"RetrievalToken":"7381029CD7DD","TransactionState":"COMPLETE"}}');     
+        	
+         	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(respdummy));
+        	activationItems.setNewAccountApplicationResponse(respdummy);
+             
+            var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(respdummy),accountApplicationResponse:respdummy };
+        	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
+        	app.navigationController.adhocPrintDemoScreen.init(flow);
+        	app.navigationController.adhocPrintDemoScreen.show();
+        	return;
+            
         }
     }
 

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.text.format.Time;
+import android.util.Log;
 
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
 
@@ -12,7 +13,8 @@ public class WICICardmemberModel {
     private String _firstName; 
     private String _middleInitial;
     private String _lastName; 
-    private String _accountNumber;    
+    private String _accountNumber;
+    private String _maskedPAN;
     private String _expiryDate;
     private String _creditLimit;
     private String _apr;
@@ -26,6 +28,7 @@ public class WICICardmemberModel {
 
 	private String _todayDate;
 	private String _storeNumber;
+	private String _employeeId;
 	
 	public WICICardmemberModel(){
         _cardType = "";
@@ -33,6 +36,7 @@ public class WICICardmemberModel {
         _middleInitial = "";
         _lastName = "";
         _accountNumber = "";
+        _maskedPAN = "";
         _expiryDate = "";
         _creditLimit = "";
         _apr = "";
@@ -46,6 +50,7 @@ public class WICICardmemberModel {
         
         _todayDate = "";
     	_storeNumber = "";
+    	_employeeId = "";
     }   
     
     public void initializeModel(JSONArray source) {
@@ -54,19 +59,23 @@ public class WICICardmemberModel {
             _firstName = source.getString(1);
             _middleInitial = source.getString(2);            
             _lastName = source.getString(3);            
-            _accountNumber = source.getString(4);            
-            _expiryDate = source.getString(5);            
-            _creditLimit = source.getString(6);
-            _apr = source.getString(7);
-            _cashAPR = source.getString(8);
-            _signture = source.getString(9);
-            _responseStatus = ServerResponseStatus.valueOf(source.getString(10));
-            _province = source.getString(11);
-            _correspondenceLanguage = source.getString(12);
-            _creditProtectorYesNo = source.getString(13);
-            _identityWatchYesNo = source.getString(14);
-            _storeNumber = source.getString(15);
-            _todayDate = source.getString(16);
+            _accountNumber = source.getString(4); 
+            _maskedPAN = source.getString(5);
+            Log.i("WICICardmemberModel", "_accountNumber : " + _accountNumber );
+            Log.i("WICICardmemberModel", "_maskedPAN : " + _maskedPAN );
+            _expiryDate = source.getString(6);            
+            _creditLimit = source.getString(7);
+            _apr = source.getString(8);
+            _cashAPR = source.getString(9);
+            _signture = source.getString(10);
+            _responseStatus = ServerResponseStatus.valueOf(source.getString(11));
+            _province = source.getString(12);
+            _correspondenceLanguage = source.getString(13);
+            _creditProtectorYesNo = source.getString(14);
+            _identityWatchYesNo = source.getString(15);
+            _storeNumber = source.getString(16);
+            _todayDate = source.getString(17);
+            _employeeId = source.getString(18);
                  
         } catch (JSONException e) {            
             e.printStackTrace();
@@ -136,6 +145,20 @@ public class WICICardmemberModel {
     public void setAccountNumber(String accountNumber) {
         this._accountNumber = accountNumber;
     }
+    // US3692
+    /**
+     * @return the _maskedPAN
+     */
+    public String getMaskedPAN() {
+        return _maskedPAN;
+    }
+    /**
+     * @param maskedPAN the _maskedPAN to set
+     */
+    public void setMaskedPAN(String maskedPAN) {
+        this._maskedPAN = maskedPAN;
+    }
+    
     /**
      * @return the _expiryDate
      */
@@ -303,4 +326,17 @@ public class WICICardmemberModel {
 	}  
 	
 
+	/**
+     * @return the _employeeId 
+     */
+    public String getEmployeeId() {
+    	  return _employeeId;
+   }
+
+	/**
+	 * @param _employeeId
+	 */
+	public void setEmployeeId(String _employeeId) {
+		this._employeeId = _employeeId;
+	} 
 }

@@ -78,6 +78,7 @@ WICI.ZebraPrinterController = function () {
                  activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
                  activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
                  applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+                 applicationResponse.maskedPAN ? applicationResponse.maskedPAN : "",
                  applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
                  applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
                  applicationResponse.apr ? applicationResponse.apr : "",
@@ -89,7 +90,8 @@ WICI.ZebraPrinterController = function () {
                  prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
                  prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
                  activationItems.getModel('loginScreen').get('locationFieldID'),
-                 ""]);
+                 "",
+                 activationItems.getModel('loginScreen').get('employerID')]);
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
         }
@@ -123,13 +125,15 @@ WICI.ZebraPrinterController = function () {
                    "",
                    "",
                    "",
+                   "",
                    "DECLINED",
                    activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                    activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                    prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
                    prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
                    activationItems.getModel('loginScreen').get('locationFieldID'),
-                   ""]);             
+                   "",
+                   activationItems.getModel('loginScreen').get('employerID')]);             
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }

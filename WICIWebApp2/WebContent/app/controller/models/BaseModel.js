@@ -130,6 +130,10 @@ WICI.BaseModel = function(config) {
             case 'jobTitle':
                 isError=!validator.jobTitle(value);
                 break;
+            // US3621
+            case 'jobTitle_SelectField':
+                isError=!validator.jobTitle_SelectField(value);
+                break;    
             case 'city':
                 isError=!validator.city(value);
                 break;

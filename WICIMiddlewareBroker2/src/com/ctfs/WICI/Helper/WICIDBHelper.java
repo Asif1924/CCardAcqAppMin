@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.DictionaryInfo;
+import com.ctfs.WICI.Model.LoginInfo;
 import com.ctfs.WICI.Model.PendingApplicationDatabaseUpdateException;
 import com.ctfs.WICI.Model.PendingApplicationRetrievalException;
 import com.ctfs.WICI.Model.ReceiptCustomerInfo;
@@ -32,6 +33,9 @@ public class WICIDBHelper
 	public static final String WICICONFIGTBL = "WICI_CONFIG";
 	public static final String WICIREQUESTQUEUETBL = "WICI_REQUESTQUEUE";
 	public static final String WICI_WHITELIST_TABLE = "WICI_WHITELIST";
+	
+	public static final String WICI_TAB_LST_TABLE = "WICI_TAB_LST";
+	
 
 	static final String CONFIG_NAME_APPROVED_APK_VERSION = "APPROVED_APK_VERSION";
 	static final String CONFIG_NAME_AUTHFIELD_CHECK_ENABLED = "AUTHFIELD_CHECK_ENABLED"; // AUTHFIELD_CHECK_ENABLED
@@ -443,6 +447,108 @@ public class WICIDBHelper
 		}
 	}
 
+	public void logonInfo(LoginInfo loginInfo) throws Exception
+	{
+		String sMethod = "[logonInfo] ";
+		log.info(sMethod + "::Called::");
+
+		
+		String mfgSerial = loginInfo.getMfgSerial().toUpperCase().trim(); 
+				
+		boolean updating = false;
+		String sql = "";
+		
+		 
+		if (deviceWithThisMfgSerialNumberExists(mfgSerial)){
+			sql = "UPDATE " + WICI_TAB_LST_TABLE + " SET EMPLOYERID=?,AGENTID=?,LOCATION=?,APKVERSION=?,BUILDSERIAL=? WHERE UPPER(MFG_SERIALNO)=?";
+			updating = true;
+		}
+		else{
+			sql = "INSERT INTO " + WICI_TAB_LST_TABLE + "(EMPLOYERID,AGENTID,LOCATION,APKVERSION,BUILDSERIAL,MFG_SERIALNO) VALUES( ?,?,?,?,?,? )" ;
+			updating = false;
+		}
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, loginInfo.getEmployerID());
+			preparedStatement.setString(2, loginInfo.getAgentID());
+			preparedStatement.setString(3, loginInfo.getUserLocation());
+			preparedStatement.setString(4, loginInfo.getApkVersion());
+			preparedStatement.setString(5, loginInfo.getBuildSerial());
+			preparedStatement.setString(6, mfgSerial);
+			
+			if ( updating )
+			{
+				preparedStatement.executeUpdate();
+			}
+			else
+			{
+				preparedStatement.executeQuery();
+			}
+
+			connection.commit();
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+	}
+	
+	private boolean deviceWithThisMfgSerialNumberExists( String argMfgSerialNumber ) throws SQLException
+	{
+		String sMethod = "[deviceWithThisSerialNumberExists] ";
+		log.info(sMethod + "::Called::");
+
+		validateMfgSerialNumber(argMfgSerialNumber);
+
+		boolean deviceExists = false;
+
+		String sql = "SELECT MFG_SERIALNO FROM " + WICI_TAB_LST_TABLE + " WHERE UPPER(MFG_SERIALNO) = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, argMfgSerialNumber.toUpperCase());
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+			{
+				log.info(sMethod + ":: " + argMfgSerialNumber + " exists");
+				deviceExists = true;
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			deviceExists = false;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return deviceExists;
+	}
+	
 	private boolean deviceWithThisSerialNumberExists( String argSerialNumber ) throws SQLException
 	{
 		String sMethod = "[deviceWithThisSerialNumberExists] ";
@@ -1056,6 +1162,15 @@ public class WICIDBHelper
 		if (argSerialNumber == null || argSerialNumber.isEmpty())
 		{
 			throw new IllegalArgumentException("Invalid 'argSerialNumber' argument!");
+		}
+	}
+	
+	
+	private void validateMfgSerialNumber(String argMfgSerialNumber)
+	{
+		if (argMfgSerialNumber == null || argMfgSerialNumber.isEmpty())
+		{
+			throw new IllegalArgumentException("Invalid 'argMfgSerialNumber' argument!");
 		}
 	}
 
