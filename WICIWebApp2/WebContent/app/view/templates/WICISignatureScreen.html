@@ -11,14 +11,23 @@
 		<ul>
 			<li>
 				<span data-translationKey="signatureScreen_License1" />
-				<span id="singnatureCardName" />
+				<!-- <span id="singnatureCardName" /> //-->
+				{{if CardType === 'OMR' }}
+					<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+				{{else CardType === 'OMP' }}
+					<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+				{{else}}
+					<span data-translationKey="signature_OptionsMasterCard" ></span>
+				{{/if}}
 				<span data-translationKey="signatureScreen_License1_1" />
 				<span data-translationKey="signatureScreen_License1_2" />
 			</li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License2"/></li>
 			<br>
-				{{if CardType === 'OMP' }}
+				{{if CardType === 'OMR' }}
+					<li><span data-translationKey="signatureScreen_License3_OMR"/></li>
+				{{else CardType === 'OMP' }}
 					<li><span data-translationKey="signatureScreen_License3_OMP"/></li>
 				{{else}}
 					<li><span data-translationKey="signatureScreen_License3"/></li>
@@ -62,7 +71,8 @@
         <tr>
             <td>
 							{{if CardType === 'OMR' }}
-								 <img src="app/images/omr.jpg" style="margin-top:10px;"/>
+							<!-- US3766 //-->
+								<img id="SignatureImage" src="app/images/omr_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{else CardType === 'OMP' }}
 								<img id="SignatureImage" src="app/images/omp_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{else}}
@@ -109,7 +119,9 @@
 							</div>
 					</div>
 					<div class="leftContainer opCheckBoxLabel align-vertical-middle-item">
-						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />{{if CardType === 'OMR' }}
+					<!-- US3766 //-->
+						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />
+							{{if CardType === 'OMR' }}
 								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
 							{{else CardType === 'OMP' }}
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>

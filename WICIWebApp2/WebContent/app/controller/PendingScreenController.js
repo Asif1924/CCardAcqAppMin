@@ -177,7 +177,8 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         		"pendingScreenState": pendingScreenState,
                 "cardName": cardNameGlobal,  
                 "token": retrievalTokenRefNum,
-                "attempt": model.get('submitFailed_Counter')
+                "attempt": model.get('submitFailed_Counter'),
+                activationItems: activationItems
             }
         ).appendTo($element);
     }

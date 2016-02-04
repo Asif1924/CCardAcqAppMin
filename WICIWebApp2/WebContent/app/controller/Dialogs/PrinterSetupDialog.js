@@ -5,7 +5,8 @@ WICI.PrinterSetupDialog = function(lastMacAddress, title, yesCallback, noCallbac
         answerIsYes = false,
         showing = false,
         printerMacAddress = lastMacAddress;
-
+ 
+    console.log("printerMacAddress :: " + printerMacAddress);
     this.isShowing = isShowing;
     this.show = show;
 
@@ -18,11 +19,42 @@ WICI.PrinterSetupDialog = function(lastMacAddress, title, yesCallback, noCallbac
         // if we need the autoClose
         dialogViewHelper.startAutoCloseTimer(this);
     }
+    
+    // US3827
+    function focusPrinterMacAddress4() {
+    	console.log("Focus Fourth text field by default");
+    	setTimeout(function() { $('#printerMacAddress4').focus(); }, 1000);
+    }
 
     function init() {
-        setUIElementsMasks();
+        // setUIElementsMasks();
         setPrinterMacAddress(printerMacAddress);
+        // US3827        
+        bindEvents();
+        focusPrinterMacAddress4();
     }
+    
+    // US3827
+    function bindEvents() {
+		$( "#printerMacAddress1" ).keyup( function() { onMacAddressChanged(1); } );		
+		$( "#printerMacAddress2" ).keyup( function() { onMacAddressChanged(2); } );		
+		$( "#printerMacAddress3" ).keyup( function() { onMacAddressChanged(3); } );		
+		$( "#printerMacAddress4" ).keyup( function() { onMacAddressChanged(4); } );		
+		$( "#printerMacAddress5" ).keyup( function() { onMacAddressChanged(5); } );		
+		// $( "#printerMacAddress6" ).keyup( function() { onMacAddressChanged(6); } );
+		
+		$("#printerMacAddress6").live('paste, input', function(e) {
+            var self = $(this);
+
+            setTimeout(function(){
+                if(self.val().indexOf(' ') != -1 || self.val().length > 2) {
+                    self.val(self.val().replace(' ', '').substring(0, 2));
+                    showHideApplyButton();
+                }
+            },100);
+        });
+		
+	}
 
     function setUIElementsMasks() {
         // Set phone fields mask
@@ -93,16 +125,32 @@ WICI.PrinterSetupDialog = function(lastMacAddress, title, yesCallback, noCallbac
         $("#confirm_confirmButton").hide();
     }
 
-    function onMacAddressChanged () {
+    function onMacAddressChanged (value) {
         // if we need the autoClose
         dialogViewHelper.resetAutoCloseTimer();
-
-        if (validateMacAddress ()) {
-            showApplyBtn ();
-        } else {
-            hideApplyBtn ();
-        }
-    }
+        
+        // US3827 - Start
+        if (($("#printerMacAddress1").val() && $("#printerMacAddress1").val().length == 2 && value == 1)) {			
+			setTimeout(function() { $('#printerMacAddress2').focus(); }, 100);
+		} 
+        else if (($("#printerMacAddress2").val() && $("#printerMacAddress2").val().length == 2 && value == 2)) {
+			setTimeout(function() { $('#printerMacAddress3').focus(); }, 100);
+		} 
+        else if (($("#printerMacAddress3").val() && $("#printerMacAddress3").val().length == 2 && value == 3)) {
+			setTimeout(function() { $('#printerMacAddress4').focus(); }, 100);
+		} 
+        else if (($("#printerMacAddress4").val() && $("#printerMacAddress4").val().length == 2 && value == 4)) {
+			setTimeout(function() { $('#printerMacAddress5').focus(); }, 100);
+		} 
+        else if (($("#printerMacAddress5").val() && $("#printerMacAddress5").val().length == 2 && value == 5)) {
+			setTimeout(function() { $('#printerMacAddress6').focus(); }, 100);
+		} 
+        else if (($("#printerMacAddress6").val() && $("#printerMacAddress6").val().length == 2 && value == 6)) {
+        	setTimeout(function() { $('#confirm_confirmButton').focus(); }, 100);
+		}        
+		showHideApplyButton();
+		// End
+    }       
 
     function getPrinterMacAddress (){
         var returnValue = $("#printerMacAddress1").val() + ":" + $("#printerMacAddress2").val() + ":" + $("#printerMacAddress3").val() +
@@ -112,25 +160,33 @@ WICI.PrinterSetupDialog = function(lastMacAddress, title, yesCallback, noCallbac
     }
 
     function setPrinterMacAddress (newMacAddress){
+    	var sMethod="setPrinterMacAddress :: ";
         if(newMacAddress === null || newMacAddress === '')
         {
             hideApplyBtn ();
+            $("#printerMacAddress1").val('ac');
+            $("#printerMacAddress2").val('3f');
+            $("#printerMacAddress3").val('a4');
             return;
         }
 
         var addressParts = newMacAddress.split(":");
-
-        if(addressParts.length == 6)
-        {
-            $.each(addressParts, function(index, item) {
-                $("#printerMacAddress" + (index + 1)).val(item);
-            });
+        console.log(sMethod + " addressParts length: " + addressParts.length);
+        if(addressParts.length == 6) {
+	        $.each(addressParts, function(index, item) {
+	            $("#printerMacAddress" + (index + 1)).val(item);
+	        });
         }
-
-        if (validateMacAddress ()) {
-            showApplyBtn ();
-        } else {
-            hideApplyBtn ();
-        }
+        // US3827
+        showHideApplyButton();
+    }
+    
+    // US3827
+    function showHideApplyButton () {
+    	if (validateMacAddress ()) {
+    		showApplyBtn ();
+    	} else {
+    		hideApplyBtn ();
+    	}
     }
 };

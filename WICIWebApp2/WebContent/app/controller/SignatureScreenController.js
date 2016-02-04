@@ -61,8 +61,10 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 				createView();
 				toggleCardImage();
 				bindEvents();
-        restoreCreditCardData();
-
+        restoreCreditCardData();        
+        // US3766
+        parseCardNameAndType();
+        
         displayProductTitle();
         toggleWarningDIV();
 	}

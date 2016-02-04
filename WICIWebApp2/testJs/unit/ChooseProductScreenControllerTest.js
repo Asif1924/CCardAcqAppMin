@@ -16,6 +16,7 @@ describe("ChooseProductScreenController", function() {
     		chooseProductModel.set('productCard', 'OMC');
     		chooseProductModel.set('agencyProgram', 'other');
     		chooseProductModel.set('agencyPromoCode', '12345');
+    		chooseProductModel.set('agencyPromoCodeDropDown', 'INTERCEPT');    		
     		chooseProductModel.set('province', 'ON');
 
     		expect(_.isEmpty(chooseProductModel.validate())).toEqual(true);
@@ -25,6 +26,7 @@ describe("ChooseProductScreenController", function() {
     		chooseProductModel.set('productCard', '');
     		chooseProductModel.set('agencyProgram', 'other');
     		chooseProductModel.set('agencyPromoCode', '12345');
+    		chooseProductModel.set('agencyPromoCodeDropDown', 'INTERCEPT');
     		chooseProductModel.set('province', 'ON');
 
     		expect(_.isEmpty(chooseProductModel.validate())).toEqual(false);
@@ -34,6 +36,7 @@ describe("ChooseProductScreenController", function() {
     		chooseProductModel.set('productCard', 'OMC');
     		chooseProductModel.set('agencyProgram', '');
     		chooseProductModel.set('agencyPromoCode', '12345');
+    		chooseProductModel.set('agencyPromoCodeDropDown', 'INTERCEPT');
     		chooseProductModel.set('province', 'ON');
 
     		expect(_.isEmpty(chooseProductModel.validate())).toEqual(false);
@@ -43,6 +46,7 @@ describe("ChooseProductScreenController", function() {
     		chooseProductModel.set('productCard', 'OMC');
     		chooseProductModel.set('agencyProgram', 'other');
     		chooseProductModel.set('agencyPromoCode', '');
+    		chooseProductModel.set('agencyPromoCodeDropDown', 'INTERCEPT');
     		chooseProductModel.set('province', 'ON');
 
     		expect(_.isEmpty(chooseProductModel.validate())).toEqual(false);
@@ -52,6 +56,7 @@ describe("ChooseProductScreenController", function() {
     		chooseProductModel.set('productCard', 'OMC');
     		chooseProductModel.set('agencyProgram', 'other');
     		chooseProductModel.set('agencyPromoCode', 'S.O.');
+    		chooseProductModel.set('agencyPromoCodeDropDown', 'INTERCEPT');
     		chooseProductModel.set('province', '');
 
     		expect(_.isEmpty(chooseProductModel.validate())).toEqual(false);

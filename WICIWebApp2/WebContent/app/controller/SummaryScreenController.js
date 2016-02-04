@@ -515,9 +515,13 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		    if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) || (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse)) ){
 		    	//activationItems.setAccountApplicationResponse(argResponse);
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
-		    	activationItems.setNewAccountApplicationResponse(argResponse);
-	            flow.next();
-	            return;
+		    	activationItems.setNewAccountApplicationResponse(argResponse);		    	
+	            flow.next();		    	
+		    	/*var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+		    	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
+		    	app.navigationController.adhocPrintDemoScreen.init(flow);
+		    	app.navigationController.adhocPrintDemoScreen.show();*/
+		    	return;
 		    }
 		    
 		    //if( argResponse.data.appStatus==="PENDING" ){

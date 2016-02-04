@@ -6,7 +6,17 @@
 		<div class="pageHeaderPadding">
 			
         	<span class="pageTitle" data-translationKey="pendingScreen_ThankYou"></span>
-        	<span class="summaryPageSubTitle" data-translationKey="${cardName}"></span>
+        	
+        	<!-- <span class="summaryPageSubTitle" data-translationKey="${cardName}"></span> //-->
+        	
+        	{{if activationItems.getModel('chooseProductModel').get('productCard') === 'OMR' }}
+				<span class="summaryPageSubTitle" data-translationKey="signature_CashAdvantageMasterCard" ></span>
+			{{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMP' }}
+				<span class="summaryPageSubTitle" data-translationKey="signature_GasAdvantageMasterCard" ></span>
+			{{else}}
+				<span class="summaryPageSubTitle" data-translationKey="signature_OptionsMasterCard" ></span>
+			{{/if}}
+        	
          	<br>
 			<br>
 			<table class="fieldCellSize60" id="pendingScreen_tokenInfo">

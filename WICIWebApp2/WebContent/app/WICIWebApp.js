@@ -152,7 +152,8 @@ WICI.WICIWebApp = function() {
             // to be able to login at debugging mode
             app.apkVersionHelper.getAPKVersion = function() {return "1.1.976.0.976";}
             app.deviceInfoHelper.getDeviceInfo = function() {return {MfgSerial : "SCOOBY" , BuildSerial : "123213123213"};}
-            WICI.AppConfig.defaultPrinterMacAddress = "ac:3f:a4:19:46:fd";
+            // US3827
+            WICI.AppConfig.defaultPrinterMacAddress = "ac:3f:a4:::";
         }
 
         this.zebraPrinterWrapper = new WICI.ZebraPrinterController();

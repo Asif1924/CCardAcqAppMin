@@ -938,124 +938,16 @@ tr {
 }
 
 #omcCardBottom {
-  background-image: #{inline_image("myctm-logo_en.jpg")};
+  background-image: #{inline_image("myctm-logo_en.png")};
   height: 40px;
   width: 270px;
-  background-size: 270px;
+  background-size: 245px;
   background-repeat: no-repeat;
-  margin: 10px auto 0 auto;
+  margin: 0 auto 0 auto;
 }
 
 #omcCardBottom.fr {
-  background-image: #{inline_image("myctm-logo_fr.jpg")} !important;
-}
-
-@media handhelds and (device-width: 1280px) {
-
-  #ctmLogo {
-    background-repeat: no-repeat;
-    background-position: 0px 190px;
-  }
-
-  #omcCard {
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-
-  #ompCard {
-    background-image: #{inline_image("omp_en.png")};
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-
-  #ompCard.en_card {
-    background-image: #{inline_image("omp_en.png")};
-  }
-
-  #ompCard.fr_card {
-    background-image: #{inline_image("omp_fr.png")};
-  }
-
-  #omrCard {
-    background-image: #{inline_image("omr.png")};
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-}
-
-@media handhelds and (device-width: 800px) {
-
-  #ctmLogo {
-    background-repeat: no-repeat;
-    background-position: 0px 190px;
-  }
-
-  #omcCard {
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-
-  #ompCard {
-    background-image: #{inline_image("omp_en.png")};
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-
-  #ompCard.en_card {
-    background-image: #{inline_image("omp_en.png")};
-  }
-
-  #ompCard.fr_card {
-    background-image: #{inline_image("omp_fr.png")};
-  }
-
-  #omrCard {
-    background-image: #{inline_image("omr.png")};
-    background-repeat: no-repeat;
-    background-position: 35px 30px;
-  }
-
-  #creditCardProductList ul {
-    height:235px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-}
-
-@media not handhelds {
-
-  #ctmLogo {
-    background-repeat: no-repeat;
-    background-position: 0px 190px;
-  }
-
-  #omcCard {
-    background-repeat: no-repeat;
-    background-position: 15px 35px;
-  }
-
-  #ompCard {
-    background-image: #{inline_image("omp_en.png")};
-    background-repeat: no-repeat;
-    background-position: 28px 35px;
-    background-size: 176px;
-  }
-
-  #ompCard.en_card {
-    background-image: #{inline_image("omp_en.png")};
-  }
-
-  #ompCard.fr_card {
-    background-image: #{inline_image("omp_fr.png")};
-  }
-
-  #omrCard {
-    background-image: #{inline_image("omr.png")};
-    background-repeat: no-repeat;
-    background-position: 28px 35px;
-    background-size: 176px;
-  }
+  background-image: #{inline_image("myctm-logo_fr.png")} !important;
 }
 
 #creditCardProductList ul {
@@ -1093,7 +985,7 @@ tr {
 #creditCardProductList li {
   list-style-type: none;
   float: left;
-  width: 50%; /* 100% / productsNumber */
+  width: 33.33%; /* 100% / productsNumber */
   height: 220px;
   margin-bottom: 25px;
 }
@@ -1120,6 +1012,136 @@ tr {
   padding-top: 150px;
   display: block;
 }
+
+
+
+/* US3766 - Start */
+
+@media not handhelds {
+
+  #ctmLogo {
+    background-repeat: no-repeat;
+    background-position: 0px 190px;
+  }
+
+  #omcCard {
+    background-repeat: no-repeat;
+    background-position: 15px 35px;
+  }
+
+  #ompCard {
+    background-image: #{inline_image("omp_en.png")};
+    background-repeat: no-repeat;
+    background-position: 28px 35px;
+    background-size: 176px;
+  }
+
+  #ompCard.en_card {
+    background-image: #{inline_image("omp_en.png")};
+  }
+
+  #ompCard.fr_card {
+    background-image: #{inline_image("omp_fr.png")};
+  }
+
+  #omrCard {
+    background-image: #{inline_image("omr_en.png")};
+    background-repeat: no-repeat;
+    background-position: 28px 35px;
+    background-size: 176px;
+  }
+
+  #omrCard.en_card {
+    background-image: #{inline_image("omr_en.png")};
+  }
+
+  #omrCard.fr_card {
+    background-image: #{inline_image("omr_fr.png")};
+  }
+  
+  #creditCardProductList .OMRPortrait {
+  	width: 33.33%;
+  }
+  
+  #creditCardProductList {
+    height: 235px;
+    width: 100%;
+    min-width: 500px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/*  US3766 - Start */
+@media screen and (orientation: portrait) and (min-width: 400px) and (max-width: 700px), 
+(orientation: landscape) and (min-width: 700px) and (max-width: 1100px) {
+    
+  #ctmLogo {
+    background-repeat: no-repeat;
+    background-position: 0px 190px;
+  }
+
+  #omcCard {
+    background-repeat: no-repeat;
+    background-position: 15px 35px;
+  }
+
+  #ompCard {
+    background-image: #{inline_image("omp_en.png")};
+    background-repeat: no-repeat;
+    background-position: 28px 35px;
+    background-size: 176px;
+  }
+
+  #ompCard.en_card {
+    background-image: #{inline_image("omp_en.png")};
+  }
+
+  #ompCard.fr_card {
+    background-image: #{inline_image("omp_fr.png")};
+  }
+  
+  #omrCard {
+    background-image: #{inline_image("omr_en.png")};
+    background-repeat: no-repeat;
+    background-position: 28px 35px;
+    background-size: 176px;
+  }
+
+  #omrCard.en_card {
+    background-image: #{inline_image("omr_en.png")};
+  }
+
+  #omrCard.fr_card {
+    background-image: #{inline_image("omr_fr.png")};
+  }
+  
+  #creditCardProductList .OMRPortrait {
+  	width: 100%;
+  }
+  
+  #creditCardProductList {
+    height: 450px;
+    width: 100%;
+    min-width: 500px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #creditCardProductList li {
+    list-style-type: none;
+    float: left;
+    width: 50%; /* 100% / productsNumber */
+    height: 220px;
+    margin-bottom: 25px;
+  }
+    
+}
+
+/* US3766 - End */
+
 
 /* END - Product Images Clickable */
 

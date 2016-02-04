@@ -74,13 +74,16 @@ WICI.dictionary_fr =  {
 
 	loginScreen_EmployerIDLookup_FailedMessage        :                         "Code d'employeur invalide. Veuillez corriger et essayer de nouveau",
 
-	chooseProduct_ChooseOneOfTheCreditCards           :                         "CHOISISSEZ UNE CARTE DE CRÉDIT",
+	// US3766
+	chooseProduct_ChooseOneOfTheCreditCards           :                         "CHOISISSEZ L'UNE DES CARTES DE CRÉDITS SUIVANTES",
     chooseProduct_CanadianTireOptionsMC 			  :                     	"MasterCard<sup style='font-size: .5em;'>MD</sup> Options<sup style='font-size: .5em;'>MD</sup> de Canadian Tire",
 	chooseProduct_OptionsMasterCard                   :                         "MasterCard<sup>MD</sup> Options<sup>MD</sup> de Canadian Tire",
-	chooseProduct_GasAdvantageMasterCard              :                         "Carte MasterCard Avantage Essence",
-	chooseProduct_CashAdvantageMasterCard             :                         "Carte MasterCard Avantage Remise",
+	chooseProduct_GasAdvantageMasterCard              :                         "Carte MasterCard<sup>MD</sup> Avantage Essence<sup>MD</sup>",
+	chooseProduct_CashAdvantageMasterCard             :                         "Carte MasterCard<sup>MD</sup> Avantage Remise<sup>MD</sup>",
 	chooseProduct_NoSpecificCard					  :							"carte",
 
+	// US3767
+	chooseProduct_PromoCode_Other					  :							"Code promotionnel (Autre)",
 
 	chooseProduct_PromoCode                           :                         "Code promotionnel",
 	chooseProduct_Program							  :							"Programme ",
@@ -774,6 +777,8 @@ WICI.dictionary_fr =  {
 
 	//ProgramsList
 	ProgramsList_null									:"Veuillez sélectionner...",
+		
+	/* Old
 	Program_BLANK										:"Magasin CT (Ontario et Ouest) – S.O.",
 	Program_4012										:"Magasin CT (Québec et Atlantique) - 4021",
 	Program_5200										:"Division Pétrolière CT - Est - Événement Essence - 5200",
@@ -783,6 +788,24 @@ WICI.dictionary_fr =  {
 	Program_Other										:"Autres",
 	BLANK												:"S.O.",
 	ATTN 												:"ATTN1",
+	*/
+	
+	// US3767
+	Program_Intercept									:	'Intercept',
+	Program_In_Store_Events								:	'Événements en magasin',
+	Program_CTP_Events									:	'Événements DPCT',
+	Program_CTP_Local									:	'Régional DCTP',
+	
+	PromoCodeList_null									: 	'Veuillez sélectionner...',
+	PromoCode_Intecept									:	'Intercept',
+	PromoCode_Grand_Opening								:	'Ouverture officielle',
+	PromoCode_Other										:	'Autre',
+	PromoCode_OMC_Days									:	'Journées carte MCO',
+	PromoCode_Eastern_Events							:	'Programme d’événement de l’Est',
+	PromoCode_Western_Events							:	'Programme d’événement de l’Ouest',
+	PromoCode_Eastern_Local								:	'Programme régional de l’Est',
+	PromoCode_Western_Local								:	'Programme régional de l’Ouest',
+	
 	// US3499 Marks Store
 	Program_MW999										:"Magasin Marks",
 	// For QC specific french change
@@ -794,16 +817,16 @@ WICI.dictionary_fr =  {
 
 
 	signatureScreen_Header                            :                         "En signant ci-dessous, je conviens de ce qui suit :",
-	signatureScreen_License1                          :                         "Veuillez ouvrir un compte à mon nom pour la",
+	signatureScreen_License1                          :                         "Veuillez ouvrir un compte en mon nom pour la carte",
 	signatureScreen_License1_1                        :                         " (la « carte ») ",
 	// UAT 25 - Jul 22, CP Revitalization
     // Old code
     // signatureScreen_License1_2                        :                         " à un taux d'intérêt annuel de 19,99 % pour tous les types de débits (à l'exception des avances de fonds et des frais afférents) et de 21,99 % pour les avances de fonds et les frais afférents.",
 	// signatureScreen_License2                          :                         "S'il ne vous est pas possible d'approuver ma demande de carte prévoyant un taux d'intérêt annuel de 21,99 % pour les avances de fonds et les frais afférents et un taux d'intérêt annuel de 19,99 % pour tous les autres types de débit, j'accepte que vous traitiez la présente demande comme s'il s'agissait d'une demande de carte à un taux d'intérêt annuel de 25,99 % pour tous les types de débit sans que vous n'ayez à m'en aviser spécifiquement.",
-	signatureScreen_License1_2                        :                         " à un taux d'intérêt annuel de 19,99 % pour tous les types de débits (à l’exception des transactions au comptant et des frais afférents) et de 22,99 % pour à des transactions au comptant et des frais afférents.",
+	signatureScreen_License1_2                        :                         " avec un taux d’intérêt annuel de 19,99 % pour tous les débits portés à mon compte, à l’exception des transactions au comptant et des frais afférents et un taux intérêt annuel de 22,99 % pour les transactions au comptant et les frais afférents.",
 	signatureScreen_License2                          :                         "S'il ne vous est pas possible d'approuver ma demande de carte prévoyant un taux d'intérêt annuel de 22,99 % pour à des transactions au comptant et des frais afférents et un taux d'intérêt annuel de 19,99 % pour tous les autres types de débit, j'accepte que vous traitiez la présente demande comme s'il s'agissait d'une demande de carte à un taux d'intérêt annuel de 25,99 % pour tous les types de débit sans que vous n'ayez à m'en aviser spécifiquement.",
 	signatureScreen_License3                          :                         "La carte est émise par la Banque Canadian Tire (la « BCT »).",
-	signatureScreen_License4                          :                         "La BCT peuvent procéder à la collecte, à l'utilisation et à la communication de renseignements personnels me concernant aux fins décrites dans « la politique en matière de protection des renseignements personnels de Canadian Tire », notamment à des fins de commercialisation et téléphone, dispositif de composition et d'annonce automatique ou toute autre forme de télécommunication.",
+	signatureScreen_License4                          :                         "La Banque Canadian Tire peuvent procéder à la collecte, à l'utilisation et à la communication de renseignements personnels me concernant aux fins décrites dans « la politique en matière de protection des renseignements personnels de Canadian Tire », notamment à des fins de commercialisation et téléphone, dispositif de composition et d'annonce automatique ou toute autre forme de télécommunication.",
 	signatureScreen_License5                          :                         "Je serai lié par les modalités du contrat du titulaire de carte de la Banque Canadian Tire que je recevrai avec la carte, lequel peut être modifié de temps à autre. Je serai la seule personne responsable de tous les débits imputés à ce compte, y compris ceux portés au compte par toute personne pour laquelle je vous ai demandé d'émettre une carte additionnelle. Je serai la seule personne qui recevra un relevé de compte mensuel.",
 	signatureScreen_License6                          :                         "Vous pouvez obtenir des renseignements sur mes antécédents de crédit et d'autres renseignements personnels me concernant auprès d'agences d'évaluation du crédit et communiquer de tels renseignements à ces agences.",
 	signatureScreen_License7                          :                         "Chaque personne pour laquelle je vous ai demandé d'émettre une carte additionnelle m'a autorisé à vous fournir les renseignements ci-dessus la concernant.",
@@ -995,13 +1018,13 @@ WICI.dictionary_fr =  {
     //OMC_LEGAL
     legal_omc_first_chapter								: "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at canadiantire.ca or cffs.comictm for more details.Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect e-Canadian Tire 'Money' at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money' program collect e-Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus, or promotional offers or redemption transactions.",
     legal_omc_second_chapter 							: "<sup>2</sup> Minimum fuel purchase required. Rate may vary by location. See local gas bars for details.",
+    /*
     legal_omc_third_chapter 							: "&dagger;  Frais d'avances de fonds : 4,00 $. Les frais d'intérêt sont imputés à compter de la date d'obtention de l'avance jusqu'à la date du remboursement de celle-ci et de tous les intérêts courus.",
-    legal_omc_fives_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Canadian Tire, le triangle de Canadian Tire, la Banque Canadian Tire, Options de Canadian Tire, Avantage Essence, PartSource et les Services résidentiels Canadian Tire sont des marques de commerce déposées, et l'« @rgent » Canadian Tire et Mon « Argent » Canadian Tire sont des marques de commerce de La Société Canadian Tire Limitée et sont utilisées sous licence." +
-                                                          "<br><span class=\"MDMC\"><sup></sup></span> Sport Chek est une marque de commerce déposée de FGL Sports ltée, utilisée sous licence." +
-                                                          "<br><span class=\"MDMC\"><sup></sup></span> Mark's/L'Équipeur est une marque de commerce déposée de Mark's Work Warehouse Ltd., utilisée sous licence.",
-    // Old line
-    // legal_omc_sixth_chapter 							: "<span class=\"MDMC\"><sup></sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées et <i>PayPass</i> est une marque de commerce de MasterCard International Incorporated.",
-    legal_omc_sixth_chapter 							: "<sup>MD/MC</sup> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
+    */
+    legal_omc_fives_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont déposées par La Société Canadian Tire Limitée et sont utilisées sous licence." +
+                                                          "<br><span class=\"MDMC\"><sup></sup></span> Sport Chek est une marque de commerce déposée de FGL Sports ltée." +
+                                                          "<br><span class=\"MDMC\"><sup></sup></span> Mark's/L'Équipeur est une marque de commerce déposée de Mark's Work Warehouse Ltd.",    
+    legal_omc_sixth_chapter 							: "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard, MasterCard SecureCode et Cirrus sont des marques de commerce déposées de MasterCard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Selon le montant net des nouveaux achats (achats moins crédits) portés à votre compte MasterCard Avantage Essence au cours de toute période de facturation mensuelle, vous serez admissible à un rabais sur chaque litre d'essence ou de carburant diesel acheté pour un véhicule automobile dans un poste d'essence Canadian Tire au cours de la période de facturation mensuelle suivante et payé avec votre carte MasterCard Avantage Essence.",
 	legal_omp_second_chapter							: "Le rabais que vous obtenez au cours d'une période de facturation donnée sera ramené à 2 ¢ le litre dès que le total des achats d'essence, de carburant diesel et d'articles divers effectués dans les postes d'essence Canadian Tire et réglés avec votre carte MasterCard Avantage Essence dépassera la somme de 700&nbsp;$ au cours de cette période de facturation. Pour connaître les modalités, consultez le feuillet promotionnel sur la carte MasterCard Avantage Essence ou rendez-vous à l'adresse ctfs.com/avantageessence.",
@@ -1009,27 +1032,32 @@ WICI.dictionary_fr =  {
 	legal_omp_fourth_chapter							: " Frais d'avances de fonds : 4,00 $. Les frais d'intérêt sont imputés à compter de la date d'obtention de l'avance jusqu'à la date du remboursement de celle-ci et de tous les intérêts courus.",
 	legal_omp_fives_chapter 							: "   Couverture-crédit est souscrite auprès de American Bankers, Compagnie d'Assurance Vie de la Floride, et American Bankers, Compagnie d'Assurances Générales de la Floride, filiales de Assurant Solutions.",
 	legal_omp_six_chapter 								: "   Pour obtenir le rabais, vous devez régler un achat admissible avec votre carte MasterCard Avantage Essence, n'importe où, dans les 45 jours qui suivent la réception de votre carte. Votre prime d'activation commencera à s'appliquer à la date à laquelle votre premier achat sera inscrit à votre compte et continuera ensuite de s'appliquer pendant 30 jours consécutifs. À compter de la fin de la période de 30 jours, le rabais admissible auquel vous aurez droit deviendra celui indiqué sur votre relevé de compte mensuel. Valide pour un achat d'essence par jour pendant la durée de la période promotionnelle. Le rabais sera ramené à 2 ¢ le litre dès que le total des achats d'essence, de carburant diesel et d'articles effectués dans les postes d'essence Canadian Tire dépassera la somme de 700&nbsp;$ au cours de la période de 30 jours.",
-	legal_omp_seven_chapter 							: "<sup>MD/MC</sup> Sauf indication contraire, toutes les marques de commerce sont la propriété de la Société Canadian Tire Limitée et sont utilisées sous licence.",
+	legal_omp_seven_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de la Société Canadian Tire Limitée et sont utilisées sous licence.",
 	// Old code
-	// legal_omp_eight_chapter 							: "<sup>MD/MC</sup> Couverture-crédit est une marque de commerce déposée des Services Financiers Canadian Tire Limitée.",
-	legal_omp_eight_chapter 							: "<sup>MD/MC</sup> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire.",
+	// legal_omp_eight_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Services Financiers Canadian Tire Limitée.",
+	legal_omp_eight_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire.",
 	// Old line
-	// legal_omp_nine_chapter 								: "<sup>MD/MC</sup> MasterCard, la marque figurative de MasterCard, Cirrus et SecureCode sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated.",
-	legal_omp_nine_chapter 								: "<sup>MD/MC</sup> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
-	//OMR_LEGAL
-	legal_omr_first_chapter 							: " Les primes annuelles seront utilisées pour réduire le solde servant au calcul du paiement minimum, mais elles ne réduiront pas le solde utilisé pour le calcul des frais d'intérêts ni des primes d'assurance basées sur le solde. D'autres conditions s'appliquent. Pour connaître les modalités, rendez-vous à l'adresse ctfs.com/avantageremise.",
-	legal_omr_second_chapter 							: " Frais d'avances de fonds : 4,00 $. Les frais d'intérêt sur les avances de fonds sont imputés à compter de la date à laquelle la transaction est inscrite à votre compte.",
-	legal_omr_third_chapter 							: " Sauf indication contraire, toutes les marques de commerce sont la propriété de la Société Canadian Tire Limitée et sont utilisées sous licence.",
-	legal_omr_fourth_chapter 							: " Couverture-crédit est une marque de commerce déposée des Services Financiers Canadian Tire Limitée.",
-	// Old line
-	// legal_omr_fives_chapter 							: " MasterCard, la marque figurative de MasterCard, Cirrus et SecureCode sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated.",
-	legal_omr_fives_chapter 							: "<sup>MD/MC</sup> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
-	/// OMC
+	// legal_omp_nine_chapter 								: "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard, Cirrus et SecureCode sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated.",
+	legal_omp_nine_chapter 								: "<span class=\"MDMC\"><sup></sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
+	
+	// US3766
+	// OMR_LEGAL
+	legal_omr_first_chapter 							: "<sup>*</sup> Les primes annuelles seront utilisées pour réduire le solde servant au calcul du paiement minimum, mais elles ne réduiront pas le solde utilisé pour le calcul des frais d’intérêts ni des primes d’assurance basées sur le solde. D’autres conditions s’appliquent.",
+	legal_omr_second_chapter 							: "<sup>&dagger;</sup> Certaines conditions s’appliquent. Pour obtenir de plus amples renseignements, consultez les modalités du programme de primes.",
+	legal_omr_third_chapter 							: "<sup>&dagger;</sup><sup>&dagger;</sup> Pour obtenir la prime spéciale de remise en argent, vous devez régler un achat dans un magasin Canadian Tire à la date indiquée en utilisant votre numéro de compte MasterCard Avantage Remise. Vous pouvez aussi effectuer un achat dans un magasin Canadian Tire dans les 45 jours qui suivent la réception de votre carte. Après qu’un achat admissible aura été inscrit à votre compte, la prime spéciale en argent sera ajoutée à votre compte de primes au plus tard à la date de votre troisième relevé de compte suivant l’inscription de la transaction, à la condition que votre compte soit en règle.",
+	legal_omr_four_chapter	 							: "<span class=\"MDMC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence. ",	
+	legal_omr_five_chapter 								: "Couverture-crédit est souscrite par American Bankers Compagnie d’Assurance Vie de la Floride et d’American Bankers Compagnie d’Assurance Générale de la Floride. American Bankers Compagnie d’Assurance Vie, American Bankers Compagnie d’Assurance générale, leurs filiales et sociétés affiliées, exercent des activités au Canada sous le nom de Assurant SolutionsMD. ",
+	legal_omr_six_chapter 								: "<span class=\"MD\"><sup></sup></span> Assurant Solutions est une marque de commerce déposée de Assurant, Inc.",
+	legal_omr_seven_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.",
+	legal_omr_eight_chapter 							: "<sup>1</sup> La couverture d’assurance est offerte sous réserve des modalités, des limitations, des exclusions et des restrictions décrites dans le certificat d’assurance. Cette couverture d’assurance est offerte aux titulaires de cartes âgés d’au moins 18 ans et de moins de 76 ans. La couverture maximale offerte est de 20 000 $.",
+	legal_omr_nine_chapter 								: "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard, MasterCard SecureCode et Cirrus sont des marques de commerce déposées de MasterCard International Incorporated.",	
+	
+	// OMC
     omc_first_chapter 								    : "UNE FAÇON PLUS RAPIDE D'OBTENIR DE L'« ARGENT » CANADIAN TIRE",
     omc_second_chapter 								    : "Demandez la carte MasterCard Options de Canadian Tire dès aujourd'hui. C'est une façon plus rapide d'obtenir de l'« Argent » Canadian Tire.<br> Utilisez tout simplement la carte partout où vous magasinez – elle est acceptée dans le monde entier par des millions de commerçants.",
 
 
-    omc_fourth_chapter_ectm                             : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours dans les magasins Canadian Tire, y compris dans les centres-autos.",
+    omc_fourth_chapter_ectm                             : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours<sup>1</sup> dans les magasins Canadian Tire, y compris dans les centres-autos.",
     omc_fives_chapter_ectm                              : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours dans les magasins Sport Chek<span class=\"MD\"><sup></sup></span>, Mark's<span class=\"MD\"><sup></sup></span> / L'Équipeur<span class=\"MD\"><sup></sup></span>, PartSource<span class=\"MD\"><sup></sup></span>, et sur les Services résidentiels Canadian Tire<span class=\"MD1\"><sup></sup></span>",
     omc_sixt_chapter_ectm                               : "<b>Obtenez</b> de l'« @rgent » Canadian Tire dans les postes d'essence Canadian Tire participants<sup>2</sup>.",
     omc_seventh_chapter_ectm                            : "<b>Obtenez <span class='RedLabel'>2X</span></b> l'« @rgent » Canadian Tire partout ailleurs où vous magasinez<sup>1</sup>.",
@@ -1062,20 +1090,29 @@ WICI.dictionary_fr =  {
 	// omp_15_chapter 										: "Couverture-crédit",
 	omp_15_chapter 										: "Couverture-crédit<span class=\"MD\"><sup></sup></span>",
 	//OMR
-	omr_1_chapter 										: "Profitez des avantages suivants à titre de titulaire de carte :",
-	omr_2_chapter 										: "Obtenez jusqu'à 1,5 % de remise en argent sur tous les achats admissibles.",
-	omr_3_chapter 										: "Obtenez jusqu'à 3 % de remise en argent sur les achats effectués dans les magasins et les postes d'essence Canadian Tire et dans les magasins L'Équipeur / Mark's Work Wearhouse.",
+	// omr_1_chapter 										: "Profitez des avantages suivants à titre de titulaire de carte :",
+	
+	omr_1_chapter 										: "Obtenez une prime SPÉCIALE de 6 $ de remise en argent<sup>&dagger;</sup><sup>&dagger;</sup>",
+	omr_1_1_chapter 									: "Utilisez votre numéro de compte aujourd’hui dans un magasin Canadian Tire OU dans un magasin Canadian Tire dans les 45 jours qui suivent la réception de votre carte pour recevoir votre prime spéciale. ",  
+	omr_1_2_chapter										: "<b>Combien puis-je accumuler :</b><br>" ,
+	omr_2_chapter 										: "<b>Obtenez jusqu'à 1,5 %<sup>&dagger;</sup> de remise</b> en argent sur tous les achats admissibles.",
+	omr_3_chapter 										: "<b>Obtenez jusqu'à 3 %<sup>&dagger;</sup> de remise</b> en argent sur les achats effectués dans les magasins et les postes d'essence Canadian Tire et dans les magasins L'Équipeur / Mark's Work Wearhouse.",
 	omr_4_chapter 										: "Obtenez des remises illimitées et ne payez aucuns frais annuels.",
-	omr_5_chapter 										: " Obtenez vos primes automatiquement : elles sont créditées à votre compte une fois l'an*.",
-	omr_6_chapter 										: "De plus, profitez des avantages offerts par votre carte :",
-	omr_7_chapter 										: "PayPass – passez à la caisse plus rapidement",
-	omr_8_chapter 										: "Acceptation dans des millions d'établissements au monde.",
-	omr_9_chapter 										: " Avances de fonds<sup>&dagger;</sup> dans n'importe quel guichet automatique bancaire (GAB) affichant le logo MasterCard<span class=\"MD\"><sup></sup></span> ou Cirrus<span class=\"MD\"><sup></sup></span>.",
-	omr_10_chapter 										: "<b>Consultation SANS FRAIS du compte en ligne.</b>",
-	omr_11_chapter 										: "Cartes supplémentaires SANS FRAIS en appelant au 1 800 459-6415.",
-	omr_12_chapter										: "Service à la clientèle 24 heures sur 24 en cas de perte ou de vol de carte. Composez le 1 800 459-6415 (à l'extérieur du Canada et des États-Unis, composez le 905 735-7256; nous acceptons les frais).",
-	omr_13_chapter 										: "Quatre façons de payer votre compte : dans les magasins Canadian Tire, à votre banque, par la poste et au moyen de paiements automatiques. Consultez le Guide des avantages ou le verso de votre relevé de compte pour obtenir de plus amples renseignements.",
-	omr_14_chapter 										: "Protection de votre carte lors des transactions en ligne grâce à SecureCode<span class=\"MD\"><sup></sup></span> de MasterCard.",
+	omr_5_chapter 										: "<b>La remise en argent est versée automatiquement</b> dans votre compte chaque année*",
+	
+	// US3766 - Start	
+	omr_6_chapter 										: "De plus, profitez de tous les avantages de la carte MasterCard.",
+	omr_7_chapter 										: "<b>Acceptation dans</b> des millions d'établissements au monde.",
+	omr_8_chapter 										: "<b>Avances de fonds</b><sup>&dagger;&dagger;</sup> dans n'importe quel guichet automatique bancaire (GAB) affichant le logo MasterCard ou Cirrus.",
+	omr_9_chapter 										: "<b>Consultation GRATUITE du compte</b> à l'adresse ctfs.com/moncompteenligne                ",
+	omr_10_chapter 										: "<b>Cartes supplémentaires SANS FRAIS</b> en appelant au 1 800 459-6415.",
+	omr_11_chapter 										: "<b>Service à la clientèle 24 heures</b> sur 24 en cas de perte ou de vol de carte. Composez le 1 800 459-6415 (à l'extérieur du Canada et des États-Unis, composez le 905 735-7256; nous acceptons les frais).",
+	omr_12_chapter 										: "<b>Trois façons de payer votre compte :</b> dans les magasins Canadian Tire, à votre banque et par la poste. Consultez le Guide des avantages ou le verso de votre relevé de compte pour obtenir de plus amples renseignements.",
+	omr_13_chapter 										: "Protection de votre carte lors des transactions en ligne grâce à <b>SecureCode de MasterCard</b>.",
+	omr_14_chapter 										: "<b>Aide à régler le solde impayé ou à effectuer des paiements mensuels sur votre carte MasterCard<sup>1</sup> émise par la Banque Canadian Tire</b>",
+	omr_15_chapter 										: "Couverture-crédit<span class=\"MD\"><sup></sup></span>",	
+	// End
+	
 	//******************************************
 	personalData_ReceiveEmail					        : "J'aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m'intéresser, par courriel, messagerie texte (sous réserve des frais standards de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (les « SFCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme de primes en « Argent » Canadian Tire (ou du programme Avantage « Argent » Canadian Tire si vous résidez en Nouvelle-Écosse), de l'Académie des conducteurs de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, des Services résidentiels de Canadian Tire<span class=\"superscripts\"><sup>MC</sup></span> et de l'Assistance routière Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, ainsi que d'autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT et la BCT à la C.P. 2000, Welland (Ontario)  L3B 5S3 ou à l'adresse customerservice@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
 	personalData_Yes									: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;",
@@ -1089,7 +1126,7 @@ WICI.dictionary_fr =  {
     omc_second_chapter_ectm								: "Demandez la carte MasterCard Options de Canadian Tire dès aujourd'hui. C'est une façon plus rapide d'obtenir de l'« Argent » Canadian Tire. Utilisez tout simplement la carte partout où vous magasinez – elle est acceptée dans le monde entier par des millions de commerçants.",
 
 
-    legal_omc_first_chapter_ectm                        : "<sup>1</sup> Primes octroyées sous forme d'« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l'adresse canadiantire.ca ou ctfs.com/act pour en savoir plus. Les titulaires de carte MasterCard Options de Canadian Tire qui règlent leurs achats avec cette dernière obtiennent de l'« Argent » Canadian Tire à un taux qui est 10X (ou 2X, selon le cas) le taux auquel les autres membres du programme Mon « Argent » Canadian Tire obtiennent de l'« Argent » Canadian Tire<span class=\"MC\"><sup></sup></span> lors d'achats effectués par ces membres dans les magasins Canadian Tire (si ces membres payent en argent comptant ou avec une carte de débit ou une carte de crédit qui n'est pas liée à ce programme de fidélisation). Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d'échange.",
+    legal_omc_first_chapter_ectm                        : "<sup>1</sup> Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l'adresse canadiantire.ca ou ctfs.com/act pour en savoir plus. Les titulaires de carte MasterCard Options de Canadian Tire qui règlent leurs achats avec cette dernière obtiennent de l'« Argent » Canadian Tire à un taux qui est 10X (ou 2X, selon le cas) le taux auquel les autres membres du programme Mon « Argent » Canadian Tire obtiennent de l'« Argent » Canadian Tire<span class=\"MC\"><sup></sup></span> lors d'achats effectués par ces membres dans les magasins Canadian Tire (si ces membres payent en argent comptant ou avec une carte de débit ou une carte de crédit qui n'est pas liée à ce programme de fidélisation). Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d'échange.",
     legal_omc_second_chapter_ectm                       : "<sup>2</sup> Un montant d'achat d'essence minimum peut être requis. Le taux peut varier d'un poste d'essence à l'autre. Rendez-vous au poste d'essence local pour en savoir plus.",
     personalData_CTMField                               : "Numéro de compte Mon « Argent » Canadian Tire<span class=\"MC\"><sup></sup></span>",
     personalData_CTMAccountText                         : "Veuillez entrer votre numéro de compte Mon « Argent » Canadian Tire si vous êtes déjà membre du programme. Si votre demande de carte de crédit est approuvée, votre compte Mon « Argent » Canadian Tire sera associé à votre nouvelle carte MasterCard<span class=\"MD\"><sup></sup></span> Options<span class=\"MD\"><sup></sup></span> de Canadian Tire. Un numéro de compte Mon « Argent » Canadian Tire vous sera attribué si vous laissez ce champ vide.",
@@ -1100,6 +1137,7 @@ WICI.dictionary_fr =  {
     signatureScreen_License2                            : "<b>S'il ne vous est pas possible d'approuver ma demande de carte prévoyant un taux d'intérêt annuel de 22,99 % pour à des transactions au comptant et des frais afférents et un taux d'intérêt annuel de 19,99 % pour tous les autres types de débit, j'accepte que vous traitiez la présente demande, sans que vous ayez à m'en aviser spécifiquement, comme s'il s'agissait d'une demande de carte à un taux d'intérêt annuel de 25,99 % pour tous les types de débit, à l’exception des transactions au comptant et des frais afférents pour lesquels le taux d'intérêt annuel sera de 27,99 %.</b>",
     signatureScreen_License3                            : "La carte est émise par la Banque Canadian Tire. Le programme Mon « Argent » Canadian Tire est fourni et administré par La Société Canadian Tire Limitée.",
     signatureScreen_License3_OMP						: "La carte est émise par la Banque Canadian Tire.",
+    signatureScreen_License3_OMR						: "La carte est émise par la Banque Canadian Tire.",
     signatureScreen_License7a                           : "Je deviendrai automatiquement membre du programme Mon « Argent » Canadian Tire si je ne le suis pas déjà, même si ma demande de carte n'est pas approuvée.",
     signatureScreen_License7b                           : "Je serai lié par les modalités du programme Mon « Argent » Canadian Tire décrites à l'adresse canadiantire.ca ou ctfs.com/act.",
 
@@ -1115,9 +1153,10 @@ WICI.dictionary_fr =  {
     optionalProducts_CreditProtector_Additions          :   "*Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques ou votre Certificat d'assurance pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s'appliquent." +
                                                             "<br>**Si vous êtes âgé de moins de 66 ans, vous adhérerez à Couverture-crédit. Si vous êtes âgé de 66 à 75 ans, vous adhérerez à Couverture-crédit – <i>Âge d'or</i>. Couverture-crédit est souscrite auprès de American Bankers, Compagnie d'Assurance Vie de la Floride et de American Bankers, Compagnie d'Assurances Générales de la Floride. Couverture-crédit – <i>Âge d'or<i> est souscrite auprès de American Bankers, Compagnie d'Assurance Vie de la Floride. American Bankers, Compagnie d'Assurance Vie de la Floride et American Bankers, Compagnie d'Assurances Générales de la Floride et leurs filiales et sociétés affiliées exercent des activités au Canada sous le nom d'Assurant Solutions<span class=\"MD\"><sup></sup></span>." ,
     // UAT 39 - Jul 22, CP Revitalization
-    optionalProducts_TermsAndConditions25_Top           :   "<br><sup>&#8224;&#8224;</sup> Ces produits facultatifs sont offerts à tous les nouveaux titulaires de carte MasterCard de Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l'obtention d'une carte MasterCard de Canadian Tire et non pour votre adhésion aux produits facultatifs, lesquels sont offerts à tous les titulaires de carte Canadian Tire." +
+    optionalProducts_TermsAndConditions25_Top           :   "<br><sup>&dagger;</sup><sup>&dagger;</sup> Ce sont des produits facultatifs offerts à tous les nouveaux titulaires de carte MasterCard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte MasterCard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs, lesquels sont offerts à tous les titulaires de carte MasterCard émise par la Banque Canadian Tire." +
                                                             "<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",                                                                                                                                                                                   
-    optionalProducts_TermsAndConditions25_CP			:	"<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire.",
+    optionalProducts_TermsAndConditions25_CP			:	"<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire." +
+    														"<br><br> Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc." ,
     optionalProducts_TermsAndConditions25_Bottom		:	"<br><br>Rebound<span class=\"MD\"><sup></sup></span> est une marque de commerce déposée de Fidélisation propriétaire Aimia Canada Inc." +
                                                             "<br><br><span class=\"MD\"><sup></sup></span> Assurant Solutions est une marque de commerce de Assurant Inc." +
                                                             "<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",                                                                                                                                
@@ -1166,21 +1205,22 @@ WICI.dictionary_fr =  {
         "<p>Il existe d’autres produits d’assurance sur le marché qui peuvent offrir des couvertures semblables à celles que procure l’Assurance Couverture-crédit. Vous devriez vérifier si vous bénéficiez déjà d’une assurance qui offre des couvertures semblables.</p>" +
         "<p>La Banque Canadian Tire a un intérêt financier dans la vente de cette assurance.</p>" +
         "<div style=\"font-size: 10pt\"><p>*Plus les taxes applicables, payables chaque mois. Consultez le document de renseignements juridiques et votre certificat d’assurance pour connaître toutes les modalités, prestations, restrictions, limites et exclusions. La couverture en cas de décès ou de mutilation se convertit en une couverture en cas de décès ou de mutilation par accident à l’âge de 80 ans.</p>" +
-        "<p>L’Assurance Couverture-crédit est une assurance-crédit collective prise en charge par American Bankers Compagnie d’Assurance Vie de la Floride (ABLAC) et American Bankers Compagnie d’Assurance Générale de la Floride (ABIC). ABLAC et ABIC ainsi que leurs sociétés affiliées et filiales exercent des activités commerciales au Canada sous la dénomination sociale Assurant Solutions<sup>&reg;</sup>.</p>" +
-        "<p><sup>&reg;</sup> Assurant Solutions est une marque de commerce déposée de Assurant, Inc.</p>" +
+        "<p>L’Assurance Couverture-crédit est une assurance-crédit collective prise en charge par American Bankers Compagnie d’Assurance Vie de la Floride (ABLAC) et American Bankers Compagnie d’Assurance Générale de la Floride (ABIC). ABLAC et ABIC ainsi que leurs sociétés affiliées et filiales exercent des activités commerciales au Canada sous la dénomination sociale Assurant Solutions<sup>&reg;</sup>.</p>",
+        /*"<p><sup>&reg;</sup> Assurant Solutions est une marque de commerce déposée de Assurant, Inc.</p>" +
         "<p><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.</p>"+
-        "<p><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées.</p></div><hr/><br/>",
+        "<p><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées.</p></div><hr/><br/>",*/
         
     // UAT 39 - CP Revitalization, Missed Requirement
     optionalProducts_SellingLanguageText                :   "<p><strong>Surveillance d'identité Classique<span class=\"MC\"><sup><em></em></strong></p>" +
-        "<p>Vous permet de protéger vos renseignements privés et importants, ainsi que ceux de votre famille." +
-        "<br/> - Service de surveillance en ligne des renseignements personnels que vous enregistrez****" +
-        "<br/> - Protection des cartes, sauvegarde de données en ligne, prime de 3&nbsp;000&nbsp;$ maximum liée à l'arrestation de la personne ayant volé la carte****" +
-        "<br/> - Remboursement des coûts de mise au point informatique pouvant aller jusqu'à 75&nbsp;$, taxes incluses, par année d'adhésion****" +
-        "<br/> - Service de retour de biens Rebound<span class=\"MD\"><sup></sup></span>**** qui peut vous aider à récupérer les objets perdus ou volés" +
-        "<br/> - Coût de 4,99 $**** par mois, payable à l'avance au mois, après que la première transaction est effectuée sur votre carte de crédit de marque Canadian Tire</p>" +
-        "<p>Si vous adhérez au programme Surveillance d'identité Classique, votre adhésion prendra effet à compter de la date d'adhésion indiquée sur votre lettre de bienvenue, laquelle est comprise dans la trousse de bienvenue.</p>" +
-        "<div style=\"font-size: 10pt\"><p>**** Taxes applicables en sus. Vos frais d'adhésion commenceront après la première transaction effectuée à l'aide de votre carte de crédit de marque Canadian Tire. Par la suite, les frais d'adhésion seront portés en avance chaque mois à votre compte de carte de crédit de marque Canadian Tire. Veuillez consulter le document Renseignements juridiques pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s'appliquent.</p>" +
-        "<p>Le programme Surveillance d'identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc.</p></div>",
+        "<p>Vous aide à protéger vos renseignements privés et importants, ainsi que ceux de votre famille." +
+        "<br/> - Service de surveillance en ligne de toutes vos données personnelles enregistrées**" +
+        "<br/> - Service de protection, de sauvegarde des données en ligne et de récompense pour retour de carte de crédit en cas de vol jusqu’à 3 000 $**" +
+        "<br/> - Remboursement pour une mise au point informatique jusqu’à 75 $, taxes incluses, par année d’abonnement**" +
+        "<br/> - Service de récupération de biens RetourMD** qui peut vous aider à récupérer les objets perdus ou volés" +
+        "<br/> - Frais d’adhésion de 4,99 $**, payable à l’avance tous les mois après votre première transaction effectuée avec votre carte de crédit de marque Canadian Tire.</p>" +
+        "<p>L’adhésion à Surveillance d’identité Classique est facultative et peut être annulée en tout temps. Si vous annulez dans les 30 premiers jours suivant votre date d’adhésion, la Banque Canadian Tire vous remboursera les frais d’adhésion payés, après votre première transaction effectuée à l’aide de votre carte. Si vous annulez après les 30 premiers jours, l’annulation prendra effet à compter du dernier jour du cycle de facturation en cours ou 30 jours après la réception de l’avis d’annulation, selon la première éventualité. Si vous annulez votre adhésion, vous êtes responsable de tous les frais engagés en raison des services offerts par l’intermédiaire d’un fournisseur d’accès Internet ou d’un tiers fournisseur de services.</p>" +
+        "<div style=\"font-size: 10pt\"><p>** Taxes applicables en sus. Vos frais d'adhésion commenceront après la première transaction effectuée à l'aide de votre carte de crédit de marque Canadian Tire. Par la suite, les frais d'adhésion seront portés en avance chaque mois à votre compte de carte de crédit de marque Canadian Tire. Veuillez consulter le document Renseignements juridiques pour prendre connaissance de toutes les modalités, conditions, limites et exclusions. Certaines modalités s'appliquent.</p></div>" +
+        "<p>Si vous adhÃ©rez au programme Surveillance d'identitÃ© Classique, votre adhÃ©sion prendra effet Ã  compter de la date d'adhÃ©sion indiquÃ©e sur votre lettre de bienvenue, laquelle est comprise dans la trousse de bienvenue.</p>",
+        /* "<p>Le programme Surveillance d'identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc.</p></div>", */
     end                                                 : ""
 };

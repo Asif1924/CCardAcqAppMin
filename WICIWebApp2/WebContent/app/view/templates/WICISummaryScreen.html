@@ -47,7 +47,17 @@
 	                        <span data-translationKey="summary_SelectProduct_Card"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
-	                    	<span data-translationKey=${ activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')) }></span>
+	                    
+	                    <!--	<span data-translationKey=${ activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')) }></span> //-->
+	                    
+	                    {{if activationItems.getModel('chooseProductModel').get('productCard') === 'OMR' }}
+							<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+						{{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMP' }}
+							<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+						{{else}}
+							<span data-translationKey="signature_OptionsMasterCard" ></span>
+						{{/if}}
+	                    
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">

@@ -150,9 +150,11 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'getKeyForCardSelection() ';
         //console.log(logPrefix + sMethod + " card=" + activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
         if(appStatus==="DECLINED")
-        	return "chooseProduct_NoSpecificCard";
+            return "chooseProduct_NoSpecificCard";
        
-   		return (activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
+          //  return (activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
+        
+        return (activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
     }
     
     function getKeyForApplicationStatus(  ){

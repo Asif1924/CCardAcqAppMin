@@ -19,6 +19,13 @@ WICI.CreditCardApplicationData = function() {
 		'omp' 	: 'chooseProduct_GasAdvantageMasterCard',
 		'omr' 	: 'chooseProduct_CashAdvantageMasterCard'
 	};
+	
+	var cardFriendlyNamesWithoutReg = {
+		'omc' 	: 'signature_OptionsMasterCard',
+		'omp' 	: 'signature_GasAdvantageMasterCard',
+		'omr' 	: 'signature_CashAdvantageMasterCard'
+	};
+	
 
 	var employmentTypeFriendlyNames = {
 		'F' : 'finEmpInfo_FullTime',
@@ -249,6 +256,10 @@ WICI.CreditCardApplicationData = function() {
 
 	this.getCardFriendlyName = function(argCardCode) {
 		return cardFriendlyNames[argCardCode.toLowerCase()];
+	};
+	
+	this.getCardFriendlyNameWithoutReg = function(argCardCode) {
+		return cardFriendlyNamesWithoutReg[argCardCode.toLowerCase()];
 	};
 
 	this.getEmploymentTypeFriendlyName = function(argTypeCode) {

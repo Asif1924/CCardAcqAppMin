@@ -14,14 +14,14 @@
                     </a>
                     <div id="omcCardBottom" class="ctmLogo_eng" data-lang-class></div>
                 </li>
-                <li>
+				<li>
                     <a href="#" id="ompCard" class="creditCardProductClickableProduct">
                         <span class="CC_Labels" data-translationKey="chooseProduct_GasAdvantageMasterCard"></span>
                     </a>
                 </li>
-
-                <li style="display: none;">
-                    <a href="#" id="omrCard" class="creditCardProductClickableProduct">
+                <!-- US3766 //-->
+				<li class="OMRPortrait" >
+                    <a href="#" id="omrCard" class="creditCardProductClickableProduct" data-lang-class>
                         <span class="CC_Labels" data-translationKey="chooseProduct_CashAdvantageMasterCard"></span>
                     </a>
                 </li>
@@ -50,6 +50,24 @@
                     <td class="fieldLabelsCell fieldCellSize33">
                         <span data-translationKey="chooseProduct_PromoCode"></span>
                     </td>
+                <!-- US3767 - Start //-->
+                    <td class="fieldValuesCell">                       
+                       <select id="promoCodeDropDown" class="fieldValuesTextField" tabindex=1>
+					   </select>
+                    </td>
+                </tr>
+                                
+                <tr class="fieldRow">               	                    
+                    {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}			
+						<td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="chooseProduct_PromoCode_Other"></span>
+	                    </td>
+					{{else}}
+						<td class="fieldLabelsCell fieldCellSize33">
+                        	<span data-translationKey="chooseProduct_PromoCode"></span>
+                    	</td>
+					{{/if}}  
+               <!-- US3767 - End //-->                  
                     <td class="fieldValuesCell">
                         <input class="fieldValuesTextField upperCaseField" id="promoCodeTextField" type="text" tabindex=2 maxlength="5"/>
                     </td>
