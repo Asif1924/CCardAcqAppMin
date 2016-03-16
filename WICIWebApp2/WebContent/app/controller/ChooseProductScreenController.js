@@ -251,11 +251,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $(refs.agencyPromoCode).on('paste, input', inputLengthControlHandler);
 
 		// US3767 
-        $(refs.agencyPromoCodeDropDown).on("change", function() {        	
-        	if($(refs.agencyPromoCodeDropDown).val() === "OTHER") {
+        $(refs.agencyPromoCodeDropDown).on("change", function() {  
+        	if($("#promoCodeDropDown option:selected").text().toUpperCase() === "OTHER" 
+        			|| $("#promoCodeDropDown option:selected").text().toUpperCase() === "AUTRE") {
         		showPromoCodeTextField();
         	} else {
-        		model.set('agencyPromoCode', $(refs.agencyPromoCodeDropDown).val());
+        		// UAT Defect #42 fix
+        		console.log($(refs.agencyPromoCodeDropDown).val().toUpperCase());
+        		model.set('agencyPromoCode', $(refs.agencyPromoCodeDropDown).val().toUpperCase());
         		hidePromoCodeTextField();
         	}
         });
@@ -554,14 +557,26 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
         model.set('province', $(refs.province).val());
         // US3767
-        if(loginModel.get('employerID').toUpperCase() !== 'E') {        	                
-            model.set('agencyPromoCodeDropDown', $(refs.agencyPromoCodeDropDown).val());
+        if(loginModel.get('employerID').toUpperCase() !== 'E') {        
+        	// US3920	
+        	if($(refs.agencyPromoCodeDropDown).val() !== null) {
+        		if($("#promoCodeDropDown option:selected").text().toUpperCase() === "OTHER" 
+        			|| $("#promoCodeDropDown option:selected").text().toUpperCase() === "AUTRE") {
+            		model.set('agencyPromoCodeDropDown', 'OTHER');
+            	} else {
+	            	// UAT Defect #42 fix
+            		model.set('agencyPromoCodeDropDown', $(refs.agencyPromoCodeDropDown).val().toUpperCase());
+            	} 
+        	}        	       
             model.set('agencyProgram', $(refs.agencyProgram).val());
-            if($(refs.agencyPromoCodeDropDown).val() === "OTHER") {
-            	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
-        	} else {
-        		model.set('agencyPromoCode', $(refs.agencyPromoCodeDropDown).val());    		
-        	}
+            if($(refs.agencyPromoCodeDropDown).val() !== null) {
+            	if($(refs.agencyPromoCodeDropDown).val() === "") {
+                	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
+            	} else {
+	            	// UAT Defect #42 fix
+            		model.set('agencyPromoCode', $(refs.agencyPromoCodeDropDown).val().toUpperCase());    		
+            	}
+            }            
         } else {
         	model.set('agencyProgram', 'OTHER');
         	model.set('agencyPromoCodeDropDown', 'OTHER');
@@ -638,9 +653,27 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         var controlRef = $(refs.agencyProgram);
         controlRef.empty();
-        var list = new WICI.ProgramsList();
-        populateDropDown(controlRef, list.data);
-                
+		// US3920
+        /*var list = new WICI.ProgramsList();
+        populateDropDown(controlRef, list.data);*/
+        
+        if(translator.getCurrentLanguage() == 'en') {
+        	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
+        	$("<option value='' >Please select ...</option>").prependTo(controlRef);
+        } else {
+        	var programObj = JSON.parse(WICI.dictionary_fr.program_PromoCode);
+        	$("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
+        }
+                        
+        for (var key in programObj.FMR[0]) {
+                   if (programObj.FMR[0].hasOwnProperty(key)) {
+                      console.log(key);                             
+                      var optTempl = '<option value="' + key + '" ';
+                      optTempl = optTempl + '>' + key + '</option>';
+                      controlRef.append(optTempl);                                                               
+             }
+        }
+                       
         // US3499
         // Marks Store Promo Code auto populate program code
         var employerID = loginModel.get('employerID');       
@@ -653,10 +686,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 hideProgram();
                 // US3767 
                 hidePromoCodeDropDown();
-            } else {
-                model.set('agencyProgram', 'MW999');
-                model.set('agencyPromoCode', 'MW999');
-                }                    	 
+            }                    	 
         } else if (employerID.toUpperCase() === "E") {
                 model.set('agencyProgram', 'other');
                 model.set('agencyPromoCode', 'CTR1');
@@ -664,13 +694,26 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 hideProgram();
                 // US3767 
                 hidePromoCodeDropDown();
-        } 
-
-        var program = model.get('agencyProgram');
+        }
+        // US3920      	
+        if(loginModel.get('employerID').toUpperCase() !== 'E') {
+        	var program = model.get('agencyProgram');
+        	console.log("program "+program);
+        	if(program){        
+        		var controlRef = $(refs.agencyPromoCodeDropDown);
+                controlRef.empty();
+                controlRef.trigger("change");
+                selectProgram('', model.get('agencyPromoCodeDropDown'));                
+        	}        	
+        }
+		/*
+		E login blank screen
+		var program = model.get('agencyProgram');
+		console.log(sMethod+"program  : "+program);
         if (program){
         	populatePromoCode();
             selectProgram(program, model.get('agencyPromoCodeDropDown'));
-        }
+        }*/
                 
         // $(refs.agencyProgram).trigger("change");
 
@@ -678,15 +721,41 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------    
     // US3767 
     function populatePromoCode() {    	
-    	console.log("onChange : populatePromoCode()");    	
+    	console.log("populatePromoCode()");    	
     	
     	var controlRef = $(refs.agencyPromoCodeDropDown);
         controlRef.empty();
-        var programValue = model.get('agencyProgram');        
+		// US3920
+        var programValue = model.get('agencyProgram');  
+        if(translator.getCurrentLanguage() == 'en') {
+        	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
+        	$("<option value='' >Please select ...</option>").prependTo(controlRef);
+        } else {
+        	var programObj = JSON.parse(WICI.dictionary_fr.program_PromoCode);
+        	$("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
+        }
         
-        var list = new WICI.PromoCodeList();
+        if($("#promoCodeDropDown option:selected").text().toUpperCase() === "OTHER" 
+			|| $("#promoCodeDropDown option:selected").text().toUpperCase() === "AUTRE") {
+    		showPromoCodeTextField();
+    	} else {
+    		hidePromoCodeTextField();
+    	}
+        
+        $.each(programObj.FMR[0][programValue], function (index, value) {
+            $.each(value, function (index, value) {
+            	var optTempl = '<option value="' + value + '" ';
+                optTempl = optTempl + '>' + index
+                    + '</option>';
+                controlRef.append(optTempl);
+                console.log("index:" + index); 
+                console.log("value:" + value); 
+           });
+        });
+                       
+        /*var list = new WICI.PromoCodeList();
         list.data = list.getDataByProgram(programValue);        
-        populateDropDown(controlRef, list.data);                        
+        populateDropDown(controlRef, list.data);  */                      
     }    
     // ---------------------------------------------------------------------------------------    
     function populateDropDown(dropDown, listData){
@@ -762,20 +831,20 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function hidePromoCodeTextField() {
     	$(refs.agencyPromoCode).val(null);
         var container = $(refs.agencyPromoCode).parents("tr")[0];
-        var sibling = $(container).next()[0];
+        /*var sibling = $(container).next()[0];
         for (var i = 0; i < container.children.length; i++) {
             sibling.children[i].className = container.children[i].className;
-        }
+        }*/
         $(container).hide();
     }
     //---------------------------------------------------------------------------------------
     function showPromoCodeTextField() {
     	$(refs.agencyPromoCode).val(null);
         var container = $(refs.agencyPromoCode).parents("tr")[0];
-        var sibling = $(container).next()[0];
+        /*var sibling = $(container).next()[0];
         for (var i = 0; i < container.children.length; i++) {
             sibling.children[i].className = container.children[i].className;
-        }
+        }*/
         $(container).show();
     }
     // End

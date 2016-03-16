@@ -81,6 +81,10 @@ WICI.dictionary_fr =  {
 	chooseProduct_GasAdvantageMasterCard              :                         "Carte MasterCard<sup>MD</sup> Avantage Essence<sup>MD</sup>",
 	chooseProduct_CashAdvantageMasterCard             :                         "Carte MasterCard<sup>MD</sup> Avantage Remise<sup>MD</sup>",
 	chooseProduct_NoSpecificCard					  :							"carte",
+	
+
+	// US3920
+	program_PromoCode								  : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Ouverture officielle\":\"4023\"},{\"Autre\":\"\"}],\"Événements en magasin\":[{\"Journées carte MCO\":\"OMCDY\"},{\"Autre\":\"\"}],\"Événements DPCT\":[{\"Programme d’événement de l’Est\":\"5200\"},{\"Programme d’événement de l’Ouest\":\"4024\"}],\"Régional DCTP\":[{\"Programme régional de l’Est\":\"4022\"},{\"Programme régional de l’Ouest\":\"4029\"}]}]}",
 
 	// US3767
 	chooseProduct_PromoCode_Other					  :							"Code promotionnel (Autre)",

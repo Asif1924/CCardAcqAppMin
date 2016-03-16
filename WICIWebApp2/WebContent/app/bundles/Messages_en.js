@@ -81,6 +81,9 @@ WICI.dictionary_en =  {
 	chooseProduct_CashAdvantageMasterCard				: 	"Cash Advantage<sup>&reg;</sup> MasterCard<sup>&reg;</sup>",
 	chooseProduct_NoSpecificCard						:	"card",
 
+	// US3920
+	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"OMC Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}]}]}",
+	
 	// US3767
 	chooseProduct_PromoCode_Other						:	"Promo code (Other)",
 	
