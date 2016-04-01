@@ -243,6 +243,13 @@ load:
                 <include name="**/*.html"/>
             </fileset>
         </copy>
+    	<!-- Copy bootstrap.css//-->
+    	<echo message="Copying ${bootstrap.filename}"/>
+        <copy tofile="${production.output.dir}/app/${bootstrap.filename}">
+            <fileset dir="WebContent">
+                <include name="**/${bootstrap.filename}"/>
+            </fileset>
+        </copy>
         <!-- Copy Project images//-->
         <copy todir="${production.output.images.dir}">
             <fileset dir="WebContent/app/images">
@@ -294,7 +301,7 @@ load:
         <echo message="Concatenating CSS files..."/>
         <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.css.file}">
             <fileset dir="WebContent" includes="**/app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/>
-			<fileset dir="WebContent" includes="**/app/view/css/${css.filename}"/>
+        	<fileset dir="WebContent" includes="**/app/view/css/${css.filename}"/>
         </concat>
         <echo message="Concatenated css built."/>
     </target>
@@ -345,6 +352,8 @@ load:
 		<echo message="Creating list of CSS includes for debug version of index.html..."/>
 		<echo file="${lib.dir}/${css.include.files.debug}">
 			&lt;link rel="stylesheet" type="text/css" href="app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/&gt;
+			<!-- 2016-03-17 chrch: adding Bootstrap for responsive (US3964) -->
+			&lt;link rel="stylesheet" type="text/css" href="app/view/css/${bootstrap.filename}"/&gt;
 			&lt;link rel="stylesheet" type="text/css" href="app/view/css/${css.filename}"/&gt;
 		</echo>
 		<echo message="List of CSS includes created."/>
@@ -366,6 +375,7 @@ load:
         <echo message="Concatenating CSS files..."/>
 		<concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.css.file}">
             <fileset dir="WebContent" includes="**/app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/>
+			<fileset dir="WebContent" includes="**/app/view/css/${bootstrap.filename}"/>
 			<fileset dir="WebContent" includes="**/app/view/css/${css.filename}"/>
         </concat>
         <echo message="CSS files concatenated."/>
