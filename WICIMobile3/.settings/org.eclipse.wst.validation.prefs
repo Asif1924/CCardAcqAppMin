@@ -1,0 +1,9 @@
+#Tue Apr 26 19:55:08 IST 2016
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_MANUAL_PREFERENCE=enabledManualValidatorListcom.ibm.j2c.emd.core.validation.BOXSDValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;
+eclipse.preferences.version=1
+override=true
+USER_BUILD_PREFERENCE=enabledBuildValidatorListcom.ibm.j2c.emd.core.validation.BOXSDValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;
+suspend=true
+vf.version=3
+USER_PREFERENCE=overrideGlobalPreferencestruedisableAllValidationtrueversion1.2.205.v201203081700

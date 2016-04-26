@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ctfs.wicimobile" 
+    version="0.0.1" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    
+   
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    
+<!--      <feature name="App"> -->
+<!--         <param name="android-package" value="org.apache.cordova.App" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Geolocation"> -->
+<!--         <param name="android-package" value="org.apache.cordova.GeoBroker" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Device"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Device" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Accelerometer"> -->
+<!--         <param name="android-package" value="org.apache.cordova.AccelListener" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Compass"> -->
+<!--         <param name="android-package" value="org.apache.cordova.CompassListener" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Media"> -->
+<!--         <param name="android-package" value="org.apache.cordova.AudioHandler" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Camera"> -->
+<!--         <param name="android-package" value="org.apache.cordova.CameraLauncher" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Contacts"> -->
+<!--         <param name="android-package" value="org.apache.cordova.ContactManager" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="File"> -->
+<!--         <param name="android-package" value="org.apache.cordova.FileUtils" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="NetworkStatus"> -->
+<!--         <param name="android-package" value="org.apache.cordova.NetworkManager" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Notification"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Notification" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Storage"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Storage" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="FileTransfer"> -->
+<!--         <param name="android-package" value="org.apache.cordova.FileTransfer" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Capture"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Capture" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Battery"> -->
+<!--         <param name="android-package" value="org.apache.cordova.BatteryListener" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="SplashScreen"> -->
+<!--         <param name="android-package" value="org.apache.cordova.SplashScreen" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Echo"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Echo" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="Globalization"> -->
+<!--         <param name="android-package" value="org.apache.cordova.Globalization" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+<!--      <feature name="InAppBrowser"> -->
+<!--         <param name="android-package" value="org.apache.cordova.InAppBrowser" /> -->
+<!--         <param name="onload" value="true" /> -->
+<!--     </feature> -->
+    
+    
+    
+    
+    <feature name="ZebraPrinterPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterPlugin"/>
+	</feature>
+	
+     <feature name="ZebraPrinterDiscoveryPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterDiscoveryPlugin"/>
+	</feature>
+	
+      <feature name="AppLanguagePlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.AppLanguagePlugin"/>
+	</feature>
+	
+       <feature name="AppVersionPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.AppVersionPlugin"/>
+	</feature>
+	
+        <feature name="DeviceInfoPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.DeviceInfoPlugin"/>
+	</feature>
+	
+        
+         <feature name="BluetoothPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.BluetoothPlugin"/>
+	</feature>
+	
+          <feature name="Pdf417Scanner" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.Pdf417Scanner"/>
+	</feature>
+	
+      <feature name="WifiPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.WifiPlugin"/>
+	</feature>
+         
+     <feature name="TokenPrinterPlugin" >
+      <param name="android-package" value="com.ctfs.wicimobile.plugins.TokenPrinterPlugin"/>
+	</feature>
+       
+    
+    
+    
+    <allow-intent href="market:*" />
+    
+    <name>WICI Mobile</name>
+    
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    
+    <!--       <content src="index.html" /> -->
+    <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
+     <content src="build/production/index.html" />  
+    
+    <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+    <access origin=".*"/>
+    <access origin="*" />
+    
+    <preference name="loglevel" value="DEBUG" />
+    <log level="DEBUG"/>
+    <preference name="useBrowserHistory" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+</widget>
