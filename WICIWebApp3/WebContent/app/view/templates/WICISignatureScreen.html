@@ -1,0 +1,147 @@
+<script id="WICISignatureScreen-template" type="text/x-jquery-tmpl"> 
+	<div class="ScreenLayout" id="SignatureScreen_PageContents">
+		<br>
+		<br>
+		<center>
+			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
+		</center>
+		<br>
+		<p><span data-translationKey="signatureScreen_Header"/></p>
+
+		<ul>
+			<li>
+				<span data-translationKey="signatureScreen_License1" />
+				<!-- <span id="singnatureCardName" /> //-->
+				{{if CardType === 'OMR' }}
+					<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+				{{else CardType === 'OMP' }}
+					<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+				{{else}}
+					<span data-translationKey="signature_OptionsMasterCard" ></span>
+				{{/if}}
+				<span data-translationKey="signatureScreen_License1_1" />
+				<span data-translationKey="signatureScreen_License1_2" />
+			</li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License2"/></li>
+			<br>
+				{{if CardType === 'OMR' }}
+					<li><span data-translationKey="signatureScreen_License3_OMR"/></li>
+				{{else CardType === 'OMP' }}
+					<li><span data-translationKey="signatureScreen_License3_OMP"/></li>
+				{{else}}
+					<li><span data-translationKey="signatureScreen_License3"/></li>
+				{{/if}}
+
+			<br>
+			<li><span data-translationKey="signatureScreen_License4"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License5"/></li>
+			<br>
+			<li>
+				<b>
+					<span data-translationKey="signatureScreen_License6"/>
+				</b>
+			</li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License7"/></li>
+			<br>
+			{{if CardType === 'OMC' }}
+				<li><span data-translationKey="signatureScreen_License7a"/></li>
+				<br>
+				<li><span data-translationKey="signatureScreen_License7b"/></li>
+				<br>
+			{{/if}}
+			<li><span data-translationKey="signatureScreen_License8"/></li>
+			<br>
+			<li><span data-translationKey="signatureScreen_License9"/></li>
+
+			<!--<br>//-->
+			<!--<br>//-->
+			<!--<li><span data-translationKey="signatureScreen_License4"/></li>//-->
+			<!--<br>//-->
+			<!--<br>//-->
+			<!--<li><span data-translationKey="signatureScreen_License5"/></li>//-->
+		</ul>
+		<br>
+		<div class="warningDIV" id="warningDIVSig" name="warningDIVSig">
+		<center>
+		<p class="warningHeader" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
+	    <table class="warningTable" id="warningTableSig" name="warningTableSig" >
+        <tr>
+            <td>
+							{{if CardType === 'OMR' }}
+							<!-- US3766 //-->
+								<img id="SignatureImage" src="app/images/omr_en.png" data-lang-src width="180" style="margin-top:10px;"/>
+							{{else CardType === 'OMP' }}
+								<img id="SignatureImage" src="app/images/omp_en.png" data-lang-src width="180" style="margin-top:10px;"/>
+							{{else}}
+								<img id="SignatureImage" src="app/images/omc_en.png" data-lang-src width="180" style="margin-top:10px;"/>
+							{{/if}}
+							<br/>
+           </td>
+            <td style="padding:25px;">
+                <span data-translationKey="signatureScreen_WarningText1" ></span><br/><br/><b>
+							{{if CardType === 'OMR' }}
+								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+							{{else CardType === 'OMP' }}
+								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+							{{else}}
+								<span data-translationKey="signature_OptionsMasterCard" ></span>
+							{{/if}}
+
+				</b>
+            </td>
+        </tr>
+        </table><br />
+
+			<div class="signatureContainer sugnatureFixes" >
+				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
+					<div class="signature" id="signature"/>
+				</div>
+			</div>
+			<br>
+			<span id="signature_Reset_Button" class="button grayflat sigResetButton proceedButtonWidth">
+        		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+			</span>
+		</center>
+			<br/>
+			<div class="signatureCredentialsContainer signatureTopPadding">
+				<label id="signatureScreen_UserName">${ClientName}</label>
+
+				<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
+
+				<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer align-vertical-middle-container">
+					<div class="rightContaier align-vertical-middle-item">
+							<div class="wiciCheckBox" >
+								<input type="checkbox" name="signatureScreen_AcceptAgreement" id="signatureScreen_AcceptAgreement" />
+								<label for="signatureScreen_AcceptAgreement"/>
+							</div>
+					</div>
+					<div class="leftContainer opCheckBoxLabel align-vertical-middle-item">
+					<!-- US3766 //-->
+						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />
+							{{if CardType === 'OMR' }}
+								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+							{{else CardType === 'OMP' }}
+								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+							{{else}}
+								<span data-translationKey="signature_OptionsMasterCard" ></span>
+							{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<center>
+            <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
+            	<span class="buttonText" data-translationKey="sigScreen_ProceedToConfirmation"></span>
+			</span>
+        </center>
+		<br>
+		<br>
+		<br>
+	</div>
+</script>

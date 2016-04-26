@@ -1,0 +1,33 @@
+<script id="pageHeader-template" type="text/x-jquery-tmpl">
+	<header class="pageHeader darkGrayGradient">
+            {{if logo_En}}
+                <div class="PageHeader_CanadianTireLogo PageHeader_CanadianTireLogo_English {{if previousButtonId}} PageHeader_CanadianTireLogo_LeftPadding {{/if}} {{if nextButtonId}} PageHeader_CanadianTireLogo_RightPadding {{/if}}"><div class="PageHeader_CanadianTireLogo_inner"></div></div></img>
+            {{else}}
+                <div class="PageHeader_CanadianTireLogo PageHeader_CanadianTireLogo_French {{if previousButtonId}} PageHeader_CanadianTireLogo_LeftPadding {{/if}} {{if nextButtonId}} PageHeader_CanadianTireLogo_RightPadding {{/if}}"><div class="PageHeader_CanadianTireLogo_inner"></div></div></img>
+            {{/if}}
+
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" class="${previousButtonId} pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<span class="buttonAltText"></span>
+				<span class="buttonAltTextLabel" data-translationKey="pageHeader_previous"></span>
+			</a>
+		{{/if}}
+
+		<div class="pageHeader-right-button-group">
+			{{if settingsButtonId}}
+				<a href="##uploadOptions" data-theme="r" data-role="button" id="${settingsButtonId}" class="pageNavigationButton settings ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r"
+					data-rel="dialog" data-transition="slidedown">
+					<!--<span class="buttonAltText" data-translationKey="settings"></span>-->
+					<span class="buttonAltText"></span>
+				</a>
+			{{/if}}
+
+			{{if nextButtonId}}
+				<a href="#" data-theme="r" data-role="button" class="${nextButtonId} pageNavigationButton next ui-btn ui-btn-icon-right ui-corner-right ui-btn-up-r">
+					<span class="buttonAltTextLabel" data-translationKey="pageHeader_next"></span>
+					<span class="buttonAltText"></span>
+				</a>
+			{{/if}}
+		</div>
+	</header>
+</script>

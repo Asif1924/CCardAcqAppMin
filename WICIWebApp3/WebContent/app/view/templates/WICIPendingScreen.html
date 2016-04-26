@@ -1,0 +1,88 @@
+<script id="WICIPendingScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="pendingScreen_PageContents">
+	<center>
+	<div id="pendingScreen_DisplayArea">
+	{{if pendingScreenState==="INSESSION" || pendingScreenState==="RETRIEVEPEND_START"}}
+		<div class="pageHeaderPadding">
+			
+        	<span class="pageTitle" data-translationKey="pendingScreen_ThankYou"></span>
+        	
+        	<!-- <span class="summaryPageSubTitle" data-translationKey="${cardName}"></span> //-->
+        	
+        	{{if activationItems.getModel('chooseProductModel').get('productCard') === 'OMR' }}
+				<span class="summaryPageSubTitle" data-translationKey="signature_CashAdvantageMasterCard" ></span>
+			{{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMP' }}
+				<span class="summaryPageSubTitle" data-translationKey="signature_GasAdvantageMasterCard" ></span>
+			{{else}}
+				<span class="summaryPageSubTitle" data-translationKey="signature_OptionsMasterCard" ></span>
+			{{/if}}
+        	
+         	<br>
+			<br>
+			<table class="fieldCellSize60" id="pendingScreen_tokenInfo">
+				<tr>
+					<td class="fieldLabelsSingleCell fieldCellSize60">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>						
+					</td>
+					<td class="fieldValuesOneCell fieldCellSize60">
+						<span class='uppercase'> ${token} </span>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+
+			<div data-translationKey="pendingScreen_ParaBlock_PleaseWait"></div>
+			<div id="pendingScreen_StaticStatusMessage" data-translationKey="pendingScreen_Parablock_We_are_checking" ></div>
+			<div id="pendingScreen_DynamicStatusMessage"> <span data-translationKey="pendingScreen_CheckXXSeconds_Text1"></span><span id="pendingScreen_pollDelay">60</span><span data-translationKey="pendingScreen_CheckXXSeconds_Text2"></span> <span id="pendingScreen_AttemptNumber">1</span> <span data-translationKey="pendingScreen_OfAttemptYY_Text1"></span><span id="pendingScreen_maxAttempts">15</span><span data-translationKey="pendingScreen_OfAttemptYY_Text2"></span></div>
+			<div data-translationKey="pendingScreen_ParaBlock_IfYouShop"></div>
+			
+			
+			<div class="elementWithFontSize10" data-translationKey="pendingScreen_Label_RefGood30mins"></div>
+
+        </div>
+
+	    <span id="pendingScreen_PrintButton" class="button greenflat pendingScreen_PrintButtonSize">
+	    	<div class="buttonText" data-translationKey="pendingScreen_PrintButtonLabel"></div>
+		</span>
+
+		<span data-translationKey="pendingScreen_ParaBlock_IfUnable"></span>
+		<span data-translationKey="pendingScreen_ParaBlock_NoteDays"></span>
+
+		<span id="pendingScreen_EmailButton" class="button greenflat pendingScreen_EmailButtonSize">
+	    	<span class="buttonText" data-translationKey="pendingScreen_EmailButtonLabel"></span>
+		</span>	
+	{{/if}}	
+	{{if pendingScreenState==="RETRIEVEPEND"}}
+		<div class="pageHeaderPadding">
+			<br>
+			<br>
+			<table class="fieldCellSize80" id="pendingScreen_tokenInfo">
+				<tr class="fieldRow">
+					<td class="fieldLabelsTopCell fieldCellSize50">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_TokenLabel"></span>
+					</td>
+					<td class="fieldValuesTopCell fieldCellSize50">
+						<input class="fieldValuesTextField uppercase" id="pendingScreenReferenceField" type="text" />
+					</td>
+				</tr>
+				<tr class="fieldRow">
+					<td class="fieldLabelsBottomCell fieldCellSize50">
+						<span class="fieldLabelsTitle" data-translationKey="pendingScreen_PhoneNumberLabel"></span>
+					</td>
+					<td class="fieldValuesBottomCell fieldCellSize50">
+						<input class="fieldValuesTextField" id="pendingScreenPhoneNumberField" type="tel" maxlength="10" />
+					</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+        </div>
+		<span id="checkApplicationStatusButton" class="button greenflat">
+	    	<span class="buttonText" data-translationKey="pendingScreen_CheckAppStatusLabel"></span>
+		</span>
+	{{/if}}	
+	</div>
+	</center>
+	</div>
+</script>

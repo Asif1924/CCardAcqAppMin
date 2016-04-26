@@ -1,0 +1,57 @@
+<script id="WICIPrintDemoScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="printScreen_PageContents">
+	<br>
+	<br>
+	<br>
+	<center>
+		<div data-role="fieldcontain" class="printTest">
+        	<span class="pageTitle" data-translationKey="printScreen_Title"></span>
+         	<br>
+			<br>
+
+				<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
+				
+				<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+								
+         	<br>
+			<br>
+
+				<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+
+			<br>
+			
+			       {{if appStatus==="PENDING"}}
+					<br>			
+                     <br>
+                     <table class="fieldCellSize60" id="pendingScreen_tokenInfo">
+                           <tr>
+                                  <td class="fieldLabelsSingleCell fieldCellSize60">
+                                         <span id="printScreenTokenLabel" class="fieldLabelsTitle" data-translationKey="printScreen_TokenLabel"></span>                                   
+                                  </td>
+                                  <td class="fieldValuesOneCell fieldCellSize60">
+                                         <span id="printScreenTokenField" class='uppercase'>${tokenValue}</span>
+                                  </td>
+                           </tr>
+                     </table>
+                     <br>
+                     {{/if}}       
+
+        </div>
+		<br>
+		<br>
+		<br>
+	    <span id="printScreen_PrintButton" class="button blackflat afterPrintButtonWidth">
+	    	<span class="buttonText" data-translationKey="printScreen_Button_Label"><span class="pageTitle" data-translationKey="printScreen_Button_LabelPrint"></span>
+		</span>
+	 </center>
+	 <br>
+	    <center>
+            <span id="print_StartNewApplicationButton" class="button greenflat afterPrintButtonWidth uppercase">
+            	<span class="buttonText" data-translationKey="printResponseStatus_StartNewApplication_Button"></span>
+			</span><br>
+			<span id="print_LogOutButton" class="button darkgrayflat afterPrintButtonWidth uppercase">
+            	<span class="buttonText" data-translationKey="printResponseStatus_LogOut_Button"></span>
+			</span>
+        </center>
+    </div>
+</script>

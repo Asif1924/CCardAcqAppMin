@@ -1,0 +1,39 @@
+<script id="printerSetupDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" >
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c dialogFixes" role="main">
+		<p>
+			<center>
+			    <h3>${mainLabel}</h3>
+			    <span>${ieLabel}</span>
+                <pre style="display: inline"> ac : 3f : a4 : 10 : 84 : d8</pre>
+				<br/>
+				<br/>
+				<span class="locationDetailsFont">
+					<form>
+     					<input class="macAddressFirstInput macAddressInput" type="text" id="printerMacAddress1" tabindex="1" maxlength="2">
+     					<label class="macAddressLabel" for="printerMacAddress2">:</label>
+     					<input class="macAddressInput" type="text" id="printerMacAddress2" tabindex="2" maxlength="2">
+     					<label class="macAddressLabel" for="printerMacAddress3">:</label>
+     					<input class="macAddressInput" type="text" id="printerMacAddress3" tabindex="3" maxlength="2">
+     					<label class="macAddressLabel" for="printerMacAddress4">:</label>
+     					<input class="macAddressInput" type="text" id="printerMacAddress4" tabindex="4" maxlength="2">
+     					<label class="macAddressLabel" for="printerMacAddress5">:</label>
+     					<input class="macAddressInput" type="text" id="printerMacAddress5" tabindex="5" maxlength="2">
+     					<label class="macAddressLabel" for="printerMacAddress6">:</label>
+     					<input class="macAddressInput" type="text" id="printerMacAddress6" tabindex="6" maxlength="2">
+     				</form>
+				</span>
+				<br>
+				<br>
+			</center>
+		</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="confirm_confirmButton" data-rel="back" data-role="button" data-theme="c">${yesButton}</a>
+			<a href="#" id="confirm_cancelButton" data-rel="back" data-role="button" data-theme="c">${noButton}</a>
+		</div>
+	</div>
+</div>
+</script>
