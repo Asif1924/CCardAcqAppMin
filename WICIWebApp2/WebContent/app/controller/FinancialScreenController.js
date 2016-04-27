@@ -40,6 +40,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         howLongCurrentEmployer : '#finEmpInfo_HowLongCurrentEmployer_TextField',
 
         grossIncome : '#finEmpInfo_GrossIncome_TextField',
+        // US3960
+        grossHouseholdIncome : '#finEmpInfo_GrossHouseholdIncome_TextField',
 
         sin : '#finEmpInfo_SIN_TextField',
 
@@ -62,6 +64,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         tdGrossIncomeLable : "#finEmpInfo_GrossIncome_Lable",
         tdGrossIncomeValue : "#finEmpInfo_GrossIncome_Value",
+        // US3960
+        tdGrossHouseholdIncomeLable : "#finEmpInfo_GrossHouseholdIncome_Lable",
+        tdGrossHouseholdIncomeValue : "#finEmpInfo_GrossHouseholdIncome_Value",        
+        
         flipVISAMCAMEX_no : "#flipVISAMCAMEX_no",
         flipVISAMCAMEX_yes : "#flipVISAMCAMEX_yes",
         flipBankLoan_no : "#flipBankLoan_no",
@@ -206,7 +212,20 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                     matcher : /\d+/,
                     group : [ 2 ]
                 }
-            }, {
+            },
+            // US3960
+            {
+                name : 'grossHouseholdIncome',
+                value : null,
+                validation : {
+                    type : 'format',
+                    message : 'financialData_validation_grossHouseholdIncome',
+                    canBeEmpty : true,
+                    /*matcher : /\d+/,*/
+                    group : [ 2 ]
+                }
+            },
+            {
                 name : 'sin',
                 value : null,
                 validation : {
@@ -332,6 +351,11 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         if (model.get('grossIncome')) {
             $(refs.grossIncome).val(model.get('grossIncome').replace(',', '.'));
         }
+        
+        // US3960
+        if (model.get('grossHouseholdIncome')) {
+            $(refs.grossHouseholdIncome).val(model.get('grossHouseholdIncome').replace(',', '.'));
+        }
 
         // $(refs.grossIncome).val(model.get('grossIncome'));
         $(refs.sin).val(model.get('sin'));
@@ -377,6 +401,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         model.set('grossIncome', $(refs.grossIncome).val().replace(/,/g, '')
             .replace(' $ ', '').replace('.', ','));
         // model.set('grossIncome', $(refs.grossIncome).val());
+        // US3960
+        model.set('grossHouseholdIncome', $(refs.grossHouseholdIncome).val().replace(/,/g, '')
+                .replace(' $ ', '').replace('.', ','));
+        
         model.set('sin', $(refs.sin).val());
 
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
@@ -621,6 +649,15 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             mDec : '0',
             wEmpty : 'sign'
         });
+        
+        // US3960
+        $(refs.grossHouseholdIncome).autoNumeric('init', {
+            aSign : ' $ ',
+            vMin : '0',
+            vMax : '999999',
+            mDec : '0',
+            wEmpty : 'sign'
+        });
 
         $(refs.sin).mask('999999999', {
             placeholder : ""
@@ -736,10 +773,16 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         $(refs.tdGrossIncomeLable).addClass('fieldLabelsCell');
         $(refs.tdGrossIncomeValue).addClass('fieldValuesCell');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('fieldLabelsCell');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('fieldValuesCell');
 
         $(refs.employmentArea).show();
         $(refs.tdGrossIncomeLable).addClass('withBorderTop');
         $(refs.tdGrossIncomeValue).addClass('withBorderTop');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('withBorderTop');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('withBorderTop');
 
 
     }
@@ -760,11 +803,16 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         $(refs.tdGrossIncomeLable).addClass('fieldLabelsCell');
         $(refs.tdGrossIncomeValue).addClass('fieldValuesCell');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('fieldLabelsCell');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('fieldValuesCell');
 
         $(refs.employmentArea).show();
         $(refs.tdGrossIncomeLable).addClass('withBorderTop');
         $(refs.tdGrossIncomeValue).addClass('withBorderTop');
-
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('withBorderTop');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('withBorderTop');
     }
 
     function onPrepopulatedStatusClick (category, title) {
@@ -779,18 +827,30 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         $(refs.tdGrossIncomeLable).addClass('fieldLabelsTopCell');
         $(refs.tdGrossIncomeValue).addClass('fieldValuesTopCell');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('fieldLabelsCell');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('fieldValuesCell');
 
         $(refs.employmentArea).hide();
         $(refs.tdGrossIncomeLable).removeClass('withBorderTop');
         $(refs.tdGrossIncomeValue).removeClass('withBorderTop');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('withBorderTop');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('withBorderTop');
     }
 
     function clearGrossIncomeTableRowStyles() {
         $(refs.tdGrossIncomeLable).removeClass('fieldLabelsCell');
         $(refs.tdGrossIncomeValue).removeClass('fieldValuesCell');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('fieldLabelsCell');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('fieldValuesCell');
 
         $(refs.tdGrossIncomeLable).removeClass('fieldLabelsTopCell');
         $(refs.tdGrossIncomeValue).removeClass('fieldValuesTopCell');
+        // US3960
+        $(refs.tdGrossHouseholdIncomeLable).addClass('withBorderTop');
+        $(refs.tdGrossHouseholdIncomeValue).addClass('withBorderTop');
 
     }
     // ---------------------------------------------------------------------------------------
@@ -929,7 +989,15 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                 return;
             }
         }
-        if (checkGrossAnnualIncome(model.get('grossIncome'))) {
+        if (checkGrossAnnualIncome(model.get('grossIncome')) && checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
+            flowNext();
+        }
+
+    }
+    
+    // US3960
+    function grossAnnualHouseholdIncome(){    	
+        if (checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
             flowNext();
         }
     }
@@ -955,7 +1023,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                         /(\d)(?=(\d{3})+\b)/g, '$1,')
                     + translator
                         .translateKey('financialData_grossIncomeError2');
-                messageDialog.htmlConfirm(message, flowNext,
+                messageDialog.htmlConfirm(message, grossAnnualHouseholdIncome,
                     highlightGrossAnnualIncome);
                 return false;
             }
@@ -965,12 +1033,50 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         return true;
     }
 
+    // US3960
+    function checkGrossAnnualHouseholdIncome(value) {
+        var sMethod = '[checkGrossAnnualHouseholdIncome() value = ] ' + value;
+
+        if (value === null || value === '') {
+            return true;
+        }
+
+        try {
+            var grossAnnualHouseholdIncomeval = parseInt(value);
+
+            if (grossAnnualHouseholdIncomeval <= 5000) {
+                var message = translator
+                    .translateKey('financialData_grossHouseholdIncomeError1')
+                    + value.replace(',', '.').replace(
+                        /(\d)(?=(\d{3})+\b)/g, '$1,')
+                    + translator
+                        .translateKey('financialData_grossHouseholdIncomeError2');
+                messageDialog.htmlConfirm(message, flowNext,
+                		highlightGrossAnnualHouseholdIncome);
+                return false;
+            }
+        } catch (error) {
+            console.log(sMethod + ' ERROR!!!!:' + err);
+        }
+        return true;
+    }
+    
     function highlightGrossAnnualIncome() {
         var rez = [];
         rez.push({
             name : 'grossIncome',
             err : '',
             uiid : refs.grossIncome
+        });
+        app.validationDecorator.applyErrAttribute(rez);
+    }
+    // US3960
+    function highlightGrossAnnualHouseholdIncome() {
+        var rez = [];
+        rez.push({
+            name : 'grossHouseholdIncome',
+            err : '',
+            uiid : refs.grossHouseholdIncome
         });
         app.validationDecorator.applyErrAttribute(rez);
     }

@@ -204,7 +204,11 @@ WICI.dictionary_fr =  {
 	finEmpInfo_EmployerCity                           :                         "Ville de l'employeur",
 	finEmpInfo_EmployerPhone                          :                         "Numéro de téléphone de l'employeur",
 	finEmpInfo_HowLongCurrentEmployer                 :                         "Durée de l'emploi actuel?",
-	finEmpInfo_GrossIncome                            :                         "Revenu annuel brut (par an)",
+	// US3960
+	// finEmpInfo_GrossIncome                         :                         "Revenu annuel brut (par an)", // Old
+	finEmpInfo_GrossIncome                            :                         "Revenu Annuel Personnel Brut",	
+	finEmpInfo_GrossHouseholdIncome                   :                         "Revenu Annuel Brut Du Ménage",
+	
 	finEmpInfo_SIN                                    :                         "Numéro d'assurance sociale (facultatif)",
 	finEmpInfo_Years                                  :                         "Années : ",
 	finEmpInfo_Months                                 :                         "Mois : ",
@@ -296,12 +300,18 @@ WICI.dictionary_fr =  {
 	financialData_validation_jobCategory              :"La catégorie d'emploi n'est pas sélectionnée.",
 	financialData_validation_employerName             :" Entrez un nom d'employeur valide.",
 	financialData_validation_employerCity             :"Entrez une ville de l'employeur valide.",
-	financialData_validation_grossIncome              :"Entrez un revenu annuel brut valide. ",
+	financialData_validation_grossIncome              :"Entrez un revenu annuel personnel brut valide. ",
+	// US3960
+	financialData_validation_grossHouseholdIncome     :"Entrez un annuel revenu brut du ménage valide. ",
+	
 	financialData_validation_sin                      :"Entrez un numéro d'assurance sociale valide.",
 
-	financialData_grossIncomeError1                   :"Le revenu annuel brut entré est ",
+	financialData_grossIncomeError1                   :"Le revenu annuel personnel brut entré est ",
 	financialData_grossIncomeError2                   :" $. Est-ce exact?",
-
+	// US3960
+	financialData_grossHouseholdIncomeError1          :"Le revenu annuel brut du ménage entré est ",
+	financialData_grossHouseholdIncomeError2          :" $. Est-ce exact?",
+	
 	//................................................................
 
 	//........................NEW ITEMS ..............................
@@ -897,7 +907,11 @@ WICI.dictionary_fr =  {
 	summary_FinEmp_BankingProducts                    :                         "Sélectionnez les produits bancaires que vous utilisez actuellement.",
 
 	summary_FinEmp_EmploymentType                     :                         "Type d'emploi",
-	summary_FinEmp_GrossAnnualIncome                  :                         "Revenu annuel brut",
+	// US3960
+	// summary_FinEmp_GrossAnnualIncome                  :                         "Revenu annuel brut",	// Old
+	summary_FinEmp_GrossAnnualIncome                  :                         "Revenu Annuel Personnel Brut",
+	summary_FinEmp_GrossAnnualHouseholdIncome         :                         "Revenu Annuel Brut Du Ménage",
+	
 	summary_FinEmp_SIN                                :                         "Numéro d'assurance sociale",
 
 	summary_FinEmp_JobTitle                           :                         "Titre du poste",
@@ -1031,11 +1045,13 @@ WICI.dictionary_fr =  {
     legal_omc_sixth_chapter 							: "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard, MasterCard SecureCode et Cirrus sont des marques de commerce déposées de MasterCard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Selon le montant net des nouveaux achats (achats moins crédits) portés à votre compte MasterCard Avantage Essence au cours de toute période de facturation mensuelle, vous serez admissible à un rabais sur chaque litre d'essence ou de carburant diesel acheté pour un véhicule automobile dans un poste d'essence Canadian Tire au cours de la période de facturation mensuelle suivante et payé avec votre carte MasterCard Avantage Essence.",
-	legal_omp_second_chapter							: "Le rabais que vous obtenez au cours d'une période de facturation donnée sera ramené à 2 ¢ le litre dès que le total des achats d'essence, de carburant diesel et d'articles divers effectués dans les postes d'essence Canadian Tire et réglés avec votre carte MasterCard Avantage Essence dépassera la somme de 700&nbsp;$ au cours de cette période de facturation. Pour connaître les modalités, consultez le feuillet promotionnel sur la carte MasterCard Avantage Essence ou rendez-vous à l'adresse ctfs.com/avantageessence.",
+	// US3997 
+	legal_omp_second_chapter							: "Le rabais que vous obtenez au cours d'une période de facturation donnée sera ramené à 2 ¢ le litre dès que le total des achats d'essence, de carburant diesel et d'articles divers effectués dans les postes d'essence Canadian Tire et réglés avec votre carte MasterCard Avantage Essence <b>À partir du 2 mai 2016, après avoir effectué 500&nbsp; $ ou plus d’achats dans un poste d’essence Canadian Tire, le rabais passera à 2 ¢ par litre</b> dépassera la somme de 700&nbsp;$ au cours de cette période de facturation. Pour connaître les modalités, consultez le feuillet promotionnel sur la carte MasterCard Avantage Essence ou rendez-vous à l'adresse ctfs.com/avantageessence.",
 	legal_omp_third_chapter 							: " En Nouvelle-Écosse, le rabais est accordé à la caisse. Il en va de même lorsqu'un distributeur d'essence n'offre pas de facilités de paiement.",
 	legal_omp_fourth_chapter							: " Frais d'avances de fonds : 4,00 $. Les frais d'intérêt sont imputés à compter de la date d'obtention de l'avance jusqu'à la date du remboursement de celle-ci et de tous les intérêts courus.",
 	legal_omp_fives_chapter 							: "   Couverture-crédit est souscrite auprès de American Bankers, Compagnie d'Assurance Vie de la Floride, et American Bankers, Compagnie d'Assurances Générales de la Floride, filiales de Assurant Solutions.",
-	legal_omp_six_chapter 								: "   Pour obtenir le rabais, vous devez régler un achat admissible avec votre carte MasterCard Avantage Essence, n'importe où, dans les 45 jours qui suivent la réception de votre carte. Votre prime d'activation commencera à s'appliquer à la date à laquelle votre premier achat sera inscrit à votre compte et continuera ensuite de s'appliquer pendant 30 jours consécutifs. À compter de la fin de la période de 30 jours, le rabais admissible auquel vous aurez droit deviendra celui indiqué sur votre relevé de compte mensuel. Valide pour un achat d'essence par jour pendant la durée de la période promotionnelle. Le rabais sera ramené à 2 ¢ le litre dès que le total des achats d'essence, de carburant diesel et d'articles effectués dans les postes d'essence Canadian Tire dépassera la somme de 700&nbsp;$ au cours de la période de 30 jours.",
+	// US3997	
+	legal_omp_six_chapter 								: "&#8194;Lorsque votre demande de carte MasterCard Avantage Essence est approuvée, le rabais de 5 ¢ par litre entrera en vigueur à la date d’ouverture de votre compte et sera valide pendant 30 jours (« le premier mois »). Après le premier mois, votre rabais sera basé en fonction du montant net des nouveaux achats (achats moins crédits) portés à votre compte MasterCard Avantage Essence au cours du premier mois, plus un rabais supplémentaire de 3 ¢ par litre, pour un rabais d’une valeur minimum de 5 ¢ par litre pendant la nouvelle période de 30 jours (« le deuxième mois »).  Le rabais de 3 ¢ supplémentaire ne sera valable que pour une transaction par jour, par compte, cartes additionnelles incluses.  Par exemple, si le montant net des nouveaux achats inscrits à votre compte est entre :  0 $ et 499,99 $ le premier mois, votre rabais sur chaque litre d’essence restera de 5 ¢ pour le deuxième mois; 500 $ et 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 8 ¢ le deuxième mois; 1 000 $ et 1 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 11 ¢ le deuxième mois; 2 000 $ et plus le premier mois, votre rabais sur chaque litre d’essence sera de 13 ¢ le deuxième mois.  Cette prime d’activation est valide pour un achat d’essence par jour pendant la période promotionnelle. À compter de la fin du deuxième mois, le rabais admissible auquel vous aurez droit sera celui indiqué sur votre relevé de compte mensuel. En ce moment, le rabais est ramené à 2 ¢ le litre dès que le total des achats effectués dans les postes d’essence Canadian Tire dépasse 700 $. <b>À partir du 2 mai 2016, après avoir effectué 500 $ ou plus d’achats dans un poste d’essence Canadian Tire, le rabais passera à 2 ¢ par litre.</b>",
 	legal_omp_seven_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de la Société Canadian Tire Limitée et sont utilisées sous licence.",
 	// Old code
 	// legal_omp_eight_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Services Financiers Canadian Tire Limitée.",
@@ -1076,7 +1092,8 @@ WICI.dictionary_fr =  {
     omc_15_chapter 										: "SecureCode de MasterCard<span class=\"MD\"><sup></sup></span>",
     omc_16_chapter 										: "Service à la clientèle ouvert 24 heures sur 24 en cas de perte ou de vol de votre carte. Composez le 1 800 459-6415 (à l'extérieur du Canada et des États-Unis, composez le 905 735-7256; nous acceptons les frais).",
 	// OMP
-	omp_1_chapter 										: "EN PRIME! Économisez automatiquement 10 ¢ le litre pendant vos 30 premiers jours en tant que titulaire de carte.",
+    // US3997
+    omp_1_chapter 										: "PRIME! Économisez au moins 5 ¢ le litre dans les 60 premiers jours<sup>2</sup>",
 	omp_2_chapter 										: "C'est facile d'économiser au moins 2 ¢ et jusqu'à 10 ¢* sur chaque litre d'essence acheté dans un poste d'essence Canadian Tire. Vous n'avez qu'à utiliser la carte MasterCard<span class=\"MD\"><sup></sup></span> Avantage Essence<span class=\"MD\"><sup></sup></span> pour vos achats de tous les jours et vous économiserez instantanément, directement au distributeur<sup>&dagger;</sup>!            ",
 	omp_3_chapter 										: "Voyez comme c'est facile :",
 	omp_4_chapter 										: "1. Insérez la carte dans le lecteur du distributeur d'essence<sup>&dagger;</sup><br>2. Voyez le prix du litre baisser INSTANTANÉMENT<br>3. Économisez jusqu'à 10 ¢ le litre.",

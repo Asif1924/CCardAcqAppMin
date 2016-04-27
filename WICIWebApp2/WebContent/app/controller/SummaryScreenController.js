@@ -31,6 +31,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         signDate_id_4			:	'#signDate_id_4',
         housingpayment			:	'#summary_housingpayment',
         grossIncome				:	'#summary_grossIncome',
+        // US3960
+        grossHouseholdIncome	:	'#summary_grossHouseholdIncome',
         nameTitle				:	'#summary_nameTitle',
         promoCode               :   '#promocode',
         icon                    :   '.logoIcon'
@@ -117,6 +119,9 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         permanentlyEnableSubmitButton();
 
         $(refs.grossIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossIncome')));
+        
+        // US3960
+        $(refs.grossHouseholdIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossHouseholdIncome')));
 
 		$(refs.housingpayment).html(activationItems.getFormatedCurrency(activationItems.getModel('personalData2_Address').get('housingpayment')));
 
@@ -253,8 +258,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         });
         $.subscribe('translatorFinished', function(event) {
 			console.log(refs.grossIncome + 'subscribe(translatorFinished)');
-
+			console.log(refs.grossHouseholdIncome + 'subscribe(translatorFinished)');
+			
 			$(refs.grossIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossIncome')));
+			// US3960
+			$(refs.grossHouseholdIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossHouseholdIncome')));
 		});
         $.subscribe('translatorFinished', function(event) {
 			console.log(refs.housingpayment + 'subscribe(translatorFinished)');

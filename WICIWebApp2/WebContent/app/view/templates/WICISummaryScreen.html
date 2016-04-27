@@ -503,10 +503,20 @@
 								<span id="summary_grossIncome" ></span>
 	                    </td>
 	                </tr>
+	                <!-- US3960 Start -->
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="summary_FinEmp_GrossAnnualHouseholdIncome"></span>
+	                    </td>
+	                    <td  class="fieldLabelsCell">
+								<span id="summary_grossHouseholdIncome" ></span>
+	                    </td>
+	                </tr>
+	                <!-- End -->
 
 	                <tr class="fieldRow">
 	                    {{if activationItems.getModel('financialData').get('employmentType')=='R' }}
-	                    	<td class="fieldLabelsBottomCell fieldCellSize33">
+	                    	<td class="fieldLabelsCell fieldCellSize33">
 	                    {{/if}}
 	                    {{if activationItems.getModel('financialData').get('employmentType')!='R' }}
 	                    	<td class="fieldLabelsCell fieldCellSize33">
@@ -514,7 +524,7 @@
 	                        <span data-translationKey="summary_FinEmp_SIN"></span>
 	                    </td>
 	                    {{if activationItems.getModel('financialData').get('employmentType')=='R' }}
-	                    	<td class="fieldLabelsCell fieldValuesBottomCell">
+	                    	<td class="fieldLabelsCell fieldLabelsCell">
 	                    {{/if}}
 	                    {{if activationItems.getModel('financialData').get('employmentType')!='R' }}
 	                    	<td class="fieldLabelsCell">
@@ -539,10 +549,18 @@
 			                </td>
 			        </tr>
 			        <tr class="fieldRow">
-			            <td class="fieldLabelsCell fieldCellSize33">
+			       		{{if  activationItems.getModel('financialData').get('employmentType')=='R' || activationItems.getModel('financialData').get('employmentType')=='U' || activationItems.getModel('financialData').get('employmentType')=='H'}}
+	                    	<td class="fieldLabelsBottomCell fieldCellSize33">
+	                    {{else}}
+	                    	<td class="fieldLabelsCell fieldCellSize33">
+	                    {{/if}}
 			                <span data-translationKey="summary_FinEmp_JobCategory"></span>
 			            </td>
-			            <td class="fieldLabelsCell">
+			            {{if  activationItems.getModel('financialData').get('employmentType')=='R' || activationItems.getModel('financialData').get('employmentType')=='U' || activationItems.getModel('financialData').get('employmentType')=='H'}}
+	                    	<td class="fieldLabelsCell fieldValuesBottomCell">
+	                    {{else}}
+	                    	<td class="fieldLabelsCell fieldCellSize33">
+	                    {{/if}}
 			                <span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
 			                <!--${activationItems.getModel('financialData').get('jobCategory')} -->
 			            </td>

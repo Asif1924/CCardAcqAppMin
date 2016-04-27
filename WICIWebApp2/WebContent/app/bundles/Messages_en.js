@@ -225,7 +225,11 @@ WICI.dictionary_en =  {
 	finEmpInfo_EmployerCity								:	"Employer City",
 	finEmpInfo_EmployerPhone							:	"Employer Phone",
 	finEmpInfo_HowLongCurrentEmployer					:	"How Long at Current Employer?",
-	finEmpInfo_GrossIncome								:	"Gross Annual Income (per year)",
+	// US3960
+	// 	finEmpInfo_GrossIncome							:	"Gross Annual Income (per year)", // Old
+	finEmpInfo_GrossIncome								:	"Annual Gross Personal Income",
+	finEmpInfo_GrossHouseholdIncome						:	"Annual Gross Household Income",
+	
 	finEmpInfo_SIN										:	"Social Insurance Number (Optional)",
 	finEmpInfo_Years									:	"Years: ",
 	finEmpInfo_Months									:	"Months: ",
@@ -297,11 +301,17 @@ WICI.dictionary_en =  {
     financialData_validation_jobCategory				:	'Job Category is not selected',
     financialData_validation_employerName				:	'Enter valid Employer Name',
     financialData_validation_employerCity				:	'Enter valid Employer City',
-    financialData_validation_grossIncome				:	'Enter valid Gross Annual Income',
+    financialData_validation_grossIncome				:	'Enter valid Annual Gross Personal Income',
+    // US3960
+    financialData_validation_grossHouseholdIncome		:	'Enter valid Annual Gross Household Income',
+    
     financialData_validation_sin						:	'Enter valid Social Insurance Number',
 
-    financialData_grossIncomeError1						:	'The Gross Annual Income entered is $',
+    financialData_grossIncomeError1						:	'The Annual Gross Personal Income entered is $',
     financialData_grossIncomeError2						:	'. Is this correct?',
+    // US3960
+    financialData_grossHouseholdIncomeError1			:	'The Annual Gross Household Income entered is $',
+    financialData_grossHouseholdIncomeError2			:	'. Is this correct?',
 
 	//................................................................
 
@@ -886,7 +896,11 @@ WICI.dictionary_en =  {
 	summary_FinEmp_BankingProducts						:	"Select the banking products you have",
 
 	summary_FinEmp_EmploymentType						:	"Employment Type",
-	summary_FinEmp_GrossAnnualIncome					:	"Gross Annual Income",
+	// US3960
+	// summary_FinEmp_GrossAnnualIncome					:	"Gross Annual Income", // Old
+	summary_FinEmp_GrossAnnualIncome					:	"Annual Gross Personal Income",
+	summary_FinEmp_GrossAnnualHouseholdIncome			:	"Annual Gross Household Income",
+	
 	summary_FinEmp_SIN									:	"Social Insurance Number",
 
 	summary_FinEmp_JobTitle								:	"Job Title",
@@ -1017,11 +1031,13 @@ WICI.dictionary_en =  {
     legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> MasterCard, the MasterCard Brand Mark, MasterCard SecureCode and Cirrus are registered trademarks of MasterCard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire gas bars during the following monthly billing period and that is charged to your Gas Advantage MasterCard.",
-	legal_omp_second_chapter							: "The discount that you receive in a billing period will be reduced to 2&cent; per litre after you have made purchases of more than $700 for gasoline, diesel fuel or any other sundry items at Canadian Tire gas bars during that billing period using your Gas Advantage MasterCard. For complete terms and conditions, refer to the Gas Advantage MasterCard customer handout or visit ctfs.com/gasadvantage.",
+	// US3997
+	legal_omp_second_chapter							: "The discount that you receive in a billing period will be reduced to 2&cent; per litre after you have made purchases of more than $700 for gasoline, diesel fuel or any other sundry items at Canadian Tire gas bars during that billing period using your Gas Advantage MasterCard <b>Effective May 2, 2016 your gas savings will be reduced to 2&cent;/litre after Canadian Tire gas bar purchases exceed $500</b>. For complete terms and conditions, refer to the Gas Advantage MasterCard customer handout or visit ctfs.com/gasadvantage.",
 	legal_omp_third_chapter 							: " In Nova Scotia and where pay at the pump feature is not available, pay inside to receive the discount.",
 	legal_omp_fourth_chapter							: " Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
-	legal_omp_fives_chapter 							: "   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup> companies.",
-	legal_omp_six_chapter 								: "   To receive discount, use your Gas Advantage MasterCard to make an eligible purchase anywhere within 45 days from receipt of your card. Your activation bonus begins on the date your first purchase is posted to your account. The discount will then apply for 30 consecutive days. When the 30 days are completed, you will revert to your qualified discount level indicated on your monthly statement. Valid for 1 gas purchase per day during the activation bonus period. Discount reduced to 2 cents/litre after $700 in purchases of gasoline, diesel, fuel or other items is made at Canadian Tire gas bars during the 30 day period.",
+	legal_omp_fives_chapter 							: "   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&trade;</sup> companies.",	
+	// US3997
+	legal_omp_six_chapter 								: "&#8194;Upon approval for the Gas Advantage MasterCard, your 5&cent; per litre discount will be active upon account open date and valid for 30 days (&quot;Month One&quot;). When Month One is complete your discount will be based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in Month One plus an additional 3&cent; off per litre, for a minimum of 5&cent; per litre for the following 30 days (&quot;Month Two&quot;). The extra 3&cent; will only be applied on one transaction per day per account (including supplementary cards). For example, if your net new purchases posted to your account are: $0-$499.99 in Month One, your discount remains at 5&cent; off per litre in Month Two; $500-$999.99 in Month One, your discount will be 8&cent; off per litre in Month Two; $1000-$1999.99 in Month One, your discount will be 11&cent; off per litre in Month Two; or $2000 or greater in Month One, your discount will be 13&cent; off per litre in Month Two. Valid for one gas purchase per day during the offer period. When Month One and Month Two are complete, you will revert to the qualified discount level indicated on your monthly statement. At this time, the discount will be reduced to 2&cent; off per litre after your Canadian Tire gas bar purchases exceed $700. <b>Effective May 2, 2016 your gas savings will be reduced to 2&cent;/litre after Canadian Tire gas bar purchases exceed $500.</b>",
 	legal_omp_seven_chapter 							: "<sup>&reg;/&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
 	// Old code
 	// legal_omp_eight_chapter 							: "<sup>&reg;/&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited.",
@@ -1058,7 +1074,8 @@ WICI.dictionary_en =  {
     omc_15_chapter 									: "MasterCard SecureCode<sup>&reg;</sup>",
     omc_16_chapter 									: "24-hour customer service for lost or stolen cards - call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256)",
 	// OMP
-	omp_1_chapter 										: "BONUS! Save a full 10&cent; per litre automatically for your first 30 days as a cardmember.<sup>2</sup>",
+    // US3997
+    omp_1_chapter 										: "BONUS! Save at least 5&cent; per litre for the first 60days<sup>2</sup>",
 	omp_2_chapter 										: "There&rsquo;s an easy way to save at least 2 cents and up to 10 cents* off per litre of gas at Canadian Tire gas bars. Just use the Gas Advantage<sup>&reg;</sup> MasterCard<sup>&reg;</sup> for your everyday purchases and you&rsquo;ll save instantly right at the pump<sup>&dagger;</sup>!            ",
 	omp_3_chapter 										: "Here&rsquo;s how easy it is:",
 	omp_4_chapter 										: "1. <b>Swipe</b> the card at the pump<sup>&dagger;</sup><br/> 2. <b>Watch</b> the litre price turn back INSTANTLY<br/>3. <b>Save</b> up to 10&cent; off per litre",
