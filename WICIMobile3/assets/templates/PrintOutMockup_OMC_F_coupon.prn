@@ -13,35 +13,35 @@
 ^FT32,160^XG001.GRF,1,1^FS
 ^FT64,96^XG002.GRF,1,1^FS
 ^FT352,128^XG003.GRF,1,1^FS
-^FO4,21^GB519,1093,2^FS
+^FO4,21^GB519,1108,2^FS
 ^FO5,150^GB518,0,115^FS
-^FT16,825^A0N,14,14^FH\^FD  Sous r\82serve de certaines modalit\82s visant l'obtention et l'\82change des primes.^FS
-^FT16,842^A0N,14,14^FH\^FDConsultez le site canadiantire.ca ou ctfs.com/act pour de plus amples renseignements.^FS
-^FT16,876^A0N,14,14^FH\^FDMD/MC Sauf indication contraire, toutes les marques de commerce sont la propri\82t\82 ^FS
-^FT16,893^A0N,14,14^FH\^FDde La Soci\82t\82 Canadian Tire Limit\82e et sont utilis\82es sous licence.^FS
-^FT16,927^A0N,14,14^FH\^FDMD/MC MasterCard est une marque de commerce d\82pos\82e de ^FS
-^FT16,944^A0N,14,14^FH\^FDMasterCard International, Incorporated.^FS
-^FT13,695^A0N,17,16^FH\^FDAu caissier : Lorsque la carte MasterCard Options est utilis\82e pour r\82gler ^FS
-^FT13,716^A0N,17,16^FH\^FDun achat avant la date d'expiration indiqu\82e ci-dessus, entrez l'article ^FS
-^FT13,736^A0N,17,16^FH\^FD198-3635-2 afin d'ajouter le montant de la prime en \AE @rgent \AF ^FS
-^FT13,757^A0N,17,16^FH\^FDCanadian Tire au compte Mon \AE Argent \AF Canadian Tire du client. ^FS
-^FT13,799^A0N,17,16^FH\^FDVeuillez d\82truire ce coupon apr\8As l'\82change.^FS
-^FT14,407^A0N,17,16^FH\^FDCe coupon est \82changeable lorsque la carte MCO est utilis\82e dans un ^FS
-^FT14,428^A0N,17,16^FH\^FDmagasin Canadian Tire participant. Non \82changeable dans les postes ^FS
-^FT14,449^A0N,17,16^FH\^FDd'essence Canadian Tire. La prime sp\82ciale en \AE @rgent \AF Canadian Tire^FS
-^FT14,470^A0N,17,16^FH\^FDsera ajout\82e au solde de votre compte Mon \AE Argent \AF Canadian Tire ^FS
-^FT14,491^A0N,17,16^FH\^FDau moment de l'achat et pourra ensuite \88tre \82chang\82e sur un achat ^FS
-^FT14,512^A0N,17,16^FH\^FDadmissible ult\82rieur, \85 condition que votre compte soit en r\8Agle.^FS
-^FT13,552^A0N,17,16^FH\^FDCe coupon n'a aucune valeur mon\82taire et n'est pas transf\82rable.^FS
-^FT13,573^A0N,17,16^FH\^FDIl doit \88tre pr\82sent\82 au moment de l'achat. Limite d'un coupon^FS
-^FT13,594^A0N,17,16^FH\^FDpar client. Aucun facsimil\82 ne sera accept\82. Les coupons falsifi\82s ou ^FS
-^FT13,614^A0N,17,16^FH\^FDmodifi\82s ne seront pas accept\82s. Le coupon ne peut pas \88tre utilis\82 pour ^FS
-^FT13,635^A0N,17,16^FH\^FDr\82gler l'achat d'une carte-cadeau ni effectuer un paiement au titre d'un^FS
-^FT13,656^A0N,17,16^FH\^FDcompte de Canadian Tire.^FS
+^FT16,851^A0N,14,14^FH\^FD  Sous r\82serve de certaines modalit\82s visant l'obtention et l'\82change des primes.^FS
+^FT16,868^A0N,14,14^FH\^FDConsultez le site canadiantire.ca ou ctfs.com/act pour de plus amples renseignements.^FS
+^FT16,902^A0N,14,14^FH\^FDMD/MC Sauf indication contraire, toutes les marques de commerce sont la propri\82t\82 ^FS
+^FT16,919^A0N,14,14^FH\^FDde La Soci\82t\82 Canadian Tire Limit\82e et sont utilis\82es sous licence.^FS
+^FT16,953^A0N,14,14^FH\^FDMD/MC MasterCard est une marque de commerce d\82pos\82e de ^FS
+^FT16,969^A0N,14,14^FH\^FDMasterCard International, Incorporated.^FS
+^FT13,720^A0N,17,16^FH\^FDAu caissier : Lorsque la carte MasterCard Options est utilis\82e pour r\82gler ^FS
+^FT13,741^A0N,17,16^FH\^FDun achat avant la date d'expiration indiqu\82e ci-dessus, entrez l'article ^FS
+^FT13,762^A0N,17,16^FH\^FD198-3635-2 afin d'ajouter le montant de la prime en \AE @rgent \AF ^FS
+^FT13,783^A0N,17,16^FH\^FDCanadian Tire au compte Mon \AE Argent \AF Canadian Tire du client. ^FS
+^FT13,825^A0N,17,16^FH\^FDVeuillez d\82truire ce coupon apr\8As l'\82change.^FS
+^FT14,432^A0N,17,16^FH\^FDCe coupon est \82changeable lorsque la carte MCO est utilis\82e dans un ^FS
+^FT14,453^A0N,17,16^FH\^FDmagasin Canadian Tire participant. Non \82changeable dans les postes ^FS
+^FT14,474^A0N,17,16^FH\^FDd'essence Canadian Tire. La prime sp\82ciale en \AE @rgent \AF Canadian Tire^FS
+^FT14,495^A0N,17,16^FH\^FDsera ajout\82e au solde de votre compte Mon \AE Argent \AF Canadian Tire ^FS
+^FT14,516^A0N,17,16^FH\^FDau moment de l'achat et pourra ensuite \88tre \82chang\82e sur un achat ^FS
+^FT14,537^A0N,17,16^FH\^FDadmissible ult\82rieur, \85 condition que votre compte soit en r\8Agle.^FS
+^FT13,577^A0N,17,16^FH\^FDCe coupon n'a aucune valeur mon\82taire et n'est pas transf\82rable.^FS
+^FT13,598^A0N,17,16^FH\^FDIl doit \88tre pr\82sent\82 au moment de l'achat. Limite d'un coupon^FS
+^FT13,619^A0N,17,16^FH\^FDpar client. Aucun facsimil\82 ne sera accept\82. Les coupons falsifi\82s ou ^FS
+^FT13,640^A0N,17,16^FH\^FDmodifi\82s ne seront pas accept\82s. Le coupon ne peut pas \88tre utilis\82 pour ^FS
+^FT13,661^A0N,17,16^FH\^FDr\82gler l'achat d'une carte-cadeau ni effectuer un paiement au titre d'un^FS
+^FT13,682^A0N,17,16^FH\^FDcompte de Canadian Tire.^FS
 ^FT15,336^A0N,17,16^FH\^FDPour obtenir votre offre-prime 10X l'\AE @rgent \AF Canadian Tire, pr\82sentez ^FS
 ^FT15,357^A0N,17,16^FH\^FDce coupon dans un magasin Canadian Tire participant et r\82glez votre ^FS
-^FT15,378^A0N,17,16^FH\^FDachat avec votre carte MasterCard   Options   de Canadian Tiree (MCO).^FS
-^BY4,2,84^FT73,1070^BUN,,Y,N
+^FT15,378^A0N,17,16^FH\^FDachat avec votre carte MasterCard   Options   de Canadian Tiree (MCO). ^FS
+^BY4,2,84^FT73,1095^BUN,,Y,N
 ^FD40019836352^FS
 ^FO9,247^GE514,25,8^FS
 ^FT491,437^A0N,11,12^FH\^FDMC^FS
@@ -54,7 +54,7 @@
 ^FT125,251^A0N,34,33^FR^FH\^FDConservez ce coupon!^FS
 ^FT295,369^A0N,11,12^FH\^FDMD^FS
 ^FT231,369^A0N,11,12^FH\^FDMD^FS
-^FT15,824^A0N,14,14^FH\^FD1^FS
+^FT14,848^A0N,14,14^FH\^FD1^FS
 ^LRY^FO6,24^GB517,0,126^FS^LRN
 ^PQ1,0,1,Y^XZ
 ^XA^ID000.GRF^FS^XZ
