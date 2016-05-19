@@ -28,21 +28,16 @@ public class WICIAccountNumberReplacementStrategy implements ReplacementStrategy
         }   
        
         //Log.i("cryptedAccountNumber",cryptedAccountNumber == null ? "" : cryptedAccountNumber);
-        String accountNumber = EMPTY_STRING;
+        String accountNumber = cryptedAccountNumber;
         StringBuilder formattedAccountNumber = new StringBuilder();
         int offset = 0;
-        try {
-            
-        	if("4111111111111111".equals(cryptedAccountNumber))  //US3433 March 31st Release
-        		accountNumber = cryptedAccountNumber;
-        	else
-        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+        try {          
             
             if (accountNumber == null  || accountNumber.isEmpty()) {
                 return EMPTY_STRING;
             }            
             // US3692
-            if(Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) {
+            if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) || ("4111111111111111".equals(accountNumber)) ) {
 	            do {
 	                String number = accountNumber.substring(offset, offset + 4);
 	                formattedAccountNumber.append(number);

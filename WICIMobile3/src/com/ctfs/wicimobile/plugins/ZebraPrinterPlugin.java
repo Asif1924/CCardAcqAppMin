@@ -242,7 +242,8 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                             cardmemberModel.getAccountNumber(),
                             cardmemberModel.getMaskedPAN(),        
                             cardmemberModel.getProvince(),
-                            cardmemberModel.getStoreNumber());
+                            cardmemberModel.getStoreNumber(),
+                            cardmemberModel.getEmployeeId());
                 }
                 else {
                     // Print test file

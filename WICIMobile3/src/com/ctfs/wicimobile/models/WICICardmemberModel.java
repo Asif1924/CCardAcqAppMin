@@ -28,6 +28,7 @@ public class WICICardmemberModel {
 
 	private String _todayDate;
 	private String _storeNumber;
+	private String _employeeId;
 	
 	public WICICardmemberModel(){
         _cardType = "";
@@ -49,6 +50,7 @@ public class WICICardmemberModel {
         
         _todayDate = "";
     	_storeNumber = "";
+    	_employeeId = "";
     }   
     
     public void initializeModel(JSONArray source) {
@@ -73,6 +75,7 @@ public class WICICardmemberModel {
             _identityWatchYesNo = source.getString(15);
             _storeNumber = source.getString(16);
             _todayDate = source.getString(17);
+            _employeeId = source.getString(18);
                  
         } catch (JSONException e) {            
             e.printStackTrace();
@@ -323,4 +326,17 @@ public class WICICardmemberModel {
 	}  
 	
 
+	/**
+     * @return the _employeeId 
+     */
+    public String getEmployeeId() {
+    	  return _employeeId;
+   }
+
+	/**
+	 * @param _employeeId
+	 */
+	public void setEmployeeId(String _employeeId) {
+		this._employeeId = _employeeId;
+	} 
 }

@@ -24,24 +24,43 @@ public class WICIReplacementHelper {
         _replacementStrategies.add(new WICICardReplacementStrategy(carmemberModel.getCardType()));
         _replacementStrategies.add(new WICICardTermsReplacementStrategy(carmemberModel.getCardType()));
         _replacementStrategies.add(new WICIAccountShopingReplacementStrategy(carmemberModel.getCardType()));
-        
+                
+        String _storeNumber =  "Test".equalsIgnoreCase(carmemberModel.getStoreNumber())? "0" : carmemberModel.getStoreNumber() ;
+    	double storeNo = Double.parseDouble(_storeNumber);
+    	boolean isMarksStore = false;
+    	if(storeNo > 0){
+	        if(storeNo >= 6000 && storeNo <= 6999 ) {
+	        	isMarksStore = true;
+	        }
+    	}
         // US3692
         String cryptedAccountNumber = carmemberModel.getAccountNumber();
         String maskedPAN = carmemberModel.getMaskedPAN();
         String accountNumber = "";
         int offset = 0;
         if (cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
-        	accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
-	        if(Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16 && (maskedPAN == null || maskedPAN.isEmpty())) {
+        	// UAT204
+        	if("4111111111111111".equals(cryptedAccountNumber))
+        		accountNumber = cryptedAccountNumber;
+        	else
+        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+        	
+	        if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16 && (maskedPAN == null || maskedPAN.isEmpty()))) {
 	        	Log.i(" WICIReplacementHelper ", " 5 : 16 ");
-	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(carmemberModel.getAccountNumber(), context));
-	        }
-	        else if(Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15 && (maskedPAN != null || !maskedPAN.isEmpty())) {
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
+	        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15 && (maskedPAN != null || !maskedPAN.isEmpty()))) {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
-	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(carmemberModel.getAccountNumber(), context));
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
+	        } else if(!isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
+	         	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
+	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
+	        } else if(isMarksStore  && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        }
+	        
         }
+     
         Log.i(" accountNumber ", accountNumber);     
                 
         _replacementStrategies.add(new WICIExpiryDateReplacementStrategy(carmemberModel.getExpiryDate()));
@@ -51,7 +70,8 @@ public class WICIReplacementHelper {
         _replacementStrategies.add(new WICISignatureReplacementStrategy(carmemberModel.getSignture(), printer)); 
         _replacementStrategies.add(new WICIPrintoutAddReplacementStrategy(carmemberModel.getTodayDate(),carmemberModel.getStoreNumber())); 
             
-    }    
+    } 
+    	
     
     public String applyReplacement(String source) {
         // Go through all replacementStrategies and apply replacement logic

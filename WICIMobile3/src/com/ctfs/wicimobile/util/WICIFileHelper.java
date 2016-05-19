@@ -36,7 +36,8 @@ public class WICIFileHelper {
             String cryptedAccountNumber,
             String maskedPAN,
             String province,
-            String storeNumber) throws ConnectionException, IOException {
+            String storeNumber,
+            String employeeId) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
@@ -68,18 +69,31 @@ public class WICIFileHelper {
 	        }*/	        
 	        
 	        if(cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
-	        	String accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
-		        
+	        	
+	        	String accountNumber = "";
+	        	// UAT204
+	        	if("4111111111111111".equals(cryptedAccountNumber))
+	        		accountNumber = cryptedAccountNumber;
+	        	else
+	        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+	        	
 		        String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
 	        	double storeNo = Double.parseDouble(_storeNumber);
+	        	boolean isMarksStore = false;
 	        	// US3692
 	        	// Print token for CTR store only, not Marks/Gas store
 	        	if(storeNo > 0){
 			        if(storeNo >= 6000 && storeNo <= 6999 ) {
 			        	templateFileName = templateFileName;
+			        	isMarksStore = true;
 			        } else {
 			        	int offset = 0;      	        	        	       	    	        
-				        if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        // E && !Marks && Demo than tokrn prn			        	
+			        	if(!isMarksStore && "4111111111111111".equals(accountNumber) ) {
+			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        } else if(isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
+				        	templateFileName = templateFileName;
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
 				        	templateFileName = templateFileName;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
