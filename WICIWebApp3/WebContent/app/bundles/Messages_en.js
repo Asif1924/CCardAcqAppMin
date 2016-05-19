@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_en =  {
-	version												:	"2",
+	version												:	"29",
 	yes 												: 	"Yes",
 	no 													: 	"No",
 	cancel  											:  	"Cancel",
@@ -408,7 +408,7 @@ WICI.dictionary_en =  {
 															+ "<br><br>Canadian Tire Bank has a financial interest in the sale of Credit Protector/Credit Protector-<i>Senior</i>."
 															+ "<br><br>If you would like more information on Credit Protector/Credit Protector-<i>Senior<i>, you can obtain a full Certificate of Insurance and detailed information by visiting ctfs.com or by calling 1-800-459-6415.",
 
-	optionalProducts_TermsAndConditions_IW_Title		:   "Subscription Conditions for Identity Watch Classic<sup>&trade;</sup>",
+	optionalProducts_TermsAndConditions_IW_Title		:   "Subscription Conditions for Identity Watch Classic<sup>&reg;</sup>",
 	optionalProducts_TermsAndConditions_IW				:
 															"Identity Watch Classic is $4.99 payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card, plus applicable taxes. This product includes the following program Benefits" +
 															"<br>(&quot;Benefits&quot;): Identity Fraud Protection / Online Monitoring Services (iPiP<sup>&reg</sup>), Rebound<sup>&reg</sup> Asset Return Service and Computer Tune-Up Reimbursement. Plus, Card Protection, Online Data Backup, and Credit Card Theft Reward Service.",
@@ -1048,7 +1048,7 @@ WICI.dictionary_en =  {
 	legal_omp_fourth_chapter							: " Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
 	legal_omp_fives_chapter 							: "   Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida, Assurant Solutions<sup>&reg;</sup> companies.",	
 	// US3997
-	legal_omp_six_chapter 								: "&#8194;Upon approval for the Gas Advantage MasterCard, your 5&cent; per litre discount will be active upon account open date and valid for 30 days (&quot;Month One&quot;). When Month One is complete your discount will be based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in Month One plus an additional 3&cent; off per litre, for a minimum of 5&cent; per litre for the following 30 days (&quot;Month Two&quot;). The extra 3&cent; will only be applied on one transaction per day per account (including supplementary cards). For example, if your net new purchases posted to your account are: $0-$499.99 in Month One, your discount remains at 5&cent; off per litre in Month Two; $500-$999.99 in Month One, your discount will be 8&cent; off per litre in Month Two; $1000-$1999.99 in Month One, your discount will be 11&cent; off per litre in Month Two; or $2000 or greater in Month One, your discount will be 13&cent; off per litre in Month Two. Valid for one gas purchase per day during the offer period. When Month One and Month Two are complete, you will revert to the qualified discount level indicated on your monthly statement. At this time, the discount will be reduced to 2&cent; off per litre after your Canadian Tire gas bar purchases exceed $700. <b>Effective May 2, 2016 your gas savings will be reduced to 2&cent;/litre after Canadian Tire gas bar purchases exceed $500.</b>",
+	legal_omp_six_chapter 								: "<sup>2</sup> Upon approval for the Gas Advantage MasterCard, your 5&cent; per litre discount will be active upon account open date and valid for 30 days (&quot;Month One&quot;). When Month One is complete your discount will be based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage MasterCard account in Month One plus an additional 3&cent; off per litre, for a minimum of 5&cent; per litre for the following 30 days (&quot;Month Two&quot;). The extra 3&cent; will only be applied on one transaction per day per account (including supplementary cards). For example, if your net new purchases posted to your account are: $0-$499.99 in Month One, your discount remains at 5&cent; off per litre in Month Two; $500-$999.99 in Month One, your discount will be 8&cent; off per litre in Month Two; $1000-$1999.99 in Month One, your discount will be 11&cent; off per litre in Month Two; or $2000 or greater in Month One, your discount will be 13&cent; off per litre in Month Two. Valid for one gas purchase per day during the offer period. When Month One and Month Two are complete, you will revert to the qualified discount level indicated on your monthly statement. At this time, the discount will be reduced to 2&cent; off per litre after your Canadian Tire gas bar purchases exceed $700. <b>Effective May 2, 2016 your gas savings will be reduced to 2&cent;/litre after Canadian Tire gas bar purchases exceed $500.</b>",
 	legal_omp_seven_chapter 							: "<sup>&reg;/&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
 	// Old code
 	// legal_omp_eight_chapter 							: "<sup>&reg;/&trade;</sup> Credit Protector and Credit Protector-Senior are registered trademarks of Canadian Tire Financial Services Limited.",
@@ -1056,7 +1056,7 @@ WICI.dictionary_en =  {
 	// Old line
 	// legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard, the MasterCard Brand Mark, Cirrus and MasterCard SecureCode are registered trademarks, and <i>PayPass</i> is a trademark, of MasterCard International Incorporated.",
 	// legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated.",
-	legal_omp_nine_chapter 								: "MasterCard, the MasterCard Brand Mark and MasterCard SecureCode are registered trademarks of MasterCard International, and used under licence.",
+	legal_omp_nine_chapter 								: "<sup>&reg;/&trade;</sup> MasterCard, the MasterCard Brand Mark and MasterCard SecureCode are registered trademarks of MasterCard International, and used under licence.",
 	
 	// US3766	
 	// OMR_LEGAL	
@@ -1087,7 +1087,7 @@ WICI.dictionary_en =  {
     omc_16_chapter 									: "24-hour customer service for lost or stolen cards - call 1-800-459-6415 (outside Canada or the U.S., call collect 905-735-7256)",
 	// OMP
     // US3997
-    omp_1_chapter 										: "BONUS! Save at least 5&cent; per litre for the first 60days<sup>2</sup>",
+    omp_1_chapter 										: "BONUS! Save at least 5&cent; per litre for the first 60 days<sup>2</sup>",
 	omp_2_chapter 										: "There&rsquo;s an easy way to save at least 2 cents and up to 10 cents* off per litre of gas at Canadian Tire gas bars. Just use the Gas Advantage<sup>&reg;</sup> MasterCard<sup>&reg;</sup> for your everyday purchases and you&rsquo;ll save instantly right at the pump<sup>&dagger;</sup>!            ",
 	omp_3_chapter 										: "Here&rsquo;s how easy it is:",
 	omp_4_chapter 										: "1. <b>Swipe</b> the card at the pump<sup>&dagger;</sup><br/> 2. <b>Watch</b> the litre price turn back INSTANTLY<br/>3. <b>Save</b> up to 10&cent; off per litre",
@@ -1141,7 +1141,7 @@ WICI.dictionary_en =  {
     omc_second_chapter_ectm                             : "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Money'<sup>&trade;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
 
     omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>10X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> every day<sup>1</sup> at Canadian Tire stores, including on automotive service.",
-    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>10X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, PartSource<sup>&reg;</sup> and Canadian Tire Home Services<sup>1</sup>.",
+    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>10X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
     omc_sixt_chapter_ectm                               : "<b>Collect</b> e-Canadian Tire 'Money'<sup>&trade;</sup> at participating Canadian Tire gas bars<sup>2</sup>.",
     omc_seventh_chapter_ectm                            : "<b>Collect <span class='RedLabel'>2X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> everywhere else you shop<sup>1</sup>",
 
@@ -1239,7 +1239,7 @@ WICI.dictionary_en =  {
         "<p><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited.</p></div><hr/><br/>", */
         
     // UAT 39 - CP Revitalization, Missed Requirement
-    optionalProducts_SellingLanguageText                :   "<p><strong>Identity Watch Classic<sup>TM</sup><em></em></strong></p>" +
+    optionalProducts_SellingLanguageText                :   "<p><strong>Identity Watch Classic<sup>&reg;</sup><em></em></strong></p>" +
         "<p>Help safeguard you and your family's private and valuable information." +
         "<br/> - Online monitoring of your registered personal information**" +
         "<br/> - Card Protection, Online Data Backup and Credit Theft Reward Service of up to $3,000**" +

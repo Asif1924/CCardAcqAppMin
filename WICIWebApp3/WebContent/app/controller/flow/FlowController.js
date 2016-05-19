@@ -94,7 +94,11 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 	}
 	//---------------------------------------------------------------------------------------	
 	function afterPageLikelyShown() {
-		window.scrollTo(0, 0);
+		// window.scrollTo(0, 0);
+		// time out is added to apply the scroll, after confirm dialog for Handout prompt
+		setTimeout(function(){
+			window.scrollTo(0, 0);
+	    },500);
 	}
 	//---------------------------------------------------------------------------------------	
 	function back() {

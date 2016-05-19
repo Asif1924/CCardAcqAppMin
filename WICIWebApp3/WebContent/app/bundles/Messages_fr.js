@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_fr =  {
-	version											:							"2",
+	version											:							"29",
 	yes 											: 							"Oui",
 	no                                 				  :                         "Non",
 	cancel  										  : 						"Annuler",
@@ -396,7 +396,7 @@ WICI.dictionary_fr =  {
 
 
 
-	optionalProducts_TermsAndConditions_IW_Title: "Conditions d'adhésion au programme Surveillance d'identité Classique<span class=\"MC\"><sup></sup></span>",
+	optionalProducts_TermsAndConditions_IW_Title: "Conditions d'adhésion au programme Surveillance d'identité Classique<span class=\"MD\"><sup></sup></span>",
 	optionalProducts_TermsAndConditions_IW				:	"Surveillance d'identité Classique, 4,99 $ payable en avance chaque mois une fois votre première transaction effectuée avec votre carte de crédit de marque Canadian Tirepar mois, taxes applicables en sus. Ce service comprend les avantages suivants (les « avantages ») :"
 															+ " Protection contre l'usurpation d'identité / Service de surveillance en ligne (iPiP<span class=\"MD\"><sup></sup></span>), service de retour de biens Rebound<span class=\"MC\"><sup></sup></span> et un remboursement"
 															+ " De plus, la protection des cartes, la sauvegarde de données en ligne, et la récompense pour tout renseignement menant à la condamnation d'un fraudeur.",
@@ -1063,7 +1063,7 @@ WICI.dictionary_fr =  {
 	legal_omp_fourth_chapter							: " Frais d'avances de fonds : 4,00 $. Les frais d'intérêt sont imputés à compter de la date d'obtention de l'avance jusqu'à la date du remboursement de celle-ci et de tous les intérêts courus.",
 	legal_omp_fives_chapter 							: "   Couverture-crédit est souscrite auprès de American Bankers, Compagnie d'Assurance Vie de la Floride, et American Bankers, Compagnie d'Assurances Générales de la Floride, filiales de Assurant Solutions<span class=\"MD\"><sup></sup></span>.",
 	// US3997	
-	legal_omp_six_chapter 								: "&#8194;Lorsque votre demande de carte MasterCard Avantage Essence est approuvée, le rabais de 5 ¢ par litre entrera en vigueur à la date d’ouverture de votre compte et sera valide pendant 30 jours (« le premier mois »). Après le premier mois, votre rabais sera basé en fonction du montant net des nouveaux achats (achats moins crédits) portés à votre compte MasterCard Avantage Essence au cours du premier mois, plus un rabais supplémentaire de 3 ¢ par litre, pour un rabais d’une valeur minimum de 5 ¢ par litre pendant la nouvelle période de 30 jours (« le deuxième mois »).  Le rabais de 3 ¢ supplémentaire ne sera valable que pour une transaction par jour, par compte, cartes additionnelles incluses.  Par exemple, si le montant net des nouveaux achats inscrits à votre compte est entre :  0 $ et 499,99 $ le premier mois, votre rabais sur chaque litre d’essence restera de 5 ¢ pour le deuxième mois; 500 $ et 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 8 ¢ le deuxième mois; 1 000 $ et 1 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 11 ¢ le deuxième mois; 2 000 $ et plus le premier mois, votre rabais sur chaque litre d’essence sera de 13 ¢ le deuxième mois.  Cette prime d’activation est valide pour un achat d’essence par jour pendant la période promotionnelle. À compter de la fin du deuxième mois, le rabais admissible auquel vous aurez droit sera celui indiqué sur votre relevé de compte mensuel. En ce moment, le rabais est ramené à 2 ¢ le litre dès que le total des achats effectués dans les postes d’essence Canadian Tire dépasse 700 $. <b>À partir du 2 mai 2016, après avoir effectué 500 $ ou plus d’achats dans un poste d’essence Canadian Tire, le rabais passera à 2 ¢ par litre.</b>",
+	legal_omp_six_chapter 								: "<sup>2</sup> Lorsque votre demande de carte MasterCard Avantage Essence est approuvée, le rabais de 5 ¢ par litre entrera en vigueur à la date d’ouverture de votre compte et sera valide pendant 30 jours (« le premier mois »). Après le premier mois, votre rabais sera basé en fonction du montant net des nouveaux achats (achats moins crédits) portés à votre compte MasterCard Avantage Essence au cours du premier mois, plus un rabais supplémentaire de 3 ¢ par litre, pour un rabais d’une valeur minimum de 5 ¢ par litre pendant la nouvelle période de 30 jours (« le deuxième mois »).  Le rabais de 3 ¢ supplémentaire ne sera valable que pour une transaction par jour, par compte, cartes additionnelles incluses.  Par exemple, si le montant net des nouveaux achats inscrits à votre compte est entre :  0 $ et 499,99 $ le premier mois, votre rabais sur chaque litre d’essence restera de 5 ¢ pour le deuxième mois; 500 $ et 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 8 ¢ le deuxième mois; 1 000 $ et 1 999,99 $ le premier mois, votre rabais sur chaque litre d’essence sera de 11 ¢ le deuxième mois; 2 000 $ et plus le premier mois, votre rabais sur chaque litre d’essence sera de 13 ¢ le deuxième mois.  Cette prime d’activation est valide pour un achat d’essence par jour pendant la période promotionnelle. À compter de la fin du deuxième mois, le rabais admissible auquel vous aurez droit sera celui indiqué sur votre relevé de compte mensuel. En ce moment, le rabais est ramené à 2 ¢ le litre dès que le total des achats effectués dans les postes d’essence Canadian Tire dépasse 700 $. <b>À partir du 2 mai 2016, après avoir effectué 500 $ ou plus d’achats dans un poste d’essence Canadian Tire, le rabais passera à 2 ¢ par litre.</b>",
 	legal_omp_seven_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de la Société Canadian Tire Limitée et sont utilisées sous licence.",
 	// Old code
 	// legal_omp_eight_chapter 							: "<span class=\"MDMC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Services Financiers Canadian Tire Limitée.",
@@ -1071,7 +1071,7 @@ WICI.dictionary_fr =  {
 	// Old line
 	// legal_omp_nine_chapter 								: "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard, Cirrus et SecureCode sont des marques de commerce déposées et PayPass est une marque de commerce de MasterCard International Incorporated.",
 	// legal_omp_nine_chapter 								: "<span class=\"MDMC\"><sup></sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
-	legal_omp_nine_chapter 								:  "MasterCard, la marque figurative de MasterCard et MasterCard SecureCode sont des marques de commerce déposées de MasterCard International et sont utilisées sous licence.",
+	legal_omp_nine_chapter 								:  "<span class=\"MDMC\"><sup></sup></span> MasterCard, la marque figurative de MasterCard et MasterCard SecureCode sont des marques de commerce déposées de MasterCard International et sont utilisées sous licence.",
 	
 	// US3766
 	// OMR_LEGAL
@@ -1091,7 +1091,7 @@ WICI.dictionary_fr =  {
 
 
     omc_fourth_chapter_ectm                             : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours<sup>1</sup> dans les magasins Canadian Tire, y compris dans les centres-autos.",
-    omc_fives_chapter_ectm                              : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours dans les magasins Sport Chek<span class=\"MD\"><sup></sup></span>, Mark's<span class=\"MD\"><sup></sup></span> / L'Équipeur<span class=\"MD\"><sup></sup></span>, PartSource<span class=\"MD\"><sup></sup></span>, et sur les Services résidentiels Canadian Tire<span class=\"MD1\"><sup></sup></span>",
+    omc_fives_chapter_ectm                              : "<b>Obtenez <span class='RedLabel'>10X</span></b> les primes en « @rgent » Canadian Tire tous les jours dans les magasins Sport Chek<span class=\"MD\"><sup></sup></span>, Mark's<span class=\"MD\"><sup></sup></span> / L'Équipeur<span class=\"MD\"><sup></sup></span>, et PartSource<span class=\"MD1\"><sup></sup></span>",
     omc_sixt_chapter_ectm                               : "<b>Obtenez</b> de l'« @rgent » Canadian Tire dans les postes d'essence Canadian Tire participants<sup>2</sup>.",
     omc_seventh_chapter_ectm                            : "<b>Obtenez <span class='RedLabel'>2X</span></b> l'« @rgent » Canadian Tire partout ailleurs où vous magasinez<sup>1</sup>.",
 
@@ -1249,7 +1249,7 @@ WICI.dictionary_fr =  {
         "<p><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées.</p></div><hr/><br/>",*/
         
     // UAT 39 - CP Revitalization, Missed Requirement
-    optionalProducts_SellingLanguageText                :   "<p><strong>Surveillance d'identité Classique<span class=\"MC\"><sup><em></em></strong></p>" +
+    optionalProducts_SellingLanguageText                :   "<p><strong>Surveillance d'identité Classique<span class=\"MD\"><sup><em></em></strong></p>" +
         "<p>Vous aide à protéger vos renseignements privés et importants, ainsi que ceux de votre famille." +
         "<br/> - Service de surveillance en ligne de toutes vos données personnelles enregistrées**" +
         "<br/> - Service de protection, de sauvegarde des données en ligne et de récompense pour retour de carte de crédit en cas de vol jusqu’à 3 000 $**" +

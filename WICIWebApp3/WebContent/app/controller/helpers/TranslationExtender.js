@@ -40,7 +40,7 @@ WICI.TranslationExtender = function () {
 		var sMethod = 'onRefreshFlipsEventHandler()';
 		console.log(logPrefix + sMethod + '::Event::' + event + '::Current Language::' + data);
 
-		setFlipsValues();
+		setFlipsValues(data);
 	}
 
 	function changeCTMLogoToFrench() {
@@ -79,10 +79,34 @@ WICI.TranslationExtender = function () {
 		node.addClass("PageHeader_CanadianTireLogo_English");
 	};
 
-	setFlipsValues = function () {
+	setFlipsValues = function (data) {
 		console.log("setFlipsValues method");
+		
+		//old code Begin  #UAT80 - May 24 release 
+		/*
 		$('.ui-slider-label-a').text(translateKey("yes"));
-		$('.ui-slider-label-b').text(translateKey("no"));
+		$('.ui-slider-label-b').text(translateKey("no"));  
+		*/		
+		//old code End  #UAT80 - May 24 release
+		
+		//New code begin  #UAT80 - May 24 release 
+		console.log("setFlipsValues method currentLanguage :: " + data);
+		console.log("FlipsValues - " + $(".ui-slider-label-a").text() + " - " + $(".ui-slider-label-b").text());
+		if(($(".ui-slider-label-a").text() != "Fr"  ||  $(".ui-slider-label-b").text() != "En")) {  
+		    $('.ui-slider-label-a').text(translateKey("yes"));
+			$('.ui-slider-label-b').text(translateKey("no"));
+		}
+		else{
+			   if(data.toUpperCase() === "FR")
+				   {
+		    	$("#language_choser").val("F").slider("refresh");
+				   }
+			   else if(data.toUpperCase() === "EN")
+				   {
+				   $("#language_choser").val("E").slider("refresh");
+				   }
+		}
+		//New code End  #UAT80 - May 24 release 
 		try {
 			$(
 					"#flipVISAMCAMEX, #flipBankLoan, #flipStoreCard, #flipChequingAcct, #flipGasCard, #flipSavingsAcct")

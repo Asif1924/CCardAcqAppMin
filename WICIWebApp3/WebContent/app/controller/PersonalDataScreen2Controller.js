@@ -73,7 +73,8 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
             {notField: true, name: 'addressline2_Array', value: null },
             
             {name: 'house',             value: null, validation: {type: 'presence',     message: '', group: [1]} },
-            {name: 'housingpayment',    value: null, validation: {type: 'format',       message: '', group: [1], matcher: /^[0-9\,]{1,4}$/, canBeEmpty: true} },
+			// US4039
+            {name: 'housingpayment',    value: null, validation: {type: 'format',       message: '', group: [1], matcher: /^[0-9\,]{1,4}$/ } },
             
             {name: 'years',             value: null, validation: {type: 'presence',     message: '', group: [3]} },
             {name: 'months',            value: null, validation: {type: 'presence',     message: '', group: [3]} },

@@ -56,14 +56,16 @@ The project name will be used to generate your .zip archive and .war file
             <fileset dir="WebContent" includes="app/view/js/*.js"/>
             <fileset dir="WebContent" includes="app/bundles/*.js"/>
         </union>
-        <!-- phonegap.js must be included first -->
-        <!-- PhoneGap 2.5 Android //-->
-        <union id="js.include.phonegap.android">
-            <fileset dir="WebContent" includes="app/lib/phonegap/android/cordova-2.5.0.js"/>
+        <!-- cordova.js must be included first -->
+        <!-- PhoneGap   Android //-->
+        <union id="js.include.cordova.android">
+<!--             <fileset dir="WebContent" includes="app/lib/cordova/android/cordova.js"/> -->
+<!--             <fileset dir="WebContent" includes="app/lib/cordova/android/cordova_plugins.js"/> -->
+<!--             <fileset dir="WebContent" includes="app/lib/cordova/android/plugins/cordova-plugin-whitelist/whitelist.js"/> -->
         </union>
         <union id="js.include">
             <union refid="js.include.base"/>
-            <union refid="js.include.phonegap.android"/>
+            <union refid="js.include.cordova.android"/>
         </union>
     </target>
 
@@ -242,6 +244,12 @@ load:
         <copy todir="${production.output.dir}/app/bundles">
             <fileset dir="WebContent/app/bundles">
                 <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+         <!-- Copy cordova Files//-->
+        <copy todir="${production.output.dir}/app">
+            <fileset dir="WebContent/app/lib/cordova/android">
+                <include name="**/*.*"/>
             </fileset>
         </copy>
         <echo message="Production Output Files Created."/>
