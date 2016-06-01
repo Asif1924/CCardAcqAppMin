@@ -424,6 +424,10 @@ public class AccountApplicationRequestTypeConverter
 				ar.setMonthsAtEmployement(howLongMonthes);
 
 				ar.setGrossAnnualIncome(model.getInt("grossIncome"));
+				
+				//US3960 WICI:new "Household Income" field 
+				ar.setGrossAnnualHouseholdIncome(model.getInt("grossHouseholdIncome"));
+				
 				ar.setBankCardFlag(model.get("cardVISAMCAMEX"));
 				ar.setBankLoanFlag(model.get("cardBankLoan"));
 				ar.setStoreCardFlag(model.get("cardStoreCard"));

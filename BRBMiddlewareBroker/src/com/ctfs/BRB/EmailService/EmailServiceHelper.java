@@ -81,6 +81,16 @@ public class EmailServiceHelper
 
 			CreateRequest request = new CreateRequest();
 			request.getObjects().add(triggeredSend);
+			
+			for (int i=0;i<request.getObjects().size();i++)
+			{
+				log.info(sMethod + "::Tejas 1 - Soap request parameters::" + request.getObjects().get(i));
+				com.thoughtworks.xstream.XStream xmlParser = new com.thoughtworks.xstream.XStream();
+				log.info(sMethod + "::Tejas 2 - Soap request parameters::" + xmlParser.toXML(request.getObjects()));
+				log.info(sMethod + "::Tejas 3 - Soap request parameters::" + xmlParser.toXML(request.getObjects().get(i)));
+				
+			}
+			
 
 			Gson gson = new Gson();
 			String jsonRequest = gson.toJson(triggeredSend, TriggeredSend.class);
