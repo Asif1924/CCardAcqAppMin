@@ -115,6 +115,12 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		grossIncome						:   "#personalInformation_GrossAnnualIncome_TextField",
     		grossIncomeDollarFr				:	"#personalInformation_GrossAnnualIncome_Dollar_Fr",
     		
+    		// US3961
+    		grossHouseholdIncomeContainer	:	"#personalInformation_GrossAnnualHouseholdIncome_Container",
+    		grossHouseholdIncomeDollarEn	:	"#personalInformation_GrossAnnualHouseholdIncome_Dollar_En",
+    		grossHouseholdIncome			:   "#personalInformation_GrossAnnualHouseholdIncome_TextField",
+    		grossHouseholdIncomeDollarFr	:	"#personalInformation_GrossAnnualHouseholdIncome_Dollar_Fr",
+    		
     		cardVISAMCAMEX					:   '#personalInformation_CreditCard_TextField',
     		cardBankLoan					:   '#personalInformation_BankLoan_TextField',
     		cardStoreCard					:   '#personalInformation_StoreCard_TextField',
@@ -197,6 +203,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {name: 'howLongMonthes',    		value: null, validation: {type: 'month',   message: 'personalInformation_EmployerSinceMonthError', group:[4]} },
                 {name: 'howLongYears',			    value: null, validation: {type: 'year',   message: 'personalInformation_EmployerSinceYearError', group:[4]} },
                 {name: 'grossIncome',     			value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualIncomeError', matcher: /\d+/, group:[5] }, containerUiid: 'grossIncomeContainer' },
+                // US3961
+                {name: 'grossHouseholdIncome',   	value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualHouseholdIncomeError', matcher: /\d+/, group:[5], canBeEmpty: true }, containerUiid: 'grossHouseholdIncomeContainer' },
+                
                 {name: 'cardVISAMCAMEX',  			value: null, validation: null },
               	{name: 'cardBankLoan',  			value: null, validation: null },
               	{name: 'cardStoreCard',  			value: null, validation: null },
@@ -286,7 +295,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	
 	function createInputWithPlaceHolder(data_translation_key,idValue,idElementToappendAffter){
 		var placeholderValue = translator.translateKey(data_translation_key);
-		var input = "<input class='fieldValuesTextField dateOfBirthYearField' id='" + idValue + "' placeholder='" + placeholderValue +"' type='text' maxlength='4'/>";
+		/*2016-03-11 chrch: Changing type for responsive (US3964)*/
+		var input = "<input class='fieldValuesTextField dateOfBirthYearField' id='" + idValue + "' placeholder='" + placeholderValue +"' type='tel' maxlength='4'/>";
 		$(idElementToappendAffter).append(input);
 		return document.getElementById(idValue);
 	}
@@ -401,6 +411,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		var sMethod = "restoreFinancialInformationUserData()";
         BRB.Log(logPrefix + sMethod);
         $(refs.grossIncome).val(numberWithSeparators(model.get('grossIncome').toString().replace(',', '').replace(' ', '')));
+        // US3961
+        $(refs.grossHouseholdIncome).val(numberWithSeparators(model.get('grossHouseholdIncome').toString().replace(',', '').replace(' ', '')));
+        
         $(refs.cardVISAMCAMEX).prop('checked', model.get('cardVISAMCAMEX') == 'Y' ? true : false);
         $(refs.cardBankLoan).prop('checked', model.get('cardBankLoan') == 'Y' ? true : false);
         $(refs.cardStoreCard).prop('checked', model.get('cardStoreCard') == 'Y' ? true : false);
@@ -526,6 +539,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	
 	//---------------------------------------------------------------------------------------
 	function updateEmployerInformationArea() {
+		var sMethod = "updateEmployerInformationArea() :: ";
+		BRB.Log(logPrefix + sMethod + $(refs.employmentType).val());
 		if (_.isEmpty($(refs.employmentType).val()) || $(refs.employmentType).val().toUpperCase() ==='R' || $(refs.employmentType).val()=='null') {
 			$(refs.employerInformationArea).hide();
 		} else {
@@ -648,7 +663,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         currentModel.set('employmentType',  	$(refs.employmentType).val());
         currentModel.set('employerName',  		$(refs.employerName).val().toUpperCase());
         currentModel.set('employerCity',  		$(refs.employerCity).val().toUpperCase());
-        currentModel.set('jobTitle', 			$(refs.jobTitle).val() ==='null' ? null : $(refs.jobTitle).val().toUpperCase());
+        // currentModel.set('jobTitle', 			$(refs.jobTitle).val() ==='null' ? null : $(refs.jobTitle).val().toUpperCase());
+        currentModel.set('jobTitle', 			$(refs.jobTitle).val() ==='null' ? null : $(refs.jobTitle).val());
         currentModel.set('jobDescription', 	$(refs.jobDescription).val().toUpperCase());
         // US3622        
         currentModel.set('jobDescription_temp', 	$(refs.jobTitle_SelectField).val());
@@ -658,14 +674,17 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     
     //---------------------------------------------------------------------------------------
     function syncFinancialInformationUserData(currentModel){
-    	var sMethod = 'syncFinancialInformationUserData() ';
-        BRB.Log(logPrefix + sMethod);
+    	var sMethod = 'syncFinancialInformationUserData() :: ';
+        BRB.Log(logPrefix + sMethod + " grossHouseholdIncome " + $(refs.grossHouseholdIncome).val());
         
         if((currentModel == null) || (currentModel === undefined)) {
         	currentModel = model;
         }
         //currentModel.set('grossIncome', 		$(refs.grossIncome).val().replace(/,/g,'').replace(' $ ','').replace('.',',').replace(' ', ''));               
         currentModel.set('grossIncome', 		$(refs.grossIncome).val().replace(/,/g,'').replace(' $ ','').replace(' ', '').replace(',', ''));
+        // US3961        
+        currentModel.set('grossHouseholdIncome',$(refs.grossHouseholdIncome).val().replace(/,/g,'').replace(' $ ','').replace(' ', '').replace(',', ''));
+        
         currentModel.set('cardVISAMCAMEX',   	$(refs.cardVISAMCAMEX).is(':checked') == true ? 'Y':'N');
         currentModel.set('cardBankLoan',   	$(refs.cardBankLoan).is(':checked') == true ? 'Y':'N');
         currentModel.set('cardStoreCard',   	$(refs.cardStoreCard).is(':checked') == true ? 'Y':'N');
@@ -821,12 +840,24 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		}
 		
 		if (blockName) {
-			if (checkGrossAnnualIncome(model.get('grossIncome'), hidePopupWindow, blockName === refs.blockFinancialInformation)) {
+			// Removing addition of null to the popupHideEventHandler
+			//US3961
+			// popupHideEventHandler required for grossAnnualHouseholdIncomeCheck pop up
+			checkGrossAnnualIncome(model.get('grossIncome'), grossAnnualHouseholdIncomeCheck, blockName === refs.blockFinancialInformation);
+			
+			/*if (checkGrossAnnualIncome(model.get('grossIncome'), hidePopupWindow, blockName === refs.blockFinancialInformation)) {
 				popupHideEventHandler = null;
-			}
+			}*/
 		}
 	}
-	
+	//US3961
+    function grossAnnualHouseholdIncomeCheck(){
+    	if (blockName) {
+	    	if (checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'), hidePopupWindow, blockName === refs.blockFinancialInformation)) {
+				popupHideEventHandler = null;
+			}
+    	}
+    }
 	//---------------------------------------------------------------------------------------
 	function hidePopupWindow() {
 		argPopup = false;
@@ -932,7 +963,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		    $(refs.cancelButton).toggleClass( "active", e.type === "mousedown" );
 		});
 		
-		$(".tooltip").on('click mouseout', function(e){
+		/* 2016-02-11 chrch: Change class name due to responsive (US3964) */
+		$(".ctfsTooltip").on('click mouseout', function(e){
 			if(e.type === 'click'){
 				$(this).children("span").addClass("hint");
 			}else if (e.type === 'mouseout'){
@@ -1010,12 +1042,20 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         	$(refs.grossIncome).val($(refs.grossIncome).val().toString().replace(' ', ','));
         	$(refs.grossIncomeDollarEn).show();
         	$(refs.grossIncomeDollarFr).hide();
+        	// US3961
+        	$(refs.grossHouseholdIncome).val($(refs.grossHouseholdIncome).val().toString().replace(' ', ','));
+        	$(refs.grossHouseholdIncomeDollarEn).show();
+        	$(refs.grossHouseholdIncomeDollarFr).hide();
         } else {
         	$(refs.housingpaymentDollar).hide();
         	$(refs.housingpayment).val($(refs.housingpayment).val().toString().replace(',', ' '));
         	$(refs.grossIncome).val($(refs.grossIncome).val().toString().replace(',', ' '));
         	$(refs.grossIncomeDollarFr).show();
         	$(refs.grossIncomeDollarEn).hide();
+        	// US3961
+        	$(refs.grossHouseholdIncome).val($(refs.grossHouseholdIncome).val().toString().replace(',', ' '));
+        	$(refs.grossHouseholdIncomeDollarFr).show();
+        	$(refs.grossHouseholdIncomeDollarEn).hide();
         }
     }
     
@@ -1275,6 +1315,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	//---------------------------------------------------------------------------------------
 	// US3622
 	function populateJobTitlesList(restore) {
+		var sMethod = "populateJobTitlesList() :: ";
+		BRB.Log(logPrefix + sMethod + $(refs.jobTitle_DropDown).val());
 		
 		var jobTitle, jobDescription_temp, controlRef;
 		
@@ -1361,9 +1403,15 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	function setUIElementsMasks(formatType) {
 		if (translator.isCurrentLanguageEnglish()) {
 			$(refs.grossIncome).autoNumeric(formatType, {aSign: '', vMin: '0', vMax:'999999', mDec: '0', wEmpty: 'sign', aSep: ','});
+			// US3961
+			$(refs.grossHouseholdIncome).autoNumeric(formatType, {aSign: '', vMin: '0', vMax:'999999', mDec: '0', wEmpty: 'sign', aSep: ','});
+			
 			$(refs.housingpayment).autoNumeric(formatType, {aSign: '', vMin: '0', vMax:'9999', mDec: '0', wEmpty: 'sign', aSep: ','});
 		} else {
 			$(refs.grossIncome).autoNumeric(formatType, {aSign: '', vMin: '0', vMax: '999999', mDec: '0', wEmpty: 'sign', aSep: ' '});
+			// US3961
+			$(refs.grossHouseholdIncome).autoNumeric(formatType, {aSign: '', vMin: '0', vMax: '999999', mDec: '0', wEmpty: 'sign', aSep: ' '});
+			
 			$(refs.housingpayment).autoNumeric(formatType, {aSign: '', vMin: '0', vMax: '9999', mDec: '0', wEmpty: 'sign', aSep: ' '});			
 		}
 		
@@ -1409,9 +1457,17 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         }
 
         $(refs.makeCorrectionSection).hide();
-        
-        checkGrossAnnualIncome(model.get('grossIncome'), flowNext, true);
-	}
+		
+		// US3961        
+        checkGrossAnnualIncome(model.get('grossIncome'), grossAnnualHouseholdIncome, true);
+        // checkGrossAnnualIncome(model.get('grossIncome'), flowNext, true); // Old
+	}	
+	
+	// US3961
+	//---------------------------------------------------------------------------------------
+    function grossAnnualHouseholdIncome(){    	
+		checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'), flowNext, true);
+    }
 	
 	//---------------------------------------------------------------------------------------
 	function flowNext() {
@@ -1447,6 +1503,38 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		return true;
 	}
 	
+	// US3961
+	//---------------------------------------------------------------------------------------
+	function checkGrossAnnualHouseholdIncome(value, agreeCallback, isDialogToBeShown) {
+		var sMethod = '[checkGrossAnnualHouseholdIncome()] :: value = ' + value;
+
+		if ((value === null) || (value === '')) {
+			// Optional field for Household Income field. Even if nothing is entered, we should be going to next screen
+			agreeCallback();
+			return true;
+		}
+
+		try {
+			var formattedValue = value;
+
+			if ((parseInt(value.replace(' ', '').replace(',', '')) <= 5000) && isDialogToBeShown) {
+
+				var message = translator
+						.translateKey('personalInformation_grossHouseholdIncomeError1')
+						+ numberWithSeparators(formattedValue)
+						+ translator
+								.translateKey('personalInformation_grossHouseholdIncomeError2');
+				messageDialog.htmlConfirm(message, agreeCallback,  highlightGrossAnnualHouseholdIncome);
+				
+				return false;
+			}
+		} catch (error) {
+			BRB.Log(sMethod + ' ERROR!!!!:' + err);
+		}
+		agreeCallback();
+		return true;
+	}
+	// End
 	//---------------------------------------------------------------------------------------
 	function highlightGrossAnnualIncome() {
 		var rez = [];
@@ -1459,6 +1547,18 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		app.validationDecorator.applyErrAttribute(rez, false, translator);		
 	}
 	
+	// US3961
+	//---------------------------------------------------------------------------------------	
+	function highlightGrossAnnualHouseholdIncome() {
+		var rez = [];
+		rez.push({
+			name : 'grossHouseholdIncome',
+			err : 'personalInformation_GrossAnnualHouseholdIncomeError',
+			uiid: refs.grossHouseholdIncome
+		});
+		
+		app.validationDecorator.applyErrAttribute(rez, false, translator);		
+	}
 	//---------------------------------------------------------------------------------------
 	function validate(skeepFocus) {
 		

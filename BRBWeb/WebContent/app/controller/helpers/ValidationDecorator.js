@@ -29,8 +29,9 @@ BRB.ValidationDecorator = function(config) {
     this.applyErrAttribute = function(validationRez, skeepFocus, translator){
         var sMethod = 'applyErrAttribute() ';
         BRB.Log(logPrefix + sMethod);
-
-        if(!validationRez || validationRez.lenght<=0){
+		
+		//2016-03-17 chrch: changing lenght to length
+        if(!validationRez || validationRez.length<=0){
             return;
         }
         

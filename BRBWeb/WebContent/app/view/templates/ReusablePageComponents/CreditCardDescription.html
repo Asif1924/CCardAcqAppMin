@@ -1,35 +1,34 @@
 <script id="creditCardDescription-template" type="text/x-jquery-tmpl">
 <!-- US3011 -->
 <div id="creditCardDescription" class="creditCard"> 
-			<ul id="piTopList" class="piDescriptionList">
-				
-				<li class ="firstListIteml">
-					<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
-	        	</li>
-	        	
-				<li class="listItem">
-					<div class="liContent">
-						<span class="liTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></span>
-						<br>
-						<ul class="simpleList" id="rewardsOnPurchasList">
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></span>
-							</li>
-							
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
-							</li>
-							
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
-							</li>
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
-							</li>
-						</ul>
-					</div>
-		</li>
-	</ul>
+<!-- US3964 -->
+	<div id="piTopList" class="piDescriptionList">
+		<div class="col-sm-4">
+			<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+		</div>
+		<div class="col-sm-8">
+			<div class="liContent">
+				<span class="liTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></span>
+				<br>
+				<ul class="simpleList" id="rewardsOnPurchasList">
+					<li>
+						<span class="listItemText" data-translationKey="personalInfo_Loyalty_PersonalInf_Bullet1"></span>
+					</li>
+					
+					<li>
+						<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
+					</li>
+					
+					<li>
+						<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
+					</li>
+					<li>
+						<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>			
 </div>
 <!--  US3083 
 {{if !app.isNSSelected() }}

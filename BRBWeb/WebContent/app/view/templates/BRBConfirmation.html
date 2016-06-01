@@ -1,39 +1,37 @@
 <script id="BRBConfirmation-template" type="text/x-jquery-tmpl">	
 	<span><!-- Dont remove span, IE8!!! -->
-	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-			<tr>
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+		<div class="customMargin row">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
-				</td>
+				</div>
 				
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3 ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
-				</td>
+				</div>
 
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2 ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
-				</td>
+				</div>
 				
-				<td class="selectedBreadcrumbCell currentBreadcrumb fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-2">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
+				</div>
 
-				<td class="unselectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
 					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
-				</td>
-			</tr>
-		</table>
+				</div>
+		</div>
 	</div>
 	
 		
 	<div class="ScreenLayout" id="Confirmation_PageContents">
 		<div id="confirmation_print_header" data-translationKey="confirmation_print_header"></div>
 		<center>
-			<div id="confirmation_Information_Accurate_Area" >
+			<div id="confirmation_Information_Accurate_Area" class="row" >
 				<table class="stretchThisTable grayTable">
 					<tr class="fieldRow">
-						<td class="fieldLabelsCell fieldLabelsBottomCell">
+						<td class="fieldLabelsCell fieldLabelsBottomCell" style="padding-right: 15px;">
 							<span class="floatLeft" data-translationKey="confirmation_Information_Accurate_Text"></span>
 						</td>
 					</tr>
@@ -41,20 +39,32 @@
 			</div>
 		</center>
 		
-
-		<div class="personalInfoTitle">
-			<span class="pageSubTitle leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+		<div class="personalInfoTitle row">
+			<div class="pageSubTitle col-xs-7 col-sm-9">
+				<span class="leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+			</div>
+			<div class="floatToRight col-xs-5 col-sm-3" style="text-align: right; padding-right: 0px; padding-left: 0px;">
+				<a href="#" id="print" class="print_button floatToRight">
+					<span class="print_link" data-translationKey="confirmation_PrintPage"></span>
+					<div class="print_image"></div>
+										
+    			</a>
+			</div>
+		</div>
+		<!--
+		<div class="personalTitle row">
+			<span class="pageSubTitle" data-translationKey="personalInformation_AboutYourself"></span>
 			<a href="#" id="print" class="print_button floatToRight">
 				<span class="print_link" data-translationKey="confirmation_PrintPage"></span>
 				<div class="print_image"></div>
     		</a>
-		</div>		
+		</div> -->		
 		<center>
-			<div id="confirmation_AboutYourselfArea" >
+			<div id="confirmation_AboutYourselfArea">
 			</div>
 		</center>		
 				
-		<div class="personalTitle">
+		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
 		</div>		
 		<center>
@@ -62,7 +72,7 @@
 			</div>
 		</center>
 			
-		<div class="personalTitle">
+		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="personalInformation_FinancialInformation"></span>
 		</div>		
 		<center>
@@ -70,7 +80,7 @@
 			</div>
 		</center>		
 		
-		<div class="personalTitle">
+		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
 		</div>
 		<center>
@@ -119,7 +129,7 @@
 			</div>
 		</center>		
 -->
-		<div class="personalTitle">
+		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="additionalInformation_OptionalProducts"></span>
 		</div>
 		<center>
@@ -127,11 +137,11 @@
 			</div>
 		</center>		
 		
-		<div class="personalTitle">
+		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="confirmation_Terms_Conditions"></span>
 		</div>		
 		<center>
-			<div id="confirmation_TermsConditionsArea" >
+			<div id="confirmation_TermsConditionsArea" class="row">
 				<table class="stretchThisTable grayTable">
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldValuesTopAndBottomCell">
@@ -206,10 +216,16 @@
 							<table class="stretchThisTable whiteTable">
 								<tr class="fieldRow">
 									<td class="fieldLabelsCell fieldLabelsBottomCell" colspan="2">
-										<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter"/>
-										<div class="floatToRight elementWithRightMargin15">
-											<span class="requiredField redSpan">*</span>
-											<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+										<div class="row">
+											<div class="col-xs-6 col-sm-9">
+												<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter"/>
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												<div class="floatToRight elementWithRightMargin15 alignRightAtEdgeofTitleBar">
+													<span class="requiredField redSpan">*</span>
+													<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+												</div>
+											</div>
 										</div>
 									</td>
 								</tr>
@@ -217,7 +233,7 @@
 	                				<td class="fieldLabelsCell fieldCellSize5">
 	                					<input class="fieldValuesCheckBoxField" id="confirmation_Application_Authorization_CheckBox_Field" type="checkbox" />
 	                				</td>
-	                    			<td class="fieldRow fieldLabelsCellWithCheckBox">
+	                    			<td class="fieldRow fieldLabelsCellWithCheckBox elementTopBottom10">
 										<sup>
 											<b class="redSpanForInputsGroup">*</b>
 										</sup>
@@ -228,7 +244,7 @@
 	                				<td class="fieldLabelsCell fieldCellSize5">
 	                					<input class="fieldValuesCheckBoxField" id="confirmation_Update_CT_Profile_CheckBox_Field" type="checkbox" />
 	                				</td>
-	                    			<td class="fieldRow fieldLabelsCellWithCheckBox">
+	                    			<td class="fieldRow fieldLabelsCellWithCheckBox elementTopBottom10">
 										<span class="floatLeft" data-translationKey="confirmation_Update_CT_Profile_Text"></span>										
 	                    			</td>	                    
 	                			</tr>
@@ -242,15 +258,15 @@
 		<br>
 		<br>
 		
-        <div class="continueButtonContainer" id="confirmation_continueButtonContainer">
-        	<div class="floatToRight continueButtonRightPosition" id="confirmation_continueButton">
-	        	<a href="#" class="continueButton submitApplecationButton" id="confirmation_ContinueButtonHref">
+        <div class="continueButtonContainer row" id="confirmation_continueButtonContainer">
+        	<div class="floatToRight continueButtonRightPosition elementBottom10 col-xs-12 col-sm-3" id="confirmation_continueButton">
+	        	<a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
 		        	<span class="buttonText" data-translationKey="confirmation_Button_Label"></span>
 	        	</a>
 	        	<span class="continueButtonTriangle"></span>
         	</div>
         	
-        	<div class="floatToRight backButtonRightPosition" id="confirmation_BackButton">
+        	<div class="backButtonRightPosition popup_CancelButton col-xs-12 col-sm-8" id="confirmation_BackButton">
         		<div id="confirmation_BackButtonContainer">
 	        		<span class="backButtonTriangle">
 		        	</span>
@@ -263,7 +279,10 @@
         </div>
 	</div>
 
-<div class="footnoteContentBlock">
+	<br />	
+	<br />
+
+<div class="footnoteContentBlock confirmationFootnoteContentBlock row">
 		<!--US3083 <span class="footnoteContentText">
 				<span data-translationKey="confirmation_footnoteContentText1"></span>
 				<span class="overviewLinkGray" data-translationKey="confirmation_footnoteContentText1Link"/>

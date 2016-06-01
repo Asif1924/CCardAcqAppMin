@@ -358,6 +358,33 @@ BRB.CreditCardApplicationData = function() {
        
        return formattedGrossAnnualIncome;
     };
+    //---------------------------------------------------------------
+    // US3961 - Start
+    this.getFormattedGrossAnnualHouseholdIncome = function(value){
+        if (!value) { return; }
+        
+        var formattedGrossAnnualHouseholdIncome = '';
+        
+        if (value.length > 3) {
+            for (var i = 0; i < value.length; i++) {
+                formattedGrossAnnualHouseholdIncome += value[i];
+
+                if (i == ((value.length - 1) - 3) ) {
+                	if (app.translator.isCurrentLanguageEnglish()) {
+                		formattedGrossAnnualHouseholdIncome += ',';
+                	} else {
+                		formattedGrossAnnualHouseholdIncome += ' ';
+                	}
+                }
+           }
+        }
+        else {
+            formattedGrossAnnualHouseholdIncome = value; 
+        }
+       
+       return formattedGrossAnnualHouseholdIncome;
+    };
+    // End
     //--------------------------------------------------------------- 
     this.getFormattedSocialInsurance = function(value) {       
         if (!value) { return; }

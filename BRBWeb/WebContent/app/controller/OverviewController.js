@@ -221,7 +221,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		    $(refs.startApplicationButtonTriangle).toggleClass( "active", e.type === "mousedown" );						
 		});
 		
-		$(".tooltip").on('click mouseout', function(e){
+		/* 2016-02-11 chrch: Change class name due to responsive (US3964) */
+		$(".ctfsTooltip").on('click mouseout', function(e){
 			if(e.type === 'click'){
 				$(this).children("span").addClass("hint");
 			}else if (e.type === 'mouseout'){

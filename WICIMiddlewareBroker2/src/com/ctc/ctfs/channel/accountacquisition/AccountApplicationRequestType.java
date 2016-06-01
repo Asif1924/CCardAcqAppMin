@@ -318,6 +318,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
+ *         &lt;element name="grossAnnualHouseholdIncome" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}positiveInteger">
+ *               &lt;maxInclusive value="999999"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="monthlyRentMortgageAmount" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}positiveInteger">
@@ -519,6 +526,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "yearsAtEmployement",
     "monthsAtEmployement",
     "grossAnnualIncome",
+    "grossAnnualHouseholdIncome",
     "monthlyRentMortgageAmount",
     "bankCardFlag",
     "bankLoanFlag",
@@ -657,6 +665,7 @@ public class AccountApplicationRequestType
     protected Integer yearsAtEmployement;
     protected Integer monthsAtEmployement;
     protected Integer grossAnnualIncome;
+    protected Integer grossAnnualHouseholdIncome;
     protected Integer monthlyRentMortgageAmount;
     @XmlElement(required = true)
     protected String bankCardFlag;
@@ -1845,6 +1854,32 @@ public class AccountApplicationRequestType
     public void setGrossAnnualIncome(Integer value) {
         this.grossAnnualIncome = value;
     }
+    
+    
+    /**
+     * Gets the value of the grossAnnualHouseholdIncome property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getGrossAnnualHouseholdIncome() {
+        return grossAnnualHouseholdIncome;
+    }
+
+    /**
+     * Sets the value of the grossAnnualHouseholdIncome property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setGrossAnnualHouseholdIncome(Integer value) {
+        this.grossAnnualHouseholdIncome = value;
+    }
+    
 
     /**
      * Gets the value of the monthlyRentMortgageAmount property.

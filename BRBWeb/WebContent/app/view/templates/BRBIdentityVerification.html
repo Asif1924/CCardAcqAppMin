@@ -1,28 +1,27 @@
 <script id="BRBIdentityVerification-template" type="text/x-jquery-tmpl">	
-	<div id="BreadcrumbTrailArea1" class="breadcrumbHeader BreadcrumbTrailAreaLayoutStyle ScreenLayout">		
-		<table id="BreadcrumbTable" class="stretchThisTable BreadcrumbTableStyle" cellspacing="0px" cellpadding="0px">
-			<tr>
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+	<span><!-- Dont remove span, IE8!!! -->
+	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+		<div class="customMargin row">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
-				</td>
+				</div>
 				
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3 ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
-				</td>
+				</div>
 
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2 ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
-				</td>
+				</div>
 				
-				<td class="selectedBreadcrumbCell fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
-				</td>
+				</div>
 
-				<td class="selectedBreadcrumbCell currentBreadcrumb fieldCellSize20">
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
-				</td>
-			</tr>
-		</table>
+				</div>
+		</div>
 	</div>
 	
 		
@@ -47,7 +46,7 @@
 		-->
 		
 		<center>
-			<div id="IdentityVerification_CardsContainer" class="cards">
+			<div id="IdentityVerification_CardsContainer" class="cards row">
 				<div id="exam1" class="card">
 					<div>
 						<span class="examNumberLabel">1</span>
@@ -59,52 +58,52 @@
 						</div>
 						
 						<table class="tableNoBorder stretchThisTable questionTable">
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
 									<input class="additionalInformation_SameAddresYes " id="Exam1_Answer1" value="0" type="radio" name="Exam1_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam0Answer0" class="floatLeftSpan fieldValuesCheckBoxField span14"></span>									
+									<span id="Exam0Answer0" class="answerText floatLeftSpan fieldValuesCheckBoxField span14"></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
 									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer2" value="1" type="radio" name="Exam1_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam0Answer1" class="floatLeftSpan fieldValuesCheckBoxField span14"></span>									
+									<span id="Exam0Answer1" class="answerText floatLeftSpan fieldValuesCheckBoxField span14"></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
 									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer3" value="2" type="radio" name="Exam1_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam0Answer2" class="floatLeftSpan fieldValuesCheckBoxField span14"></span>									
+									<span id="Exam0Answer2" class="answerText floatLeftSpan fieldValuesCheckBoxField span14"></span>									
 								</td>
 							</tr>
 			        			
-			        		<tr class="hideElement">
+			        		<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
 									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer4" value="3" type="radio" name="Exam1_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam0Answer3" class="floatLeftSpan fieldValuesCheckBoxField span14"></span>									
+									<span id="Exam0Answer3" class="answerText floatLeftSpan fieldValuesCheckBoxField span14"></span>									
 								</td>
 							</tr>
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
 									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer5" value="4" type="radio" name="Exam1_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam0Answer4" class="floatLeftSpan fieldValuesCheckBoxField span14"></span>									
+									<span id="Exam0Answer4" class="answerText floatLeftSpan fieldValuesCheckBoxField span14"></span>									
 								</td>
 							</tr> 
 							
@@ -136,53 +135,53 @@
 						</div>
 						
 						<table class="tableNoBorder stretchThisTable questionTable">
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes " id="Exam1_Answer1" value="0" type="radio" name="Exam2_Answer" />	
+									<input class="additionalInformation_SameAddresYes " id="Exam2_Answer1" value="0" type="radio" name="Exam2_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam1Answer0" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam1Answer0" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer2" value="1" type="radio" name="Exam2_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam2_Answer2" value="1" type="radio" name="Exam2_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam1Answer1" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam1Answer1" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer3" value="2" type="radio" name="Exam2_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam2_Answer3" value="2" type="radio" name="Exam2_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam1Answer2" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam1Answer2" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 			        		
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer4" value="3" type="radio" name="Exam2_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam2_Answer4" value="3" type="radio" name="Exam2_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam1Answer3" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam1Answer3" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer5" value="4" type="radio" name="Exam2_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam2_Answer5" value="4" type="radio" name="Exam2_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam1Answer4" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam1Answer4" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>	
 			        		
@@ -214,53 +213,53 @@
 						</div>
 						
 						<table class="tableNoBorder stretchThisTable questionTable">
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes " id="Exam1_Answer1" value="0" type="radio" name="Exam3_Answer" />	
+									<input class="additionalInformation_SameAddresYes " id="Exam3_Answer1" value="0" type="radio" name="Exam3_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam2Answer0" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam2Answer0" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer2" value="1" type="radio" name="Exam3_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam3_Answer2" value="1" type="radio" name="Exam3_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam2Answer1" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam2Answer1" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer3" value="2" type="radio" name="Exam3_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam3_Answer3" value="2" type="radio" name="Exam3_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam2Answer2" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam2Answer2" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 			        		
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer4" value="3" type="radio" name="Exam3_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam3_Answer4" value="3" type="radio" name="Exam3_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam2Answer3" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam2Answer3" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer5" value="4" type="radio" name="Exam3_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam3_Answer5" value="4" type="radio" name="Exam3_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam2Answer4" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam2Answer4" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>	
 			        	</table>
@@ -292,53 +291,52 @@
 						</div>
 						
 						<table class="tableNoBorder stretchThisTable questionTable">
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes " id="Exam1_Answer1" value="0" type="radio" name="Exam4_Answer" />	
+									<input class="additionalInformation_SameAddresYes " id="Exam4_Answer1" value="0" type="radio" name="Exam4_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam3Answer0" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam3Answer0" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer2" value="1" type="radio" name="Exam4_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam4_Answer2" value="1" type="radio" name="Exam4_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam3Answer1" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam3Answer1" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 							
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer3" value="2" type="radio" name="Exam4_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam4_Answer3" value="2" type="radio" name="Exam4_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam3Answer2" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam3Answer2" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 
-							<tr class="hideElement">
+							<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer4" value="3" type="radio" name="Exam4_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam4_Answer4" value="3" type="radio" name="Exam4_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam3Answer3" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
+									<span id="Exam3Answer3" class="answerText floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>
 
-			        		<tr class="hideElement">
+			        		<tr class="hideElement tableNoBorder">
 								<td class="fieldCellSize5">
-									<input class="additionalInformation_SameAddresYes" id="Exam1_Answer5" value="4" type="radio" name="Exam4_Answer" />	
+									<input class="additionalInformation_SameAddresYes" id="Exam4_Answer5" value="4" type="radio" name="Exam4_Answer" />	
 								</td>
 								
 								<td>
-									<span id="Exam3Answer4" class="floatLeftSpan fieldValuesCheckBoxField span14" ></span>									
 								</td>
 							</tr>	
 			        	
@@ -362,142 +360,134 @@
 
 
 				
-				<div >
+				<div>
 					<div id="identityVerification_TitleBlock">
 						<span class="pageSubTitle leftalign" data-translationKey="identityVerification_Title"></span>
 						<br>
 					</div>
-		            <table class="stretchThisTable grayTable examTableHeightCards" id="identityVerification_ExamTable">
-						<tbody id="protection_note" ><tr class="fieldRow">
-							<td class="fieldLabelsCell fieldLabelsTopCell protection_note">
-								<span class="leftalign" data-translationKey="identityVerification_ProtectionNote"></span>
-							</td>
-						</tbody>
-		                <tbody id="examFinalStep" class="hideElement">
-		                <tr class="fieldRow">
-		                	
-		                	<td class="fieldLabelsCell fieldLabelsTopCell" colspan=3>
-	                			<br>
-	                			<span id="examFinalStepMsg" class="congratulationsLabel" data-translationKey="identityVerification_Congratulations"></span>
-	                			<br>   	
-	                			
-	                			<table class="grayTableNoBorder stretchThisTable">
-	                				<tr class="fieldRow">
-	                					<td class="fieldCellSize25">
-	                						<div class="customerCard"/>
-											<span class="custormerCreditCardNumber" id="identityVerification_Pan_Number">XXXX XXXX XXXX 1234</span>
-	                						<span class="custormerCardName" id="identityVerification_UserName"></span>
-	                					</td>
-	                					
-	                					<td class="fieldLabelsCell">
-	                						<span id="identityVerification_UserNameFull">FirstName LastNAme</span>
-	                						<br><br>
-											<span id="identityVerification_CardNumberText" data-translationKey="identityVerification_CardNumberText">Card Number: </span>
-	                						<span id="identityVerification_CardNumber">XXXX XXXX XXXX 1234</span>
-	                						<br><br>
-											<span id="identityVerification_CardLimitText" data-translationKey="identityVerification_CardLimitText">Card Limit: </span>
-	                						<span id="identityVerification_CardLimit">$000,000</span>
-	                						<br><br>
-											<span id="identityVerification_CardAPRText" data-translationKey="identityVerification_CardAPRText">APR: </span>
-	                						<span id="identityVerification_CardAPR">00.00%</span>
-	                					</td>
-	                				</tr>
-	                			</table>
-	                					
-	                			<div class="congratulationsTextContent">
-		                			<span data-translationKey="identityVerification_FinalText1"></span>
-		                			<br>
-		                		<!--{{if !app.isNSSelected() }}
-									<span data-translationKey="identityVerification_FinalText2old"></span>
-		                			{{/if}}
-									{{if app.isNSSelected() }}
-									<span data-translationKey="identityVerification_FinalText2"></span>
-		                			{{/if}}-->
-									<!-- US3011 -->
-									<span data-translationKey="identityVerification_FinalText2"></span>
+					<div id="identityVerification_ExamTable" class="stretchThisTable grayTable examTableHeightCards">
+						<div id="protection_note" class="grayTableTopBorder">	
+							<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
+								<span class="leftalign" data-translationKey="identityVerification_ProtectionNote"></span>			
+							</div>												
+						</div>
+						<div id="examFinalStep" class="hideElement">
+							<div class="grayTableTopBorder">	
+								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
 									<br>
-		                			<span data-translationKey="identityVerification_FinalText3"></span>
-		                			<br>
-		                			<b><a id="identityVerification_customerEmail" class="emailField" href="mailto:customer@mail.com">customer@mail.com.</a>.</b>
-		                			<span data-translationKey="identityVerification_FinalText4"></span>
-	                			</div>
-		                	</td>
-		                </tr>
-	
-		               	<tr class="fieldRow">
-		               		<td class="fieldLabelsCell fieldLabelsBottomCell">
-								<span data-translationKey="identityVerification_FinalText5"></span>
-		                    </td>
-		                    
-		                    <!-- <td id="continueShoppingBuutonId1" class="fieldLabelsCell fieldLabelsBottomCell continueShoppingCell">
-								<span class="continueShoppingButton" data-translationKey="identityVerification_ContinueShopping"></span>
-		                    </td> -->
-		                    
-		                    <td class="fieldLabelsCell fieldLabelsBottomCell fieldCellSize30">
-								<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
-						        	<div class="floatToRight continueButtonRightPosition continueButtonClick" id="identityVerification_ContinueButton">
-							        	<a href="#" class="continueButton" id="identityVerification_ContinueButton1Rect">
-								        	<span class="buttonText" data-translationKey="continue_Button_Label"></span>
-							        	</a>
-							        	<span class="continueButtonTriangle"></span>
-						        	</div>
-	        					</div>
-		                    </td> 
-		               	</tr>
-		               	</tbody>
-        				<tbody id="examFinalStepPending" class="hideElement alignToTop">
-                			<tr class="fieldRow">
-                    			<td class="fieldLabelsCell fieldLabelsTopCell" colspan=3>
+									<span id="examFinalStepMsg" class="congratulationsLabel" data-translationKey="identityVerification_Congratulations"></span>
+									<br>			
+								</div>												
+							</div>
+							<div id="examFinalStep112" class="grayTableNoBorder">	
+								<div class="fieldLabelsCell fieldLabelsTopCell customerCardContainer elementBottom10 col-xs-12 col-sm-4 col-md-3">
+									<div class="customerCard"/>
+									<span class="custormerCreditCardNumber" id="identityVerification_Pan_Number">XXXX XXXX XXXX 1234</span>
+									<span class="custormerCardName" id="identityVerification_UserName"></span>			
+								</div>	
+								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-8 col-md-9">
+									<span id="identityVerification_UserNameFull">FirstName LastNAme</span>
+									<br><br>
+									<span id="identityVerification_CardNumberText" data-translationKey="identityVerification_CardNumberText">Card Number: </span>
+									<span id="identityVerification_CardNumber">XXXX XXXX XXXX 1234</span>
+									<br><br>
+									<span id="identityVerification_CardLimitText" data-translationKey="identityVerification_CardLimitText">Card Limit: </span>
+									<span id="identityVerification_CardLimit">$000,000</span>
+									<br><br>
+									<span id="identityVerification_CardAPRText" data-translationKey="identityVerification_CardAPRText">APR: </span>
+									<span id="identityVerification_CardAPR">00.00%</span>					
+								</div>						
+							</div>
+							<div id="examFinalStep113" class="grayTableNoBorder">	
+								<div class="fieldLabelsCell fieldLabelsTopCell congratulationsTextContent elementBottom10 col-xs-12">
+									<span data-translationKey="identityVerification_FinalText1"></span>
+											<br>
+										<!--{{if !app.isNSSelected() }}
+											<span data-translationKey="identityVerification_FinalText2old"></span>
+											{{/if}}
+											{{if app.isNSSelected() }}
+											<span data-translationKey="identityVerification_FinalText2"></span>
+											{{/if}}-->
+											<!-- US3011 -->
+											<span data-translationKey="identityVerification_FinalText2"></span>
+											<br>
+											<span data-translationKey="identityVerification_FinalText3"></span>
+											<br>
+											<b><a id="identityVerification_customerEmail" class="emailField" href="mailto:customer@mail.com">customer@mail.com.</a>.</b>
+											<span data-translationKey="identityVerification_FinalText4"></span>			
+								</div>	
+							</div>
+							<div id="examFinalStep114" class="grayTableBottomBorder">	
+								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-7 col-md-8">
+									<span data-translationKey="identityVerification_FinalText5"></span>
+								</div>
+								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-5 col-md-4">
+									<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
+										<div class="floatToRight continueButtonRightPosition continueButtonClick" id="identityVerification_ContinueButton">
+											<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton1Rect">
+												<span class="buttonText" data-translationKey="continue_Button_Label"></span>
+											</a>
+											<span class="continueButtonTriangle"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="examFinalStepPending" class="hideElement alignToTop">
+							<div class="row">
+                				<div class="fieldLabelsCell fieldLabelsTopCell elementBottom10 col-xs-12">
                         			<br>
                         			<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
-                        			<br>        
-                        			<br>
-                        			<div class="congratulationsTextContent">
-       									<div id="tu_pendingending"  class="hideElement">
-                                			<div class="tu_pendingending_exclamation_point"></div> 
-                                			<span  data-translationKey="identityVerification_TUPendingText1"></span>
+								</div>
+							</div>
+							<div class="congratulationsTextContent grayTableNoBorder row">
+								<div id="tu_pendingending"  class="hideElement">
+                                	<div class="col-xs-2 col-sm-1">
+                        				<div class="tu_pendingending_exclamation_point"></div>
+									</div>
+									<div class="col-xs-10 col-sm-11"> 
+                                		<span  data-translationKey="identityVerification_TUPendingText1"></span>
+										<br><br>
+									</div>
+								</div>
+							</div>
+							<div class="grayTableNoBorder row">
+								<div class="fieldLabelsCell col-xs-12">
+                           			<span  data-translationKey="identityVerification_TUPendingText2"></span>
+									<br><br>
+								</div>
+	                		</div>
+							<div class="row">
+								<div class="fieldLabelsCell col-xs-12">
+											<span data-translationKey="identityVerification_PendingText1"></span>
+											<br>
+											<span data-translationKey="identityVerification_PendingText2"></span>
 											<br><br>
-                                			<span  data-translationKey="identityVerification_TUPendingText2"></span>
-											<br><br>
-                            			</div>
-                            			<span data-translationKey="identityVerification_PendingText1"></span>
-                            			<br>
-                            			<span data-translationKey="identityVerification_PendingText2"></span>
-                            			<br><br>
-                            			<b>
-                            				<span data-translationKey="identityVerification_PendingText3"></span>
-                            			</b>
-                            		<!-- 	<br><br>                            
-                            			<span data-translationKey="identityVerification_PendingText4"></span> -->
-                        			</div>
-                    			
-                			</tr>   
-							<tr>
-							<td class="fieldLabelsCell">
-								<br>  
-								<span data-translationKey="identityVerification_PendingText4"></span>
-							</td>
- 							<td class="fieldLabelsCell fieldLabelsBottomCell fieldCellSize30">
-								<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
-						        	<div class="floatToRight continueButtonRightPosition continueButtonClick" id="identityVerification_ContinueButton">
-							        	<a href="#" class="continueButton" id="identityVerification_ContinueButton2Rect">
-								        	<span class="buttonText" data-translationKey="continue_Button_Label"></span>
-							        	</a>
-							        	<span class="continueButtonTriangle"></span>
-						        	</div>
-	        					</div>
-		                    </td>
-							<!-- </td>
-							      <td id="continueShoppingBuutonId2" class="fieldLabelsCell fieldLabelsBottomCell continueShoppingCell">
-								<span class="continueShoppingButton" data-translationKey="identityVerification_ContinueShopping"></span>
-		                    </td> -->
-							</tr>           
-            			</tbody>
-					</table>
+											<b>
+												<span data-translationKey="identityVerification_PendingText3"></span>
+											</b>
+								</div>
+							</div>
+							<div class="grayTableNoBorder row">
+								<div class="fieldLabelsCell col-xs-12 col-sm-7">
+									<span data-translationKey="identityVerification_PendingText4"></span>
+								</div>
+								<div class="fieldLabelsCell col-xs-12 col-sm-5">
+									<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
+										<div class="floatToRight continueButtonClick elementTopBottom10" id="identityVerification_ContinueButton">
+											<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton2Rect">
+												<span class="buttonText" data-translationKey="continue_Button_Label"></span>
+											</a>
+											<span class="continueButtonTriangle"></span>
+										</div>
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>
 				</div>
-			</div>
 		</center>
-			<div id="identityVerification_PageFooter" class="footerText" >
+			<div id="identityVerification_PageFooter" class="footerText row" >
 			<!-- {{if !app.isNSSelected() }} 
 				<span id="identityVerification_FooterNote" class="identityVerificationFooterNote" data-translationKey="identityVerification_FooterText1old"></span>
 				<br>
@@ -529,4 +519,5 @@
 			<div>
 			<br><br><br>
 	</div>
+
 </script>

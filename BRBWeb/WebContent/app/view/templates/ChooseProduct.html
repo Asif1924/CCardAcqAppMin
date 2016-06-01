@@ -1,90 +1,42 @@
 <script id="chooseProduct-template" type="text/x-jquery-tmpl">
-<div id="choseProduct">	
-		<span class="chooseProductTitle" data-translationKey="chooseProduct_Title"></span>
-			<ul id="productListBlock" class="chooseProductBlock">
-				<li class ="firstListIteml">
-					<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
-	        	</li>
-				<li class="listItem">
-					<div class="liContent">
-						<span class="overviewTopTableTitle" data-translationKey="chooseProduct_TitleA"></span>
-						<br>
-						<span class="liTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></span>
-						<br>
-						<ul class="simpleList" id="rewardsOnPurchasList">
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></span>
-							</li>							
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
-							</li>							
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
-							</li>
-							<li>
-								<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
-							</li>
-							<li>
-								<span class="listItemText" data-translationKey="chooseProduct_DescriptionA1"></span>
-							</li>
-							<li>
-								<span class="listItemText" data-translationKey="chooseProduct_DescriptionA2"></span>
-							</li>
-						</ul>
-				</div>
-			</ul>
-			<a href="#" class="chooseProductLink hideElement" data-translationKey="chooseProduct_LinkText"></a>
-		</div> 
- <!-- before loyalty	<div id="choseProduct">	
-		<span class="chooseProductTitle" data-translationKey="chooseProduct_Title"></span>
-			<ul id="productListBlock" class="chooseProductBlock">
-				<li class="productImageArea">
-					<a href="#"><div class="productImageBlock" id="productImage"></div></a>
-	        	</li>
-				<li class="productDescriptionArea">
-					<div class="productDescriptionContent">
-						<span class="overviewTopTableTitle" data-translationKey="chooseProduct_TitleA"></span>
-						<span class="productDescriptionTitle" data-translationKey="chooseProduct_DescriptionTitle"></span>
-
-						<ul id="rewardsOnPurchasList" class="simpleList">
-							<li>
-								<strong>
-									<span class="listItemText" data-translationKey="chooseProduct_Description1_1"></span><sup class="overviewFootnote">1</sup>
-									<span class="listItemText" data-translationKey="chooseProduct_Description1_2"></span>
-								</strong>
-							</li>
-							
-							<li>
-								<strong>
-									<span class="listItemText" data-translationKey="chooseProduct_Description2_1"></span><sup class="overviewFootnote">2</sup><span>.</span>
-								</strong>
-							</li>
-							
-							<li>
-								<span class="listItemText" data-translationKey="chooseProduct_Description3_1"></span>
-								<strong>
-									<span class="listItemText" data-translationKey="chooseProduct_Description3_2"></span>
-								</strong>
-							</li>
-
-							<li>
-								<span class="listItemText" data-translationKey="chooseProduct_Description4_1"></span>
-								<strong>
-									<span class="listItemText" data-translationKey="chooseProduct_Description4_2"></span>
-								</strong>
-							</li>
-
-							<li>
-								<span class="listItemText" data-translationKey="chooseProduct_Description5_1"></span>
-								<strong>
-									<span class="listItemText" data-translationKey="chooseProduct_Description5_2"></span>
-								</strong>
-							</li>
-
-						</ul>
-					</div>
-	        	</li>
-			</ul>
-			<a href="#" class="chooseProductLink hideElement" data-translationKey="chooseProduct_LinkText"></a>
-		</div>  -->
+<div id="choseProduct" class="container-fluid" >	
+	<div class="row">
+		<div class="chooseProductTitle" data-translationKey="chooseProduct_Title"></div>
+		<div id="productListBlock" class="chooseProductBlock">
+			<div class="col-sm-4">
+				<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+			</div>
+			<div class="col-sm-8">
+				 <div class="liContent">
+					<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>
+					<div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>
+					<ul class="simpleList" id="rewardsOnPurchasList">
+						<li>
+							<div class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></div>
+						</li>							
+						<li>
+							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
+						</li>							
+						<li>
+							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
+						</li>
+						<li>
+							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
+						</li>
+						<li>
+							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA1"></span>
+						</li>
+						<li>
+							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA2"></span>
+						</li>
+						
+					 </ul> 
+					
+				</div> 
+			</div>
+		</div>
+		<a href="#" class="chooseProductLink hideElement" data-translationKey="chooseProduct_LinkText"></a>
+	</div>
+</div>
+ 
 </script>

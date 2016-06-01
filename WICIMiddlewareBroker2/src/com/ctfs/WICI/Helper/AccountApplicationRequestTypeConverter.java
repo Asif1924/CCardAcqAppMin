@@ -313,7 +313,10 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setMonthsAtEmployement(howLongMonthes);
 
 				argAccAppRequest.setGrossAnnualIncome(model.getInt("grossIncome"));
-
+				
+				//US3960  	
+				argAccAppRequest.setGrossAnnualHouseholdIncome(model.getInt("grossHouseholdIncome"));
+				
 				argAccAppRequest.setBankCardFlag(model.get("cardVISAMCAMEX"));
 				argAccAppRequest.setBankLoanFlag(model.get("cardBankLoan"));
 

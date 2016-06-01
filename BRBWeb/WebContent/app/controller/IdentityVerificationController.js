@@ -499,7 +499,8 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	function showPanNumberOnCreditCardImage(strValue){
 		var cardPanNumber = new String(strValue);
 		$(refs.cardPanNumber).text(getRightViewForPANNumber(cardPanNumber));
-		$('.custormerCreditCardNumber').css('word-spacing', '6px');
+		/*2016-03-15 chrch: Changing word spacing for responsive (US3964) */
+		$('.custormerCreditCardNumber').css('word-spacing', '10px');
 	}
 	//---------------------------------------------------------------------------------------
 	function getRightViewForPANNumber(str){
@@ -516,6 +517,8 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         resizeSuccessBlockHeight();
         // Show header language button
         $(refs.examFinalStep).show();
+        /*2016-03-11 chrch: updating css for display (US3964) */
+        $(refs.examFinalStep).css('display', 'inline-block');
 		$(refs.languageButton).show();
 		new BRB.LoadingIndicatorController().hide();
 	}

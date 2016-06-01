@@ -143,7 +143,8 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		assembleNavigationBarAtTop();
 		//assemblePageHTML($screenContainer, "#creditCardDescription-template");
 		assemblePageHTML($screenContainer, "#BRBConfirmation-template");
-		$screenContainer.find('#BreadcrumbTrailArea1').addClass('breadcrumbPaddingConfirmation');		
+		/*2016-02-16 chrch: Confirmation Screen - removing breadcrumbPaddingConfirmation class for responsive */
+		//$screenContainer.find('#BreadcrumbTrailArea1').addClass('breadcrumbPaddingConfirmation');		
 	}
 	//---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
@@ -200,10 +201,16 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     //---------------------------------------------------------------------------------------
     function formatGrossIncometValues() {
     	var val = activationItems.getModel('personalInformation').get('grossIncome');
+    	//US3961
+    	var	val2 = activationItems.getModel('personalInformation').get('grossHouseholdIncome');
     	if (translator.isCurrentLanguageEnglish()) {
-    		$("#confirmation_FinancialInformation_GrossAnnualIncome").text(val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' $');    		
+    		$("#confirmation_FinancialInformation_GrossAnnualIncome").text(val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' $');
+    		// US3961
+    		$("#confirmation_FinancialInformation_GrossAnnualHouseholdIncome").text(val2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' $');    		   		
 		} else {
 			$("#confirmation_FinancialInformation_GrossAnnualIncome").text('$' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    		// US3961
+			$("#confirmation_FinancialInformation_GrossAnnualHouseholdIncome").text('$' + val2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));					
 		}
     }
     //---------------------------------------------------------------------------------------
@@ -379,15 +386,22 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	}
 	//---------------------------------------------------------------------------------------
 	function populateFinancialInformationfArea () {	
+		var sMethod = "populateFinancialInformationfArea() :: ";
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_FinancialInformationArea").empty();
 		$("#BRBConfirmationFinancialSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_FinancialInformationArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
+		var val = activationItems.getModel('personalInformation').get('grossHouseholdIncome');
+		BRB.Log(logPrefix + sMethod + val);
 		if (translator.isCurrentLanguageEnglish()) {
 			$("#confirmation_FinancialInformation_GrossAnnualIncome").text('$' + activationItems.getFormattedGrossAnnualIncome(activationItems.getModel('personalInformation').get('grossIncome')));
+			// US3961
+			$("#confirmation_FinancialInformation_GrossAnnualHouseholdIncome").text('$' + activationItems.getFormattedGrossAnnualHouseholdIncome(activationItems.getModel('personalInformation').get('grossHouseholdIncome')));		
 		} else {
 			$("#confirmation_FinancialInformation_GrossAnnualIncome").text(activationItems.getFormattedGrossAnnualIncome(activationItems.getModel('personalInformation').get('grossIncome')) + ' $');
+			// US3961
+			$("#confirmation_FinancialInformation_GrossAnnualHouseholdIncome").text(activationItems.getFormattedGrossAnnualHouseholdIncome(activationItems.getModel('personalInformation').get('grossHouseholdIncome')) + ' $');		
 		}
 		$(refs.editFinancialButton).on("mouseup", function(){
 			BRB.AppConfig.TrackingScreenID = 8;

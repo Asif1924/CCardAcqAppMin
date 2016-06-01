@@ -5,3 +5,13 @@
         <link rel="shortcut icon" href="app/images/favicon.ico"/>
         <meta charset="UTF-8">
 		<meta name="viewport" id="viewport" content="width=device-width, height=device-height,initial-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+		 <!--For clickjacking attack - Defending //-->
+        <style id="antiClickjack">body{display:none !important;}</style>
+		<script type="text/javascript">
+   		if (self === top) {
+      			 var antiClickjack = document.getElementById("antiClickjack");
+       			antiClickjack.parentNode.removeChild(antiClickjack);
+   			} else {
+       			top.location = self.location;
+   			   }
+		</script>
