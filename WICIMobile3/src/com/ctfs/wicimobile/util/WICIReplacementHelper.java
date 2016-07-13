@@ -28,8 +28,12 @@ public class WICIReplacementHelper {
         String _storeNumber =  "Test".equalsIgnoreCase(carmemberModel.getStoreNumber())? "0" : carmemberModel.getStoreNumber() ;
     	double storeNo = Double.parseDouble(_storeNumber);
     	boolean isMarksStore = false;
+    	// US4062
+    	boolean isGasBar = false;
     	if(storeNo > 0){
-	        if(storeNo >= 6000 && storeNo <= 6999 ) {
+    		if(storeNo >= 1000 && storeNo <= 1999 ) {
+    			isGasBar = true;
+	        } else if(storeNo >= 6000 && storeNo <= 6999 ) {
 	        	isMarksStore = true;
 	        }
     	}
@@ -52,10 +56,14 @@ public class WICIReplacementHelper {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
-	        } else if(!isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
 	         	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
 	        } else if(isMarksStore  && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
+	        }
+	        // US4062
+	        else if(isGasBar  && "4111111111111111".equals(cryptedAccountNumber) ) {
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        }
 	        

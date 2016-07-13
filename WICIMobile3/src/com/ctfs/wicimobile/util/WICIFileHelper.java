@@ -80,16 +80,21 @@ public class WICIFileHelper {
 		        String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
 	        	double storeNo = Double.parseDouble(_storeNumber);
 	        	boolean isMarksStore = false;
+	        	boolean isGasBar = false;
 	        	// US3692
 	        	// Print token for CTR store only, not Marks/Gas store
 	        	if(storeNo > 0){
-			        if(storeNo >= 6000 && storeNo <= 6999 ) {
+	        		// US4062
+	        		if(storeNo >= 1000 && storeNo <= 1999 ) {
+	        			templateFileName = templateFileName;
+	        			isGasBar = true;
+	        		} else if(storeNo >= 6000 && storeNo <= 6999 ) {
 			        	templateFileName = templateFileName;
 			        	isMarksStore = true;
 			        } else {
 			        	int offset = 0;      	        	        	       	    	        
 				        // E && !Marks && Demo than tokrn prn			        	
-			        	if(!isMarksStore && "4111111111111111".equals(accountNumber) ) {
+			        	if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
 			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
 				        } else if(isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
 				        	templateFileName = templateFileName;
