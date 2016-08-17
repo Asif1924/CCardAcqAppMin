@@ -956,7 +956,19 @@ BRB.dictionary_fr = {
 		additionalInformation_OptionalProducts_Title2_1			:	"<i>(non disponible pour les résidents de la Saskatchewan)</i>",
 		additionalInformation_OptionalProducts_Title3			:	"Surveillance d’identité Classique<sup>MD</sup>",
 		additionalInformation_OptionalProducts_Title4			:	"Pas pour l’instant",
-		
+				
+		// US4133
+		additionalInformation_OptionalInsurance_PostalDistImpact_Title		:	"L’IMPACT DE L’INTERRUPTION POTENTIELLE DES SERVICES POSTAUX SUR LA LIVRAISON DU COURRIER",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para1		:	"Une interruption des services postaux pourrait survenir à compter du 8 juillet 2016.",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para11		:	"Par conséquent, en tant que nouveau titulaire d’une carte de crédit émise par la Banque Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, la trousse de bienvenue de votre carte de crédit Canadian Tire pourrait arriver plusieurs semaines après la reprise des services postaux.",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para2		:	"Par ailleurs, si vous avez souscrit un produit facultatif tel que l’assurance Couverture crédit<span class=\"superscripts\"><sup>MD</sup></span> ou Surveillance d’identité Classique<span class=\"superscripts\"><sup>MD</sup></span>, veuillez prendre note de ce qui suit :",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Bullet1	:	"&#45; La trousse de bienvenue pour le(s) produit(s) facultatif(s) pourrait arriver plusieurs semaines après la reprise des services postaux.",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Bullet2	:	"&#45; Par conséquent, votre période de révision sera prolongée.",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para3		:	"Sachez toutefois que vous pouvez télécharger un exemplaire de votre certificat d’assurance Couverture crédit<span class=\"superscripts\"><sup>MD</sup></span> ",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para31		:	"(votre guide de distribution pour les résidents du Québec)) et/ou des modalités de Surveillance d’identité Classique ",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para32		:	"à l’adresse suivante <a href='https://www.ctfs.com/fr/optional-products.html' target='_blank'>ctfs.com/produitsfacultatifs</a>.",
+		additionalInformation_OptionalInsurance_PostalDistImpact_Para4		:	"N’hésitez pas à nous téléphoner au 1 800 459-6415 pour obtenir des renseignements.",
+				
 		additionalInformation_footnoteContentText1				:	"* Taxes applicables en sus. Payable mensuellement. Veuillez consulter le document Renseignements juridiques et votre certificat d’assurance pour prendre connaissance de toutes les exclusions, restrictions, modalités et conditions.",
 		additionalInformation_footnoteContentText2				:	"** Si vous êtes âgé de moins de 66 ans, vous adhérerez à Couverture-crédit. À l’âge de 66 ans, l’assurance-vie et l’assurance en cas de mutilation deviennent une assurance en cas de décès ou de mutilation par accident. ",
 		additionalInformation_footnoteContentText3				:	"*** Si vous êtes âgé de 66 à 75 ans, vous adhérerez à Couverture-crédit – <i>Âge d’or</i>. Remarque : Les couvertures d’assurance en cas de perte d’emploi involontaire et d’invalidité totale ne font pas partie de Couverture-crédit – <i>Âge d’or</i>. À l’âge de 76 ans, l’assurance-vie et l’assurance en cas de mutilation deviennent une assurance en cas de décès ou de mutilation par accident.",

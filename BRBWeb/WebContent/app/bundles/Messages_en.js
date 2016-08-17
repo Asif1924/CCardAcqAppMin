@@ -964,7 +964,19 @@ BRB.dictionary_en = {
 	additionalInformation_OptionalProducts_Title2_1			:	"<i>(not available for residents of Saskatchewan)</i>",
 	additionalInformation_OptionalProducts_Title3			:	"Identity Watch Classic<sup>&reg;</sup>",
 	additionalInformation_OptionalProducts_Title4			:	"Not at this time",
-														
+	
+	// US4133
+	additionalInformation_OptionalInsurance_PostalDistImpact_Title		:	"POSSIBLE POSTAL DISRUPTION IMPACT ON MAIL DELIVERY",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para1		:	"A postal disruption may occur on or after July 8, 2016. As a new Canadian Tire Bank<sup>&reg;</sup> issued credit card cardmember ",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para11		:	"— your credit card Welcome Package may arrive within several weeks following the resolution of the postal disruption.",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para2		:	"Additionally, if you enrolled in an optional product such as Credit Protector<sup>&reg;</sup> Insurance and/or Identity Watch Classic<sup>&reg;</sup>, please be advised that:",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Bullet1	:	"&#45; Your optional product Welcome Package(s) may arrive within several weeks following the resolution of the postal service disruption",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Bullet2	:	"&#45; Your Review Period will be extended",	
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para3		:	"In the meantime, for Credit Protector<sup>&reg;</sup> Insurance you can download a copy of the Certificate of Insurance ",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para31		:	"(<i>Distribution Guide</i> for residents of Quebec) and/or the Terms and Conditions for <i>Identity Watch Classic</i> ",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para32		:	"at <a href='https://www.ctfs.com/en/optional-products.html' target='_blank'>ctfs.com/optionalproducts</a>.",
+	additionalInformation_OptionalInsurance_PostalDistImpact_Para4		:	"If you have any questions please call 1-800-459-6415.",
+		
 	//additionalInformation_footnoteContentText3				:	"Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
 	//additionalInformation_footnoteContentText4				:	"If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector-Senior. Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida.  Credit Protector - Senior is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions<sup>&reg;</sup>.",
 	//additionalInformation_footnoteContentText5				:	"Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations  and exclusions. Terms and conditions apply.",
