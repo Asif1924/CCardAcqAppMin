@@ -58,6 +58,7 @@
 		
 		<!-- <center> -->
 			<div id="peraonalInfoTable" class="grayTableTopBorder row">
+			{{if !isMOA }}
 	            	<div id="useMyCTProfileInformation_Container" class="useMyCTProfileInformationContainer col-xs-12 col-sm-6">
 							<a href="#" class="useMyCTProfileInformationLink elementBottom10">
 								<div id="useMyCTProfileButton" class="useMyCTProfileInformationButton" data-translationKey="personalInformation_useMyCTProfileButtonText">
@@ -67,7 +68,7 @@
 					<div id="useMyCTProfileLabel" class="alignCTProfileLabel col-xs-12 col-sm-6">
 								<span class="fieldLabelsCell personalInformation_CTProfileLabel" data-translationKey="personalInformation_CTProfileLabel"></span>							
 					</div>
-					
+			{{/if}}	
 			</div>
 			
 			<div class="grayTableNoBorder row" id="personalInformation_MoneyAdvantage_FieldContainer">
@@ -152,7 +153,10 @@
 	            <div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 					<span data-translationKey="personalInformation_EmailAddress"></span>
 					<span> </span>
-					<sup class="redSpanForInputsGroup">*</sup>
+					<!-- US3627 //-->
+					{{if !isMOA }}
+						<sup class="redSpanForInputsGroup">*</sup>
+					{{/if}}
 				</div>
 				<div class="fieldValuesCell elementTopBottom10 col-sm-9">
 					<div class="row">

@@ -480,8 +480,8 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-
-			<xsd:element name="currentEmailAddress" maxOccurs="1" minOccurs="1">
+			<!-- US3627 - Email is made as optional for CTFS apps. So removed restriction. -->
+			<xsd:element name="currentEmailAddress" maxOccurs="1" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						This attribute value identifies the primary

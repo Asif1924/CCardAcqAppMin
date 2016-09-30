@@ -127,9 +127,18 @@ public class BRBDBHelper
 		String sMethod = "[insertIntoCustomerTransactionTable] ";
 		log.info(sMethod + "::Called::");
 
-		// Create transaction id
-		String transactionId = initializeTransactionIdByTimeStamp(customerTransactionTblEntity);
-
+		String transactionId = "";
+		
+		if(customerTransactionTblEntity != null && customerTransactionTblEntity.getTransactionId() != null && customerTransactionTblEntity.getTransactionId().toLowerCase().contains("moa") ) {
+			transactionId = customerTransactionTblEntity.getTransactionId();
+		}
+		
+		else
+		{
+			// Create transaction id
+			transactionId = initializeTransactionIdByTimeStamp(customerTransactionTblEntity);
+		}
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try
@@ -336,22 +345,23 @@ public class BRBDBHelper
 		{
 			// Get transaction ID
 			transactionId = appTransactionTableEntity.getTransactionId();
+		
+				// Check if table contains needed record
+				IAppTransactionTableEntity appTransactionTblEntity = getFromApplicationTransactionTable(transactionId);
 
-			// Check if table contains needed record
-			IAppTransactionTableEntity appTransactionTblEntity = getFromApplicationTransactionTable(transactionId);
-
-			if (isRecordExistInApplicationTransaction(appTransactionTblEntity))
-			{
-				log.info(sMethod + "....Update");
-				// Update table record
-				updateApplicationTransactionTable(appTransactionTableEntity);
-			}
-			else
-			{
-				log.info(sMethod + "....Insert");
-				// Insert new record into table
-				insertIntoApplicationTransactionTable(appTransactionTableEntity);
-			}
+				if (isRecordExistInApplicationTransaction(appTransactionTblEntity))
+				{
+					log.info(sMethod + "....Update");
+					// Update table record
+					updateApplicationTransactionTable(appTransactionTableEntity);
+				}
+				else
+				{
+					log.info(sMethod + "....Insert");
+					// Insert new record into table
+					insertIntoApplicationTransactionTable(appTransactionTableEntity);
+				}
+			
 		}
 		catch (Exception ex)
 		{

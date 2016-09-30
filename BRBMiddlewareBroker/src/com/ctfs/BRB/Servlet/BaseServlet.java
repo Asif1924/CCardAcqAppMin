@@ -67,8 +67,15 @@ public abstract class BaseServlet extends HttpServlet implements EnvironmentConf
 			// Initialize mediator
 			servletMediator.IntializeMediator();			
 
-			// Validate BRB Transaction ID for expiry
-			ValidateBRBTransactionID(servletMediator);
+			// US3627
+			if(!servletMediator.getBrbTransactionId().toLowerCase().contains("moa")) {
+				// Validate BRB Transaction ID for expiry
+				ValidateBRBTransactionID(servletMediator);
+			}
+			
+			// Old Code
+			/*// Validate BRB Transaction ID for expiry
+			ValidateBRBTransactionID(servletMediator);*/
 
 			// Process request
 			handleRequest(servletMediator);

@@ -207,7 +207,15 @@ BRB.BaseModel = function(config) {
 	// ---------------------------------------------------------------
 	this.validate = function(groupName) {
 		BRB.Log('BRB.BaseModel::isGroupValid(' + groupName + ')');
-
+		// US3627
+		if(app.getIsMOARequest()) {
+			$.each(this.data, function(index, item) {
+				if(item.name == "email") {
+					item.validation = null;
+				}
+			});
+		}
+		
 		var rez = [];
 		$.each(this.data, function(index, item) {
 

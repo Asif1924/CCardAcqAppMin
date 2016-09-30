@@ -47,8 +47,14 @@ BRB.IdentityExamModel = function() {
 	}
 	//---------------------------------------------------------------------------------------
 	function getBrbTransactionId(){
+		var transId;
+		if(app.getIsMOARequest()) {
+			transId = app.moacustomerTransactionModel.getTransactionId();
+        } else {
+        	transId = app.customerTransactionModel.getTransactionId();
+		}
 		return ( (identityExamObject.brbTransactionId && !_.isEmpty(identityExamObject) ) ? 
-				identityExamObject.brbTransactionId : app.customerTransactionModel.getTransactionId());
+				identityExamObject.brbTransactionId : transId);
 	}
 	//---------------------------------------------------------------------------------------
 	function setBrbTransactionId(transactionId) {

@@ -196,13 +196,15 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
-        	"switchLanguageButtonId" : "IdentityVerification_LanguageButton"
+        	"switchLanguageButtonId" : "IdentityVerification_LanguageButton",
             /*"previousButtonId" : "IdentityVerification_PrevButton",*/
         }).appendTo("#IdentityVerificationScreen");
     }
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-		var html = $(templateName).tmpl(); 
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
+		var html = $(templateName).tmpl({'isMOA' : isMOA}); 
 		$element.append(html);
 	}
 	//---------------------------------------------------------------------------------------

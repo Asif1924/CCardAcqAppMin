@@ -13,7 +13,12 @@ BRB.IdentityExamHelper = function() {
 		identityExamModel.setIdentityExamResponseObject(argIdentityExamResponseObject);		
 		
 		// Set transaction id
-		identityExamModel.setBrbTransactionId(app.customerTransactionModel.getTransactionId());		
+		if(app.getIsMOARequest()) {
+			identityExamModel.setBrbTransactionId(app.moacustomerTransactionModel.getTransactionId());
+        } else {
+        	identityExamModel.setBrbTransactionId(app.customerTransactionModel.getTransactionId());
+		}
+		// Old identityExamModel.setBrbTransactionId(app.customerTransactionModel.getTransactionId());		
 		
 		return identityExamModel;
 	};
@@ -34,8 +39,15 @@ BRB.IdentityExamHelper = function() {
 		var address = new Object();		
 		address.addressLine1 = getAddressLine1(personalInfoModel);
 		var addressLine2 = getAddressLine2(personalInfoModel);
+		var transId;
+		
 		if (addressLine2){
 			address.addressLine2 = addressLine2;
+		}
+		if(app.getIsMOARequest()) {
+			transId = app.moacustomerTransactionModel.getTransactionId();
+        } else {
+        	transId = app.customerTransactionModel.getTransactionId();
 		}
 		//address.addressLine3 = "";
 		var requestParams = {
@@ -51,8 +63,8 @@ BRB.IdentityExamHelper = function() {
 				"addressLine3": address.addressLine3,
 				"city": personalInfoModel.get('city'),
 				"province": personalInfoModel.get('province'),
-				"postalCode": personalInfoModel.get('postalcode'),
-				"transactionId": app.customerTransactionModel.getTransactionId()
+				"postalCode": personalInfoModel.get('postalcode'),				
+				"transactionId": transId
 		};
 		
 		return requestParams;

@@ -160,8 +160,11 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		/*var html = $(templateName).tmpl(); 
 		$element.append(html);*/	
 		
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
+		
 	    $(templateName).template("confirmationScreenPage");     
-        $.tmpl("confirmationScreenPage",{activationItems:activationItems}).appendTo($element);        
+        $.tmpl("confirmationScreenPage",{activationItems:activationItems, 'isMOA':isMOA}).appendTo($element);
 	}
 	//---------------------------------------------------------------------------------------
     function bindEvents(){

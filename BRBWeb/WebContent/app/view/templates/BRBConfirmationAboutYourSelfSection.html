@@ -51,6 +51,7 @@
 		</div>	
 	</div>
 	{{/if}}
+	{{if activationItems.getModel('personalInformation').get('email') }}
 	<div id="personalInfoTable" class="grayTableNoBorder row">
 		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
 			<span data-translationKey="personalInformation_EmailAddress"></span>			
@@ -59,6 +60,7 @@
 			${ activationItems.getModel('personalInformation').get('email')}			
 		</div>	
 	</div>
+	{{/if}}
 	<div id="personalInfoTable" class="grayTableNoBorder row">
 		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
 			<span data-translationKey="personalInformation_PrimaryPhone"></span>			

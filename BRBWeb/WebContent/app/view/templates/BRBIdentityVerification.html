@@ -421,6 +421,7 @@
 								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-7 col-md-8">
 									<span data-translationKey="identityVerification_FinalText5"></span>
 								</div>
+								{{if !isMOA }}
 								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-5 col-md-4">
 									<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
 										<div class="floatToRight continueButtonRightPosition continueButtonClick" id="identityVerification_ContinueButton">
@@ -431,6 +432,7 @@
 										</div>
 									</div>
 								</div>
+								{{/if}}
 							</div>
 						</div>
 						<div id="examFinalStepPending" class="hideElement alignToTop">
@@ -440,17 +442,19 @@
                         			<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
 								</div>
 							</div>
-							<div class="congratulationsTextContent grayTableNoBorder row">
-								<div id="tu_pendingending"  class="hideElement">
-                                	<div class="col-xs-2 col-sm-1">
-                        				<div class="tu_pendingending_exclamation_point"></div>
-									</div>
-									<div class="col-xs-10 col-sm-11"> 
-                                		<span  data-translationKey="identityVerification_TUPendingText1"></span>
-										<br><br>
+							{{if !isMOA }}
+								<div class="congratulationsTextContent grayTableNoBorder row">
+									<div id="tu_pendingending"  class="hideElement">
+	                                	<div class="col-xs-2 col-sm-1">
+	                        				<div class="tu_pendingending_exclamation_point"></div>
+										</div>
+										<div class="col-xs-10 col-sm-11"> 
+	                                		<span  data-translationKey="identityVerification_TUPendingText1"></span>
+											<br><br>
+										</div>
 									</div>
 								</div>
-							</div>
+							{{/if}}
 							<div class="grayTableNoBorder row">
 								<div class="fieldLabelsCell col-xs-12">
                            			<span  data-translationKey="identityVerification_TUPendingText2"></span>
@@ -472,16 +476,18 @@
 								<div class="fieldLabelsCell col-xs-12 col-sm-7">
 									<span data-translationKey="identityVerification_PendingText4"></span>
 								</div>
-								<div class="fieldLabelsCell col-xs-12 col-sm-5">
-									<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
-										<div class="floatToRight continueButtonClick elementTopBottom10" id="identityVerification_ContinueButton">
-											<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton2Rect">
-												<span class="buttonText" data-translationKey="continue_Button_Label"></span>
-											</a>
-											<span class="continueButtonTriangle"></span>
+								{{if !isMOA }}
+									<div class="fieldLabelsCell col-xs-12 col-sm-5">
+										<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
+											<div class="floatToRight continueButtonClick elementTopBottom10" id="identityVerification_ContinueButton">
+												<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton2Rect">
+													<span class="buttonText" data-translationKey="continue_Button_Label"></span>
+												</a>
+												<span class="continueButtonTriangle"></span>
+											</div>
 										</div>
 									</div>
-								</div>
+							    {{/if}}
 							</div>							
 						</div>
 					</div>
@@ -507,12 +513,14 @@
 				<span data-translationKey="identityVerification_FooterText5"></span>
 				{{/if}}-->
 				<!-- US3011 -->
+				<!--
 				<span data-translationKey="identityVerification_FooterText1"></span>
 				<br>
 				<span data-translationKey="identityVerification_FooterText2"></span>
 				<br>
 				<span data-translationKey="identityVerification_FooterText3"></span>
 				<br>
+				-->
 				<span data-translationKey="identityVerification_FooterText4"></span>
 				<br>
 				<span data-translationKey="identityVerification_FooterText5"></span>				

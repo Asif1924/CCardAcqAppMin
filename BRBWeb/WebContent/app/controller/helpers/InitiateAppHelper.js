@@ -4,8 +4,10 @@ BRB.InitiateAppHelper = function() {
 	var logPrefix = ' ----- [BRB.InitiateAppHelper]::';
 	var transactionIdParamName = "transactionId";
 	var languageParamName = "lang";
+	var cardTypeParamName = "cardType";
 	var transactionId = null;
 	var language = null;
+	var cardType = null;
 	this.isDeleteCustomerDataRequestSent = false;
 	
 	function getUrlParam (paramName) {
@@ -14,11 +16,27 @@ BRB.InitiateAppHelper = function() {
 	};
 	
 	this.getTransactionParam = function () {
+		var sMethod = 'getTransactionParam()::';
 		if (!transactionId && _.isEmpty(transactionId)) {
 			transactionId = getUrlParam(transactionIdParamName);
-		}		
+		}
+		BRB.Log(logPrefix + sMethod + "transactionId is: " + transactionId);
 		
 		return transactionId;
+	};
+	
+	this.generateTransactionId = function () {
+		var sMethod = 'generateTransactionId()::';
+	    var d = new Date().getTime();
+	    var transactionId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	        var r = (d + Math.random()*16)%16 | 0;
+	        d = Math.floor(d/16);
+	        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+	    });
+	    transactionId = transactionId + "moa";
+	    BRB.Log(logPrefix + sMethod + "transactionId is: " + transactionId);
+	    
+	    return transactionId;
 	};
 	
 	this.getLanguageParam = function () {
@@ -33,11 +51,28 @@ BRB.InitiateAppHelper = function() {
 				BRB.AppConfig.LanguageEnum.french : BRB.AppConfig.LanguageEnum.english;		
 	};
 	
-	this.getCustomerData = function (messageDialog, translator, argSuccessCB, argFailureCB) {		
+	// US3627
+	this.getCardTypeParam = function () {
+		var sMethod = 'getCardTypeParam()::';			
+		if (!cardType && _.isEmpty(cardType)) {
+			cardType = getUrlParam(cardTypeParamName);
+		}
+		BRB.Log(logPrefix + sMethod + "cardType is: " + cardType);
+		return cardType;		
+	};
+	
+	
+	this.getCustomerData = function (messageDialog, translator, argSuccessCB, argFailureCB) {
+		var sMethod = 'getCustomerData():: ';
 		var connectivityController = new BRB.ConnectivityController(new BRB.ConnectionStatus(), messageDialog, translator, BRB.AppConfig.ConnectivityConfig);
 		connectivityController.init();
-				
-		connectivityController.getCustomerData(this.getTransactionParam(), argSuccessCB, argFailureCB);
+		BRB.Log(logPrefix + sMethod + "transactionId is: " + app.getTransactionId());
+		if(app.getIsMOARequest()) {
+			connectivityController.getCustomerData(app.getTransactionId(), argSuccessCB, argFailureCB);
+		} else {
+			connectivityController.getCustomerData(this.getTransactionParam(), argSuccessCB, argFailureCB);
+		}
+		// Old connectivityController.getCustomerData(this.getTransactionParam(), argSuccessCB, argFailureCB);
 	};
 	
 	this.removeCustomerData = function (messageDialog, translator, argSuccessCB, argFailureCB) {
@@ -52,6 +87,12 @@ BRB.InitiateAppHelper = function() {
 
 				return;
 			}
+			else if (app.getIsMOARequest())
+				{
+				BRB.Log(logPrefix + sMethod + 'MOA transactionId and no record in the table!!!');
+				this.isDeleteCustomerDataRequestSent = true;
+				return;
+				}
 
 			var connectivityController = new BRB.ConnectivityController(
 					new BRB.ConnectionStatus(), messageDialog, translator,
@@ -66,6 +107,8 @@ BRB.InitiateAppHelper = function() {
 			var str = app.flowStateHelper.getStringHelperState(); 
 			connectivityController.removeCustomerData(transactionId,
 					argSuccessCB, argFailureCB, str);
+			
+			
 		}
 		finally {			
 			this.isDeleteCustomerDataRequestSent = true;

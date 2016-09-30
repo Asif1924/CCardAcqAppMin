@@ -145,6 +145,7 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
 							//according to user story with number 1322
 							if(arg.error && arg.data && arg.data  == '409'){
 								// need to track already persisted  values
+								BRB.Log(logPrefix + sMethod + "arg.data :: "+ arg.data);
 								app.flowStateHelper.setTokenExpired();
 								app.initiateAppHelper.isDeleteCustomerDataRequestSent = true;
 								app.closeBRBWebWindow();

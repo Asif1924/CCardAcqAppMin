@@ -222,6 +222,9 @@ public class GenericObjectsHelper
 		accountApplicationReturnValue = accountApplicationReturnValue.replace("tuExamResult", "TUExamResult");
 		accountApplicationReturnValue = accountApplicationReturnValue.replace("<dateOfBirth >", "<dateOfBirth>");
 
+		// remove fake email for MOA flow - US3627 
+		// accountApplicationReturnValue = accountApplicationReturnValue.replace("frommoa@ctfs.com", "");
+				
 		log.info(sMethod + "accountApplicationReturnValue:" + accountApplicationReturnValue);
 		return accountApplicationReturnValue;
 	}

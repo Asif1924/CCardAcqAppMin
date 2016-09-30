@@ -606,7 +606,14 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         } else {
         	currentModel.set('birthDate',  	$(refs.dateOfBirth_Year).val() + "-" + $(refs.dateOfBirth_Month).val() + "-" + $(refs.dateOfBirth_Day).val());
         }
+        
         currentModel.set('email',      		$(refs.email).val().toUpperCase());
+        
+        /*if(app.getIsMOARequest()) {
+        	currentModel.set('email',      		"frommoa@ctfs.com");
+        }else {
+              currentModel.set('email',      		$(refs.email).val().toUpperCase());
+        }*/
         /*model.set('primaryPhone1',  	$(refs.primaryPhone1).val());
         model.set('primaryPhone2',  	$(refs.primaryPhone2).val());
         model.set('primaryPhone3',  	$(refs.primaryPhone3).val());*/
@@ -920,7 +927,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-		var html = $(templateName).tmpl({'screenIsPopup':argPopup}); 
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("assemblePageHTML() :: " + isMOA);
+		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isMOA':isMOA}); 
 		$element.append(html);
 	}
 	

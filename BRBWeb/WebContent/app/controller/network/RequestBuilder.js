@@ -45,12 +45,30 @@ BRB.RequestBuilder = function(argServiceName, argParams, argHttpType) {
 	
 	function addTrackingScreenID(argParams){
 		var params = argParams;
+	if(app.getIsMOARequest()) {
+		if ($.isArray(params)){
+			params.push({brbTransactionId:app.moacustomerTransactionModel.getTransactionId()});
+			return params.push({TrackingScreenID:BRB.AppConfig.TrackingScreenID});
+		}else{
+			params.brbTransactionId = app.moacustomerTransactionModel.getTransactionId();
+			return params.TrackingScreenID = BRB.AppConfig.TrackingScreenID;
+		}
+	} else {
 		if ($.isArray(params)){
 			params.push({brbTransactionId:app.customerTransactionModel.getTransactionId()});
 			return params.push({TrackingScreenID:BRB.AppConfig.TrackingScreenID});
 		}else{
 			params.brbTransactionId = app.customerTransactionModel.getTransactionId();
 			return params.TrackingScreenID = BRB.AppConfig.TrackingScreenID;
-		}		
+		}
+	}
+		// Old Code
+		/*if ($.isArray(params)){
+			params.push({brbTransactionId:app.customerTransactionModel.getTransactionId()});
+			return params.push({TrackingScreenID:BRB.AppConfig.TrackingScreenID});
+		}else{
+			params.brbTransactionId = app.customerTransactionModel.getTransactionId();
+			return params.TrackingScreenID = BRB.AppConfig.TrackingScreenID;
+		}*/		
 	}
 };

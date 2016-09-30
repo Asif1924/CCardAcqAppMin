@@ -1,5 +1,9 @@
 package com.ctfs.BRB.Helper;
 
+import static org.mockito.Mockito.when;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
@@ -16,6 +20,7 @@ import com.ctfs.BRB.Model.CreditCardApplicationData;
 import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.ctfs.BRB.dblayer.ApplicationTransactionTableEntity;
+import com.ctfs.BRB.dblayer.CustomerTransactionTableEntity;
 import com.ctfs.BRB.dblayer.interfaces.IAppTransactionTableEntity;
 import com.google.gson.Gson;
 
@@ -55,7 +60,25 @@ public class IdentityExamHelper
 			
 			validateUserRequest(requestBodyString, ResourceHelper.getInstance().getValidationWebICIdentityExaminationPath());
 			requestBody.setRequestBody(requestBodyString);
+			
+			// US3627
+			if(brbTransactionId.toLowerCase().contains("moa")) {
+				try
+				{
+					// Call AccountAppication flow
+					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+				}
+				catch (Exception ex)
+				{
+					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
+					ex.printStackTrace();
+					
+					brbIdentityExam = null;
+				}
+			}
+			else {
 			responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.TU_AUTHENTICATION_EXAM_IDENTITY, brbTransactionId), requestBody);
+			
 			response = deserializeResponse(responseBody);
 
 			// Create proxy class
@@ -74,7 +97,30 @@ public class IdentityExamHelper
 					
 					brbIdentityExam = null;
 				}
+			  }
 			}
+			
+			// Old Code
+			/*responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.TU_AUTHENTICATION_EXAM_IDENTITY, brbTransactionId), requestBody);
+			response = deserializeResponse(responseBody);
+
+			// Create proxy class
+			brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), brbTransactionId);			
+			
+			if (!brbIdentityExam.isIdentityExamModelValid()) {
+				try
+				{
+					// Call AccountAppication flow
+					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+				}
+				catch (Exception ex)
+				{
+					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
+					ex.printStackTrace();
+					
+					brbIdentityExam = null;
+				}
+			}*/
 		}
 		catch (Exception e)
 		{
@@ -95,6 +141,39 @@ public class IdentityExamHelper
 		// Extract accountApplicationData
 		CreditCardApplicationData ccData = new IdentityExamRequestHelper(mediator).getCreditCardApplicationData();  
 		 		
+		
+	    // insert CUSTOMERTRANSACTION table data for MOA - BRB decouple
+		// US3627
+		if(brbTransactionId.toLowerCase().contains("moa")) {
+		
+			try
+			{
+				CustomerTransactionTableEntity entity = new CustomerTransactionTableEntity();
+				entity.setTransactionId(brbTransactionId);
+				entity.setEcommCustomerId("FromMOA");
+				entity.setEmail("frommoa@ctfs.com");
+				entity.setFirstName("");
+				entity.setLastName("");
+				entity.setAddressLine1("");
+				entity.setAddressLine2("");
+				entity.setCity("");
+				entity.setProvince("");
+				entity.setPostalCode("");
+				entity.setPhone("");
+				entity.setLoyaltyNumber("");
+				entity.setLoyaltyProgram("");
+				entity.setTransactionDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+				entity.setRequestingSystem("MOA");
+			  	
+				new BRBDBHelper().insertIntoCustomerTransactionTable(entity);
+			}
+			catch (Exception e)
+			{
+				log.warning(sMethod + " Exception: insert CUSTOMERTRANSACTION : " + e.getMessage());
+			} 
+			
+		}	 			
+		
 		// Serialize AccountApplication request wrapper
 		String accountApplicationRequestWrapperJson = new Gson().toJson(ccData.extractCreditCardData(), AccountApplicationRequestWrapper.class);
 		

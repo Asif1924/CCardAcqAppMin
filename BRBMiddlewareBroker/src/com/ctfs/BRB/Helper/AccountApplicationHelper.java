@@ -124,9 +124,10 @@ public class AccountApplicationHelper
 			throw ex;
 		}
 		finally
-		{
+		{			 
 			// According to CTCOFSMB-1343
 			new BRBDBHelper().deleteFromCustomerTransactionTable(brbTransactionId);
+			
 		}
 
 		return brbIdentityExamBridge;
