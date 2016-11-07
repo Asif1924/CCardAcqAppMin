@@ -59,7 +59,7 @@ WICI.CreditCardApplicationData = function() {
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
 
-	var provincesList = new WICI.ProvincesList();
+	var provincesList = new WICI.IdTypesProvincesList();
 
 	var personalDataIdTypesList = new WICI.IdTypesList();
 

@@ -54,14 +54,36 @@ public class AccountApplicationRequestTypeConverter
                     //populatedAccountApplicationRequest.setChannelIndicator("IP");
                     //log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
                     //US3162  
-                    if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
+                    
+                    /* Before MARK IC Chenal     
+                      if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
                         {
                                        populatedAccountApplicationRequest.setChannelIndicator("DP");
-                                    }
-                                    else
-                                    {
+                        }
+                        else
+                        {
                                        populatedAccountApplicationRequest.setChannelIndicator("IP");
-                                    } 
+                        } 
+                    
+                    */ 
+                
+                    //US4194
+                    String  storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
+                    double storeNo = Double.parseDouble(storeNumber);
+                    log.info(sMethod + " storeNo: " + storeNo);
+    			    if(storeNo >= 6000 && storeNo <= 6999 ) {
+    			        	
+    			    	          populatedAccountApplicationRequest.setChannelIndicator("IC");	
+    			    } 
+    			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
+                    {
+                                   populatedAccountApplicationRequest.setChannelIndicator("DP");
+                    }
+                    else
+                    {
+                                   populatedAccountApplicationRequest.setChannelIndicator("IP");
+                    } 
+                    
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
     
                     populatedAccountApplicationRequest.setCurrentCountry("CA");

@@ -21,7 +21,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     this.syncUserData = syncUserData;
     // US3981
     var loginModel = activationItems.getModel('loginScreen');
-    var chooseProductModel = activationItems.getModel('chooseProductModel');    
+    var chooseProductModel = activationItems.getModel('chooseProductModel');
     var refs = {
         signature_PA				    : 	'#signature_PA',
         signature_CP					: 	'#signature_CP',
@@ -48,7 +48,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         optionalProducts_PA_Table       :   '#optionalProducts_PA_Table',
         optionalProducts_PA_Agreement   :   '#optionalProducts_PA_Agreement',
         optionalProduct_PA_AcceptBox	:	'#optionalProduct_PA_AcceptBox_Area',
-		
+
+        // US4168
+        optionalProducts_CPInsurance	:	'#optionalProducts_CPInsuranceTextField',
+        optionalProducts_TC25_CP_Text	:	'#optionalProducts_TermsAndConditions25_CP_Text',
         optionalProducts_CP_Item		:   '#optionalProductsCreditProtectorItem',
         optionalProducts_CP             :   '#optionalProducts_YesNoTextField',
         optionalProducts_CP_Area        :   '#optionalProducts_CP_Area',
@@ -134,8 +137,12 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 
         createFlips();
 
+        // US4083 - Code changes Reverted
         removePAandCPifSKProvince();
 
+        // US4168
+        hidePAandCPAgeRestriction();
+        
         // To ensure the DIVS are styled based on the checkbox state on navigation into the page
         toggleAllWarningDIVs();
     }
@@ -612,6 +619,29 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             $(refs.optionalProducts_CP_Table).hide();
             $(refs.optionalProducts_CP_Agreement).attr('checked', false);
         };
+    }
+    //---------------------------------------------------------------------------------------
+    // US4168
+    function hidePAandCPAgeRestriction(){
+    	var sMethod = " hidePAandCPAgeRestriction() :: ";    	
+        var personalDataModel = activationItems.getModel('personalData');
+        console.log(logPrefix + sMethod + " age "+personalDataModel.get('age'));
+        if(personalDataModel.get('age') > 76) {
+        	$(refs.optionalProducts_PA_Item).hide();//Protection Advantage hiding
+            $('#lineSeparatorForPA').hide();
+            $(refs.optionalProducts_CP_Item).hide();//Credit Protector hiding
+            $('#lineSeparatorForCP').hide();
+            // Hiding PA and CP content and unchecking selected PA/CP
+            $(refs.optionalProducts_PA).attr('checked', false);
+            $(refs.optionalProducts_PA_Table).hide();
+            $(refs.optionalProducts_PA_Agreement).attr('checked', false);
+            $(refs.optionalProducts_CP).attr('checked', false);
+            $(refs.optionalProducts_CP_Table).hide();
+            $(refs.optionalProducts_CP_Agreement).attr('checked', false);
+            $(refs.optionalProducts_CPInsurance).hide();
+            $(refs.optionalProducts_TC25_CP_Text).hide();
+        }
+    	
     }
     //---------------------------------------------------------------------------------------
     function onSignatureChaged1 (e) {

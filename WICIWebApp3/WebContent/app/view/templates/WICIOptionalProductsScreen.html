@@ -8,8 +8,9 @@
 	</center>
 <br>
 <!-- UAT 39 - CP Revitalization, Missed Requirement -->
+<!-- US4083 - Code changes Reverted //-->
 {{if !cpEnable }}
-<div data-translationKey="optionalProducts_CPInsuranceText"></div>
+<div id="optionalProducts_CPInsuranceTextField" data-translationKey="optionalProducts_CPInsuranceText"></div>
 {{/if}}
 <div data-translationKey="optionalProducts_SellingLanguageText"></div>
 	<div id="optionalProductsList">
@@ -157,6 +158,7 @@
 							<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
 								class="elementWithBoldFont"
 								data-translationKey="optionalProducts_CreditProtector_Title"></span>
+								<!-- US4083 - Code changes Reverted //-->								
 								<span
 								data-translationKey="optionalProducts_CreditProtector_Text"></span>
 							</td>
@@ -425,8 +427,10 @@
 	<p class="TandC_Content_Format">
 		<span data-translationKey="optionalProducts_TermsAndConditions25_Top" />
 		<!-- UAT 39 - CP Revitalization, Missed Requirement -->
+		<!-- US4083 - Code changes Reverted //--> 
 		{{if !cpEnable }}
-		<span data-translationKey="optionalProducts_TermsAndConditions25_CP" />
+		<span id="optionalProducts_TermsAndConditions25_CP_Text" data-translationKey="optionalProducts_TermsAndConditions25_CP" />
+		<span data-translationKey="optionalProducts_TermsAndConditions25_ID" />
 		{{/if}}
 		<span data-translationKey="optionalProducts_TermsAndConditions25_Bottom" />
 	</p>

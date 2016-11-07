@@ -182,10 +182,39 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
             }
         ).appendTo($element);
     }
+
+    // US4084
+    function addProgComp() {
+    	$('#progress').parent().addClass("marginTopPlus15");
+        $('#completed').parent().addClass("marginTopPlus15");
+        $('#completed').parent().addClass("hidden");
+        $('#progress').parent().removeClass("hidden");
+    }
     
     function bindEvents() {
         var sMethod = 'bindEvents() ';
         console.log(logPrefix + sMethod);
+        
+        // US4084
+        var pollingInterval = WICI.AppConfig.PendingFeature.Interval;
+        
+        var pbar = jQMProgressBar('progressbar')
+        .setOuterTheme('b')
+        .setInnerTheme('e')
+        .isMini(true)
+        .setMax(10)
+        .setStartFrom(0)
+        .setInterval(pollingInterval)
+        .showCounter(true)
+        .build()
+        .run();
+	        
+        addProgComp();
+        
+        $(document).on('complete', '#progressbar', function () {
+			$('#progress').parent().addClass("hidden");
+	        $('#completed').parent().removeClass("hidden");
+		});
 
         $(refs.printButton).click(function() {
         	printToken(retrievalTokenRefNum);
@@ -426,6 +455,23 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     function failedPendPoll(argResponse) {
         var sMethod = 'failedPendPoll() ';
         console.log(logPrefix + sMethod);
+        // US4084
+        setTimeout(function(){
+			var pbar = jQMProgressBar('progressbar')
+	        .setOuterTheme('b')
+	        .setInnerTheme('e')
+	        .isMini(true)
+	        .setValue(10)
+	        .build()
+	        .run();
+        },100);
+        
+        addProgComp();
+        
+        $(document).on('complete', '#progressbar', function () {
+			$('#progress').parent().addClass("hidden");
+	        $('#completed').parent().removeClass("hidden");
+		});
 
         var errorKey = "pendingScreen_RetrieveFailed";
         new WICI.LoadingIndicatorController().hide();

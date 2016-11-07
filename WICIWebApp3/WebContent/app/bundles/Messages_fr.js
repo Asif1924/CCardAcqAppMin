@@ -85,7 +85,11 @@ WICI.dictionary_fr =  {
 
 	// US3920
 	program_PromoCode								  : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Ouverture officielle\":\"4023\"},{\"Autre\":\"\"}],\"Événements en magasin\":[{\"Journées carte MCO\":\"OMCDY\"},{\"Autre\":\"\"}],\"Événements DPCT\":[{\"Programme d’événement de l’Est\":\"5200\"},{\"Programme d’événement de l’Ouest\":\"4024\"}],\"Régional DCTP\":[{\"Programme régional de l’Est\":\"4022\"},{\"Programme régional de l’Ouest\":\"4029\"}]}]}",
-
+	
+	// US4194
+	program_Marks_PromoCode 						  : "{\"FMR\":[{\"Magasin Marks\":[{\"MWW80\":\"MWW80\"}]}]}",
+	program_Marks_PromoCode_QC 						  : "{\"FMR\":[{\"L'Equipeur\":[{\"MWW80\":\"MWW80\"}]}]}",
+	
 	// US3767
 	chooseProduct_PromoCode_Other					  :							"Code promotionnel (Autre)",
 
@@ -125,7 +129,11 @@ WICI.dictionary_fr =  {
 	personalData_TellUsAboutYourself                  :                         "Renseignements personnels",
 	personalData_IDType                               :                         "Type de pièce d'identité",
 	personalData_ScanID  	     					  : 						"Balayer pièce ID",
-	personalData_PlaceOfIssue                         :                         "Province émettrice de l'identification",
+	
+	// US4078
+	// personalData_PlaceOfIssue                         :                         "Province émettrice de l'identification", - OLD
+	personalData_PlaceOfIssue                         :                         "lieu de délivrance de la pièce d’identité",
+	
 	personalData_IDNumber                             :                         "N° de la pièce d'identité",
 
 	personalData_DOB_18YearsError                     :                         "Vous devez être âgé de 18 ans ou plus pour faire une demande.",
@@ -259,26 +267,46 @@ WICI.dictionary_fr =  {
 
 	ProvincesList_null                                :"Veuillez sélectionner...",
 	IdTypesList_null                                  :"Veuillez sélectionner...",
+	// US4078
 	IdTypesList_DR                                    :" PERMIS DE CONDUIRE",
-	IdTypesList_HE                                    :" CARTE D'ASSURANCE MALADIE",
+	IdTypesList_HE                                    :" CARTE D'ASSURANCE-MALADIE",
 	IdTypesList_PR                                    :" CARTE DE RÉSIDENT PERMANENT",
 	IdTypesList_BI                                    :" CERTIFICAT DE NAISSANCE",
 	IdTypesList_CI                                    :"CARTE DE CITOYENNETÉ CANADIENNE",
 	IdTypesList_PA                                    :"PASSEPORT",
-	IdTypesList_BC                                    :"INSURANCE CORPORATION OF BRITISH COLUMBIA",
 	IdTypesList_IN                                    :"CERTIFICAT DU STATUT D'INDIEN",
-	IdTypesList_AB                                    :"ALBERTA REGISTRIES",
-	IdTypesList_RE                                    :"FICHE RELATIVE AU DROIT D'ÉTABLISSEMENT",
-	IdTypesList_NS                                    :"SERVICES NOUVELLE-ÉCOSSE ET RELATIONS AVEC LES MUNICIPALITÉS ",
-	IdTypesList_NB                                    :"SERVICES NOUVEAU-BRUNSWICK",
-	IdTypesList_NL                                    :"DEPT. OF GOVERNMENT SERVICES AND LANDS OF NEWFOUNDLAND AND LABRADOR",
-	IdTypesList_SK                                    :"SASKATCHEWAN GOVERNMENT INSURANCE",
-	IdTypesList_MB                                    :"SOCIÉTÉ D'ASSURANCE PUBLIQUE DU MANITOBA",
-	IdTypesList_PE                                    :" MINISTÈRE DES TRANSPORTS ET DES TRAVAUX PUBLICS DE L'ÎLE‑DU‑PRINCE‑ÉDOUARD",
-	IdTypesList_NT                                    :" MINISTÈRE DES TRANSPORTS DES TERRITOIRES DU NORD-OUEST",
-	IdTypesList_NU                                    :" MINISTÈRE DU GOUVERNEMENT COMMUNAUTAIRE ET DES TRANSPORTS DU TERRITOIRE DU NUNAVUT",
-	IdTypesList_YT                                    :"MINISTÈRE DES SERVICES AUX COLLECTIVITÉS DU YUKON",
-	IdTypesList_ON                                    :"MINISTÈRE DES TRANSPORTS DE L'ONTARIO",
+	//IdTypesList_RE                                    :"FICHE RELATIVE AU DROIT D'ÉTABLISSEMENT",
+	IdTypesList_RE                                    :"FICHE D’ÉTABLISSEMENT",
+	
+	IdTypesList_BC                                    :"CARTE D’IDENTITÉ DE LA COLOMBIE-BRITANNIQUE",
+	IdTypesList_AB                                    :"CARTE D’IDENTITÉ DE L’ALBERTA",	
+	IdTypesList_NS                                    :"CARTE D’IDENTITÉ DE LA NOUVELLE-ÉCOSSE",
+	IdTypesList_NB                                    :"CARTE D’IDENTITÉ DU NOUVEAU-BRUNSWICK",
+	IdTypesList_NL                                    :"CARTE D’IDENTITÉ DE TERRE-NEUVE-ET-LABRADOR",
+	IdTypesList_SK                                    :"CARTE D’IDENTITÉ DE SASKATCHEWAN",
+	IdTypesList_MB                                    :"CARTE D’IDENTITÉ DU MANITOBA",
+	IdTypesList_PE                                    :"CARTE D’IDENTITÉ DE L’ÎLE-DU-PRINCE-ÉDOUARD",
+	IdTypesList_NT                                    :"CARTE D’IDENTITÉ DES TERRITOIRES DU NORD-OUEST",
+	IdTypesList_NU                                    :"CARTE D’IDENTITÉ DU NUNAVUT",
+	IdTypesList_YT                                    :"CARTE D’IDENTITÉ DU YUKON",
+	IdTypesList_ON                                    :"CARTE D’IDENTITÉ DE L’ONTARIO",
+	IdTypesList_BS									  : "CARTE DES SERVICES DE LA COLOMBIE-BRITANNIQUE",
+	
+	/*
+	IdTypesList_AB									  : "CARTE D’IDENTITÉ DE L’ALBERTA",
+	IdTypesList_BS									  : "CARTE DES SERVICES DE LA COLOMBIE-BRITANNIQUE",
+	IdTypesList_BC									  :	"CARTE D’IDENTITÉ DE LA COLOMBIE-BRITANNIQUE",
+	IdTypesList_MB									  :	"CARTE D’IDENTITÉ DU MANITOBA",
+    IdTypesList_NB									  :	"CARTE D’IDENTITÉ DU NOUVEAU-BRUNSWICK",
+    IdTypesList_NL									  :	"CARTE D’IDENTITÉ DE TERRE-NEUVE-ET-LABRADOR",
+    IdTypesList_NS									  :	"CARTE D’IDENTITÉ DE LA NOUVELLE-ÉCOSSE",
+    IdTypesList_NT									  :	"CARTE D’IDENTITÉ DES TERRITOIRES DU NORD-OUEST",
+    IdTypesList_NU									  :	"CARTE D’IDENTITÉ DU NUNAVUT",
+    IdTypesList_ON									  :	"CARTE D’IDENTITÉ DE L’ONTARIO",
+    IdTypesList_PE									  :	"CARTE D’IDENTITÉ DE L’ÎLE-DU-PRINCE-ÉDOUARD",
+    IdTypesList_SK									  :	"CARTE D’IDENTITÉ DE SASKATCHEWAN",
+    IdTypesList_YT									  :	"CARTE D’IDENTITÉ DU YUKON",
+	*/	
 
 	personalData1_validation_placeofissue             :"Le lieu de délivrance n'est pas sélectionné.",
 	personalData1_validation_idtype                   :"Le type de pièce d'identité n'est pas sélectionné.",
@@ -789,17 +817,19 @@ WICI.dictionary_fr =  {
 	ProvincesList_null									:"Veuillez sélectionner...",
 	ALBERTA												:"ALBERTA",
 	BRITISH_COLUMBIA									:"COLOMBIE-BRITANNIQUE",
+	// US4078	
+	CANADA												:"CANADA",
 	MANITOBA											:"MANITOBA",
 	NEW_BRUNSWICK										:"NOUVEAU-BRUNSWICK",
-	NEWFOUNDLAND_LABRADOR								:"TERRE-NEUVE-ET-LABRADOR",
+	NEWFOUNDLAND_LABRADOR								:"TERRE-NEUVE ET LABRADOR",
 	NOVA_SCOTIA											:"NOUVELLE-ÉCOSSE",
 	NORTHWEST_TERRITORIES								:"TERRITOIRES DU NORD-OUEST",
 	NUNAVUT												:"NUNAVUT",
 	ONTARIO												:"ONTARIO",
-	PRINCE_EDWARD_ISLAND								:"ÎLE DU PRINCE-ÉDOUARD",
-	QUEBEC												:"QUÉBEC ",
+	PRINCE_EDWARD_ISLAND								:"ÎLE-DU-PRINCE-ÉDOUARD",
+	QUEBEC												:"QUÉBEC",
 	SASKATCHEWAN										:"SASKATCHEWAN",
-	YUKON												:"YUKON ",
+	YUKON												:"YUKON",
 
 	//ProgramsList
 	ProgramsList_null									:"Veuillez sélectionner...",
@@ -1037,6 +1067,10 @@ WICI.dictionary_fr =  {
 	pendingScreen_EmailButtonLabel 						: 	"<span style='font-size:16px'>ENVOYER CONFIRMATION PAR LA POSTE</span>",
 	pendingScreen_PrintToken_Error						:	"Malheureusement, votre numéro de référence n'a pas pu être imprimé. Veuillez réessayer.",
 	pendingScreen_CheckAppStatusLabel 					: 	"VÉRIFIER L'ÉTAT DE LA DEMANDE",
+	
+	// US4084
+	pendingScreen_PollingInProgress_Text				:	"sondage en cours",
+	pendingScreen_PollingCompleted_Text					:	"sondage complété",
 
 	pendingScreen_RetrieveFailed						:	"La demande ne peut être repérée. Veuillez réessayer.",
 	// US3436
@@ -1181,9 +1215,11 @@ WICI.dictionary_fr =  {
     // optionalProducts_ProtectionAdvantage_Text   		:	"<br><i>(non disponible pour les résidents de la Saskatchewan)</i><br>Adhésion à la fois à Couverture-crédit<span class=\"MD\"><sup></sup></span>** / Couverture-crédit – Âge d'or<span class=\"MD\"><sup></sup></span>** <strong>et</strong> Surveillance d'identité Classique<span class=\"MC\"><sup></sup></span>. Comprend la couverture et les avantages des deux produits facultatifs, comme indiqué précédemment.",
     // UAT 12 - CP Revitalization 
     // optionalProducts_ProtectionAdvantage_Text   		:	"<br><i>(non disponible pour les résidents de la Saskatchewan)</i><br>Adhésion à l’Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>  <strong>et</strong> au programme Surveillance d’identité Classique<span class=\"MC\"><sup></sup></span>. Comprend toute la couverture et les avantages des deux produits facultatifs énoncés ci-dessus.",
-    
-    optionalProducts_ProtectionAdvantage_Text   		:	"<br><i>(non disponible pour les résidents de la Saskatchewan)</i><br>Adhésion à l’Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>  <strong>et</strong> au programme Surveillance d’identité Classique<span class=\"MD\"><sup></sup></span>. Comprend toute la couverture et les avantages des deux produits facultatifs énoncés ci-dessus.",
 
+    // US4083
+    // optionalProducts_ProtectionAdvantage_Text   		:	"<br><i>(non disponible pour les résidents de la Saskatchewan)</i><br>Adhésion à l’Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>  <strong>et</strong> au programme Surveillance d’identité Classique<span class=\"MD\"><sup></sup></span>. Comprend toute la couverture et les avantages des deux produits facultatifs énoncés ci-dessus.",
+    optionalProducts_ProtectionAdvantage_Text   		:	"<br>Adhésion à l’Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>  <strong>et</strong> au programme Surveillance d’identité Classique<span class=\"MD\"><sup></sup></span>. Comprend toute la couverture et les avantages des deux produits facultatifs énoncés ci-dessus.",
+    
     // Old code
     // optionalProducts_CreditProtector_Title				:	"Couverture-crédit<span class=\"MD\"><sup></sup></span>** et Couverture crédit – <i>Âge d'or</i><span class=\"MD\"><sup></sup></span>**",
     optionalProducts_CreditProtector_Title				:	"Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>",
@@ -1193,8 +1229,9 @@ WICI.dictionary_fr =  {
     // UAT 39 - Jul 22, CP Revitalization
     optionalProducts_TermsAndConditions25_Top           :   "<br><sup>&dagger;</sup><sup>&dagger;</sup> Ce sont des produits facultatifs offerts à tous les nouveaux titulaires de carte MasterCard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte MasterCard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs, lesquels sont offerts à tous les titulaires de carte MasterCard émise par la Banque Canadian Tire." +
                                                             "<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",                                                                                                                                                                                   
-    optionalProducts_TermsAndConditions25_CP			:	"<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire." +
-    														"<br><br>Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc." ,
+    optionalProducts_TermsAndConditions25_CP			:	"<br><br><span class=\"MD\"><sup></sup></span>/<span class=\"MC\"><sup></sup></span> Couverture-crédit est une marque de commerce déposée des Banque Canadian Tire.",
+    optionalProducts_TermsAndConditions25_ID			:	"<br><br>Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc." ,
+    														
     optionalProducts_TermsAndConditions25_Bottom		:	"<br><br>Retour<span class=\"MD\"><sup></sup></span> et iPiP sont des marques de commerce déposées de Fidélisation propriétaire Aimia Canada Inc." +
                                                             "<br><br><span class=\"MD\"><sup></sup></span> Assurant Solutions est une marque de commerce de Assurant Inc." +
                                                             "<br><br>MasterCard, la marque figurative de MasterCard et MasterCard SecureCode sont des marques de commerce déposées de MasterCard International et sont utilisées sous licence.",                                                                                                                                

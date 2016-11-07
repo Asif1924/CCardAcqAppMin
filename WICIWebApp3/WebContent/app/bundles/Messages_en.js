@@ -83,6 +83,10 @@ WICI.dictionary_en =  {
 
 	// US3920
 	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"OMC Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}]}]}",
+
+	// US4194
+	program_Marks_PromoCode 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
+	program_Marks_PromoCode_QC 							:   "{\"FMR\":[{\"L'Equipeur\":[{\"MWW80\":\"MWW80\"}]}]}",
 	
 	// US3767
 	chooseProduct_PromoCode_Other						:	"Promo code (Other)",
@@ -125,7 +129,11 @@ WICI.dictionary_en =  {
 	personalData_TellUsAboutYourself					:	"Tell us about yourself",
 	personalData_IDType									:	"ID Type",
 	personalData_ScanID 								: 	"Scan ID",
-	personalData_PlaceOfIssue							:	"Issuing Province of ID",
+	
+	// US4078
+	// personalData_PlaceOfIssue							:	"Issuing Province of ID", - OLD
+	personalData_PlaceOfIssue							:	"ID Place of Issue",
+	
 	personalData_IDNumber								:	"ID Number",
 
 	personalData_DOB_18YearsError						:	"Must be 18 years of age or older to apply",
@@ -267,16 +275,34 @@ WICI.dictionary_en =  {
 
 	ProvincesList_null									:	'Please select...',
     IdTypesList_null									:	'Please select...',
+	// US4078
     IdTypesList_DR										:   'DRIVER\'S LICENCE',
     IdTypesList_HE										:   'HEALTH CARD',
     IdTypesList_PR										:   'PERMANENT RESIDENT CARD',
     IdTypesList_BI										:   'BIRTH CERTIFICATE',
     IdTypesList_CI										:   'CANADIAN CITIZENSHIP CARD',
     IdTypesList_PA										:   'PASSPORT',
-    IdTypesList_BC										:   'INSURANCE CORPORATION OF BRITISH COLUMBIA',
     IdTypesList_IN										:   'CERTIFICATE OF INDIAN STATUS',
-    IdTypesList_AB										:   'ALBERTA REGISTRIES',
     IdTypesList_RE										:   'RECORD OF LANDING',
+    
+    IdTypesList_BC										:   'BRITISH COLUMBIA ID CARD',
+    IdTypesList_AB										:   'ALBERTA ID CARD',    
+    IdTypesList_NS										:   'NOVA SCOTIA ID CARD',
+    IdTypesList_NB										:   'NEW BRUNSWICK ID CARD',
+    IdTypesList_NL										:   'NEWFOUNDLAND & LABRADOR ID CARD',
+    IdTypesList_SK										:   'SASKATCHEWAN ID CARD',
+    IdTypesList_MB										:   'MANITOBA ID CARD',
+    IdTypesList_PE										:   'PRINCE EDWARD ISLAND ID CARD',
+    IdTypesList_NT										:   'NORTHWEST TERRITORIES ID CARD',
+    IdTypesList_NU										:   'NUNAVUT ID CARD',
+    IdTypesList_YT										:   'YUKON ID CARD',
+    IdTypesList_ON										:   'ONTARIO ID CARD',
+    IdTypesList_BS										:	'BRITISH COLUMBIA SERVICES CARD',
+
+    /*
+     * Old Idtypes
+     * IdTypesList_BC										:   'INSURANCE CORPORATION OF BRITISH COLUMBIA',
+    IdTypesList_AB										:   'ALBERTA REGISTRIES',    
     IdTypesList_NS										:   'DEPT. OF NOVA SCOTIA & MUNICIPAL RELATIONS',
     IdTypesList_NB										:   'SERVICE NEW BRUNSWICK',
     IdTypesList_NL										:   'DEPT. OF GOVERNMENT SERVICES AND LANDS OF NEWFOUNDLAND AND LABRADOR',
@@ -287,6 +313,8 @@ WICI.dictionary_en =  {
     IdTypesList_NU										:   'DEPT. OF COMMUNITY GOVERNMENT AND TRANSPORTATION OF THE TERRITORY OF NUNAVUT',
     IdTypesList_YT										:   'DEPT. OF COMMUNITY SERVICES OF YUKON',
     IdTypesList_ON										:   'ONTARIO MINISTRY OF TRANSPORTATION',
+     * 
+     */          
 
     personalData1_validation_placeofissue				:	'Place of Issue is not selected',
     personalData1_validation_idtype						: 	'ID Type is not selected',
@@ -778,6 +806,8 @@ WICI.dictionary_en =  {
 	ProvincesList_null									: 'Please select...',
 	ALBERTA												: 'ALBERTA',
 	BRITISH_COLUMBIA									: 'BRITISH COLUMBIA',
+	// US4078
+	CANADA												: 'CANADA',
 	MANITOBA											: 'MANITOBA',
 	NEW_BRUNSWICK										: 'NEW BRUNSWICK',
 	NEWFOUNDLAND_LABRADOR								: 'NEWFOUNDLAND & LABRADOR',
@@ -1022,6 +1052,10 @@ WICI.dictionary_en =  {
 	pendingScreen_PrintToken_Error						:	"Unfortunately, your token could not be printed. Please try again.",
 	pendingScreen_CheckAppStatusLabel 					: 	"CHECK APPLICATION STATUS",
 	
+	// US4084
+	pendingScreen_PollingInProgress_Text				:	"Polling in Progress",
+	pendingScreen_PollingCompleted_Text					:	"Polling Completed",
+	
 	pendingScreen_RetrieveFailed						:	"Cannot retrieve this application. Please try again.",
 	// US3436
 	pendingScreen_ApplicationPending					:	"We appreciate your patience, however your application is still being reviewed by our customer service team. Please check again in 30 minutes.",
@@ -1165,8 +1199,10 @@ WICI.dictionary_en =  {
     // optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup>**/Credit Protector-Senior<sup>&reg;</sup>** <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
     // optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup> Insurance <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
     
+    // US4083
     optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup> Insurance <strong>and</strong> Identity Watch Classic<sup>&reg;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
-
+    optionalProducts_ProtectionAdvantage_Text           :   "<br>Enrolment in both Credit Protector<sup>&reg;</sup> Insurance <strong>and</strong> Identity Watch Classic<sup>&reg;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
+    
 	// Old line
 	// optionalProducts_CreditProtector_Title              :   "Credit Protector<sup>&reg;</sup>**/Credit Protector-<i>Senior</i><sup>&reg;</sup>**",
     optionalProducts_CreditProtector_Title              :   "Credit Protector<sup>&reg;</sup> Insurance",
@@ -1175,8 +1211,9 @@ WICI.dictionary_en =  {
     // UAT 39 - Jul 22, CP Revitalization
     optionalProducts_TermsAndConditions25_Top           :   "<sup>&dagger;</sup><sup>&dagger;</sup> These are optional products offered to all customers approved for a Canadian Tire Bank issued MasterCard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued MasterCard and not for the optional products, which are offered to all Canadian Tire Bank issued MasterCard holders." +
                                                             "<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",                                                                                                                                                                                    
-    optionalProducts_TermsAndConditions25_CP			:	"<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector is a registered trademark of Canadian Tire Bank." +
-    														"<br><br>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc." ,                                                            
+    optionalProducts_TermsAndConditions25_CP			:	"<br><br><sup>&reg;</sup>/<sup>&trade;</sup> Credit Protector is a registered trademark of Canadian Tire Bank.",
+    optionalProducts_TermsAndConditions25_ID			:	"<br><br>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.",    
+    														                                                            
     optionalProducts_TermsAndConditions25_Bottom		:	"<br><br>Rebound<sup>&reg;</sup> is a registered trademark and iPiP are registered trademarks of Aimia Proprietary Loyalty Canada Inc." +
                                                         	"<br><br><sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc." +
                                                         	"<br><br>MasterCard, the MasterCard Brand Mark and MasterCard SecureCode are registered trademarks of MasterCard International, and used under licence.",

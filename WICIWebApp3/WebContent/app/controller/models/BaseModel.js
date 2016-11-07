@@ -204,6 +204,23 @@ WICI.BaseModel = function(config) {
     	return result;
     };
 
+    // US4168    
+    this.calculateAge = function(model) {
+    	var fullYears;
+    	if(model.get('birthDate') != null) {
+    		var dateParts = model.get('birthDate').split("-");
+    		var date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    		var now = moment()._d;
+
+    		fullYears = ( now.getFullYear() - date.getFullYear() - ((now.getMonth() - date.getMonth()||now.getDate() - date.getDate())<0) );
+
+    		console.log('WICI.BaseModel::calculateAge FullYears=' + fullYears);
+    	}    	
+		
+    	return fullYears;
+    };
+    // ---------------------------------------------------------------
+    
     this.validateAge = function(model, province) {
     	var rez;
 

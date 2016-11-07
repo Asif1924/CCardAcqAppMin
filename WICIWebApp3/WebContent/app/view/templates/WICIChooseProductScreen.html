@@ -57,16 +57,25 @@
                     </td>
                 </tr>
                                 
-                <tr class="fieldRow">               	                    
-                    {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}			
-						<td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="chooseProduct_PromoCode_Other"></span>
-	                    </td>
+                <tr class="fieldRow"> 
+                <!-- US4194 - Start //-->
+                    {{if activationItems.getModel('loginScreen').get('locationFieldID') >= "6000" && 
+                    	activationItems.getModel('loginScreen').get('locationFieldID') <= "6999"}}			
+							<td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="chooseProduct_PromoCode"></span>
+		                    </td>
 					{{else}}
-						<td class="fieldLabelsCell fieldCellSize33">
-                        	<span data-translationKey="chooseProduct_PromoCode"></span>
-                    	</td>
-					{{/if}}  
+						{{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}						
+							<td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="chooseProduct_PromoCode_Other"></span>
+		                    </td>
+		                {{else}}
+							<td class="fieldLabelsCell fieldCellSize33">
+	                        	<span data-translationKey="chooseProduct_PromoCode"></span>
+	                    	</td>
+                    	{{/if}}
+					{{/if}}
+					<!-- US4194 - End //--> 					
                <!-- US3767 - End //-->                  
                     <td class="fieldValuesCell">
                         <input class="fieldValuesTextField upperCaseField" id="promoCodeTextField" type="text" tabindex=2 maxlength="5"/>

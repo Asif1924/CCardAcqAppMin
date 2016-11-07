@@ -2,20 +2,21 @@ ensureNamespaceExists();
 
 
 WICI.IdTypesJoinProvinces = function() {
-    this.data= [        
+    this.data= [      // US4078  
                       {prov:null, idTypes:[null]},
-                      {prov:'AB', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'AB', 'RE']},
-                      {prov:'BC', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'BC', 'RE']},
-                      {prov:'MB', idTypes:[null, 'DR', 'PR', 'BI', 'CI', 'PA', 'IN', 'MB','RE']},
-                      {prov:'NB', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'NB', 'RE']},
-                      {prov:'NL', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'NL', 'RE']},
-                      {prov:'NS', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'NS', 'RE']},
-                      {prov:'NT', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'NT', 'RE']},
-                      {prov:'NU', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'NU', 'RE']},
-                      {prov:'ON', idTypes:[null, 'DR', 'PR', 'BI', 'CI', 'PA', 'IN', 'ON', 'RE']},
-                      {prov:'PE', idTypes:[null, 'DR', 'PR', 'BI', 'CI', 'PA', 'IN', 'PE', 'RE']},
-                      {prov:'QC', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'RE']},
-                      {prov:'SK', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'SK', 'RE']},
-                      {prov:'YT', idTypes:[null, 'DR', 'HE', 'PR', 'BI', 'CI', 'PA', 'IN', 'YT', 'RE']}
+                      {prov:'AB', idTypes:[null, 'DR', 'BI', 'HE', 'AB']},
+                      {prov:'BC', idTypes:[null, 'DR', 'BI', 'BC', 'BS']},
+                      {prov:'CA', idTypes:[null, 'PA', 'PR', 'CI', 'IN', 'RE']},
+                      {prov:'MB', idTypes:[null, 'DR', 'BI', 'MB']},
+                      {prov:'NB', idTypes:[null, 'DR', 'BI', 'HE', 'NB']},
+                      {prov:'NL', idTypes:[null, 'DR', 'BI', 'HE', 'NL']},
+                      {prov:'NS', idTypes:[null, 'DR', 'BI', 'NS']},
+                      {prov:'NT', idTypes:[null, 'DR', 'BI', 'HE', 'NT']},
+                      {prov:'NU', idTypes:[null, 'DR', 'BI', 'HE', 'NU']},
+                      {prov:'ON', idTypes:[null, 'DR', 'BI', 'ON']},
+                      {prov:'PE', idTypes:[null, 'DR', 'BI', 'PE']},
+                      {prov:'QC', idTypes:[null, 'DR', 'BI', 'HE']},
+                      {prov:'SK', idTypes:[null, 'DR', 'BI', 'HE', 'SK']},
+                      {prov:'YT', idTypes:[null, 'DR', 'BI', 'HE', 'YT']}                      
                   ];
 };

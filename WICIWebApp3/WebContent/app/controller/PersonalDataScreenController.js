@@ -168,9 +168,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_lastName',
                     group: [ 1 ]
                 }
-            },
-
-            {
+            }, {
                 name : 'birthDate',
                 value : null,
                 validation : {
@@ -178,6 +176,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_birthDate',
                     group: [ 1 ]
                 }
+            }, 
+            // US4168
+            {
+                name : 'age',
+                value : null,
+                validation : null
             }, {
                 name : 'email',
                 value : null,
@@ -294,6 +298,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         createView();
         bindEvents();
 
+        populateIdTypesProvinces();
         populateProvinces();
         populateIdTypesList();
 
@@ -407,15 +412,29 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('loyaltyMembershipNumber', $(refs.loyaltyMembershipNumber).val()) ;
 
         currModel.set('placeofissue', $(refs.placeofissue).val());
-
-        currModel.set('idtype', $(refs.idtype).val());
+        
+        console.log(logPrefix + sMethod + " idtype :: before sync :: " + $(refs.idtype).val());        
+        
+        if($(refs.idtype).val() == "BS") {
+        	currModel.set('idtype', 'HE');
+        } else {
+        	currModel.set('idtype', $(refs.idtype).val());
+        }
+        
+        console.log(logPrefix + sMethod + " idtype :: after sync:: " + currModel.get('idtype'));
+        
+        // currModel.set('idtype', $(refs.idtype).val());
         currModel.set('idnumbers', $(refs.idnumbers).val().toUpperCase());
 
         currModel.set('firstName', $(refs.firstName).val().toUpperCase());
         currModel.set('initial', $(refs.initial).val().toUpperCase());
         currModel.set('lastName', $(refs.lastName).val().toUpperCase());
-
         currModel.set('birthDate', $(refs.birthDate).val());
+        
+        // US4168
+        currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
+        console.log(logPrefix + sMethod + " age :: after sync:: " + currModel.get('age'));
+        
         currModel.set('email', $(refs.email).val());
         currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
         currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
@@ -450,6 +469,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         for (var currModel in models) {
             console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
         }
+        
+        
 
     }
     // ---------------------------------------------------------------------------------------
@@ -715,6 +736,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $.subscribe('translatorFinished',function(){
             console.log(refs.province + 'subscribe(translatorFinished)');
             populateProvinces();
+            // US4078
+            populateIdTypesProvinces();
+            
             $(refs.province).val(models.addressModel.get("province"));
 
         });
@@ -727,6 +751,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $.subscribe('translatorFinished',function(){
             console.log(refs.province_prev + 'subscribe(translatorFinished)');
             populateProvinces();
+            // US4078
+            populateIdTypesProvinces();
+            
             $(refs.province_prev).val(models.addressModel.get("province_prev"));
         });
 
@@ -977,9 +1004,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         });
 
         provinceDropDowns = {
-            personalDataModel: {
-                placeofissue: refs.placeofissue
-            },
             addressModel: {
                 province: refs.province,
                 province_prev: refs.province_prev
@@ -987,6 +1011,48 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         };
 
         $.each(provinceDropDowns, function (modelName, dropdowns) {
+            $.each(dropdowns, function (dropdownName, dropdown) {
+                var controlRef, curSelection;
+
+                controlRef = $(dropdown);
+                controlRef.empty();
+                controlRef.append(optTempl);
+                curSelection = models[modelName].get(dropdownName);
+
+                if (curSelection) {
+                    $(dropdown + ' [value="' + curSelection + '"]').attr(
+                        'selected', 'selected'
+                    );
+                }
+            });
+        });
+    }
+    
+    // US4078
+    // ---------------------------------------------------------------------------------------
+    function populateIdTypesProvinces() {
+        var sMethod = 'idTypesPopulateProvinces() ',
+            idTypesProvincesList = new WICI.IdTypesProvincesList(),
+            optTempl = '',
+            provinceDropDowns;
+
+        console.log(logPrefix + sMethod);
+
+        $.each(idTypesProvincesList.data, function (index, item) {
+            optTempl += '<option value="' +
+                item.value +
+                '">' +
+                translator.translateKey(item.text) +
+                '</option>';
+        });
+
+        idTypesProvinceDropDowns = {
+            personalDataModel: {
+                placeofissue: refs.placeofissue
+            }
+        };
+
+        $.each(idTypesProvinceDropDowns, function (modelName, dropdowns) {
             $.each(dropdowns, function (dropdownName, dropdown) {
                 var controlRef, curSelection;
 
@@ -1020,7 +1086,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         controlRef = $(refs.idtype);
 
         controlRef.empty();
-        populateProvinces();
+        populateIdTypesProvinces();
 
         list = new WICI.IdTypesList();
         list.data = list.getDataByProvince(provinceValue);

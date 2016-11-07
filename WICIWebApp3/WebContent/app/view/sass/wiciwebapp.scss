@@ -676,6 +676,10 @@ tr {
   -webkit-border-top-right-radius: 11px;
 }
 
+.fieldCellSize40 {
+  max-width:40%;
+}
+
 .fieldCellSize50 {
   max-width:50%;
 }
@@ -907,6 +911,33 @@ tr {
 .leftAlign {
   float: left;
 }
+
+
+.wrapper {
+    width:100%;
+    clear:both;
+    position: absolute;
+    left: 30%;
+}
+.first {
+    width:50px;
+    float:left;
+    margin: 5px 0 0 0;
+    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+    font-size: 14px;
+}
+.second {
+    width:30%;
+    float:left;
+}
+.third {
+    width:50px;
+    float:left;
+    margin: 6px 0 0 10px;
+    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+    font-size: 14px;
+}
+
 
 /* END - button ---------------------------------------------- */
 
@@ -1880,6 +1911,15 @@ div.ui-slider-switch
   display: block;
   margin-top: -23px;
 }
+
+.marginTopPlus15{   
+  color: #ffffff;
+  border: solid 1px rgb(34, 152, 12);
+  background: rgb(24, 142, 2);
+  width: 20%;
+  margin: 40px auto;
+}
+
 .promoCodeDisabled{
   color:grey;
   background-color: white;

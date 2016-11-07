@@ -4,15 +4,18 @@ WICI.IdTypesList = function() {
     this.data= [
 			{ value: null, text: 'IdTypesList_null'},
             { value: 'DR', text: 'IdTypesList_DR'},
-            { value: 'HE', text: 'IdTypesList_HE'},
-            { value: 'PR', text: 'IdTypesList_PR'},
             { value: 'BI', text: 'IdTypesList_BI'},
-            { value: 'CI', text: 'IdTypesList_CI'},
+            { value: 'HE', text: 'IdTypesList_HE'},
             { value: 'PA', text: 'IdTypesList_PA'},
-            { value: 'BC', text: 'IdTypesList_BC'},
+            { value: 'PR', text: 'IdTypesList_PR'},
+            { value: 'CI', text: 'IdTypesList_CI'},
             { value: 'IN', text: 'IdTypesList_IN'},
-            { value: 'AB', text: 'IdTypesList_AB'},
             { value: 'RE', text: 'IdTypesList_RE'},
+
+            // US4078
+            { value: 'BS', text: 'IdTypesList_BS'},
+            { value: 'BC', text: 'IdTypesList_BC'},            
+            { value: 'AB', text: 'IdTypesList_AB'},            
             { value: 'NS', text: 'IdTypesList_NS'},
             { value: 'NB', text: 'IdTypesList_NB'},
             { value: 'NL', text: 'IdTypesList_NL'},
@@ -22,7 +25,8 @@ WICI.IdTypesList = function() {
             { value: 'NT', text: 'IdTypesList_NT'},
             { value: 'NU', text: 'IdTypesList_NU'},
             { value: 'YT', text: 'IdTypesList_YT'},
-            { value: 'ON', text: 'IdTypesList_ON'}
+            { value: 'ON', text: 'IdTypesList_ON'},
+                        
         ];
     //----------------------------------------------------------------------------------
     this.getDataByProvince = function(province){

@@ -130,8 +130,14 @@
 	                        <span data-translationKey="personalData_IDType"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
-	                        <span data-translationKey=${activationItems.getPersonalDataIdTypeNameByValue(activationItems.getModel('personalData').get('idtype'))}></span>
-	                        <!--${ activationItems.getModel('personalData').get('idtype') } -->
+	                    	<!-- US4078 //-->	                    	
+	                    	 {{if activationItems.getModel('personalData').get('placeofissue').toUpperCase() === "BC" && 
+	                    	 		activationItems.getModel('personalData').get('idtype').toUpperCase() === "HE" }}			
+								<span data-translationKey=${activationItems.getPersonalDataIdTypeNameByValue('BS')}></span>
+							{{else}}
+								<span data-translationKey=${activationItems.getPersonalDataIdTypeNameByValue(activationItems.getModel('personalData').get('idtype'))}></span>
+							{{/if}}	                    								
+	                        <!--${ activationItems.getModel('personalData').get('idtype') } //-->
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
