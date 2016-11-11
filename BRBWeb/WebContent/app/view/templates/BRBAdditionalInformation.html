@@ -246,7 +246,7 @@
 			</div>
 						
 		
-			<table class="stretchThisTable grayTable grayTableSpacerBottom">
+			<table class="stretchThisTable grayTable grayTableSpacerBottom" id="additionalInformationTable">
 				<tbody>
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldValuesCell fieldLabelsBottomCell" colspan="2">
@@ -328,7 +328,7 @@
 							<span class="boldSpan floatLeftSpan fieldCellWithBoldFontSize14 additionalInformation_OptionalInsurance_Details15" data-translationKey="additionalInformation_OptionalInsurance_Details15"></span>
 							<tbody>
 							
-							<tr class="fieldRow">
+							<tr class="fieldRow" id="additionalInsuranceTable_row_one">
 									<td class="separatorCell25_OptionalProducts" />
 							</tr>
 							
@@ -336,14 +336,14 @@
 							<!-- Start -->
 							<!-- UAT 38 - July 22, CP Revitalization -->
 							<!-- {{if !isSkSelected }} -->
-								<tr class="fieldRow elementWithBottomMargin15">
+								<tr class="fieldRow elementWithBottomMargin15" id="additionalInsuranceTable_row_two">
 									<td
 										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign">
 										<input class="fieldValuesCheckBoxField"
 										id="additionalInformation_OptionalInsurance_PA_CheckField"
 										type="radio" name="additionalInformation_OptionalInsurance" />
 									</td>
-									<td
+									<td id="additionalInformation_OptionalInsurance_PA_CheckField_Title"
 										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix alignToTop">
 										<span class="boldSpan"
 										data-translationKey="additionalInformation_OptionalProducts_Title1"></span>
@@ -357,7 +357,7 @@
 									</td>
 								</tr>
 								 
-								<tr class="fieldRow">
+								<tr class="fieldRow" id="additionalInsuranceTable_row_three">
 									<td class="fieldLabelsCell fieldValuesTopMargin"
 										id="additionalInformation_OptionalInsurance_PA_Area"
 										colspan="2">
@@ -383,18 +383,18 @@
 									</td>
 								</tr>
 								
-								<tr class="fieldRow">
+								<tr class="fieldRow" id="additionalInsuranceTable_row_four">
 									<td class="separatorCell25_OptionalProducts" />
 								</tr>
 
-								<tr class="fieldRow">
+								<tr class="fieldRow" id="additionalInsuranceTable_row_five">
 									<td
 										class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign">
 										<input class="fieldValuesCheckBoxField"
 										id="additionalInformation_OptionalInsurance_YesNoTextField"
 										type="radio" name="additionalInformation_OptionalInsurance" />
 									</td>
-									<td
+									<td id="additionalInformation_OptionalInsurance_YesNoTextField_Title"
 										class="fieldLabelsCell fieldLabelsCellWithCheckBoxDecoratorFix alignToTop">
 										<span class="boldSpan"
 										data-translationKey="additionalInformation_OptionalProducts_Title2"></span>
@@ -405,7 +405,7 @@
 										-->
 									</td>
 								</tr>
-								<tr class="fieldRow">
+								<tr class="fieldRow"  id="additionalInsuranceTable_row_six">
 									<td class="fieldLabelsCell fieldValuesTopMargin" colspan="2"
 										id="additionalInformation_OptionalInsurance_CP_Area">
 										<div class="elementWithRightMargin15">

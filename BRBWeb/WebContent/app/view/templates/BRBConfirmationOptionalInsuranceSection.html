@@ -1,6 +1,6 @@
 <script id="BRBConfirmationOptionalInsuranceSection-template" type="text/x-jquery-tmpl">
 	<div id="personalInfoTable" class="grayTableTopBorder row">	
-		<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-12">
+		<div  id="noEnrolMeInCreditProtectorInsurance"class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-12">
 			<!-- US3459 -->
 			<!-- Start -->
 			<!-- US3382 -->
@@ -11,7 +11,7 @@
 		</div>		
 	</div> 
 	<div id="personalInfoTable" class="grayTableNoBorder row">	
-		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
+		<div  id="NoEnroleMeInCP" class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
 			<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet1"></span><br><br>
 			<span class="floatLeft boldSpan" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet2"></span>
 			<!-- 2016-02-17 chrch: changing floatLeft to leftList for responsive -->
@@ -36,13 +36,13 @@
 	</div>
 	
 	<div id="personalInfoTable" class="grayTableNoBorder row">	
-		<div class="fieldLabelsCell fieldLabelsTopCell fieldCellWithBoldFontSize14 elementTopBottom10 col-xs-12">
+		<div  id="noEnroleMeInPA"class="fieldLabelsCell fieldLabelsTopCell fieldCellWithBoldFontSize14 elementTopBottom10 col-xs-12">
 			<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_PA'))}></span>
 			<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_ProtectionAdvantage"></span>		
 		</div>
 	</div>
 	<div id="personalInfoTable" class="grayTableNoBorder row">	
-		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
+		<div id="noEnroleMeInPA_Content"class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
 			<span data-translationKey="additionalInformation_OptionalInsurance_Details3"></span>
 			<span class="continueShoppingButton redSpan"
 				data-translationKey="additionalInformation_ProtectionAdvantage_Terms"></span>		

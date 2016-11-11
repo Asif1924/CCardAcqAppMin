@@ -296,8 +296,21 @@ BRB.BaseModel = function(config) {
 	    	
 	    	return fullYears;
 	    };
-
-
+	   
+	   // US4219 
+	   this.calculateAge = function(model) {
+	    	var fullYears;
+	    	if(model.get('birthDate') != null) {
+	    		var dateParts = model.get('birthDate').split("-");
+	    		var date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+	    		var now = moment()._d;
+	    		fullYears = ( now.getFullYear() - date.getFullYear() - ((now.getMonth() - date.getMonth()||now.getDate() - date.getDate())<0) );
+	    		BRB.Log('BRB.BaseModel::calculateAge FullYears=' + fullYears);
+	    	}    	
+			
+	    	return fullYears;
+	    };
+	    
     this.validateAge = function(birthDate, province, birthDateField) {
     	var validationResult;
     	

@@ -163,6 +163,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {notField:true, name: 'dateOfBirth_Day',     	value: null, validation: { type: 'day',    message: 'personalInformation_DateofBirthDateError',group:[1] } },
                 {notField:true, name: 'dateOfBirth_Year',     	value: null, validation: { type: 'year',    message: 'personalInformation_DateofBirthYearError',group:[1] } },
                 {name: 'birthDate',     			value: null, validation: null },
+                //US4219  if age is >76 hide CP and PA
+                {name : 'age',value : null,validation : null},
                 {name: 'email',         			value: null, validation: { type: 'email',       message: 'personalInformation_EmailAddressError',group:[1]} },
                 {name: 'receiveEmail',				value: false, validation: null },
                 {name: 'correspondence',			value: null, validation: { type: 'presence',    message: 'personalInformation_PreferredLanguageError',group:[1]} },
@@ -608,6 +610,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         }
         
         currentModel.set('email',      		$(refs.email).val().toUpperCase());
+        currentModel.set('age', model.calculateAge(model));
+        BRB.Log(logPrefix + sMethod + " age :: after sync:: " + model.calculateAge(model));
         
         /*if(app.getIsMOARequest()) {
         	currentModel.set('email',      		"frommoa@ctfs.com");

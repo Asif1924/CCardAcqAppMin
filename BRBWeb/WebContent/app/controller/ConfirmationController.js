@@ -23,6 +23,12 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     		backButtonContainer				:   '#confirmation_BackButtonContainer',
     		backButton						:   '#confirmation_BackButton',
     		
+    		//US4219					  
+    		//hide CP and  PA  if age is >76
+    		noEnroleMeInCP                  :   '#noEnrolMeInCreditProtectorInsurance',
+    		noEnroleMeForCP                 :   '#NoEnroleMeInCP',
+    		noEnroleMeInPA                  :   '#noEnroleMeInPA',
+    		noEnroleMeInPA_Content          :   '#noEnroleMeInPA_Content',
     		privacyArea                     :   '#confirmation_Privacy_Area',
     		applicationAuthorizationYesNo   :   '#confirmation_Application_Authorization_CheckBox_Field',    		
     		updateCTProfileYesNo			:   '#confirmation_Update_CT_Profile_CheckBox_Field',
@@ -50,7 +56,33 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
                  { name: 'applicationAuthorizationYesNo', value: null, validation: null },
                  { name: 'updateCTProfileYesNo', value: false, validation: null }
        ]
-    });    
+    });
+    
+    //hide  CP and PA if age >76
+    //US4219    
+    //---------------------------------------------------------------------------------------
+    function hidePAandCPAgeRestriction(){
+		var sMethod = " hidePAandCPAgeRestriction() :: ";    	
+        var personalDataModel = activationItems.getModel('personalInformation');
+        if(personalDataModel.get('age') > 76) {
+            $(refs.noEnroleMeInCP).hide();
+            $(refs.noEnroleMeForCP).hide();
+            $(refs.noEnroleMeInPA).hide();
+            $(refs.noEnroleMeInPA_Content).hide();
+			var wasPASelected = activationItems.getModel('additionalInformation').get('optionalInsurance_PA');
+			var wasCPSelected = activationItems.getModel('additionalInformation').get('optionalInsurance_CP');
+			if(wasPASelected || wasCPSelected){
+				activationItems.getModel('additionalInformation').set('optionalInsurance_PA','false');
+				activationItems.getModel('additionalInformation').set('optionalInsurance_CP','false');
+			}
+        }else{
+        	 $(refs.noEnroleMeInCP).show();
+             $(refs.noEnroleMeForCP).show();
+             $(refs.noEnroleMeInPA).show();
+             $(refs.noEnroleMeInPA_Content).show();
+        }
+    	
+    }    
     //---------------------------------------------------------------------------------------
 	function init( argFlow ) {
         var sMethod = 'init() ';
@@ -81,6 +113,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
         bindEvents();
         
         restoreCheckBoxes();
+        hidePAandCPAgeRestriction();
 	}    
 	//---------------------------------------------------------------------------------------
 	function populateAreas() {
@@ -353,6 +386,9 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		$("#BRBConfirmationAboutYourSelfSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_AboutYourselfArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
+		//US4219					  
+		//hide CP and  PA  if age is >76 
+		hidePAandCPAgeRestriction();		
 		if(wasSkSelectedOnEditScreen != app.getCurrentProvince()){
 			// for the first time launch wasSkSelectedOnEditScreen will be the same as isSkSelectedFrlag
 			var needToChangeCancelButtonBehavior = false;
@@ -430,6 +466,9 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		$("#BRBConfirmationOptionalInsuranceSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_OptionalInsuranceArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
+		//US4219					  
+		//hide CP and  PA  if age is >76
+		hidePAandCPAgeRestriction();		
 		$(refs.editInsuranceButton).on("mouseup", function(){
 			BRB.AppConfig.TrackingScreenID = 10;
 			popUp_OptionalProductsScreen(populateInsurancefArea, 'insurancefArea');
