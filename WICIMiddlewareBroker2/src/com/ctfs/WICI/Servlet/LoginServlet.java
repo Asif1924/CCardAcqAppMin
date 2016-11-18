@@ -51,7 +51,8 @@ public class LoginServlet extends WICIServlet
 		String agentID = requestMediator.searchElementInsidePostRequestBody("agentID") != null ? requestMediator.searchElementInsidePostRequestBody("agentID") : EMPTY_STRING;
 		String userLocation = requestMediator.searchElementInsidePostRequestBody("userLocation") != null ? requestMediator.searchElementInsidePostRequestBody("userLocation") : EMPTY_STRING;
 		String apkVersion = requestMediator.searchElementInsidePostRequestBody("apkVersion") != null ? requestMediator.searchElementInsidePostRequestBody("apkVersion") : EMPTY_STRING;
-
+		Boolean blackListedEmpIDAgtIDValid = false;
+		
 		log.info(sMethod + "::employerID: " + employerID);
 		log.info(sMethod + "::agentID: " + agentID);
 		log.info(sMethod + "::userLocation: " + userLocation);
@@ -75,10 +76,36 @@ public class LoginServlet extends WICIServlet
 
 			EmployerIDCodeValidator employerIDCodeValidator = new EmployerIDCodeValidator();
 			Boolean employerIDValid = employerIDCodeValidator.validateCode(employerID);
+			log.info("Employer Id Valid returned value :: " + employerIDValid);
+			// US4231
+			if(employerID != "" && employerID != null) {
+				if (!"E".equalsIgnoreCase(employerID.toUpperCase())) {
+					try {
+						WICIDBHelper wicidbHelper = new WICIDBHelper();
+						LoginInfo logonInfo = new LoginInfo();
+						logonInfo.setAgentID(agentID);
+						logonInfo.setApkVersion(apkVersion);
+						logonInfo.setBuildSerial((values.getBuildSerial()));
+						logonInfo.setEmployerID(employerID);
+						logonInfo.setMfgSerial(values.getMfgSerial());
+						logonInfo.setUserLocation(userLocation);
 
+						blackListedEmpIDAgtIDValid = wicidbHelper.employerIdAgentIDExists(logonInfo);
+						log.info("Employer Id and Agent Id Exists returned value :: " + blackListedEmpIDAgtIDValid);
+					} catch (Exception e) {
+						log.info("Error :: Employer Id and Agent Id validation check error!");
+					}
+				}				
+			}			
+			
 			if (!employerIDValid)
 			{
 				loginResponse.setMessage("Invalid Employer Id. Please correct and try again");
+				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_FORBIDDEN)); // Force Failed Login Response
+			}
+			else if (blackListedEmpIDAgtIDValid)
+			{
+				loginResponse.setMessage("Login Failed. Please Contact your administrator");
 				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_FORBIDDEN)); // Force Failed Login Response
 			}
 			else

@@ -33,6 +33,8 @@ public class WICIDBHelper
 	public static final String WICICONFIGTBL = "WICI_CONFIG";
 	public static final String WICIREQUESTQUEUETBL = "WICI_REQUESTQUEUE";
 	public static final String WICI_WHITELIST_TABLE = "WICI_WHITELIST";
+	// US4231
+	public static final String WICI_BLACKLIST_TABLE = "WICI_BLACKLIST";
 	
 	public static final String WICI_TAB_LST_TABLE = "WICI_TAB_LST";
 	
@@ -547,6 +549,57 @@ public class WICIDBHelper
 		}
 
 		return deviceExists;
+	}
+	
+	// US4231
+	public boolean employerIdAgentIDExists( LoginInfo loginInfo ) throws SQLException
+	{
+		String sMethod = "[employerIdAgentIDExists] ";
+		log.info(sMethod + "::Called::");
+
+		String employerId = loginInfo.getEmployerID().toUpperCase().trim();
+		String agentID = loginInfo.getAgentID().toUpperCase().trim();
+
+		log.info(sMethod + "::employerId:: " + employerId + " ::agentID:: " + agentID);
+		
+		validateEmployerIdAgentID(employerId, agentID);
+
+		boolean employerIdAgentIDExists = false;
+
+		String sql = "SELECT * FROM " + WICI_BLACKLIST_TABLE + " WHERE UPPER(EMPLOYERID) = ?" + " AND UPPER(AGENTID) = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, employerId.toUpperCase());
+			preparedStatement.setString(2, agentID.toUpperCase());
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+			{
+				log.info(sMethod + ":: " + employerId + " and " + agentID + " exists");
+				employerIdAgentIDExists = true;
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			employerIdAgentIDExists = false;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return employerIdAgentIDExists;
 	}
 	
 	private boolean deviceWithThisSerialNumberExists( String argSerialNumber ) throws SQLException
@@ -1165,6 +1218,14 @@ public class WICIDBHelper
 		}
 	}
 	
+	// US4231
+	private void validateEmployerIdAgentID(String argEmployerId, String argAgentID)
+	{
+		if (argEmployerId == null || argEmployerId.isEmpty() || argAgentID == null || argAgentID.isEmpty())
+		{
+			throw new IllegalArgumentException("Invalid 'argemployerId and agentID' arguments!");
+		}
+	}
 	
 	private void validateMfgSerialNumber(String argMfgSerialNumber)
 	{
