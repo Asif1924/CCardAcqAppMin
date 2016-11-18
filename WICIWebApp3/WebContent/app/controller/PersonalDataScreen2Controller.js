@@ -546,17 +546,29 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 		});
 		
 		////////////////////////////////////////////////////////////////////////////////////////////
-		
+		// US4251
 		$("#personalData2_Address_AddressLine1_SelectField").change(function(){
-			$("#personalData2_Address_AddressLine1_TextField").val($("#personalData2_Address_AddressLine1_SelectField").val());
+			var displayValue = $("#personalData2_Address_AddressLine1_SelectField").val();
+        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
+            $("#personalData2_Address_AddressLine1_TextField").val($("#personalData2_Address_AddressLine1_SelectField").val().replace(/ {N}| {Y}/gi, ''));
+            if(aptFlag == "{N}" || aptFlag == "{Y}") {
+            	validateAptSuitUnit(aptFlag.substring(1, 2));
+            }
+			// $("#personalData2_Address_AddressLine1_TextField").val($("#personalData2_Address_AddressLine1_SelectField").val());
 		});
 		/* changes for task CTCOFSMB-1431, disabling address line 2 
 		$("#personalData2_Address_AddressLine2_SelectField").change(function(){
 			$(refs.addressline2).val($("#personalData2_Address_AddressLine2_SelectField").val());
 		});*/
-
+		// US4251
 		$("#personalData2_PreviousAddress_AddressLine1_SelectField").change(function(){
-			$("#personalData2_PreviousAddress_AddressLine1_TextField").val($("#personalData2_PreviousAddress_AddressLine1_SelectField").val());
+			var displayValue = $("#personalData2_PreviousAddress_AddressLine1_SelectField").val();
+        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
+            $("#personalData2_PreviousAddress_AddressLine1_TextField").val($("#personalData2_PreviousAddress_AddressLine1_SelectField").val().replace(/ {N}| {Y}/gi, ''));
+            if(aptFlag == "{N}" || aptFlag == "{Y}") {
+            	validatePrevAddrAptSuitUnit(aptFlag.substring(1, 2));
+            }
+			// $("#personalData2_PreviousAddress_AddressLine1_TextField").val($("#personalData2_PreviousAddress_AddressLine1_SelectField").val());
 		});
 		/*	changes for task CTCOFSMB-1431, disabling address line 2 
 		$("#personalData2_PreviousAddress_AddressLine2_SelectField").change(function(){
@@ -583,6 +595,58 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
         	showPrevScreen();
         });        		
 	}
+	// US4251
+    function validateAptSuitUnit(argAptFlag) {
+    	var sMethod = "validateAptSuitUnit() :: ";
+    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
+    	if(argAptFlag == "Y") {
+        	var canBeEmptyFlag = true;
+        	$.each(model.data, function(index, item) {
+				if(item.name == "suiteunit") {
+					canBeEmptyFlag = item.validation.canBeEmpty = false;
+				}
+			});
+            var validationResult = model.validateAptFlag('suiteunit', canBeEmptyFlag);
+            if(validationResult.length === 0) {
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }
+            else {
+                if (app.validationsOn) {
+                    app.validationDecorator.applyErrAttribute(validationResult);
+                }
+            }
+        } else {
+        	// No validation for apt/suit/unit field for aptFlag No.
+        }
+    }
+    //---------------------------------------------------------------------------------------
+    function validatePrevAddrAptSuitUnit(argAptFlag) {
+    	var sMethod = "validatePrevAddrAptSuitUnit() :: ";
+    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
+    	if(argAptFlag == "Y") {
+        	var canBeEmptyFlag = true;
+        	$.each(model.data, function(index, item) {
+				if(item.name == "suiteunit") {
+					canBeEmptyFlag = item.validation.canBeEmpty = false;
+				}
+			});
+            var validationResult = model.validateAptFlag('suiteunit_prev', canBeEmptyFlag);
+            if(validationResult.length === 0) {
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }
+            else {
+                if (app.validationsOn) {
+                    app.validationDecorator.applyErrAttribute(validationResult);
+                }
+            }
+        } else {
+        	// No validation for apt/suit/unit field for aptFlag No.
+        }
+    }
 	//---------------------------------------------------------------------------------------
 	function handleRealTimeKeyStrokes($argField){
 		if($argField.attr('id')=="personalData2_Address_PostalCode_TextField" || $argField.attr('id')=="personalData2_Address_StreetNumber_TextField")
@@ -675,7 +739,17 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 				}				
 				if( lookupHelper.getAddressLine1().length<=1){
 					$("#addressLookup_Address_AddressLine1_MultipleControl").hide();
-					$("#personalData2_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+					// US4251
+					var addressLine;
+                    if (lookupHelper.getAddressLine1()) {
+                        $.each(lookupHelper.getAddressLine1(), function(index, item) {
+                        	addressLine = item;
+                        });
+                    }
+                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
+                    $("#personalData2_Address_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
+                    validateAptSuitUnit(aptFlag);
+					//$("#personalData2_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 				}
 				/*	changes for task CTCOFSMB-1431, disabling address line 2 
 				if( lookupHelper.getAddressLine2().length>1){
@@ -709,7 +783,17 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 						}				
 						if( lookupHelper.getAddressLine1().length<=1){
 							$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
-							$("#personalData2_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+							// US4251
+							var addressLine;
+		                    if (lookupHelper.getAddressLine1()) {
+		                        $.each(lookupHelper.getAddressLine1(), function(index, item) {
+		                        	addressLine = item;
+		                        });
+		                    }
+		                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
+		                    $("#personalData2_PreviousAddress_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
+		                    validatePrevAddrAptSuitUnit(aptFlag);
+							//$("#personalData2_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 						}
 						/*	changes for task CTCOFSMB-1431, disabling address line 2 				
 						if( lookupHelper.getAddressLine2().length>1){
@@ -748,7 +832,8 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
 	//---------------------------------------------------------------------------------------
 	function buildOptionItem( argDisplayText, argValue){
 		// US3598
-        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>"; 
+		var displayText = argDisplayText.replace(/ {N}| {Y}/gi, '');        
+        return "<option value=\"" + argValue + "\">" + displayText + "</option>"; 
 	}
 
 	//---------------------------------------------------------------------------------------
@@ -762,6 +847,13 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
         console.log(logPrefix + sMethod);
         
         syncUserData();
+        
+        // US4251 - to make apt field optional
+        $.each(model.data, function(index, item) {
+			if(item.name == "suiteunit") {
+				canBeEmptyFlag = item.validation.canBeEmpty = true;
+			}
+		});
 
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();            

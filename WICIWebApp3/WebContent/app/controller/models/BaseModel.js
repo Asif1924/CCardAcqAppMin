@@ -203,6 +203,32 @@ WICI.BaseModel = function(config) {
 
     	return result;
     };
+    
+    // US4251
+    this.validateAptFlag = function(fieldName, fieldValue)
+    {
+    	console.log('WICI.BaseModel::validateAptFlag(' + fieldName + " : " + fieldValue + ')');
+    	var result = [];
+
+    	if(fieldName!=='' && fieldValue !== '')
+    	{
+	    	$.each(this.data, function(index, item) {
+	    		if(item.name == fieldName)
+	    		{
+	    			var fieldValidationResult;
+	    			if(!fieldValue) {
+	    				fieldValidationResult= {name: item.name, err: item.validation.message, uiid: refs[item.name]};
+	    			}	    			
+	    			if (fieldValidationResult !== null) {
+	    				result.push(fieldValidationResult);
+	                }
+	    			return false;
+	    		}
+	        });
+    	}
+
+    	return result;
+    };
 
     // US4168    
     this.calculateAge = function(model) {

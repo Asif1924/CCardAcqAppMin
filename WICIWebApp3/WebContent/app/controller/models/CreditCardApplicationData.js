@@ -119,6 +119,23 @@ WICI.CreditCardApplicationData = function() {
 		}
 		return returnValue;
 	};
+	
+	// US4164
+	this.getApplicationStatus = function() {
+	
+		var returnValue = '';
+		var respAn = new WICI.PollingResponseAnalyzer();
+		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
+			var status = respAn.getAppStatus(this.getAccountApplicationResponse());
+			switch (status) {
+				case 'PENDING':  returnValue = 'PENDING'; break;
+				case 'DECLINED': returnValue = 'DECLINED'; break;
+				case 'APPROVED': returnValue = 'APPROVED'; break;
+				default: break;
+			}
+		}
+		return returnValue;
+	};
 
 	this.isPending = function() {
 		var respAn = new WICI.PollingResponseAnalyzer();

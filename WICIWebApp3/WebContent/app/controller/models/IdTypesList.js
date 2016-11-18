@@ -13,7 +13,7 @@ WICI.IdTypesList = function() {
             { value: 'RE', text: 'IdTypesList_RE'},
 
             // US4078
-            { value: 'BS', text: 'IdTypesList_BS'},
+            { value: 'SC', text: 'IdTypesList_SC'},
             { value: 'BC', text: 'IdTypesList_BC'},            
             { value: 'AB', text: 'IdTypesList_AB'},            
             { value: 'NS', text: 'IdTypesList_NS'},

@@ -414,12 +414,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('placeofissue', $(refs.placeofissue).val());
         
         console.log(logPrefix + sMethod + " idtype :: before sync :: " + $(refs.idtype).val());        
-        
-        if($(refs.idtype).val() == "BS") {
+        // US4210
+        /*if($(refs.idtype).val() == "SC") {
         	currModel.set('idtype', 'HE');
         } else {
         	currModel.set('idtype', $(refs.idtype).val());
-        }
+        }*/        
+        currModel.set('idtype', $(refs.idtype).val());
         
         console.log(logPrefix + sMethod + " idtype :: after sync:: " + currModel.get('idtype'));
         
@@ -566,7 +567,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function buildOptionItem(argDisplayText, argValue) {
         argDataMember = argDisplayText;
         // US3598
-        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>";
+        var displayText = argDisplayText.replace(/ {N}| {Y}/gi, '');        
+        return "<option value=\"" + argValue + "\">" + displayText + "</option>";
     }
     //-----------------------------------------------------------------------------------------
     function onEmailChangesHandler(){
@@ -919,15 +921,79 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-
-        $("#personalData_Address_AddressLine1_SelectField").change(function(){
-            $("#personalData_Address_AddressLine1_TextField").val($("#personalData_Address_AddressLine1_SelectField").val());
+		// US4251
+        $("#personalData_Address_AddressLine1_SelectField").change(function(){        	
+        	var displayValue = $("#personalData_Address_AddressLine1_SelectField").val();
+        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
+            $("#personalData_Address_AddressLine1_TextField").val($("#personalData_Address_AddressLine1_SelectField").val().replace(/ {N}| {Y}/gi, ''));
+            if(aptFlag == "{N}" || aptFlag == "{Y}") {
+            	validateAptSuitUnit(aptFlag.substring(1, 2));
+            }
         });
-
+		// US4251
         $("#personalData_PreviousAddress_AddressLine1_SelectField").change(function(){
-            $("#personalData_PreviousAddress_AddressLine1_TextField").val($("#personalData_PreviousAddress_AddressLine1_SelectField").val());
+        	var displayValue = $("#personalData_PreviousAddress_AddressLine1_SelectField").val();
+        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
+            $("#personalData_PreviousAddress_AddressLine1_TextField").val($("#personalData_PreviousAddress_AddressLine1_SelectField").val().replace(/ {N}| {Y}/gi, ''));
+            if(aptFlag == "{N}" || aptFlag == "{Y}") {
+            	validatePrevAddrAptSuitUnit(aptFlag.substring(1, 2));
+            }
+            // $("#personalData_PreviousAddress_AddressLine1_TextField").val($("#personalData_PreviousAddress_AddressLine1_SelectField").val());
         });
 
+    }
+    //---------------------------------------------------------------------------------------
+    // US4251
+    function validateAptSuitUnit(argAptFlag) {
+    	var sMethod = "validateAptSuitUnit() :: ";
+    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
+    	if(argAptFlag == "Y") {
+        	var canBeEmptyFlag = true;
+        	$.each(models.addressModel.data, function(index, item) {
+				if(item.name == "suiteunit") {
+					canBeEmptyFlag = item.validation.canBeEmpty = false;
+				}
+			});
+            var validationResult = models.addressModel.validateAptFlag('suiteunit', canBeEmptyFlag);
+            if(validationResult.length === 0) {
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }
+            else {
+                if (app.validationsOn) {
+                    app.validationDecorator.applyErrAttribute(validationResult);
+                }
+            }
+        } else {
+        	// No validation for apt/suit/unit field for aptFlag No.
+        }
+    }
+    //---------------------------------------------------------------------------------------
+    function validatePrevAddrAptSuitUnit(argAptFlag) {
+    	var sMethod = "validatePrevAddrAptSuitUnit() :: ";
+    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
+    	if(argAptFlag == "Y") {
+        	var canBeEmptyFlag = true;
+        	$.each(models.addressModel.data, function(index, item) {
+				if(item.name == "suiteunit") {
+					canBeEmptyFlag = item.validation.canBeEmpty = false;
+				}
+			});
+            var validationResult = models.addressModel.validateAptFlag('suiteunit_prev', canBeEmptyFlag);
+            if(validationResult.length === 0) {
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }
+            else {
+                if (app.validationsOn) {
+                    app.validationDecorator.applyErrAttribute(validationResult);
+                }
+            }
+        } else {
+        	// No validation for apt/suit/unit field for aptFlag No.
+        }
     }
     //---------------------------------------------------------------------------------------
     function handleRealTimeKeyStrokes($argField){
@@ -1189,7 +1255,17 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	                }
 	                if( lookupHelper.getAddressLine1().length<=1){
 	                    $("#addressLookup_Address_AddressLine1_MultipleControl").hide();
-	                    $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
+                   		// US4251
+	                    var addressLine;
+	                    if (lookupHelper.getAddressLine1()) {
+	                        $.each(lookupHelper.getAddressLine1(), function(index, item) {
+	                        	addressLine = item;
+	                        });
+	                    }
+	                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
+	                    $("#personalData_Address_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
+	                    validateAptSuitUnit(aptFlag);	                    
+	                    // $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 	                }
 	
 	                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
@@ -1217,12 +1293,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 						$("#personalData_PreviousAddress_AddressLine1_SelectField").prop('selectedIndex', -1);
 					}
 					if (lookupHelper.getAddressLine1().length <= 1) {
-						$(
-								"#addressLookup_PreviousAddress_AddressLine1_MultipleControl")
-								.hide();
-						$(
-								"#personalData_PreviousAddress_AddressLine1_TextField")
-								.val(lookupHelper.getAddressLine1());
+						// US4251
+						$("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
+						var addressLine;
+	                    if (lookupHelper.getAddressLine1()) {
+	                        $.each(lookupHelper.getAddressLine1(), function(index, item) {
+	                        	addressLine = item;
+	                        });
+	                    }
+	                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
+	                    $("#personalData_PreviousAddress_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
+	                    validatePrevAddrAptSuitUnit(aptFlag);	
+						// $("#personalData_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 					}
 
 					$("#personalData_PreviousAddress_City_TextField").val(
@@ -1255,6 +1337,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
 
         syncUserData();
+        
+        // US4251 - to make apt field optional
+        $.each(models.addressModel.data, function(index, item) {
+			if(item.name == "suiteunit") {
+				canBeEmptyFlag = item.validation.canBeEmpty = true;
+			}
+		});
 
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();

@@ -5,7 +5,7 @@ WICI.IdTypesJoinProvinces = function() {
     this.data= [      // US4078  
                       {prov:null, idTypes:[null]},
                       {prov:'AB', idTypes:[null, 'DR', 'BI', 'HE', 'AB']},
-                      {prov:'BC', idTypes:[null, 'DR', 'BI', 'BC', 'BS']},
+                      {prov:'BC', idTypes:[null, 'DR', 'BI', 'BC', 'SC']},
                       {prov:'CA', idTypes:[null, 'PA', 'PR', 'CI', 'IN', 'RE']},
                       {prov:'MB', idTypes:[null, 'DR', 'BI', 'MB']},
                       {prov:'NB', idTypes:[null, 'DR', 'BI', 'HE', 'NB']},

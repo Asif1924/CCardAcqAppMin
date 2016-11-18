@@ -53,7 +53,9 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         name: 'pendingData',
         refs: refs,
         data:[
-            {notField:true, name: 'submitFailed_Counter',  value: 1, validation: null }
+            {notField:true, name: 'submitFailed_Counter',  value: 1, validation: null },
+            // US4164
+            {notField:true, name: 'fromPendScreenAppStatus',  value: null, validation: null }
         ]
     });
 
@@ -428,6 +430,10 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'successPendPoll() ';
         console.log(logPrefix + sMethod);
 
+        // US4164
+    	model.set('fromPendScreenAppStatus', respAn.getAppStatus(argResponse));        	
+	    console.log(logPrefix + sMethod + " fromPendScreenAppStatus:" + respAn.getAppStatus(argResponse) );
+        
         new WICI.LoadingIndicatorController().hide();
         // UAT Defect #103 - Start
 		hide();

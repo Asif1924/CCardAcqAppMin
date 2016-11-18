@@ -32,6 +32,10 @@ WICI.LoginResponseHelper = function() {
 		if( loginResponseObject && loginResponseObject.msg === "Invalid Employer Id. Please correct and try again"){
 			return "loginScreen_EmployerIDLookup_FailedMessage";	
 		}
+		// US4231
+		else if( loginResponseObject && loginResponseObject.msg === "Login Failed. Please Contact your administrator"){
+			return "loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage";	
+		}  
 		return "loginScreen_FailureMessage";
 	}
 	function getLatestDictionaryInfo(){

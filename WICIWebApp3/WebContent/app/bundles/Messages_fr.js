@@ -65,6 +65,9 @@ WICI.dictionary_fr =  {
 	loginScreen_Dialog_ErrorTitle                     :                         "Erreur de connexion",
 	loginScreen_FailureMessage                        :                         "La connexion a échoué. Veuillez essayer de nouveau. ",
 	dictionary_loading_error 						  : 						"Le contenu de la demande ne peut pas être affiché. Veuillez attendre 15 minutes à portée acceptable du réseau WIFI avant de lancer la demande, puis réessayez. Si le problème persiste, veuillez appeler votre administrateur.",
+	
+	// US4231
+	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage:							"La connexion a échoué. Veuillez contacter votre administrateur.",
 
 	loginScreen_UserLookupDialog_NormalTitle          :                         "Renseignements sur l'adresse",
 	loginScreen_UserLookupDialog_ErrorTitle           :                         "Erreur d'adresse",
@@ -290,7 +293,7 @@ WICI.dictionary_fr =  {
 	IdTypesList_NU                                    :"CARTE D’IDENTITÉ DU NUNAVUT",
 	IdTypesList_YT                                    :"CARTE D’IDENTITÉ DU YUKON",
 	IdTypesList_ON                                    :"CARTE D’IDENTITÉ DE L’ONTARIO",
-	IdTypesList_BS									  : "CARTE DES SERVICES DE LA COLOMBIE-BRITANNIQUE",
+	IdTypesList_SC									  : "CARTE DES SERVICES DE LA COLOMBIE-BRITANNIQUE",
 	
 	/*
 	IdTypesList_AB									  : "CARTE D’IDENTITÉ DE L’ALBERTA",
@@ -843,8 +846,9 @@ WICI.dictionary_fr =  {
 	Program_4029										:"Division Pétrolière CT - Ouest - Local - 4029",
 	Program_Other										:"Autres",
 	BLANK												:"S.O.",
-	ATTN 												:"ATTN1",
 	*/
+	ATTN 												:"ATTN1",
+	
 	
 	// US3767
 	Program_Intercept									:	'Intercept',

@@ -65,6 +65,9 @@ WICI.dictionary_en =  {
 	loginScreen_Dialog_ErrorTitle						:	"Login Error",
 	loginScreen_FailureMessage							:	"Login Failed. Please Try Again.",
 	dictionary_loading_error 							:  	"Application content cannot be loaded. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
+	
+	// US4231
+	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage	:	"Login Failed. Please Contact your administrator.",
 
 	loginScreen_UserLookupDialog_NormalTitle			:	"Location Details",
 	loginScreen_UserLookupDialog_ErrorTitle				:	"Location Error",
@@ -297,7 +300,7 @@ WICI.dictionary_en =  {
     IdTypesList_NU										:   'NUNAVUT ID CARD',
     IdTypesList_YT										:   'YUKON ID CARD',
     IdTypesList_ON										:   'ONTARIO ID CARD',
-    IdTypesList_BS										:	'BRITISH COLUMBIA SERVICES CARD',
+    IdTypesList_SC										:	'BRITISH COLUMBIA SERVICES CARD',
 
     /*
      * Old Idtypes
@@ -831,8 +834,9 @@ WICI.dictionary_en =  {
 	Program_4029										:	'Western CTP Local - 4029',
 	Program_Other										:	'Other',	
 	BLANK									            :	'BLANK',
-	ATTN 												: 	'ATTN1',
 	*/
+	ATTN 												: 	'ATTN1',
+	
 	
 	// US3767
 	Program_Intercept									:	'Intercept',

@@ -41,6 +41,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 
     var dataFields = [];
     dataFields.push({notField:true, name: 'submitFailed_Counter',  value: null, validation: null });
+    // US4164
+    dataFields.push({notField:true, name: 'fromSummaryScreenAppStatus',  value: null, validation: null });
     checkedElements = [];
     var itemsToSet = {};
 
@@ -517,18 +519,21 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         //if ( argResponse && !_.isEmpty(argResponse) && !argResponse.error) {
         if ( respAn.isValidResponse(argResponse) ) {
 
-		    console.log(logPrefix + sMethod + " appStatus:" + respAn.getAppStatus(argResponse) );
+			// US4164
+        	model.set('fromSummaryScreenAppStatus', respAn.getAppStatus(argResponse));        	
+		    console.log(logPrefix + sMethod + " fromSummaryScreenAppStatus:" + respAn.getAppStatus(argResponse) );
 
 		    //if( argResponse.data.appStatus==="APPROVED" || argResponse.data.appStatus==="DECLINED"){
 		    if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) || (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse)) ){
 		    	//activationItems.setAccountApplicationResponse(argResponse);
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
 		    	activationItems.setNewAccountApplicationResponse(argResponse);		    	
-	            flow.next();		    	
-		    	/*var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+		    	
+		    	var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
 		    	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
 		    	app.navigationController.adhocPrintDemoScreen.init(flow);
-		    	app.navigationController.adhocPrintDemoScreen.show();*/
+		    	// app.navigationController.adhocPrintDemoScreen.show();
+		    	flow.next();
 		    	return;
 		    }
 		    

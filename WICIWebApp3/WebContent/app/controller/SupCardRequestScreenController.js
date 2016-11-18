@@ -257,7 +257,15 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		}
 		if ($addressLine1 && $addressLine1.length <= 1) {
 			$(refs.addressLine1_MultipleControl).hide();
-			$(refs.addressLine1).val($addressLine1);
+			// US4251
+			var addressLine;
+			$.each($addressLine1, function(index, item) {
+				addressLine = item;
+			});
+            var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
+            $(refs.addressLine1).val(addressLine.replace(/ {N}| {Y}/gi, ''));
+            validateAptSuitUnit(aptFlag);
+			// $(refs.addressLine1).val($addressLine1);
 		}
 		/* changes for task CTCOFSMB-1431, disabling address line 2
 		if ($addressLine2 && $addressLine2.length > 1) {
@@ -569,7 +577,14 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		// //////////////////////////////////////////////////////////////////////////////////////////
 
 		$(refs.addressLine1_SelectField).change(function() {
-			$(refs.addressLine1).val($(refs.addressLine1_SelectField).val());
+			// US4251
+			var displayValue = $(refs.addressLine1_SelectField).val();
+        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
+            $(refs.addressLine1).val($(refs.addressLine1_SelectField).val().replace(/ {N}| {Y}/gi, ''));
+            if(aptFlag == "{N}" || aptFlag == "{Y}") {
+            	validateAptSuitUnit(aptFlag.substring(1, 2));
+            }
+			// $(refs.addressLine1).val($(refs.addressLine1_SelectField).val());
 		});
 		/* changes for task CTCOFSMB-1431, disabling address line 2
 		$(refs.addressLine1_SelectField).change(function() {
@@ -577,6 +592,34 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		});
 		*/
 	}
+	// US4251
+    function validateAptSuitUnit(argAptFlag) {
+    	var sMethod = "validateAptSuitUnit() :: ";
+    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
+    	if(argAptFlag == "Y") {
+        	var canBeEmptyFlag = true;
+        	console.log(sMethod+ " before :: " +canBeEmptyFlag);
+        	$.each(model.data, function(index, item) {
+				if(item.name == "suiteUnit") {
+					canBeEmptyFlag = item.validation.canBeEmpty = false;
+					console.log(sMethod+ " after :: " +canBeEmptyFlag);
+				}
+			});
+            var validationResult = model.validateAptFlag('suiteUnit', canBeEmptyFlag);
+            if(validationResult.length === 0) {
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }
+            else {
+                if (app.validationsOn) {
+                    app.validationDecorator.applyErrAttribute(validationResult);
+                }
+            }
+        } else {
+        	// No validation for apt/suit/unit field for aptFlag No.
+        }
+    }
 	// ---------------------------------------------------------------------------------------
 	function invokeAddressLookup($argPCodeFieldID, $argStreetNumberFieldID,
 			argSuccessCB, argFailureCB) {
@@ -648,7 +691,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	function buildOptionItem(argDisplayText, argValue) {
 		argDataMember = argDisplayText;
 		// US3598
-        return "<option value=\"" + argValue + "\">" + argDisplayText + "</option>";
+		var displayText = argDisplayText.replace(/ {N}| {Y}/gi, '');        
+        return "<option value=\"" + argValue + "\">" + displayText + "</option>";
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -728,6 +772,13 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		console.log(logPrefix + sMethod);
 
 		syncUserData();
+		
+		// US4251 - to make apt field optional
+        $.each(model.data, function(index, item) {
+			if(item.name == "suiteUnit") {
+				canBeEmptyFlag = item.validation.canBeEmpty = true;
+			}
+		});
 
 		var isValidationError = false;
 		if (app.validationsOn) {
