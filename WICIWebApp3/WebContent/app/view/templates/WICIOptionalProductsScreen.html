@@ -1,91 +1,307 @@
 <script id="WICIOptionalProductsScreen-template"
 	type="text/x-jquery-tmpl"> 
-<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
+<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents">
 	<br> <br>
 	<center>
 		<span id="OPClickHere" class="pageTitle"
 			data-translationKey="optionalProducts_PageTitle"></span>
 	</center>
 <br>
+
+</div>
+
+
+<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents">
+<div id="title_1" class="title">
+		<center>
+			<div class="credit_prot_division">
+				<img class="red_icon" src="app/images/red_icon.png" >
+				<span data-translationKey="optionalProducts_CP_title"class="credit_prot"></span>
+			</div>
+		</center>
+		<div class="title_arrow">
+			<img class="red_arrow" src="app/images/red_arrow.png" >
+		</div>
+</div>
+</div>
+
+<br>
+<div class="ScreenLayout_OptionalProducts align_center" id="OptionalProductsScreen_PageContents">
+		<div id="section_1" class="section wrapper_padding">
+		        <p class="bold" data-translationKey="optionalProducts_CP_Helps_cover"></p>
+		                <ul >
+		                	<li data-translationKey="optionalProducts_CP_LI_Involuntary"></li>		
+		                    <li data-translationKey="optionalProducts_CP_LI_Total"></li>
+		                    <li data-translationKey="optionalProducts_CP_LI_Terminal"></li>		
+		                    <li data-translationKey="optionalProducts_CP_LI_Dismemberment"></li>		
+		                    <li data-translationKey="optionalProducts_CP_LI_Life"></li>
+		                </ul>
+						<img src="app/images/red_separator.png" alt="Red separator" />
+						<br><br>
+		
+		                <p class="fontWith17" data-translationKey="optionalProducts_CP_text_monthly"></p>		
+		                <h3 class="bold fontWith31" data-translationKey="optionalProducts_CP_text_for_every" ></h3>		
+		                <p class="fontWith17" data-translationKey="optionalProducts_CP_text_average"></p>		
+		                <p class="small" data-translationKey="optionalProducts_CP_text_average_info"></p>		
+		                <h4 data-translationKey="optionalProducts_CP_text_bill"></h4>		
+		                <h4 data-translationKey="optionalProducts_CP_text_available"></h4>
+		</div>
+</div>
+
+
+<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents">
+<div id="title_2" class="title">
+		<center>
+			<div class="credit_prot_division">
+				<img class="red_icon" src="app/images/grey_icon.png" >
+				<span class="credit_prot" data-translationKey="optionalProductIWTitle" ></sup></span>
+				
+			</div>
+		</center>
+		<div class="title_arrow">
+			<img class="red_arrow" src="app/images/grey_arrow.png" >
+		</div>
+</div>
+</div>
+
+<br>
+<div class="ScreenLayout_OptionalProducts align_center" id="OptionalProductsScreen_PageContents">
+		<div id="section_2" class="section wrapper_padding">
+		        <p class="bold" data-translationKey="OP_IW_Helps"></p>
+		                <ul >
+		                	<li data-translationKey="OP_IW_LI_lost"></li>		
+		                    <li data-translationKey="OP_IW_LI_Online"></li>
+		                    <li data-translationKey="OP_IW_LI_Creadit_card"></li>		
+		                    <li data-translationKey="OP_Iw_LI_Identity"></li>		
+		                    <li data-translationKey="OP_Iw_LI_Computer"></li>
+		                    <li data-translationKey="OP_IW_LI_Rebound"></li>
+		                </ul>
+						<img src="app/images/grey_separator.png" alt="Red separator" />
+		                 <br><br>
+		                <p class="fontWith17" data-translationKey="OP_Iw_All_for"></p>		
+		                <h3 class="bold fontWith31" data-translationKey="OP_Iw_per_month" ></h3>		
+		                <p class="fontWith17" data-translationKey="OP_Iw_Plus_app_tax"></p>		
+		                <h4 class="small" data-translationKey="OP_Iw_Billled_your_card"></h4>		
+		</div>
+</div>
+
+
+<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
 <!-- UAT 39 - CP Revitalization, Missed Requirement -->
 <!-- US4083 - Code changes Reverted //-->
-{{if !cpEnable }}
-<div id="optionalProducts_CPInsuranceTextField" data-translationKey="optionalProducts_CPInsuranceText"></div>
-{{/if}}
-<div data-translationKey="optionalProducts_SellingLanguageText"></div>
+
 	<div id="optionalProductsList">
 		<center>
 			<table class="stretchThisTable grayTableNoBorder tableWithPaddingTopAndBottom20  elementWithFontSize12" id="optionalProductsTable">
-<thead class="height0">
-<tr><td colspan="2" class="fieldLabelsCell fieldLabelsCellWithTopAlign elementWithTop5"><span data-translationKey="optionalProducts_TableTitle"></span></td></tr>
-</thead>
-<tbody>
+               <thead class="height0">     
+                <tr>
+                        <td colspan="2"class="op_fieldLabelsCell fieldLabelsCellWithTopAlign elementWithTop5">
+                         <span data-translationKey="optionalProducts_TableTitle"></span>
+                       </td>
+                </tr>
+               </thead>
+               <tbody>
 					<!-- Start Protection Advantage  -->
-					<tr class="fieldRow" id="optionalProductsProtectionAdvantageItem">
-						<td class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop5">
-						<div class="wiciRadioButton">
-							<input id="optionalProducts_PA_CheckField" type="radio"
-							name="additionalInformation_OptionalProducts" /><label for="optionalProducts_PA_CheckField"></label> </div></td>
-						<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
-							data-translationKey="optionalProducts_ProtectionAdvantage_Title" class="elementWithBoldFont"></span>
-							<span data-translationKey="optionalProducts_ProtectionAdvantage_Text"></span>
-							<br>
-						</td>
+					<tr id="optionalProductsProtectionAdvantageItem">
+						<td class="op_table_radio_td">
+						        
+							     <div class="wiciRadioButton">
+                                            <input id="optionalProducts_PA_CheckField" type="radio" name="additionalInformation_OptionalProducts"/>
+						                    <label for="optionalProducts_PA_CheckField"></label> 
+					             </div>
+				       </td>
+					  <td class="op_table_title_td">
+						         <div class="section_3_copy">
+					                  <div class="section_3_copy_inner">
+						               <h4 data-translationKey="OP_PA_title" class="elementWithBoldFont"></h4>
+						                    <ul>
+							                  <!--  <li data-translationKey="OP_PA_Rule_li_1_not_available"></li> -->
+							                  <li data-translationKey="OP_PA_Rule_li_2_available"></li>
+							                  <li data-translationKey="OP_PA_Rule_li_3_Enrolment_in"></li>
+						                    </ul>
+					                 </div>
+				                </div>
+						<br>
+					   </td>
 					</tr>
-<tr id="lineSeparatorForPA">
-<td   class="paddingTopAndBottom2">
-</td>
-<td   class="paddingTopAndBottom2">
+                    <tr id="lineSeparatorForPA">
+                         <td   class="paddingTopAndBottom2 op_table_radio_td"></td>
+                          <td class="paddingTopAndBottom2 op_table_title_td">
 							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</td>
-</tr>
-					<tr class="fieldRow" id="optionalProducts_PA_Table">
-						<td class="fieldValuesCell fieldValuesTopMargin" colspan="2"
-							id="optionalProducts_PA_Area">
+                          </td>
+                    </tr>
+					<tr id="optionalProducts_PA_Table">
+						<td class="op_table_title_td" colspan="2" id="optionalProducts_PA_Area">
 							<div class="elementWithRightMargin15">
 								<div id="additionalInformation_OptionalProducts_PA_Table"
 									class="privacyArea">
 									<div class="paddingLeft60">
-											<span class="TandC_Title_Format"
-												data-translationKey="optionalProducts_TermsAndConditions_PA_Title" />
-											<span class="TandC_subTitle_Format"
-												data-translationKey="optionalProducts_TermsAndConditions_CP_Title" />
-										<p>
-											<span
-												data-translationKey="optionalProducts_TermsAndConditions_CP" />
-										</p>
-										<!-- US3381 -->
-										<!-- Start -->
-										<!--
-										<p>
-											<span class="TandC_Content_Format"
-												data-translationKey="optionalProducts_TermsAndConditions_CP_Additions" />
-										</p>
-										-->
-										<!-- End -->
-										<p>
-												<span class="TandC_subTitle_Format"
-													data-translationKey="optionalProducts_TermsAndConditions_IW_Title" />
-											</p>
-										<p>
-											<span
-												data-translationKey="optionalProducts_TermsAndConditions_IW" />
-										</p>
-										<p>
-											<span class="TandC_Content_Format"
-												data-translationKey="optionalProducts_TermsAndConditions_IW_Additions" />
-										</p>
-										<p >
-										<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/></p>
-										<!-- ALTERED -->
-										<p>
-												<span class="" data-translationKey="optionalProducts_SignatureAgreement1" />
-										</p>
+											                <!-- PA tearms and condition start  -->
+											 <br>
+					                         <p data-translationKey="PA_offer_details_title_bold" class="offer_details_title bold"><span data-translationKey="PA_offer_details_title_small" class="offer_details_title_small"></span></p>
+					                         <br>
+					                         <p data-translationKey="PA_offer_details_title_2_bold" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="PA_optional_covarage" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                         <p data-translationKey="PA_Credit_Protector_p_1" class="withoutPadding_p"></p>
+					                         <p data-translationKey="PA_Credit_Protector_p_2" class="bold withoutPadding_p"></p>
+					                         <p data-translationKey="PA_Credit_Protector_p_3_terminal_illness" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                         <p data-translationKey="Pa_Credit_Protector_P_coverages" class="withoutPadding_p" ></p>
+					                         <p data-translationKey="PA_Creadit_Protector_P_benifits" class="withoutPadding_p" ></p>
+					                         <p data-translationKey="PA_Credit_Protector_P_Terminal" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                         <ul class="style_ul_without_padding">
+						                         <li data-translationKey="PA_Credit_Protector_LI_1"></li>
+						                         <li data-translationKey="PA_Credit_Protector_LI_2"></li>
+						                         <li data-translationKey="PA_Credit_Protector_LI_3"></li>
+					                         </ul>
+					                         <p data-translationKey="PA_Credit_Protector_Life_n_Di" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                         <ul class="style_ul_without_padding">
+						                         <li data-translationKey="PA_UL_LI_2_1"></li>
+						                         <li data-translationKey="PA_UL_LI_2_2"></li>
+						                         <li data-translationKey="PA_UL_LI_2_3"></li>
+						                         <li data-translationKey="PA_UL_LI_2_4"></li>
+					                        </ul>
+					                        <p data-translationKey="PA_p_Involuntary" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                        <p data-translationKey="PA_P_quality_for_benifits" class="withoutPadding_p"></p>
+					                        <p data-translationKey="PA_P_To_be_eligible" class="withoutPadding_p"></p>
+					                        <p data-translationKey="PA_P_YOU_QUALIFY_FOR" class="withoutPadding_p"></p>
+					                        <p data-translationKey="PA_P_Involuntary_Unemployment" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_LI_MAY_COVER_YOU"></li>
+					                        </ul>
+					                        <p data-translationKey="PA_P_Total_Disability" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_P_MAY_COVER_YOU_DISABLED"></li>
+					                        </ul>
+					                        <p class="offer_details_title_3 bold withoutPadding_p" data-translationKey="PA_P_Pricing"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_UL_LI_MONTHLY_PREMIUM"></li>
+						                        <li data-translationKey="PA_LI_AT_AGE"></li>
+						                        <li data-translationKey="PA_LI_DEPENDING_HOW"></li>
+						                        <li data-translationKey="PA_LI_YOU_DO_NOT"></li>
+						                        <li class="style_ul">
+							                         <ul class="style_ul">
+								                          <li data-translationKey="PA_LI_1_IF_YOU_HAVE_NOT"></li>
+								                          <li data-translationKey="PA_LI_1_HAVE_NOT_CARRIED"></li>
+								                          <li data-translationKey="PA_LI_1_IF_YOUR_AVERAGE"></li>
+								                          <li data-translationKey="PA_LI_PRICE_EXAMPLE"></li>
+								                          <li>
+									              <table class="op_table labelPadingLeft15">
+										                  <thead class="bold">
+											              <tr>
+												              <th data-translationKey="PA_TABLE_TD_AVERAGE_DAILY" class="text_align td_padding_offer_details"></th>
+												              <th data-translationKey="PA_TABLE_TD_PREMIUM" class="text_align "></th>
+											              </tr>
+										                  </thead>
+										                  <tbody>
+											              <tr>
+												              <td data-translationKey="PA_TABLE_TD_150" class="text_align"></td>
+												              <td data-translationKey="PA_TABLE_TD_165" class="text_align"></td>
+											              </tr>
+											              <tr>
+												              <td data-translationKey="PA_TABLE_TD_575" class="text_align"></td>
+												              <td data-translationKey="PA_TABLE_TD_633" class="text_align"></td>
+											              </tr>
+											              <tr>
+												              <td data-translationKey="PA_TABLE_TD_825" class="text_align"></td>
+												              <td data-translationKey="PA_TABLE_TD_907" class="text_align"></td>
+											              </tr>
+											              <tr>
+												              <td data-translationKey="PA_TABLE_TD_975" class="text_align"></td>
+												              <td data-translationKey="PA_TABLE_TD_1073" class="text_align"></td>
+											              </tr>
+										                  </tbody>
+										                  <tfoot>
+											              <tr>
+												              <td colspan="2" data-translationKey="PA_TABLE_TD_PLUS_APP_TAX"></td>
+											              </tr>
+										                  </tfoot>
+									               </table>
+								                   </li>
+							                     </ul>
+						                        </li>
+					                         </ul>
+					                        <p data-translationKey="PA_HOW_TO_MAKE_A_CLAIM" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_LI_you_are_always"></li>
+						                        <li data-translationKey="PA_LI_call_the_insurer"></li>
+					                        </ul>
+					                        <p data-translationKey="PA_P_terms_of_agreement" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_LI_if_you_enrol_today"></li>
+						                        <li><span class="bold" data-translationKey="PA_LI_the_insurance_end"></span></li>
+							                    <li class="style_ul"><ul class="style_ul">
+								                   <li data-translationKey="PA_Li_when_the_canadian_tire"></li>
+								                   <li data-translationKey="PA_Li_the_accoount_become"></li>
+								                   <li data-translationKey="PA_Li_one_or_more_off"></li>
+								                   <li data-translationKey="PA_Li_your_life"></li>
+								                   <li data-translationKey="PA_Li_the_date_the_primary"></li>
+								                   <li data-translationKey="PA_Li_or_when_you_request"></li>
+							                    </ul>
+						                       </li>
+					                        </ul>
+					                       <p data-translationKey="PA_P_Fulfillment" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                       <ul class="style_ul_without_padding">
+						                       <li data-translationKey="PA_ul_Li_A_welcome_package"></li>
+					                       </ul>
+					                       <p data-translationKey="PA_P_eligibility_requirment" class="withoutPadding_p"></p>
+					                       <p data-translationKey="PA_P_Cancellation" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                       <ul class="style_ul_without_padding">
+						                       <li data-translationKey="PA_Li_you_can_cancel_this_1"></li>
+						                       <li data-translationKey="PA_Li_you_can_cancel_this_2"></li>
+						                       <li data-translationKey="PA_Li_you_can_cancel_this_3"></li>
+					                       </ul>
+					                       <br>
+					                       <p data-translationKey="PA_P_identity_watch_disclosure" class="offer_details_title_2 bold"></p>
+					                       <p data-translationKey="PA_P_eligiblity" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_the_subscription" class="withoutPadding_p"></p>
+					                       <p data-translationKey="PA_P_when_you_enrole" class="withoutPadding_p"></p>
+					                       <p data-translationKey="PA_P_benefits_are_available" class="withoutPadding_p"></p>
+					                       <!-- lost and stolen -->
+					                       <p data-translationKey="PA_P_lost_stolen" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_this_service_will_assests" class="withoutPadding_p"></p>
+					                       <!-- Ends -->
+					                       
+					                       <!-- Online data -->
+					                       <p data-translationKey="PA_P_Online_data_backup" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_Data_bak_up_desc" class="withoutPadding_p"></p>
+					                       <!-- ends -->
+					                       
+					                       <!-- CC theft rewads -->
+					                       
+					                       <p data-translationKey="PA_CC_theft_reward" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_CC_theft_desc" class="withoutPadding_p"></p>
+					                       <!-- ends -->
+					                       
+					                       
+					                       <p data-translationKey="PA_P_identity_fraud" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_this_service" class="withoutPadding_p"></p>
+					                       
+					                       <p data-translationKey="PA_P_computer_tune_up" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_you_are_eligible_to" class="withoutPadding_p"></p>
+					                       
+					                       <p data-translationKey="PA_P_rebound" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_this_service_allows_you" class="withoutPadding_p"></p>
+					                       
+					                       <p data-translationKey="PA_P_price" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_subscription_fee" class="withoutPadding_p" ></p>
+					                       <p data-translationKey="PA_P_Cancellation"  class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_cancellation_by_customer" class="withoutPadding_p"><span class="bold"></p>
+					                       <p data-translationKey="PA_P_cancellation_by_Aimia" class="withoutPadding_p"><span class="bold"></p>
+					                       <p data-translationKey="PA_P_other" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_Iw_is_an_optiona_product" class="withoutPadding_p" ></p>
+					                       <p data-translationKey="PA_P_the_iw_program" class="withoutPadding_p" ></p>
+					                       <p data-translationKey="PA_P_please_read_iw" class="withoutPadding_p"></p>
+										   <br><br>
 										</div>
-										<div class="warningDIV" id="warningDIVPA" name="warningDIVPA">
+										
+										
+							</div>
+                        </div>
+                           
+                           <div class="warningDIV" id="warningDIVPA" name="warningDIVPA">
 											<center>
 											<p class="warningHeader" id="warningHeaderPA" name="warningHeaderPA"><span data-translationKey="optionalProducts_WarningHeader"/></p>
-										</center>
+										    </center>
 										<div class="warningText signatureCredentialsContainer" id="warningTextPA" name="warningTextPA">
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement2" />
@@ -101,7 +317,7 @@
 												<div class="signatureContainer sugnatureFixes">
 													<div class="signatureBorder"
 													id="optionalProductsScreen_PA_SingnatureContainer">
-														<div class="signature" id="signature_PA" />
+														<div class="signature" id="signature_PA"/>
 													</div>
 												</div>
 												<br> <span id="signature_Reset_Button1" class="button grayflat sigResetButton proceedButtonWidth"> <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
@@ -123,20 +339,14 @@
 										</div>
 										</div>
 										<!-- /ALTERED -->
-<br>
-<p  class="paddingLeft60">
-	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>
-<br>
-										</div> 
-<br>
-<br>
-										<!--<div style="padding-left: 60px;" >
-	<input class="fieldValuesCheckBoxField" id="optionalProduct_PA_AcceptBox_Area" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
-</div>-->
-									</div>
-									</div>
+                                        <br>
+                                        <p  class="paddingLeft60">
+	                                             <table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
+                                        </p>
+                                        <br>
+									<!-- </div>  -->
+                                        <br>
+                                         <br>
 
 						</td>
 						</tr>
@@ -145,64 +355,157 @@
 
 					<!-- Start Credit Protector    -->
 					<div>
-						<tr class="fieldRow elementWithBottomMargin15"
-							id="optionalProductsCreditProtectorItem">
-							<td
-								class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop5">
-<div class="wiciRadioButton">
-								<input id="optionalProducts_YesNoTextField" type="radio"
-								name="additionalInformation_OptionalProducts" />
-<label for="optionalProducts_YesNoTextField"></label>
-</div>
+						<tr id="optionalProductsCreditProtectorItem">
+							<td class=" op_table_radio_td">
+                                            <div class="wiciRadioButton">
+								                <input id="optionalProducts_YesNoTextField" type="radio" name="additionalInformation_OptionalProducts" />
+                                                <label for="optionalProducts_YesNoTextField"></label>
+                                           </div>
 							</td>
-							<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
-								class="elementWithBoldFont"
-								data-translationKey="optionalProducts_CreditProtector_Title"></span>
-								<!-- US4083 - Code changes Reverted //-->								
-								<span
-								data-translationKey="optionalProducts_CreditProtector_Text"></span>
+							<td class="op_table_title_td">
+							               <div class="section_3_copy">
+					                         <div class="section_3_copy_inner">
+						                           <h4 data-translationKey="OP_CP_title"></h4>
+						                      <ul>
+							                        <!-- <li data-translationKey="OP_CP_Li_1_not_sk"></li>  -->
+							                         <li data-translationKey="OP_CP_Li_1_availbale"></li>
+						                     </ul>
+					                        </div>
+				                         </div>
 							</td>
 						</tr>
 					<tr  class="fieldRow">
-<tr id="lineSeparatorForCP">
-<td   class="paddingTopAndBottom2">
-</td>
-<td   class="paddingTopAndBottom2">
+                  <tr id="lineSeparatorForCP">
+                     <td   class="paddingTopAndBottom2 op_table_radio_td"></td>
+                     <td   class="paddingTopAndBottom2 op_table_title_td">
 							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</td>
-</tr>
-						<tr class="fieldRow fieldValuesCell" id="optionalProducts_CP_Table">
-							<td class="fieldValuesCell fieldValuesTopMargin"
+                     </td>
+                  </tr>
+						<tr id="optionalProducts_CP_Table">
+							<td class="op_table_title_td"
 								id="optionalProducts_CP_Area" colspan="2">
 								<div class="elementWithRightMargin15">
 									<div id="additionalInformation_OptionalProducts_CP_Table"
 										class="privacyArea">
 										<div class="paddingLeft60">
-											<p>
-												<span class="TandC_Title_Format"
-													data-translationKey="optionalProducts_TermsAndConditions_CP_Title" />
-											</p>
-											<p>
-												<span
-													data-translationKey="optionalProducts_TermsAndConditions_CP" />
-											</p>
-											<!-- US3381 -->
-											<!-- Start -->
-											<!--
-											<p>
-												<span  class="TandC_Content_Format"
-													data-translationKey="optionalProducts_TermsAndConditions_CP_Additions" />
-											</p>
-											-->
-											<!-- End -->
-											<!-- US3381 -->
-											<br><table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-											<p>
-												<span
-													data-translationKey="optionalProducts_SignatureAgreement1" />
-											</p>
+											          <!-- CP content starts  -->
+										         <br>
+					                         <p data-translationKey="OP_CP_P_bold" class="offer_details_title bold"><span  data-translationKey="OP_CP_P_small" class="offer_details_title_small"></span></p>
+					                         <br>
+					                         <p data-translationKey="OP_CP_disclosure" class="offer_details_title_2 bold"></p>
+					                         <p  data-translationKey="OP_CP_coverage" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_CP_creator_group" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CP_P_may_cover" class="bold withoutPadding_p"></p>
+					                         <p data-translationKey="PA_Credit_Protector_p_3_terminal_illness" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_CP_P_these_coverage" class="withoutPadding_p" ></p>
+					                         <p data-translationKey="OP_CP_P_if_you_qualify" class="withoutPadding_p"></p>
+					                         <p data-translationKey="PA_Credit_Protector_P_Terminal" class="offer_details_title_3 bold"></p>
+					                         <ul class="style_ul_without_padding">
+						                        <li data-translationKey="OP_CP_Li_1_may_cover_your"></li>
+						                        <li data-translationKey="OP_CP_li_2_you_or_your_spouse"></li>
+						                        <li data-translationKey="OP_CP_Li_3_in_the_event"></li>
+					                         </ul class="style_ul_without_padding">
+					                         <p  data-translationKey="OP_CP_P_life_and_dismemberment" class="offer_details_title_3 bold"></p>
+					                         <ul class="style_ul_without_padding">
+						                        <li data-translationKey="OP_CP_Li_2_1_may_cover"></li>
+						                        <li data-translationKey="OP_CP_Li_2_2_you_or_your"></li>
+						                        <li data-translationKey="OP_CP_Li_2_3_to_be"></li>
+						                        <li data-translationKey="OP_CP_Li_2_4_At_age"></li>
+					                         </ul>
+					                              <p data-translationKey="OP_CP_P_involuntary" class="offer_details_title_3 bold"></p>
+					                              <p data-translationKey="OP_CP_P_INVO_if_you_qualify" class="withoutPadding_p"></p>
+					                              <p data-translationKey="OP_CP_P_both_the_coverage"  class="withoutPadding_p"></p>
+					                              <p data-translationKey="OP_CP_P_qualify_for_benifits" class="withoutPadding_p" ></p>
+					                              <p data-translationKey="OP_CP_Li_InvoluntaryUnemployment" class="offer_details_title_3 bold"></p>
+					                         <ul class="style_ul_without_padding">
+						                         <li data-translationKey="OP_CP_P_may_cover_you_if"></li>
+					                         </ul>
+					                              <p  data-translationKey="OP_CP_Li_TotalDisability" class="offer_details_title_3 bold"></p>
+					                         <ul class="style_ul_without_padding">
+						                         <li data-translationKey="OP_CP_Li_total_diasability"></li>
+					                         </ul>
+					                         <p data-translationKey="PA_P_Pricing" class="offer_details_title_3 bold"></p>
+					                         <ul class="style_ul_without_padding">
+						                         <li data-translationKey="OP_CP_Li_3_1_monthly"></li>
+						                         <li data-translationKey="OP_CP_Li_3_2_at_age_80"></li>
+						                         <li data-translationKey="OP_CP_Li_3_3_depending"></li>
+						                         <li data-translationKey="PA_LI_YOU_DO_NOT"></li>
+						                         <li class="style_ul">
+							                     <ul class="style_ul">
+								                     <li data-translationKey="OP_CP_Li_4_1_if_you_have"></li>
+								                     <li data-translationKey="OP_CP_Li_4_2_have_not_carried"></li>
+								                     <li data-translationKey="OP_CP_Li_4_3_your_average"></li>
+								                     <li data-translationKey="PA_LI_PRICE_EXAMPLE"></li>
+								                     <li>
+									                <table class="op_table">
+										            <thead class="bold">
+											        <tr>
+												         <td data-translationKey="PA_TABLE_TD_AVERAGE_DAILY" class="text_align td_padding_offer_details"></td>
+												         <td data-translationKey="PA_TABLE_TD_PREMIUM" class="text_align"></td>
+											        </tr>
+										            </thead>
+										            <tbody>
+											        <tr>
+												        <td data-translationKey="PA_TABLE_TD_150" class="text_align"></td>
+												        <td data-translationKey="PA_TABLE_TD_165" class="text_align"></td>
+											        </tr>
+											        <tr>
+												        <td data-translationKey="PA_TABLE_TD_575" class="text_align"></td>
+												        <td data-translationKey="PA_TABLE_TD_633" class="text_align"></td>
+											        </tr>
+											        <tr>
+												        <td data-translationKey="PA_TABLE_TD_825" class="text_align"></td>
+												        <td data-translationKey="PA_TABLE_TD_907" class="text_align"></td>
+											         </tr>
+											         <tr>
+												         <td data-translationKey="PA_TABLE_TD_975" class="text_align"></td>
+												         <td data-translationKey="PA_TABLE_TD_1073" class="text_align"></td>
+											         </tr>
+										            </tbody>
+										            <tfoot>
+											        <tr>
+												        <td colspan="2" data-translationKey="PA_TABLE_TD_PLUS_APP_TAX"></td>
+											        </tr>
+										            </tfoot>
+									               </table>
+								                   </li>
+							                   </ul>
+						                       </li>
+					                        </ul>
+					                        <p data-translationKey="PA_HOW_TO_MAKE_A_CLAIM" class="offer_details_title_3 bold"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="PA_LI_you_are_always"></li>
+						                        <li data-translationKey="OP_CP_call_the_insurance"></li>
+					                        </ul>
+					                             <p data-translationKey="PA_P_terms_of_agreement" class="offer_details_title_3 bold"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="OP_CP_Li_5_if_you_enroll_today"></li>
+						                        <li><span class="bold" data-translationKey="PA_LI_the_insurance_end"></span></li>
+							                   <li class="style_ul"> <ul class="style_ul">
+								                   <li data-translationKey="OP_CP_Li_6_1_when"></li>
+								                   <li data-translationKey="OP_CP_Li_6_2_the_account"></li>
+								                   <li data-translationKey="OP_CP_Li_6_3_one_or_more"></li>
+								                   <li data-translationKey="OP_CP_Li_6_4_your_life"></li>
+								                   <li data-translationKey="OP_CP_Li_6_5_the_date"></li>
+								                   <li data-translationKey="OP_CP_Li_6_6_or_when_you"></li>
+							                    </ul>
+						                       </li>
+					                        </ul>
+					                        <p data-translationKey="PA_P_Fulfillment" class="offer_details_title_3 bold"></p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="OP_CP_Li_welcome_package" class="withoutPadding_p"></li>
+					                        </ul>
+					                        <p data-translationKey="OP_CP_Li_eligibility_requirement" class="withoutPadding_p"></p>
+					                        <p data-translationKey="PA_P_Cancellation" class="offer_details_title_3 bold">Cancellation</p>
+					                        <ul class="style_ul_without_padding">
+						                        <li data-translationKey="OP_CP_Li_7_1_you_can_cancel"></li>
+						                        <li data-translationKey="OP_CP_Li_7_2"></li>
+						                        <li data-translationKey="OP_CP_Li_7_3"></li>
+					                        </ul>
+											 <br>
+										  <!-- CP contents ends here-->       
 											</div>
-											<div class="warningDIV" id="warningDIVCP" name="warningDIVCP">
+                                            <div class="warningDIV" id="warningDIVCP" name="warningDIVCP">
 												<center>
 												<p class="warningHeader" id="warningHeaderCP" name="warningHeaderCP"><span data-translationKey="optionalProducts_WarningHeader"/></p>
 											</center>
@@ -232,6 +535,7 @@
 												data-translationKey="signatureScreen_Reset_Button_Label"></span>
 											</span>
 										</center>
+										<br>
 										<div class="signatureCredentialsContainer">
 										<label id="signatureScreen_UserName">${ClientName}</label>
 										<div class="agreementBoxContainerEX" style="display: table"
@@ -249,18 +553,16 @@
 											</div>
 											</div>
 											</div>
-<br>
-<p  class="paddingLeft60">
-	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>
-<br>
+										
+                                           <br>
+                                           <p  class="paddingLeft60">
+	                                           <table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
+                                           </p>
+                                           <br>
 										</div>
-<br>
-<br>
-										<!--<div style="padding-left: 60px;" >
-	<input class="fieldValuesCheckBoxField" id="optionalProducts_CP_Agreement" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
-</div> -->
+                                        <br>
+                                        <br>
+										
 									</div>
 								</div>
 							</td>
@@ -272,53 +574,81 @@
 					<!-- Start CIdentity Watch Classic    -->
 
 					<div id="optionalProductsIdentityWatchItem">
-						<tr class="fieldRow">
-							<td
-								class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop5">
-<div class="wiciRadioButton">
-								<input
-								id="optionalProducts_IW_CheckField" type="radio"
-								name="additionalInformation_OptionalProducts" />
-<label for="optionalProducts_IW_CheckField"></label>
-</div>
+						<tr>
+							<td class="op_table_radio_td">
+                               <div class="wiciRadioButton">
+								<input id="optionalProducts_IW_CheckField" type="radio"
+								     name="additionalInformation_OptionalProducts" class="wiciRadioButton_three" />
+                                <label for="optionalProducts_IW_CheckField"></label>
+                               </div>
 							</td>
-							<td class="fieldValuesCell fieldLabelsCellWithCheckBox"><span
-								class="elementWithBoldFont"
-								data-translationKey="optionalProducts_IdentityWatch_Title"></span>
+							<td class="op_table_title_td">
+							<div class="section_3_copy">
+					                     <div class="section_3_copy_inner">
+							                  <h4 class="elementWithBoldFont" data-translationKey="optionalProducts_IdentityWatch_Title"></h4>
+							             </div>
+							       </div>    
 							</td>
 						</tr>
-<tr>
-<td   class="paddingTop2">
-</td>
-<td   class="paddingTop2">
-							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</td>
-</tr>
-						<tr class="fieldRow fieldValuesCell">
-							<td class="fieldValuesCell fieldValuesTopMargin" colspan="2"
+                    <tr>
+                    <td   class="paddingTop2 op_table_radio_td"></td>
+                    <td   class="paddingTop2 op_table_title_td">
+							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/></td>
+                   </tr>
+						<tr>
+							<td class="op_table_title_td" colspan="2"
 								id="optionalProducts_IW_Area">
 								<div class="elementWithRightMargin15">
 									<div id="additionalInformation_OptionalProducts_IW_Table"
 										class="privacyArea">
 										<div class="paddingLeft60">
-											<p>
-												<span class="TandC_Title_Format"
-													data-translationKey="optionalProducts_TermsAndConditions_IW_Title" />
-											</p>
-											<p>
-												<span
-													data-translationKey="optionalProducts_TermsAndConditions_IW" />
-											</p>
-											<p>
-												<span class="TandC_Content_Format"
-													data-translationKey="optionalProducts_TermsAndConditions_IW_Additions" />
-											</p>
-											<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-											<p>
-												<span data-translationKey="optionalProducts_SignatureAgreement1" />
-											</p>
-											</div>
-											<div class="warningDIV" id="warningDIVIW" name="warningDIVIW">
+											               <!-- IW content starts here -->
+										        <br>
+					                         <p data-translationKey="OP_IW_bold" class="offer_details_title bold"><span class="offer_details_title_small" data-translationKey="OP_Iw_small"></p>
+					                         <br>
+					                         <p data-translationKey="OP_IW_disclosure" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_IW_eligibility" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_IW_P_subscription" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_IW_P_when_you_enrole" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_IW_P_benifits_are" class="withoutPadding_p"></p>
+					                         
+					                         <p data-translationKey="OP_IW_LI_lost" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_IW_P_service_assist" class="withoutPadding_p" ></p>
+					                         
+					                        <!-- Online data -->
+					                       <p data-translationKey="PA_P_Online_data_backup" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="PA_P_Data_bak_up_desc" class="withoutPadding_p"></p>
+					                       <!-- ends -->
+					                       
+					                         <!-- CC theft rewads -->
+					                       
+					                       <p data-translationKey="PA_CC_theft_reward" class="offer_details_title_3 bold"></p>
+					                       <p data-translationKey="OP_IW_P_CC" class="withoutPadding_p"></p>
+					                       <!-- ends -->
+					                       
+					                         <p data-translationKey="OP_Iw_P_identity_fraud" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_IW_P_these_service_currently" class="withoutPadding_p"></p>
+					                         
+					                         <p class="offer_details_title_3 bold" data-translationKey="PA_P_computer_tune_up"></p>
+					                         <p data-translationKey="PA_P_you_are_eligible_to" class="withoutPadding_p" ></p>
+					                         
+					                         <p data-translationKey="PA_P_rebound" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="PA_P_this_service_allows_you" class="withoutPadding_p"></p>
+					                         
+					                         <p data-translationKey="PA_P_price" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="PA_P_subscription_fee" class="withoutPadding_p"></p>
+					                         <p data-translationKey="PA_P_Cancellation" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_IW_P_cancel_by_customer" class="withoutPadding_p" ><span class="bold"></p>
+					                         <p data-translationKey="OP_IW_P_cancel_by_aimia" class="withoutPadding_p"><span class="bold"></p>
+					                         <p data-translationKey="personalData_Address_Other" class="offer_details_title_3 bold"></p>
+					                         <p data-translationKey="OP_Iw_P_IW_is_optional" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_IW_P_classic_program" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_IW_P_please_read" class="withoutPadding_p"></p>
+					
+										     <!-- IW content Ends here -->
+										</div>
+										<br>
+										<div class="warningDIV" id="warningDIVIW" name="warningDIVIW">
 												<center>
 												<p class="warningHeader" id="warningHeaderIW" name="warningHeaderIW"><span data-translationKey="optionalProducts_WarningHeader"/></p>
 											</center>
@@ -326,7 +656,7 @@
 											<p>
 												<span data-translationKey="optionalProducts_SignatureAgreement2" />
 											</p>
-											<p>
+										     <p>
 												<span data-translationKey="optionalProducts_IWProducts" />
 											</p>
 											<p>
@@ -367,43 +697,37 @@
 											</div>
 											</div>
 											</div>
-<br>
-<p  class="paddingLeft60">
-	<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-</p>
-<br>
+                                           <br>
+                                           <p  class="paddingLeft60">
+	                                          <table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/></p>
+                                               <br>
 										</div>
-<br>
-<br>
-										<!--<div style="padding-left: 60px;" >
-	<input class="fieldValuesCheckBoxField" id="optionalProducts_IW_Agreement" type="checkbox" />
-	<span class="floatLeft" data-translationKey="signatureScreen_TermsAndConditions_AcceptBox"></span>
-</div> -->
-
-									</div>
+                                      <br>
+                                      <br>
+			                         </div>
 									<div>
-
 							</td>
 						</tr>
 					</div>
-
 					<!-- End Identity Watch Classic    -->
-
 					<!-- Start No Do not Enrol me -->
-
 					<div id="optionalProductsNACheckFieldItem">
-						<tr class="fieldRow">
+						<tr>
 							<td
-								class="fieldLabelsCell fieldCellSize5 fieldLabelsCellWithTopAlign elementWithTop17">
+								class="op_table_radio_td">
 								 <div class="wiciRadioButton marginTop23">
-								<input
-								id="optionalProducts_NA_CheckField" type="radio"
-								name="additionalInformation_OptionalProducts"/>
- 								<label for="optionalProducts_NA_CheckField"></label> </div>
+								         <input id="optionalProducts_NA_CheckField" type="radio"
+								        name="additionalInformation_OptionalProducts"/>
+ 								    <label for="optionalProducts_NA_CheckField"></label>
+ 								</div>
 							</td>
-							<td class="fieldValuesCell marginTop23"><span
-								class="elementWithBoldFont marginTopMinus3"
-								data-translationKey="optionalProducts_DoNotEnrolMe"></span>
+							<td class="op_table_title_td">
+							 <div class="section_3_copy">
+					                    <div class="section_3_copy_inner">
+							                  <h4 class="elementWithBoldFont marginTopMinus3"
+								                 data-translationKey="optionalProducts_DoNotEnrolMe"></h4>
+							            </div>
+							      </div>	
 							</td>
 						</tr>
 					</div>
@@ -413,9 +737,24 @@
 			</table>
 		</center>
 	</div>
+		
 
 	<!-- End No Do not Enrol me -->
 	<br>
+	<br>
+	<!-- Radio button optional products ends -->
+	
+			<footer class="op_wrapper_footer">
+		          <p data-translationkey="OP_FT_there_are_op_offfers" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_business_name" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_unless" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_CP" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_IW_programs" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_internet" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_assurant" class="withoutPadding_p"></p>
+		          <p data-translationkey="OP_FT_mastercard" class="withoutPadding_p"></p>
+	        </footer>
+			<!-- No enrole me ends -->
 	<br>
 	<center>
 		<span id="optionalProducts_ProceedButton"
@@ -423,16 +762,7 @@
 			class="buttonText" data-translationKey="optionalProducts_Proceed"></span>
 		</span>
 	</center>
-
-	<p class="TandC_Content_Format">
-		<span data-translationKey="optionalProducts_TermsAndConditions25_Top" />
-		<!-- UAT 39 - CP Revitalization, Missed Requirement -->
-		<!-- US4083 - Code changes Reverted //--> 
-		{{if !cpEnable }}
-		<span id="optionalProducts_TermsAndConditions25_CP_Text" data-translationKey="optionalProducts_TermsAndConditions25_CP" />
-		<span data-translationKey="optionalProducts_TermsAndConditions25_ID" />
-		{{/if}}
-		<span data-translationKey="optionalProducts_TermsAndConditions25_Bottom" />
-	</p>
+	<br>
+	<br>
 </div>
 </script>

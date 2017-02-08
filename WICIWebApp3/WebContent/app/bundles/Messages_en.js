@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_en =  {
-	version												:	"29",
+	version												:	"38",
 	yes 												: 	"Yes",
 	no 													: 	"No",
 	cancel  											:  	"Cancel",
@@ -356,7 +356,7 @@ WICI.dictionary_en =  {
 	//........................NEW ITEMS ..............................
 
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
-	optionalProducts_PageTitle						    :	"OPTIONAL PRODUCT(s)<sup>&#8224;&#8224;</sup>",
+	optionalProducts_PageTitle						    :	"Here are two optional products<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> available for<br> your Canadian Tire Bank issued credit card",
 
 	// Old line
 	// optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded MasterCard and that they are not required to obtain the Canadian Tire branded MasterCard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire MasterCard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire MasterCard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
@@ -374,7 +374,7 @@ WICI.dictionary_en =  {
 															"<li>Computer Tune-Up Reimbursement*** of up to $75 CDN, inclusive of taxes, per subscription year.</li>" +
 															"<li>Plus Card Protection, Online Data Backup, Credit Card Theft Reward Service*** of up to $3,000 CDN.</li>" +
 															"<li>$4.99*** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</li></ul>" +
-															"If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic Welcome Package.",
+															"If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter which is included in your Identity Watch Classic welcome package.",
 	optionalProducts_IdentityWatch_Additions			:	"<br><br>*** Plus applicable taxes. Subscription Fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
 
 	optionalProducts_TermsAndConditions_PA_Title		:	"<strong>Terms and Conditions for Canadian Tire Protection Advantage<sup>&trade;</sup></strong><br><br>",
@@ -443,7 +443,7 @@ WICI.dictionary_en =  {
 	optionalProducts_TermsAndConditions_IW				:
 															"Identity Watch Classic is $4.99 payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card, plus applicable taxes. This product includes the following program Benefits" +
 															"<br>(&quot;Benefits&quot;): Identity Fraud Protection / Online Monitoring Services (iPiP<sup>&reg</sup>), Rebound<sup>&reg</sup> Asset Return Service and Computer Tune-Up Reimbursement. Plus, Card Protection, Online Data Backup, and Credit Card Theft Reward Service.",
-	optionalProducts_TermsAndConditions_IW_Additions	:	"<strong>Eligibility: </strong>Your subscription is effective as of the enrolment date indicated on your Welcome Letter, which is included in the Identity Watch Welcome Package.  You are eligible to receive Benefits as long as your subscription remains current. " +
+	optionalProducts_TermsAndConditions_IW_Additions	:	"<strong>Eligibility: </strong>Your subscription is effective as of the enrolment date indicated on your Welcome Letter, which is included in the Identity Watch welcome package.  You are eligible to receive Benefits as long as your subscription remains current. " +
 															" Eligibility for the Benefits also requires that you are a current Identity Watch subscriber at the time the applicable event occurs. Benefits are also available to you, your spouse and any dependent child(ren) up to age twenty-one (21) who are living at home or are still in school (where applicable)." +
 															"<br><strong>Subscription Fees: </strong>Your subscription fees, as indicated in your Welcome Letter or as subsequently updated by Aimia Proprietary Loyalty Canada Inc. (&quot;<strong>Aimia</strong>&quot;) on notice to you (&quot;<strong>Fees</strong>&quot;), will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card." +
 															" To ensure uninterrupted service, your subscription will automatically renew until you cancel. Your credit card will be charged at the then current rate on the renewal date." +
@@ -480,6 +480,31 @@ WICI.dictionary_en =  {
 	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Have you given the applicant the  Distribution Guide for their Credit Protector enrolment?",
 	optionalProductScreen_Handoutprompts_Ok_Message		:	"All applicants that enrol in  Credit Protector must be given a Distribution Guide before proceeding.",
 	
+	//-------US4131 Start --------------
+    helpscoverYourCardPaymentFor                        :    "Helps cover your card payments for...",
+    OP_CP_Li_InvoluntaryUnemployment                    :    "Involuntary unemployment",
+    OP_CP_Li_TotalDisability                            :    "Total disability",
+    OP_CP_Li_TerminalIllness                            :    "Terminal illness*",
+    OP_CP_Li_Dismemberment                              :    "Dismemberment or loss of sight, hand or foot*<br/>(at age 80 becomes Accidental Dismemberment)",
+    OP_CP_Li_Life                                       :    "Life* (at age 80 becomes Accidental Death)</br>* Your spouse is also covered by these 3 coverages",
+    
+    // IW
+    optionalProductIWTitle                              :    "IDENTITY WATCH CLASSIC<span class=\"optionaProduct_cp_iw_sup\">&reg;</span>",
+    OP_IW_Helps                                         :    "Helps protect you and your family with these features:",
+    OP_IW_LI_lost                                       :    "Lost/Stolen Card Assistance",
+    OP_IW_LI_Online                                     :    "Online Data Backup",
+    OP_IW_LI_Creadit_card                               :    "Credit Card Theft Reward Service",
+    OP_Iw_LI_Identity                                   :    "Identity Fraud Protection/Online Monitoring Service",
+    OP_Iw_LI_Computer                                   :    "Computer Tune-Up Reimbursement",
+    OP_IW_LI_Rebound                                    :    "Rebound&reg; Asset Return Service",
+    OP_Iw_All_for                                       :    "All for",
+    OP_Iw_per_month                                     :    "<sup>&#36;</sup>4.99 per month",
+    OP_Iw_Plus_app_tax                                  :    "plus applicable taxes",
+    OP_Iw_Billled_your_card                             :    "Billed to your Canadian Tire Bank issued credit card",
+    
+    
+    //-------US4131 Ends  --------------
+
 	// ---------- US3621 Start ---------
 	
 	// Job Categories - Start
@@ -1067,7 +1092,7 @@ WICI.dictionary_en =  {
 
 	//Added by DPS ***************************
 	//OMC_LEGAL
-	legal_omc_first_chapter								: "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at canadiantire.ca or cffs.comictm for more details.Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect e-Canadian Tire 'Money' at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money' program collect e-Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus, or promotional offers or redemption transactions.",
+	legal_omc_first_chapter								: "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at canadiantire.ca or cffs.comictm for more details.Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect Canadian Tire 'Money' at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money' program collect Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus, or promotional offers or redemption transactions.",
 	legal_omc_second_chapter 							: "<sup>2</sup> Minimum fuel purchase required. Rate may vary by location. See local gas bars for details.",
 	/*
 	legal_omc_third_chapter 							: "&dagger; Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
@@ -1110,10 +1135,10 @@ WICI.dictionary_en =  {
 		
 	// OMC
     omc_first_chapter 								: "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'",
-    omc_second_chapter 								: "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Mondey'.<br /> Simply use pay with your Options MasterCard and collect e-Canadian Tire 'Money' everywhere you shop - it's accepted worldwide.",
-    omc_fourth_chapter 								: "<b class='RedLabel'>10X</b> e-Canadian Tire 'Money' every day at Canadian Tire stores<sup>1</sup>",
-    omc_fives_chapter 								: "<b style='color: #d52b1e;'>10X</b> e-Canadian Tire 'Money' every day at Sport Check<sup>&reg;</sup>, Mark's<sup>&reg;</sup> and PartSource<sup>&reg;</sup>",
-    omc_sixt_chapter 									: "Collect e-Canadian Tire 'Money' at participating Canadian Tire gas bar locations<sup>2</sup>",
+    omc_second_chapter 								: "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Mondey'.<br /> Simply use pay with your Options MasterCard and collect Canadian Tire 'Money' everywhere you shop - it's accepted worldwide.",
+    omc_fourth_chapter 								: "<b class='RedLabel'>10X</b> Canadian Tire 'Money' every day at Canadian Tire stores<sup>1</sup>",
+    omc_fives_chapter 								: "<b style='color: #d52b1e;'>10X</b> Canadian Tire 'Money' every day at Sport Check<sup>&reg;</sup>, Mark's<sup>&reg;</sup> and PartSource<sup>&reg;</sup>",
+    omc_sixt_chapter 									: "Collect Canadian Tire 'Money' at participating Canadian Tire gas bar locations<sup>2</sup>",
     omc_eight_chapter 								: "Plus enjoy great cardmember features",
     omc_nine_chapter 									: "<b><i>PayPass</i><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>&trade;</sup></span></b> for faster checkout",
     omc_ten_chapter 									: "<b>Chip technology</b>  for added security",
@@ -1175,17 +1200,17 @@ WICI.dictionary_en =  {
 	signature_OptionsMasterCard 					    : 	"Canadian Tire Options<sup>&reg;</sup> MasterCard<sup>&reg;</sup>",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage MasterCard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage MasterCard",
-	omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'<sup>1</sup>",
-    omc_second_chapter_ectm                             : "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Money'<sup>&trade;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
+	omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'<sup>&reg</sup>",
+    omc_second_chapter_ectm                             : "Apply for a Canadian Tire Options MasterCard today. It's a faster way to collect your Canadian Tire 'Money'<sup>&reg;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
 
-    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>10X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> every day<sup>1</sup> at Canadian Tire stores, including on automotive service.",
-    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>10X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
-    omc_sixt_chapter_ectm                               : "<b>Collect</b> e-Canadian Tire 'Money'<sup>&trade;</sup> at participating Canadian Tire gas bars<sup>2</sup>.",
-    omc_seventh_chapter_ectm                            : "<b>Collect <span class='RedLabel'>2X</span></b> e-Canadian Tire 'Money'<sup>&trade;</sup> everywhere else you shop<sup>1</sup>",
+    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>10X</span></b> Canadian Tire 'Money' every day - that's 4% back, at Canadian Tire stores, including on automotive service<sup>1</sup>.",
+    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>10X</span></b> Canadian Tire 'Money' every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
+    omc_sixt_chapter_ectm                               : "<b>Collect</b> Canadian Tire 'Money' at participating Canadian Tire gas bars<sup>2</sup>.",
+    omc_seventh_chapter_ectm                            : "<b>Collect <span class='RedLabel'>2X</span></b> Canadian Tire 'Money' everywhere else you shop<sup>1</sup>",
 
-    legal_omc_first_chapter_ectm                        : "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at www.canadiantire.ca or www.ctfs.com/ctm for more details. Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect e-Canadian Tire 'Money' at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money' program collect e-Canadian Tire 'Money'<sup>&trade;</sup> on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions.",
+    legal_omc_first_chapter_ectm                        : "<sup>1</sup> In the form of electronic Canadian Tire ‘Money’<sup>&reg;</sup>. Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect electronic Canadian Tire ‘Money’ at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire ‘Money’<sup>&reg;</sup> program collect electronic Canadian Tire ‘Money’ on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions. The rate at which you earn your electronic Canadian Tire ‘Money’ everywhere else is 2x the rate of electronic Canadian Tire ‘Money’ which equates to roughly 0.8%. Canadian Tire 'Money' is calculated on the pre-tax amount of the purchase at Canadian Tire Stores and PartSource.<br />Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
     legal_omc_second_chapter_ectm                       : "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details.",
-    personalData_CTMField                               : "My Canadian Tire 'Money'<sup>&trade;</sup> Account Number",
+    personalData_CTMField                               : "My Canadian Tire 'Money'<sup>&reg;</sup> Account Number",
     personalData_CTMAccountText                         : "If you are already a Member, please enter your My Canadian Tire 'Money' Account number. If you are approved for the credit card that you are applying for, your My Canadian Tire 'Money' Account will be linked to your new Canadian Tire<sup>&reg;</sup> Options MasterCard<sup>&reg;</sup>. If left blank, a My Canadian Tire 'Money' Account number will be assigned to you.",
     // personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire 'Money'<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
     // UAT 25 - Jul 22, CP Revitalization
@@ -1198,7 +1223,7 @@ WICI.dictionary_en =  {
     signatureScreen_License7a                           : "If I am not already a member, I will also be automatically enrolled in the My Canadian Tire 'Money' Program, even if I am not approved for the Card.",
     signatureScreen_License7b                           : "I will be bound by the My Canadian Tire 'Money' Program rules, a copy of which are available at canadiantire.ca or ctfs.com/ctm",
 
-    optionalProducts_ProtectionAdvantage_Title          :   "Canadian Tire Protection Advantage<sup>&trade;</sup>",
+    optionalProducts_ProtectionAdvantage_Title          :   "Canadian Tire Protection Advantage<sup>&reg;</sup>",
     // Old line
     // optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup>**/Credit Protector-Senior<sup>&reg;</sup>** <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
     // optionalProducts_ProtectionAdvantage_Text           :   "<br><i>(not available for residents of Saskatchewan)</i><br>Enrolment in both Credit Protector<sup>&reg;</sup> Insurance <strong>and</strong> Identity Watch Classic<sup>&trade;</sup>. Includes the coverage and benefits of both optional products, as listed above.",
@@ -1219,11 +1244,210 @@ WICI.dictionary_en =  {
     optionalProducts_TermsAndConditions25_ID			:	"<br><br>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.",    
     														                                                            
     optionalProducts_TermsAndConditions25_Bottom		:	"<br><br>Rebound<sup>&reg;</sup> is a registered trademark and iPiP are registered trademarks of Aimia Proprietary Loyalty Canada Inc." +
-                                                        	"<br><br><sup>&reg;</sup> Assurant Solutions is a trademark of Assurant, Inc." +
+                                                        	"<br><br><sup>&reg;</sup> Assurant<sup>&reg;</sup> is a trademark of Assurant, Inc." +
                                                         	"<br><br>MasterCard, the MasterCard Brand Mark and MasterCard SecureCode are registered trademarks of MasterCard International, and used under licence.",
     
-    optionalProducts_TableTitle                         :   "YES, PLEASE ENROL ME IN THE FOLLOWING OPTIONAL PRODUCTS:",
-
+    optionalProducts_TableTitle                         :   "Yes, I am interested in the following optional products:",
+    //US4131
+    optionalProducts_CP_title                           :   "CREDIT PROTECTOR<span class=\"optionaProduct_cp_iw_sup\">&reg;</span> INSURANCE",
+    //---Optional product CP details  start ------
+    optionalProducts_CP_Helps_cover                     :   "Helps cover your card payments in the event of ...",
+    optionalProducts_CP_LI_Involuntary                  :   "Involuntary unemployment",
+    optionalProducts_CP_LI_Total                        :   "Total disability",
+    optionalProducts_CP_LI_Terminal                     :   "Terminal illness*",
+    optionalProducts_CP_LI_Dismemberment                :   "Dismemberment <span style=\"border-bottom: 1px solid #58595b;\">or</span> loss of sight, hand or foot*<br> (at age 80 becomes Accidental Dismemberment)",
+    optionalProducts_CP_LI_Life                         :   "Life* (at age 80 becomes Accidental Death)<br>* Your spouse is also covered by these 3 coverages",
+    optionalProducts_CP_text_monthly                    :   "All for a monthly premium of",
+    optionalProducts_CP_text_for_every                  :   "<sup>&#36;</sup>1.10 for every <sup>&#36;</sup>100",
+    optionalProducts_CP_text_average                    :   "of your Average Daily Balance, plus applicable taxes",
+    optionalProducts_CP_text_average_info               :   "(at age 80, becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes)",
+    optionalProducts_CP_text_bill                       :   "Billed to your Canadian Tire Bank issued credit card",
+    optionalProducts_CP_text_available                  :   "Available for cardmembers aged 18 to under 76",
+    
+    
+    //---Optional product CP details  ends ------
+    
+    //--PA Offer  details starts  
+      OP_yes_i_am_interested_for_op                     :   "Yes, I am interested in the following optional products:",
+      OP_PA_title                                       :   "Canadian Tire Protection Advantage<sup>&reg;</sup>",
+      OP_PA_Rule_li_1_not_available                     :   "Not available for residents of Saskatchewan",
+      OP_PA_Rule_li_2_available                         :   "Available for cardmembers aged 18 to under 76",
+      OP_PA_Rule_li_3_Enrolment_in                      :   "Enrolment in Credit Protector<sup>&reg;</sup> Insurance and Identity Watch Classic<sup>&reg;</sup> includes the coverage and benefits of both optional products, as listed above.",
+      PA_offer_details_title_bold                       :   "Mandatory Disclosures <span>&mdash; Must be read in full prior to completing an enrolment</span>",
+      PA_offer_details_title_second                     :   "&#45;&#45;Must be read in full prior to completing an enrolment",
+      PA_offer_details_title_small                      :   "&mdash; Must be read in full prior to completing an enrolment",
+      PA_offer_details_title_2_bold                     :   "Credit Protector Insurance Disclosure",
+      PA_optional_covarage                              :   "Credit Protector is optional insurance coverage",
+      PA_Credit_Protector_p_1                           :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida (ABIC). ABLAC and ABIC carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or cover your monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
+      PA_Credit_Protector_p_2                           :   "Credit Protector may cover you for one of the following situations:",
+      PA_Credit_Protector_p_3_terminal_illness          :   "Terminal Illness and Life and Dismemberment",
+      Pa_Credit_Protector_P_coverages                   :   "These coverages are available to you and your spouse.",
+      PA_Creadit_Protector_P_benifits                   :   "If you qualify for these benefits, Credit Protector may pay down your outstanding balance with a one-time, lump sum payment, up to the maximum benefit of $20,000.",
+      PA_Credit_Protector_P_Terminal                    :   "Terminal Illness",
+      PA_Credit_Protector_LI_1                          :   "May cover you or your spouse if either of you becomes sick causing a life expectancy of less than 12 months from the time of diagnosis.",
+      PA_Credit_Protector_LI_2                          :   "You or your spouse <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits for a pre-existing condition, which means experiencing symptoms or treatment during the past six months and diagnosis of a terminal illness within the first six months of enrolment.",
+      PA_Credit_Protector_LI_3                          :   "In the event of simultaneous terminal illness of both the Primary Cardmember and the Primary Cardmember’s spouse, only one benefit will be paid.",
+      PA_Credit_Protector_Life_n_Di                     :   "Life and Dismemberment",
+      PA_UL_LI_2_1                                      :   "May cover you or your spouse in the case of a death, loss of sight in one eye, or the loss of a hand or foot.",
+      PA_UL_LI_2_2                                      :	"You or your spouse <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for a Life benefit if the death is due to suicide or self-inflicted injury within six months of enrolment.",
+      PA_UL_LI_2_3                                      :   "To be eligible for Life and Dismemberment you or your spouse must be under 80 years old.",
+      PA_UL_LI_2_4                                      :   "At age 80, your Life and Dismemberment coverage is replaced by <span style=\"font-weight: bold;\">Accidental Death and Accidental Dismemberment</span>, which means you or your spouse die or suffer a dismemberment directly caused by an accident. If the death of the Primary Cardmember and the Primary Cardmember’s spouse occur simultaneously, only one benefit will be paid.",
+      PA_p_Involuntary                                  :   "Involuntary Unemployment and Total Disability",
+      PA_P_quality_for_benifits                         :   "If you qualify for these benefits, Credit Protector may make your monthly payments equal to 5% of your outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
+      PA_P_To_be_eligible                               :   "To be eligible for both these coverages, you must be working permanently for salary or wages at least 25 hours a week or more for a single employer.",
+      PA_P_YOU_QUALIFY_FOR                              :   "You <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits if you lose a temporary or contract job; at the end of normal seasonal employment; or if you are convicted of a crime.",
+      PA_P_Involuntary_Unemployment                     :   "Involuntary Unemployment",
+      PA_LI_MAY_COVER_YOU                               :   "May cover you if you lose your job for at least 30 days through no fault of your own, such as, layoff or strike, or, if you are self-employed, bankruptcy started by your creditors.",
+      PA_P_Total_Disability                             :   "Total Disability",
+      PA_P_MAY_COVER_YOU_DISABLED                       :   "May cover you if you become totally disabled and are unable to work fully for at least 30 days, and are treated by a qualified physician.",
+      PA_P_Pricing                                      :   "Pricing",
+      PA_UL_LI_MONTHLY_PREMIUM                          :   "Monthly premium is <span style=\"font-weight: bold;\">$1.10 for every $100 of your Average Daily Balance</span>, plus applicable taxes, billed monthly to your credit card account.",
+      PA_LI_AT_AGE                                      :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
+      PA_LI_DEPENDING_HOW                               :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
+      PA_LI_YOU_DO_NOT                                  :   "You do not pay premium:",
+      PA_LI_1_IF_YOU_HAVE_NOT                           :   "&#45; If you have not used your card that month and;",
+      PA_LI_1_HAVE_NOT_CARRIED                          :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments or;",
+      PA_LI_1_IF_YOUR_AVERAGE                           :   "&#45; if your Average Daily Balance  for the month is less than $10.",
+      PA_LI_PRICE_EXAMPLE                               :   "Price examples:",
+      PA_TABLE_TD_AVERAGE_DAILY                         :   "Average Daily Balance",
+      PA_TABLE_TD_PREMIUM                               :   "Premium",
+      PA_TABLE_TD_150                                   :   "&#36;150",
+      PA_TABLE_TD_165                                   :   "&#36;1.65&#42;",
+      PA_TABLE_TD_575                                   :   "&#36;575",
+      PA_TABLE_TD_633                                   :   "&#36;6.33&#42;",
+      PA_TABLE_TD_825                                   :   "&#36;825",
+      PA_TABLE_TD_907                                   :   "&#36;9.07&#42;",
+      PA_TABLE_TD_975                                   :   "&#36;975",
+      PA_TABLE_TD_1073                                  :   "&#36;10.73&#42;",
+      PA_TABLE_TD_PLUS_APP_TAX                          :   "<span class=\"opTable_paddingLeft80\">&#42; Plus applicable taxes.</span>",
+      PA_HOW_TO_MAKE_A_CLAIM                            :   "How to Make a Claim",
+      PA_LI_you_are_always                              :   "You are always eligible to submit a claim.",
+      PA_LI_call_the_insurer                            :   "Call the insurers at <span style=\"font-weight: bold;\">1-800-480-1853</span>. This number can also be found on your Certificate of Insurance.",
+      PA_P_terms_of_agreement                           :   "Term of Agreement",
+      PA_LI_if_you_enrol_today                          :   "If you enrol today, we will create a customer file and share that information with the insurers so your coverage begins immediately.",
+      PA_LI_the_insurance_end                           :   "The insurance ends:",
+      PA_Li_when_the_canadian_tire                      :   "&#45; when the Canadian Tire Bank issued credit card is cancelled;",
+      PA_Li_the_accoount_become                         :   "&#45; the account becomes 90 days past due;",
+      PA_Li_one_or_more_off                             :   "&#45; one or more of the Master Policies are cancelled;",
+      PA_Li_your_life                                   :   "&#45; your Life, Accidental Death, or Terminal Illness benefit is paid;",
+      PA_Li_the_date_the_primary                        :   "&#45; the date the primary cardmember dies;",
+      PA_Li_or_when_you_request                         :   "&#45; or when you request cancellation of the insurance, which you can do any time by calling the number on the back of the Certificate of Insurance, or the number on the back of your Canadian Tire Bank issued credit card, <span style=\"font-weight: bold;\">or in the Distribution Guide for residents of Quebec.</span>",
+      PA_P_Fulfillment                                  :   "Fulfillment",
+      PA_ul_Li_A_welcome_package                        :   "A welcome package, including a Certificate of Insurance, will be sent to you in the mail within the next two weeks. <span style=\"font-weight: bold;\">A Distribution Guide will also be sent for residents of Quebec.</span>",
+      PA_P_eligibility_requirment                       :   "Eligibility requirements, limitations and exclusions apply, and vary by benefit. Please read your Certificate of Insurance carefully and keep it in a safe place with your other important documents.",
+      PA_P_Cancellation                                 :   "Cancellation",
+      PA_Li_you_can_cancel_this_1                       :   "You can cancel this insurance at any time by calling the number on the back of your  card.",
+      PA_Li_you_can_cancel_this_2                       :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">within</span> the first 45 days, of issuance of the Certificate of Insurance, you will receive a refund for any premium paid.",
+      PA_Li_you_can_cancel_this_3                       :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">after</span> the first 45 days, you will be refunded any unearned premium, if applicable.",
+      PA_P_identity_watch_disclosure                    :   "Identity Watch Classic<span class=\"radio_sup\">&reg;</span> Disclosure",
+      PA_P_eligiblity                                   :   "Eligibility",
+      PA_P_the_subscription                             :   "The subscription is effective as of the enrolment date indicated on your welcome letter, which is included in the Identity Watch Classic welcome package. You are eligible to receive benefits as of the enrolment date indicated on your welcome letter as long as your subscription remains current. Eligibility for the benefits also requires you to be a current Identity Watch Classic subscriber at the time the applicable event occurs.",
+      PA_P_when_you_enrole                              :   "When you enrol in this product you will receive a full list of the available benefits, along with details on how to register your information, and complete Terms and Conditions in your welcome package. It will take approximately 7-10 days to arrive in the mail. Please ensure you review all this information.",
+      PA_P_benefits_are_available                       :   "Benefits are available to you, your spouse and any dependent child(ren) up to age 21 who are living at your home or are still in school (&ldquo;eligible family&rdquo;).",
+      PA_P_identity_fraud                               :   "Identity Fraud Protection/Online Monitoring Service",
+      PA_P_this_service                                 :   "This service, currently called &lsquo;Internet Personal Information Patrol<sup>&reg;</sup>&rsquo; or &lsquo;iPiP<sup>&reg;</sup>&rsquo; is an online data monitoring tool that routinely scours the internet’s public search engines, news groups and blogs and notifies you via email of any activity that matches the information you have registered online with this service. You can simply register the information online at www.identitywatchclassic.ca. Information that can be registered includes credit card and debit card numbers, social insurance numbers, and/or other valuable information. Terms and conditions apply. <span style=\"font-weight: bold;\">Note: There may be inaccuracies in content or delays in identification of reportable incidents and/or delivery of notification with respect to iPiP.</span>",
+      PA_P_lost_stolen                                  :   "Lost/Stolen Card Assistance",
+      PA_P_this_service_will_assests                    :   "This service will assist you and eligible family members from the moment you or your family report a lost/stolen credit or registered debit card. Identity Watch Classic will begin to contact the applicable card issuer(s), ask them to cancel your card(s) and request that replacement card(s) be sent to you as soon as possible. <span style=\"font-weight: bold;\">Note&#58; Some card issuers have rules and&#47;or regulations that may prevent us from cancelling cards or requesting a replacement card(s). For full details about the services, please refer to the Subscription Terms and Conditions.</span>",
+      PA_P_Online_data_backup                           :   "Online Data Backup",
+      PA_P_Data_bak_up_desc                             :   "This service entitles you to have access to 4GB of online data backup per month. Online Data Backup is provided by a third-party service provider and is subject to additional terms and conditions. Online Data Backup can only be used on a Windows Platform. You are responsible for any fees incurred due to online backup storage beyond the 4GB included in your subscription (&ldquo;<span style=\"font-weight: bold;\">Included Storage</span>&rdquo;). You will be charged five dollars ($5.00) per month for every additional 3GB of storage used beyond the Included Storage, billed at 3GB increments, rounded up to the next 3GB increment once the prior increment level is exceeded (&ldquo;<span style=\"font-weight: bold;\">Data Charges</span>&rdquo;). Data Charges will be charged to the payment account to which your subscription is charged at the end of the month in which Data Charges are incurred. On termination of your subscription for any reason, you have seven (7) days from the effective cancellation date to remove your stored data or you will no longer be able to retrieve it. Deletion of your stored data is subject to Aimia’s Privacy Policy which can be found at <span class=\"link_style\">https://www.identitywatchclassic.ca/privacypolicy</span>.",
+      PA_CC_theft_reward                                :   "Credit Card Theft Reward Service",
+      PA_CC_theft_desc                                  :   "We will pay a three thousand dollar ($3,000) reward for information leading to the arrest and conviction of anyone fraudulently using your credit or registered debit card(s). You, your family and law enforcement personnel are not eligible to receive a reward. Those eligible to receive the reward must contact Aimia to complete and return a Reward Claim Form.",
+      PA_P_rebound                                      :   "Rebound<sup>&reg;</sup> Asset Return Service",
+      PA_P_this_service_allows_you                      :   "This service allows you to adhere stickers with a unique ID# to your valuables. If an item bearing a sticker is lost, its finder is directed to contact Aimia, who will arrange for the item to be picked up and returned to you and for payment of a fifty dollar ($50.00) reward to the finder. Terms and conditions apply.",
+      PA_P_computer_tune_up                             :   "Computer Tune-Up Reimbursement:",
+      PA_P_you_are_eligible_to                          :   "You are eligible to be reimbursed up to seventy-five dollars ($75.00), inclusive of taxes, per subscription year towards the cost of tuning up your computer. The request for reimbursement as well as the original receipt must be submitted within 30 days of the computer tune-up being performed.",
+      PA_P_price                                        :   "Price",
+      PA_P_subscription_fee                             :   "Subscription fee of $4.99, plus applicable taxes, will commence after the first transaction is made on the Canadian Tire Bank issued credit card. Thereafter, the subscription fee will be charged in advance monthly to the Canadian Tire Bank issued credit card. To ensure uninterrupted service, your subscription will automatically renew until you cancel. Your credit card will be charged at the then current rate on the renewal date. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
+      PA_P_cancellation_by_customer                     :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and their subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
+      PA_P_cancellation_by_Aimia                        :   "<span style=\"font-weight: bold;\">Cancellation by Aimia:</span> The subscription may be cancelled by Aimia if the account is not in good standing or if the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, are not paid, or if you or your eligible family are found to be engaging in fraud or otherwise misusing the Benefits. Aimia also reserves the right to terminate subscriptions for any reason on 30 days prior written notice. Upon cancellation of your subscription, for any reason, the information you or your family have provided to receive the benefits will no longer be accessible by you or your family.",
+      PA_P_other                                        :   "Other",
+      PA_P_Iw_is_an_optiona_product                     :   "Identity Watch Classic is an optional product and is offered separately from the Canadian Tire Bank issued MasterCard and it is not required to obtain the Canadian Tire Bank issued MasterCard. If you have applied for a Canadian Tire Bank issued MasterCard and are approved, you will be charged the Identity Watch Classic subscription fee in the amount and time period specified. (Note: Please see above.)",
+      PA_P_the_iw_program                               :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc. &#40;&#34;Aimia&#34;&#41;.",
+      PA_P_please_read_iw                               :   "Please read the Identity Watch Classic Subscription Terms and Conditions and benefits Guide, which are included in the welcome package for further details.",
+     //-- PA Offer  details Ends 
+      
+     //--CP offer details starts
+      OP_CP_title                                       :   "Credit Protector<sup>&reg;</sup> Insurance",
+      OP_CP_Li_1_not_sk                                 :   "Not available for residents of Saskatchewan",
+      OP_CP_Li_1_availbale                              :   "Available for cardmembers aged 18 to under 76",
+      OP_CP_P_bold                                      :   "Mandatory Disclosure <span>&mdash; Must be read in full prior to completing an enrolment</span>",
+      OP_CP_P_small                                     :   "&#45;&#45; Must be read in full prior to completing an enrolment",
+      OP_CP_disclosure                                  :   "Credit Protector Insurance Disclosure",
+      OP_CP_coverage                                    :   "Credit Protector is optional insurance coverage",
+      OP_CP_creator_group                               :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida (ABIC). ABLAC and ABIC carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or cover your monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
+      OP_CP_P_may_cover                                 :   "Credit Protector may cover you for one of the following situations:",
+      OP_CP_P_these_coverage                            :   "These coverages are available to you and your spouse.",
+      OP_CP_P_if_you_qualify                            :   "If you qualify for these benefits, Credit Protector may pay down your outstanding balance with a one-time, lump sum payment, up to the maximum benefit of $20,000.",
+      OP_CP_Li_1_may_cover_your                         :   "May cover you or your spouse if either of you becomes sick causing a life expectancy of less than 12 months from the time of diagnosis.",
+      OP_CP_li_2_you_or_your_spouse                     :   "You or your spouse <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits for a pre-existing condition, which means experiencing symptoms or treatment during the past six months and diagnosis of a terminal illness within the first six months of enrolment.",
+      OP_CP_Li_3_in_the_event                           :   "In the event of simultaneous terminal illness of both the Primary Cardmember and the Primary Cardmember’s spouse, only one benefit will be paid.",
+      OP_CP_P_life_and_dismemberment                    :   "Life and Dismemberment",
+      OP_CP_Li_2_1_may_cover                            :   "May cover you or your spouse in the case of a death, loss of sight in one eye, or the loss of a hand or foot.",
+      OP_CP_Li_2_2_you_or_your                          :   "You or your spouse <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for a Life benefit if the death is due to suicide or self-inflicted injury within six months of enrolment.",
+      OP_CP_Li_2_3_to_be                                :   "To be eligible for Life and Dismemberment you or your spouse must be under 80 years old.",
+      OP_CP_Li_2_4_At_age                               :   "At age 80, your Life and Dismemberment coverage is replaced by <span style=\"font-weight: bold;\">Accidental Death and Accidental Dismemberment</span>, which means you or your spouse die or suffer a dismemberment directly caused by an accident. If the death of the Primary Cardmember and the Primary Cardmember’s spouse occur simultaneously, only one benefit will be paid.",
+      OP_CP_P_involuntary                               :   "Involuntary Unemployment and Total Disability",
+      OP_CP_P_INVO_if_you_qualify                       :   "If you qualify for these benefits, Credit Protector may make your monthly payments equal to 5% of your outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
+      OP_CP_P_both_the_coverage                         :   "To be eligible for both these coverages, you must be working permanently for salary or wages at least 25 hours a week or more for a single employer.",
+      OP_CP_P_qualify_for_benifits                      :   "You <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits if you lose a temporary or contract job; at the end of normal seasonal employment; or if you are convicted of a crime.",
+      OP_CP_P_may_cover_you_if                          :   "May cover you if you lose your job for at least 30 days through no fault of your own, such as, layoff or strike, or, if you are self-employed, bankruptcy started by your creditors.",
+      OP_CP_Li_total_diasability                        :   "May cover you if you become totally disabled and are unable to work fully for at least 30 days, and are treated by a qualified physician.",
+      OP_CP_Li_3_1_monthly                              :   "Monthly premium is <span style=\"font-weight: bold;\">$1.10 for every $100 of your Average Daily Balance</span>, plus applicable taxes, billed monthly to your credit card account.",
+      OP_CP_Li_3_2_at_age_80                            :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
+      OP_CP_Li_3_3_depending                            :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
+      OP_CP_Li_4_1_if_you_have                          :   "&#45; If you have not used your card that month and;",
+      OP_CP_Li_4_2_have_not_carried                     :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments or;",
+      OP_CP_Li_4_3_your_average                         :   "&#45; if your Average Daily Balance  for the month is less than $10.",
+      OP_CP_call_the_insurance                          :   "Call the insurers at <span style=\"font-weight: bold;\">1-800-480-1853</span>. This number can also be found on your Certificate of Insurance.",
+      OP_CP_Li_5_if_you_enroll_today                    :   "If you enrol today, we will create a customer file and share that information with the insurers so your coverage begins immediately.",
+      OP_CP_Li_6_1_when                                 :   "&#45; when the Canadian Tire Bank issued credit card is cancelled;",
+      OP_CP_Li_6_2_the_account                          :   "&#45; the account becomes 90 days past due;",
+      OP_CP_Li_6_3_one_or_more                          :   "&#45; one or more of the Master Policies are cancelled;",
+      OP_CP_Li_6_4_your_life                            :   "&#45; your Life, Accidental Death, or Terminal Illness benefit is paid;",
+      OP_CP_Li_6_5_the_date                             :   "&#45; the date the primary cardmember dies;",
+      OP_CP_Li_6_6_or_when_you                          :   "&#45; or when you request cancellation of the insurance, which you can do any time by calling the number on the back of the Certificate of Insurance, or the number on the back of your Canadian Tire Bank issued credit card, <span style=\"font-weight: bold;\">or in the Distribution Guide for residents of Quebec.</span>",
+      OP_CP_Li_welcome_package                          :   "A welcome package, including a Certificate of Insurance, will be sent to you in the mail within the next two weeks. <span style=\"font-weight: bold;\">A Distribution Guide will also be sent for residents of Quebec.</span>",
+      OP_CP_Li_eligibility_requirement                  :   "Eligibility requirements, limitations and exclusions apply, and vary by benefit. Please read your Certificate of Insurance carefully and keep it in a safe place with your other important documents.",
+      OP_CP_Li_7_1_you_can_cancel                       :   "You can cancel this insurance at any time by calling the number on the back of your  card.",
+      OP_CP_Li_7_2                                      :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">within</span> the first 45 days, of issuance of the Certificate of Insurance, you will receive a refund for any premium paid.",
+      OP_CP_Li_7_3                                      :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">after</span> the first 45 days, you will be refunded any unearned premium, if applicable.",
+    //--CP offer details ends
+      
+      //-- IW offer details starts 
+      OP_IW_title                                       :   "Identity Watch Classic<sup>&reg;</sup>",
+      OP_IW_bold                                        :   "Mandatory Disclosure <span>&mdash; Must be read in full prior to completing an enrolment</span>",
+      OP_Iw_small                                       :   "&mdash; Must be read in full prior to completing an enrolment",
+      OP_IW_disclosure                                  :   "Identity Watch Classic<span class=\"radio_sup\">&reg;</span> Disclosure",
+      OP_IW_eligibility                                 :   "Eligibility",
+      OP_IW_P_subscription                              :   "The subscription is effective as of the enrolment date indicated on your welcome letter, which is included in the Identity Watch Classic welcome package. You are eligible to receive benefits as of the enrolment date indicated on your welcome letter as long as your subscription remains current. Eligibility for the benefits also requires you to be a current Identity Watch Classic subscriber at the time the applicable event occurs.",
+      OP_IW_P_when_you_enrole                           :   "When you enrol in this product you will receive a full list of the available benefits, along with details on how to register your information, and complete Terms and Conditions in your welcome package. It will take approximately 7-10 days to arrive in the mail. Please ensure you review all this information.",
+      OP_IW_P_benifits_are                              :   "Benefits are available to you, your spouse and any dependent child(ren) up to age 21 who are living at your home or are still in school (&ldquo;eligible family&rdquo;).",
+      OP_Iw_P_identity_fraud                            :   "Identity Fraud Protection/Online Monitoring Service",
+      OP_IW_P_these_service_currently                   :   "This service, currently called &lsquo;Internet Personal Information Patrol<sup>&reg;</sup>&rsquo; or &lsquo;iPiP<sup>&reg;</sup>&rsquo; is an online data monitoring tool that routinely scours the internet’s public search engines, news groups and blogs and notifies you via email of any activity that matches the information you have registered online with this service. You can simply register the information online at www.identitywatchclassic.ca. Information that can be registered includes credit card and debit card numbers, social insurance numbers, and/or other valuable information. Terms and conditions apply. <span style=\"font-weight: bold;\">Note: There may be inaccuracies in content or delays in identification of reportable incidents and/or delivery of notification with respect to iPiP.</span>",
+      OP_IW_P_service_assist                            :   "This service will assist you and eligible family members from the moment you or your family report a lost/stolen credit or registered debit card. Identity Watch Classic will begin to contact the applicable card issuer(s), ask them to cancel your card(s) and request that replacement card(s) be sent to you as soon as possible. <span style=\"font-weight: bold;\">Note: Some card issuers have rules and/or regulations that may prevent us from cancelling cards or requesting a replacement card(s). For full details about the services, please refer to the Subscription Terms and Conditions.</span>",
+      OP_IW_P_service_will_allow                        :   "This service allows you to adhere stickers with a unique ID# to your valuables. If an item bearing a sticker is lost, its finder is directed to contact Aimia, who will arrange for the item to be picked up and returned to you and for payment of a fifty dollar ($50.00) reward to the finder. Terms and conditions apply.",
+      OP_IW_P_you_are_eligible_to                       :   "You are eligible to be reimbursed up to seventy-five dollars ($75.00), inclusive of taxes, per subscription year towards the cost of tuning up your computer. The request for reimbursement as well as the original receipt must be submitted within 30 days of the computer tune-up being performed.",
+      OP_IW_P_subscription_fee                          :   "Subscription fee of $4.99, plus applicable taxes, will commence after the first transaction is made on the Canadian Tire Bank issued credit card. Thereafter, the subscription fee will be charged in advance monthly to the Canadian Tire Bank issued credit card. To ensure uninterrupted service, your subscription will automatically renew until you cancel. Your credit card will be charged at the then current rate on the renewal date. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
+      OP_IW_P_cancel_by_customer                        :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and their subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
+      OP_IW_P_cancel_by_aimia                           :   "<span style=\"font-weight: bold;\">Cancellation by Aimia:</span> The subscription may be cancelled by Aimia if the account is not in good standing or if the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, are not paid, or if you or your eligible family are found to be engaging in fraud or otherwise misusing the Benefits. Aimia also reserves the right to terminate subscriptions for any reason on 30 days prior written notice. Upon cancellation of your subscription, for any reason, the information you or your family have provided to receive the benefits will no longer be accessible by you or your family.",
+      OP_Iw_P_IW_is_optional                            :   "Identity Watch Classic is an optional product and is offered separately from the Canadian Tire Bank issued MasterCard and it is not required to obtain the Canadian Tire Bank issued MasterCard. If you have applied for a Canadian Tire Bank issued MasterCard and are approved, you will be charged the Identity Watch Classic subscription fee in the amount and time period specified. (Note: Please see above.)",
+      OP_IW_P_classic_program                           :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc. &#40;&#34;Aimia&#34;&#41;.",
+      OP_IW_P_please_read                               :   "Please read the Identity Watch Classic Subscription Terms and Conditions and benefits Guide, which are included in the welcome package for further details.",
+      OP_IW_P_CC                                        :   "We will pay a three thousand dollar ($3,000) reward for information leading to the arrest and conviction of anyone fraudulently using your credit or registered debit card(s). You, your family and law enforcement personnel are not eligible to receive a reward. Those eligible to receive the reward must contact Aimia to complete and return a Reward Claim Form.",
+      //-- IW offer details ends 
+      OP_Not_at_this_time                               :   "Not at this time",
+      
+      //Footer part of  optional products starts 
+      OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; These are optional products offered to all customers approved for a Canadian Tire Bank issued MasterCard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued MasterCard and not for the optional products, which are offered to all Canadian Tire Bank issued MasterCard cardmembers.",
+      OP_FT_business_name                               :   "Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
+      OP_FT_unless                                      :   "&reg;/&trade; Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
+      OP_FT_CP                                          :   "&reg;/&trade; Credit Protector is a registered trademark of Canadian Tire Bank.",
+      OP_FT_IW_programs                                 :   "The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.",
+      OP_FT_internet                                    :   "&reg;/&trade; Internet Personal Information Patrol&reg;, iPiP&reg; and Rebound&reg; are registered trademarks of Aimia Proprietary Loyalty Canada Inc.",
+      OP_FT_assurant                                    :   "&reg; Assurant is a registered trademark of Assurant, Inc.",
+      OP_FT_mastercard                                  :   "&reg;/&trade; MasterCard, and the MasterCard Brand Mark are registered trademarks of MasterCard International, and are used under licence.",
+      //Foooter part of optional products ends 
+    //US4131
 	// Old line
 	/*
 	optionalProducts_SellingLanguageText                :   "<p><strong>Credit Protector<sup>&reg;**</sup>/Credit Protector - <em>Senior<sup>&reg;</sup>***</em></strong><em><br/>(not available for residents of Saskatchewan)</em></p>" +
@@ -1248,7 +1472,7 @@ WICI.dictionary_en =  {
         "<div style=\"font-size: 10pt\"><p>* Plus applicable taxes, payable monthly. See the Legal Information handout and your Certificate of Insurance for all exclusions, restrictions, limitations, terms and conditions.</p>" +
         "<p> ** If you are less then age 66, you will be enrolled in Credit Protector. At age 66, the Life and Dismemberment coverage becomes Accidental Death and Dismemberment coverage.</p>" +
         "<p>***If you are between the ages of 66-75 you will be enrolled in Credit Protector - <em>Senior. </em>Please note:<em> </em>Involuntary Unemployment and Total Disability coverage is not included in    <em> Credit Protector &#8211; Senior</em>. At age 76, the Life and Dismemberment coverage becomes Accidental Death and Dismemberment coverage.</p>" +
-        "<p>Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. Credit Protector-    <em>Senior</em> is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name Assurant Solutions<sup>&reg;</sup>.</p></div>" +
+        "<p>Credit Protector is underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. Credit Protector-    <em>Senior</em> is underwritten by American Bankers Life Assurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name Assurant<sup>&reg;</sup>.</p></div>" +
         "<hr/><br/><p><strong>Identity Watch Classic<sup>TM</sup><em></em></strong></p>" +
         "<p>Help safeguard you and your family's private and valuable information." +
         "<br/> - Online monitoring of your registered personal information****" +
@@ -1256,7 +1480,7 @@ WICI.dictionary_en =  {
         "<br/> - A Computer Tune-Up Reimbursement of up to $75, inclusive of taxes, per subscription year****" +
         "<br/> - Rebound<sup>&reg;</sup> Asset Return Service**** which may help you recover lost or stolen items" +
         "<br/> - Costs $4.99**** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</p>" +
-        "<p>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the Welcome Package.</p>" +
+        "<p>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the welcome package.</p>" +
         "<div style=\"font-size: 10pt\"><p>**** Plus applicable taxes. Subscription fees will commence after the first transaction is made on your Canadian Tire branded credit card. Thereafter, " +
         "Subscription Fees will be charged in advance monthly to your Canadian Tire branded credit card. See the Legal Information handout for all terms, " +
         "conditions, limitations and exclusions. Terms and conditions apply.</p>" +
@@ -1277,7 +1501,7 @@ WICI.dictionary_en =  {
         "<p>Credit Protector Insurance is group creditor insurance underwritten by American Bankers Life Assurance Company of Florida (ABLAC) and American Bankers Insurance Company of Florida (ABIC). ABLAC , ABIC, their subsidiaries and affiliates carry on business in Canada under the name Assurant Solutions<sup>&reg;</sup>.</p>",
         /*"<p><sup>&reg;</sup> Assurant Solutions is a registered trademark of Assurant, Inc.</p>" +
         "<p><sup>&reg;</sup> Credit Protector is a registered trademark of Canadian Tire Bank.</p>"+
-        "<p><sup>&reg;</sup>/<sup>&trade;</sup> Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited.</p></div><hr/><br/>", */
+        "<p><sup>&reg;</sup>/<sup>&trade;</sup>  are owned by Canadian Tire Corporation, Limited.</p></div><hr/><br/>", */
         
     // UAT 39 - CP Revitalization, Missed Requirement
     optionalProducts_SellingLanguageText                :   "<p><strong>Identity Watch Classic<sup>&reg;</sup><em></em></strong></p>" +
@@ -1289,7 +1513,7 @@ WICI.dictionary_en =  {
         "<br/> - Costs $4.99** payable in advance monthly after the first transaction is made on your Canadian Tire branded credit card.</p>" +
         "<p>Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time. If you cancel within the first 30 days of your enrolment date, Canadian Tire Bank will refund your paid subscription fees, after the first transaction is made on your card. If you cancel after the initial 30 days, your cancellation will be effective as of the last day of your billing cycle, or 30 days after the cancellation is received, whichever is earlier. If you cancel you are responsible for any fees or changes incurred as a result of the services offered through an internet provider or their party service provider.</p>" +
         "<div style=\"font-size: 10pt\"><p><sup>**</sup> Plus applicable taxes. Subscription fees will commence after the first transaction is made on your Canadian Tire Bank issued credit card. Thereafter, Subscription Fees will be charged in advance monthly to your Canadian Tire Bank issued credit card. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.</p></div>" +        
-        "<p>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the Welcome Package.</p>" ,
+        "<p>If you enrol in Identity Watch Classic, your subscription will be effective as of the enrolment date indicated on your Welcome Letter, which is included in the welcome package.</p>" ,
         /* "<p>The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Aimia Proprietary Loyalty Canada Inc.</p></div>", */
     end                                                 : ""
 };

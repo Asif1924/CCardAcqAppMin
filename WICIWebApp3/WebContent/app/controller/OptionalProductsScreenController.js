@@ -58,7 +58,9 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         optionalProducts_CP_Table       :   '#optionalProducts_CP_Table',
         optionalProducts_CP_Agreement   :   '#optionalProducts_CP_Agreement',
         optionalProduct_CP_AcceptBox	:	'#optionalProduct_CP_AcceptBox_Area',
-
+        optionalProduct_CP_description  :   '#section_1',
+        optionalProduct_CP_title        :   '#title_1',
+        
         optionalProducts_IW_Item		:   '#optionalProductsIdentityWatchItem',
         optionalProducts_IW_Area        :   '#optionalProducts_IW_Area',
         optionalProducts_IW_Table       :   '#optionalProducts_IW_Table',
@@ -66,6 +68,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         optionalProducts_IW_Lable       :   '#optionalProducts_IW_TextField',
         optionalProducts_IW_Agreement   :   '#optionalProducts_IW_Agreement',
         optionalProduct_IW_AcceptBox	:	'#optionalProduct_IW_AcceptBox_Area',
+        optionalProduct_IW_title        :   '#title_IW',
 
         optionalProducts_NA_Item		:   '#optionalProductsNACheckFieldItem',
         optionalProducts_NA             :   '#optionalProducts_NA_CheckField',
@@ -138,7 +141,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         createFlips();
 
         // US4083 - Code changes Reverted
-        removePAandCPifSKProvince();
+   		// removePAandCPifSKProvince();
 
         // US4168
         hidePAandCPAgeRestriction();
@@ -618,6 +621,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             $(refs.optionalProducts_CP).attr('checked', false);
             $(refs.optionalProducts_CP_Table).hide();
             $(refs.optionalProducts_CP_Agreement).attr('checked', false);
+            $(refs.title_IW).show();
         };
     }
     //---------------------------------------------------------------------------------------
@@ -640,6 +644,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             $(refs.optionalProducts_CP_Agreement).attr('checked', false);
             $(refs.optionalProducts_CPInsurance).hide();
             $(refs.optionalProducts_TC25_CP_Text).hide();
+            $(refs.optionalProduct_CP_description).hide();
+            $(refs.optionalProduct_title_arrow_cp).hide();
+            $(refs.title_IW).show();
+            $(refs.optionalProduct_CP_title).hide();
         }
     	
     }
