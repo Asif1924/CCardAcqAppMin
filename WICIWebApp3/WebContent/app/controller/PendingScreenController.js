@@ -249,6 +249,9 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         
         console.log(logPrefix + sMethod + " attempting to retrieve pending application for "+argToken+","+argPhoneNumber);
         
+        // US4282
+        activationItems.setHomePhone(argPhoneNumber);
+        console.log(logPrefix + sMethod + " pendingScreenPhoneNumber :: " + activationItems.getHomePhone());
     	
     	if( pendingScreenState==="RETRIEVEPEND" ){
 

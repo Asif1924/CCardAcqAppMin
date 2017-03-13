@@ -11,6 +11,7 @@ WICI.MessageDialog = function(translate){
 	this.printerSetup = printerSetup;
 	this.scan = scan;
 	this.scanLoyalty = scanLoyalty;
+	this.homePhone = homePhone;
 
 	function error(message, title, callback, uiDecoration, dialogTemplateOverride){
 		console.log("MessageDialog.error: message=" + message);
@@ -22,6 +23,18 @@ WICI.MessageDialog = function(translate){
 				uiDecoration,
 				determineDialogTemplate(dialogTemplateOverride));
 		dialogQueue.enqueue(dialog);
+	}
+	// US4282 
+	function homePhone(messageOne,messageTwo, yesCallback, noCallback, title, yesButton, noButton) {
+		var dialog = new WICI.HomePhoneConfirmReprintMessageDialog(
+		        messageOne,
+		        messageTwo,
+                buildTitle(title, "homePhoneMessage_Title"),
+                buildCallback(yesCallback),
+                buildCallback(noCallback),
+                buildButton(yesButton, "homePhoneConfirmButton"));
+		dialogQueue.enqueue(dialog);
+		return dialog;
 	}
 
 	function info(message, title, callback, uiDecoration, dialogTemplateOverride){

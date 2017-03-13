@@ -56,6 +56,9 @@ WICI.CreditCardApplicationData = function() {
 		'OTHE' : 'supCardRequest_Other'
 	};
 
+	// US4282
+	var homePhone = null;
+	
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
 
@@ -82,12 +85,20 @@ WICI.CreditCardApplicationData = function() {
 
 	// //////////////////////////////////////////////////////////////////////
 
+	this.setHomePhone = function(argHomePhone) {
+		homePhone = argHomePhone;
+	};
+	
 	this.setAccountApplicationResponse = function(argResponseObject) {
 		accountApplicationResponse = argResponseObject;
 	};
 
 	this.setNewAccountApplicationResponse = function(argResponseObject) {
 		newAccountApplicationResponse = argResponseObject;
+	};
+	
+	this.getHomePhone = function() {
+		return homePhone;
 	};
 	
 	this.getAccountApplicationResponse = function() {

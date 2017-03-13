@@ -16,6 +16,13 @@ WICI.dictionary_fr =  {
 	confirmDialog_defaultTitle                        :                         "Confirmer",
 	confirmDialog_yes                                 :                         "Oui",
 	confirmDialog_no                                  :                         "Non",
+	
+	// US4282 starts
+	homePhoneMessage_Title                            :                         "Requisition de réimpression", 
+	homePhoneInputTitle_one                          :                         "Veuillez saisir le numéro de téléphone résidentiel ",
+	homePhoneInputTitle_two                          :                         "du client pour réimprimer une carte temporaire",
+	homePhoneConfirmButton                           :                         "Valider",
+	// US4282 ends
 
 	settings 			                              :                         "Paramètres",
 	settings_logOutButton                             :                         "Déconnexion ",

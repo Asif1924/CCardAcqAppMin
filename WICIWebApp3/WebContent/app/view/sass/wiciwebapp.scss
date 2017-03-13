@@ -495,8 +495,18 @@ html,body {
   min-height: 100% !important;
   background: transparent !important;
 }
+//US4282
+.ui-dialog_homePhone{
+  min-height: 80% !important;
+  background: transparent !important;
+}
 
-
+.ui-page_homePhone {
+  outline: none;
+  min-height:80%;
+  height:80%;
+}
+//US4282
 /*-------END: Dialog Stuff ------*/
 
 /*------------BEGIN Table-Related-Stuff------------*/
@@ -2088,6 +2098,55 @@ div.ui-slider-switch
 .warningTable tr td{
   border: 0;
 }
+
+// US4282 starts 
+.homePhoneInput 
+{
+  float: left;
+  width: 70px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.homePhoneInputLast{
+  float: left;
+  width: 90px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.homePhoneTitleTable {
+  width :100%;
+  background-color: rgb(236, 236, 236);
+  border: 0;
+  padding: 0;
+  margin:0;
+ tr {
+  td {
+    border: none;
+    border: none;
+    border-spacing: 0;
+
+  }
+}
+}
+.homePhoneTable{
+  width :60%;
+  background-color: rgb(236, 236, 236);
+  border: 0;
+  padding: 0;
+  margin:0;
+ tr {
+  td {
+    border: none;
+    border: none;
+    border-spacing: 0;
+
+  }
+}
+}
+// US4282 ends 
+
 .warningText{
   color: red;
   text-align:left;

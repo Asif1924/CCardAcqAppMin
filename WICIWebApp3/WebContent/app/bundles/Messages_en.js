@@ -38,6 +38,13 @@ WICI.dictionary_en =  {
 
 	incorrect_Apk_Version_Dialog						: 	"Your application is out of date and requires an update. The application will close automatically. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
 	unauthorized_Device									: 	"This device is unauthorized. The application will close automatically.",
+	
+	// US4282 starts
+	homePhoneMessage_Title                              :   "Reprint Request", 
+	homePhoneInputTitle_one                             :   "Please enter customer home phone ",
+	homePhoneInputTitle_two                             :   "number for temporary card reprint",
+	homePhoneConfirmButton                              :   "Ok",
+	// US4282 ends
 
 	addressLookup_failedMessage							:	"Address Lookup Failed. Please Try Again.",
 	addressLookup_noResults								:	"No results found. Please Try Again.",
@@ -285,7 +292,8 @@ WICI.dictionary_en =  {
     IdTypesList_BI										:   'BIRTH CERTIFICATE',
     IdTypesList_CI										:   'CANADIAN CITIZENSHIP CARD',
     IdTypesList_PA										:   'PASSPORT',
-    IdTypesList_IN										:   'CERTIFICATE OF INDIAN STATUS',
+    // US4287
+    IdTypesList_IN										:   'CERTIFICATE OF INDIAN STATUS CARD',
     IdTypesList_RE										:   'RECORD OF LANDING',
     
     IdTypesList_BC										:   'BRITISH COLUMBIA ID CARD',

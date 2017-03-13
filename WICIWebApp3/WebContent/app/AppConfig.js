@@ -58,11 +58,16 @@ WICI._AppConfig = function() {
 	};
 	// US4164
 	this.approvedPrintConfig = {
-			MAX_APPROVED_PRINT_RETRIES:	1,
-			TEST_PRINT_ON_LOGIN: false,
-			timeout: 180*1000,
-			dialogTimeout: 2*60*1000
-		};
+		MAX_APPROVED_PRINT_RETRIES:	1,
+		TEST_PRINT_ON_LOGIN: false,
+		timeout: 180*1000,
+		dialogTimeout: 2*60*1000
+	};
+	
+	// US4282
+	this.homePhoneDisplayConfig = {
+		MAX_HOME_PHONE_DISPLAY:	1
+	};
 
 	this.defaultPrinterMacAddress = null;
 

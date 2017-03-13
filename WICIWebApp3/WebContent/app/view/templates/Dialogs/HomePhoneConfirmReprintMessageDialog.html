@@ -1,0 +1,51 @@
+<script id="homePhoneConfirmMessageDialog-template" type="text/x-jquery-tmpl">
+<div data-role="dialog" id="messageDialog" class=".ui-page_homePhone ui-body-c ui-overlay-a ui-dialog_homePhone ui-page-active" role="dialog">
+	<div data-role="header" data-theme="d" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-d" role="banner">
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">${title}</h1>
+	</div>
+	<div data-role="content" data-theme="c"	class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c dialogFixes" role="main">
+		<p>
+			<center>
+				
+				   <h3>${mainLabel_one} <br>
+				       ${mainLabel_two}
+				   </h3>
+			       <!-- <h3>${mainLabel_two}</h3> -->
+				<!-- <span class="locationDetailsFont">
+					<table class="homePhoneTitleTable">
+					<tr>
+					<td width="40%">
+					    <label  for="homephoneVerify">Home phone </label>
+					</td>
+					<td width="60%">    
+     					<input size="10" type="tel" id="homePhone" tabindex="1" maxlength="10" />
+     				</td>	
+     				</tr>
+     				</table>
+				</span>  -->
+				<span class="locationDetailsFont">
+				 <table class="homePhoneTable">
+					<tr>
+					<td width="30%">
+     					<input size="3" class="homePhoneInput" type="tel" id="homePhone1" tabindex="1" maxlength="3" >
+     				</td>	
+     				<td width="30%">
+     				    <input size="3" class="homePhoneInput" type="tel" id="homePhone2" tabindex="2" maxlength="3" >
+     				</td>
+     			    <td width="40%">
+     			        <input size="4" class="homePhoneInputLast" type="tel" id="homePhone3" tabindex="3" maxlength="4" >
+     			    </td>   
+     				
+     				</tr>
+     				</table>
+				</span>
+	
+				
+			</center>
+		</p>
+		<div class="dialogButtonContainer">
+			<a href="#" id="confirm_confirmButton" data-rel="back" data-role="button" data-theme="c">${yesButton}</a>
+		</div>
+	</div>
+</div>
+</script>

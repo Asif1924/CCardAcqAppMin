@@ -8,6 +8,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     var	flow = null;
     var testPrintFailedAttempts = 0;
     var approvedPrintFailedAttempts = 0;
+    var homePhoneDisplayAttempt = 0;
     
     var appStatus = "";
     var tokenValue;
@@ -16,6 +17,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     var fromPendScreen = false;
     var self = this;
     var employerID;
+    var homePhonePersonalInfo = "";
     
     this.show = show;
     this.hide = hide;
@@ -49,6 +51,9 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         respAn = new WICI.PollingResponseAnalyzer();        
         tokenValue = respAn.getRetrievalToken(activationItems.getNewAccountApplicationResponse());
         employerID = activationItems.getModel('loginScreen').get('employerID');
+        homePhonePersonalInfo = activationItems.getHomePhone();
+        
+        console.log(logPrefix + sMethod + " homePhonePendingInfo : " + activationItems.getHomePhone() + " : " + homePhonePersonalInfo );
         
         if(argPendScreenInfo){
             console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);
@@ -75,6 +80,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         testPrintFailedAttempts = 0;
         approvedPrintFailedAttempts = 0;
+        homePhoneDisplayAttempt = 0;
         createView();
         $(refs.tokenField).val(tokenValue);
         $(refs.printButton).hide();
@@ -438,14 +444,28 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'printFileSuccess() ';
         console.log(logPrefix + sMethod);
         
-        rePrintAttemptCheck();
+        // US4414 & US4282
+        console.log(logPrefix + sMethod + " employerID :: " + employerID);
+        if(employerID != "E") {
+        	rePrintAttemptCheck();
+        } else {
+        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        }
     }
     //---------------------------------------------------------------------------------------
     function printFileFailure() {
         var sMethod = 'printFileFailure() ';
         console.log(logPrefix + sMethod);
         
-        rePrintAttemptCheck();
+        new WICI.LoadingIndicatorController().hide();
+        
+        // US4414 & US4282
+        console.log(logPrefix + sMethod + " employerID :: " + employerID);
+        if(employerID != "E") {
+        	rePrintAttemptCheck();
+        } else {
+        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        }
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileSuccess(result) {
@@ -460,6 +480,36 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod);
         
         new WICI.LoadingIndicatorController().hide();
+    }
+    //---------------------------------------------------------------------------------------
+    // US4282
+    function homePhoneDisplayAttemptCheck() {
+    	var sMethod = 'homePhoneDisplayCheck() ';
+    	console.log(logPrefix + sMethod + " homePhoneDisplayAttempt : " + homePhoneDisplayAttempt);
+	    if (homePhoneDisplayAttempt > WICI.AppConfig.homePhoneDisplayConfig.MAX_HOME_PHONE_DISPLAY - 1) {
+	    	homePhoneDisplayAttempt = 0;
+	      	new WICI.LoadingIndicatorController().hide();
+	    } else {
+	        ++homePhoneDisplayAttempt;
+	        console.log(logPrefix + sMethod + " homePhoneDisplayAttempt else condition : " + homePhoneDisplayAttempt);
+	        homePhoneDisplaycheck();  
+	    }        
+    }
+    //---------------------------------------------------------------------------------------
+    function homePhoneDisplaycheck() {
+    	var sMethod = 'homePhoneDisplaycheck() ';
+    	var cardType = activationItems.getModel('chooseProductModel').get('productCard');
+        console.log(logPrefix + sMethod + " employerID : " + employerID + " cardType : " + cardType);
+         var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+         appStatus = respAn.getAppStatus(activationItems.getAccountApplicationResponse());   
+        
+     	if(appStatus == "APPROVED" && employerID != "E" && (cardType == "OMC" || cardType == "OMP" || cardType == "OMR") ) {
+      		 messageDialog.homePhone(translator.translateKey("homePhoneInputTitle_one"),translator.translateKey("homePhoneInputTitle_two"), homePhoneconfirmYes, translator.translateKey("homePhoneMessage_Title")); 
+       	} else {
+       		// No homephone display  other than FMR and OMC/OMP/OMR.
+            // Don't show homePhoneDialog . Hide dialog. 
+       		new WICI.LoadingIndicatorController().hide();
+      	}
     }
     //---------------------------------------------------------------------------------------
     function rePrintAttemptCheck() {
@@ -534,10 +584,12 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var cardType = activationItems.getModel('chooseProductModel').get('productCard');
         console.log(logPrefix + sMethod + " cardType : " + cardType);
         
-        if(appStatus == "APPROVED" && cardType == "OMC") {
-        	WICI.BluetothHelper.toggle().done(rePrintFile).fail(alert);
+        // US4414
+        if(employerID != "E" && appStatus == "APPROVED" && (cardType == "OMP" || cardType == "OMR" || cardType == "OMC")) {
+             new WICI.LoadingIndicatorController().hide();
+             messageDialog.homePhone(translator.translateKey("homePhoneInputTitle_one"),translator.translateKey("homePhoneInputTitle_two"), homePhoneconfirmYes, translator.translateKey("homePhoneMessage_Title"));
         } else {
-        	WICI.BluetothHelper.toggle().done(printFile).fail(alert);
+        	printFile();
         }        
         
     }
@@ -560,4 +612,69 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 
         app.accountProfileHelper.showNoPrinterSetupWarning ();
     }
+    // US4282 Starts
+    function homePhoneconfirmYes(homePhone){
+      var sMethod = "homePhoneconfirmYes() :: ";
+      console.log(logPrefix + sMethod);
+      
+      console.log(logPrefix + sMethod + " homePhone : "+homePhone);
+      
+      console.log(logPrefix + sMethod + " employerID :: " + employerID + " appStatus :: " + appStatus);
+        if(argPendScreenInfo) {
+            console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);            
+            if(argPendScreenInfo.activationItemsFromServer){
+            	activationItemsFromServer = argPendScreenInfo.activationItemsFromServer;
+            	fromPendScreen = argPendScreenInfo.fromPendScreen;
+            }	
+            
+            console.log(logPrefix + sMethod + " fromPendScreen : " + fromPendScreen);
+            if( fromPendScreen ) {
+            	var currentAccountApplicationResponse =  respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse);
+            	var newAccountApplicationResponse = argPendScreenInfo.accountApplicationResponse;
+            	
+            	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems( activationItemsFromServer );
+            	activationItems.setAccountApplicationResponse(currentAccountApplicationResponse);
+            	activationItems.setNewAccountApplicationResponse(newAccountApplicationResponse);
+            	
+            	console.log(logPrefix + sMethod + "  activationItems.getAccountApplicationStatus()=" + activationItems.getAccountApplicationStatus());
+            	
+            	appStatus = respAn.getAppStatus(respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse));
+                console.log(logPrefix + sMethod + "app response = " + appStatus );
+            }
+        }
+        
+        var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+        appStatus = respAn.getAppStatus(activationItems.getAccountApplicationResponse());        
+        console.log(logPrefix + sMethod + "appStatus = " + appStatus );
+        
+        var cardType = activationItems.getModel('chooseProductModel').get('productCard');
+        console.log(logPrefix + sMethod + " cardType : " + cardType);
+            
+         // homePhonePersonalInfo = activationItems.getModel('personalData').get('homePhone');
+		console.log(logPrefix + sMethod + " homePhonePersonalInfo : " + homePhonePersonalInfo ); 
+	   
+	        if(homePhone !== null && homePhonePersonalInfo !== null){	      
+	            if(homePhone === homePhonePersonalInfo){
+	                
+	                // check for status and card type then print 
+	            	var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+	                appStatus = respAn.getAppStatus(activationItems.getAccountApplicationResponse());        
+    	            console.log(logPrefix + sMethod + "appStatus = " + appStatus );
+        
+                	var cardType = activationItems.getModel('chooseProductModel').get('productCard');
+	                console.log(logPrefix + sMethod + " cardType : " + cardType);
+	                
+	                if(employerID != "E" && appStatus == "APPROVED" && cardType == "OMC") {
+        	             rePrintFile();
+              	    } else {
+              	         printFile();
+              	    }	    
+	      }
+	      else{
+	          homePhoneDisplayAttemptCheck();
+	      }
+	  }
+      
+}
+// US4282 Ends 
 };

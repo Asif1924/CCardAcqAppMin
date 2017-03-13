@@ -4,6 +4,7 @@ WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, ye
 	var dialogViewHelper = new WICI.DialogViewHelper(),
 	 	answerIsYes = false,
 	 	showing = false;
+    var checkDialogClose = false;	 	
 
 	this.isShowing = isShowing;
 	this.show = show;
@@ -39,20 +40,44 @@ WICI.ConfirmMessageDialog = function(message, yesCallback, noCallback, title, ye
 	}
 
 	function addEvents(showNextDialogCallback) {
-		// DANGER, we use .one( but remember to make sure the events don't stack up if making changes
+		// DANGER, we use .one( but remember to make sure the events don't stack up if making changes		
+		checkDialogClose = true;
+		console.log("checkDialogClose"+checkDialogClose);
+		
 		$("#confirm_confirmButton").one("click", function(event){
 			answerIsYes = true;
+			checkDialogClose = false;
 		});
-
+   
+       $("#confirm_cancelButton").one("click", function(event){
+			answerIsYes = false;
+			checkDialogClose = false;			
+		});
+                       
 		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', {restrictNoCallbackOnClose: restrictNoCallbackOnClose}, function(event) {
 			dialogViewHelper.removeDialog();
 			try {
-				if (answerIsYes)
-					yesCallback();
-				else
-					if (!event.data.restrictNoCallbackOnClose.value) {
-						noCallback();
-					}
+			    
+				if (answerIsYes){
+				     checkDialogClose = false;
+				     console.log("checkDialogClose"+checkDialogClose);
+				     console.log("answerIsYes" + answerIsYes +"yesCallback()");
+					 yesCallback();
+				}	
+				else {
+				        if(!checkDialogClose){
+				           checkDialogClose = false;
+				           if (!event.data.restrictNoCallbackOnClose.value) {
+					           console.log("answerIsYes" + answerIsYes +"noCallback()");
+						       noCallback();
+					       } 
+					     }else{
+					         console.log("checkDialogClose"+checkDialogClose);
+				             console.log("answerIsYes" + answerIsYes +"yesCallback()");
+					         yesCallback();
+					     }
+				}
+				
 			} catch (e) {
 				console.log("Internal WICI error after Confirm dialog box");
 			}

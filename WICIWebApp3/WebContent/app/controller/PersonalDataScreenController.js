@@ -440,6 +440,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
         currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
 
+		// US4282
+        activationItems.setHomePhone(currModel.get('homePhone'));
+        console.log(logPrefix + sMethod + " PersonalData HomePhone : " + activationItems.getHomePhone());
+        
         currModel = models.addressModel;
 
         currModel.set('postalcode',     $(refs.postalcode).val().toUpperCase());
