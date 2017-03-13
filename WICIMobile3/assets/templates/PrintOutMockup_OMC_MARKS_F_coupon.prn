@@ -44,8 +44,8 @@
 ^FT35,1262^A0N,14,14^FH\^FDBanque Canadian Tire.^FS
 ^FT35,1296^A0N,14,14^FH\^FD           Sauf indication contraire, toutes les marques de commerce sont la ^FS
 ^FT35,1313^A0N,14,14^FH\^FDpropri\82t\82 de La Soci\82t\82 Canadian Tire Limit\82e et sont utilis\82es sous licence.^FS
-^FT35,1347^A0N,14,14^FH\^FD           MasterCard et la marque figurative de MasterCard sont des marques ^FS
-^FT35,1364^A0N,14,14^FH\^FDde commerce d\82pos\82es de MasterCard International Incorporated, et sont ^FS
+^FT35,1347^A0N,14,14^FH\^FD           Mastercard et la marque figurative de Mastercard sont des marques ^FS
+^FT35,1364^A0N,14,14^FH\^FDde commerce d\82pos\82es de Mastercard International Incorporated, et sont ^FS
 ^FT35,1381^A0N,14,14^FH\^FDutilis\82es sous licence.^FS
 ^FT35,1415^A0N,14,14^FH\^FD           L'\90quipeur est une marque de commerce d\82pos\82e de^FS
 ^FT35,1432^A0N,14,14^FH\^FDMark's Work Wearhouse Ltd.^FS
@@ -54,13 +54,13 @@
 ^FO30,50^GB503,1430,2^FS
 ^FT64,149^A0N,25,24^FH\^FDsur toute la marchandise chez L'\90quipeur   ^FS
 ^FT64,180^A0N,25,24^FH\^FDlorsque vous r\82glez avec votre carte^FS
-^FT64,211^A0N,25,24^FH\^FDMasterCard    Options    de Canadian Tire!^FS
+^FT64,211^A0N,25,24^FH\^FDMastercard    Options    de Canadian Tire!^FS
 ^FO133,299^GB293,42,42^FS
 ^FT133,332^A0N,34,33^FR^FH\^FDConserver ce coupon!^FS
 ^FO18,1522^GB523,1107,2^FS
 ^BY3,2,160^FT148,810^BUN,,Y,N
 ^FD41001560585^FS
-^FT59,577^A0N,17,16^FH\^FDLe client doit pr\82senter sa carte MasterCard Options au moment^FS
+^FT59,577^A0N,17,16^FH\^FDLe client doit pr\82senter sa carte Mastercard Options au moment^FS
 ^FT59,598^A0N,17,16^FH\^FDde l'achat pour pouvoir \82changer l'offre.^FS
 ^FT60,546^A0N,17,16^FH\^FDLe rabais de 20 % s'applique \85 la valeur de l'achat.^FS
 ^FT469,137^A0N,14,14^FH\^FDMD^FS
@@ -102,7 +102,7 @@
 ^FT59,485^A0N,17,16^FH\^FDPassez les articles sous le lecteur optique.^FS
 ^FT54,1101^A0N,17,16^FH\^FDL'employ\82 de magasin doit conserver le coupon apr\8As utilisation.^FS
 ^FT54,1049^A0N,17,16^FH\^FDLe client doit r\82gler son achat au moyen de la carte^FS
-^FT54,1070^A0N,17,16^FH\^FDMasterCard Options pour pouvoir \82changer l'offre.^FS
+^FT54,1070^A0N,17,16^FH\^FDMastercard Options pour pouvoir \82changer l'offre.^FS
 ^FT54,976^A0N,17,16^FH\^FDPour une seule utilisation dans les magasins L'\90quipeur participants. ^FS
 ^FT54,997^A0N,17,16^FH\^FDL'offre n'est pas transf\82rable et ne peut \88tre jumel\82e \85 aucune^FS
 ^FT54,1018^A0N,17,16^FH\^FDautre offre.^FS

@@ -81,18 +81,41 @@ public class WICIFileHelper {
 	        	double storeNo = Double.parseDouble(_storeNumber);
 	        	boolean isMarksStore = false;
 	        	boolean isGasBar = false;
+	        	int offset = 0;
 	        	// US3692
 	        	// Print token for CTR store only, not Marks/Gas store
 	        	if(storeNo > 0){
 	        		// US4062
+	        		// These conditions are all for printing Approved printouts
+	        		// Gas Store Specific Logic
+	        		// Gas stores are between 1000 to 1999 store numbers
 	        		if(storeNo >= 1000 && storeNo <= 1999 ) {
 	        			templateFileName = templateFileName;
 	        			isGasBar = true;
-	        		} else if(storeNo >= 6000 && storeNo <= 6999 ) {
+	        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
+	        					+ " accountNumber : " + accountNumber);
+	        			// US4341
+				        if(cardType.equals("OMP") && "4111111111111111".equals(accountNumber) ) {
+				        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupTokensuffix + PrintOutMockupCouponSuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        }
+	        		} 
+	        		// Marks Store Specific Logic
+	        		// Marks stores are between 6000 to 6999 store numbers
+	        		else if(storeNo >= 6000 && storeNo <= 6999 ) {
 			        	templateFileName = templateFileName;
 			        	isMarksStore = true;
-			        } else {
-			        	int offset = 0;      	        	        	       	    	        
+			        } 
+	        		// CT(Canadian Tire) Store Specific Logic
+	        		// Now for CT store, we added in else condition.
+	        		// But CT stores are between 1 to 999 store numbers
+	        		else {
 				        // E && !Marks && Demo than tokrn prn			        	
 			        	if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
 			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;

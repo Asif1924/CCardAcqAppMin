@@ -46,13 +46,13 @@
 ^FT37,2205^A0N,14,14^FH\^FDctfs.com/ctm for more information.^FS
 ^FT37,2239^A0N,14,14^FH\^FD\A9/TM Unless otherwise noted, all trademarks are owned by Canadian Tire^FS
 ^FT37,2256^A0N,14,14^FH\^FDCorporation, Limited and are used under licence.^FS
-^FT37,2290^A0N,14,14^FH\^FD\A9/TM MasterCard is a registered trademark of MasterCard International Incorporated.^FS
+^FT37,2290^A0N,14,14^FH\^FD\A9/TM Mastercard is a registered trademark of Mastercard International Incorporated.^FS
 ^FT41,1670^A0N,17,16^FH\^FDTo collect your 10X bonus Canadian Tire 'Money', bring this coupon ^FS
 ^FT41,1691^A0N,17,16^FH\^FDto a participating Canadian Tire store and make a purchase with your ^FS
-^FT41,1712^A0N,17,16^FH\^FDCanadian Tire Options\A9 MasterCard\A9 (OMC).^FS
+^FT41,1712^A0N,17,16^FH\^FDCanadian Tire Options\A9 Mastercard\A9 (OMC).^FS
 ^FT40,2036^A0N,17,16^FH\^FDInstructions to Cashier: When the OMC is used to make a purchase ^FS
 ^FT40,2057^A0N,17,16^FH\^FDbefore the expiry date above please enter SKU 198-3635-2 to add the ^FS
-^FT40,2078^A0N,17,16^FH\^FDbonus e-Canadian Tire 'Money' amount to the customer's ^FS
+^FT40,2078^A0N,17,16^FH\^FDbonus Canadian Tire 'Money' amount to the customer's ^FS
 ^FT40,2098^A0N,17,16^FH\^FDMy Canadian Tire 'Money'account. ^FS
 ^FT40,2140^A0N,17,16^FH\^FDPlease destroy coupon once redeemed.^FS
 ^FO31,1446^GB504,1033,2^FS
@@ -69,7 +69,7 @@
 ^FT35,1217^A0N,14,14^FH\^FDCanadian Tire Financial Services is a business name of Canadian Tire Bank.^FS
 ^FT35,1251^A0N,14,14^FH\^FD\A9/TM Unless otherwise noted, all trademarks are owned by Canadian Tire^FS
 ^FT35,1268^A0N,14,14^FH\^FDCorporation, Limited and are used under licence.^FS
-^FT35,1301^A0N,14,14^FH\^FD\A9/TM MasterCard and the MasterCard Brand Mark are registered trademarks of^FS
+^FT35,1301^A0N,14,14^FH\^FD\A9/TM Mastercard and the Mastercard Brand Mark are registered trademarks of^FS
 ^FT35,1318^A0N,14,14^FH\^FDMasterCard International Incorporated, and are used under licence.^FS
 ^FT35,1352^A0N,14,14^FH\^FD\A9/TM Mark's is a registered trademark of Mark's Work Wearhouse Ltd.^FS
 ^FT40,1897^A0N,17,16^FH\^FDCoupon has no cash value, is non-transferable. Coupon must be^FS
@@ -83,7 +83,7 @@
 ^FO30,42^GB503,1358,2^FS
 ^FT117,1553^A0N,28,28^FH\^FDat Canadian Tire stores only^FS
 ^FT64,146^A0N,25,24^FH\^FDof all merchandise at Mark's when you pay^FS
-^FT64,177^A0N,25,24^FH\^FDwith your Canadian Tire Options MasterCard!^FS
+^FT64,177^A0N,25,24^FH\^FDwith your Canadian Tire Options Mastercard!^FS
 ^FO153,1568^GB247,42,42^FS
 ^FT153,1601^A0N,34,33^FR^FH\^FDKeep this coupon!^FS
 ^FO158,270^GB246,42,42^FS
@@ -92,7 +92,7 @@
 ^BY3,2,160^FT148,781^BUN,,Y,N
 ^FD41001560585^FS
 ^FT199,239^A0N,14,14^FH\^FDTerms and restrictions apply^FS
-^FT59,549^A0N,17,16^FH\^FDCustomer's Options MasterCard must be presented and used at the^FS
+^FT59,549^A0N,17,16^FH\^FDCustomer's Options Mastercard must be presented and used at the^FS
 ^FT59,570^A0N,17,16^FH\^FDtime of purchase in order for offer to be redeemed.^FS
 ^FT60,517^A0N,17,16^FH\^FDAll items in basket will be discounted by 20%^FS
 ^FT241,257^A0N,14,14^FH\^FDIn-store only^FS
@@ -101,7 +101,7 @@
 ^FT59,457^A0N,17,16^FH\^FDScan items to be purchased^FS
 ^FT54,1072^A0N,17,16^FH\^FDStore employee must retain this coupon after use.^FS
 ^FT54,1021^A0N,17,16^FH\^FDCustomers must pay for their purchase using their^FS
-^FT54,1042^A0N,17,16^FH\^FDOptions MasterCard in order for the offer to be redeemed.^FS
+^FT54,1042^A0N,17,16^FH\^FDOptions Mastercard in order for the offer to be redeemed.^FS
 ^FT54,947^A0N,17,16^FH\^FDOffer is valid for single use only at participating Mark's stores.^FS
 ^FT54,968^A0N,17,16^FH\^FDOffer is not transferable and cannot be combined with^FS
 ^FT54,989^A0N,17,16^FH\^FDany other offers.^FS
