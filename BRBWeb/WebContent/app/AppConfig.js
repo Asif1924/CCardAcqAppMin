@@ -6,7 +6,9 @@ BRB._AppConfig = function() {
 		REQUEST_PROCESS_TIMEOUT		: 300000,
 		SINGLE_CONNECTION_TIMEOUT	: 300000,
 		IS_ALIVE_REQUEST_INTERVAL	: 30000,
-		SUBMIT_BTN_CHECK_INTERVAL	: 500
+		SUBMIT_BTN_CHECK_INTERVAL	: 500,
+		// US4281
+		SCRIPT_REQUEST_INTERVAL		: 300000
 	};
 
 	this.BackgroundServicesConfig = {
@@ -20,6 +22,13 @@ BRB._AppConfig = function() {
 	this.LanguageEnum = {
 		english: "en",
 		french: "fr"
+	};
+	
+	// US4281
+	this.localStorageKeys = {
+    	version: "DICTIONARY_VERSION",
+    	en: "DICTIONARY_LOCATION_EN",
+	  	fr: "DICTIONARY_LOCATION_FR"
 	};
 
 	this.TrackingScreenID = null;

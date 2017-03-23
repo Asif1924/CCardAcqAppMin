@@ -61,6 +61,15 @@ BRB.InitiateAppHelper = function() {
 		return cardType;		
 	};
 	
+	// US4281
+	this.getDictionaryInfo = function (messageDialog, translator, argSuccessCB, argFailureCB) {
+		var sMethod = 'getDictionaryInfo():: ';
+		var connectivityController = new BRB.ConnectivityController(new BRB.ConnectionStatus(), messageDialog, translator, BRB.AppConfig.ConnectivityConfig);
+		connectivityController.init();
+		
+		BRB.Log(logPrefix + sMethod + "transactionId is: " + app.getTransactionId());		
+		connectivityController.getDictionaryInfo(app.getTransactionId(), argSuccessCB, argFailureCB);		
+	};
 	
 	this.getCustomerData = function (messageDialog, translator, argSuccessCB, argFailureCB) {
 		var sMethod = 'getCustomerData():: ';

@@ -1,7 +1,9 @@
 ensureNamespaceExists();
 
 BRB.dictionary_fr = {
-
+		
+		// US4281
+		version												:	"1",
 		//-------------------------------------------Common----------------------------------------------
 		app_loading 										:	"Chargement...",	
 		backButtonPrompt_title 								: 	"Quitter la demande",

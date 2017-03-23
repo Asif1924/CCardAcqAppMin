@@ -8,5 +8,7 @@ BRB.ServiceNameEnum = {
 		InitiateBRBWeb:		"InitiateBRBWeb",
 		CompletionBRBWeb:	"CompletionBRBWeb",
 		ScoreIdentityExam: 	"ScoreIdentityExam",
-		IdentityExam:		"IdentityExam"
+		IdentityExam:		"IdentityExam",
+		// US4281
+		DictionaryInfo:		"DictionaryInfo"
 };

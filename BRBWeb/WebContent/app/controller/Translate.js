@@ -108,7 +108,10 @@ BRB.Translate = function(translationLibrary, languages) {
 	}
 
 	function setDictionary(language) {
-		translationLibrary.setDictionary(BRB["dictionary_" + language]);
+		// Old code
+		// translationLibrary.setDictionary(BRB["dictionary_" + language]);
+		// US4281
+		translationLibrary.setDictionary(BRB.LocalStorageHelper(window).getVocabulary(language));
 	}
 
 	function setInitialLanguage() {

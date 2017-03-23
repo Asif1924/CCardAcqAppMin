@@ -45,6 +45,24 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
             argFailureCallback, null, null, isSilent, 3000
         );
     };
+    // US4281
+    //---------------------------------------------------------------------------------------
+    this.getDictionaryInfo = function(argTransactionId, argSuccessCallback, argFailureCallback) {
+    	var sMethod = 'getDictionaryInfo() ';
+        BRB.Log(logPrefix + sMethod + argTransactionId);
+
+		var params = {
+      		  "brbTransactionId" : argTransactionId
+		};
+
+		AJAXrequest(
+			serviceNameEnum.DictionaryInfo,
+        	"POST",
+        	params,
+        	argSuccessCallback,
+        	argFailureCallback
+		);
+    };
     //---------------------------------------------------------------------------------------
     this.IdentityExam = function(params, argSuccessCallback, argFailureCallback) {
     	BRB.Log("IdentityExam");
@@ -102,15 +120,42 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
 	        argFailureCallback
 		);
 	};
-	
+	// US4281
+    // ---------------------------------------------------------------------------------------
+    this.loadDictionary = function(language, scriptURL, argSuccessCallback, argFailureCallback, argBeforesenCallback, argCompleteCallback) {
+    	BRB.Log("loadDictionary :: " + language + scriptURL);     	   	
+    	
+    	AJAXrequest(
+			{
+				url: scriptURL,
+				dataType: "script",
+				callTimeout: config.SINGLE_CONNECTION_TIMEOUT
+			}, 
+			"POST",
+			null,
+        	argSuccessCallback,
+        	argFailureCallback,
+        	argBeforesenCallback,
+        	argCompleteCallback
+		);
+    };
+    // ---------------------------------------------------------------------------------------
 	 function AJAXrequest(serviceName, httpVerb, requestParams, successCallback, argFailureCallback, beforeSendCall, onCompleteCall, isSilent, callTimeout) {
 			var sMethod = 'AJAXrequest() ';
 			BRB.Log(logPrefix + sMethod);		
 			    	
 			var requestBuilder = getRequestBuilder(serviceName, requestParams, httpVerb);
-			var url = requestBuilder.getURLString();
+			var url;
+			if(serviceName.url) {
+				url = serviceName.url;
+				callTimeout = serviceName.callTimeout;
+			} else {
+				url = requestBuilder.getURLString();
+			}
+			
 			BRB.Log(logPrefix + sMethod + "httpVerb: " + httpVerb + " url: "+ url);
-			BRB.Log(logPrefix + sMethod + "params: \n" + JSON.stringify(requestParams));
+			// BRB.Log(logPrefix + sMethod + "params: \n" + JSON.stringify(requestParams));
+			BRB.Log(logPrefix + sMethod + "requestBuilder params: \n" + requestBuilder.getParamString());
 
 			beforeSendCall = beforeSendCall || $.noop;
 			onCompleteCall = onCompleteCall || $.noop;
@@ -124,18 +169,22 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
 				(new BRB.DemoAjax()).AJAXrequest(serviceName, httpVerb, requestParams, successCallback, argFailureCallback, beforeSendCall, onCompleteCall, isSilent, callTimeout);
 				return;
 			}
-
+			
 			if (connectionStatus.healthy()) {
 				$.ajax({
-					url : requestBuilder.getURLString(),
+					url : url,
 					async: serviceName != serviceNameEnum.CompletionBRBWeb,
-					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					// contentType : "application/x-www-form-urlencoded; charset=utf-8",
 					type : httpVerb,
-					dataType : 'json',
+					dataType : serviceName.dataType || 'json',
 					beforeSend : beforeSendCall,
 					timeout : callTimeout,
 					data : requestBuilder.getParamString(),
 					success : function(arg){
+						BRB.Log(logPrefix + sMethod + " success :: " + serviceName.dataType);
+						if(serviceName.dataType == "script") {
+							successCallback(arg);
+						}
 						if(arg.data && arg.data.isFailedLogin)
 						{
 							app.flowController.logOut();
@@ -150,7 +199,7 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
 								app.initiateAppHelper.isDeleteCustomerDataRequestSent = true;
 								app.closeBRBWebWindow();
 							} else {
-							successCallback(arg);
+								successCallback(arg);
 							}
 						}
 					},

@@ -91,17 +91,16 @@ BRB.BRBWebApp = function() {
 			this.messageDialog = new BRB.MessageDialog(this.translator);
 		}
 
-		this.validationDecorator = new BRB.ValidationDecorator();
+		this.validationDecorator = new BRB.ValidationDecorator();	
 
-		// Old Code
-		/*this.customerTransactionModel = new BRB.CustomerTransactionModel();
-		this.customerTransactionModel.setTransactionId(this.initiateAppHelper.getTransactionParam());*/
+		this.customerTransactionModel = new BRB.CustomerTransactionModel();
+		this.customerTransactionModel.setTransactionId(this.initiateAppHelper.getTransactionParam());
 
 		if(this.initiateAppHelper.getTransactionParam() != 0) {
 			this.setIsMOARequest(false);
 		} else {
 			// Comment this line to Block ctfs.com flow BRB URL
-			//this.setIsMOARequest(true);
+			// this.setIsMOARequest(true);
 		}
 		
 		this.customerTransactionModel = new BRB.CustomerTransactionModel();
@@ -147,10 +146,8 @@ BRB.BRBWebApp = function() {
 
 			new BRB.LoadingIndicatorController().showIdentityVerificationLoading(
 					app.translator.translateKey("app_loading"));
-//			new BRB.LoadingIndicatorController().show();
 
 			if(this.getIsMOARequest()) {
-				new BRB.LoadingIndicatorController().hide();
 				$self.customerTransactionModel
 				.initialize(
 						this.getTransactionId(),												
@@ -164,65 +161,112 @@ BRB.BRBWebApp = function() {
 						"",												
 						"",
 						"");
-				new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
-			} else {
-				this.initiateAppHelper.getCustomerData(
-						this.translator,
-						this.messageDialog,
+				
+				// US4281
+				this.initiateAppHelper.getDictionaryInfo( this.translator, this.messageDialog,
 						function(argResponse) {
-							new BRB.LoadingIndicatorController().hide();
-							BRB
-									.Log($self.logPrefix
-											+ '[getCustomerData]:OnSuccess:Is Error:'
-											+ argResponse.error);
-
+							BRB.Log($self.logPrefix + '[getDictionaryInfo]:OnSuccess:Is Error:' + argResponse.error);
 							if (argResponse.error) {
+								new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
+							}
+							var serverResponse = argResponse.data;
+							BRB.Log('IN Channel serverResponse : ' + JSON.stringify(serverResponse));							
+							$.when.apply(null, retrieveLatestDictionary(serverResponse)).always(function() {
+								setTimeout(function() {
+									new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
+								},2000);
+								// new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
+			                });
+						},
+						function(argResponse) {
+							BRB.Log($self.logPrefix + '[getDictionaryInfo]:OnFailure');							
+							new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
+						});
+				// Old code
+				// new BRB.AppNavigatorController().init($self.translator, $self.messageDialog);
+			} else {
+				
+				// US4281
+				this.initiateAppHelper.getDictionaryInfo( this.translator, this.messageDialog,
+						function(argResponse) {
+							BRB.Log($self.logPrefix + '[getDictionaryInfo]:OnSuccess:Is Error:' + argResponse.error);
+							if (argResponse.error) {
+								// Error in dictionary response
+							}
+							var serverResponse = argResponse.data;
+							BRB.Log('WP Channel serverResponse : ' + JSON.stringify(serverResponse));
+							retrieveLatestDictionary(serverResponse);
+						},
+						function(argResponse) {
+							BRB.Log($self.logPrefix + '[getDictionaryInfo]:OnFailure');							
+						});
+				
+					this.initiateAppHelper.getCustomerData(
+							this.translator,
+							this.messageDialog,
+							function(argResponse) {
+								new BRB.LoadingIndicatorController().hide();
+								BRB
+										.Log($self.logPrefix
+												+ '[getCustomerData]:OnSuccess:Is Error:'
+												+ argResponse.error);
+	
+								if (argResponse.error) {
+									$self.messageDialog
+											.error(
+													argResponse.msg,
+													$self.translator
+															.translateKey("initiate_BRB_Web_App_ErrorTitle"),
+													$self.closeBRBWebWindow);
+	
+									return;
+								}
+	
+								var serverResponse = argResponse.data;
+								BRB
+								.Log(JSON.stringify(serverResponse));
+								$self.customerTransactionModel
+										.initialize(
+												serverResponse.transactionId,												
+												serverResponse.email,
+												serverResponse.firstName,
+												serverResponse.lastName,
+												serverResponse.addressLine1,
+												serverResponse.addressLine2,
+												serverResponse.city,
+												serverResponse.province,												
+												serverResponse.loyaltyNumber,												
+												serverResponse.postalCode,
+												serverResponse.phoneNumber);
+								new BRB.AppNavigatorController().init(
+										$self.translator, $self.messageDialog);
+							},
+							function(argResponse) {
+								new BRB.LoadingIndicatorController().hide();
+								BRB.Log($self.logPrefix
+										+ '[getCustomerData]:OnFailure');
+	
 								$self.messageDialog
 										.error(
-												argResponse.msg,
+												$self.translator
+														.translateKey('initiate_BRB_Web_App_ErrorMsg'),
 												$self.translator
 														.translateKey("initiate_BRB_Web_App_ErrorTitle"),
 												$self.closeBRBWebWindow);
-
-								return;
-							}
-
-							var serverResponse = argResponse.data;
-							BRB
-							.Log(JSON.stringify(serverResponse));
-							$self.customerTransactionModel
-									.initialize(
-											serverResponse.transactionId,												
-											serverResponse.email,
-											serverResponse.firstName,
-											serverResponse.lastName,
-											serverResponse.addressLine1,
-											serverResponse.addressLine2,
-											serverResponse.city,
-											serverResponse.province,												
-											serverResponse.loyaltyNumber,												
-											serverResponse.postalCode,
-											serverResponse.phoneNumber);
-
-							new BRB.AppNavigatorController().init(
-									$self.translator, $self.messageDialog);
-						},
-						function(argResponse) {
-							new BRB.LoadingIndicatorController().hide();
-							BRB.Log($self.logPrefix
-									+ '[getCustomerData]:OnFailure');
-
-							$self.messageDialog
-									.error(
-											$self.translator
-													.translateKey('initiate_BRB_Web_App_ErrorMsg'),
-											$self.translator
-													.translateKey("initiate_BRB_Web_App_ErrorTitle"),
-											$self.closeBRBWebWindow);
-						});
+							});
 			}
 		}
 	};
+	
+	// US4281
+    // ---------------------------------------------------------------------------------------
+	function retrieveLatestDictionary(argResponse) {
+		var sMethod = "retrieveLatestDictionary() : ";
+		BRB.Log(sMethod + 'Response : ' + JSON.stringify(argResponse));
+        var dictionaryLoadingHelper = new BRB.DictionaryLoadingHelper(app.messageDialog, app.translator, argResponse, BRB);
+        return dictionaryLoadingHelper.determineUpdateDictionaryOrQuit();
+    }
+	// ---------------------------------------------------------------------------------------
 	function initMomentJsFrenchLanguage() {
 		var prevLanguage = moment.lang();
 		if(prevLanguage === 'en'){

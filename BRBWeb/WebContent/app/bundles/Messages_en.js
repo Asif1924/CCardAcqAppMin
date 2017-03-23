@@ -1,6 +1,9 @@
 ensureNamespaceExists();
 
 BRB.dictionary_en = {
+	
+	// US4281
+	version												:	"1",
 	//-------------------------------------------Common----------------------------------------------
 	app_loading 										:	"Loading...",	
 	backButtonPrompt_title 								: 	"Exit Application",
