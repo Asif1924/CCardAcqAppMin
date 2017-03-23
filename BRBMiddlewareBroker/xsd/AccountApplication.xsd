@@ -61,6 +61,7 @@
 						account application.
 
 						agentId=MQSYS for channelIndicator=WP
+						agentId=BRBINT for channelIndicator=IN
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
@@ -85,6 +86,8 @@
 						is done through
 						FMR
 						DP - Auto Service Reps
+						<!-- US4280 -->
+						IN - Internet - application is done through CTFS.COM to BRB
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
@@ -93,6 +96,8 @@
 						<xsd:enumeration value="WP"></xsd:enumeration>
 						<xsd:enumeration value="IP"></xsd:enumeration>
 						<xsd:enumeration value="DP"></xsd:enumeration>
+						<!-- US4280 -->
+						<xsd:enumeration value="IN"></xsd:enumeration>
 						<xsd:length value="2"></xsd:length>
 					</xsd:restriction>
 				</xsd:simpleType>

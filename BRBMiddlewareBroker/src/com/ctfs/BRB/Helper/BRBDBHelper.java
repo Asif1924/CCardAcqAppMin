@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.ctfs.BRB.Model.DictionaryInfo;
 import com.ctfs.BRB.dblayer.ApplicationTransactionTableEntity;
 import com.ctfs.BRB.dblayer.CustomerTransactionTableEntity;
 import com.ctfs.BRB.dblayer.interfaces.IAppTransactionTableEntity;
@@ -626,6 +627,55 @@ public class BRBDBHelper
 		}
 	}
 
+	// US4281
+	public DictionaryInfo getLatestDictionaryInfo() throws SQLException
+	{
+		String sMethod = "[getLatestDictionaryInfo] ";
+		log.info(sMethod + "::Called::");
+
+		DictionaryInfo dictInfo = new DictionaryInfo();
+
+		String sql = "SELECT CONFIG_NAME, CONFIG_VALUE FROM BRB_CONFIG WHERE CONFIG_NAME IN ('OLDER_DICTIONARY_ALLOWABLE', 'DICTIONARY_VERSION', 'DICTIONARY_CMS_URL_EN', 'DICTIONARY_CMS_URL_FR')";
+		String configValue = null;
+		String configName = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setMaxRows(4);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next())
+			{
+				configName = resultSet.getString("CONFIG_NAME");
+				configValue = resultSet.getString("CONFIG_VALUE");
+				
+				log.info(sMethod + "::Called:: configName = " + configName + ", configValue = " + configValue);				
+				
+				if( configName.equals("OLDER_DICTIONARY_ALLOWABLE")) dictInfo.setOlderDictionaryAllowable(new Boolean(configValue));
+				if( configName.equals("DICTIONARY_VERSION")) dictInfo.setLatestDictionaryVersion(configValue);
+				if( configName.equals("DICTIONARY_CMS_URL_EN")) dictInfo.setDictionaryURLEnglish(configValue);
+				if( configName.equals("DICTIONARY_CMS_URL_FR")) dictInfo.setDictionaryURLFrench(configValue);				
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			return dictInfo;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return dictInfo;
+	}
+	
 	public Holder buildUpdateSqlQueryForStateTracker(IStateTrackerTableEntity stateTrackerTableEntity)
 	{
 		String sMethod = "[buildUpdateSqlQuery] ";

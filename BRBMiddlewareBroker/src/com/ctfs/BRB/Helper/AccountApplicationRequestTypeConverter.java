@@ -69,7 +69,15 @@ public class AccountApplicationRequestTypeConverter
 
 		populatedAccountApplicationRequest.setExternalReferenceId(new GUIDGenerator().getGUIDAsString());
 
-		populatedAccountApplicationRequest.setChannelIndicator("WP");
+		// US4280
+		log.info(sMethod + " argCreditCardApplicationData getBrbTransactionId() : " + argCreditCardApplicationData.getBrbTransactionId());
+		if(argCreditCardApplicationData.getBrbTransactionId() != null && argCreditCardApplicationData.getBrbTransactionId().toLowerCase().contains("moa")) {
+			populatedAccountApplicationRequest.setChannelIndicator("IN");
+		} else {
+			populatedAccountApplicationRequest.setChannelIndicator("WP");
+		}
+		// populatedAccountApplicationRequest.setChannelIndicator("WP");
+		
 		populatedAccountApplicationRequest.setCurrentCountry("CA");
 		populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
 		populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
@@ -134,7 +142,15 @@ public class AccountApplicationRequestTypeConverter
 		String sMethod = "[IdentityVerificationModel()]";
 		log.info(sMethod);
 		ar.setStoreNumber(500);
-		ar.setAgentId("MQSYS");
+		// US4280
+		log.info(sMethod + " CreditCardApplicationData getBrbTransactionId() : " + data.getBrbTransactionId());
+		if(data.getBrbTransactionId() != null && data.getBrbTransactionId().toLowerCase().contains("moa")) {
+			ar.setAgentId("BRBINT");
+		} else {
+			ar.setAgentId("MQSYS");
+		}
+		// Old code for WP channel only
+		// ar.setAgentId("MQSYS");
 		ar.setRequestedProductType("OMC");// was omp
 
 		//Added (02/06/2014) -- (AA). Please ensure this block is removed later

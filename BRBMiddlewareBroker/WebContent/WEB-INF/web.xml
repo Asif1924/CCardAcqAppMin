@@ -28,6 +28,14 @@
 		<servlet-name>ScoreIdentityExamServlet</servlet-name>
 		<servlet-class>com.ctfs.BRB.Servlet.ScoreIdentityExamServlet</servlet-class>
 	</servlet>	
+	
+	<!-- US4281 -->
+	<servlet>
+		<display-name>DictionaryInfoServlet</display-name>
+		<servlet-name>DictionaryInfoServlet</servlet-name>
+		<servlet-class>com.ctfs.BRB.Servlet.DictionaryInfoServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>VersionServlet</servlet-name>
 		<url-pattern>/Version</url-pattern>
@@ -47,6 +55,12 @@
 	<servlet-mapping>
 		<servlet-name>ScoreIdentityExamServlet</servlet-name>
 		<url-pattern>/ScoreIdentityExam</url-pattern>
+	</servlet-mapping>
+	
+	<!-- US4281 -->
+	<servlet-mapping>
+		<servlet-name>DictionaryInfoServlet</servlet-name>
+		<url-pattern>/DictionaryInfo</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

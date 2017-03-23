@@ -67,11 +67,13 @@
 						has submitted the account application.
 						
 						agentId=MQSYS for channelIndicator=WP
+						agentId=BRBINT for channelIndicator=IN
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
 					<xsd:restriction base="tns:UpperCaseStringType">
 						<xsd:enumeration value="MQSYS"></xsd:enumeration>
+						<xsd:enumeration value="BRBINT"></xsd:enumeration>
 						<!--<xsd:maxLength value="20" />-->
 					</xsd:restriction>
 				</xsd:simpleType>
@@ -86,12 +88,16 @@
 						IC - denotes ENDO assisted channel
 						WP - Web Postal - denotes customer applying online or BRB
 						IP - denotes assisted channel - application is done through FMR
+						<!-- US4280 -->
+						IN - Internet - application is done through CTFS.COM to BRB
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
 					<xsd:restriction base="tns:UpperCaseStringType">
 <!-- 						<xsd:enumeration value="IC"></xsd:enumeration> -->
 						<xsd:enumeration value="WP"></xsd:enumeration>
+						<!-- US4280 -->
+						<xsd:enumeration value="IN"></xsd:enumeration>
 <!-- 						<xsd:enumeration value="IP"></xsd:enumeration> -->
 <!-- 						<xsd:length value="2"></xsd:length> -->
 					</xsd:restriction>
