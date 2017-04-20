@@ -118,7 +118,7 @@
 <!-- 						<xsd:length value="5"></xsd:length> -->
 <!-- 						<xsd:minLength value="4"></xsd:minLength> -->
 <!-- 						<xsd:maxLength value="5"></xsd:maxLength> -->
-						<xsd:pattern value="[a-z\\u00C0-\\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{4,5}"></xsd:pattern>
+						<xsd:pattern value="[a-z\\u00C0-\\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{1,5}"></xsd:pattern>
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
