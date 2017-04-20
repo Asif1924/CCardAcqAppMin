@@ -494,6 +494,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "sin",
     "idType",
     "idNumber",
+    "idExpiryDate", // US4365
     "placeOfIssue",
     "preferedLanguage",
     "applicantGender",
@@ -608,6 +609,8 @@ public class AccountApplicationRequestType
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String idNumber;
     @XmlElement(required = true)
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar idExpiryDate; // US4365    
     protected PlaceOfIssueType placeOfIssue;
     @XmlElement(required = true)
     protected String preferedLanguage;
@@ -1014,7 +1017,7 @@ public class AccountApplicationRequestType
     public void setDateOfBirth(XMLGregorianCalendar value) {
         this.dateOfBirth = value;
     }
-
+    
     /**
      * Gets the value of the sin property.
      * 
@@ -1085,6 +1088,31 @@ public class AccountApplicationRequestType
      */
     public void setIdNumber(String value) {
         this.idNumber = value;
+    }
+    
+    // US4365
+    /**
+     * Gets the value of the idExpiryDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getIDExpiryDate() {
+        return idExpiryDate;
+    }
+
+    /**
+     * Sets the value of the expiryDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setIDExpiryDate(XMLGregorianCalendar value) {
+        this.idExpiryDate = value;
     }
 
     /**

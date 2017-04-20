@@ -307,6 +307,19 @@
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
+			
+			<!-- US4365 -->
+			<xsd:element name="idExpiryDate" type="xsd:date"
+				maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This attribute value identifies the 
+						applicants ID Expiry Date.
+						Note: xsd:date attribute format is
+						"YYYY-MM-DD"
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 
 			<xsd:element name="placeOfIssue" maxOccurs="1" minOccurs="1"
 				type="tns:PlaceOfIssueType">

@@ -447,6 +447,21 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setPlaceOfIssue(PlaceOfIssueType.valueOf(model.get("placeofissue")));
 				argAccAppRequest.setPreferedLanguage(model.get("correspondence"));
 
+				// US4365
+				if(model.get("idExpiryDate") != null) {
+					try
+					{
+						XMLGregorianCalendar xgc;
+						xgc = model.getGregorianDate("idExpiryDate");
+						argAccAppRequest.setIDExpiryDate(xgc);
+					}
+					catch (DatatypeConfigurationException e)
+					{
+						log.warning(sMethod + " MODEL_PERSONAL_DATA::expiryDate Exception: " + e.getMessage());
+						e.printStackTrace();
+					}
+				}
+				
 				String title = model.get("title");
 				if (title == null)
 				{
