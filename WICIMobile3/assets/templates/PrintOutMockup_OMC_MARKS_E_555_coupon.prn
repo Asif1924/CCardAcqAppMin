@@ -13,9 +13,10 @@
 ,::::::::::::::H060,01F0,:03F8,01F0,H0E0,,::::::::::~DG010.GRF,00256,004,
 ,::::::::::::::::::::::::I03,I0F80,:H01FC0,I0F80,I07,,::::::::::::::::::::::::::::::::~DG011.GRF,00256,004,
 ,::::::::::::::::::::::::::I03,I0F80,:H01FC0,I0F80,I07,,::::::::::::::::::::::::::::::~DG012.GRF,00256,004,
-,:::::::::::::::::::::::::::::::::::::H060,01F0,:03F8,01F0,H0E0,,:::::::::::::::::::~DG013.GRF,00128,004,
-,::::::::H060,01F0,:03F8,01F0,H0E0,,::::::::::::::::~DG014.GRF,00256,004,
-,:::::::::::::::::::::::::::I03,I0F80,:H01FC0,I0F80,I07,,:::::::::::::::::::::::::::::~DG015.GRF,00128,004,
+,::::::::::::::::::::::H060,01F0,:03F8,01F0,H0E0,,::::::::::::::::::::::::::::::::::~DG013.GRF,00256,004,
+,:::::::::::::::::::::::::::::::::::::H060,01F0,:03F8,01F0,H0E0,,:::::::::::::::::::~DG014.GRF,00128,004,
+,::::::::H060,01F0,:03F8,01F0,H0E0,,::::::::::::::::~DG015.GRF,00256,004,
+,:::::::::::::::::::::::::::I03,I0F80,:H01FC0,I0F80,I07,,:::::::::::::::::::::::::::::~DG016.GRF,00128,004,
 ,::::::::::H060,01F0,:03F8,01F0,H0E0,,::::::::::::::^XA
 ^MMT
 ^PW563
@@ -33,10 +34,11 @@
 ^FT32,1024^XG009.GRF,1,1^FS
 ^FT32,544^XG010.GRF,1,1^FS
 ^FT32,512^XG011.GRF,1,1^FS
-^FT32,960^XG012.GRF,1,1^FS
-^FT32,928^XG013.GRF,1,1^FS
-^FT32,480^XG014.GRF,1,1^FS
-^FT32,896^XG015.GRF,1,1^FS
+^FT32,1152^XG012.GRF,1,1^FS
+^FT32,960^XG013.GRF,1,1^FS
+^FT32,928^XG014.GRF,1,1^FS
+^FT32,480^XG015.GRF,1,1^FS
+^FT32,896^XG016.GRF,1,1^FS
 ^FT41,1644^A0N,20,19^FH\^FDOFFER EXPIRES:^FS
 ^FT178,1641^A0N,17,16^FH\^FD#[CouponNextTwoWeeksDate]^FS
 ^FO34,1591^GE502,26,8^FS
@@ -52,7 +54,7 @@
 ^FT41,1712^A0N,17,16^FH\^FDCanadian Tire Options\A9 Mastercard\A9 (OMC).^FS
 ^FT40,2036^A0N,17,16^FH\^FDInstructions to Cashier: When the OMC is used to make a purchase ^FS
 ^FT40,2057^A0N,17,16^FH\^FDbefore the expiry date above please enter SKU 198-3635-2 to add the ^FS
-^FT40,2078^A0N,17,16^FH\^FDbonus Canadian Tire 'Money' amount to the customer's ^FS
+^FT40,2078^A0N,17,16^FH\^FDbonus e-Canadian Tire 'Money' amount to the customer's ^FS
 ^FT40,2098^A0N,17,16^FH\^FDMy Canadian Tire 'Money'account. ^FS
 ^FT40,2140^A0N,17,16^FH\^FDPlease destroy coupon once redeemed.^FS
 ^FO31,1446^GB504,1033,2^FS
@@ -70,7 +72,7 @@
 ^FT35,1251^A0N,14,14^FH\^FD\A9/TM Unless otherwise noted, all trademarks are owned by Canadian Tire^FS
 ^FT35,1268^A0N,14,14^FH\^FDCorporation, Limited and are used under licence.^FS
 ^FT35,1301^A0N,14,14^FH\^FD\A9/TM Mastercard and the Mastercard Brand Mark are registered trademarks of^FS
-^FT35,1318^A0N,14,14^FH\^FDMasterCard International Incorporated, and are used under licence.^FS
+^FT35,1318^A0N,14,14^FH\^FDMastercard International Incorporated, and are used under licence.^FS
 ^FT35,1352^A0N,14,14^FH\^FD\A9/TM Mark's is a registered trademark of Mark's Work Wearhouse Ltd.^FS
 ^FT40,1897^A0N,17,16^FH\^FDCoupon has no cash value, is non-transferable. Coupon must be^FS
 ^FT40,1918^A0N,17,16^FH\^FDpresented at time of purchase. Limit one coupon per customer. ^FS
@@ -102,6 +104,8 @@
 ^FT54,1072^A0N,17,16^FH\^FDStore employee must retain this coupon after use.^FS
 ^FT54,1021^A0N,17,16^FH\^FDCustomers must pay for their purchase using their^FS
 ^FT54,1042^A0N,17,16^FH\^FDOptions Mastercard in order for the offer to be redeemed.^FS
+^FT54,1123^A0N,17,16^FH\^FDOffer valid January 1 - December 31, excluding April 28, 29, ^FS
+^FT54,1144^A0N,17,16^FH\^FDand June 10,11, 16 - 18, 2017.^FS
 ^FT54,947^A0N,17,16^FH\^FDOffer is valid for single use only at participating Mark's stores.^FS
 ^FT54,968^A0N,17,16^FH\^FDOffer is not transferable and cannot be combined with^FS
 ^FT54,989^A0N,17,16^FH\^FDany other offers.^FS
@@ -128,3 +132,4 @@
 ^XA^ID013.GRF^FS^XZ
 ^XA^ID014.GRF^FS^XZ
 ^XA^ID015.GRF^FS^XZ
+^XA^ID016.GRF^FS^XZ

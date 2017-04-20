@@ -112,6 +112,18 @@ WICI.BaseModel = function(config) {
                     isError = !regRez;
                 }
                 break;
+            // US4112 
+            case 'idFormat':
+            	if(value === null){
+                    isError = true;
+                } else {
+                    //var regRez = value.trim().match(validation.matcher); 
+                	//shouldnt be trimming before evaluating
+                	
+                	var regRez = value.match(validation.matcher);
+                    isError = !regRez;
+                }
+            	break;
             case 'email':
                 isError=!validator.emailAddress(value);
                 break;
@@ -148,6 +160,9 @@ WICI.BaseModel = function(config) {
                 break;
             case 'birthDate':
             	isError=!validator.birthDate(value);
+                break;
+            case 'idExpiryDate': // US4365
+                isError=!validator.idExpiryDate(value);
                 break;
             case 'suiteUnit':
             	isError=!validator.suiteUnit(value);

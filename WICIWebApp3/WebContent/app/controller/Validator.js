@@ -176,6 +176,29 @@ WICI.Validator = function() {
         }
         return true;
     };
+    //---------------------------------------------------------------------------------------
+    // US4364
+    this.idExpiryDate = function(value) {
+    	 if(value === null || value === '' || !value)
+         {
+             return false;
+         } else {
+    	     var inputDate = new Date(value);
+    	     console.log("idExpiryDate :: expiryDate ::" + inputDate);
+  	         //Today
+             var todaysDate = new Date();
+             // Yesterday 
+             todaysDate.setDate(todaysDate.getDate() - 1);
+             console.log(" idExpiryDate :: Yesterday's Date ::"+todaysDate);
+            if(inputDate <= todaysDate) {
+                 // Expiry date is less then yesterday 
+                 // DL is expired 
+                 return false;
+            } else {
+            	 return true;
+            }
+         }
+    };
 
     //---------------------------------------------------------------------------------------
     this.employerID = function(value) {

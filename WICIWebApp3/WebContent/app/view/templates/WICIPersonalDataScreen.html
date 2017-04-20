@@ -63,13 +63,24 @@
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
-	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                    <td id="personalData_IDNumber" class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="personalData_IDNumber"></span>
 	                    </td>
-	                    <td class="fieldValuesBottomCell">
+	                    <td class="fieldValuesCell">
 	                        <input class="fieldValuesTextField upperCaseField" id="personalData_IDNumber_TextField" type="text" maxlength="20" tabindex=4/>
 	                    </td>
 	                </tr>
+	                
+	                <!-- US4365 -->
+	                <tr id="personalData_ExpiryDate_Area" class="fieldRow">
+	                    <td id="personalData_ExpiryDate" class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_ExpiryDate"></span>
+	                    </td>
+	                    <td class="fieldValuesBottomCell">
+	                        <input class="fieldValuesTextField" id="personalData_ExpiryDate_TextField" type="date" tabindex=5></input>
+	                    </td>
+	                </tr>
+	                
 	            </table>
 			</div>
 		</center>
@@ -83,7 +94,7 @@
 	                        <span data-translationKey="personalData_FirstName"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=5/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=6/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -91,7 +102,7 @@
 	                        <span data-translationKey="personalData_Initial"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" tabindex=6/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" tabindex=7/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -99,7 +110,7 @@
 	                        <span data-translationKey="personalData_LastName"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=7/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=8/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -107,8 +118,8 @@
 	                        <span data-translationKey="personalData_DateOfBirth"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <!--<input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" data-role='datebox' data-options='{"mode":"datebox", "useNewStyle":false, "dialogEnable":true, "dialogForce":true}' tabindex=8/> -->
-	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" type="date" tabindex=9></input>
+	                        <!--<input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" data-role='datebox' data-options='{"mode":"datebox", "useNewStyle":false, "dialogEnable":true, "dialogForce":true}' tabindex=9/> -->
+	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" type="date" tabindex=10></input>
 	                    </td>
 	                </tr>
 	            </table>
@@ -131,7 +142,7 @@
 	                        <span data-translationKey="personalData_Address_PostalCode"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_PostalCode_TextField" tabindex=10 type="text"/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_PostalCode_TextField" tabindex=11 type="text"/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -139,7 +150,7 @@
 	                        <span data-translationKey="personalData_Address_StreetNumber"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_StreetNumber_TextField" tabindex=11 type="text" maxlength="6" />
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_StreetNumber_TextField" tabindex=12 type="text" maxlength="6" />
 	                    </td>
 	                </tr>
 	            </table>
@@ -171,7 +182,7 @@
 	                        <span data-translationKey="personalData_Address_AddressLine1"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_AddressLine1_TextField" tabindex=12 type="text" maxlength="40" />
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_AddressLine1_TextField" tabindex=13 type="text" maxlength="40" />
 	                        <div id="addressLookup_Address_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
 	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
 	                        	<select class="fieldValuesSelectField" id="personalData_Address_AddressLine1_SelectField" >
@@ -184,7 +195,7 @@
 	                        <span data-translationKey="personalData_Address_AddressLine2"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_AddressLine2_TextField" tabindex=13 type="text" maxlength="40" />
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_AddressLine2_TextField" tabindex=14 type="text" maxlength="40" />
 							<div id="addressLookup_Address_AddressLine2_MultipleControl" class="addressLookup_DropDownItemsControl">
 								<span data-translationKey="addressLookup_multipleItemsExist"></span>
 	                        	<select class="fieldValuesSelectField" id="personalData_Address_AddressLine2_SelectField" >
@@ -197,7 +208,7 @@
 	                        <span data-translationKey="personalData_Address_SuiteUnit"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_SuiteUnit_TextField" tabindex=14 type="text" maxlength="5"/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_SuiteUnit_TextField" tabindex=15 type="text" maxlength="5"/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -205,7 +216,7 @@
 	                        <span data-translationKey="personalData_Address_City"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_City_TextField" tabindex=15 type="text" maxlength="24"/>
+	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_City_TextField" tabindex=16 type="text" maxlength="24"/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -214,7 +225,7 @@
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
 	                        <!-- input class="fieldValuesTextField" id="personalData_Address_Province_TextField" type="text"/ -->
-							<select class="fieldValuesTextField" id="personalData_Address_Province_TextField" tabindex=16>
+							<select class="fieldValuesTextField" id="personalData_Address_Province_TextField" tabindex=17>
 							</select>
 	                    </td>
 	                </tr>
@@ -231,6 +242,7 @@
 	personalData_MS										:	"MS",
 	personalData_DR										:	"DR",
 		//-->
+		
 	<center>
 		<table class="regularTableEx stretchThisTable tableNoCellsBorder" id="personalData_Title_Group">
 			<tr>
@@ -331,7 +343,7 @@
 	                        <span data-translationKey="personalData_Address_MonthlyPayment"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField" id="personalData_Address_MonthlyPayment_TextField" tabindex=17 type='tel' max="9999" min="0" />
+	                        <input class="fieldValuesTextField" id="personalData_Address_MonthlyPayment_TextField" tabindex=18 type='tel' max="9999" min="0" />
 	                    </td>
 	                </tr>
 
@@ -358,7 +370,7 @@
 
 								   						<td id="durationCellsSeparator" class="fieldValuesCell fieldCellSize50">
 									   						<div id="durationControlLeftPadding" class="numbers-row">
-		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_years_TextField" tabindex=18 min="0" max="100">
+		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_years_TextField" tabindex=19 min="0" max="100">
 		      												</div>
 	      												</td>
 													</tr>
@@ -374,7 +386,7 @@
 
 								   						<td id="durationCellsSeparatorPadding" class="fieldValuesCell fieldCellSize50">
 									   						<div id="durationControlLeftPadding" class="numbers-row" >
-		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_months_TextField" tabindex=19 min="0" max="11">
+		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_months_TextField" tabindex=20 min="0" max="11">
 		      												</div>
 	      												</td>
 													</tr>
@@ -447,7 +459,7 @@
 		                        <span data-translationKey="personalData_PreviousAddress_PostalCode"></span>
 		                    </td>
 		                    <td class="fieldValuesTopCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_PostalCode_TextField" tabindex=20 type="text" maxlength="6"/>
+		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_PostalCode_TextField" tabindex=21 type="text" maxlength="6"/>
 		                    </td>
 		                </tr>
 		                <tr class="fieldRow">
@@ -455,7 +467,7 @@
 		                        <span data-translationKey="personalData_PreviousAddress_StreetNumber"></span>
 		                    </td>
 		                    <td class="fieldValuesBottomCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_StreetNumber_TextField" tabindex=21 type="text" maxlength="6"/>
+		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_StreetNumber_TextField" tabindex=22 type="text" maxlength="6"/>
 		                    </td>
 		                </tr>
 		            </table>
@@ -487,7 +499,7 @@
 		                        <span data-translationKey="personalData_PreviousAddress_AddressLine1"></span>
 		                    </td>
 		                    <td class="fieldValuesTopCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_AddressLine1_TextField" type="text" maxlength="40" tabindex=22/>
+		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_AddressLine1_TextField" type="text" maxlength="40" tabindex=23/>
 		                        <div id="addressLookup_PreviousAddress_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
 		                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
 			                        <select class="fieldValuesSelectField" id="personalData_PreviousAddress_AddressLine1_SelectField" >
@@ -500,7 +512,7 @@
 		                        <span data-translationKey="personalData_PreviousAddress_SuiteUnit"></span>
 		                    </td>
 		                    <td class="fieldValuesCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_SuiteUnit_TextField" type="text" maxlength="5" tabindex=23/>
+		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_SuiteUnit_TextField" type="text" maxlength="5" tabindex=24/>
 		                    </td>
 		                </tr>
 		                <tr class="fieldRow">
@@ -508,7 +520,7 @@
 		                        <span data-translationKey="personalData_PreviousAddress_City"></span>
 		                    </td>
 		                    <td class="fieldValuesCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_City_TextField" type="text" maxlength="24" tabindex=24/>
+		                        <input class="fieldValuesTextField upperCaseField" id="personalData_PreviousAddress_City_TextField" type="text" maxlength="24" tabindex=25/>
 		                    </td>
 		                </tr>
 		                <tr class="fieldRow">
@@ -517,7 +529,7 @@
 		                    </td>
 		                    <td class="fieldValuesBottomCell">
 		                        <!-- input class="fieldValuesTextField" id="personalData_PreviousAddress_Province_TextField" type="text"/ -->
-								<select class="fieldValuesTextField" id="personalData_PreviousAddress_Province_TextField" tabindex=25 >
+								<select class="fieldValuesTextField" id="personalData_PreviousAddress_Province_TextField" tabindex=26 >
 								</select>
 		                    </td>
 		                </tr>
@@ -537,7 +549,7 @@
 	                        <span data-translationKey="personalData_EmailAddress"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" tabindex=26/>
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" tabindex=27/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -545,7 +557,7 @@
 	                        <span data-translationKey="personalData_HomePhone"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=27/>
+	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=28/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -553,7 +565,7 @@
 	                        <span data-translationKey="personalData_CellPhone"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=28/>
+	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=29/>
 	                    </td>
 	                </tr>
 	            </table>

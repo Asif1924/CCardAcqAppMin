@@ -35,7 +35,9 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         grossHouseholdIncome	:	'#summary_grossHouseholdIncome',
         nameTitle				:	'#summary_nameTitle',
         promoCode               :   '#promocode',
-        icon                    :   '.logoIcon'
+        icon                    :   '.logoIcon',
+        // US4364
+        expiryDate_id			:	"#expiryDate_id"
     };
     var submitButtonEnabled = false;
 
@@ -117,6 +119,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 
         //updateSubmitBtnState();
         permanentlyEnableSubmitButton();
+        
+        checkExpiryDateField();
 
         $(refs.grossIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossIncome')));
         
@@ -170,6 +174,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         $screenContainer.show();
         translator.run('SummaryScreen');
 
+        showExpiryDatePersonalData();
         showBirthDatePersonalData();
         showBirthDateSupCard();
         showSignDateSignModel();
@@ -250,6 +255,12 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         $.subscribe("translatorFinished",function(){
         	showBirthDatePersonalData();
         });
+        
+        // US4364
+        $.subscribe("translatorFinished",function(){
+        	showExpiryDatePersonalData();
+        });
+        
         $.subscribe("translatorFinished",function(){
         	showBirthDateSupCard();
         });
@@ -274,6 +285,40 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
             togglePromoCode();
         });
         bindSubmitHandlingControls();
+    }
+    // US4364 ---------------------------------------------------------------------------------------
+    function checkExpiryDateField() {
+    	var sMethod = " checkExpiryDateField() :: "; 
+    	
+    	var idType = activationItems.getModel('personalData').get('idtype');
+    	var provinceValue = activationItems.getModel('personalData').get('placeofissue');
+    	
+    	// US4364
+        console.log(logPrefix + sMethod + " provinceValue : " + provinceValue + " idType : " + idType);
+        if ( ($.inArray(idType, ['DR', 'PA', 'PR', 'IN', 'SC', 'BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) || 
+        		($.inArray(provinceValue, ['QC', 'NB', 'NL', 'SK', 'NU']) != -1 && $.inArray(idType, ['HE']) != -1))  {
+        	$("#personalData_IDNumber_Label").removeClass("fieldLabelsBottomCell");
+        	$("#personalData_IDNumber_Label").addClass("fieldLabelsCell fieldCellSize33");
+        	$("#personalData_ExpiryDate").removeClass("fieldLabelsCell");
+        	$("#personalData_ExpiryDate").addClass("fieldLabelsBottomCell");
+        	$("#expiryDate_id").removeClass("fieldLabelsCell");
+        	$("#expiryDate_id").addClass("fieldLabelsCell fieldValuesBottomCell");
+        	$("#summary_TellUsAboutYourself_ExpiryDate_Area").show();
+        } else if(($.inArray(provinceValue, ['AB']) != -1 && $.inArray(idType, ['HE']) != -1) || $.inArray(idType, ['BI', 'CI', 'RE']) != -1) {
+        	$("#personalData_IDNumber_Label").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber_Label").addClass("fieldLabelsBottomCell");
+        	$("#personalData_IDNumber_Value").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber_Value").addClass("fieldLabelsCell fieldValuesBottomCell");
+        	$("#summary_TellUsAboutYourself_ExpiryDate_Area").hide();
+        } else {
+        	// Expiry date will be hidden for any new fields added in ID Type.
+        	// To enable Expiry date, have to add logic in this above conditions
+        	$("#personalData_IDNumber_Label").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber_Label").addClass("fieldLabelsBottomCell");
+        	$("#personalData_IDNumber_Value").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber_Value").addClass("fieldLabelsCell fieldValuesBottomCell");
+        	$("#summary_TellUsAboutYourself_ExpiryDate_Area").hide();
+        }
     }
     // ---------------------------------------------------------------------------------------
     function bindSubmitHandlingControls(){
@@ -621,6 +666,14 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         return counter;
     }
 
+    // US4364
+    function showExpiryDatePersonalData(){
+    	console.log(logPrefix + " showExpiryDatePersonalData() ");
+    	if(typeof activationItems.getModel('personalData') != 'undefined'  && activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('idExpiryDate')) {
+    		console.log(logPrefix + " showExpiryDatePersonalData() " + moment(activationItems.getFormatedDate(activationItems.getModel('personalData').get('idExpiryDate')), 'MMMM DD, YYYY').format('DD MMMM YYYY'));
+    		$(refs.expiryDate_id).text(moment(activationItems.getFormatedDate(activationItems.getModel('personalData').get('idExpiryDate')), 'MMMM DD, YYYY').format('DD MMMM YYYY'));
+    	}
+    }
     function showBirthDatePersonalData(){
     	if(typeof activationItems.getModel('personalData') != 'undefined'  && activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('birthDate')) {
     		$(refs.birthDate_id_1).text(moment(activationItems.getFormatedDate(activationItems.getModel('personalData').get('birthDate')), 'MMMM DD, YYYY').format('DD MMMM YYYY'));

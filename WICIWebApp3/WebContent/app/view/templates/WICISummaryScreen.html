@@ -115,7 +115,7 @@
 	personalData_IDType					:	"ID Type",
 	personalData_PlaceOfIssue				:	"Place of Issue",
 	personalData_IDNumber					:	"ID Number",
-
+	personalData_ExpiryDate					:	"ID Expiry Date", // US4364
 
 		//-->
 			<div id="summary_TellUsAboutYourself_Area1">
@@ -150,18 +150,29 @@
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
-	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                    <td id="personalData_IDNumber_Label" class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="personalData_IDNumber"></span>
 	                    </td>
-	                    <td class="fieldLabelsCell fieldValuesBottomCell">
+	                    <td id="personalData_IDNumber_Value" class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData').get('idnumbers')}
 	                    </td>
 	                </tr>
+	                
+	                <!-- US4365 -->
+	                <tr id="summary_TellUsAboutYourself_ExpiryDate_Area" class="fieldRow">
+	                    <td id="personalData_ExpiryDate" class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="personalData_ExpiryDate"></span>
+	                    </td>
+	                    <td id="expiryDate_id" class="fieldValuesBottomCell">
+	                         ${activationItems.getFormatedDate(activationItems.getModel('personalData').get('idExpiryDate'))}
+	                    </td>
+	                </tr>
+	                
 	            </table>
 			</div>
 <!--
 	summary_TellAboutYourself_ApplicantInfo             :   "Applicant Information",
-    personalData_Title                                  : "Title",
+    personalData_Title                                  : 	"Title",
 	summary_TellAboutYourself_FirstName					:	"First Name",
 	summary_TellAboutYourself_Initial					:	"Initial",
 	summary_TellAboutYourself_LastName					:	"Last Name",

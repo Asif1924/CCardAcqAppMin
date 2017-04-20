@@ -495,6 +495,8 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         // gender finishing - get desirted value from object map
         pModel.gender = genderLookupMap[pModel.gender];
         pModel.dateOfBirth = transformDate(pModel.dateOfBirth, '-');
+        // US4365
+        pModel.expiryDate = transformDate(pModel.expiryDate, '-');
     }
 
     // Function to clean a string

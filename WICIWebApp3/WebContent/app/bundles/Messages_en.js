@@ -164,6 +164,8 @@ WICI.dictionary_en =  {
 	personalData_EmailAddress							:	"Email Address",
 	personalData_HomePhone								:	"Home Phone",
 	personalData_CellPhone								:	"Cellular Phone<sup>*</sup>",
+	// US4364
+	personalData_ExpiryDate								:	"ID Expiry Date",
 
 	personalData_Correspondence							:	"Preferred Language:",
 	personalData_English								:	"English",

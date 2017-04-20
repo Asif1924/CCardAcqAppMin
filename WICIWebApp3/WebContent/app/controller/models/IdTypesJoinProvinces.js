@@ -17,7 +17,8 @@ WICI.IdTypesJoinProvinces = function() {
                       {prov:'ON', idTypes:[null, 'DR', 'BI', 'ON']},
                       {prov:'PE', idTypes:[null, 'DR', 'BI', 'PE']},
                       {prov:'QC', idTypes:[null, 'DR', 'BI', 'HE']},
-                      {prov:'SK', idTypes:[null, 'DR', 'BI', 'HE', 'SK']},
+                      // US4112
+                      {prov:'SK', idTypes:[null, 'DR', 'BI', 'SK']},
                       // US4287
                       {prov:'YT', idTypes:[null, 'DR', 'BI', 'YT']}                      
                   ];

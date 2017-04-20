@@ -162,6 +162,8 @@ WICI.dictionary_fr =  {
 	personalData_EmailAddress                         :                         "Adresse électronique",
 	personalData_HomePhone                            :                         "Téléphone (rés.)",
 	personalData_CellPhone                            :                         "Téléphone (cell.)<sup>*</sup>",
+	// US4364	
+	personalData_ExpiryDate							  :							"Date d'expiration de la pièce d'identité",
 
 	personalData_Correspondence                       :                         "Langue de correspondance:",
 	personalData_English                              :                         "Anglais",

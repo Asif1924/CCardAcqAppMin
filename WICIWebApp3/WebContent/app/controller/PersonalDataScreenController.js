@@ -41,6 +41,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         birthDate : '#personalData_DateOfBirth_TextField',
 
+        // US4365
+        idExpiryDate : '#personalData_ExpiryDate_TextField',
+        expiryDate_Area : '#personalData_ExpiryDate_Area',
+
         email : '#personalData_EmailAddress_TextField',
         homePhone : '#personalData_HomePhone_TextField',
         cellPhone : '#personalData_CellPhone_TextField',
@@ -130,9 +134,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             name : 'idnumbers',
             value : null,
             validation : {
-                type : 'format',
+                type : 'idFormat',
                 message : 'personalData1_validation_idnumbers',
-                matcher : /^[A-Z0-9\,\_\'\-\.\~\@\[\]\}\{\)\(]{1,20}$/,
+                // US4112
+                matcher : /^[a-zA-Z0-9\-\s]{1,20}$/,
                 group: [ 1 ]
             }
         },
@@ -176,7 +181,17 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_birthDate',
                     group: [ 1 ]
                 }
-            }, 
+            },
+            // US4365
+            {
+                name : 'idExpiryDate',
+                value : null,
+                validation : {
+                    type : 'idExpiryDate',
+                    message : 'personalData1_validation_expiryDate',                    
+                    group: [ 1 ]
+                }
+            },
             // US4168
             {
                 name : 'age',
@@ -425,12 +440,15 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod + " idtype :: after sync:: " + currModel.get('idtype'));
         
         // currModel.set('idtype', $(refs.idtype).val());
-        currModel.set('idnumbers', $(refs.idnumbers).val().toUpperCase());
+        currModel.set('idnumbers', $(refs.idnumbers).val().toUpperCase().replace(/\s/g,''));
 
         currModel.set('firstName', $(refs.firstName).val().toUpperCase());
         currModel.set('initial', $(refs.initial).val().toUpperCase());
         currModel.set('lastName', $(refs.lastName).val().toUpperCase());
         currModel.set('birthDate', $(refs.birthDate).val());
+        
+        // US4365
+        currModel.set('idExpiryDate', $(refs.idExpiryDate).val());
         
         // US4168
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
@@ -496,7 +514,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.email).val(currModel.get('email'));
         $(refs.homePhone).val(currModel.get('homePhone'));
         $(refs.cellPhone).val(currModel.get('cellPhone'));
-
+        // US4365
+        $(refs.idExpiryDate).val(currModel.get('idExpiryDate'));
+        
         currModel = models.addressModel;
 
         $(refs.postalcode).val(currModel.get('postalcode'));
@@ -653,6 +673,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             populateIdTypesList();
         });
 
+		// US4364        
+        $(refs.idtype).change(function(event) {
+            console.log(refs.idtype + '::change');
+            populateIdTypesList();
+        });
 
         $.subscribe('translatorFinished', function(event) {
             console.log(refs.placeofissue + '::change');
@@ -1185,6 +1210,52 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 'selected', 'selected'
             );
         }
+        
+        // US4364
+        console.log(logPrefix + sMethod + " provinceValue : " + provinceValue + " idType : " + idType);
+        if ( ($.inArray(idType, ['DR', 'PA', 'PR', 'IN', 'SC', 'BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) || 
+        		($.inArray(provinceValue, ['QC', 'NB', 'NL', 'SK', 'NU']) != -1 && $.inArray(idType, ['HE']) != -1))  {
+        	$("#personalData_IDNumber").removeClass("fieldLabelsBottomCell");
+        	$("#personalData_IDNumber").addClass("fieldLabelsCell");
+        	$("#personalData_ExpiryDate").removeClass("fieldLabelsCell");
+        	$("#personalData_ExpiryDate").addClass("fieldLabelsBottomCell");
+        	$(refs.idExpiryDate).val("");
+        	
+        	$.each(models.personalDataModel.data, function(index, item) {
+        		if(item.name == "idExpiryDate") {
+     				item.validation.canBeEmpty = false;
+     			}
+     		});
+        	 
+        	$(refs.expiryDate_Area).show();
+        } else if(($.inArray(provinceValue, ['AB']) != -1 && $.inArray(idType, ['HE']) != -1) || $.inArray(idType, ['BI', 'CI', 'RE']) != -1) {
+        	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
+        	$(refs.idExpiryDate).val("");
+        	
+       	 	$.each(models.personalDataModel.data, function(index, item) {
+       	 		if(item.name == "idExpiryDate") {
+       	 			item.validation.canBeEmpty = true;
+       	 		}
+       	 	});
+        	
+        	$(refs.expiryDate_Area).hide();
+        } else {
+        	// Expiry date will be hidden for any new fields added in ID Type.
+        	// To enable Expiry date, have to add logic in this above conditions
+        	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
+        	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
+        	$(refs.idExpiryDate).val("");
+        	
+        	$.each(models.personalDataModel.data, function(index, item) {
+      			if(item.name == "idExpiryDate") {
+      				item.validation.canBeEmpty = true;
+      			}
+      		});
+        	
+        	$(refs.expiryDate_Area).hide();
+        }
+        
     }
 
     //---------------------------------------------------------------------------------------
@@ -1357,6 +1428,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             var currModel = models.addressModel;
             var enteredYears = models.addressModel.get('years');
             var enteredMonthes = models.addressModel.get('months');
+            // US4112
+            // Id validation start here
+            valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers); 
+            
             var temprez;
             validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
             for (var i = 1; i <= validationGrroupsCol; i++) {
@@ -1413,7 +1488,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 });
                 
                 app.validationDecorator.applyErrAttribute(rez);
+                // US4112
+                if(!valid){
+                	app.validationDecorator.focusControl(refs.idnumbers);                	
+                } 
                 return;
+            }
+            // US4112
+            else{
+            	 if(!valid){
+                 	app.validationDecorator.focusControl(refs.idnumbers);
+                 	 return;
+                 }
             }
 
             var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel);
@@ -1438,7 +1524,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     //---------------------------------------------------------------------------------------
     function hideShowMoneyAdvantage (){
 
-        cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard')
+        cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard');
         if(cardTypeGlobal === 'OMC') {
             $(refs.moneyAdvantageContainer).show();
         }
@@ -1518,7 +1604,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 addressLine1_StreetName: refs.addressline1,
                 addressCity: refs.city,
                 addressLine1_Unit: refs.suiteunit,
-                addressProvince: refs.province
+                addressProvince: refs.province,
+                expiryDate: refs.idExpiryDate
             },
             rez, scanned, prop;
 
