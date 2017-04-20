@@ -8,6 +8,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	var translator = null;
 	var messageDialog = null;
 	var connectivityController = null;
+	this.initiateAppHelper = null;
 	
 	this.show = show;
 	this.init = init;
@@ -35,7 +36,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         name: 'overview',
         refs: refs, 
         data:[              
-              {name: 'promoCode',  value: null, validation: { type: 'format', message: 'overview_PromoCodeError', matcher: /^[a-z\u00C0-\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{4,5}$/i, canBeEmpty: true}},                
+              {name: 'promoCode',  value: null, validation: { type: 'format', message: 'overview_PromoCodeError', matcher: /^[a-z\u00C0-\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{4,5}$/i, canBeEmpty: true}},
+              {name: 'pcid',  	   value: null, validation: null },
               {name: 'provinces',  value: null, validation: { type: 'presence', message: 'overview_ProvinceError' }}
        ]
     });    
@@ -43,6 +45,11 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	function init( argFlow ) {		
 		var sMethod = 'init() ';
         BRB.Log(logPrefix + sMethod);
+        
+        this.initiateAppHelper = new BRB.InitiateAppHelper();
+        
+        BRB.Log(logPrefix + this.initiateAppHelper.getPCIDParam());
+        pcid = this.initiateAppHelper.getPCIDParam();
         BRB.AppConfig.TrackingScreenID = 1;
         flow = argFlow;        
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
@@ -80,8 +87,18 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         BRB.Log(logPrefix + sMethod);
         
         model.set('provinces', $(refs.provinces).val());        
-        model.set('promoCode', $(refs.promoCode).val().toUpperCase());
-        
+        if(app.getIsMOARequest()) {
+        	if($(refs.promoCode).val() == null || $(refs.promoCode).val() == "") {
+        		if(pcid != 0) {
+        			model.set('pcid', pcid.substring(0,5).toUpperCase());
+        		}
+        	} else {
+        		model.set('promoCode', $(refs.promoCode).val().toUpperCase());
+        	}
+        } else {
+        	model.set('promoCode', $(refs.promoCode).val().toUpperCase());
+		}
+        	
         BRB.Log(logPrefix + sMethod +' model data: ' + model.toString());
     }
 	//---------------------------------------------------------------------------------------
@@ -304,6 +321,16 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
                 return; 
             }   
 	    }
+	    
+	    if(app.getIsMOARequest()) {
+        	if($(refs.promoCode).val() == null || $(refs.promoCode).val() == "") {
+        		if(pcid != 0) {
+        			model.set('promoCode', model.get('pcid'));
+        			model.set('pcid', null);
+        			BRB.Log(logPrefix + sMethod + " PCID : " + model.get('pcid') + " Promocode : " + model.get('promoCode'));
+        		}
+        	}
+        }
 	    
 	   //US3084 if (($(refs.provinces).val() === 'NS') && !isNSPageDisplayed) {
 	   //US3083 if (!isNSPageDisplayed) {   

@@ -100,7 +100,7 @@ BRB.BRBWebApp = function() {
 			this.setIsMOARequest(false);
 		} else {
 			// Comment this line to Block ctfs.com flow BRB URL
-			// this.setIsMOARequest(true);
+			this.setIsMOARequest(true);
 		}
 		
 		this.customerTransactionModel = new BRB.CustomerTransactionModel();

@@ -5,9 +5,11 @@ BRB.InitiateAppHelper = function() {
 	var transactionIdParamName = "transactionId";
 	var languageParamName = "lang";
 	var cardTypeParamName = "cardType";
+	var pcidParamName = "pcid";
 	var transactionId = null;
 	var language = null;
 	var cardType = null;
+	var pcid = null
 	this.isDeleteCustomerDataRequestSent = false;
 	
 	function getUrlParam (paramName) {
@@ -122,5 +124,14 @@ BRB.InitiateAppHelper = function() {
 		finally {			
 			this.isDeleteCustomerDataRequestSent = true;
 		}		
+	};
+	
+	this.getPCIDParam = function () {
+		var sMethod = 'getPCIDParam()::';			
+		if (!pcid && _.isEmpty(pcid)) {
+			pcid = getUrlParam(pcidParamName);
+		}
+		BRB.Log(logPrefix + sMethod + "PCID is: " + pcid);
+		return pcid;		
 	};
 };

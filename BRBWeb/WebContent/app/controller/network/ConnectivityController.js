@@ -174,7 +174,7 @@ BRB.ConnectivityController = function(connectionStatus, messageDialog, translate
 				$.ajax({
 					url : url,
 					async: serviceName != serviceNameEnum.CompletionBRBWeb,
-					// contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
 					type : httpVerb,
 					dataType : serviceName.dataType || 'json',
 					beforeSend : beforeSendCall,
