@@ -62,22 +62,25 @@
 				<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('sameAddressArea'))}></span>
 			</div>
 		</div>
-		<div id="personalInfoTable" class="grayTableNoBorder row">	
-			<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
-				<span data-translationKey="additionalInformation_Address"></span>			
-			</div>
-			<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
-				<div class="row">
-					<span class="col-xs-12">
-					${ activationItems.getModel('additionalInformation').get('streetNumber')}
-					${ activationItems.getModel('additionalInformation').get('streetName')}
-					{{if activationItems.getModel('additionalInformation').get('suiteUnit') }}
-						<span data-translationKey="confirmation_Suite"></span>${ activationItems.getModel('additionalInformation').get('suiteUnit')}
-					{{/if}}
-					${activationItems.getModel('additionalInformation').get('city')}
-					${activationItems.getProvinceNameByValue(activationItems.getModel('additionalInformation').get('province'))}
-					${activationItems.getModel('additionalInformation').get('postalCode')}
-					</span>				
+		<div id="personalInfoTable" class="grayTableNoBorder row">
+			<!-- US4500 -->
+        <div id ="addressInfo">	
+				<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
+					<span data-translationKey="additionalInformation_Address"></span>			
+				</div>
+				<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
+					<div class="row">
+						<span class="col-xs-12">
+						${ activationItems.getModel('additionalInformation').get('streetNumber')}
+						${ activationItems.getModel('additionalInformation').get('streetName')}
+						{{if activationItems.getModel('additionalInformation').get('suiteUnit') }}
+							<span data-translationKey="confirmation_Suite"></span>${ activationItems.getModel('additionalInformation').get('suiteUnit')}
+						{{/if}}
+						${activationItems.getModel('additionalInformation').get('city')}
+						${activationItems.getProvinceNameByValue(activationItems.getModel('additionalInformation').get('province'))}
+						${activationItems.getModel('additionalInformation').get('postalCode')}
+						</span>				
+					</div>
 				</div>
 			</div>	
 		</div>

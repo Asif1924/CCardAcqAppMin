@@ -795,6 +795,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         var value =  $(refs.sameAddressRadio + ":checked").val()==="true";
         
         if (value === null || value === true) {
+        	// US4500
+			$(refs.streetNumber).val("");
+			$(refs.streetName).val("");
+			$(refs.suiteUnit).val("");
+			$(refs.city).val("");
+			$(refs.province).val("");
+			$(refs.postalCode_1).val("");
+			$(refs.postalCode_2).val("");
+			
 			$(refs.addressLine1).hide();
 			$(refs.addressLine2).hide();
 		}
@@ -802,7 +811,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			$(refs.addressLine1).show();
 			$(refs.addressLine2).show();
 		}
-	}//---------------------------------------------------------------------------------------
+	}
+	// ---------------------------------------------------------------------------------------
 	function showHideOptionalInsuranceCP(){
         var sMethod = 'showHideOptionalInsuranceCP() ';
         BRB.Log(logPrefix + sMethod);    

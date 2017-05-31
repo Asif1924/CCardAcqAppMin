@@ -453,6 +453,8 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		$("#confirmation_GetSuplementaryCardArea").empty();
 		$("#BRBConfirmationSuplementaryCardSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_GetSuplementaryCardArea");
 		bindMonthToggle();
+		// US4500
+		showHideSuplementaryAddress();
 		translator.run("ConfirmationScreen");
 		$(refs.editGetSuplementaryCardButton).on("mouseup", function(){
 			BRB.AppConfig.TrackingScreenID = 9;
@@ -473,5 +475,15 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 			BRB.AppConfig.TrackingScreenID = 10;
 			popUp_OptionalProductsScreen(populateInsurancefArea, 'insurancefArea');
 		});	
+	}
+	
+	//---------------------------------------------------------------------------------------
+	// US4500
+	function showHideSuplementaryAddress() {
+		var sMethod = 'showHideSuplementaryAddress() ';
+		BRB.Log(logPrefix + sMethod);
+		activationItems.getModel('additionalInformation')
+				.get('sameAddressArea') === 'Y' ? $("#addressInfo").hide() : $(
+				"#addressInfo").show();
 	}
 };
