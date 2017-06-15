@@ -85,6 +85,7 @@
 						is done through
 						FMR
 						DP - Auto Service Reps
+						FG - denotes FGL store applications
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:simpleType>
@@ -93,6 +94,7 @@
 						<xsd:enumeration value="WP"></xsd:enumeration>
 						<xsd:enumeration value="IP"></xsd:enumeration>
 						<xsd:enumeration value="DP"></xsd:enumeration>
+						<xsd:enumeration value="FG"></xsd:enumeration>
 						<xsd:length value="2"></xsd:length>
 					</xsd:restriction>
 				</xsd:simpleType>

@@ -60,7 +60,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 type : 'format',
                 message : 'Enter valid Promo Code',
                 matcher : /^[a-zA-Z0-9\'\-||S.O.]{1,5}$/,
-                canBeEmpty : false
+                // US4433   Other then FGl store PromoCode field should not allow blank (Empty)
+                canBeEmpty : (loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999) ? true : false
             }
         }, {
             name : 'province',
@@ -93,7 +94,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
         		showPromoCodeTextField();
         	}
-        } else {
+        }
+        // US4433 For FGL store hide program  drop down and set the value 
+        else if(loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999){
+           	   hidePromoCodeDropDown();
+        }else {
         	// US3767
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
         		hidePromoCodeTextField();
@@ -109,6 +114,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         if(loginModel.get('employerID').toUpperCase() === 'E' && loginModel.get('agentID').toLowerCase() !== 'demo') {
             loadCSRWorkflowOMC();
+        }
+        
+        // US4432
+        if(loginModel.get('employerID').toUpperCase() !== 'E' && (loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999)) {
+        	loadCSRWorkflowOMC();
         }
 
         app.idleTimeService.start();
@@ -388,7 +398,30 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     // US3767 
                     hidePromoCodeDropDown();
                 }
-            } else {
+            	//US4433 For FGl store hide and set value for  Program and show PromoCode as Empty 
+            } else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999) {
+            	
+            	    if(translator.getCurrentLanguage() == 'en') {
+            	    	programObj = JSON.parse(WICI.dictionary_en.program_FGL_ProgramCode_intercept);
+            	    }else{
+            	    	programObj = JSON.parse(WICI.dictionary_fr.program_FGL_ProgramCode_intercept);
+            	    }
+            	    
+            	    for (var key in programObj.FMR[0]) {
+                        if (programObj.FMR[0].hasOwnProperty(key)) {
+                           console.log("key :: " + key);                             
+                           var optTempl = '<option value="' + key + '" ';
+                           optTempl = optTempl + '>' + key + '</option>';
+                           controlRef.append(optTempl);                                                               
+                         }
+                  }
+                    $(refs.agencyPromoCode).val('');                    
+                    $(refs.agencyProgram).prop("disabled", true);
+                    model.set('agencyPromoCodeDropDown', 'OTHER');
+                    showPromoCodeTextField();
+                    hidePromoCodeDropDown();
+            } // US4433 ends
+            else {
             	if(employerID.toUpperCase() != "E") {
             		if(translator.getCurrentLanguage() == 'en') {
                     	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
@@ -548,15 +581,85 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // If Apply button is disabled make it enabled
         if (isDisabled) {
             showGreenAplyButton();
+            var employerID = loginModel.get('employerID');  
 
             // Bind with click event
             $(refs.applyButton).bind("click", function() {
                 console.log("chooseProductScreen_ApplyNowButton.click");
-                showNextScreen();
+                // US4495 -Test Print at tablet login for FMR
+                if (employerID.toUpperCase() != "E") {
+                	testPrint();
+                }else{
+                	showNextScreen();
+                }
+                //showNextScreen();
             });
         };
     }
-    // ---------------------------------------------------------------------------------------
+    
+    //---------------------------------------------------------------------------------------
+    // US4495 -Test Print at tablet login for FMR
+    function testPrint() {
+		var sMethod = 'testPrint() ';
+		console.log(logPrefix + sMethod);
+		try {
+			var isDevice = new WICI.DeviceDetectionHelper().any();
+	
+			if (isDevice) {
+	
+				if (!app.zebraPrinterWrapper.verifyPrinterMacAddress()) {
+					app.accountProfileHelper.showNoPrinterSetupWarning ();	
+					return;
+				}
+				new WICI.LoadingIndicatorController().show();
+				app.zebraPrinterWrapper.testPrint(printTestFileSuccess, printTestFileFailure);
+	
+			} else {
+				// Web print
+				 new WICI.LoadingIndicatorController().hide();
+				 messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+			}
+		} catch (error) {
+			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+		}
+		return;
+	}
+    
+  //---------------------------------------------------------------------------------------
+  // US4495 
+	function printTestFileSuccess(result) {
+	    var sMethod = 'printTestFileSuccess() ';
+	    console.log(logPrefix + sMethod);
+	    
+	    new WICI.LoadingIndicatorController().hide();
+	    messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+	}
+	//---------------------------------------------------------------------------------------
+	// US4495
+	function printTestFileFailure() {
+	    var sMethod = 'printTestFileFailure() ';
+	    console.log(logPrefix + sMethod);
+	    
+	    new WICI.LoadingIndicatorController().hide();
+	    messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+	}
+	//---------------------------------------------------------------------------------------
+	// US4495
+    function testPrintConfirmationYes () {
+        var sMethod = 'testPrintConfirmationYes() ';
+        console.log(logPrefix + sMethod);
+        showNextScreen();
+    }
+    //---------------------------------------------------------------------------------------
+    // US4495
+    function testPrintConfirmationNo () {
+        var sMethod = 'testPrintConfirmationNo() ';
+        console.log(logPrefix + sMethod);
+        messageDialog.verifyTestPrint(translator.translateKey("testPrintVerifyPrinterMsg"),translator.translateKey("testPrintVerify_Title"),translator.translateKey("testPrintVerify_Contionue_Button"));
+        showNextScreen();
+    }
+  
+   // ---------------------------------------------------------------------------------------
     function deActivateApplyButton() {
         // Check if apply button is disabled
         var isActive = $(refs.applyButton).hasClass('greenflat');
@@ -701,7 +804,17 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         		model.set('agencyPromoCodeDropDown', 'OTHER');
             	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
             }
-        } else {
+        } // US4433 For FGL store hide and set Program value for next page
+        else if(loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999){
+        	model.set('agencyProgram', "Intercept");
+        	$(refs.agencyProgram).prop("disabled", true);
+        	model.set('agencyPromoCodeDropDown', 'OTHER');
+        	if($(refs.agencyPromoCode).val() === null || $(refs.agencyPromoCode).val() === ""){
+        		model.set('agencyPromoCode', 'BLANK');
+        	}else{
+        		model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
+        	}
+        }else {
         	// US3767
             if(loginModel.get('employerID').toUpperCase() !== 'E') {        
             	// US3920	
@@ -790,7 +903,18 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // Raise province change event - to hide not needed cards
             $(refs.province).trigger("change");
         }
-
+        // US4433 - retain promocode on change of language
+        var promo = model.get('agencyPromoCode');
+        var storeNumber = loginModel.get('locationFieldID');
+        
+        console.log(logPrefix + sMethod + " promo :: " + promo);
+        if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999) {
+        	if(promo === "BLANK") {
+            	$(refs.agencyPromoCode).val('');
+            } else if(promo !== "BLANK") {
+            	$(refs.agencyPromoCode).val(model.get('agencyPromoCode'));
+            }
+        }
     }
 
     function populateProgramsList(){
@@ -867,7 +991,36 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 // US3767 
                 hidePromoCodeDropDown();
             }
-        } else {
+        } // US4433 For FGl store  hide Program list and set the value  as OTHER 
+        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        	
+        	if(translator.getCurrentLanguage() == 'en') {
+        		programObj = JSON.parse(WICI.dictionary_en.program_FGL_ProgramCode_intercept);
+        	}else{
+        		programObj = JSON.parse(WICI.dictionary_fr.program_FGL_ProgramCode_intercept);
+        	}
+        	
+        	for (var key in programObj.FMR[0]) {
+                if (programObj.FMR[0].hasOwnProperty(key)) {
+                   console.log("key :: " + key);                             
+                   var optTempl = '<option value="' + key + '" ';
+                   optTempl = optTempl + '>' + key + '</option>';
+                   controlRef.append(optTempl);                                                               
+                }
+           }
+            $(refs.agencyProgram).prop("disabled", true);
+        	model.set('agencyPromoCodeDropDown', 'OTHER');
+            // US3767 
+            hidePromoCodeDropDown();
+            // US4433 - retain promocode on change of language
+            var promo = model.get('agencyPromoCode');
+            console.log(logPrefix + sMethod + " promo :: " + promo);
+            if(promo === "BLANK") {
+            	$(refs.agencyPromoCode).val('');
+            } else if(promo !== "BLANK") {
+            	$(refs.agencyPromoCode).val(model.get('agencyPromoCode'));
+            }
+        }else {
         	if(employerID.toUpperCase() != "E") {
         		
         		 var controlRefPromo = $(refs.agencyPromoCodeDropDown);
@@ -910,6 +1063,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // US3920
         if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){
         	// Todo Nothing to add here now
+        } //US4433
+        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        	// Todo Nothing ,show empty PromoCode field
         } else {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
             	var program = model.get('agencyProgram');
@@ -954,8 +1110,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	console.log(logPrefix + sMethod + "Marks Store populate Promocode list");
         	
         	// To be added logic for dynamic promocode populating
-        }
-        else {
+        } // US4433
+        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        	// PromoCode should be empty
+        }else {
         	if(translator.getCurrentLanguage() == 'en') {
             	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
             	$("<option value='' >Please select ...</option>").prependTo(controlRef);

@@ -18,6 +18,9 @@
 			<!-- US3556 Mark's -->
 			{{if activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 && activationItems.getModel('loginScreen').get('locationFieldID') <= 6999}}			
 				<span class="pageSubTitle" data-translationKey="summary_marks_highlighter_SubTitle"></span>
+			<!-- US4432 FGL -->
+			{{else activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 && activationItems.getModel('loginScreen').get('locationFieldID') <= 5999}}
+				<span class="pageSubTitle" data-translationKey="summary_FGL_highlighter_SubTitle"></span>
 			{{else}}
 				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span>
 			{{/if}}

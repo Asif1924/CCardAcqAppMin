@@ -12,6 +12,8 @@ WICI.MessageDialog = function(translate){
 	this.scan = scan;
 	this.scanLoyalty = scanLoyalty;
 	this.homePhone = homePhone;
+	// US4495
+	this.verifyTestPrint = verifyTestPrint;
 
 	function error(message, title, callback, uiDecoration, dialogTemplateOverride){
 		console.log("MessageDialog.error: message=" + message);
@@ -48,7 +50,19 @@ WICI.MessageDialog = function(translate){
 				determineDialogTemplate(dialogTemplateOverride));
 		dialogQueue.enqueue(dialog);
 	}
-
+	// US4495 
+	function verifyTestPrint(message, title, callback, uiDecoration, dialogTemplateOverride){
+		var parsedMessageArray = parseMessage(message);
+		var dialog = new WICI.OkDialog(
+				parsedMessageArray,
+				buildTitle(title, "testPrintVerify_Title"),
+				translate.translateKey("testPrintVerify_Contionue_Button"),
+				buildCallback(callback),
+				uiDecoration,
+				determineDialogTemplate(dialogTemplateOverride));
+		dialogQueue.enqueue(dialog);
+	}
+	
 	function confirm(message, yesCallback, noCallback, title, yesButton, noButton, autoClose, autoCloseCallback) {
 		var dialog = new WICI.ConfirmMessageDialog(message,
 				buildCallback(yesCallback),

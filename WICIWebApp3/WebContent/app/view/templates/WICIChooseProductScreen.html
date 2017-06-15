@@ -65,10 +65,19 @@
 		                        <span data-translationKey="chooseProduct_PromoCode"></span>
 		                    </td>
 					{{else}}
-						{{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}						
-							<td class="fieldLabelsCell fieldCellSize33">
-		                        <span data-translationKey="chooseProduct_PromoCode_Other"></span>
-		                    </td>
+					<!-- US4433 - Start //-->
+						{{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
+									{{if activationItems.getModel('loginScreen').get('locationFieldID') >= "4000" && 
+                    	               activationItems.getModel('loginScreen').get('locationFieldID') <= "5999"}}
+                    	               <td class="fieldLabelsCell fieldCellSize33">
+		                                    <span data-translationKey="chooseProduct_PromoCode"></span>
+		                                </td>
+		                              {{else}}			
+							            <td class="fieldLabelsCell fieldCellSize33">
+		                                   <span data-translationKey="chooseProduct_PromoCode_Other"></span>
+		                                </td>
+		                            {{/if}}
+		            <!-- US4433 - End //-->      
 		                {{else}}
 							<td class="fieldLabelsCell fieldCellSize33">
 	                        	<span data-translationKey="chooseProduct_PromoCode"></span>
@@ -97,7 +106,13 @@
 		<br />
 		<center>
             <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
-            	<span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
+            <!-- US4495 - Start //-->
+                {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
+            	     <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label_with_testprint"></span>
+            	{{else}}
+            	     <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
+            	{{/if}}
+            <!-- US4495 - End //-->   	
 			</span>
         </center>
 		<br />

@@ -112,6 +112,21 @@ public class WICIFileHelper {
 			        	templateFileName = templateFileName;
 			        	isMarksStore = true;
 			        } 
+	        		// US4432
+	        		// FGL Store Specific Logic
+	        		// FGL stores are between 4000 to 5999 store numbers
+	        		else if(storeNo >= 4000 && storeNo <= 5999) {
+				        // E && !Marks && Demo than tokrn prn			        	
+			        	if("4111111111111111".equals(accountNumber) ) {
+			        		 templateFileName = templateFileName;
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        }
+			        }
 	        		// CT(Canadian Tire) Store Specific Logic
 	        		// Now for CT store, we added in else condition.
 	        		// But CT stores are between 1 to 999 store numbers

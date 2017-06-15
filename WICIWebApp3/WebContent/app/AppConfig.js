@@ -41,7 +41,8 @@ WICI._AppConfig = function() {
 		},
 		FMR: {
 		    agentID: "demo",
-		    employerID: ["D", "K", "C", "F", "J", "0"]
+		    // US4309
+		    employerID: ["D", "K", "C", "F", "J", "0", "G", "L", "M", "N", "P", "Q", "R", "S", "T", "U"]
 		},
 		admin: {
 			employerID: ["D"],

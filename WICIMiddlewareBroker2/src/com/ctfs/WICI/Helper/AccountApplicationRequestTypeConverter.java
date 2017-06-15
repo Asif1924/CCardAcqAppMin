@@ -71,17 +71,18 @@ public class AccountApplicationRequestTypeConverter
                     String  storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
                     double storeNo = Double.parseDouble(storeNumber);
                     log.info(sMethod + " storeNo: " + storeNo);
-    			    if(storeNo >= 6000 && storeNo <= 6999 ) {
-    			        	
-    			    	          populatedAccountApplicationRequest.setChannelIndicator("IC");	
-    			    } 
-    			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
-                    {
-                                   populatedAccountApplicationRequest.setChannelIndicator("DP");
+                    // US4432
+                    if( storeNo >= 4000 && storeNo <= 5999 ) {
+                    	populatedAccountApplicationRequest.setChannelIndicator("FG");
                     }
-                    else
-                    {
-                                   populatedAccountApplicationRequest.setChannelIndicator("IP");
+                    else if( storeNo >= 6000 && storeNo <= 6999 ) {
+    			        populatedAccountApplicationRequest.setChannelIndicator("IC");	
+    			    } 
+    			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"))) {
+    			    	populatedAccountApplicationRequest.setChannelIndicator("DP");
+                    }
+                    else {
+                        populatedAccountApplicationRequest.setChannelIndicator("IP");
                     } 
                     
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
