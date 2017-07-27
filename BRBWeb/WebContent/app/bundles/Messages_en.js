@@ -123,6 +123,15 @@ BRB.dictionary_en = {
 	
 	// US3627
 	chooseProduct_Title									:	"IT WILL TAKE 3-5 MINUTES TO COMPLETE THIS APPLICATION. IF APPROVED, YOU WILL RECEIVE CORRESPONDENCE IN THE MAIL WITHIN 10 BUSINESS DAYS.",
+	//US4541
+	chooseProduct_Title1								:	"Apply for Instant Credit on a Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>.",
+	chooseProduct_Title2								:	"If approved, your new card will be added to your profile to <b>complete your online purchase today - now with 4% <br/> (that's 10X) back in Canadian Tire 'Money'<span class=\"footer_p_sup overviewBoldText\">&reg;</span></b> at Canadian Tire, Sport Chek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>/L'Équipeur<sup>&reg;</sup> and PartSource!<br/>You will receive your physical card in the mail to begin collecting Canadian Tire 'Money'<sup>&reg;</sup> everywhere you shop.",
+	chooseProduct_Title3								:	"Apply<sup>ƒ</sup>  and use your card today!",
+	chooseProduct_Title4								:	"<b>Collect 4% (that's 10X back!) Canadian Tire 'Money'<sup>&reg;</sup></b> every day<sup>&dagger;</sup><br/> in-store and online on qualifying purchases at Canadian Tire,<br/> Sport Chek, Mark's/L'Équipeur and PartSource. ",
+	chooseProduct_Title5								:	"<b>Collect Canadian Tire 'Money'</b> at participating Canadian Tire gas bars<sup>2</sup>",
+	chooseProduct_Title6								:	"<b>Collect Canadian Tire 'Money' everywhere</b> else you shop, including<br>Atmosphere",
+	chooseProduct_Title7								:	"<b>No Fee No Interest Financing Options Available.</b> Learn more at<br>ctfs.com/financing ",
+	chooseProduct_Title8								:	"<b>Receive Cardmember Exclusive Offers</b> right in your inbox and<br/> mobile device",
 	chooseProduct_LinkText								:	"Choose a different card.",
 	chooseProduct_DescriptionTitle						:	"REWARDS AT A GLANCE",
 	chooseProduct_Description1_1						:	"Earn Canadian Tire &lsquo;Money&rsquo; rewards",
@@ -324,7 +333,8 @@ BRB.dictionary_en = {
 	
 	//----------------------------------------- Personal Information section ------------------------------
 	
-	personalInformation_CTProfileLabel					:	"Click here to copy available information from My CT Profile",
+	// US4579 Removal of CT
+	personalInformation_CTProfileLabel					:	"Click here to copy available information from My Profile",
 	
 	personalInformation_LoyaltyMembershipNumberError	:	"Please enter sixteen digits",
 	personalInformation_LoyaltyMembershipNumberPreError	:	"Please enter six digits",
@@ -798,7 +808,8 @@ BRB.dictionary_en = {
     personalData_MISS								:	"Miss.",
     personalData_MS									:	"Ms.",
 	
-	personalInformation_useMyCTProfileButtonText	  			:	'<span class="buttonCTText">Use My CT profile information</span>',
+	// US4579 Removal of CT
+	personalInformation_useMyCTProfileButtonText	  			:	'<span class="buttonCTText">Use My profile information</span>',
 	personalInformation_Title_TextField							:	'<select class=\"fieldValuesSelectField titleField\" id=\"personalInformation_Title_TextField\" />',
 	personalInformation_Month									:	'<select class=\"fieldValuesSelectField dateOfBirthMonthField\" id=\"personalData_DateOfBirth_Month\" placeholder=\"Month\" />',
 	personalInformation_Day										:	'<select class=\"fieldValuesSelectField dateOfBirthDayField\" id=\"personalData_DateOfBirth_Day\" placeholder=\"Day\" />',
@@ -1056,7 +1067,8 @@ BRB.dictionary_en = {
 	confirmation_Suite		                            :   "Apt./Suite # ",
 	confirmation_prevAddressTitle                       :   "Previous Address",
 	confirmation_Information_Accurate_Text              :   "Please ensure the information submitted is accurate as this will help us process your application today!",
-	confirmation_Update_CT_Profile_Text					:   "Update my CT profile with the address information provided in this application.",
+	// US4579 Removal of CT
+	confirmation_Update_CT_Profile_Text					:   "Update my profile with the address information provided in this application.",
 	confirmation_ReceiveEmail                           :    ', I would like to receive e-mail communications on offers, promotions, contests, and information on products and services.',
 	confirmation_PrintPage								:	'Print this page',
 	confirmation_print_header							:	'<img src="app/images/static_header_confirmation.png"  class="print_header" id="img2" alt="test" width="954">',
@@ -1278,9 +1290,9 @@ BRB.dictionary_en = {
 	// Old line
 	// chooseProduct_DescriptionA1   : "Interest Rate – <b>19.99%</b>",
 	// chooseProduct_DescriptionA2   : "Cash Advances and Related Fees – <b>21.99%</b>",
-	chooseProduct_DescriptionA0	  : "Annual Fee – <b>None</b>",
-	chooseProduct_DescriptionA1   : "Interest Rate – <b>19.99%</b><sup>3</sup>",
-	chooseProduct_DescriptionA2   : "Cash Transactions and Related Fees – <b>22.99%</b><sup>3</sup>",
+	chooseProduct_DescriptionA0	  : "Annual Fee &#45; <b>None</b>",
+	chooseProduct_DescriptionA1   : "Interest Rate &#45; <b>19.99%</b><sup>3</sup>",
+	chooseProduct_DescriptionA2   : "Cash Transactions and Related Fees &#45; <b>22.99%</b><sup>3</sup>",
 	
 	// 2016-03-17 chrch: Adding hyperlinks as per business request US3964
 /*	Overview_ctm_LegalText1 						   			: "<sup>1</sup> In the form of Canadian Tire 'Money'. Terms, conditions and restrictions apply. See program rules at <a href='http://www.canadiantire.ca/en/my-canadian-tire-money.html' target='_blank'>www.canadiantire.ca</a> or <a href='http://www.ctfs.com/ctm' target='_blank'>www.ctfs.com/ctm</a> for more details.",
@@ -1297,6 +1309,27 @@ BRB.dictionary_en = {
 	Overview_ctm_LegalText3 									: "<sup>3</sup> If you are not approved for the Card at these rates, we may still issue you a card at an annual interest rate of 27.99% for cash transactions and related fees and 25.99% for all other charges.",
 	Overview_ctm_LegalText4 									: "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire , the Canadian Tire triangle design, the Canadian Tire Financial Services  design, Canadian Tire Options, Canadian Tire 'Money', My Canadian 'Money' and PartSource are registered trademarks of Canadian Tire Corporation, Limited and are used under licence.",
 	Overview_ctm_LegalText5 									: "<sup>&reg;</sup>/&trade; MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated, and are used under licence.",	
+	//US4541
+	Overview_ctm_LegalTextEComm1 						   			: "Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
+	Overview_ctm_LegalTextEComm2 									: "<span class=\"superscripts\"><sup>1</sup></span> In the form of Canadian Tire 'Money'. Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect Canadian Tire 'Money' at the rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money'® program collect Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions. CT ‘Money’ is collected on the pre-tax amount at Canadian Tire and PartSource.",
+	Overview_ctm_LegalTextEComm3 									: "<span class=\"superscripts\"><sup>2</sup></span> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details.",
+	Overview_ctm_LegalTextEComm4 									: "<span class=\"superscripts\"><sup>3</sup></span> If you are not approved for the Card at these rates, we may still issue you a card at an annual interest rate of 27.99% for cash transactions and related fees and 25.99% for all other charges.",
+	Overview_ctm_LegalTextEComm5 									: "<sup>*</sup> “Equal payments, no interest” for 12 months (unless stated otherwise) is only available on request, on approved credit with a Canadian Tire Bank issued credit card and on purchases of items at Canadian Tire of $200 or more (excluding gift cards). Interest does not accrue during the period of the plan. However, if we do not receive the full minimum due on a statement within 59 days of the date of that statement, or any event of default (other than a payment default) occurs under your Cardmember Agreement, all special payment plans on your account will terminate and (i) you will then be charged interest on the balances outstanding on such plans at the applicable regular annual rate from the day after the date of your next statement, and (ii) the balances outstanding will form part of the balance due on that statement. There is no administration fee charged for entering into a special payments plan. Not available on purchases using a Low Rate Options<sup>&reg;</sup> MasterCard<sup>&reg;</sup>. Each month during an equal payments plan you are required to pay in full by the due date that month’s equal payments plan instalment. Any unpaid portion not received by the due date will no longer form part of the equal payments plan and interest will accrue on that amount from the day after the date of your next statement at the applicable regular annual rate.",
+	Overview_ctm_LegalTextEComm6								    : "<b>Additional information for residents of Quebec only:</b> The regular annual rate for persons applying for the Options MasterCard is 22.99% for cash transactions and related fees and 19.99% for all other charges. Some applicants may receive a higher or lower regular annual rate depending on a credit evaluation. The minimum payment is the sum of (a) interest and fees shown on your statement, (b) the greater of any amount past due or any balance over your credit limit, (c) the amount of any equal payments plan instalments then due, and (d) $10. Balances under $10 are due in full. For residents of Quebec, the period between the statement date and the due date for payment is 26 days. The billing period covered by each statement can be from 28-33 days. The Options MasterCard does not have an annual fee. Examples of borrowing costs (rounded to the nearest cent) assuming that all charges are purchases bearing interest at the regular annual rate of 19.99%, a 30 day month, no charges made on special payment plans and no other fees, additional payments or other changes are:",
+	Overview_ctm_LegalTextEComm7									: "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire , the Canadian Tire triangle design, the Canadian Tire Financial Services design, Canadian Tire Options, Canadian Tire 'Money',",
+	Overview_ctm_LegalTextEComm8									: "My Canadian 'Money' and PartSource are registered trademarks of Canadian Tire Corporation, Limited and are used under licence.",
+	Overview_ctm_LegalTextEComm9									: "<sup>&reg;</sup>/<sup>&trade;</sup> Sport Chek is a registered trademark of FGL Sports Ltd, used under licence.",
+	Overview_ctm_LegalTextEComm10									: "<sup>&reg;</sup>/<sup>&trade;</sup> Mark’s is a registered trademark of Mark’s Work Wearhouse Ltd, used under licence.",
+	overview_AverageEComm											: "If your average balance is:",
+	overview_Average0EComm										: "$100",
+	overview_Average1EComm									:	"$500",
+	overview_Average2EComm											:	"$1000",
+	overview_Average3EComm									:	"$2000",
+	overview_MonthlyCreditChargesEComm								:	"Total monthly credit charges will be:",
+	overview_MonthlyCreditCharges0EComm						:	"$1.64",
+	overview_MonthlyCreditCharges1EComm						:	"$8.22",
+	overview_MonthlyCreditCharges2EComm						:	"$16.43",
+	overview_MonthlyCreditCharges3EComm						:	"$32.86 ",
 		
 	endstatemeant                                          :   ""
 										

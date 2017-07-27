@@ -1,4 +1,4 @@
-  <script id="BRBOverview-template" type="text/x-jquery-tmpl">
+<script id="BRBOverview-template" type="text/x-jquery-tmpl">
  
 	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
 		<div class="customMargin row">
@@ -227,7 +227,64 @@
 		
 
 		<br>
+		{{if !isMOA }}
+		<div class="footnoteContentBlock overviewFootnoteBlock">
+		            <span class="footnoteContentText">
+					<p data-translationKey="Overview_ctm_LegalTextEComm1"></p>
+					<p data-translationKey="Overview_ctm_LegalTextEComm2"></p>
+					<p data-translationKey="Overview_ctm_LegalTextEComm3"></p>
+ 					<p data-translationKey="Overview_ctm_LegalTextEComm4"></p>
+					<p data-translationKey="Overview_ctm_LegalTextEComm5"></p>
+					<p data-translationKey="Overview_ctm_LegalTextEComm6"></p>
 
+						<table class="overviewContentTableContainer">
+							<tr>
+								<td class="overviewContent1">
+								<span class="overviewContentLeftAlign" data-translationKey="overview_AverageEComm"></span>
+								<span class="overviewContentRightAlign" data-translationKey="overview_Average0EComm"></span>
+								</td>
+								<td class="overviewContent2" data-translationKey="overview_Average1EComm"></td>
+								<td class="overviewContent2" data-translationKey="overview_Average2EComm"></td>
+								<td class="overviewContent2" data-translationKey="overview_Average3EComm"></td>
+							</tr>
+							<tr>
+								<td class="overviewContent1">
+								<span class="overviewContentLeftAlign" data-translationKey="overview_MonthlyCreditChargesEComm"></span>
+								<span class="overviewContentRightAlign" data-translationKey="overview_MonthlyCreditCharges0EComm"></span>
+								</td>
+								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges1EComm"></td>
+								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges2EComm"></td>
+								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges3EComm"></td>
+							</tr>
+						</table>
+						
+						
+
+					<span data-translationKey="Overview_ctm_LegalTextEComm7"></span><br>
+					<span data-translationKey="Overview_ctm_LegalTextEComm8"></span><br>
+					<span data-translationKey="Overview_ctm_LegalTextEComm9"></span><br>
+					<span data-translationKey="Overview_ctm_LegalTextEComm10"></span><br>
+
+					
+					<!-- <br><span data-translationKey="Overview_ctm_LegalText6"></span> //--> 
+					</span>	
+		  <!--<span class="footnoteContentText">
+				<sup>1</sup>
+				<span data-translationKey="overview_footnoteContentText1"></span>
+				<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
+				<span ></span>
+				<span>   </span>
+				<br> 
+				<sup>2</sup>
+				<span data-translationKey="overview_footnoteContentText2"></span>
+				<span> </span>
+				<br>
+				<span data-translationKey="overview_footnoteContentText4"></span>
+				<br>
+				<span data-translationKey="overview_footnoteContentText5"></span>
+			</span>-->
+		</div>
+		{{else}}
 		<div class="footnoteContentBlock overviewFootnoteBlock">
 		            <span class="footnoteContentText">
 					<span data-translationKey="Overview_ctm_LegalText1"></span><br> 
@@ -253,6 +310,7 @@
 				<span data-translationKey="overview_footnoteContentText5"></span>
 			</span>-->
 		</div>
+		{{/if}}
 
 		<br>
 		<br>
@@ -261,4 +319,4 @@
 
 	</div>
  
- </script> 
+ </script>

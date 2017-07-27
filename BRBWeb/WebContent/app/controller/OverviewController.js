@@ -73,7 +73,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		
 		// Start session timeout service
 		app.sessionTimeoutActionService.start();
-		toggle10XImege();		
+		toggle10XImege();
+		//US4541
+		toggle4PercentImage();
 	}    
 	//---------------------------------------------------------------------------------------
     function fillControlsWithData()
@@ -181,12 +183,19 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
 		//var html = $(templateName).tmpl(); 
-		var html = $(templateName).tmpl({'screenIsPopup':false}); 
+		//US4541
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
+		
+		var html = $(templateName).tmpl({'isMOA':isMOA, 'screenIsPopup':false}); 
 		$element.append(html);
 	}
 	//---------------------------------------------------------------------------------------
 	function insertAfterElement($element, templateName) {
-		var html = $(templateName).tmpl({'screenIsPopup':false}); 
+		//US4541
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
+		var html = $(templateName).tmpl({activationItems:activationItems, 'isMOA':isMOA,'screenIsPopup':false}).appendTo($element); 
 		$element.after(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -259,6 +268,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			restoreDataAfterTranslation();
 			toggleImege();
 			toggle10XImege();
+			//US4541
+			toggle4PercentImage();
 		});
 	}    
     //---------------------------------------------------------------------------------------
@@ -416,6 +427,19 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			'topBanner10XImageBlock_fr') : $('#choseProduct a#topBanner10XImage')
 			.addClass('topBanner10XImageBlock_fr').removeClass(
 					'topBanner10XImageBlock');  
+		}
+	}  
+	
+	//US4541-------------------------------------------------------------------------------------------
+	function toggle4PercentImage() {
+		if (app.ieUIHelper.isIe8Browser()){
+		   app.ieUIHelper.toggleNSImege(translator);
+		}else{
+		 	translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner4PercentImage').addClass(
+			'topBanner4PercentImageBlock').removeClass(
+			'topBanner4PercentImageBlock_fr') : $('#choseProduct a#topBanner4PercentImage')
+			.addClass('topBanner4PercentImageBlock_fr').removeClass(
+					'topBanner4PercentImageBlock');  
 		}
 	}  
 };

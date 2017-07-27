@@ -1,16 +1,51 @@
 <script id="chooseProduct-template" type="text/x-jquery-tmpl">
 <div id="choseProduct" class="container-fluid" >	
 	<div class="row">
+		<!--US4541-->
+		{{if !isMOA }}
+		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1"></div>
+		<div class="chooseProductTitle1" data-translationKey="chooseProduct_Title2"></div>
+       	{{else}}
 		<div class="chooseProductTitle" data-translationKey="chooseProduct_Title"></div>
+       	{{/if}}
 		<div id="productListBlock" class="chooseProductBlock">
 			<div class="col-sm-4">
+				<!--US4541-->
+				{{if !isMOA }}
+				<a href="#" id="topBanner4PercentImage" class="topBanner4PercentImageBlock" />
+				{{else}}
 				<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+				{{/if}}
 			</div>
 			<div class="col-sm-8">
-				 <div class="liContent">
-					<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>
-					<div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>
-					<ul class="simpleList" id="rewardsOnPurchasList">
+				<div class="liContent">
+				   {{if !isMOA }}
+					<!--<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>-->
+					<!--<div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>-->
+					<!--US4541-->
+					<div class="chooseProductTitle2" data-translationKey="chooseProduct_Title3"></div>
+					<div class = "chooseProductTitle3" data-translationKey="chooseProduct_Title4"></div>
+					<div class = "chooseProductTitle3" data-translationKey="chooseProduct_Title5"></div>
+					<div class = "chooseProductTitle3" data-translationKey="chooseProduct_Title6"></div>
+					<div class = "chooseProductTitle3" data-translationKey="chooseProduct_Title7"></div>
+					<div class = "chooseProductTitle3" data-translationKey="chooseProduct_Title8"></div>
+					<ul class="simpleList" id="overviewRewardsList">						
+						<!-- US3627 //-->
+						<li>
+							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA0"></span>
+						</li>
+						<li>
+							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA1"></span>
+						</li>
+						<li>
+							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA2"></span>
+						</li>
+						
+					 </ul> 
+					{{else}}
+						<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>
+					  <div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>
+					  	<ul class="simpleList" id="rewardsOnPurchasList">
 						<li>
 							<div class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></div>
 						</li>							
@@ -35,7 +70,7 @@
 						</li>
 						
 					 </ul> 
-					
+					{{/if}}
 				</div> 
 			</div>
 		</div>

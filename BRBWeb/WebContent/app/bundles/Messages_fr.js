@@ -123,6 +123,15 @@ BRB.dictionary_fr = {
 		
 		// US3627
 		chooseProduct_Title									:	"IL VOUS FAUDRA DE TROIS À CINQ MINUTES POUR REMPLIR LA PRÉSENTE DEMANDE DE CARTE. SI VOTRE DEMANDE EST APPROUVÉE, VOUS EN SEREZ AVISÉ PAR COURRIER DANS LES DIX JOURS OUVRABLES.",
+		//US4541
+		chooseProduct_Title1								:	"Faites une demande de crédit immédiat sur la carte Mastercard<span class=\"header_title_MDMC\">MD</span> Options<span class=\"header_title_MDMC\">MD</span> de Canadian Tire.",
+		chooseProduct_Title2								:	"Lorsque votre demande sera approuvée, votre nouvelle carte sera ajoutée à votre profil <b>pour vous permettre de compléter<br> votre achat en ligne aujourd'hui en bénéficiant d'une prime de 4 % (soit 10x le taux régulier) en « Argent » Canadian Tire<span class=\"header_title_MDMC\">MD</span></b><br> chez Canadian Tire, Sport Chek, Mark’s/l’Équipeur et PartSource! Vous recevrez votre carte par la poste et pourrez<br> commencer à obtenir de l'« Argent » Canadian Tire<span class=\"header_title_MDMC\">MD</span> partout où vous magasinez.",
+		chooseProduct_Title3								:	"Faites une demande<sup>ƒ</sup> et utilisez votre carte dès aujourd'hui!",
+		chooseProduct_Title4								:	"<b>Obtenez une prime de 4 %,  soit 10x le taux régulier<sup>&dagger;</sup> en « Argent » Canadian Tire</b>,<br>sur vos achats admissibles effectués en magasin ou en ligne chez Canadian Tire, Sport Chek, Mark’s/l’Équipeur et PartSource.",
+		chooseProduct_Title5								:	"<b>Obtenez de l'« Argent » Canadian Tire</b> dans les postes d'essence Canadian Tire<sup>2</sup>",
+		chooseProduct_Title6								:	"<b>Obtenez de l'« Argent » Canadian Tire partout ailleurs</b>, y compris chez Atmosphere.",
+		chooseProduct_Title7								:	"<b>Bénéficiez du programme de financement « Aucuns frais, Aucun intérêt »</b>. Pour en savoir plus, visitez ctfs.com/financement.",
+		chooseProduct_Title8								:	"<b>Recevez des offres exclusives réservées aux titulaires</b> de carte directement dans<br> votre boîte de réception et sur votre téléphone mobile",
 		chooseProduct_LinkText								:	"Sélectionnez une autre carte.",
 		chooseProduct_DescriptionTitle						:	"APERÇU DES PRIMES",
 		chooseProduct_Description1_1						:	"Accumulez des primes en « Argent » Canadian Tire",
@@ -328,7 +337,8 @@ BRB.dictionary_fr = {
 		
 		//----------------------------------------- Personal Information section ------------------------------
 		
-		personalInformation_CTProfileLabel					:	"Cliquez ici pour copier les renseignements du profil MonCT.",
+		// US4579 Removal of CT
+		personalInformation_CTProfileLabel					:	"Cliquez ici pour copier les renseignements du profil.",
 		
 		personalInformation_LoyaltyMembershipNumberError	:	"Veuillez entrer seize chiffres",
 		personalInformation_LoyaltyMembershipNumberPreError	:	"Veuillez entrer six chiffres",
@@ -798,7 +808,8 @@ BRB.dictionary_fr = {
 	    personalData_MISS								:	"MLLE", // ---
 	    personalData_MS									:	"MLLE",
 		
-		personalInformation_useMyCTProfileButtonText	  			:	'<span class="buttonCTText_fr">Utiliser les renseignements de mon  profil  Mon CT</span>',
+		// US4579 Removal of CT
+		personalInformation_useMyCTProfileButtonText	  			:	'<span class="buttonCTText_fr">Utiliser les renseignements de mon profil</span>',
 		personalInformation_Title_TextField							:	'<select class=\"fieldValuesSelectField titleField\" id=\"personalInformation_Title_TextField\" />',		
 		personalInformation_Month									:	'<select class=\"fieldValuesSelectField dateOfBirthMonthField\" id=\"personalData_DateOfBirth_Month\" placeholder=\"Month\" />',
 		personalInformation_Day										:	'<select class=\"fieldValuesSelectField dateOfBirthDayField\" id=\"personalData_DateOfBirth_Day\" placeholder=\"Day\" />',
@@ -1057,7 +1068,8 @@ BRB.dictionary_fr = {
 		confirmation_Suite		                            :   "Numero d'app. / bureau ",
 		confirmation_prevAddressTitle                       :   "Adresse précédente",
 		confirmation_Information_Accurate_Text              :   "Veuillez vous assurer que les renseignements transmis sont exacts pour nous aider à traiter votre demande aujourd'hui!",
-		confirmation_Update_CT_Profile_Text					:   "Mettre à jour l’adresse du profil mon CT fournie lors de la demande.",
+		// US4579 Removal of CT
+		confirmation_Update_CT_Profile_Text					:   "Mettre à jour l’adresse du profil mon fournie lors de la demande.",
 		confirmation_ReceiveEmail                           :    ', Je veux recevoir les communications par courriel sur les offres, les promotions et les concours ainsi que des renseignements sur les produits et services.',
 		confirmation_PrintPage								:	'Imprimer cette page',
 		confirmation_print_header							:	'<img src="app/images/static_header_confirmation_fr.png"  class="print_header" id="img2" alt="test" width="954">',
@@ -1321,9 +1333,10 @@ BRB.dictionary_fr = {
 		// Old code
 		// chooseProduct_DescriptionA1  					: "Taux d'intérêt – <b>19.99%</b>",
 		// chooseProduct_DescriptionA2   					: "Cash advances and related fees — <b>21.99%</b>",
-		chooseProduct_DescriptionA0	  					: "Frais annuels – <b>aucuns</b>.",
-		chooseProduct_DescriptionA1  					: "Taux d'intérêt – <b>19.99%</b><sup>3</sup>",
-		chooseProduct_DescriptionA2   					: "Transactions au comptant et les frais afférents — <b>22.99%</b><sup>3</sup>",
+		chooseProduct_DescriptionA0	  					: "Frais annuels &#45; <b>Aucuns</b>",
+		chooseProduct_DescriptionA1  					: "Taux d'intérêt &#45; <b>19&#44;99 &#37;</b><sup>3</sup>",
+		chooseProduct_DescriptionA2   					: "Transactions en espèces et frais connexes &#45; <b>22&#44;99 &#37;</b><sup>3</sup>",
+		
 		
 		// 2016-03-17 chrch: Adding hyperlinks as per business request US3964
 /*		Overview_ctm_LegalText1 							: "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l’adresse <a href='http://www.canadiantire.ca/fr/my-canadian-tire-money.html' target='_blank'>www.canadiantire.ca</a> ou <a href='http://www.ctfs.com/act' target='_blank'>www.ctfs.com/act</a> pour en savoir plus.",
@@ -1334,14 +1347,34 @@ BRB.dictionary_fr = {
 		Overview_ctm_LegalText6 							: "<span class=\"superscripts\"><sup>MD</sup></span>/<span class=\"superscripts\"><sup>MC</sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated.",
 */
 		// US3979
-		Overview_ctm_LegalText1 							: "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire. <br>" +
-		  													  "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités visant l’obtention et l’échange des primes. Rendez-vous à l’adresse ctfs.com/act pour en savoir plus. Les titulaires de carte MasterCard Options de Canadian Tire qui règlent leurs achats avec cette dernière obtiennent de l’« Argent » Canadian Tire à un taux qui est 10X (ou 2X selon le cas) le taux auquel les autres membres du programme Mon « Argent » Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span> obtiennent de l’« Argent » Canadian Tire lors d’achats effectués par ces membres dans les magasins Canadian Tire (si ces autres membres payent en argent comptant, avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation). Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange.",
-		Overview_ctm_LegalText2 							: "<span class=\"superscripts\"><sup>2</sup></span> Un achat minimum d’essence peut être requis. Le taux peut varier selon la région. Voir les postes d’essence régionaux pour plus de détails.",
-		Overview_ctm_LegalText3 							: "<span class=\"superscripts\"><sup>3</sup></span> Si votre demande de carte à ce taux n’est pas approuvée, il se peut que nous acceptions d’émettre une carte à votre nom portant un taux d’intérêt annuel de 27,99 % pour toutes les transactions au comptant et frais afférents et de 25,99 % pour tous les autres types de débit.",
-		Overview_ctm_LegalText4 							: "<span class=\"superscripts\"><sup>MD / MC</sup></span> Canadian Tire, le triangle de Canadian Tire, le logo des Services Financiers Canadian Tire, Options de Canadian Tire, « Argent » Canadian Tire, Mon « Argent » Canadian Tire et PartSource sont des marques de commerce déposées de La Société Canadian Tire Limitée et sont utilisées sous licence.",
-		Overview_ctm_LegalText5 							: "<span class=\"superscripts\"><sup>MD / MC</sup></span> MasterCard et la marque figurative de MasterCard sont des marques de commerce déposées de MasterCard International Incorporated, et sont utilisées sous licence.",
+		Overview_ctm_LegalText1 						   			: "Canadian Tire Financial Services is a business name of Canadian Tire Bank. <br>" +
+																  "<sup>1</sup> In the form of Canadian Tire 'Money'. Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options MasterCard cardmembers paying with their Options MasterCard collect Canadian Tire 'Money' at the rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money'<sup>&reg;</sup> program collect Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions.",
+		Overview_ctm_LegalText2 									: "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details.",
+		Overview_ctm_LegalText3 									: "<sup>3</sup> If you are not approved for the Card at these rates, we may still issue you a card at an annual interest rate of 27.99% for cash transactions and related fees and 25.99% for all other charges.",
+		Overview_ctm_LegalText4 									: "<sup>&reg;</sup>/<sup>&trade;</sup> Canadian Tire , the Canadian Tire triangle design, the Canadian Tire Financial Services  design, Canadian Tire Options, Canadian Tire 'Money', My Canadian 'Money' and PartSource are registered trademarks of Canadian Tire Corporation, Limited and are used under licence.",
+		Overview_ctm_LegalText5 									: "<sup>&reg;</sup>/&trade; MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated, and are used under licence.",	
 		
-		
+		//US4541
+		Overview_ctm_LegalTextEComm1							: "Les Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.", 
+		Overview_ctm_LegalTextEComm2 							: "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités visant l’obtention et l’échange des primes. Rendez-vous à l’adresse ctfs.com/act pour en savoir plus. Les titulaires de carte qui règlent leurs achats avec leur carte Mastercard Options de Canadian Tire obtiennent 10x le taux d’« Argent » Canadian Tire (ou 2x, selon le cas) auquel les autres membres du programme Mon « Argent » Canadian Tire<sup>MD</sup> ont le droit en effectuant un achat dans les magasins Canadian Tire en argent comptant ou avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation. Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange. L’Argent CT est calculé sur le montant de l’achat avant taxes dans les magasins Canadian Tire et PartSource.",
+		Overview_ctm_LegalTextEComm3 							: "<span class=\"superscripts\"><sup>2</sup></span> Un achat minimum d’essence peut être requis. Le taux peut varier selon la région. Voir les postes d’essence régionaux pour plus de détails.",
+		Overview_ctm_LegalTextEComm4 							: "<span class=\"superscripts\"><sup>3</sup></span> Si votre demande de carte à ce taux n’est pas approuvée, il se peut que nous acceptions d’émettre une carte à votre nom portant un taux d’intérêt annuel de 27,99 % pour toutes les transactions au comptant et frais afférents et de 25,99 % pour tous les autres types de débit.",
+		Overview_ctm_LegalTextEComm5 							: "<sup>*</sup> L’offre de financement « Paiements égaux, aucun intérêt » pendant 12 mois (à moins d’indications contraires) n’est accordée que sur demande et sous réserve d’une approbation de crédit préalable pour des achats de 200 $ ou plus (à l’exception des cartes-cadeaux) réglés avec une carte de crédit émise par la Banque Canadian Tire dans un magasin Canadian Tire. Aucun intérêt ne court pendant la période du programme. Si nous ne recevons pas le montant intégral du paiement minimum dû indiqué sur un relevé dans les 59 jours qui suivent la date de ce relevé ou s’il se produit une situation de manquement (autre que celle de ne pas avoir effectué un paiement) en vertu de votre contrat du titulaire de carte, tous les programmes de modalités spéciales de paiement prendront fin et i) l’intérêt sur le solde impayé de chacun des programmes vous sera facturé au taux annuel courant applicable à compter du jour qui suit la date de votre prochain relevé, et ii) le solde impayé de chaque programme sera ajouté au solde dû pour ce relevé. Les programmes de modalités spéciales de paiement ne comportent aucuns frais d’administration. Non disponible sur les achats réglés avec la carte Mastercard<sup>MD</sup> Options<sup>MD</sup> à taux d’intérêt réduit. Chaque mois pendant la période d’un programme de paiements égaux, vous devez payer intégralement, avant la date d’échéance, le montant du versement mensuel dû en vertu de ce programme de paiements égaux. Tout montant impayé non reçu avant la date d’échéance ne fera plus partie du programme de paiements égaux, et l’intérêt vous sera facturé sur ce montant à compter du jour qui suit la date de votre relevé suivant au taux annuel courant applicable.",
+		Overview_ctm_LegalTextEComm6							: "Renseignements additionnels à l’intention des résidents du Québec seulement : Le taux annuel courant applicable aux personnes demandant la carte Mastercard Options est de 22,99 % pour les transactions au comptant et les frais afférents et de 19,99 % pour tous les autres types de débit. Certaines personnes peuvent se voir accorder un taux annuel courant supérieur ou inférieur, selon les résultats de leur évaluation de crédit. Le paiement minimum correspond à la somme (a) de l’intérêt et des frais indiqués sur le relevé (b) de tout montant impayé ou, s’il est plus élevé, de tout solde dépassant la limite de crédit (c) du montant de tout versement alors dû en vertu d’un programme de paiements égaux, et (d) de 10 $. Un solde inférieur à 10 $ doit être réglé intégralement. Pour les résidents du Québec, le délai de grâce entre la date du relevé et la date d’échéance du paiement est de 26 jours. La période de facturation couverte par chaque relevé peut aller de 28 à 33 jours. La carte Mastercard Options ne comporte pas de frais annuels. Exemples de coûts d’emprunt (arrondis au cent le plus proche) en supposant que tous les débits portent intérêt au taux annuel courant de 19,99 %, que le mois comporte 30 jours, qu’aucun achat ne fait l’objet d’un programme de modalités spéciales de paiement et qu’aucuns autres frais, paiements additionnels ou changements ne s’appliquent :",
+		Overview_ctm_LegalTextEComm7							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Canadian Tire, le triangle de Canadian Tire, le logo des Services Financiers Canadian Tire, Options de Canadian Tire, « Argent » Canadian Tire, Mon « Argent » Canadian Tire et PartSource sont des marques de commerce déposées de La Société Canadian Tire Limitée et sont utilisées sous licence.",			
+		Overview_ctm_LegalTextEComm8							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sport Chek est une marque de commerce déposée de FGL Sport ltée, utilisée sous licence.",
+		Overview_ctm_LegalTextEComm9							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> L’Équipeur est une marque de commerce déposée de Mark’s Work Warehouse Ltd., utilisée sous licence.",
+		Overview_ctm_LegalTextEComm10							:	" ",	
+		overview_AverageEComm									:  "Si votre solde moyen est de : ",
+		overview_Average0EComm									:  "100 &#36;",
+		overview_Average1EComm									:	"500 &#36;",
+		overview_Average2EComm									:	"1000 &#36;",
+		overview_Average3EComm									:	"2000 &#36;",
+		overview_MonthlyCreditChargesEComm						:	"Le total des frais de crédit mensuels sera de :",
+		overview_MonthlyCreditCharges0EComm						:	"1&#44;64 &#36;",
+		overview_MonthlyCreditCharges1EComm						:	"8&#44;22 &#36;",
+		overview_MonthlyCreditCharges2EComm						:	"16&#44;43 &#36;",
+		overview_MonthlyCreditCharges3EComm						:	"32&#44;86 &#36;",
 		sdfsfasff : ""	
 		//----end-----US3084 iLoyalty - BRB front facing chagnes -  Loyalty Notification --------------//	
 				

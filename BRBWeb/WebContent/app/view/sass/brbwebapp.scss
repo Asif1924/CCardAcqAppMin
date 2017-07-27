@@ -1784,6 +1784,7 @@ a.continueButtonFocused:focus {
     height: 250px; */
 }
 #productListBlock {
+    padding-top: 10px;
     margin-top: 15px;
     margin-bottom: 3px;
 }
@@ -1814,6 +1815,39 @@ a.continueButtonFocused:focus {
     	text-align: center;
     }
 }
+
+.chooseProductRedText{
+margin-left: 35px;
+color: red;
+font-size: 16px;
+font-weight: bold;
+font-family: Arial, Helvetica Neue, sans-serif;
+}
+
+.chooseProductTitle1{
+    padding-top: 10px;
+    font-size: 16px;
+    color: #333333;
+    font-family: Arial, Helvetica Neue, sans-serif;
+    margin-left: 35px;
+}
+
+.chooseProductTitle2{
+margin-left: 25px;
+font-size: 16px;
+font-family: Arial, Helvetica Neue, sans-serif;
+color: #333333;
+opacity: 0.9;
+}
+
+.chooseProductTitle3{
+padding-top: 10px;
+font-size: 14px;
+font-family: Arial, Helvetica Neue, sans-serif;
+color: #333333;
+margin-left: 25px;
+}
+
 .chooseProductBlock > ul {
     height: 170px;
     list-style: none;
@@ -1866,6 +1900,12 @@ a.continueButtonFocused:focus {
 	font-weight: bold;
 	font-size: 16px;
 	color: #cf1b23;
+	margin-left: 30px;
+}
+
+#overviewRewardsList {
+	padding-left: 30px;
+	margin-top: 5px;
 	margin-left: 30px;
 }
 
@@ -2068,6 +2108,35 @@ ul.simpleFootList {
 	padding-left: 10px !important;
 	padding-right: 10px !important;
 	border-radius: 1px;
+}
+
+.overviewContentTableContainer{
+	width: 50%;
+	font-size: 11px;;
+	font-weight: bold;
+	height: 25px;
+	margin-bottom: 10px
+}
+
+.overviewContentLeftAlign{
+float: left;
+margin-left: 5px;
+}
+
+.overviewContent1{
+width: 40%;
+height: 25px
+}
+
+.overviewContentRightAlign{
+float: right;
+padding-right: 10px;
+}
+
+.overviewContent2{
+width: 5%;
+text-align: center;
+height: 25px
 }
 
 #overviewCenterTableTextMargin {
@@ -3762,7 +3831,25 @@ input:-moz-placeholder {
     border: none;
 }
 /*--------new Fr and eng ------------*/
+/* US5441 */
+.footer_p_sup{
+  font-size: 75%;
+  top: -0.5em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
 
+.header_title_MDMC{
+  font-size: 65%;
+  top: -0.5em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.overviewBoldText {
+	font-weight: bolder;
+} 
 #topBanner10XImage {
     background-repeat: no-repeat;
     background-position: center;
@@ -3782,6 +3869,7 @@ input:-moz-placeholder {
     /*2016-02-29 chrch: adding padding bottom for responsive */
     margin-bottom: 15px;
 }
+
 .topBanner10XImageBlock_fr {
     background: #{inline_image("omcloyalty_fr.png")};
     display: block;
@@ -3796,6 +3884,46 @@ input:-moz-placeholder {
     /*2016-03-14 chrch: adding padding bottom for responsive */
     margin-bottom: 15px;
 }
+
+
+#topBanner4PercentImage{
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 100%;
+}
+
+.topBanner4PercentImageBlock{
+    background: #{inline_image("omcNewCard.png")};
+    background-size: 220px 119px;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 120px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+    margin-bottom: 15px;
+}
+
+.topBanner4PercentImageBlock_fr {
+    background: #{inline_image("omcNewCardFr.png")};
+    background-size: 220px 119px;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 120px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+    margin-bottom: 15px;
+}
+
 .topBanner10XImageBlock_ie8 {
     background: #{inline_image("omcloyalty.jpg")};
     display: block;

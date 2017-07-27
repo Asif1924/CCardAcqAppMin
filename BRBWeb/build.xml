@@ -505,6 +505,7 @@ load:
 			</fileset>
 		</copy>
 		<jar jarfile="${production.output.dir.ear.file}/${thisWebapp.name}.ear" basedir="${production.output.dir.ear.file}/temporary"></jar>
+		<move file="${production.output.dir.ear.file}/${thisWebapp.name}.ear" tofile="${production.output.dir.ear.file}/BRBWeb.ear"/>
 		<delete dir="${production.output.dir.ear.file}/temporary"/>
 	</target>
 
