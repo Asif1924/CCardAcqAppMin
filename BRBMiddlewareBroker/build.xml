@@ -280,8 +280,8 @@
 		<echo message="Copying ear file from ${ear.dir}/${ear.file} to ${copy.ear.to.location}/${version.number}_${date.time.stamp}_${new.ear.filename}"/>
 		<mkdir dir="${copy.ear.to.location}"/>
 
-		<copy file="${ear.file}" overwrite="true" tofile="${copy.ear.to.location}/${version.number}_${date.time.stamp}_${new.ear.filename}"/>
-		<echo message="${copy.ear.to.location}/${version.number}_${date.time.stamp}_${new.ear.filename} file copied."/>
+		<copy file="${ear.file}" overwrite="true" tofile="${copy.ear.to.location}/${new.ear.filename}"/>
+		<echo message="${copy.ear.to.location}/${new.ear.filename} file copied."/>
 	</target>
 
 	<!--<target name="build.full.release" depends="generate.version.number,generate.endpoint.configuration,manufacture.application.xml,build,create.war,create.ear" description="Build full release version"/> -->
