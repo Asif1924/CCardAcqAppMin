@@ -15,6 +15,7 @@ public abstract class ConfigurationFactory
 {
 	static Logger log = Logger.getLogger(ConfigurationFactory.class.getName());
 	private static final String CONFIGURATION_PROPERTIES="BRB_ENVIROINMENT_CONFIGURATION";
+	private static final String STORE_CONFIGURATION_PROPERTIES="BRB_ECOMM_STOREID_CONFIGURATION";
 	/**
 	 * This scaffolding is to allow proper unit tests
 	 */
@@ -234,4 +235,34 @@ public abstract class ConfigurationFactory
 	{
 		this.resourcePath = resourcePath;
 	}
+	// US4580
+	protected String getPropertyFromStoreIdConfigurationFile(String argPropertyName) throws Exception
+	{
+		String sMethod = "[getEndpointAddressFromConfigurationFile( " + argPropertyName + ")]";
+		String propertyValue = null;  
+		
+		
+		try
+		{			
+			ApplicationConfiguration.readApplicationConfiguration();
+			Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(STORE_CONFIGURATION_PROPERTIES);
+			log.info("getPropertyFromConfigurationFile( " + argPropertyName + ") : "+ enviroinmentMap.get(argPropertyName));
+				
+			propertyValue = enviroinmentMap.get(argPropertyName).toString();// getEndpointFromConfigurationFile();
+		  	
+			// Validate endpointProperty value
+			validateEndpointPropertyValue(propertyValue);
+
+			propertyValue += getEndpointSuffix();
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}		 
+
+		return propertyValue;		
+	}
+		
 }

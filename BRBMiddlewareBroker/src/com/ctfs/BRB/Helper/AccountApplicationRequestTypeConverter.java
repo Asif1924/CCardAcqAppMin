@@ -1,7 +1,6 @@
 package com.ctfs.BRB.Helper;
 
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,13 +14,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.CountryType;
-import com.ctc.ctfs.channel.accountacquisition.PlaceOfIssueType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceStateType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
+import com.ctfs.BRB.Helper.Factory.ServerConfigurationHelper;
 import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.BaseModel;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
-import com.ctfs.BRB.Helper.ApplicationConfiguration;
 import com.google.gson.Gson;
 
 public class AccountApplicationRequestTypeConverter
@@ -124,10 +122,16 @@ public class AccountApplicationRequestTypeConverter
 			model = data.getModel(CreditCardApplicationData.MODEL_OVERVIEW);
 			if (model != null)
 			{
-				if (model.get("promoCode") != null)
-				{
-					ar.setAgencyPromoCode(model.get("promoCode"));
-				}
+				// US4580
+				if( ar.getChannelIndicator() == "WP"){
+			   		String requestingSystemID = model.get("requestingSystem");
+			   		String storeIndicator = new ServerConfigurationHelper().createStoreIndicatorStringSetting(requestingSystemID .toUpperCase());
+			   		log.info(requestingSystemID   +storeIndicator);
+			   		ar.setAgencyPromoCode(storeIndicator);
+			   					   	 }
+				  else{
+				   ar.setAgencyPromoCode(model.get("promoCode"));
+			      }
 			}
 		}
 		catch (Exception e)

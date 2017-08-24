@@ -45,4 +45,24 @@ public class ServerConfigurationHelper
 
 		return Boolean.parseBoolean(configurationFactory.getIgnoreEmailServiceProperty());
 	}
+	// US4580
+	public String createStoreIndicatorStringSetting(String StorIndicatorArg) throws Exception{
+		String sMethod = "[createStoreIndicatorStringSetting]";
+		log.info(sMethod + "::Called.");
+
+		String storeIndicator = "";
+		
+		try
+		{	
+			storeIndicator = configurationFactory.getPropertyFromStoreIdConfigurationFile(StorIndicatorArg);
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());			
+			throw e;
+		}
+
+		return storeIndicator;
+	}
+		
 }
