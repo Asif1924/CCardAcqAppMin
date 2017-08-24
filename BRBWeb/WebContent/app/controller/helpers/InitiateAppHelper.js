@@ -9,7 +9,7 @@ BRB.InitiateAppHelper = function() {
 	var transactionId = null;
 	var language = null;
 	var cardType = null;
-	var pcid = null
+	var pcid = null;
 	this.isDeleteCustomerDataRequestSent = false;
 	
 	function getUrlParam (paramName) {

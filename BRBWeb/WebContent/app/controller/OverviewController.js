@@ -29,7 +29,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
     		provinces               				:   '#overview_Province_TextField',
     		promoCode               				:   '#overview_PromoCode_TextField',
     		
-    		overviewNS_continueButton				:   '#overviewNS_ContinueButton'
+    		overviewNS_continueButton				:   '#overviewNS_ContinueButton',
+  			// US4580
+    		promoCodeHidden							:	'#promoCodeHidden'
     };
     
     var model = new BRB.BaseModel({
@@ -38,9 +40,13 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         data:[              
               {name: 'promoCode',  value: null, validation: { type: 'format', message: 'overview_PromoCodeError', matcher: /^[a-z\u00C0-\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{4,5}$/i, canBeEmpty: true}},
               {name: 'pcid',  	   value: null, validation: null },
-              {name: 'provinces',  value: null, validation: { type: 'presence', message: 'overview_ProvinceError' }}
+              {name: 'provinces',  value: null, validation: { type: 'presence', message: 'overview_ProvinceError' }},
+              {name: 'requestingSystem', value: null, validation: null },
        ]
-    });    
+    });
+    
+    var profileInfoModel = app.customerTransactionModel;
+    
     //---------------------------------------------------------------------------------------
 	function init( argFlow ) {		
 		var sMethod = 'init() ';
@@ -71,12 +77,23 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		
 		createView();
 		
+		// US4580
+		hidePromoCodeField();
+		
+		model.set('requestingSystem', profileInfoModel.getRequestingSystem());
+		BRB.Log(logPrefix + sMethod + " requestingSystem : " + model.get('requestingSystem'));
+		
 		// Start session timeout service
 		app.sessionTimeoutActionService.start();
 		toggle10XImege();
 		//US4541
 		toggle4PercentImage();
 	}    
+	//---------------------------------------------------------------------------------------
+	// US4580
+	function hidePromoCodeField() {
+		$(refs.promoCodeHidden).hide();
+	} 
 	//---------------------------------------------------------------------------------------
     function fillControlsWithData()
     {

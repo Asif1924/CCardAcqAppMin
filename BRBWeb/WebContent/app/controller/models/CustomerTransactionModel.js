@@ -12,6 +12,8 @@ BRB.CustomerTransactionModel = function() {
 	var _loyaltyNumber = "";
 	var _postalCode = "";
 	var _phoneNumber = "";
+	// US4580
+	var _requestingSystem = "";
 	
 	this.initialize = function (
 			transactionId, 		
@@ -24,7 +26,8 @@ BRB.CustomerTransactionModel = function() {
 			province,
 			loyaltyNumber,
 			postalCode,
-			phoneNumber) {		
+			phoneNumber,
+			requestingSystem) {		
 		_transactionId = transactionId;
 		_email = email;
 		_firstName = firstName;
@@ -35,7 +38,8 @@ BRB.CustomerTransactionModel = function() {
 		_province = province;
 		_loyaltyNumber = loyaltyNumber;
 		_postalCode = postalCode;
-		_phoneNumber = phoneNumber;		
+		_phoneNumber = phoneNumber;
+		_requestingSystem = requestingSystem;
 	};		
 	//---------------------------------------------------------------------------------------
 	this.getTransactionId = function() {
@@ -125,4 +129,13 @@ BRB.CustomerTransactionModel = function() {
 	this.setAddressLine2 = function(addressLine2){
 		_addressLine2 = addressLine2;
 	};
+	//---------------------------------------------------------------------------------------
+	this.getRequestingSystem = function(){
+		return _requestingSystem;
+	};
+	//---------------------------------------------------------------------------------------
+	this.setRequestingSystem = function(requestingSystem){
+		_requestingSystem = requestingSystem;
+	};
+	
 };

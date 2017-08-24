@@ -2265,6 +2265,15 @@ height: 25px
 }
 /* 2015-02-05 chrch: new class for province select cell */
 
+/* US4580 */
+.overviewProvinceTextCell {
+	padding-top: 5px;
+}
+
+.rowHeight {
+	margin-top: 20px;
+}
+
 @media(max-width: 767px) {
     .overviewStartApplicationProvSelectCell {
         padding: 0 0 20px 20px !important;
