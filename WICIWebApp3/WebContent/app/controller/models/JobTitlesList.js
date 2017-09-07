@@ -118,8 +118,11 @@ WICI.JobTitlesList = function() {
 			{ value: 'GU_DT', text: 'jobTitlesList_GU_DT'},
 			{ value: 'GU_FF', text: 'jobTitlesList_GU_FF'},
 			{ value: 'GU_PR', text: 'jobTitlesList_GU_PR'},
+			// US4532
+			{ value: 'GU_PO', text: 'jobTitlesList_GU_PO'},	
 			{ value: 'GU_SG', text: 'jobTitlesList_GU_SG'},
 			{ value: 'GU_OR', text: 'jobTitlesList_GU_OR'},	
+			
 			
 			// MANAGER
 			{ value: 'MA_AE', text: 'jobTitlesList_MA_AE'},

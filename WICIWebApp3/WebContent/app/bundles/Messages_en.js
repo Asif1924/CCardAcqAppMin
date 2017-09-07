@@ -664,6 +664,8 @@ WICI.dictionary_en =  {
 	jobTitlesList_GU_FF                                : 	'Firefighter',
 	jobTitlesList_GU_PR                                : 	'Park Ranger',
 	jobTitlesList_GU_SG                                : 	'Security Guard ',
+	// US4532
+	jobTitlesList_GU_PO                                : 	'Police Officer',
 	jobTitlesList_GU_OR                                : 	'Other',
 
 	// MANAGER

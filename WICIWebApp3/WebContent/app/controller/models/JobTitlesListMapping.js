@@ -118,6 +118,8 @@ WICI.JobTitlesListMapper = function() {
 			{ value: 'GU_DT', text: 'DETECTIVE'},
 			{ value: 'GU_FF', text: 'FIREFIGHTER'},
 			{ value: 'GU_PR', text: 'PARK RANGER'},
+			// US4532
+			{ value: 'GU_PO', text: 'POLICE OFFICER'},
 			{ value: 'GU_SG', text: 'SECURITY GUARD'},
 			{ value: 'GU_OR', text: 'OTHER'},	
 			

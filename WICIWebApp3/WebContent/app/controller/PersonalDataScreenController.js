@@ -420,7 +420,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(templateName).tmpl().appendTo($element);
     }
     // ---------------------------------------------------------------------------------------
-    function syncUserData() {
+    function syncUserData(scanFlag) {
         var sMethod = 'syncUserData() ';
         console.log(logPrefix + sMethod);
         var currModel = models.personalDataModel;
@@ -434,8 +434,15 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	currModel.set('idtype', 'HE');
         } else {
         	currModel.set('idtype', $(refs.idtype).val());
-        }*/        
-        currModel.set('idtype', $(refs.idtype).val());
+        }*/
+        // DE1667
+        if($(refs.idtype).val() != "null") {
+        	if (scanFlag){
+        		// Don't save any values. Keep the existing value in model.
+        	} else {
+        		currModel.set('idtype', $(refs.idtype).val());
+        	}
+        }
         
         console.log(logPrefix + sMethod + " idtype :: after sync:: " + currModel.get('idtype'));
         
@@ -1172,8 +1179,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         console.log(logPrefix + sMethod);
 
-        syncUserData();
-
+		// DE1667
+        if(takeIdTypeByProvince) {
+        	syncUserData(true);
+        } else {
+        	syncUserData();
+        }
+        
         currModel = models.personalDataModel;
         provinceValue = currModel.get('placeofissue');
         idType = currModel.get('idtype');
@@ -1213,47 +1225,88 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         // US4364
         console.log(logPrefix + sMethod + " provinceValue : " + provinceValue + " idType : " + idType);
-        if ( ($.inArray(idType, ['DR', 'PA', 'PR', 'IN', 'SC', 'BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) || 
-        		($.inArray(provinceValue, ['QC', 'NB', 'NL', 'SK', 'NU']) != -1 && $.inArray(idType, ['HE']) != -1))  {
-        	$("#personalData_IDNumber").removeClass("fieldLabelsBottomCell");
-        	$("#personalData_IDNumber").addClass("fieldLabelsCell");
-        	$("#personalData_ExpiryDate").removeClass("fieldLabelsCell");
-        	$("#personalData_ExpiryDate").addClass("fieldLabelsBottomCell");
-        	$(refs.idExpiryDate).val("");
-        	
-        	$.each(models.personalDataModel.data, function(index, item) {
-        		if(item.name == "idExpiryDate") {
-     				item.validation.canBeEmpty = false;
-     			}
-     		});
-        	 
-        	$(refs.expiryDate_Area).show();
-        } else if(($.inArray(provinceValue, ['AB']) != -1 && $.inArray(idType, ['HE']) != -1) || $.inArray(idType, ['BI', 'CI', 'RE']) != -1) {
-        	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
-        	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
-        	$(refs.idExpiryDate).val("");
-        	
-       	 	$.each(models.personalDataModel.data, function(index, item) {
-       	 		if(item.name == "idExpiryDate") {
-       	 			item.validation.canBeEmpty = true;
-       	 		}
-       	 	});
-        	
-        	$(refs.expiryDate_Area).hide();
+        // DE1667
+        if(takeIdTypeByProvince) {
+        	if($.inArray(idType, ['DR']) != -1) {
+        		$("#personalData_IDNumber").removeClass("fieldLabelsBottomCell");
+            	$("#personalData_IDNumber").addClass("fieldLabelsCell");
+            	$("#personalData_ExpiryDate").removeClass("fieldLabelsCell");
+            	$("#personalData_ExpiryDate").addClass("fieldLabelsBottomCell");
+            	            	
+            	$.each(models.personalDataModel.data, function(index, item) {
+            		if(item.name == "idExpiryDate") {
+         				item.validation.canBeEmpty = false;
+         			}
+         		});
+            	 
+            	$(refs.expiryDate_Area).show();
+        	} else {
+        		$("#personalData_IDNumber").removeClass("fieldLabelsCell");
+            	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
+            	$(refs.idExpiryDate).val("");
+            	
+            	$.each(models.personalDataModel.data, function(index, item) {
+          			if(item.name == "idExpiryDate") {
+          				item.validation.canBeEmpty = true;
+          			}
+          		});
+            	
+            	$(refs.expiryDate_Area).hide();
+        	}
         } else {
-        	// Expiry date will be hidden for any new fields added in ID Type.
-        	// To enable Expiry date, have to add logic in this above conditions
-        	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
-        	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
-        	$(refs.idExpiryDate).val("");
-        	
-        	$.each(models.personalDataModel.data, function(index, item) {
-      			if(item.name == "idExpiryDate") {
-      				item.validation.canBeEmpty = true;
-      			}
-      		});
-        	
-        	$(refs.expiryDate_Area).hide();
+        	if ( ($.inArray(idType, ['DR', 'PA', 'PR', 'IN', 'SC', 'BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) || 
+            		($.inArray(provinceValue, ['QC', 'NB', 'NL', 'SK', 'NU']) != -1 && $.inArray(idType, ['HE']) != -1))  {
+            	$("#personalData_IDNumber").removeClass("fieldLabelsBottomCell");
+            	$("#personalData_IDNumber").addClass("fieldLabelsCell");
+            	$("#personalData_ExpiryDate").removeClass("fieldLabelsCell");
+            	$("#personalData_ExpiryDate").addClass("fieldLabelsBottomCell");
+            	console.log(" idExpiryDate : " + $(refs.idExpiryDate).val());
+            	if ($(refs.idExpiryDate).val()){
+            		// Do nothing to retain the entered value
+            	} else {
+            		$(refs.idExpiryDate).val("");
+            	}
+
+            	$.each(models.personalDataModel.data, function(index, item) {
+            		if(item.name == "idExpiryDate") {
+         				item.validation.canBeEmpty = false;
+         			}
+         		});
+            	 
+            	$(refs.expiryDate_Area).show();
+            } else if(($.inArray(provinceValue, ['AB']) != -1 && $.inArray(idType, ['HE']) != -1) || $.inArray(idType, ['BI', 'CI', 'RE']) != -1) {
+            	
+            	console.log("Hiding Expiry date field...");
+            	
+            	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
+            	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
+            	$(refs.idExpiryDate).val("");
+            	
+           	 	$.each(models.personalDataModel.data, function(index, item) {
+           	 		if(item.name == "idExpiryDate") {
+           	 			item.validation.canBeEmpty = true;
+           	 		}
+           	 	});
+            	
+            	$(refs.expiryDate_Area).hide();
+            } else {
+            	
+            	console.log("Default Hiding Expiry date field...");
+            	
+            	// Expiry date will be hidden for any new fields added in ID Type.
+            	// To enable Expiry date, have to add logic in this above conditions
+            	$("#personalData_IDNumber").removeClass("fieldLabelsCell");
+            	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
+            	$(refs.idExpiryDate).val("");
+            	
+            	$.each(models.personalDataModel.data, function(index, item) {
+          			if(item.name == "idExpiryDate") {
+          				item.validation.canBeEmpty = true;
+          			}
+          		});
+            	
+            	$(refs.expiryDate_Area).hide();
+            }
         }
         
     }
@@ -1610,7 +1663,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             rez, scanned, prop;
 
         try {
-            rez = parser.parse(response.data);
+            // DE1667
+            rez = parser.parse(response.data);            
+            var idType = JSON.stringify(rez.idType);
+            console.log( "onScanSuccessCallback : from scanned data : idType : " + idType);
+            
+            var currModel = models.personalDataModel;
+            if(idType != "null") {
+            	currModel.set('idtype', idType.split('"').join(''));
+            }
+            
+            console.log( "onScanSuccessCallback : from model : idType : " + currModel.get('idtype'));
+            
             if (!containsAny(rez, mapping)) {
                 throw ('ERROR! Got the empty data.');
             }

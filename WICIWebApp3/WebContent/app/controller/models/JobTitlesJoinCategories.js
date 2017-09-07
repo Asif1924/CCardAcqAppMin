@@ -10,7 +10,8 @@ WICI.JobTitlesJoinCategories = function() {
                       {Category:'MI', jobTitles:[null, 'MI_AI', 'MI_AR', 'MI_AM', 'MI_MR', 'MI_NY', 'MI_OR' ]},
                       {Category:'PR', jobTitles:[null, 'PR_AT', 'PR_AY', 'PR_AD', 'PR_CR', 'PR_CP', 'PR_CT', 'PR_CL', 'PR_CO', 'PR_DH', 'PR_DT', 'PR_DI', 'PR_DR', 'PR_EG', 'PR_EX', 'PR_FA', 'PR_JD', 'PR_LW', 'PR_MY', 'PR_NU', 'PR_OP', 'PR_PL', 'PR_PR', 'PR_PC', 'PR_PT', 'PR_PI', 'PR_PO', 'PR_PA', 'PR_PF', 'PR_PM', 'PR_RG', 'PR_SW', 'PR_TC', 'PR_VN', 'PR_OR' ]},
                       {Category:'FA', jobTitles:[null, 'FA_AS', 'FA_BD', 'FA_BM', 'FA_FC', 'FA_FD', 'FA_LH', 'FA_MO', 'FA_MN', 'FA_MW', 'FA_MG', 'FA_MH', 'FA_MI', 'FA_OP', 'FA_PK', 'FA_PT', 'FA_QS', 'FA_ST', 'FA_SW', 'FA_SO', 'FA_SV', 'FA_TM', 'FA_WW', 'FA_WD', 'FA_OR' ]},
-                      {Category:'GU', jobTitles:[null, 'GU_CO', 'GU_CS', 'GU_DT', 'GU_FF', 'GU_PR', 'GU_SG', 'GU_OR' ]},                      
+                      // US4532
+                      {Category:'GU', jobTitles:[null, 'GU_CO', 'GU_CS', 'GU_DT', 'GU_FF', 'GU_PR', 'GU_PO', 'GU_SG', 'GU_OR' ]},                      
                       {Category:'MA', jobTitles:[null, 'MA_AG', 'MA_AE', 'MA_CO', 'MA_ED', 'MA_FB', 'MA_FS', 'MA_FO', 'MA_GV', 'MA_MF', 'MA_ME', 'MA_MH', 'MA_MI', 'MA_RE', 'MA_RT', 'MA_TH', 'MA_WS', 'MA_OR' ]},
                       {Category:'OW', jobTitles:[null, 'OW_AO', 'OW_CT', 'OW_CO', 'OW_FM', 'OW_FO', 'OW_JO', 'OW_RO', 'OW_SO', 'OW_OR' ]},
                       {Category:'OT', jobTitles:[null, 'OT_AR', 'OT_AT', 'OT_CL', 'OT_CO', 'OT_CM', 'OT_DC', 'OT_DS', 'OT_DJ', 'OT_ED', 'OT_GA', 'OT_LE', 'OT_MS', 'OT_PG', 'OT_PD', 'OT_RF', 'OT_SE', 'OT_SH', 'OT_WC', 'OT_WR', 'OT_OR' ]},
