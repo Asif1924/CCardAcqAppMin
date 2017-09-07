@@ -368,7 +368,10 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     function initiateAccountApplicationProcess() {
         var sMethod = 'initiateAccountApplicationProcess() ';
         console.log(logPrefix + sMethod);
-                syncUserData();
+        
+        // US4698 - Enable bluetooth on click of submit application
+        WICI.BluetothHelper.toggle();
+        syncUserData();
         if (app.validationsOn) {
             if (!submitButtonEnabled) {
                 return;
