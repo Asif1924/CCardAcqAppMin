@@ -130,6 +130,9 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		$(refs.housingpayment).html(activationItems.getFormatedCurrency(activationItems.getModel('personalData2_Address').get('housingpayment')));
 
     	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
+    	
+        // US4698 - Enable bluetooth on click of submit application
+        WICI.BluetothHelper.toggle();
 
     }
 
@@ -369,8 +372,6 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'initiateAccountApplicationProcess() ';
         console.log(logPrefix + sMethod);
         
-        // US4698 - Enable bluetooth on click of submit application
-        WICI.BluetothHelper.toggle();
         syncUserData();
         if (app.validationsOn) {
             if (!submitButtonEnabled) {
