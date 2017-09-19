@@ -132,7 +132,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
     	
         // US4698 - Enable bluetooth on click of submit application
-        WICI.BluetothHelper.toggle();
+        // WICI.BluetothHelper.toggle();
 
     }
 
