@@ -97,6 +97,10 @@ BRB.dictionary_en = {
 	session_Expired_ErrorTitle							: 	"Application timed out",
 	session_Expired_ErrorMsg							:	"Due to inactivity your application has timed out. \nPlease restart your application to have it properly submitted. \nNote: your application will timeout after 30 minutes of total time or 10 minutes of inactivity.",
 	
+	// US4653
+	session_Expired_PopupMsg							: 	"Your session is about to time out. <br>60 seconds",
+	session_Expired_Popup_continueMsg					: 	"Continue",
+	
 	ProvincesList_null									: 'Please select...',
 	ALBERTA												: 'ALBERTA',
 	BRITISH_COLUMBIA									: 'BRITISH COLUMBIA',

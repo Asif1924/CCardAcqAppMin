@@ -16,7 +16,9 @@ BRB._AppConfig = function() {
 		AUTO_ABANDON_APPLICATION_TIMEOUT				:	15,			//minutes
 		IDLE_INCREMENT									:	60000,		//in msec == 1 minute
 		TRIGGER_ACTION_SERVICE_UPDATE					:	60000,		//Setting this to 1 minute
-		TIME_TO_FINISH_APP_SESSION_IF_USER_INACTIVE		:	10			//time in minutes after which if User inactive session will finish
+		TIME_TO_FINISH_APP_SESSION_IF_USER_INACTIVE		:	10,			//time in minutes after which if User inactive session will finish
+		// US4653
+		TIME_TO_SHOW_POPUP_MESSAGE_IF_USER_INACTIVE		:	9			//time in minutes after which if User is inactive for 9 minutes, show popup message to continue 
 	};
 
 	this.LanguageEnum = {

@@ -97,6 +97,10 @@ BRB.dictionary_fr = {
 		session_Expired_ErrorTitle							: 	"Demande timed out",
 		session_Expired_ErrorMsg							:	"En raison d'une période d’inactivité prolongée, votre demande a expiré. <br>Veuillez représenter une demande afin qu’elle nous soit acheminée avec succès. <br>Remarque : votre session expirera au bout de 30 minutes ou après 10 minutes d'inactivité.",
 		
+		// US4653
+		session_Expired_PopupMsg							: 	"Votre session expirera. <br>60 secondes",
+		session_Expired_Popup_continueMsg					: 	"POURSUIVRE",
+		
 		ProvincesList_null									: 'Veuillez sélectionner...',
 		ALBERTA												: 'ALBERTA',
 		BRITISH_COLUMBIA									: 'COLOMBIE BRITANNIQUE',

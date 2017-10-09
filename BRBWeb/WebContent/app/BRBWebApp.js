@@ -120,7 +120,8 @@ BRB.BRBWebApp = function() {
 		if(this.idleTimeService!==null){
 			this.idleTimeService.stop();
 		}
-		this.idleTimeService = new BRB.IdleTimeService($(document),stopAll);	
+		// US4653
+		this.idleTimeService = new BRB.IdleTimeService($(document),stopAll,timeoutWarning);	
 		this.idleTimeService.start();
 		this.sessionTimeoutActionService = new BRB.MaxTimeoutHelper( "SESSION_TIMEOUT_SERVICE");
 
@@ -446,7 +447,38 @@ BRB.BRBWebApp = function() {
 			BRB.Log(logPrefix + sMethod + " Exception: " + e);
 		}
 	};
-	// ---------------------------------------------------------------------------------------	
+    // US4653
+	// ---------------------------------------------------------------------------------------
+	function timeoutWarning(timeoutcallBack) {	
+		var sMethod = 'timeoutWarning() ';
+		BRB.Log(logPrefix + sMethod);		
+		try {					
+			app.messageDialog.htmlConfirm(app.translator.translateKey("session_Expired_PopupMsg"), 
+					continueApplication, closeApplication, app.translator.translateKey("session_Expired_ErrorTitle"),
+					app.translator.translateKey("session_Expired_Popup_continueMsg"),
+					app.translator.translateKey("settings_chancelButton"));			
+		} catch (e) {
+			BRB.Log(logPrefix + sMethod + " Exception: " + e);
+		}
+	};
+   // ---------------------------------------------------------------------------------------
+   function continueApplication() {
+	   var sMethod = 'continueApplication() ';
+	   BRB.Log(logPrefix + sMethod);
+	   
+	   app.sessionTimeoutActionService.stop();
+	   app.sessionTimeoutActionService.start();
+   }
+   // ---------------------------------------------------------------------------------------
+   function closeApplication() {
+	   var sMethod = 'closeApplication() ';
+	   BRB.Log(logPrefix + sMethod);
+
+	   (new BRB.DialogCloseHelper()).closeAllDialogs();
+	   app.sessionTimeoutActionService.stop();		
+	   app.closeBRBWebWindow();
+   }
+   // ---------------------------------------------------------------------------------------
    this.isSkSelected = function isSkSelected(){
 		 var overViewModel = creditCardData.getModel("personalInformation");
 	        if(overViewModel != null && overViewModel != undefined){
@@ -454,7 +486,7 @@ BRB.BRBWebApp = function() {
 	        	// according to user story 1165
 	        	 return province == 'SK';
 	        }
-   }
+   };
    this.isNSSelected = function isNSSelected(){
 		 var overViewModel = creditCardData.getModel("overview");
 	        if(overViewModel != null && overViewModel != undefined){
@@ -462,12 +494,12 @@ BRB.BRBWebApp = function() {
 	        	// according to user story 1165
 	        	 return province == 'NS';
 	        }
- }
+ };
    this.getCurrentProvince = function getCurrentProvince(){
 		 var overViewModel = creditCardData.getModel("personalInformation");
 	        if(overViewModel != null && overViewModel != undefined){
 	        	var province = overViewModel.get("province");
 	        	 return province ;
 	        }
- }
+ };
 };

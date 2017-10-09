@@ -1,17 +1,19 @@
 ensureNamespaceExists();
 
 
-BRB.IdleTimeService = function(document,callback) {
+BRB.IdleTimeService = function(document,callback,timeoutWarningCallback) {
 	var logPrefix = '[BRB.IdleTimeService]::';
 	
 	var idleTime = 0; 			
 	var idleIncrement = BRB.AppConfig.BackgroundServicesConfig.IDLE_INCREMENT;
 	var timeToFinishSession = BRB.AppConfig.BackgroundServicesConfig.TIME_TO_FINISH_APP_SESSION_IF_USER_INACTIVE;
+	var timeToShowMessage = BRB.AppConfig.BackgroundServicesConfig.TIME_TO_SHOW_POPUP_MESSAGE_IF_USER_INACTIVE;
 	var idleIntervalId = null;	
 	var serviceStateEnum = {
 			working			: "working",
 			stopped			: "stopped"
 		};
+	var timeoutWarningFlag = false; 
 	//---------------------------------------------------------------------------------------
 	this.setIdleIncrement = function(value) {
 		idleIncrement = value;
@@ -24,12 +26,12 @@ BRB.IdleTimeService = function(document,callback) {
 	
 	//---------------------------------------------------------------------------------------
 	var setServiceState = function(state){
-		var sMethod = 'setServiceState() setServiceState:' + state;
+		// var sMethod = 'setServiceState() setServiceState:' + state;
 		serviceState = state;
 	};
 	//---------------------------------------------------------------------------------------
 	var init = function(){
-		var sMethod = 'init()';
+		// var sMethod = 'init()';
 		idleTime = 0;
 		setServiceState(serviceStateEnum.stopped);
 		
@@ -39,8 +41,14 @@ BRB.IdleTimeService = function(document,callback) {
 	function timerIncrement() {
 		var sMethod = 'timerIncrement()' + " idleTime: "+idleTime;
 		idleTime = idleTime + 1;
+		// BRB.Log(logPrefix + sMethod + " idleTime " + idleTime + " : timeToShowMessage : " + timeToShowMessage);
 		if(idleTime == timeToFinishSession && callback !== null){
 			callback();
+		}
+		// US4653
+		if(idleTime == timeToShowMessage && timeoutWarningCallback !== null && !timeoutWarningFlag){
+			timeoutWarningFlag = true;
+			timeoutWarningCallback();
 		}
 	}
 	//---------------------------------------------------------------------------------------
@@ -58,15 +66,15 @@ BRB.IdleTimeService = function(document,callback) {
 	};
 	this.setInterval = function(timerIncrement, idleIncrement){
 		return setInterval(timerIncrement, idleIncrement);
-	} 
+	}; 
 	//---------------------------------------------------------------------------------------	 
 	this.stop = function() {
-		var sMethod = 'stop() ';
+		// var sMethod = 'stop() ';
 		init();
 	};
 	//---------------------------------------------------------------------------------------
 	this.getIdleTime = function() {
-		var sMethod = 'getIdleTime() ';
+		// var sMethod = 'getIdleTime() ';
 		if(getServiceState() === serviceStateEnum.stopped){
 			return 0;
 		}
@@ -75,13 +83,13 @@ BRB.IdleTimeService = function(document,callback) {
 	};
 	//---------------------------------------------------------------------------------------
 	var subscribeToUserEvents = function() {
-		var sMethod = 'subscribeToUserEvents() ';
+		// var sMethod = 'subscribeToUserEvents() ';
 		if(!document || !document.mousemove){
 			return;
 		}
 		//Zero the idle timer on mouse movement.
 		document.mousemove(function (e) {
-			var sMethod = 'mousemove()';
+			// var sMethod = 'mousemove()';
 			//BRB.Log.log(logPrefix + sMethod);
 			
 			if(getServiceState() === serviceStateEnum.stopped){
@@ -96,7 +104,7 @@ BRB.IdleTimeService = function(document,callback) {
 		}
 
 		document.keypress(function (e) {
-			var sMethod = 'keypress()';
+			// var sMethod = 'keypress()';
 			if(getServiceState() === serviceStateEnum.stopped){
 				return;
 			}

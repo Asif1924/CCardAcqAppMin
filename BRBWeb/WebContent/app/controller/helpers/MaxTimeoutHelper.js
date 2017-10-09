@@ -3,7 +3,7 @@ ensureNamespaceExists();
 BRB.MaxTimeoutHelper = function(serviceName) {
 	var logPrefix = '[BRB.MaxTimeoutHelper:: ' + serviceName + ' ]::';
 	
-	var serviceName = serviceName;
+	// var serviceName = serviceName;
 	var actionMethod = null;	
 	var checkInterval; 
 	var checkIntervalId = null;
