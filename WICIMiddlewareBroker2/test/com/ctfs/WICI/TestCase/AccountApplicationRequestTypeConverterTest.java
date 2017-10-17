@@ -104,7 +104,7 @@ public class AccountApplicationRequestTypeConverterTest
 	{
 		CreditCardApplicationData appData = new CreditCardApplicationData(cardDataString);
 
-		AccountApplicationRequestType request = converter.createAccountApplicationRequestFromCreditCardApplicationData(appData);
+		AccountApplicationRequestType request = converter.createAccountApplicationRequestFromCreditCardApplicationData(appData,null,false);
 
 		String addressLine1 = request.getPreviousAddressLine1();
 		// Assert.assertEquals("555-777 StreetName", addressLine1);
@@ -113,8 +113,8 @@ public class AccountApplicationRequestTypeConverterTest
 		// Assert.assertEquals("PREV_2", addressLine2);
 	}
 
-	/*@Test
-	public void check_address_elements_personalData2_Address()
+	//@Test
+	/*public void check_address_elements_personalData2_Address()
 	{
 		CreditCardApplicationData appData = new CreditCardApplicationData(cardDataString);
 
@@ -133,7 +133,7 @@ public class AccountApplicationRequestTypeConverterTest
 	{
 		CreditCardApplicationData appData = new CreditCardApplicationData(cardDataString);
 
-		AccountApplicationRequestType request = converter.createAccountApplicationRequestFromCreditCardApplicationData(appData);
+		AccountApplicationRequestType request = converter.createAccountApplicationRequestFromCreditCardApplicationData(appData,null,false);
 
 		String addressLine1 = request.getSupp1AddressLine1();
 		// Assert.assertEquals("222-111 LOWER BATTERY RD", addressLine1);
@@ -148,7 +148,7 @@ public class AccountApplicationRequestTypeConverterTest
 		AccountApplicationRequestTypeConverter sut = new AccountApplicationRequestTypeConverter();
 
 		CreditCardApplicationData appData = new CreditCardApplicationData(cardDataStringJason);
-		AccountApplicationRequestType aart = sut.createAccountApplicationRequestFromCreditCardApplicationData(appData);
+		AccountApplicationRequestType aart = sut.createAccountApplicationRequestFromCreditCardApplicationData(appData,null,false);
 		String aartString = "";
 		try
 		{

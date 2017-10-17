@@ -2,8 +2,10 @@ package com.ctfs.WICI.Helper;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletResponse;
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
+
+import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.Servlet.Model.WICICheckLocationResponse;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.google.gson.Gson;
@@ -81,20 +83,27 @@ public class LoginInvocationHelper
 		return loginResponse;
 	}*/
 
-	private WICICheckLocationResponse attemptUserLocationCheck(WICIServletMediator requestMediator, String argDerivedUserID)
+	private WICICheckLocationResponse attemptUserLocationCheck(WebICCheckLocationRequest locationRequest)
 	{
 		String sMethod = "[attemptUserLocationCheck]";
 		log.info(sMethod);
 
 		WICICheckLocationResponse resp = null;
+		WICIDBHelper helper = new WICIDBHelper();
 
 		try
 		{
-			WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
+			//Removed WebICGateway call for retrieving UserLocation
+			/*WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
 			AccountAcquisitionPortalProxy userLocationProxy = wiciPortalProxyFactory.createWICIWebServicesPortalProxy();
 			String userLocation = requestMediator.searchElementInsidePostRequestBody("userLocation") != null ? requestMediator.searchElementInsidePostRequestBody("userLocation") : EMPTY_STRING;;
 			CheckLocationHelper checkLocationHelper = new CheckLocationHelper();
-			resp = checkLocationHelper.doRequest(requestMediator, argDerivedUserID, userLocation, userLocationProxy);
+			resp = checkLocationHelper.doRequest(requestMediator, argDerivedUserID, userLocation, userLocationProxy);*/
+			
+			//Direct DB Call to retrieve UserLocation
+			
+			resp = helper.retrieveUserLocation(locationRequest);
+			
 		}
 		catch (Exception e)
 		{
@@ -105,12 +114,13 @@ public class LoginInvocationHelper
 		return resp;
 	}
 
-	public WICILoginResponse checkLocation(WICIServletMediator requestMediator, String argDerivedUserID)
+	public WICILoginResponse checkLocation(String userLocation, String argDerivedUserID)
 	{
 		WICILoginResponse loginResponse = new WICILoginResponse();
 		WICICheckLocationResponse userLocationResponse = new WICICheckLocationResponse();
-
-		userLocationResponse = attemptUserLocationCheck(requestMediator, argDerivedUserID);
+		WebICCheckLocationRequest checkLocationRequest = new WebICCheckLocationRequest();
+		checkLocationRequest.setLocationID(userLocation);
+		userLocationResponse = attemptUserLocationCheck(checkLocationRequest);
 		loginResponse.setCheckLocation(userLocationResponse);
 		String message = "SUCCESSFUL Authentication and authorization for user " + argDerivedUserID;
 		loginResponse.setRoles(getFMRRolesJSON());

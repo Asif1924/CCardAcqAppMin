@@ -4,12 +4,50 @@ import com.ctfs.WICI.Model.DictionaryInfo;
 
 public class WICILoginResponse
 {
+	@Override
+	public String toString() {
+		return "WICILoginResponse [statusCode=" + statusCode + ", LTPAToken="
+				+ LTPAToken + ", message=" + message + ", roles=" + roles
+				+ ", roleId=" + roleId + ", checkLocation=" + checkLocation
+				+ ", dictionaryInfo=" + dictionaryInfo + "]";
+	}
+
 	String statusCode;
 	String LTPAToken;
 	String message;
 	String roles;
+	String roleId;
+	String password;
+	String enrollmentDate;
+	String agentId;
 	WICICheckLocationResponse checkLocation;
-	DictionaryInfo dictionaryInfo;	
+	DictionaryInfo dictionaryInfo;
+	
+	
+	public String getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(String agentId) {
+		this.agentId = agentId;
+	}
+	
+	public String getEnrollmentDate() {
+		return enrollmentDate;
+	}
+
+	public void setEnrollmentDate(String enrollmentDate) {
+		this.enrollmentDate = enrollmentDate;
+	}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	
 	public DictionaryInfo getDictionaryInfo() {
 		return dictionaryInfo;
@@ -67,6 +105,14 @@ public class WICILoginResponse
 	public void setLTPAToken(String lTPAToken)
 	{
 		LTPAToken = lTPAToken;
+	}
+	
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 }

@@ -482,6 +482,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "externalReferenceId",
     "storeNumber",
     "agentId",
+    "tabSerialId",
     "channelIndicator",
     "agencyPromoCode",
     "acquistionStrategyCode",
@@ -576,6 +577,9 @@ public class AccountApplicationRequestType
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String agentId;
+    @XmlElement(required = true)
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String tabSerialId;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String channelIndicator;
@@ -800,6 +804,30 @@ public class AccountApplicationRequestType
      */
     public void setAgentId(String value) {
         this.agentId = value;
+    }
+    
+    /**
+     * Gets the value of the agentId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTabSerialId() {
+        return tabSerialId;
+    }
+
+    /**
+     * Sets the value of the agentId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTabSerialId(String value) {
+        this.tabSerialId = value;
     }
 
     /**

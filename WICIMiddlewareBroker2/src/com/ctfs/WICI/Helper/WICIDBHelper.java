@@ -6,10 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 
+import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.DictionaryInfo;
@@ -20,10 +23,14 @@ import com.ctfs.WICI.Model.ReceiptCustomerInfo;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
+import com.ctfs.WICI.Servlet.Model.WICICheckLocationResponse;
+import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ctfs.WICI.dblayer.ConfigurationTableEntity;
 import com.ctfs.WICI.dblayer.interfaces.IConfigurationTableEntity;
+import com.ctfs.WICI.exception.DuplicateAgentIDException;
 import com.google.gson.Gson;
+import static com.ctfs.WICI.AppConstants.*;
 
 public class WICIDBHelper
 {
@@ -37,12 +44,13 @@ public class WICIDBHelper
 	public static final String WICI_BLACKLIST_TABLE = "WICI_BLACKLIST";
 	
 	public static final String WICI_TAB_LST_TABLE = "WICI_TAB_LST";
-	
+	public static final String CTFS_WICI_USER_INFO = "WICI_USER_INFO";
+	public static final String CTFS_WICI_USER_ROLES ="WICI_USER_ROLES";
 
 	static final String CONFIG_NAME_APPROVED_APK_VERSION = "APPROVED_APK_VERSION";
-	static final String CONFIG_NAME_AUTHFIELD_CHECK_ENABLED = "AUTHFIELD_CHECK_ENABLED"; // AUTHFIELD_CHECK_ENABLED
+// AUTHFIELD_CHECK_ENABLED
 	static final String TRANSACTION_TYPE = "ACCOUNTAPPLICATION";
-
+	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yy");
 	protected Connection connectToDB(boolean enableAutoCommit) throws SQLException, NamingException
 	{
 		if (mockedConnection != null)
@@ -277,7 +285,7 @@ public class WICIDBHelper
 		return false;
 	}
 
-	public boolean isAuthfieldCheckEnabled()
+	public boolean isAuthfieldCheckEnabled(String config)
 	{
 		String sMethod = "[isAuthfieldCheckEnabled] ";
 		log.info(sMethod);
@@ -297,13 +305,14 @@ public class WICIDBHelper
 			connection = connectToDB(false);
 
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, CONFIG_NAME_AUTHFIELD_CHECK_ENABLED);
+			preparedStatement.setString(1, config);
 			preparedStatement.setMaxRows(1);
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next())
 			{
 				enabled = new Boolean(resultSet.getString("CONFIG_VALUE"));
+				System.out.println("Enabled"+enabled);
 			}
 		}
 		catch (Exception ex)
@@ -644,6 +653,79 @@ public class WICIDBHelper
 		}
 
 		return deviceExists;
+	}
+
+	public boolean insertUserInfo(int roleId,String userName,
+			String activatedflag,String adminId,String passKey,String locale,String agency,String serialNumber) throws Exception 
+	{
+		log.info("Inserting Usr Info...");	
+		String sql = "INSERT INTO " + CTFS_WICI_USER_INFO + 
+		"(USERID,ROLEID, USERNAME, ACTIVATED, ADMINID, PASSKEY, LOCALE, AGENCY,SERIALNUMBER,REGDATE)"
+				+ "VALUES (WEBIC_OWNER.WICI_USER_INFO_SEQ.nextval,?, ?, ?, ?,?, ?, ?,?,?)";
+		boolean insertFlag=true;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try
+		{
+			connection = connectToDB(false);
+			if (isAgentIDExists(userName.trim())|| isAgentIDExists(userName.substring(1).trim()) ) {
+				throw new DuplicateAgentIDException("Agent ID already Exists");
+			}
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, roleId);
+			preparedStatement.setString(2, userName);
+			preparedStatement.setString(3, activatedflag);
+			preparedStatement.setString(4, adminId);
+			preparedStatement.setString(5, passKey);
+			preparedStatement.setString(6, locale);
+			preparedStatement.setString(7, agency);
+			preparedStatement.setString(8,serialNumber);
+			preparedStatement.setDate(9, getCurrentDateTime());
+			log.info("roleId"+roleId+"userName"+userName+"activatedflag"+activatedflag+"adminId"+adminId+"passKey"+passKey+"locale"+locale+"agency"+agency+"serialNumber"+serialNumber+"getCurrentDateTime()"+getCurrentDateTime());
+			preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		catch (DuplicateAgentIDException ex) {
+			DisposeBDResources(connection, preparedStatement, null);
+			throw new DuplicateAgentIDException("Agent ID already Exists");
+		} catch (Exception ex) {
+			DisposeBDResources(connection, preparedStatement, null);
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+		return insertFlag;
+	}
+	
+	public java.sql.Date getCurrentDateTime()
+	{
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Date(today.getTime());
+	}
+
+	private boolean isAgentIDExists(String userName) throws Exception {
+		log.info("isAgentIDExists..");
+		String sql = "SELECT USERNAME FROM " + CTFS_WICI_USER_INFO
+				+ " WHERE UPPER(USERNAME) = ?";
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean agentIdExistsFlag = false;
+		try {
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userName);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				agentIdExistsFlag = true;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return agentIdExistsFlag;
 	}
 
 	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone) throws Exception
@@ -1168,6 +1250,56 @@ public class WICIDBHelper
 		return submissionResponse;
 	}
 
+		//Retrieve UserLocation from TCT_SALES_OUTLET Table
+	
+	public WICICheckLocationResponse retrieveUserLocation(
+			WebICCheckLocationRequest locationRequest) throws Exception {
+		String sMethod = "[retrieveUserLocation] ";
+
+		// Create sql statement
+		String sql = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ?";
+		WICICheckLocationResponse checkLocationResponse = null;
+		log.info(sMethod + "::SQL::" + sql);
+		int locationId = 0;
+		int sale_otlt_nbr = 0;
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement preparedStatement = null;
+		String message = "SUCCESSFUL Authentication and authorization for user..";
+		try {
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			if (locationRequest.getLocationID() != null)
+				locationId = Integer.parseInt(locationRequest.getLocationID());
+
+			preparedStatement.setInt(1, locationId);
+			rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				checkLocationResponse = new WICICheckLocationResponse();
+
+				sale_otlt_nbr = rs.getInt("CT_SALE_OTLT_NBR");
+
+				checkLocationResponse.setMessage(message);
+				checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
+//				checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+				checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
+				checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
+				checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
+				checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+			}
+		} catch (Exception ex) {
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+		return checkLocationResponse;
+	}
+	
+	
 	public int deleteAccountApplicationData(String argTransactionID) throws Exception
 	{
 		String sMethod = "[deleteAccountApplicationData] ";
@@ -1203,6 +1335,76 @@ public class WICIDBHelper
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
+		return rowsAffected;
+	}
+	
+	public int deleteAgent(String userName,String modifiedAdminId,String serialNumber,String employerID,String rollId) throws Exception
+	{
+		String sql=null;
+		if(rollId!=null && rollId.equalsIgnoreCase(SUPER_ADMIN))		{
+		sql = "UPDATE " + CTFS_WICI_USER_INFO +" SET ACTIVATED=? ,MODIFIEDADMINID=?,MODIFIEDDATE=?,SERIALNUMBER=? WHERE UPPER(USERNAME)=? ";	
+		}else{
+			 sql = "UPDATE " + CTFS_WICI_USER_INFO +" SET ACTIVATED=? ,MODIFIEDADMINID=?,MODIFIEDDATE=?,SERIALNUMBER=? WHERE UPPER(USERNAME)=? AND UPPER(AGENCY) = ?";	
+		}
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int rowsAffected = 0;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, "N");
+			preparedStatement.setString(2, modifiedAdminId);
+			preparedStatement.setDate(3, getCurrentDateTime());
+			preparedStatement.setString(4, serialNumber);
+			preparedStatement.setString(5, userName.toUpperCase());
+			if (!rollId.equalsIgnoreCase(SUPER_ADMIN)) {
+				preparedStatement.setString(6, employerID.toUpperCase());
+			}
+			log.info("modifiedAdminId"+modifiedAdminId+"getCurrentDateTime()"+getCurrentDateTime()+"serialNumber"+serialNumber+"userName"+userName);
+			rowsAffected = preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		catch (Exception ex) {
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return rowsAffected;
+	}
+	public int updateAgent(String userName,String modifiedId,String passKey,String employerID,String rollId) throws Exception
+	{
+		String sql=null;
+		if(rollId!=null && rollId.equalsIgnoreCase(SUPER_ADMIN)){
+			sql = "UPDATE " + CTFS_WICI_USER_INFO +" SET PASSKEY=?,MODIFIEDADMINID=?,MODIFIEDDATE=? WHERE USERNAME=?";	
+		}else{
+			sql = "UPDATE " + CTFS_WICI_USER_INFO +" SET PASSKEY=?,MODIFIEDADMINID=?,MODIFIEDDATE=? WHERE UPPER(USERNAME)=? AND UPPER(AGENCY) = ?";	
+		}
+		log.info("userName"+userName+"modifiedId"+modifiedId+"passKey"+passKey+"employerID"+employerID);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int rowsAffected = 0;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1,passKey );
+			preparedStatement.setString(2, modifiedId);
+			preparedStatement.setDate(3, getCurrentDateTime());
+			preparedStatement.setString(4, userName.toUpperCase());
+			if(!rollId.equalsIgnoreCase(SUPER_ADMIN)){
+				preparedStatement.setString(5, employerID.toUpperCase());
+			}
+			rowsAffected = preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		catch (Exception ex) {
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
 		return rowsAffected;
 	}
 
@@ -1244,7 +1446,282 @@ public class WICIDBHelper
 	{
 		this.mockedConnection = mockedConnection;
 	}
-
 	
+	
+	public String validateUserNamePassKey(String userName,String passKey,String agentID) throws Exception
+	{
+		String userNamePassKeyExists=null;
+		String  sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?" + " AND PASSKEY = ?"+ " AND UPPER(ACTIVATED) = ?";	
+		log.info("::SQL::" + sql);
+		log.info("userName" + userName+"passKey"+passKey+"agentID"+agentID);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			if (isSuperAdmin(agentID)) {
+				log.info("isSuperAdmin");
+				preparedStatement.setString(1, agentID.toUpperCase());
+			} else {
+				preparedStatement.setString(1, userName.toUpperCase());
+			}
+			preparedStatement.setString(2, passKey);
+			preparedStatement.setString(3, "Y");
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next())
+			{
+				userNamePassKeyExists = resultSet.getString("ROLEID");
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			DisposeBDResources(connection, preparedStatement, resultSet);
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return userNamePassKeyExists;
+	}
+	public boolean isSuperAdmin(String agentID) throws Exception
+	{
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean isSuperAdmin=false;
+		int roleId=0;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			String userNameUpperCase=agentID.toUpperCase();
+			preparedStatement.setString(1, userNameUpperCase);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				log.info("Agent Is SuperAdmin");
+				roleId = Integer.parseInt(resultSet.getString("ROLEID"));
+			}
+			if (roleId == 1001) {
+				isSuperAdmin = true;
+			}
+		}
+		catch (Exception ex) {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return isSuperAdmin;
+	}
+	public boolean isSuperAdminOrAdmin(String userName) throws Exception
+	{
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE USERNAME = ?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean isSuperAdminOrAdmin=false;
+		int roleId=0;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			String userNameUpperCase = userName.toUpperCase();
+			preparedStatement.setString(1, userNameUpperCase);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString("ROLEID"));
+				log.info("SuperAdminOrAdmin RoleId" + roleId);
+			}
+			if (roleId == 1001 || roleId == 1002) {
+				isSuperAdminOrAdmin = true;
+			}
+		}
+		catch (Exception ex) {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return isSuperAdminOrAdmin;
+	}
+	public int getRoleId(String rolename) throws Exception
+	{
+		int roleId=0;
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_ROLES
+				+ " WHERE UPPER(ROLENAME) = ?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, rolename.toUpperCase());
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString("ROLEID"));
+			}
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return roleId;
+	}
+	private String formatDate(Date date) {
+        return date == null ? "" : dateFormatter.format(date);
+    }
+	public WICILoginResponse searchAgent(String userName,String agency,String userOperation,String agentID,String rollId) throws Exception
+	{
+		log.info("searchAgent...");
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?" + " AND UPPER(AGENCY) = ?" + " AND UPPER(ACTIVATED) =?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		WICILoginResponse wiciLoginResponse=new WICILoginResponse();
+		if (isSuperAdminOrAdmin(userName)) {
+			wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+			wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+			return wiciLoginResponse;
+		}
+		String userRoleId=getUserRoleId(userName);
+		log.info("userRoleId"+userRoleId);
+		if (userRoleId != null && userRoleId.equalsIgnoreCase(rollId)) {
+			wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+			wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+			return wiciLoginResponse;
+		}
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userName.toUpperCase());
+			preparedStatement.setString(2, agency.toUpperCase());
+			preparedStatement.setString(3, "Y");
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet!=null && resultSet.next())
+			{
+				log.info("ResultSet IS Not Empty");
+				wiciLoginResponse.setEnrollmentDate(formatDate(resultSet.getDate("REGDATE")));
+				String agentId=resultSet.getString("USERNAME");
+				if (agentId != null) {
+					wiciLoginResponse.setAgentId(agentId.substring(1));
+					if(userOperation!=null&& userOperation.equalsIgnoreCase("update"))
+					{
+						wiciLoginResponse.setMessage(AGENT_FOUND_MSG);
+						wiciLoginResponse.setStatusCode(UPDATE_AGENT_FOUND);	
+					}
+					else if(userOperation!=null&& userOperation.equalsIgnoreCase("delete"))
+					{
+						wiciLoginResponse.setMessage(AGENT_FOUND_MSG);
+						wiciLoginResponse.setStatusCode(DELETE_AGENT_FOUND);	
+					}
+					else if(userOperation!=null&& userOperation.equalsIgnoreCase("search"))
+					{
+						wiciLoginResponse.setMessage(AGENT_FOUND_MSG);
+						wiciLoginResponse.setStatusCode(SEARCH_AGENT_FOUND);	
+					}
+					
+				} else {
+					wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+					wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+				}
+			}
+			else
+			{
+				wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+				wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return wiciLoginResponse;
+	}
+	
+	public WICILoginResponse searchAnyAgent(String userName) throws Exception
+	{
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ? AND UPPER(ACTIVATED) =?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		WICILoginResponse wiciLoginResponse=new WICILoginResponse();
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userName.toUpperCase());
+			preparedStatement.setString(2, ACTIVATED);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet!=null && resultSet.next())
+			{
+				wiciLoginResponse.setEnrollmentDate(formatDate(resultSet.getDate("REGDATE")));
+				String agentId=resultSet.getString("USERNAME");
+				if (agentId != null) {
+					wiciLoginResponse.setAgentId(agentId.substring(1));
+					{
+						wiciLoginResponse.setMessage(AGENT_FOUND_MSG);
+						wiciLoginResponse.setStatusCode(SEARCH_AGENT_FOUND);		
+					}
+				} else {
+					wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+					wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+				}
+			}
+			else
+			{
+				wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
+				wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return wiciLoginResponse;
+	}
+	
+	public String getUserRoleId(String userName) throws Exception
+	{
+		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?";
+		log.info("::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String roleId=null;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userName.toUpperCase());
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet!=null && resultSet.next()){
+				roleId=resultSet.getString("ROLEID");
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		return roleId;
+	}
 }
+
 

@@ -11,10 +11,12 @@ import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
 import com.ctfs.WICI.Helper.AccountApplicationRequestTypeConverter;
+import com.ctfs.WICI.Helper.AuthorizationHelper;
 import com.ctfs.WICI.Helper.ExternalReferenceIdHelper;
 import com.ctfs.WICI.Helper.UniqueIDGenerator;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
+import com.ctfs.WICI.Model.AuthfieldValue;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.DatabaseResponse;
@@ -51,18 +53,33 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String sMethod = this.getClass().getName() + "[handleRequest] ";
 		log.info(sMethod);
 
-		queueAccountApplicationRequest(requestMediator);
+		try {
+			queueAccountApplicationRequest(requestMediator);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void queueAccountApplicationRequest(WICIServletMediator requestMediator)
+	private void queueAccountApplicationRequest(WICIServletMediator requestMediator) throws Exception
 	{
 		String sMethod = this.getClass().getName() + "[queueAccountApplicationRequest] ";
 		log.info(sMethod);
 
 		String transactionID = "";		
-		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);		
+		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);	
 		
-		DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData);
+		AuthorizationHelper authorizationHelper = new AuthorizationHelper();
+
+		AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
+
+		//US3125 - Sep 16th 2014 Release
+		log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+		String serialNumber=null;
+		if (values.getMfgSerial() != null) {
+			serialNumber = values.getMfgSerial().toUpperCase();
+		}
+		DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData,serialNumber);
 		
 		if (!dbInsertionResponse.isError())
 		{
@@ -100,24 +117,34 @@ public class InitAccountApplicationServlet extends WICIServlet
 		}
 	}
 
-	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData)
+	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData,String tabSerialNum)
 	{
 		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
 		log.info(sMethod);
 
 		DatabaseResponse databaseResponse = null;
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
-		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData);
+		String employerId = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employerID");
+		WICIDBHelper wicidbHelper = new WICIDBHelper();
+		String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
+		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
+		
+		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData,tabSerialNum,authfieldCheckEnable);
 		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString(aaObject);
 		String transactionID = aaObject.getExternalReferenceId();
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
 		String currentTelephone = aaObject.getCurrentTelephoneNumber();
-		
 		try
 		{
-			WICIDBHelper wicidbHelper = new WICIDBHelper();
-			wicidbHelper.insertAccountApplicationData(transactionID, userID, requestData, retrievalToken,currentTelephone);
-
+			if (employerId != null && employerId.equalsIgnoreCase("E")
+					|| !authfieldCheckEnable) {
+				wicidbHelper.insertAccountApplicationData(transactionID,
+						userID, requestData, retrievalToken, currentTelephone);
+			} else {
+				wicidbHelper.insertAccountApplicationData(transactionID,
+						(employerId + userID), requestData, retrievalToken,
+						currentTelephone);
+			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}
 		catch (Exception e)

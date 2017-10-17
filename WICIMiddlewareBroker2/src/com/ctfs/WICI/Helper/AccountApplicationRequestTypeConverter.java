@@ -28,6 +28,8 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_PERSONAL_DATA = "personalData";
 	private static final String MODEL_CHOOSE_PRODUCT = "chooseProductModel";
 	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
+	// US4637
+	private static final String MODEL_EMAILINFO_SCREEN = "emailInfoScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
 	private static final String ASC_ECTM="2277"; //New Asc for US3381 - CP Revitalization //ASC_ECTM="3377";  
@@ -39,7 +41,7 @@ public class AccountApplicationRequestTypeConverter
 
 	static Logger log = Logger.getLogger(AccountApplicationRequestTypeConverter.class.getName());
 
-	public AccountApplicationRequestType createAccountApplicationRequestFromCreditCardApplicationData(CreditCardApplicationData argCreditCardApplicationData)
+	public AccountApplicationRequestType createAccountApplicationRequestFromCreditCardApplicationData(CreditCardApplicationData argCreditCardApplicationData,String tabSerialNum,boolean authFlag)
     {
 
                     String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
@@ -50,6 +52,7 @@ public class AccountApplicationRequestTypeConverter
 
                     GUIDGenerator guidGenerator = new GUIDGenerator();
                     populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
+                    populatedAccountApplicationRequest.setTabSerialId(tabSerialNum);
                     
                     //populatedAccountApplicationRequest.setChannelIndicator("IP");
                     //log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
@@ -124,7 +127,7 @@ public class AccountApplicationRequestTypeConverter
                     // From AccountApplication.xsd v1.14 this filed have been removed
                     // populatedAccountApplicationRequest.setRoadsideOnRequestFlag("N");
 
-                    populateLoginModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateLoginModel(argCreditCardApplicationData, populatedAccountApplicationRequest,authFlag);
                     populateChooseProductModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
                     populatePersonalDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
                     populatePersonalData2Model(argCreditCardApplicationData, populatedAccountApplicationRequest);
@@ -132,6 +135,8 @@ public class AccountApplicationRequestTypeConverter
                     populateSuplementaryDataModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
                     populateSignatureModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
                     populateOptionalProductsModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    // US4637
+                    populateEmailInfoModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
 
                     try
                     {
@@ -477,8 +482,9 @@ public class AccountApplicationRequestTypeConverter
 
 				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
-				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
-				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
+				// Moved to EmailInfo model
+				// argAccAppRequest.setCurrentEmailAddress(model.get("email"));
+				// argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 				
 				argAccAppRequest.setRequestedCreditLimit(model.getInt("requestedCreditLimit")); //US3270 Feb 17th, 2015
 				
@@ -492,7 +498,7 @@ public class AccountApplicationRequestTypeConverter
 		}
 	}
 
-	private void populateLoginModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
+	private void populateLoginModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest, boolean authfieldCheckEnable )
 	{
 		String sMethod = "[LoginModel()]";
 		log.info(sMethod);
@@ -502,12 +508,26 @@ public class AccountApplicationRequestTypeConverter
 			String agency = "";
 			if (model != null)
 			{
-
-				argAccAppRequest.setStoreNumber(model.getInt("locationFieldID"));
-				argAccAppRequest.setAgentId(model.get("agentID"));
-
-				// agency = model.get("userID").substring(0,1);
 				agency = model.get("employerID");
+				argAccAppRequest.setStoreNumber(model.getInt("locationFieldID"));
+				/*WICIDBHelper wicidbHelper = new WICIDBHelper();
+				String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
+				boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);*/
+				
+				if (!("E".equalsIgnoreCase(agency))) {
+					if (authfieldCheckEnable) {
+						argAccAppRequest.setAgentId(model.get("employerID")
+								+ model.get("agentID"));
+					} else {
+						argAccAppRequest.setAgentId(model.get("agentID"));
+					}
+
+				} else {
+					argAccAppRequest.setAgentId(model.get("agentID"));
+				}
+				
+				// agency = model.get("userID").substring(0,1);
+				
 				
                 //US3103 - Sep 16 2014 Release  
 				ApplicationConfiguration.readApplicationConfiguration();
@@ -551,6 +571,29 @@ public class AccountApplicationRequestTypeConverter
 			{
 				argAccAppRequest.setRequestedProductType(model.get("productCard"));
 				argAccAppRequest.setAgencyPromoCode(model.get("agencyPromoCode"));
+			}
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	// US4637
+	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
+	{
+		String sMethod = "[populateEmailInfoModel()]";
+		log.info(sMethod);
+
+		BaseModel model;
+		try
+		{
+			model = argCreditCardData.getModel(MODEL_EMAILINFO_SCREEN);
+			if (model != null)
+			{
+				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
+				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 			}
 		}
 		catch (Exception e)

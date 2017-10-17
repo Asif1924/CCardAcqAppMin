@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 public class AuthorizationHelper
 {
 	static Logger log = Logger.getLogger(WICIServletMediator.class.getName());
+	String CONFIG_NAME_AUTHFIELD_CHECK_ENABLED = "AUTHFIELD_CHECK_ENABLED"; 
 
 	public boolean authorizationPassed(WICIServletMediator wiciServletMediator) throws Exception
 	{
@@ -24,7 +25,7 @@ public class AuthorizationHelper
 		log.info(sMethod);
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
-		return wicidbHelper.isAuthfieldCheckEnabled();
+		return wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_AUTHFIELD_CHECK_ENABLED);
 	}
 
 	private boolean authorizedTablet(WICIServletMediator request) throws Exception

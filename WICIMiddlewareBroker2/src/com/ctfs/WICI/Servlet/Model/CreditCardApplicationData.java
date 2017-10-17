@@ -92,7 +92,7 @@ public class CreditCardApplicationData
 		String sMethod = this.getClass().getName() + "[getSOAPRequestBodyString] ";
 		log.info(sMethod);
 
-		AccountApplicationRequestType accountRequestObject = (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this);
+		AccountApplicationRequestType accountRequestObject = (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this,null,false);
 		String SOAPRequestBodyString = null;
 		try
 		{
@@ -127,7 +127,7 @@ public class CreditCardApplicationData
 		String sMethod = this.getClass().getName() + "[convertToAccountApplicationRequest] ";
 		log.info(sMethod);
 
-		return (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this);
+		return (new AccountApplicationRequestTypeConverter()).createAccountApplicationRequestFromCreditCardApplicationData(this,null,false);
 	}
 
 	public BaseModel getModel(String name)

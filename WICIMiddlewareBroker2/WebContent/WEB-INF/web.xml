@@ -83,14 +83,24 @@
 		<servlet-name>ReceiveAccountResponseServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.ReceiveAccountResponseServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AgentServlet</display-name>
+		<servlet-name>AgentServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.AgentServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
-		<url-pattern>
-		/AddressLookup</url-pattern>
+		<url-pattern>/AddressLookup</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgentServlet</servlet-name>
+		<url-pattern>/Agent</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>VersionServlet</servlet-name>
