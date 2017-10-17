@@ -586,13 +586,16 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // Bind with click event
             $(refs.applyButton).bind("click", function() {
                 console.log("chooseProductScreen_ApplyNowButton.click");
+                // US4571 starts
+                testPrint();
+                
+                // US4571 ends 
                 // US4495 -Test Print at tablet login for FMR
-                if (employerID.toUpperCase() != "E") {
+               /* if (employerID.toUpperCase() != "E") {
                 	testPrint();
                 }else{
                 	showNextScreen();
-                }
-                //showNextScreen();
+                }*/
             });
         };
     }

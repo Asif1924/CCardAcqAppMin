@@ -160,7 +160,8 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			"employerID": argEmployerID,
 			"agentID": argAgentID,
 	      	"userLocation": argUserLocation,
-	      	"apkVersion": argAPKVersion
+	      	"apkVersion": argAPKVersion,
+	      	"password" : argPassword
 		};
 		connRequestBuilder.setHttpType( "POST" );
 		connRequestBuilder.setParams(requestParams);
@@ -187,7 +188,50 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			offlineCallback
 		);
     };
+    // ---------------------------------------------------------------------------------------
+    this.Agent = function(argEmployerID, argAgentID, argUserName, argUserOperation, argLocale, argRollId, argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'Agent() ';
+        console.log(logPrefix + sMethod);
+        
+    	// var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
 
+		var requestParams = {
+			"employerID": argEmployerID,
+			"agentID": argAgentID,
+			"userName": argUserName,
+	      	"userOperation": argUserOperation,
+	      	"locale" : argLocale,
+	      	"rollId" : argRollId
+		};
+		
+		console.log(logPrefix + sMethod + JSON.stringify(requestParams));
+		
+		connRequestBuilder.setHttpType( "POST" );
+		connRequestBuilder.setParams(requestParams);
+
+		/*var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("Login Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("Login");
+        	}
+    	};*/
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.Agent,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString()
+			},
+			argSuccessCallback,
+			$.noop,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+    // ---------------------------------------------------------------------------------------
     this.GetVersion = function(argSuccessCallback, argFailureCallback, argCompleteCallback) {
     	console.log("GetVersion");
     	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);

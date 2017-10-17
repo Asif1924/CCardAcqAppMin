@@ -137,7 +137,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	function createView() {
 		$screenContainer.empty();
 		assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(4, $screenContainer, activationItems);
+        // US4637
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(5, $screenContainer, activationItems);
 		assemblePageHTML($screenContainer, "#WICISignatureScreen-template");
 		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");

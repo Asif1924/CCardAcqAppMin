@@ -1,13 +1,14 @@
 ensureNamespaceExists();
 
-WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback,
-								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, chancelButton)
+WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback, manageRepsCallback,
+								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, manageRepsButton, chancelButton)
 {
 	var dialogViewHelper = new WICI.DialogViewHelper();
 	
 	var action = "";
 	var showing = false;
 	var isAdminUser = isAdminProfile;
+	var isSuperAdminOrAdminRole = isAdminRole;
 	
 	this.isShowing = isShowing;
 	this.show = show;
@@ -35,12 +36,18 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 			chancelButton: chancelButton,
 			retrieveButton: retrieveButton,
 			retrieveButtonDisplayed: WICI.AppConfig.PendingFeature.AllowAppRetrieval,
-			reEstablishWifiButton: reEstablishWifiButton
+			reEstablishWifiButton: reEstablishWifiButton,
+			manageRepsButton: manageRepsButton
 		}).appendTo("body");
 		
 		if(chooseProductCallback === null || chooseProductCallback === $.noop)
 		{
 			$('#settings_chooseProductButton').addClass('hideElement');
+		}
+		console.log("SetingsDialog : isSuperAdminOrAdminRole :: " + isSuperAdminOrAdminRole);
+		// Hide MangeReps button for non Admin users
+		if (!isSuperAdminOrAdminRole) {
+		    $('#settings_manageRepsButton').addClass('hideElement');
 		}
 		
 		// Hide Printer Setup button for non Admin users
@@ -100,6 +107,10 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 			action = "settings_reEstablishWifi";
 		});
 		
+		$("#settings_manageRepsButton").on("click", function(event){
+			action = "manageReps";
+		});
+		
 		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function(){
 			dialogViewHelper.removeDialog();
 			try {
@@ -117,6 +128,8 @@ WICI.SettingsDialog = function(translate, isAdminProfile, logOutCallback, choose
 					case "retrieve": retrieveCallback();
 						break;
 					case "settings_reEstablishWifi": reEstablishWifiCallback();
+						break;
+					case "manageReps": manageRepsCallback();
 						break;
 					default:  throw new Error("invalid selection");
 						break;

@@ -190,9 +190,7 @@
 				<br>
 				<span class="pageSubTitle" data-translationKey="summary_TellAboutYourself_ApplicantInfo"></span>
 				<br>
-			<br>
 			<div id="summary_TellUsAboutYourself_Area2" >
-				<br>
 				<br>
 	            <table id="summary_TellUsAboutYourself_Table" class="stretchThisTable">
 	                <tr class="fieldRow">
@@ -242,7 +240,7 @@
 	                        <span data-translationKey="personalData_EmailAddress"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
-	                         ${activationItems.getModel('personalData').get('email')}
+	                         ${activationItems.getModel('emailInfoScreen').get('email')}
 	                    </td>
 	                </tr>
  					<tr class="fieldRow">
@@ -250,7 +248,9 @@
 	                        <span data-translationKey="summary_TellAboutYourself_Email_Consent"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
-	                     <span data-translationKey="${ activationItems.getModel('personalData').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('personalData').get('receiveEmail') == "N"? "no" : "" }"></span>
+	                              {{if activationItems.getModel('emailInfoScreen').get('email') !== null}}
+	                              <span data-translationKey="${ activationItems.getModel('emailInfoScreen').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('emailInfoScreen').get('receiveEmail') == "N"? "no" : "" }"></span>
+	                              {{/if}}
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">

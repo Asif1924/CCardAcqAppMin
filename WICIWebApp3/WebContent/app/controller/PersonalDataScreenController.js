@@ -45,7 +45,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         idExpiryDate : '#personalData_ExpiryDate_TextField',
         expiryDate_Area : '#personalData_ExpiryDate_Area',
 
-        email : '#personalData_EmailAddress_TextField',
+      //  email : '#personalData_EmailAddress_TextField',
         homePhone : '#personalData_HomePhone_TextField',
         cellPhone : '#personalData_CellPhone_TextField',
 
@@ -53,10 +53,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         correspondence_eng : '#personalData_English_RadioButton',
         correspondence_fre : '#personalData_French_RadioButton',
         
-        receiveemailArea:'#personalData_ReceiveEmailArea',
-        receiveEmail : '#personalData_ReceiveEmail_Group',
-        receiveemail_optin : '#personalData_Optin_RadioButton',
-        receiveemail_optout : '#personalData_Optout_RadioButton',
+      //  receiveemailArea:'#personalData_ReceiveEmailArea',
+       // receiveEmail : '#personalData_ReceiveEmail_Group',
+       // receiveemail_optin : '#personalData_Optin_RadioButton',
+       // receiveemail_optout : '#personalData_Optout_RadioButton',
         nextButton: ".PersonalDataScreen_NextButton",
         prevButton: ".PersonalDataScreen_PrevButton",
         postalcode:         '#personalData_Address_PostalCode_TextField',
@@ -99,7 +99,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var validationGrroupsCol = 5;
     var prevAdressValidationIndex = 4;
     var durationValidationIndex = 5;
-    var emailValidationIndex = 2;
+    //var emailValidationIndex = 2;
     var personalDataValidationMax = 2;
     var personalDataModel = new WICI.BaseModel({
         name : 'personalData',
@@ -197,7 +197,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 name : 'age',
                 value : null,
                 validation : null
-            }, {
+            },
+            /*{
                 name : 'email',
                 value : null,
                 validation : {
@@ -214,7 +215,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_ReceiveEmail',
                     group: [ 2 ]
                 }
-            },{
+            },*/
+            {
                 name : 'homePhone',
                 value : null,
                 validation : {
@@ -322,7 +324,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         restoreCreditCardData();
 
-        onEmailChangesHandler();
+        // onEmailChangesHandler();
         hideShowMoneyAdvantage();
         
         // US3623
@@ -461,7 +463,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
         console.log(logPrefix + sMethod + " age :: after sync:: " + currModel.get('age'));
         
-        currModel.set('email', $(refs.email).val());
+        //currModel.set('email', $(refs.email).val());
         currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
         currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
 
@@ -518,7 +520,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.initial).val(currModel.get('initial'));
         $(refs.lastName).val(currModel.get('lastName'));
         $(refs.birthDate).val(currModel.get('birthDate'));
-        $(refs.email).val(currModel.get('email'));
+        //$(refs.email).val(currModel.get('email'));
         $(refs.homePhone).val(currModel.get('homePhone'));
         $(refs.cellPhone).val(currModel.get('cellPhone'));
         // US4365
@@ -549,7 +551,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         updateResidenceTypeRadioButtons();
         onDurationChangesHandler();
         updateLookUpControls();
-        onEmailChangesHandler();
+        // onEmailChangesHandler();
     }
     //---------------------------------------------------------------------------------------
     function updateLookUpControls()
@@ -622,11 +624,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     }
 
     //----------------------------------------------------------------------------------------
-    function bindRealTimeEmailControl(){
+    /*function bindRealTimeEmailControl(){
         $(refs.email).change(function(){
             onEmailChangesHandler();
         });
-    }
+    }*/
     //---------------------------------------------------------------------------------------
     function onDurationChangesHandler(){
         var sMethod = 'onDurationChangesHandler() ';
@@ -653,7 +655,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         var sMethod = 'bindEvents() ';
         console.log(logPrefix + sMethod);
 
-        bindRealTimeEmailControl();
+        // bindRealTimeEmailControl();
 
         $(refs.postalcode).live('paste, input', function(e) {
             var self = $(this);
@@ -743,7 +745,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             models.personalDataModel.set('correspondence', 'F');
         });
         
-        $(refs.receiveemail_optin).click(function() {
+        /*$(refs.receiveemail_optin).click(function() {
             clearRadios('receiveEmail');
             $(refs.receiveemail_optin).addClass('ui-btn-active');
             models.personalDataModel.set('receiveEmail', 'Y');
@@ -752,7 +754,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             clearRadios('receiveEmail');
             $(refs.receiveemail_optout).addClass('ui-btn-active');
             models.personalDataModel.set('receiveEmail', 'N');
-        });
+        });*/
         bindAddressHandlingControls();
         bindRadioButtons();
         bindRealTimeDurationControl();
@@ -1076,11 +1078,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         } else if (radioGroup === 'correspondence') {
             $(refs.correspondence_eng).removeClass('ui-btn-active');
             $(refs.correspondence_fre).removeClass('ui-btn-active');
-        } else if (radioGroup === 'receiveEmail') {
+        }/*
+        else if (radioGroup === 'receiveEmail') {
             $(refs.receiveemail_optin).removeClass('ui-btn-active');
             $(refs.receiveemail_optout).removeClass('ui-btn-active');
             currModel.set('receiveEmail', null);
-        } else if (radioGroup === 'residence') {
+        }*/ 
+        else if (radioGroup === 'residence') {
             $(refs.house_Own).removeClass('ui-btn-active');
             $(refs.house_Rent).removeClass('ui-btn-active');
             $(refs.house_Parents).removeClass('ui-btn-active');
@@ -1486,7 +1490,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers); 
             
             var temprez;
-            validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
+       		// validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
             for (var i = 1; i <= validationGrroupsCol; i++) {
                if (i <= personalDataValidationMax ) {
                     temprez = models.personalDataModel.validate(i);
@@ -1495,9 +1499,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                }
                
                 //custom validation for e-mail
-                if (i === emailValidationIndex && validEmail.test(models.personalDataModel.get('email').trim()) != true ) {
+                /*if (i === emailValidationIndex && validEmail.test(models.personalDataModel.get('email').trim()) != true ) {
                     continue;
-                }
+                }*/
                 //custom validation for previous adress
                if (i === prevAdressValidationIndex) {
                     if ( enteredYears >= 2) {                    	
@@ -1687,6 +1691,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.idtype + ' [value="' + rez.idType + '"]').attr(
                 'selected', 'selected'
             );
+            
+            // US4535
+            disableScannedDriversLicenceFields();                       
         } catch (e) {
             messageDialog.error(
                 translator.translateKey('scanID_parsingErrorText'),
@@ -1704,8 +1711,19 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         for (prop in response) {
             console.log(sMethod + prop + ': ' + response[prop]);
         }
+    }    
+    // ---------------------------------------------------------------------------------------
+    // US4535
+    function disableScannedDriversLicenceFields(){
+    	$(refs.placeofissue).prop('disabled', true);
+    	$(refs.idtype).prop('disabled', true);
+    	$(refs.idnumbers).prop('disabled', true);
+    	$(refs.idExpiryDate).prop('disabled', true);
+    	$(refs.firstName).prop('disabled', true);
+    	$(refs.initial).prop('disabled', true);
+    	$(refs.lastName).prop('disabled', true);
+    	$(refs.birthDate).prop('disabled', true);
     }
-
     // ---------------------------------------------------------------------------------------
     function containsAny(obj, keys) {
         var key;

@@ -30,18 +30,27 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			},
 		},
 		'Page2' : {
-			'screenConstructor' : WICI.FinancialScreenController,
+			'screenConstructor' : WICI.EmailInformationController,
 			'transitionOut' : function() {
 				return 'Page3';
 			},
+			'transitionOnFailure' : function() {
+				return 'done';
+			},
 		},
 		'Page3' : {
-			'screenConstructor' : WICI.SupCardRequestScreenController,
+			'screenConstructor' : WICI.FinancialScreenController,
 			'transitionOut' : function() {
 				return 'Page4';
-			}
+			},
 		},
 		'Page4' : {
+			'screenConstructor' : WICI.SupCardRequestScreenController,
+			'transitionOut' : function() {
+				return 'Page5';
+			}
+		},
+		'Page5' : {
 			'screenConstructor' : WICI.SignatureScreenController,
 			'transitionOut' : function() {
 				var employerID = activationItems.getModel('loginScreen').get('employerID').toUpperCase();
@@ -62,30 +71,30 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			            model = currentModel;
 			        }
 
-					return 'Page6';
+					return 'Page7';
 				}
-				return 'Page5';
-			}
-		},
-		'Page5' : {
-			'screenConstructor' : WICI.OptionalProductsScreenController,
-			'transitionOut' : function() {
 				return 'Page6';
-			},
+			}
 		},
 		'Page6' : {
-			'screenConstructor' : WICI.SummaryScreenController,
+			'screenConstructor' : WICI.OptionalProductsScreenController,
 			'transitionOut' : function() {
 				return 'Page7';
-			}
+			},
 		},
 		'Page7' : {
+			'screenConstructor' : WICI.SummaryScreenController,
+			'transitionOut' : function() {
+				return 'Page8';
+			}
+		},
+		'Page8' : {
             'screenConstructor' : WICI.PrintDemoScreenController,
             'transitionOut' : function() {
-                return 'Page8';
+                return 'Page9';
             },
         },
-		'Page8' : {
+		'Page9' : {
 			'screenConstructor' : WICI.ConfirmationScreenController,
 			'transitionOut' : function() {
 				return 'done';

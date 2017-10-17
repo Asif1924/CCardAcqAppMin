@@ -675,7 +675,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     function createView() {
         $screenContainer.empty();
         assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(3, $screenContainer, activationItems);
+        // US4637
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(4, $screenContainer, activationItems);
         assemblePageHTML($screenContainer, "#WICIFinancialScreen-template");
         assembleNavigationBarAtBottom();
         $screenContainer.addClass("breadcrumbPadding");
@@ -731,7 +732,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                 onPrepopulatedStatusClick('UN', 'jobCategoriesList_UN');
                 break;
             case 'O':
-                onUnHiredStatusClick('OT', ignoreCategory);
+            	onUnHiredStatusClick('OT', ignoreCategory);
                 break;
             default:
                 onUnHiredStatusClick(ignoreCategory);
@@ -909,6 +910,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         $.subscribe('translatorFinished', function() {
             console.log(refs.employmentType + 'subscribe(translatorFinished)');
+            // US4636
+            $(refs.employmentType).val(model.get("employmentType"));           
             populateEmplTypes(true);
             $(refs.employmentType).val(model.get("employmentType"));
         });
@@ -922,6 +925,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         $(refs.employmentType).on("change", function() {
             console.log(refs.employmentType + '::change');
             model.set("employmentType", $(refs.employmentType).val());
+            // US4636
+            model.set('jobCategory', null);
+            model.set('jobTitle', null);
+            model.set('jobTitle_temp', null);
             updateEmploymentType(true);
         });
 

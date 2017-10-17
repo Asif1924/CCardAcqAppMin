@@ -32,12 +32,13 @@ ul.breadcrumbs {
     position: relative;
     text-shadow: 1px 50% white;
 
-    &:first-child { width: 18%; }
-    &:nth-child(2) { width: 18%; }
-    &:nth-child(3) { width: 24%; }
+    &:first-child { width: 16%; }
+    &:nth-child(2) { width: 17%; }
+    &:nth-child(3) { width: 12%; }
     &:nth-child(4) { width: 22%; }
-    &:nth-child(5) { width: 10%; }
-
+    &:nth-child(5) { width: 19%; }
+    &:nth-child(6) { width: 13%; }
+    
     &:last-child { padding: 0; }
 
     &:after {
@@ -85,12 +86,13 @@ ul.breadcrumbs {
 
   &.breadcrumbs-longer {
     > li {
-      &:first-child { width: 15%; }
-      &:nth-child(2) { width: 15%; }
-      &:nth-child(3) { width: 20%; }
-      &:nth-child(4) { width: 20%; }
-      &:nth-child(5) { width: 15%; }
-      &:nth-child(6) { width: 10%; }
+      &:first-child { width: 14%; }
+      &:nth-child(2) { width: 13%; }
+      &:nth-child(3) { width: 13%; }
+      &:nth-child(4) { width: 18%; }
+      &:nth-child(5) { width: 19%; }
+      &:nth-child(6) { width: 13%; }
+      &:nth-child(7) { width: 10%; }
     }
   }
 
@@ -118,7 +120,7 @@ and (max-width: 1000px) {
 and (max-width: 900px) {
   ul.breadcrumbs {
     > li {
-      font-size: 11pt;
+      font-size: 10pt;
       min-width: 0 !important;
 
       > .breadcrumbs-item-text-wrapper {
@@ -137,7 +139,7 @@ and (max-width: 900px) {
 and (max-width: 710px) {
   ul.breadcrumbs {
     > li {
-      font-size: 10pt;
+      font-size: 9pt;
     }
 
     &.breadcrumbs-longer > li {

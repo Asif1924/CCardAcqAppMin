@@ -315,7 +315,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     function createView() {
         $screenContainer.empty();
         assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(5, $screenContainer, activationItems);
+        // US4637
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(6, $screenContainer, activationItems);
         assemblePageHTML($screenContainer, '#WICIOptionalProductsScreen-template');
         assembleNavigationBarAtBottom();
         $screenContainer.addClass("breadcrumbPadding");

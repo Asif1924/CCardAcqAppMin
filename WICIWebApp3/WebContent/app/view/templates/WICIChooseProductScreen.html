@@ -106,12 +106,15 @@
 		<br />
 		<center>
             <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
+            <!-- US4571 start -->
+            <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label_with_testprint"></span>
+            <!-- US4571 ends -->
             <!-- US4495 - Start //-->
-                {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
+              <!--  {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
             	     <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label_with_testprint"></span>
             	{{else}}
             	     <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
-            	{{/if}}
+            	{{/if}}  -->
             <!-- US4495 - End //-->   	
 			</span>
         </center>

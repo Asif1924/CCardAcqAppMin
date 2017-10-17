@@ -25,6 +25,8 @@ WICI.LoginScreenController = function(app) {
         employerID: '#employerIDTextField',
         //userID            : '#userIDTextField',
         agentID: '#agentIDTextField',
+        // US4454
+        password: '#passwordTextField',
         //passwordFieldID : '#passwordTextField',
         locationFieldID: '#locationNumberTextField',
         firstName: '#firstNameTextField',
@@ -67,6 +69,11 @@ WICI.LoginScreenController = function(app) {
                 matcher: /^[a-zA-Z]{1,30}$/,
                 group: [2]
             }
+        },{
+        	name: 'password',
+        	value: null,
+        	validation: null
+        	
         },
             //{name: 'userID',                              value: null, validation: {type: 'presence',     message: '',      group: [1]} },
             //{notField:true, name: 'passwordFieldID',          value: null, validation: {type: 'presence',     message: '',      group: [1]} },
@@ -90,6 +97,11 @@ WICI.LoginScreenController = function(app) {
             }, {
                 notField: true,
                 name: 'userLocationResponse',
+                value: null,
+                validation: null
+            }, {
+                notField: true,
+                name: 'rollId',
                 value: null,
                 validation: null
             }
@@ -143,6 +155,8 @@ WICI.LoginScreenController = function(app) {
         //model.set('passwordFieldID', $(refs.passwordFieldID).val());
         model.set('locationFieldID', $(refs.locationFieldID).val().toLowerCase());
 
+        model.set('password', $(refs.password).val().toUpperCase());
+        
         if (validateNameFields) {
             model.set('firstName', $(refs.firstName).val().toLowerCase());
             model.set('lastName', $(refs.lastName).val().toLowerCase());
@@ -199,7 +213,7 @@ WICI.LoginScreenController = function(app) {
 
         $(refs.loginButtonID).click(function() {
             generateAgentId();
-            invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", "", $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+            invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -215,6 +229,8 @@ WICI.LoginScreenController = function(app) {
 
         // listen to the EmployerId blur
         $(refs.employerID).on('input', employerIdChanged);
+        // listen to the AgentId change       
+        $(refs.agentID).on('input', hidePasswordForDEMOMODE);
     }
 
     function generateAgentId() {
@@ -252,10 +268,14 @@ WICI.LoginScreenController = function(app) {
     function resetForm() {
         var firstNameRow = $(refs.firstName).closest('tr'),
             lastNameRow = $(refs.lastName).closest('tr'),
-            agentIdRow = $(refs.agentID).closest('tr');
+            agentIdRow = $(refs.agentID).closest('tr'),
+            passwordRow = $(refs.password).closest('tr');
 
         if (agentIdRow.hasClass('hidden')) {
             $(refs.agentID).closest('tr').removeClass('hidden');
+        }
+        if(passwordRow.hasClass('hidden')){
+           $(refs.password).closest('tr').removeClass('hidden');
         }
 
         if (!firstNameRow.hasClass('hidden')) {
@@ -265,11 +285,30 @@ WICI.LoginScreenController = function(app) {
         if (!lastNameRow.hasClass('hidden')) {
             lastNameRow.addClass('hidden');
         }
+        
+        if($(refs.agentID).val().toUpperCase() === "DEMO"){
+        	$(refs.password).closest('tr').addClass('hidden');
+        } else {
+        	$(refs.password).closest('tr').removeClass('hidden');
+        }
+        
     }
+    
+    function hidePasswordForDEMOMODE() {
+    	var sMethod = 'hidePasswordForDEMOMODE';
+        console.log(logPrefix + sMethod);
 
+        if($(refs.agentID).val().toUpperCase() === "DEMO"){
+        	$(refs.password).closest('tr').addClass('hidden');
+        } else {
+        	$(refs.password).closest('tr').removeClass('hidden');
+        }
+    }
+    
     function changeFormForEmployer() {
         //hideAgentIdField
         $(refs.agentID).closest('tr').addClass('hidden');
+        $(refs.password).closest('tr').addClass('hidden');
         //showNameFields
         $(refs.firstName).closest('tr').removeClass('hidden');
         $(refs.lastName).closest('tr').removeClass('hidden');
@@ -350,7 +389,8 @@ WICI.LoginScreenController = function(app) {
             employerID: argEmployerID,
             agentID: argAgentID,
             firstName: argFirstName,
-            lastName: argLastName
+            lastName: argLastName,
+            password: password
         };
         var isDemoMode = checkDemoMode(credentials, WICI.AppConfig.DemoCredentials);
 
@@ -404,7 +444,12 @@ WICI.LoginScreenController = function(app) {
         if (argResponse.data) {
             //userLocationResponse = argResponse.data.checkLocation;
             // Save account profile info
-            app.accountProfileHelper.initialize(argResponse.data.roles);
+        	console.log("WICI Login Response  ::"+ JSON.stringify(argResponse.data));
+        	if(argResponse.data.roleId != null) {
+        		model.set('rollId', argResponse.data.roleId);
+        	}
+        	console.log("WICI Login Response RollID ::"+ model.get('rollId'));
+            app.accountProfileHelper.initialize(argResponse.data.roles,argResponse.data.roleId);
         }
 
         if (loginHelper.loginSuccessful()) {

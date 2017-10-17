@@ -27,6 +27,7 @@ WICI.dictionary_en =  {
 	settings_reEstablishWifiButton  					:   "Re-establish WIFI connection",
 	settings_reEstablishWifiSuccess  					:   "WIFI Profile Re-created",
 	settings_reEstablishWifiFailure  					:   "Failed to re-create the WIFI Profile",
+	settings_manageRepsButton							:	"Manage Reps",
 
 	infoDialog_NoProduct								:	"No products available for this store location. Please verify that store number is correct and try again",
 	infoDialog_defaultTitle 							: 	"Info",
@@ -53,9 +54,12 @@ WICI.dictionary_en =  {
 	messageDialog_ok 									: 	"Ok",
 	pageHeader_next 									: 	"Next",
 	pageHeader_previous 								: 	"Back",
+	messageDialog_Close									:	"Close",
 
 	breadCrumbItem_ProductSelection						:	"Product Selection",
 	breadCrumbItem_ApplicantInfo						:	"Applicant Info",
+	// US4637
+	breadCrumbItem_EmailInfo							:	"E-mail Info",	
 	breadCrumbItem_FinancialAndEmploymentInfo			:   "Financial and Employment Info",
 	breadCrumbItem_SupplementaryCard					:   "Supplementary Card",
 	breadCrumbItem_OptionalProducts						:   "Optional Products",
@@ -222,6 +226,9 @@ WICI.dictionary_en =  {
 
 	personalData_Note									:	"<sup>*</sup> Please note, we may send you SMS notifications to your mobile phone number for account notices, these messages will be at no cost to you.",
 	
+	// US4637
+	EmailInfo_PageTitle									:	"E-MAIL INFORMATION",
+	
 	//US3625
 	personalData_Scan_Loyalty_Label                     :   "Scan My Canadian Tire ‘Money’ card",
 	scanLoyaltyDialog_holdText							:   "Hold the My Canadian Tire ‘Money’ card to be scanned behind tablet as shown in the picture above so the barcode is in view of the camera. Scanning will happen automatically. When you hear the beep, the scan is successful. The app will close, and you will return to the current page.",
@@ -261,7 +268,7 @@ WICI.dictionary_en =  {
 	finEmpInfo_GrossIncome								:	"Annual Gross Personal Income",
 	finEmpInfo_GrossHouseholdIncome						:	"Annual Gross Household Income",
 	
-	finEmpInfo_SIN										:	"Social Insurance Number (Optional)",
+	finEmpInfo_SIN										:	"Social Insurance Number (Optional)</br>  <span style=\"font-family: Helvetica, Arial, sans-serif; font-size: 9pt; font-weight: bold; color: #1569C7\";><p>Providing your SIN minimizes the time between application and approval as it allows us to more efficiently process your financial information.</p></span>",
 	finEmpInfo_Years									:	"Years: ",
 	finEmpInfo_Months									:	"Months: ",
 
@@ -1042,6 +1049,38 @@ WICI.dictionary_en =  {
     
 	// Summary screen END ................................................................
 
+    // AgentAttribution screen STARTS
+    agentAttribution_Submit_Button                      :  "Submit",
+    agentAttribution_EnterAgentId_label                 :  "Enter Agent ID",
+    agentAttribution_NewPassword_label                  :  "New Password",
+    
+    agentLoginScreen_EnterAgentID_Label					:	"Enter Agent ID",
+	agentLoginScreen_NewPassword_Label					:	"New Password",
+	AgentLoginScreen_Button_Label						:	"Submit",
+	agentLoginScreen_Create								:	"Create",
+	agentLoginScreen_Update								:	"Update",
+	agentLoginScreen_Delete								:	"Delete",
+	agentLoginScreen_Search								:	"Search",
+	loginScreen_Password_Label                          :   "Password",
+	agentLoginScreen_messageDialogTitle					:	"Confirmation",
+	agentLoginScreen_messageSearchDialogTitle           :   "Search Result",
+	agentLoginScreen_messageDialogAgentExistMsg			:	"Agent ID already Exists",
+	agentLoginScreen_messageDialogDeleteMsg				:	"Are you sure to delete agentID ",
+	agentLoginScreen_messageDialogUpdateMsg				:	"Are you sure you want to change password for ",
+	agentLoginScreen_messageDialogSearchMsg				:	"Agent Id ",
+	agentLoginScreen_messageDialogAgentNotFoundMsg		:	"Agent Not Found",
+	agentLoginScreen_messageDialogEnrollmentDate        :   "Enrollment Date = ",
+	
+	agentLoginScreen_messageDialogUpdatedSuccessfullyMsg:	"Agent Updated Successfully",
+	agentLoginScreen_messageDialogNotUpdatedMsg			:	"Agent Not Updated",
+	agentLoginScreen_messageDialogDeletedSuccessfullyMsg:	"Agent ID Successfully Removed",
+	agentLoginScreen_messageDialogNotDeletedMsg			:	"Agent Not Deleted",
+	
+	
+	agentLoginScreen_messageDialogCancel		        :   "Cancel",
+	agentLoginScreen_messageDialogClose			        :   "Close",
+    // AgentAttribution screen ENDS
+    
 	// Print screen START ..............................................................
 
 	printScreen_Title									:	"Application Complete!",
@@ -1126,7 +1165,7 @@ WICI.dictionary_en =  {
                                                           "<br/><sup>&reg;/&trade;</sup> Mark's is a registered trademark of Mark's Work Warehouse Ltd.",
     // Old line
     // legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard and the Mastercard Brand Mark are registered trademarks, and Paypass and MasterPass are trademarks, of Mastercard International Incorporated.",
-    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard, and World Mastercard, Secure Code and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",
+    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard,Secure Code and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage Mastercard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire gas bars during the following monthly billing period and that is charged to your Gas Advantage Mastercard.",
 	// US3997
@@ -1226,15 +1265,17 @@ WICI.dictionary_en =  {
 	omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'<sup>&reg</sup>",
     omc_second_chapter_ectm                             : "Apply for a Canadian Tire Options Mastercard today. It's a faster way to collect your Canadian Tire 'Money'<sup>&reg;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
 
-    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>10X</span></b> Canadian Tire 'Money' every day - that's 4% back, at Canadian Tire stores, including on automotive service<sup>1</sup>.",
-    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>10X</span></b> Canadian Tire 'Money' every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
+    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>4%</span></b> (that’s 10X back!) Canadian Tire ‘Money’ every day at Canadian Tire stores, including on automotive service<sup>1</sup>.",
+    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>4%</span></b> Canadian Tire 'Money' every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
     omc_sixt_chapter_ectm                               : "<b>Collect</b> Canadian Tire 'Money' at participating Canadian Tire gas bars<sup>2</sup>.",
-    omc_seventh_chapter_ectm                            : "<b>Collect <span class='RedLabel'>2X</span></b> Canadian Tire 'Money' everywhere else you shop<sup>1</sup>.",
+    omc_seventh_chapter_ectm                            : "<b>Collect </b> Canadian Tire 'Money' everywhere else you shop<sup>1</sup>.",
 
-    legal_omc_first_chapter_ectm                        : "<sup>1</sup> In the form of electronic Canadian Tire Money <sup>&reg;</sup> (CT 'Money'™) Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options Mastercard cardmembers paying with their Options Mastercard collect CT ‘Money’ at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire ‘Money’<sup>&reg;</sup> program collect CT ‘Money’ on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions. The rate at which you earn your CT ‘Money’ everywhere else is 2x the rate of CT ‘Money’ which equates to roughly 0.8%. Canadian Tire 'Money' is calculated on the pre-tax amount of the purchase at Canadian Tire Stores and PartSource.<br />Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
-    legal_omc_second_chapter_ectm                       : "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details.",
+    legal_omc_first_chapter_ectm                        : "<sup>1</sup> In the form of Canadian Tire ‘Money’ (CT ‘Money’™). Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options Mastercard cardmembers paying with their Options Mastercard collect Canadian Tire ‘Money’ at a rate that is 10X (equates to 4%) the rate at which other member of the My Canadian Tire ‘Money’® program collect Canadian Tire ‘Money’ on purchases made by such other members at Canadian Tire stores (if other members paid by cash, debit, or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions.  CT ‘Money’ is collected on the pre-tax amount at Canadian Tire and PartSource.",
+    legal_omc_seventh_chapter_ectm                      :" Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
+    legal_omc_second_chapter_ectm                       : "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details." ,
+    legal_omc_fourth_chapter_ectm		                :" † Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
     personalData_CTMField                               : "My Canadian Tire 'Money'<sup>&reg;</sup> Account Number",
-    personalData_CTMAccountText                         : "If you are already a Member, please enter your My Canadian Tire 'Money' Account number. If you are approved for the credit card that you are applying for, your My Canadian Tire 'Money' Account will be linked to your new Canadian Tire<sup>&reg;</sup> Options Mastercard<sup>&reg;</sup>. If left blank, a My Canadian Tire 'Money' Account number will be assigned to you.",
+    personalData_CTMAccountText                         : "If you are already a Member, please enter your My Canadian Tire 'Money' Account number. If you are approved for the credit card that you are applying for, your My Canadian Tire 'Money' Account will be linked to your new Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>. If left blank, a My Canadian Tire 'Money' Account number will be assigned to you.",
     // personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire 'Money'<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
@@ -1285,7 +1326,8 @@ WICI.dictionary_en =  {
     optionalProducts_CP_text_average                    :   "of your Average Daily Balance, plus applicable taxes",
     optionalProducts_CP_text_average_info               :   "(at age 80, becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes)",
     optionalProducts_CP_text_bill                       :   "Billed to your Canadian Tire Bank issued credit card",
-    optionalProducts_CP_text_available                  :   "Available for cardmembers aged 18 to under 76",
+    optionalProducts_CP_text_available                  :   "Available for cardmembers aged 18 to under 76.",
+    optionalProducts_CP_text_interest                   :   "Canadian Tire Bank has a financial interest in the sale of this insurance.",
     
     
     //---Optional product CP details  ends ------
@@ -1328,8 +1370,8 @@ WICI.dictionary_en =  {
       PA_LI_AT_AGE                                      :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
       PA_LI_DEPENDING_HOW                               :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
       PA_LI_YOU_DO_NOT                                  :   "You do not pay premium:",
-      PA_LI_1_IF_YOU_HAVE_NOT                           :   "&#45; If you have not used your card that month and;",
-      PA_LI_1_HAVE_NOT_CARRIED                          :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments or;",
+      PA_LI_1_IF_YOU_HAVE_NOT                           :   "&#45; If you have not used your card that month; and",
+      PA_LI_1_HAVE_NOT_CARRIED                          :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments; or",
       PA_LI_1_IF_YOUR_AVERAGE                           :   "&#45; if your Average Daily Balance  for the month is less than $10.",
       PA_LI_PRICE_EXAMPLE                               :   "Price examples:",
       PA_TABLE_TD_AVERAGE_DAILY                         :   "Average Daily Balance",
@@ -1378,14 +1420,14 @@ WICI.dictionary_en =  {
       PA_P_rebound                                      :   "Rebound<sup>&reg;</sup> Asset Return Service",
       PA_P_this_service_allows_you                      :   "This service allows you to adhere stickers with a unique ID# to your valuables. If an item bearing a sticker is lost, its finder is directed to contact Sigma, who will arrange for the item to be picked up and returned to you and for payment of a fifty dollar ($50.00) reward to the finder. Terms and conditions apply.",
       PA_P_computer_tune_up                             :   "Computer Maintenance Reimbursement:",
-      PA_P_you_are_eligible_to                          :   "You are entitled to redeem up to a maximum of seventy-five ($75.00) dollars inclusive of taxes, per subscription year. Computer includes personal desktop or laptop. You have not submitted a Computer Maintenance Reimbursement Form for the same request within the past 365 days. You must be an active subscriber of Identity Watch Classic on the date indicated on the receipt or invoice right through to when the request for Reimbursement is received by us. You must submit the Reimbursement request form along with your original receipt or invoice, within thirty (30) days of the computer maintenance being performed or the anti-virus/anti-malware/firewall software purchase.  Processing time will take between 4 to 6 weeks from the date this form is received.The Reimbursement request form can only be used by the active subscriber and is not transferable. The name of the subscriber must be indicated on the receipt or invoice.",
+      PA_P_you_are_eligible_to                          :   "You are entitled to redeem up to a maximum of seventy-five ($75.00) dollars inclusive of taxes, per subscription year. Computer includes personal desktop or laptop.You may only submit one computer maintenance reimbursement form once every 365 days.\n You must be an active subscriber of Identity Watch Classic on the date indicated on the receipt or invoice right through to when the request for reimbursement is received by Sigma. You must submit the reimbursement request form along with your original receipt or invoice showing the name of the computer maintenance provider, within thirty (30) days of the computer maintenance being performed or the anti-virus/anti-malware/firewall software purchase.  Processing time will take between 4 to 6 weeks from the date this form is received by Sigma.The reimbursement request form can only be used by the active subscriber and is not transferable. In no event shall Sigma's liability exceed the reimbursement amounts stated above.",
       PA_P_price                                        :   "Price",
       PA_P_subscription_fee                             :   "Subscription fee of $4.99, plus applicable taxes, will commence after the first transaction is made on the Canadian Tire Bank issued credit card. Thereafter, the subscription fee will be charged in advance monthly to the Canadian Tire Bank issued credit card. To ensure uninterrupted service, your subscription will automatically renew until you cancel. Your credit card will be charged at the then current rate on the renewal date. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
-      PA_P_cancellation_by_customer                     :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and their subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
+      PA_P_cancellation_by_customer                     :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
       PA_P_cancellation_by_Aimia                        :   "<span style=\"font-weight: bold;\">Cancellation by Sigma:</span> The subscription may be cancelled by Sigma if the account is not in good standing or if the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, are not paid, or if you or your eligible family are found to be engaging in fraud or otherwise misusing the Benefits. Sigma also reserves the right to terminate subscriptions for any reason on 30 days prior written notice. Upon cancellation of your subscription, for any reason, the information you or your family have provided to receive the benefits will no longer be accessible by you or your family.",
       PA_P_other                                        :   "Other",
       PA_P_Iw_is_an_optiona_product                     :   "Identity Watch Classic is an optional product and is offered separately from the Canadian Tire Bank issued Mastercard and it is not required to obtain the Canadian Tire Bank issued Mastercard. If you have applied for a Canadian Tire Bank issued Mastercard and are approved, you will be charged the Identity Watch Classic subscription fee in the amount and time period specified. (Note: Please see above.)",
-      PA_P_the_iw_program                               :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Sigma Proprietary Loyalty Canada Inc. &#40;&#34;Sigma&#34;&#41;.",
+      PA_P_the_iw_program                               :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Sigma Loyalty Group Inc.",
       PA_P_please_read_iw                               :   "Please read the Identity Watch Classic Subscription Terms and Conditions and benefits Guide, which are included in the welcome package for further details.",
      //-- PA Offer  details Ends 
       
@@ -1418,8 +1460,8 @@ WICI.dictionary_en =  {
       OP_CP_Li_3_1_monthly                              :   "Monthly premium is <span style=\"font-weight: bold;\">$1.10 for every $100 of your Average Daily Balance</span>, plus applicable taxes, billed monthly to your credit card account.",
       OP_CP_Li_3_2_at_age_80                            :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
       OP_CP_Li_3_3_depending                            :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
-      OP_CP_Li_4_1_if_you_have                          :   "&#45; If you have not used your card that month and;",
-      OP_CP_Li_4_2_have_not_carried                     :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments or;",
+      OP_CP_Li_4_1_if_you_have                          :   "&#45; If you have not used your card that month; and",
+      OP_CP_Li_4_2_have_not_carried                     :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments; or",
       OP_CP_Li_4_3_your_average                         :   "&#45; if your Average Daily Balance  for the month is less than $10.",
       OP_CP_call_the_insurance                          :   "Call the insurers at <span style=\"font-weight: bold;\">1-800-480-1853</span>. This number can also be found on your Certificate of Insurance.",
       OP_CP_Li_5_if_you_enroll_today                    :   "If you enrol today, we will create a customer file and share that information with the insurers so your coverage begins immediately.",
@@ -1451,24 +1493,25 @@ WICI.dictionary_en =  {
       OP_IW_P_service_will_allow                        :   "This service allows you to adhere stickers with a unique ID# to your valuables. If an item bearing a sticker is lost, its finder is directed to contact Sigma, who will arrange for the item to be picked up and returned to you and for payment of a fifty dollar ($50.00) reward to the finder. Terms and conditions apply.",
       OP_IW_P_you_are_eligible_to                       :   "You are eligible to be reimbursed up to seventy-five dollars ($75.00), inclusive of taxes, per subscription year towards the cost of tuning up your computer. The request for reimbursement as well as the original receipt must be submitted within 30 days of the computer tune-up being performed.",
       OP_IW_P_subscription_fee                          :   "Subscription fee of $4.99, plus applicable taxes, will commence after the first transaction is made on the Canadian Tire Bank issued credit card. Thereafter, the subscription fee will be charged in advance monthly to the Canadian Tire Bank issued credit card. To ensure uninterrupted service, your subscription will automatically renew until you cancel. Your credit card will be charged at the then current rate on the renewal date. See the Legal Information handout for all terms, conditions, limitations and exclusions. Terms and conditions apply.",
-      OP_IW_P_cancel_by_customer                        :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and their subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
+      OP_IW_P_cancel_by_customer                        :   "<span style=\"font-weight: bold;\">Cancellation by the Customer:</span> The Benefits are month to month. Enrolment in Identity Watch Classic is voluntary and can be cancelled at any time by telephone (1-800-263-1020) or by fax (905-735-2644) and the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, will be stopped. If you cancel within 30 days of your enrolment date, Canadian Tire Bank will refund in full any subscription fees you have paid after the first transaction is made on your Canadian Tire Bank issued credit card. If you cancel after the initial 30 days, cancellation will be effective as of the last day of the current billing cycle or 30 days after the cancellation notification is received, whichever is earlier. If you cancel, you are responsible for any fees or charges incurred as a result of the services offered through an internet provider or any third party service.",
       OP_IW_P_cancel_by_aimia                           :   "<span style=\"font-weight: bold;\">Cancellation by Sigma:</span> The subscription may be cancelled by Sigma if the account is not in good standing or if the subscription fees, which commence after the first transaction is made on the Canadian Tire Bank issued credit card, are not paid, or if you or your eligible family are found to be engaging in fraud or otherwise misusing the Benefits. Sigma also reserves the right to terminate subscriptions for any reason on 30 days prior written notice. Upon cancellation of your subscription, for any reason, the information you or your family have provided to receive the benefits will no longer be accessible by you or your family.",
       OP_Iw_P_IW_is_optional                            :   "Identity Watch Classic is an optional product and is offered separately from the Canadian Tire Bank issued Mastercard and it is not required to obtain the Canadian Tire Bank issued Mastercard. If you have applied for a Canadian Tire Bank issued Mastercard and are approved, you will be charged the Identity Watch Classic subscription fee in the amount and time period specified. (Note: Please see above.)",
-      OP_IW_P_classic_program                           :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Sigma Proprietary Loyalty Canada Inc. &#40;&#34;Sigma&#34;&#41;.",
+      OP_IW_P_classic_program                           :   "The Identity Watch Classic program is sponsored by Canadian Tire Bank and provided by Sigma Loyalty Group Inc. ",
       OP_IW_P_please_read                               :   "Please read the Identity Watch Classic Subscription Terms and Conditions and benefits Guide, which are included in the welcome package for further details.",
       OP_IW_P_CC                                        :   "We will pay a three thousand dollar ($3,000) reward for information leading to the arrest and conviction of anyone fraudulently using your credit or registered debit card(s). You, your family and law enforcement personnel are not eligible to receive a reward. Those eligible to receive the reward must contact Sigma to complete and return a Reward Claim Form.",
       //-- IW offer details ends 
       OP_Not_at_this_time                               :   "Not at this time",
       
       //Footer part of  optional products starts 
-      OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; These are optional products offered to all customers approved for a Canadian Tire Bank issued Mastercard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued Mastercard and not for the optional products, which are offered to all Canadian Tire Bank issued Mastercard cardmembers.",
+      OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; These are optional products offered to all customers approved for a Canadian Tire Bank issued Mastercard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued Mastercard and not for the optional products." ,
+      OP_FT_business_product		                    :   "Canadian Tire Bank has a financial interest in the sale of these products.",
       OP_FT_business_name                               :   "Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
       OP_FT_unless                                      :   "&reg;/&trade; Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
       OP_FT_CP                                          :   "&reg;/&trade; Credit Protector is a registered trademark of Canadian Tire Bank.",
       OP_FT_IW_programs                                 :   "The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Sigma Loyalty Group Inc..",
       OP_FT_internet                                    :   "&reg;/&trade; Internet Personal Information Patrol&reg;, iPiP&reg; and Rebound&reg; are registered trademarks of Sigma Loyalty Group Inc.",
       OP_FT_assurant                                    :   "&reg; Assurant is a registered trademark of Assurant, Inc.",
-      OP_FT_mastercard                                  :   "&reg;/&trade; Mastercard, and World Mastercard, Secure Code and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",
+      OP_FT_mastercard                                  :   "&reg;/&trade; Mastercard is a registered trademark, and the circles design is a trademark of Mastercard International Incorporated.",
       //Foooter part of optional products ends 
     //US4131
 	// Old line

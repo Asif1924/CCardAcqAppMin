@@ -274,11 +274,11 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		            		}
 		    				if($(item).attr('chooseProductMenuItem') && $(item).attr('chooseProductMenuItem') === 'false')
 		    				{
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
 		    				}
 		    				else
 		    				{
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
 		    				}	
 		    	        });
 		            }
@@ -424,6 +424,40 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 			console.log('WIFIHelper.createWICINetwork fail: ' + msg);
 			messageDialog.error(translate.translateKey('settings_reEstablishWifiFailure'), translate.translateKey("errorDialog_defaultTitle"));
 		});
+	}
+	
+	function manageRepsClick() {
+		var sMethod = 'manageRepsClick() ';
+        console.log(logPrefix + sMethod);
+        
+        //Instantiate and init the pending screen
+        if( app.navigationController.adhocPendingScreen===null ){
+            console.log(logPrefix + sMethod + " Instantiating pending screen for the first time...");
+         	app.navigationController.adhocPendingScreen = new WICI.AgentAttributionScreenController(activationItems, translate, messageDialog, self);
+         	app.navigationController.adhocPendingScreen.init(self, "RETRIEVEPEND", activeScreenName, null);
+        }
+        
+        //Show the pending screen if not already showing
+        if( app.navigationController.adhocPendingScreen!==null && !app.navigationController.adhocPendingScreen.isShown ){
+            console.log(logPrefix + sMethod + " Attempting to show pending screen...");
+        	exitFlow_clearActivationItems_startOver();
+            
+         	app.navigationController.adhocPendingScreen.show();
+            activeScreen.hide();
+         	bindSettingsButtonEvent();
+         	return;
+        }
+        //When the user clicks again on "Retrieve Application" in the settings menu
+        //and the pending screen is currently showing
+        if(app.navigationController.adhocPendingScreen!==null && app.navigationController.adhocPendingScreen.isShown){
+        	console.log(logPrefix + sMethod + " Pending screen already shown, just clear fields...");
+        	
+        	new WICI.LoadingScreenIndicator().show();
+        	exitFlow_clearActivationItems_startOver();        	
+        	app.navigationController.adhocPendingScreen.clearFields();
+        	new WICI.LoadingScreenIndicator().hide();
+        	return;
+        }
 	}
 
 	

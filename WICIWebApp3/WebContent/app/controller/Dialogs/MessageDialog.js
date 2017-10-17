@@ -5,7 +5,9 @@ WICI.MessageDialog = function(translate){
 
 	this.error = error;
 	this.info = info;
+	this.close = close;
 	this.confirm = confirm;
+	this.confirmAgent = confirmAgent;
 	this.htmlConfirm = htmlConfirm;
 	this.settings = settings;
 	this.printerSetup = printerSetup;
@@ -50,6 +52,17 @@ WICI.MessageDialog = function(translate){
 				determineDialogTemplate(dialogTemplateOverride));
 		dialogQueue.enqueue(dialog);
 	}
+	function close(message, title, callback, uiDecoration, dialogTemplateOverride){
+		var parsedMessageArray = parseMessage(message);
+		var dialog = new WICI.OkDialog(
+				parsedMessageArray,
+				buildTitle(title, "infoDialog_defaultTitle"),
+				translate.translateKey("messageDialog_Close"),
+				buildCallback(callback),
+				uiDecoration,
+				determineDialogTemplate(dialogTemplateOverride));
+		dialogQueue.enqueue(dialog);
+	}
 	// US4495 
 	function verifyTestPrint(message, title, callback, uiDecoration, dialogTemplateOverride){
 		var parsedMessageArray = parseMessage(message);
@@ -75,6 +88,19 @@ WICI.MessageDialog = function(translate){
 		dialogQueue.enqueue(dialog);
 		return dialog;
 	}
+	
+	function confirmAgent(messageOne, messageTwo, yesCallback, noCallback, title, yesButton, noButton, autoClose, autoCloseCallback) {
+		var dialog = new WICI.ConfirmMessageForAgentDialog(messageOne, messageTwo,
+				buildCallback(yesCallback),
+				buildCallback(noCallback),
+				buildTitle(title, "confirmDialog_defaultTitle"),
+				buildButton(yesButton, "yes"),
+				buildButton(noButton, "no"),
+				autoClose,
+				autoCloseCallback);
+		dialogQueue.enqueue(dialog);
+		return dialog;
+	}
 
 	function htmlConfirm(message, yesCallback, noCallback, title, yesButton, noButton) {
 		var dialog = new WICI.HTMLConfirmMessageDialog(message,
@@ -86,9 +112,9 @@ WICI.MessageDialog = function(translate){
 		dialogQueue.enqueue(dialog);
 	}
 
-	function settings(isAdminProfile, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback,
-						title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, chancelButton) {
-		var dialog = new WICI.SettingsDialog(translate, isAdminProfile,
+	function settings(isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback, manageRepsCallback,  
+						title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, manageRepsButton, chancelButton) {
+		var dialog = new WICI.SettingsDialog(translate, isAdminProfile, isAdminRole,
 		        buildCallback(logOutCallback),
 				buildCallback(chooseProductCallback),
 				buildCallback(printerSetupCallback),
@@ -96,6 +122,7 @@ WICI.MessageDialog = function(translate){
 				buildCallback(retrieveCallback),
 				buildCallback(reEstablishWifiCallback),
 				buildCallback(toggleLanguageCallback),
+				buildCallback(manageRepsCallback),
 				buildTitle(title, "settings"),
 				buildButton(logOutButton, "settings_logOutButton"),
 				buildButton(chooseProductButton, "settings_chooseProductButton"),
@@ -104,6 +131,7 @@ WICI.MessageDialog = function(translate){
 				buildButton(retrieveButton, "settings_retrieveButton"),
 				buildButton(reEstablishWifiButton, "settings_reEstablishWifiButton"),
 				buildButton(toggleLanguageButton, ""),
+				buildButton(manageRepsButton, "settings_manageRepsButton"),
 				buildButton(chancelButton, "cancel")
 				);
 		dialogQueue.enqueue(dialog);

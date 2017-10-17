@@ -1,0 +1,69 @@
+<script id="WICIEmailInfoScreen-template" type="text/x-jquery-tmpl">
+<!--  US4637 Start //-->
+    <div class="ScreenLayout" id="EmailInfoSCreen_PageContents">
+		<br/>
+		<br/>		
+		<center>
+		<span id="FEClickHere" class="pageTitle" data-translationKey="EmailInfo_PageTitle"></span>
+		</center>
+		
+		<center>
+	        {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMC"}}
+		           <a href="#" id="omcCardEmailInfo" class="emailInfoCard"></a>
+		    {{else activationItems.getModel('chooseProductModel').get('productCard') === "OMP" || 
+	                    	               activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}} 
+	              <a href="#" id="emailInfo_OMR_OMP_image" class="emailInfo_OMR_OMP_cardImage"></a>   
+		    {{/if}} 
+	     </center>
+	    
+	    <div >
+	            <table class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldEmailInfoCell fieldCellSize33">
+	                        <span data-translationKey="personalData_EmailAddress"></span>
+	                    </td>
+	                    <td class="fieldValuesTopCell">
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" />
+	                    </td>
+	                </tr>
+	            </table>
+			</div>
+		<br/>
+		<div id='personalData_ReceiveEmailArea'>
+		
+		<center>
+			<table class="stretchThisTable tableNoCellsBorder" id="personalData_ReceiveEmail_Group">
+				<tr>
+					<td class="fieldValuesCell labelPadingLeft15">
+						<p><span data-translationKey="personalData_ReceiveEmail"></span></p>
+					</td>
+				</tr>
+	
+				<tr>
+					<td>
+						<center>
+							<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="actionButtonGroup ui-controlgroup ui-controlgroup-horizontal">
+								<a id="personalData_Optin_RadioButton" href="#" data-theme="b" data-role="button" class="buttonItem ui-btn ui-corner-left ui-btn-up-c">
+									<span class="ui-btn-inner">
+										<span class="ui-btn-text" data-translationKey="personalData_Yes"></span>
+									</span>
+								</a>
+	
+								<a id="personalData_Optout_RadioButton" href="#" data-role="button" data-theme="b" data-inline="true" class="buttonItem ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">
+									<span class="ui-btn-inner">
+										<span class="ui-btn-text" data-translationKey="personalData_No"></span>
+									</span>
+								</a>
+							</fieldset >
+						</center>
+					</td>
+				</tr>
+			</table>
+		</center>
+	</div>
+		<br/>
+		<br/>
+	</center>
+	</div>
+	<!--  US4637 Ends //-->	
+</script>

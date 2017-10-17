@@ -87,6 +87,34 @@ html,body {
   font-color: #000;
 }
 
+/* US4637 Email page starts */
+#emailInfo_omc_card{
+    background-image: inline-image("emailInfo_for_OMC.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#emailInfo_omp_omr_card{
+   background-image: inline-image("emailInfo_for_OMP_OMR.png");
+   background-size: 100%;
+   background-repeat: no-repeat;
+}
+
+#emailInfo_omp_omr_card.fr{
+  background-image: #{inline_image("emailInfo_for_OMP_OMR_fr.png")} !important;
+}
+
+#omcCard.fr {
+  background-image: #{inline_image("omc_fr.png")} !important;
+}
+
+.EmailInfoDontMissText{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18pt;
+  color: #FF0000;
+}
+/* US4637 Email page ends */
 .summaryPageSubTitle {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -646,7 +674,6 @@ tr {
 
 .fieldLabelsTopCell{
   @include border-radius(11px 0 0 0);
-
   background-color:#F7F7F7;
   width:50%;
   font-family: Arial, Helvetica, sans-serif;
@@ -704,7 +731,6 @@ tr {
 }
 .op_fieldLabelsCell{
   @include border-radius(0);
-
   font-color: #5E5D5D;
   background-color:#F7F7F7;
   width:50%;
@@ -756,6 +782,81 @@ tr {
   @include border-radius(0 11px 0 0);
 }
 
+/* US4637 Email page starts */
+ #omcCardEmailInfo {
+    background-image: #{inline_image("emailInfo_for_OMC.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #omcCardEmailInfo.en_card {
+    background-image: #{inline_image("emailInfo_for_OMC.png")};
+  }
+
+  #omcCardEmailInfo.fr_card {
+    background-image: #{inline_image("emailInfo_for_OMC_fr.png")};
+  }
+  .emailInfoCard{
+      background-size: 800px 600px;
+      display: block;
+      text-decoration: none;
+      position: relative;
+      border-radius: 0px;
+      margin: 0px auto;
+      outline-style: none;
+      height: 600px;
+      margin-bottom: 15px;
+  }
+  
+ 
+  #emailInfo_OMR_OMP_image{
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+  
+  .emailInfo_OMR_OMP_cardImage{
+    background-image: #{inline_image("emailInfo_for_OMP_OMR.png")};
+    background-size: 800px 600px;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 0px;
+    margin: 0px auto;
+    outline-style: none;
+    height: 500px;
+    margin-bottom: 0px;
+    margin-top: 25px;
+    padding-top: 25px;
+  }
+  
+  .emailInfo_OMR_OMP_cardImage_fr {
+    background-image: #{inline_image("emailInfo_for_OMP_OMR_fr.png")};
+    background-size: 800px 600px;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 0px;
+    margin: 0px auto;
+    outline-style: none;
+    height: 500px;
+    margin-bottom: 0px;
+    margin-top: 25px;
+    padding-top: 25px;
+  }
+  
+.fieldEmailInfoCell{
+  @include border-radius(11px 0 0 11px);
+  background-color:#F7F7F7;
+  width:50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 16pt;
+  font-color: #5E5D5D;
+  padding-left: 15px;
+}
+/* US4637 Email page ends */
 .fieldValuesBottomCell{
   padding-left: 15px;
   padding-right: 15px;
@@ -1036,6 +1137,126 @@ tr {
 
 
 /* END - button ---------------------------------------------- */
+
+/* ------------------------- US4454 -------------------------*/
+
+.agentRadioButton{
+    font-weight: bold;
+    font-size: 22px;
+    width: 5%;
+    padding-left: 8px;
+    vertical-align: middle;
+    padding-right: 8px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.agentRadioButtonField{
+width:2em;
+vertical-align: middle;
+height:2em;
+}
+
+.agentLoginScreenRadioButtons{
+text-align: center;
+}
+
+.agentRadiobutton input[type="radio"]:checked,
+.agentRadiobutton input[type="radio"]:not(:checked) {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    margin-top: 10px;
+    margin-right: 5px;
+    padding-top: 10px;
+    position: relative;
+    margin-bottom: 0;
+}
+.agentRadiobutton input[type="radio"]:checked + label,
+.agentRadiobutton input[type="radio"]:not(:checked) + label
+{
+   
+    cursor: pointer;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: -5px;
+    left: -5px;
+    background: #eee;
+    border:1px solid #ddd;
+    border-radius: 50%;   
+    
+}
+.agentRadiobutton input[type="radio"]:checked + label:before,
+.agentRadiobutton input[type="radio"]:not(:checked) + label:before {
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+   
+}
+.agentRadiobutton input[type="radio"]:checked + label:after,
+.agentRadiobutton input[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    
+    position: absolute;
+    
+    
+}
+.agentRadiobutton input[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.agentRadiobutton input[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+
+.agentTableWidth{
+  width: 100%;
+}
+
+.agentTableWidth tr:last-child td:first-child {
+  @include border-radius(0px 0 0 11px);
+}
+
+.radioButtonTableNoBorder {
+  background-color: #E6E6E6;
+  border: 0;
+  width: 640px;
+
+  tr td {
+    border: 0;
+  }
+}
+
+.radioTextWidth{
+  width: 200px;
+  vertical-align: middle;
+}
+.radioButtonWidth{
+   width:200px;
+}
+
+.radioButtonTextWidth{
+  width:100px;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  padding-left: 10px;
+  margin: 0;
+  text-align: left;
+  z-index: 2;
+}
+/* -------------------------- US4454 ------------------------*/
 
 /* START - Choose Product Screen */
 
@@ -1478,7 +1699,75 @@ tr {
           color-stop(1, #AB2525));*/
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
 }
+
+/* US4637 Email page starts */
+.ui-btn-up-g {
+  border: 1px solid #8080800;
+  background: #c8c8c8;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 1px #000;
+  /*background-image: -moz-linear-gradient(top, #C54E4E, #AB2525);*/
+  /*background-image: -webkit-gradient(linear,left top,left bottom,
+          color-stop(0, #C54E4E),
+          color-stop(1, #AB2525));*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#c8c8c8', EndColorStr='#8080800')";
+}
+
+.nextgray-btn-up-r{
+  border: 1px solid #cccccc;
+  background: #c8c8c8;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 1px #000;
+  /*background-image: -moz-linear-gradient(top, #C54E4E, #AB2525);*/
+  /*background-image: -webkit-gradient(linear,left top,left bottom,
+          color-stop(0, #C54E4E),
+          color-stop(1, #AB2525));*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#C54E4E', EndColorStr='#AB2525')";
+}
+
+.nextgray-btn-up-r,
+.nextgray-btn-hover-r,
+.nextgray-btn-down-r {
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+
+.nextgray-btn-hover-r{
+  border: 1px solid #8080800;
+  background: #A9A9A9;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 1px #000;
+  background-image: -moz-linear-gradient(top,
+          #D47272,
+          #B64B4B);
+  background-image: -webkit-gradient(linear,left top,left bottom,
+          color-stop(0, #DCDCDC),
+          color-stop(1, #D3D3D3));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#DCDCDC', EndColorStr='#D3D3D3')";
+
+}
+.nextgray-button-down-r{
+  border: 1px solid #8080800;
+  background: #A9A9A9;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 1px #000;
+  background-image: -moz-linear-gradient(top, #9E3939, #C54E4E);
+  background-image: -webkit-gradient(linear,left top,left bottom,
+          color-stop(0, #DCDCDC),
+          color-stop(1, #D3D3D3));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#DCDCDC', EndColorStr='#D3D3D3')";
+}
+
+/* US4637 Email page ends */
 .ui-btn-up-r a.ui-link-inherit {
+  color: #fff;
+}
+
+.ui-btn-up-g a.ui-link-inherit {
   color: #fff;
 }
 .ui-btn-hover-r {
@@ -1510,12 +1799,31 @@ tr {
           color-stop(1, #C54E4E));
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#9E3939', EndColorStr='#C54E4E')";
 }
+.ui-btn-down-g {
+  border: 1px solid #cccccc;
+  background: #c8c8c8;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 1px #000;
+  background-image: -moz-linear-gradient(top, #9E3939, #C54E4E);
+  background-image: -webkit-gradient(linear,left top,left bottom,
+          color-stop(0, #9E3939),
+          color-stop(1, #C54E4E));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#9E3939', EndColorStr='#C54E4E')";
+}
 .ui-btn-down-r a.ui-link-inherit {
   color: #fff;
 }
 .ui-btn-up-r,
 .ui-btn-hover-r,
 .ui-btn-down-r {
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+
+.ui-btn-up-g,
+.ui-btn-hover-g,
+.ui-btn-down-g {
   font-family: Helvetica, Arial, sans-serif;
   text-decoration: none;
 }

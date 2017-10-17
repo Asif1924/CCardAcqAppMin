@@ -387,7 +387,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	function createView() {
 		$screenContainer.empty();
 		assembleNavigationBarAtTop();
-		WICI.BreadcrumbsHelper.assembleBreadcrumbs(4, $screenContainer, activationItems);
+		// US4637
+		WICI.BreadcrumbsHelper.assembleBreadcrumbs(5, $screenContainer, activationItems);
 		assemblePageHTML($screenContainer, "#WICISupCardScreen-template");
 		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");

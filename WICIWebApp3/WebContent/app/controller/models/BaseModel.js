@@ -260,8 +260,18 @@ WICI.BaseModel = function(config) {
 		
     	return fullYears;
     };
+    //----------------------------------------------------------------
+    // US4637
+    this.isEmail_valid = function(email){
+    	var pattern = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
+    	return pattern.test(email);
+    };
     // ---------------------------------------------------------------
-    
+    this.isUserAgentId_valid = function(userAgentIdValue){
+    	var pattern = /^[a-zA-Z0-9]{1,7}$/;
+    	return pattern.test(userAgentIdValue);
+    };
+    // ---------------------------------------------------------------
     this.validateAge = function(model, province) {
     	var rez;
 
