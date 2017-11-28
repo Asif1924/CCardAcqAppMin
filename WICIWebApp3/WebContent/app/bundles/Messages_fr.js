@@ -76,6 +76,8 @@ WICI.dictionary_fr =  {
 	loginScreen_Dialog_ErrorTitle                     :                         "Erreur de connexion",
 	loginScreen_FailureMessage                        :                         "La connexion a échoué. Veuillez essayer de nouveau. ",
 	dictionary_loading_error 						  : 						"Le contenu de la demande ne peut pas être affiché. Veuillez attendre 15 minutes à portée acceptable du réseau WIFI avant de lancer la demande, puis réessayez. Si le problème persiste, veuillez appeler votre administrateur.",
+	// US4744
+	loginScreen_IncorrectUserNamaAndPassword          :                         "SVP vérifier votre nom d’utilisateur et votre mot de passe.",
 	
 	// US4231
 	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage:							"La connexion a échoué. Veuillez contacter votre administrateur.",
@@ -170,6 +172,24 @@ WICI.dictionary_fr =  {
 	personalData_EmailAddress                         :                         "Adresse électronique",
 	personalData_HomePhone                            :                         "Téléphone (rés.)",
 	personalData_CellPhone                            :                         "Téléphone (cell.)<sup>*</sup>",
+	
+	// US4709
+	personalData_PrimaryPhone						  :							"Numéro de téléphone principal",
+	personalData_SecondaryPhone						  :							"Numéro de téléphone secondaire",
+	personalData_Landline							  :							"Ligne fixe",
+	personalData_Mobile								  :							"Cellulaire",
+	personalData_MobilePayments						  :							"Les paiements mobiles sont arrivés!",
+	personalData_MobilePayments_Para1				  :							"Souhaitez-vous configurer Apple Pay<span class=\"MD\"><sup></sup></span> ou Android Pay<span class=\"MC\"><sup></sup></span> dès aujourd’hui si votre demande de carte de crédit est approuvée?",
+	personalData_MobilePayments_Para2				  :							"Si vous sélectionnez OUI!, nous vérifierons que vos informations personnelles et votre numéro de téléphone mobile correspondent aux données de votre fournisseur de services mobiles et échangerons des informations telles que vos informations de compte et le statut du compte mobile.",
+	personalData_MobilePayments_Para3				  :							"Vous recevrez les instructions pour configurer votre appareil lorsque votre demande de carte de crédit sera approuvée. Nous vous enverrons un message texte avec un code de sécurité à 3 chiffres dont vous aurez besoin pour terminer la configuration. Les tarifs standard de messagerie texte et de transmission de données peuvent s’appliquer.",
+	personalData_MobilePayments_Para4				  :							"Tout appareil utilisant Android Kit Kat 4.4 ou une version plus récente",
+	personalData_MobilePayments_Para5				  :							"Tout iPhone 6 ou modèle plus récent",
+	personalData_AndroidorApplePay_Yes				  :							"OUI!",
+	personalData_AndroidorApplePay_NoThanks			  :							"Non merci",
+	personalData_TermsandConditions_Para1			  :							"Apple Pay et iPhone sont des marques de commerce d’Apple, Inc.",
+	personalData_TermsandConditions_Para2			  :							"Android et Android Pay sont des marques de commerce de Google, Inc.",
+	
+	
 	// US4364	
 	personalData_ExpiryDate							  :							"Date d'expiration de la pièce d'identité",
 
@@ -1294,14 +1314,14 @@ WICI.dictionary_fr =  {
 		// Print screen START ..............................................................
 
 
-	printScreen_Title                                 :                         "Demande Complète",
-	printScreen_SubTitle                              :                         "Merci de demander la",
+	printScreen_Title                                 :                         "Demande terminée!",
+	printScreen_SubTitle                              :                         "Nous vous remercions d’avoir demandé la carte ",
 	printScreen_Button_Label                          :                         "Imprimer à nouveau",
 
 	printScreen_TokenLabel								: 						"Reference&nbsp;#&nbsp;",
 	
 	printScreen_UnknownStatus                         :                         "État de demande inconnu",
-	printScreen_ApplicationApproved                   :                         "Votre demande a été APPROUVÉE.",
+	printScreen_ApplicationApproved                   :                         "Votre demande est <b class='RedLabel'>APPROUVÉE!</b>",
 	printScreen_ApplicationDeclined                   :                         "Malheureusement, la réponse à votre demande n'a pu être traitée. Veuillez vérifier votre courrier régulièrement.",
 
     printerSetupDialog_macLabel                       :   						"Adresse MAC de l'imprimante:",
@@ -1325,6 +1345,25 @@ WICI.dictionary_fr =  {
 	testPrintVerifyPrinterMsg                           :    "SVP s'assurer que l'imprimante est activée et appariée à la tablette avant de continuer",
 	testPrintVerify_Title                               :    "Verifier l'imprimante",
 	testPrintVerify_Contionue_Button                    :    "Continuer avec l'application",
+	
+	// US4709
+	printScreen_ReceiveCard								:	"Vous recevrez votre carte dans les 10 prochains jours ouvrables.",
+	printScreen_Register								:	"Inscrivez-vous à Apple Pay ou Android Pay et utilisez votre téléphone pour effectuer des paiements sécurisés en toute simplicité partout ou les paiements sans contact sont acceptés. Certains commerçants peuvent avoir établi un montant maximum de paiement par transaction. Par exemple, la limite dans les magasins Canadian Tire est de 100 $ pour effectuer un paiement sans contact.",
+	print_BeginSetup_Button								:	"COMMENCER LA CONFIGURATION",
+	print_Done_Button									:	"C’EST FINI!",
+	printScreen_SetUpIns								:	"Instructions pour la configuration",
+	printScreen_SetUpInsPara1							:	"Assurez vous d’avoir reçu un message texte avec un code de sécurité à 3 chiffres",
+	printScreen_SetUpInsPara2							:	"<span style=\"margin-left: -40px;\">Ouvrir l’appli </span> <a href=\"#\" id=\"androidPayIns_fr\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">sur tout appareil fonctionnant sur <br>Android Kit Kat 4.4 ou une version plus récente.</span>",
+	printScreen_SetUpInsApplePara2						:	"<span style=\"margin-left: -40px;\">Ouvrir l’appli </span> <a href=\"#\" id=\"applePayIns_fr\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">sur tout iPhone 6 ou modèle plus <br>récent</span>",
+	printScreen_SetUpInsPara3							:	"<span style=\"margin-left: -38px;\">Suivez les instructions à l’écran à l’aide</span><br><span style=\"margin-left: -38px;\">des renseignements suivants :</span>",
+	printScreen_SetUpInsCardNo							:	"Numéro de la carte : ",
+	printScreen_SetUpInsExpiryDate						:	"Date d’expiration : ",
+	printScreen_SetUpInsSecurityCode					:	"Code de sécurité : ",
+	printScreen_SetUpInsSecurityCodeIns					:	"Code à 3 chiffres indiqué dans <br>le message texte provenant <br>du numéro 1 888 XXX XXXX",
+	printScreen_PayInCompletePara1						:	"Malheureusement, nous ne sommes pas en mesure de lier votre compte avec Apple Pay ou Android Pay pour le moment, mais votre application est approuvée. Vous recevrez votre carte dans les 10 prochains jours ouvrables.",
+	printScreen_PayInCompletePara2						:	"Veuillez essayer de vous inscrire sur Apple Pay ou Android Pay dès que vous recevez votre carte par le poste.",
+	printScreen_PayInCompletePara3						:	"N’oubliez pas que vous pouvez acheter en magasin aujourd’hui avec votre carte temporaire ",
+	printScreen_PayParaSymbol							:	"!",
 
 	// Print screen END ..............................................................
 

@@ -21,6 +21,13 @@ WICI.PollingResponseAnalyzer =  function () {
 	
 	this.isValidResponse = isValidResponse;
 	
+	// US4709
+	this.getConsentGranted = getConsentGranted;
+	this.getTransactionID = getTransactionID;
+	this.getPAN = getPAN;
+	this.getExpiryDate = getExpiryDate;
+	this.getMSISDN = getMSISDN;
+	
 	this.getAppStatus = getAppStatus;
 	this.isOldResponseType = isOldResponseType;
 	this.isNewResponseType = isNewResponseType;
@@ -98,6 +105,66 @@ WICI.PollingResponseAnalyzer =  function () {
 			return argResponse.data.appStatus;
 		if( isNewResponseType(argResponse) )
 			return argResponse.data.ResponseData.data.appStatus;
+	}
+	
+	// US4709
+	function getConsentGranted( argResponse ){
+		if( isOldResponseType(argResponse) ) {
+			return null;
+		}
+		if( isNewResponseType(argResponse) ) {
+			if(typeof argResponse.data.consentGranted === 'undefined') {
+				return "N";
+			} else {
+				return argResponse.data.consentGranted;
+			}
+		}
+	}
+	
+	function getTransactionID( argResponse ) {
+		if( isOldResponseType(argResponse) ) {
+			return null;
+		}
+		if( isNewResponseType(argResponse) ) {
+			return argResponse.data.externalReferencId;
+		}
+	}
+	
+	function getMSISDN( argResponse ) {
+		if( isOldResponseType(argResponse) ) {
+			return null;
+		}
+		if( isNewResponseType(argResponse) ) {
+			return argResponse.data.currentTelephone;
+		}
+	}
+	
+	function getPAN( argResponse ) {
+		if( isOldResponseType(argResponse) ) {
+			return argResponse.data.accountNumber;
+		}
+		if( isNewResponseType(argResponse) ) {
+			if(isEncryptedPAN(argResponse)) {
+				return argResponse.data.ResponseData.data.encryptedPan;
+			} else if(isAccountNumber(argResponse)) {
+				return argResponse.data.ResponseData.data.accountNumber;
+			}
+		}
+	}
+	
+	function getExpiryDate( argResponse ) {
+		if( isOldResponseType(argResponse) )
+			return argResponse.data.expiryDate;
+		if( isNewResponseType(argResponse) )
+			return argResponse.data.ResponseData.data.expiryDate;
+	}
+	
+	function isEncryptedPAN( argResponse ) {
+		return argResponse.data.ResponseData.data.encryptedPan && argResponse.data.ResponseData.data.encryptedPan !=="";
+	}
+	
+	function isAccountNumber( argResponse ) {
+		return argResponse.data.ResponseData.data.accountNumber && argResponse.data.ResponseData.data.accountNumber !=="";
 	}
 	
 	function isNewResponseType( argResponse ){

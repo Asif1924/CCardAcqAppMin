@@ -539,35 +539,140 @@
 			<!-- US3623 End -->
 		</div>
 		</center>
+		<! -- US4709 -->
 		<br>
 		<br>
-		<center>
 			<div>
-	            <table id="personalInfoTable" class="stretchThisTable">
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="personalData_HomePhone"></span>
-	                    </td>
-	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=28/>
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsBottomCell fieldCellSize33">
-	                        <span data-translationKey="personalData_CellPhone"></span>
-	                    </td>
-	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=29/>
-	                    </td>
-	                </tr>
-	            </table>
+				<center>
+		            <table id="personalInfoTable" class="stretchThisTable personalInfoPhoneTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData_PrimaryPhone"></span>
+		                    </td>
+		                    <td class="fieldValuesCell">
+		                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=28/>
+		                    </td>
+		                </tr>
+	                </table>
+            	</center>
+                <br>
+	            <table class="radioButtonTableNoBorderPersonalInfo elementWithLeft25"  id="primaryphoneRadioButton">
+                        <tr>
+                            <td>
+                            	<div class="agentRadiobutton">
+                                	<input type="radio" id="primaryLandline_CheckField" name="primayRadios" value="primaryLandline">
+                                </div> 
+                            </td>
+                            <td class="radioTextWidth">
+                                 <span class="agentRadioButton" data-translationKey="personalData_Landline"></span>
+                            </td>
+                            
+                            <td>
+                                <div class="agentRadiobutton">
+                                	<input type="radio" id="primaryMobile_CheckField" name="primayRadios" value="primaryMobile">
+						        </div>    
+                            </td>
+                            <td class="radioTextWidth">
+                            	<span class="agentRadioButton" data-translationKey="personalData_Mobile"></span>
+                            </td>
+                        </tr>
+             	</table>
+             	<br>
+             	<br>
+             	<center>
+	             	<table id="personalInfoTable" class="stretchThisTable personalInfoPhoneTable">
+		                <tr class="fieldRow">
+		                    <td class="fieldLabelsTopCell fieldCellSize33">
+		                        <span data-translationKey="personalData_SecondaryPhone"></span>
+		                    </td>
+		                    <td class="fieldValuesBottomCell">
+		                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=29/>
+		                    </td>
+		                </tr>
+	            	</table>
+            	</center>
+            	<br>
+            	<table class="radioButtonTableNoBorderPersonalInfo elementWithLeft25" id="secondaryphoneRadioButton">
+                        <tr>
+                            <td>
+                            	<div class="agentRadiobutton">
+                                	<input type="radio" id="secondaryLandline_CheckField" name="secondaryRadios" value="secondaryLandline">
+                                </div> 
+                            </td>
+                            <td class="radioTextWidth">
+                                 <span class="agentRadioButton" data-translationKey="personalData_Landline"></span>
+                            </td>
+                            
+                            <td>
+                                <div class="agentRadiobutton">
+                                	<input type="radio" id="secondaryMobile_CheckField" name="secondaryRadios" value="secondaryMobile">
+						        </div>    
+                            </td>
+                            <td class="radioTextWidth">
+                            	<span class="agentRadioButton" data-translationKey="personalData_Mobile"></span>
+                            </td>
+                        </tr>
+             	</table>
 			</div>
-		</center>
+		
 		<br>
 		<br>
-
-		<br>
-		<br>
+		
+		
+		<div id="mobilePayments">
+				<p class="pageSubTitle marginBottom10" data-translationKey="personalData_MobilePayments" ></p>
+				<p class="personalInfoText" data-translationKey="personalData_MobilePayments_Para1" ></p>
+				<p class="personalInfoText" data-translationKey="personalData_MobilePayments_Para2" ></p>
+				<p class="personalInfoText" data-translationKey="personalData_MobilePayments_Para3" ></p>							
+				
+				<table class="personalInfoAndroidApplePayTable">
+					<tr>
+						<td class="androidApplePaytd">
+							<a href="#" id="androidPay" class="androidApplePay" data-lang-class>
+                        		<span class="pay_Labels" data-translationKey="personalData_MobilePayments_Para4"></span>
+                    		</a>
+						</td>
+						<td class="androidApplePaytd">
+							<a href="#" id="applePay" class="androidApplePay" data-lang-class>
+                        		<span class="pay_Labels" data-translationKey="personalData_MobilePayments_Para5"></span>
+                    		</a>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<br>
+				<center>
+					<table class="radioButtonTableNoBorderPersonalInfo">
+	                        <tr>
+	                            <td>
+	                            	<div class="agentRadiobutton">
+	                                	<input type="radio" id="yes_CheckField" name="yesNothanksRadio" value="yes" checked>
+	                                </div> 
+	                            </td>
+	                            <td class="radioTextWidth">
+	                                 <span class="agentRadioButton" data-translationKey="personalData_AndroidorApplePay_Yes"></span>
+	                            </td>
+	                            
+	                            <td>
+	                                <div class="agentRadiobutton">
+	                                	<input type="radio" id="nothanks_CheckField" name="yesNothanksRadio" value="noThanks">
+							        </div>    
+	                            </td>
+	                            <td class="radioTextWidth">
+	                            	<span class="agentRadioButton" data-translationKey="personalData_AndroidorApplePay_NoThanks"></span>
+	                            </td>
+	                        </tr>
+	             	</table>
+             	</center>
+             	<br>
+             	<br>
+             	
+           		<p class="personalInfoIncText" data-translationKey="personalData_TermsandConditions_Para1"></p>
+          		<p class="personalInfoIncText" data-translationKey="personalData_TermsandConditions_Para2"></p>
+			</div>
+		
+		
+		
 		<!--
 	personalData_Correspondence							:	"Correspondence:",
 	personalData_English								:	"English:",

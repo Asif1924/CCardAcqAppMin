@@ -94,7 +94,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         city_prev:          '#personalData_PreviousAddress_City_TextField',
         suiteunit_prev:     '#personalData_PreviousAddress_SuiteUnit_TextField',
-        province_prev:      '#personalData_PreviousAddress_Province_TextField'
+        province_prev:      '#personalData_PreviousAddress_Province_TextField',
+        
+        // US4709
+        secondaryPhoneRadioButton       :   '#secondaryphoneRadioButton',
+        primaryPhoneRadioButton         :   '#primaryphoneRadioButton',
+        yes_CheckField					:	'#yes_CheckField',
+        nothanks_CheckField				:	'#nothanks_CheckField',
+        primaryMobile_CheckField		:	'#primaryMobile_CheckField',
+        primaryLandline_CheckField		:	'#primaryLandline_CheckField',
+        secondaryLandline_CheckField	:	'#secondaryLandline_CheckField',
+        secondaryMobile_CheckField		:	'#secondaryMobile_CheckField',
+        mobilePayments					:	'#mobilePayments'
     };
     var validationGrroupsCol = 5;
     var prevAdressValidationIndex = 4;
@@ -222,6 +233,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 validation : {
                     type : 'phone',
                     message : 'personalData1_validation_homePhone',
+                    canBeEmpty : false,
                     group: [ 1 ]
                 }
             }, {
@@ -230,7 +242,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 validation : {
                     type : 'phone',
                     message : 'personalData1_validation_cellPhone',
-                    canBeEmpty : true,
+                    canBeEmpty : false,
                     group: [ 1 ]
                 }
             }, {
@@ -241,7 +253,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_correspondence',
                     group: [ 1 ]
                 }
-            } ]
+            },            
+            { name: 'consentGranted',     value: null, validation: null },
+            { notField:true, name: 'MSISDN',     value: null, validation: null },
+            ]
     });
     var addressModel = new WICI.BaseModel({
         name : 'personalData2_Address',
@@ -326,6 +341,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         // onEmailChangesHandler();
         hideShowMoneyAdvantage();
+        // US4709
+        showHideMobilePayments();
         
         // US3623
          createFlips();
@@ -463,13 +480,124 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
         console.log(logPrefix + sMethod + " age :: after sync:: " + currModel.get('age'));
         
+        // US4709
         //currModel.set('email', $(refs.email).val());
-        currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
-        currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
-
-		// US4282
+        var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
+        var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
+        
+        console.log(logPrefix + sMethod + " secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
+       
+        if(($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "")) && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod +" 4 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked') + 
+    				" secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', primaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);
+    	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 5 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked') + 
+    				" secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', primaryPhone);
+    	} else if(($(refs.primaryLandline_CheckField).is(':checked')) && (primaryPhone !== "") && ($(refs.secondaryMobile_CheckField).is(':checked')) && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 6 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked')
+    				+ " secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', primaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);
+    	} else if(($(refs.primaryMobile_CheckField).is(':checked')) && (primaryPhone !== "")  && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 7 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked')
+    				+ " secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', primaryPhone);
+    	} else if($(refs.secondaryMobile_CheckField).is(':checked') && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod +" 8 : secondary mobile  mobile checked :"+ $(refs.secondaryMobile_CheckField).is(':checked')+ "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);
+    	} else if($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod + " 2 :  primaryPhone : "+primaryPhone + " primary landline checked  :" +$(refs.primaryLandline_CheckField).is(':checked'));
+    		currModel.set('homePhone', primaryPhone);
+    		// this is for confirmation screen
+    		currModel.set('cellPhone', "");
+    	} else if($(refs.secondaryLandline_CheckField).is(':checked') && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod + " 3 : secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked'));
+    		currModel.set('homePhone', secondaryPhone);
+    		// this is for confirmation screen
+    		currModel.set('cellPhone', "");
+    	} else if($(refs.primaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone === "")) {
+        	
+        	console.log(logPrefix + sMethod + "  1  : secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
+        	currModel.set('homePhone', primaryPhone);
+        	currModel.set('cellPhone', primaryPhone);
+    	}
+        console.log(logPrefix + sMethod + " model home phone :: " +currModel.get('homePhone'));
+        console.log(logPrefix + sMethod + " model cell phone :: " +currModel.get('cellPhone'));
+        // This logic is for filtering the mobile number entered in UI
+        // Only for sending to Enstream request
+        if(primaryPhone !== "") {
+        	if($(refs.primaryMobile_CheckField).is(':checked')) {
+        		activationItems.setMobilePhone(primaryPhone);
+            }
+        }
+        if(secondaryPhone !== "") {
+        	if($(refs.secondaryMobile_CheckField).is(':checked')) {
+        		activationItems.setMobilePhone(secondaryPhone);
+            }
+        }
+        if(primaryPhone !== "" && secondaryPhone !== "") {
+        	if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')) {
+        		activationItems.setMobilePhone(primaryPhone);
+            }
+        }
+        console.log(logPrefix + sMethod + " Mobile Number :: " + activationItems.getMobilePhone());
+        
+        // US4282
         activationItems.setHomePhone(currModel.get('homePhone'));
-        console.log(logPrefix + sMethod + " PersonalData HomePhone : " + activationItems.getHomePhone());
+
+        if($(refs.yes_CheckField).is(':checked')) {
+        	currModel.set('consentGranted', 'Y');
+        }
+        if($(refs.nothanks_CheckField).is(':checked')) {
+        	currModel.set('consentGranted', 'N');
+        }
+        // US4709
+        if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.homePhone).val() !== '' && $(refs.secondaryMobile_CheckField).is(':checked') && $(refs.cellPhone).val() === '' ){
+        	console.log(logPrefix + sMethod+ "consentGranted : N" );
+        	currModel.set('consentGranted', 'N');
+        }
+        // US4709
+        if($(refs.secondaryLandline_CheckField).is(':checked') && $(refs.cellPhone).val() !== '' && $(refs.primaryMobile_CheckField).is(':checked') && $(refs.homePhone).val() === '' ){
+        	console.log(logPrefix + sMethod+ "consentGranted : N" );
+        	currModel.set('consentGranted', 'N');
+        }
+        // US4709 new condition for storing radio 
+        if($(refs.primaryMobile_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ) {
+     		console.log(logPrefix + sMethod + " Either of Mobile is checked ");
+     		showElement();
+     	} else if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.secondaryLandline_CheckField).is(':checked') ){
+     		console.log(logPrefix + sMethod + " Either of landline is checked ");
+     		hideElement();
+     		currModel.set('consentGranted', 'N');
+     	}
+ 		// Hide Mobile payments section
+     	else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
+     		console.log(logPrefix + sMethod + " Both Landline is checked ");
+     		hideElement();
+     	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') ) {
+     		console.log(logPrefix + sMethod + " both are mobile checked  ");
+     		showElement();
+     	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')  ){
+     		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
+     		showElement();
+     	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked')){
+     	    console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
+     		showElement();
+     	}
+         
+         // US4709 new condition for storing radio 
+         
+        // US4709 
+        if($(refs.mobilePayments).hasClass('hideElement')){
+        		currModel.set('consentGranted', 'N');
+        }
+        console.log(logPrefix + sMethod + " PersonalData consentGranted : " + currModel.get('consentGranted'));
         
         currModel = models.addressModel;
 
@@ -509,9 +637,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
-
+        app.validationDecorator.clearErrArrtibute();
+        
         var currModel = models.personalDataModel;
-
+        
         $(refs.loyaltyMembershipNumber).val(currModel.get('loyaltyMembershipNumber'));
         $(refs.placeofissue).val(currModel.get('placeofissue'));
         $(refs.idtype).val(currModel.get('idtype'));
@@ -675,6 +804,48 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     self.val(self.val().substring(0, 1));
                 }
             },100);
+        });
+        
+        // US4709
+        var currModel = models.personalDataModel;
+        // Hide Mobile payments if no radio button is slected for primary and cecondary phone 
+        if(!($(refs.primaryLandline_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) && !($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.secondaryMobile_CheckField).is(':checked'))){
+        	hideElement();
+    		currModel.set('consentGranted', 'N');
+    	}
+        
+        $(refs.primaryLandline_CheckField).change(function(event) {
+            console.log(refs.primaryLandline_CheckField + '::change');
+            showHideMobilePayments();
+        });
+        
+        $(refs.primaryMobile_CheckField).change(function(event) {
+            console.log(refs.primaryMobile_CheckField + '::change');
+            showHideMobilePayments();
+        });
+        
+        $(refs.secondaryLandline_CheckField).change(function(event) {
+            console.log(refs.secondaryLandline_CheckField + '::change');
+            showHideMobilePayments();
+        });
+        
+        $(refs.secondaryMobile_CheckField).change(function(event) {
+            console.log(refs.secondaryMobile_CheckField + '::change');
+            showHideMobilePayments();
+        });
+        
+        $(refs.yes_CheckField).change(function(event) {
+            console.log(refs.yes_CheckField + '::change');
+            if($(refs.yes_CheckField).is(':checked') === 'Y') {
+            	currModel.set('consentGranted', 'Y');
+            }
+        });
+        
+        $(refs.nothanks_CheckField).change(function(event) {
+            console.log(refs.nothanks_CheckField + '::change');
+            if($(refs.nothanks_CheckField).is(':checked') === 'Y') {
+            	currModel.set('consentGranted', 'N');
+            }
         });
 
         $(refs.placeofissue).change(function(event) {
@@ -981,6 +1152,49 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
     }
     //---------------------------------------------------------------------------------------
+    // US4709
+    function showHideMobilePayments() {
+    	var sMethod = "showHideMobilePayments() :: ";
+    	console.log(logPrefix + sMethod);
+    	var loginModel = activationItems.getModel('loginScreen');
+        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
+    	if(loginModel.get('enableEnstreamAuth')){
+    		// Show Mobile payments section
+        	if($(refs.primaryMobile_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ) {
+        		console.log(logPrefix + sMethod + " Either of Mobile is checked ");
+        		$(refs.mobilePayments).removeClass('hideElement');
+        	}else if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.secondaryLandline_CheckField).is(':checked') ){
+        		console.log(logPrefix + sMethod + " Either of landline is checked ");
+        		$(refs.mobilePayments).addClass('hideElement');
+        	}
+    		// Hide Mobile payments section
+        	else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
+        		console.log(logPrefix + sMethod + " Both Landline is checked ");
+        		$(refs.mobilePayments).addClass('hideElement');
+        	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') ) {
+        		console.log(logPrefix + sMethod + " both are mobile checked  ");
+        		$(refs.mobilePayments).removeClass('hideElement');
+        	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')  ){
+        		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
+        		$(refs.mobilePayments).removeClass('hideElement');
+        	}else if($(refs.primaryMobile_CheckField).is(':checked') &&$(refs.secondaryLandline_CheckField).is(':checked')){
+        		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
+        		$(refs.mobilePayments).removeClass('hideElement');
+        	}
+    		
+    	}else{
+    		// if enableEnstreamAuth is true hide mobile payment section 
+    		$(refs.mobilePayments).addClass('hideElement');
+    	}
+    	
+    	
+    	/*// Initial condition for Hide Mobile payments section
+    	else if($(refs.primaryLandline_CheckField).is(':checked') && !$(refs.secondaryLandline_CheckField).is(':checked') ) {
+    		console.log(logPrefix + sMethod + " Both Landline is checked ");
+    		$(refs.mobilePayments).addClass('hideElement');
+    	}*/
+    }
+    //---------------------------------------------------------------------------------------
     // US4251
     function validateAptSuitUnit(argAptFlag) {
     	var sMethod = "validateAptSuitUnit() :: ";
@@ -1007,6 +1221,199 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	// No validation for apt/suit/unit field for aptFlag No.
         }
     }
+    // US4709
+  //---------------------------------------------------------------------------------------
+    function validatePhoneNumber(argHomePhone , argCellPhone) {
+    	var sMethod = "validatePhoneNumber() :: ";
+    	var primaryPhone = argHomePhone.replace(/-/g, '');
+    	var secondaryPhone = argCellPhone.replace(/-/g, '');
+    	console.log(logPrefix + sMethod + "primaryPhone : " + primaryPhone + " secondaryPhone :: "+secondaryPhone); 
+    	console.log(logPrefix + sMethod + "argHomePhone : " + argHomePhone + " argCellPhone :: "+argCellPhone); 
+    	var canBeEmptyFlagH = true;
+    	var canBeEmptyFlagC= true;
+    	
+    	var validationResultH;
+        var validationResultC;
+    	
+    	if((primaryPhone === null || primaryPhone === "null" || primaryPhone === "" ) && (secondaryPhone === null || secondaryPhone === "null" || secondaryPhone === "")){
+    		console.log("Both are null ");
+        	$.each(models.personalDataModel.data, function(index, item) {
+				if(item.name == "cellPhone") {
+					canBeEmptyFlagC = item.validation.canBeEmpty = true;
+				}
+				if(item.name == "homePhone") {
+					canBeEmptyFlagH = item.validation.canBeEmpty = false;
+				}
+				
+			});
+    		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
+    		if(validationResultH.length === 0) {            	
+                if (app.validationsOn) {
+                    app.validationDecorator.clearErrArrtibute();
+                }
+            }else {
+                if (app.validationsOn) {                	     
+                	app.validationDecorator.applyErrAttribute(validationResultH);
+                	app.validationDecorator.focusControl(refs.idnumbers);
+                	return;
+                }
+            }
+        } else {
+	        if(primaryPhone !== "" && secondaryPhone !== ""){
+	            var validHP =  models.personalDataModel.isPhone_valid(primaryPhone);
+	            var validCP = models.personalDataModel.isPhone_valid(secondaryPhone);
+	        	console.log("validHP :: " + validHP + " validCP :: " + validCP);
+	            	
+	        	if(!validCP && !validHP){
+	        		console.log("validHP :: " + validHP + " validCP :: " + validCP + "BOTH are not valid");
+	        		$.each(models.personalDataModel.data, function(index, item) {
+	    				if(item.name == "cellPhone") {
+	    					canBeEmptyFlagC = item.validation.canBeEmpty = false;
+	    				}
+	    				if(item.name == "homePhone") {
+	    					canBeEmptyFlagH = item.validation.canBeEmpty = false;
+	    				}
+	    			});
+	        		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
+	        		
+	        		if(validationResultH.length === 0) {
+	                    if (app.validationsOn) {
+	                        app.validationDecorator.clearErrArrtibute();
+	                    }
+	                }else {
+	                  if (app.validationsOn) {
+	                    	app.validationDecorator.applyErrAttribute(validationResultH);
+	                  }
+	                }
+	        		
+	        		validationResultC = models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
+	        		
+	        		if(validationResultC.length === 0) {
+	                    if (app.validationsOn) {
+	                        app.validationDecorator.clearErrArrtibute();
+	                    }
+	                } else {
+	                  if (app.validationsOn) {
+	                    	app.validationDecorator.applyErrAttribute(validationResultC);
+	                    	return;
+	                  }
+	                }
+	        	}else if(!validHP && validCP){
+            		console.log("validHP :: " + validHP + " validCP :: " + validCP + "Primary is not valid secondary is valid");
+            		$.each(models.personalDataModel.data, function(index, item) {
+        				if(item.name == "cellPhone") {
+        					canBeEmptyFlagC = item.validation.canBeEmpty = true;
+        				}
+        				if(item.name == "homePhone") {
+        					canBeEmptyFlagH = item.validation.canBeEmpty = false;
+        				}
+        			});
+            		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
+            		
+            		if(validationResultH.length === 0) {
+                        if (app.validationsOn) {
+                            app.validationDecorator.clearErrArrtibute();
+                        }
+                    } else {
+                      if (app.validationsOn) {
+                        	app.validationDecorator.applyErrAttribute(validationResultH);
+                        	return;
+                      }
+                    }
+            	}else if(!validCP && validHP){
+            		console.log("validHP :: " + validHP + " validCP :: " + validCP + " Secondary is not valid primary is valid");
+            		$.each(models.personalDataModel.data, function(index, item) {
+        				if(item.name == "cellPhone") {
+        					canBeEmptyFlagC = item.validation.canBeEmpty = false;
+        				}
+        				if(item.name == "homePhone") {
+        					canBeEmptyFlagH = item.validation.canBeEmpty = true;
+        				}
+        			});
+            		validationResultC = models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
+            		
+            		if(validationResultC.length === 0) {
+                        if (app.validationsOn) {
+                            app.validationDecorator.clearErrArrtibute();
+                        }
+                    }else {
+                      if (app.validationsOn) {
+                        	app.validationDecorator.applyErrAttribute(validationResultC);
+                        	return;
+                      }
+                    }
+            	}
+        } else if(primaryPhone !== "" ){
+        	console.log("validHP :: " + validHP +" primaryPhone  is not null");
+        	var validHP =  models.personalDataModel.isPhone_valid(primaryPhone);
+        	console.log("validHP :: " + validHP);
+        	
+        	$.each(models.personalDataModel.data, function(index, item) {
+				if(item.name == "cellPhone") {
+					canBeEmptyFlagC = item.validation.canBeEmpty = true;
+				}
+				if(item.name == "homePhone") {
+					canBeEmptyFlagH = item.validation.canBeEmpty = false;
+				}
+			});
+        	if(!validHP){
+        		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
+        		
+        		if(validationResultH.length === 0) {
+                    if (app.validationsOn) {
+                        app.validationDecorator.clearErrArrtibute();
+                    }
+                }else {
+                    if (app.validationsOn) {
+                    	app.validationDecorator.applyErrAttribute(validationResultH);
+                    	return;
+                    }
+                }
+        		
+        	} else{
+        		// home phone is valid 
+        	}
+        } else if(secondaryPhone !== ""){
+        	console.log("validHP :: " + validHP +" secondary   is not null");
+        	var validCP = models.personalDataModel.isPhone_valid(secondaryPhone);
+        	console.log("validCP :: " + validCP);
+        	$.each(models.personalDataModel.data, function(index, item) {
+				if(item.name == "cellPhone") {
+					//canBeEmptyFlagC = item.validation.canBeEmpty = false;
+					if(!validCP){
+						canBeEmptyFlagC = item.validation.canBeEmpty = false;
+					}else{
+						canBeEmptyFlagC = item.validation.canBeEmpty = true;
+					}
+				}
+				if(item.name == "homePhone") {
+					canBeEmptyFlagH = item.validation.canBeEmpty = true;
+				}
+				
+			});
+        	
+        	if(!validCP){
+        		validationResultC =  models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
+        		
+        		if(validationResultC.length === 0) {
+                    if (app.validationsOn) {
+                        app.validationDecorator.clearErrArrtibute();
+                    }
+                }
+                else {
+                    if (app.validationsOn) {
+                    	app.validationDecorator.applyErrAttribute(validationResultC);
+                    	return;
+                    }
+                }
+        	}else{
+        		// cell phone is valid 
+        	}
+        	
+        }
+        }
+    }
+    
     //---------------------------------------------------------------------------------------
     function validatePrevAddrAptSuitUnit(argAptFlag) {
     	var sMethod = "validatePrevAddrAptSuitUnit() :: ";
@@ -1461,6 +1868,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function showPrevScreen() {
         var sMethod = 'showPrevScreen() ';
         console.log(logPrefix + sMethod);
+        validatePhoneNumber($(refs.homePhone).val(),$(refs.cellPhone).val());
         flow.back();
     }
     // ---------------------------------------------------------------------------------------
@@ -1476,7 +1884,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 				canBeEmptyFlag = item.validation.canBeEmpty = true;
 			}
 		});
-
+        
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
             var validationGroupsRez = [];
@@ -1485,15 +1893,74 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             var currModel = models.addressModel;
             var enteredYears = models.addressModel.get('years');
             var enteredMonthes = models.addressModel.get('months');
+            
+            // US4709
+            validatePhoneNumber($(refs.homePhone).val(),$(refs.cellPhone).val());
+            
+            var secRez = [];
+            var priRez = [];
+            
+            if($(refs.homePhone).val().replace(/-/g, '') !== "" && $(refs.cellPhone).val().replace(/-/g, '') !== ""){
+            	if(!($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.primaryLandline_CheckField).is(':checked')) ){
+            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
+            		priRez[0] = refs.primaryMobile_CheckField;
+            		priRez[1] = refs.primaryLandline_CheckField;
+            		console.log(logPrefix + sMethod + " priRez :: "+ priRez.length);
+            		if(priRez.length>0){
+            			$(refs.primaryPhoneRadioButton).addClass('errorField');
+            			app.validationDecorator.applyNumberIdError(refs.primaryPhoneRadioButton);
+            		}
+            	}
+            	if(!($(refs.secondaryMobile_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) ){
+            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
+            		secRez[0] = refs.secondaryLandline_CheckField;
+            		secRez[1] = refs.secondaryMobile_CheckField;
+            		console.log(logPrefix + sMethod + " secRez :: "+ secRez.length);
+            		if(secRez.length>0){
+            			$(refs.secondaryPhoneRadioButton).addClass('errorField');
+            			app.validationDecorator.applyNumberIdError(refs.secondaryPhoneRadioButton);
+            			return;
+            		}
+            	}
+            }
+            
+            if($(refs.homePhone).val().replace(/-/g, '') !== ""){
+            	if(!($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.primaryLandline_CheckField).is(':checked')) ){
+            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
+            		priRez[0] = refs.primaryMobile_CheckField;
+            		priRez[1] = refs.primaryLandline_CheckField;
+            		console.log(logPrefix + sMethod + " priRez :: "+ priRez.length);
+            		if(priRez.length>0){
+            			$(refs.primaryPhoneRadioButton).addClass('errorField');
+            			app.validationDecorator.applyNumberIdError(refs.primaryPhoneRadioButton);
+            			return;
+            		}
+            	}
+            }
+            
+            if($(refs.cellPhone).val().replace(/-/g, '') !== ""){
+            	if(!($(refs.secondaryMobile_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) ){
+            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
+            		secRez[0] = refs.secondaryLandline_CheckField;
+            		secRez[1] = refs.secondaryMobile_CheckField;
+            		console.log(logPrefix + sMethod + " secRez :: "+ secRez.length);
+            		if(secRez.length>0){
+            			$(refs.secondaryPhoneRadioButton).addClass('errorField');
+            			app.validationDecorator.applyNumberIdError(refs.secondaryPhoneRadioButton);
+            			return;
+            		}
+            	}
+            }
+            
             // US4112
             // Id validation start here
-            valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers); 
-            
+            valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers);
+        	
             var temprez;
        		// validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
             for (var i = 1; i <= validationGrroupsCol; i++) {
                if (i <= personalDataValidationMax ) {
-                    temprez = models.personalDataModel.validate(i);
+            	   temprez = models.personalDataModel.validate(i);
                } else {
                     temprez = models.addressModel.validate(i);
                }
@@ -1543,8 +2010,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-                
                 app.validationDecorator.applyErrAttribute(rez);
+                
                 // US4112
                 if(!valid){
                 	app.validationDecorator.focusControl(refs.idnumbers);                	
@@ -1557,6 +2024,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                  	app.validationDecorator.focusControl(refs.idnumbers);
                  	 return;
                  }
+            	var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
+             	var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
+             	if(primaryPhone === "" && secondaryPhone === "" ){
+             		app.validationDecorator.focusControl(refs.homePhone);
+             		return;
+             	}
             }
 
             var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel);
@@ -1723,6 +2196,29 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	$(refs.initial).prop('disabled', true);
     	$(refs.lastName).prop('disabled', true);
     	$(refs.birthDate).prop('disabled', true);
+    }
+    // US4709
+    // ---------------------------------------------------------------------------------------
+    function hideElement(){
+    	var sMethod = logPrefix + '[hideElement]: ';
+    	console.log(sMethod);
+    	
+    	var loginModel = activationItems.getModel('loginScreen');
+        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
+    	if(loginModel.get('enableEnstreamAuth')){
+    	    $(refs.mobilePayments).addClass('hideElement');
+    	}
+    }
+    // ---------------------------------------------------------------------------------------
+    function showElement(){
+    	var sMethod = logPrefix + '[showElement]: ';
+    	console.log(sMethod);
+    	
+    	var loginModel = activationItems.getModel('loginScreen');
+        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
+    	if(loginModel.get('enableEnstreamAuth')){
+    	    $(refs.mobilePayments).removeClass('hideElement');
+    	}   	
     }
     // ---------------------------------------------------------------------------------------
     function containsAny(obj, keys) {

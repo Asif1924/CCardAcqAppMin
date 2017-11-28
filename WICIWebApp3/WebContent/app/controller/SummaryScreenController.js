@@ -533,7 +533,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'pollResponseReceived() ';
         console.log(logPrefix + sMethod );
         if(argResponse)
-        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+ JSON.stringify(argResponse.data));
         
         if( respAn.isValidResponse(argResponse) )
         	successActivate(argResponse);

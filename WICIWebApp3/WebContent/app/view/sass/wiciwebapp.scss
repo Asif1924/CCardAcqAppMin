@@ -591,6 +591,29 @@ table{
   border-spacing: 0;
 }
 
+.personalInfoPhoneTable{
+  @include border-radius(11px 11px 0 0);
+  border: 1px solid #CCCCCC;
+  background-color:#FFFFFF;
+  border-spacing: 0;
+}
+
+.personalInfoAndroidApplePayTable{
+  background-color:#FFFFFF;
+  border-spacing: 0;
+  width: 100%;
+  border: none;
+  padding: 65px 0 10px 0;
+}
+
+.printAndroidApplePayTable {
+  background-color:#FFFFFF;
+  border-spacing: 0;
+  width: 100%;
+  border: none;
+  padding: 0 0 10px 0;
+}
+
 tr {
   border-bottom: solid 1px #CCCCCC;
 }
@@ -615,6 +638,20 @@ tr {
   &:first-child td {
     border-top: none;
   }
+}
+
+.androidApplePaytd{
+  height: 47px;
+  border-left: none;
+  border-spacing: 0;   
+}
+
+.androidPaytdWidth {
+  width: 30%;
+}
+
+.applePaytdWidth {
+  width: 80%;
 }
 
 .withBorderTop {
@@ -649,6 +686,253 @@ tr {
 }
 
 /*------------END Table-Related-Stuff------------*/
+
+/*------------US4709 START Table-Related-Stuff------------*/
+
+.elementWithLeft50 {
+    margin-left: 50px;
+}
+
+.setupInsListSeparatorPadding {
+    padding-top: 8px;
+    padding-bottom: 9px;
+  }
+
+.greenText{
+	color: rgb(24, 142, 2);
+}
+
+.marginBottom10 {
+    margin: 0 0 10px 0;
+}
+
+.marginLeft25 {
+  margin-left: 25px;
+}
+
+.setupInsSecurityCodeTable{
+    width: 90%;
+    border: none;
+}
+
+.setupInsSecurityCodetd{
+	height: 30px;
+    text-align: initial;
+    vertical-align: text-top;
+    border: none;
+}
+
+.setupInsTableWidth {
+	width: 28%;
+}
+
+.setupInsTableWidth_fr {
+	width: 37%;
+}
+
+.personalInfoText {
+    float:left;
+    margin: 0 0 20px 0;
+    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+    font-size: 17px;
+    color: #000;
+}
+
+.personalInfoIncText {
+	font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #000;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+#androidPay {
+  background-image: #{inline_image("android_pay.png")};
+  background-size: 60px;
+  height: 75px;
+  margin: 0 auto;
+  width: 50%;
+  background-repeat: no-repeat;
+  float: left;
+  top: -50px;
+  left: 5px;
+}
+
+#androidPay.fr {
+  background-image: #{inline_image("android_pay.png")} !important;
+}
+
+#androidPayInsIss {
+  background-image: #{inline_image("android_pay.png")};
+  background-size: 60px;
+  height: 75px;
+  margin: 0 auto;
+  width: 50%;
+  background-repeat: no-repeat;
+  float: left;
+  top: -50px;
+  left: 60px;
+}
+
+#androidPayInsIss.fr {
+  background-image: #{inline_image("android_pay.png")} !important;
+}
+
+#applePay {
+  background-image: #{inline_image("apple_pay.png")};
+  background-size: 110px;
+  height: 75px;
+  margin: 0 auto;
+  width: 50%;
+  background-repeat: no-repeat;
+  float: left;
+  top: -50px;
+  left: 65px;  
+}
+
+#applePay.fr {
+  background-image: #{inline_image("apple_pay.png")} !important;
+}
+
+#androidPayIns {
+  	background-image: #{inline_image("android_pay.png")};
+    background-size: 20px;
+    height: 22px;
+    margin: 0 auto;
+    width: 40px;
+    background-repeat: no-repeat;
+    float: left;
+    top: -8px;
+    left: 54px;
+}
+
+#androidPayIns_fr {
+  	background-image: #{inline_image("android_pay.png")};
+	background-size: 20px;
+    height: 22px;
+    margin: 0 auto;
+    width: 38px;
+    background-repeat: no-repeat;
+    float: left;
+    top: -10px;
+    left: 111px;
+}
+
+#applePayIns {
+	background-image: #{inline_image("iPhone_Ins.png")};
+	background-size: 22px;
+    height: 22px;
+    margin: 0 auto;
+    width: 38px;
+    background-repeat: no-repeat;
+    float: left;
+    top: -2px;
+    left: 50px;
+}
+
+#applePayIns_fr {
+	background-image: #{inline_image("iPhone_Ins.png")};
+	background-size: 22px;
+    height: 22px;
+    margin: 0 auto;
+    width: 38px;
+    background-repeat: no-repeat;
+    float: left;
+    top: -4px;
+    left: 109px;
+}
+
+.inheritPadding {
+	padding-left: inherit;
+}
+
+.bgCenter {
+	background-position: initial;
+}
+
+.androidApplePay {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  span {
+    position: absolute;
+    top: 80px;
+    display: inline-block;    
+    text-shadow: none;
+    font-size: 18px;
+    left: -20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 140%;
+  }
+}
+
+#androidPayCompletePage {
+  background-image: #{inline_image("android_pay.png")};
+  background-size: 100px;
+  height: 100px;
+  margin: 0 auto;
+  width: 50%;
+  background-repeat: no-repeat;
+  float: left;
+}
+
+#androidPayCompletePage.fr {
+  background-image: #{inline_image("android_pay.png")} !important;
+}
+
+#applePayCompletePage {
+  background-image: #{inline_image("apple_pay.png")};
+  background-size: 110px;
+  height: 75px;
+  margin: 0 auto;
+  width: 50%;
+  background-repeat: no-repeat;
+  float: left;  
+}
+
+#applePayCompletePage.fr {
+  background-image: #{inline_image("apple_pay.png")} !important;
+}
+
+.pay_Labels{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  color: #000;
+}
+
+.printPageTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30pt;
+  font-color: #000;
+  font-weight: bold;
+}
+
+.printPageInsScreenTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20pt;
+  font-color: #000;
+  font-weight: bold;
+}
+
+.printPageSubTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17pt;
+  font-color: #000;
+}
+
+.printInsPageSubTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+  font-color: #000;
+}
+
+.printPageAppStatusTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+}
+
+/*------------US4709 END Table-Related-Stuff------------*/
 
 .selectRow {
   border:1px solid #EA2323;
@@ -1238,6 +1522,15 @@ text-align: center;
   }
 }
 
+.radioButtonTableNoBorderPersonalInfo {
+  border: 0; 
+  margin-left: 25px;
+  
+  tr td {
+    border: 0;
+  }
+}
+
 .radioTextWidth{
   width: 200px;
   vertical-align: middle;
@@ -1486,6 +1779,14 @@ text-align: center;
     width: 50%; /* 100% / productsNumber */
     height: 220px;
     margin-bottom: 25px;
+  }
+  
+  .setupInsTableWidth {
+	width: 28%;
+  }
+  
+  .setupInsTableWidth_fr {
+	width: 37%;
   }
     
 }

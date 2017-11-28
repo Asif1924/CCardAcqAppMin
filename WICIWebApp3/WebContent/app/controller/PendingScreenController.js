@@ -53,7 +53,8 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         name: 'pendingData',
         refs: refs,
         data:[
-            {notField:true, name: 'submitFailed_Counter',  value: 1, validation: null }
+            {notField:true, name: 'submitFailed_Counter',  value: 1, validation: null },
+            {notField: true, name: 'retreivePhoneNumber',     value: null },
         ]
     });
 
@@ -62,6 +63,15 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     function init(argFlow, argState, argRetrievalParams, argResponse) {
         var sMethod = 'init() ';
         console.log(logPrefix + sMethod + " argState = " + argState + ", argRetrievalParams = " + argRetrievalParams + ", argResponse = " + argResponse);
+        
+        var currentModel = activationItems.getModel(model.name);
+
+        if (!currentModel) {
+            activationItems.addModel(model);
+        } else {
+            model = currentModel;
+        }
+        
         this.isShown = false;
         
         pendingScreenState = argState;
@@ -225,10 +235,12 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         });
         
         $(refs.checkAppButton).click(function(){
+        	model.set('retreivePhoneNumber', $(refs.phoneField).val());
+            console.log(logPrefix + sMethod + " retreivePhoneNumber :: " + model.get('retreivePhoneNumber'));
         	console.log(logPrefix + sMethod + $(refs.tokenField).val().toUpperCase());
         	console.log(logPrefix + sMethod + $(refs.phoneField).val());
         	retrievePendingApplication( $(refs.tokenField).val().toUpperCase(), $(refs.phoneField).val());
-        })
+        });
         
         flow.bindSettingsButtonEvent();
     }
@@ -308,7 +320,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'singlepollResponseReceived() ';
         console.log(logPrefix + sMethod );
         if(argResponse)
-        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);        
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+ JSON.stringify(argResponse.data));        
         if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) )
         	successPendPoll(argResponse);
         else if( respAn.isPendingResponse(argResponse) )
@@ -326,7 +338,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'pollResponseReceived() ';
         console.log(logPrefix + sMethod );
         if(argResponse)
-        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+JSON.stringify(argResponse.data));
         
         if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) )
         	successPendPoll(argResponse);

@@ -138,6 +138,28 @@ WICI.ZebraPrinterController = function () {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }
         };
+        
+        //---------------------------------------------------------------------------------------
+        this.getDecryptedAccountNumber = function (activationItems, successCallback, failureCallback) {
+            var sMethod = 'getDecryptedAccountNumber() ';
+            console.log(logPrefix + sMethod);
+            console.log('---------- getDecryptedAccountNumber ----------');         
+            console.log(activationItems.getModel('printScreen').get('PAN'));
+            console.log('--------------------');
+            try {
+                // Send response to mobile side
+                cordova.exec(successCallback,
+                    failureCallback,
+                    "InstantIssuancePlugin",
+                    "InstantIssuance", 
+                    [
+                     activationItems.getModel('printScreen').get('PAN')
+                     ]);             
+            } catch (err) {
+                console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
+            }
+          };
+       
       //---------------------------------------------------------------------------------------
       this.getPrinterMacAddress = function () {
          return  printerMacAddress;

@@ -76,6 +76,8 @@ WICI.dictionary_en =  {
 	loginScreen_Dialog_ErrorTitle						:	"Login Error",
 	loginScreen_FailureMessage							:	"Login Failed. Please Try Again.",
 	dictionary_loading_error 							:  	"Application content cannot be loaded. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
+	// US4744
+	loginScreen_IncorrectUserNamaAndPassword            :   "Please check your user name and password",
 	
 	// US4231
 	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage	:	"Login Failed. Please Contact your administrator.",
@@ -172,6 +174,23 @@ WICI.dictionary_en =  {
 	personalData_EmailAddress							:	"Email Address",
 	personalData_HomePhone								:	"Home Phone",
 	personalData_CellPhone								:	"Cellular Phone<sup>*</sup>",
+	
+	// US4709
+	personalData_PrimaryPhone							:	"Primary Phone",
+	personalData_SecondaryPhone							:	"Secondary Phone",
+	personalData_Landline								:	"Landline",
+	personalData_Mobile									:	"Mobile",	
+	personalData_MobilePayments							:	"Mobile Payments are Here!",
+	personalData_MobilePayments_Para1					:	"Would you like to set up Apple Pay<sup>&reg;</sup> or Android Pay<sup>&trade;</sup> today if your credit card application is approved?",
+	personalData_MobilePayments_Para2					:	"If you select YES!, we will verify that your personal information and mobile number matches the records of your mobile provider and exchange such information as your tenure and mobile account status.",
+	personalData_MobilePayments_Para3					:	"Once you complete your credit card application and if you are approved, you will be provided with instructions to set up your device. We will send you a text message with a 3-digit security code which you will need to complete the setup. Standard message and data rates may apply.",
+	personalData_MobilePayments_Para4					:	"Any Android device running Android Kit Kat 4.4 or above",
+	personalData_MobilePayments_Para5					:	"Any iPhone 6 or newer device",
+	personalData_AndroidorApplePay_Yes					:	"YES!",
+	personalData_AndroidorApplePay_NoThanks				:	"No Thanks",
+	personalData_TermsandConditions_Para1				:	"Apple Pay and iPhone are trademarks of Apple, Inc.",
+	personalData_TermsandConditions_Para2				:	"Android and Android Pay are trademarks of Google, Inc.",
+	
 	// US4364
 	personalData_ExpiryDate								:	"ID Expiry Date",
 
@@ -1090,7 +1109,7 @@ WICI.dictionary_en =  {
 	printScreen_TokenLabel								: 	"Reference&nbsp;#&nbsp;",
 	
 	printScreen_UnknownStatus                   		:   "Unknown application status",
-	printScreen_ApplicationApproved                   	:   "Your application has been APPROVED.",
+	printScreen_ApplicationApproved                   	:   "Your application has been <b class='RedLabel'>APPROVED!</b>",
 	printScreen_ApplicationDeclined                   	:   "Unfortunately, we could not process your application response at this time. Please check your mail regularly.",
 
 	printerSetupDialog_yes                              :   "Apply",
@@ -1114,6 +1133,26 @@ WICI.dictionary_en =  {
 	testPrintVerifyPrinterMsg                           :    "Please ensure printer is on and paired to tablet before proceeding",
 	testPrintVerify_Title                               :    "Verify Printer",
 	testPrintVerify_Contionue_Button                    :    "Continue with Application",
+	
+	// US4709
+	printScreen_ReceiveCard								:	"You should receive your physical card in 7-10 business days.",
+	printScreen_Register								:	"Register for Apple Pay or Android Pay and use your phone to make easy and secure payments where ‘tap and pay’ is accepted. Certain merchants may have established a maximum dollar limit for a single transaction. For example, the limit at Canadian Tire stores is $100.",
+	print_BeginSetup_Button								:	"BEGIN SETUP",
+	print_Done_Button									:	"DONE",
+	printScreen_SetUpIns								:	"Setup Instructions",
+	printScreen_SetUpInsPara1							:	"Check your mobile phone to ensure you received a text message with a 3-digit security code",
+	printScreen_SetUpInsPara2							:	"<span style=\"margin-left: -40px;\">Open</span> <a href=\"#\" id=\"androidPayIns\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">on any Android device <br>running Android Kit Kat 4.4 or above</span>",
+	printScreen_SetUpInsApplePara2						:	"<span style=\"margin-left: -40px;\">Open</span> <a href=\"#\" id=\"applePayIns\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">on any iPhone 6 or newer device</span>",
+	printScreen_SetUpInsPara3							:	"<span style=\"margin-left: -38px;\">Follow the on-screen prompts using the</span><br><span style=\"margin-left: -38px;\"> information below:</span>",
+	printScreen_SetUpInsCardNo							:	"Card Number: ",
+	printScreen_SetUpInsExpiryDate						:	"Expiry Date: ",
+	printScreen_SetUpInsSecurityCode					:	"Security Code: ",
+	printScreen_SetUpInsSecurityCodeIns					:	"3-digit code in a text message <br>from 1-800-XXX-XXXX",
+	printScreen_PayInCompletePara1						:	"Unfortunately we are unable to register your account for Apple Pay or Android Pay at this time; however, your application is still approved. You should receive your physical card in 7-10 business days.",
+	printScreen_PayInCompletePara2						:	"Please try to register for Apple Pay or Android Pay once you receive your physical card in the mail.",
+	printScreen_PayInCompletePara3						:	"Remember, you can still shop in-store today with your temporary ",
+	printScreen_PayParaSymbol							:	".",
+	
 
 	// Print screen END ..............................................................
 

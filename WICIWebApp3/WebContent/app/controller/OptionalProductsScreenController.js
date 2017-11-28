@@ -42,7 +42,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         userSingnature_CP				: 	'#optionalProductsScreen_CP_SingnatureContainer',
         userSingnature_IW				: 	'#optionalProductsScreen_IW_SingnatureContainer',
 
-        optionalProducts_PA_Item		:   '#optionalProductsProtectionAdvantageItem',
+        
         optionalProducts_PA             :   '#optionalProducts_PA_CheckField',
         optionalProducts_PA_Area        :   '#optionalProducts_PA_Area',
         optionalProducts_PA_Table       :   '#optionalProducts_PA_Table',
@@ -74,7 +74,13 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         optionalProducts_NA             :   '#optionalProducts_NA_CheckField',
         optionalProducts_Area			:	'#optionalProducts_Area',
 
-        optionalProducts_CheckArea		:	'#optionalProductsTable'
+        optionalProducts_CheckArea		:	'#optionalProductsTable',
+        // US4738 
+        optionalProducts_CP_PA_Title    :   '#OptionalProductsScreen_PageContents_CP_Title',
+        optionalProducts_CP_PA_Details	:   '#OptionalProductsScreen_PageContents_CP_Details',
+        optionalProducts_PA_Item		:   '#optionalProductsProtectionAdvantageItem',
+        lineSeparatorForPA				:	'#lineSeparatorForPA',
+        lineSeparatorForCP				:	'#lineSeparatorForCP',
     };
 
     var model = new WICI.BaseModel({
@@ -140,8 +146,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 
         createFlips();
 
-        // US4083 - Code changes Reverted
-   		// removePAandCPifSKProvince();
+        // US4738
+        removePAandCPifSK_AB_MBProvince();
 
         // US4168
         hidePAandCPAgeRestriction();
@@ -603,27 +609,20 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         }
     }
     //---------------------------------------------------------------------------------------
-    //Delete Protection Advantage and Credit Protector items for SK province
-    function removePAandCPifSKProvince() {
- 	var personalDataModel = activationItems.getModel("personalData2_Address");
- 	// UAT 39 - CP Revitalization, Missed Requirement
+    // US4738
+    function removePAandCPifSK_AB_MBProvince() {
+ 	var loginModel =  activationItems.getModel('loginScreen');
  	var chooseProductDataModel = activationItems.getModel('chooseProductModel');
  	console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
- 	console.log("---------"+"personalDataModel: "+personalDataModel.get('province')+"--------"); 	
-       if(chooseProductDataModel.get('province') === 'SK' || personalDataModel.get('province') === 'SK') {       		
-            $(refs.optionalProducts_PA_Item).hide();//Protection Advantage hiding
-            $('#lineSeparatorForPA').hide();
-            $(refs.optionalProducts_CP_Item).hide();//Credit Protector hiding
-            $('#lineSeparatorForCP').hide();
-            // Hiding PA and CP content and unchecking selected PA/CP
-            $(refs.optionalProducts_PA).attr('checked', false);
-            $(refs.optionalProducts_PA_Table).hide();
-            $(refs.optionalProducts_PA_Agreement).attr('checked', false);
-            $(refs.optionalProducts_CP).attr('checked', false);
-            $(refs.optionalProducts_CP_Table).hide();
-            $(refs.optionalProducts_CP_Agreement).attr('checked', false);
-            $(refs.title_IW).show();
-        };
+ 	console.log("---------"+"loginModel: "+loginModel.get('employerID')+"--------"); 	
+       
+       if(chooseProductDataModel.get('province') === 'SK'){
+    	    hidePAandCP();
+       }
+       if(loginModel.get('employerID') !== "J" && ( chooseProductDataModel.get('province') === 'AB' || 
+		   		chooseProductDataModel.get('province') === 'MB')){
+    	    hidePAandCP();
+       }
     }
     //---------------------------------------------------------------------------------------
     // US4168
@@ -632,25 +631,24 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         var personalDataModel = activationItems.getModel('personalData');
         console.log(logPrefix + sMethod + " age "+personalDataModel.get('age'));
         if(personalDataModel.get('age') > 76) {
-        	$(refs.optionalProducts_PA_Item).hide();//Protection Advantage hiding
-            $('#lineSeparatorForPA').hide();
-            $(refs.optionalProducts_CP_Item).hide();//Credit Protector hiding
-            $('#lineSeparatorForCP').hide();
-            // Hiding PA and CP content and unchecking selected PA/CP
-            $(refs.optionalProducts_PA).attr('checked', false);
-            $(refs.optionalProducts_PA_Table).hide();
-            $(refs.optionalProducts_PA_Agreement).attr('checked', false);
-            $(refs.optionalProducts_CP).attr('checked', false);
-            $(refs.optionalProducts_CP_Table).hide();
-            $(refs.optionalProducts_CP_Agreement).attr('checked', false);
-            $(refs.optionalProducts_CPInsurance).hide();
-            $(refs.optionalProducts_TC25_CP_Text).hide();
-            $(refs.optionalProduct_CP_description).hide();
-            $(refs.optionalProduct_title_arrow_cp).hide();
-            $(refs.title_IW).show();
-            $(refs.optionalProduct_CP_title).hide();
+        	hidePAandCP();
         }
-    	
+    }
+    //---------------------------------------------------------------------------------------
+    // US4738
+    function hidePAandCP(){
+        $(refs.optionalProducts_CP_PA_Title).hide();
+        $(refs.optionalProducts_CP_PA_Details).hide();
+       	$(refs.optionalProducts_PA_Item).hide();
+       	$(refs.lineSeparatorForPA).hide();
+       	$(refs.optionalProducts_PA_Table).hide();
+       	$(refs.optionalProducts_CP_Item).hide();
+       	$(refs.lineSeparatorForCP).hide();
+       	$(refs.optionalProducts_CP_Table).hide();
+       	$(refs.optionalProducts_PA).attr('checked', false);
+       	$(refs.optionalProducts_PA_Agreement).attr('checked', false);
+       	$(refs.optionalProducts_CP).attr('checked', false);
+       	$(refs.optionalProducts_CP_Agreement).attr('checked', false);
     }
     //---------------------------------------------------------------------------------------
     function onSignatureChaged1 (e) {

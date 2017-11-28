@@ -203,8 +203,13 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
             if(isValid()) {
             	disablePasswordField();
             	syncUserData();
+            	// US4721 starts
+            	new WICI.LoadingIndicatorController().show();
+            	deActivateSubmitButton();
+            	// US4721 ends
             	invokeAgent(loginModel.get('employerID').toUpperCase(), loginModel.get('agentID').toUpperCase(), 
             			model.get('agentID'), model.get('userOperation'), model.get('locale'), loginModel.get('rollId'), handleSuccessAgent, handleFailedAgent);
+            	
             }
         });
         
@@ -216,7 +221,8 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
         $(refs.create_CheckField).change(function(){
         	var sMethod = 'create_CheckField() onChange :: ';
             console.log(logPrefix + sMethod);
-            
+            // US4721
+            activateSubmitButton();
         	disablePasswordField();
         	clearAgentIdField();
         });
@@ -224,7 +230,8 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
         $(refs.update_CheckField).change(function(){
         	var sMethod = 'update_CheckField() onChange :: ';
             console.log(logPrefix + sMethod);
-            
+            // US4721
+            activateSubmitButton();
         	disablePasswordField();
         	clearAgentIdField();
         });
@@ -232,7 +239,8 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
         $(refs.delete_CheckField).change(function(){
         	var sMethod = 'delete_CheckField() onChange :: ';
             console.log(logPrefix + sMethod);
-            
+            // US4721
+            activateSubmitButton();
         	disablePasswordField();
         	clearAgentIdField();
         });
@@ -240,10 +248,17 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
         $(refs.search_CheckField).change(function(){
         	var sMethod = 'search_CheckField() onChange :: ';
             console.log(logPrefix + sMethod);
-            
+            // US4721
+            activateSubmitButton();
         	disablePasswordField();
         	clearAgentIdField();
         });
+        
+        // US4721
+        // On Change of User ID filed enable the submit button
+        $(refs.agentID).live('paste, input', function(e) {
+        	activateSubmitButton();
+         });
     }
     
     function invokeAgent(argEmployerID, argAgentID, argUserName, argUserOperation, argLocale, argRollId, argSuccessCB, argFailureCB) {
@@ -256,7 +271,9 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
     function handleSuccessAgent(argResponse) {
     	var sMethod = 'handleSuccessAgent() ';
     	console.log(logPrefix + sMethod + JSON.stringify(argResponse));
-    	
+    	// US4721 starts
+    	new WICI.LoadingIndicatorController().hide();
+    	// US4721 ends
     	if(!argResponse.error) {
     		// statusCode 3000 indicates Create Agent
     		if(argResponse.data.statusCode == "3000") {
@@ -414,7 +431,61 @@ WICI.AgentAttributionScreenController = function(activationItems, argTranslator,
     	var sMethod = 'handleFailedAgent() ';
     	console.log(logPrefix + sMethod + JSON.stringify(argResponse));
     }
-    
+    // US4721 starts
+    //---------------------------------------------------------------------------------------
+    function disableSubmitButton(){
+        $(refs.submitButton).removeClass("greenflat");
+        $(refs.submitButton).addClass("grayflat");
+    }
+    //---------------------------------------------------------------------------------------
+    function enableSubmitButton(){
+        $(refs.submitButton).removeClass("grayflat");
+        $(refs.submitButton).addClass("greenflat");
+    }
+    //---------------------------------------------------------------------------------------
+    function deActivateSubmitButton() {
+        // Check if apply button is disabled
+    	var sMethod = 'deActivateSubmitButton() ';
+    	console.log(logPrefix + sMethod);
+        var isActive = $(refs.submitButton).hasClass('greenflat');
+
+        // If Apply button is disabled make it enabled
+        if (isActive) {
+        	console.log(logPrefix + sMethod + isActive);
+        	disableSubmitButton();
+
+            // Unbind with click event
+            $(refs.submitButton).unbind("click");
+        };
+    }    
+    // ---------------------------------------------------------------------------------------
+    function activateSubmitButton() {
+    	var sMethod = 'activateSubmitButton() ';
+    	console.log(logPrefix + sMethod);
+        // Check if apply button is disabled
+        var isDisabled = $(refs.submitButton).hasClass('grayflat');
+        
+        // If Apply button is disabled make it enabled
+        if (isDisabled) {
+        	enableSubmitButton();
+            // Bind with click event
+            $(refs.submitButton).bind("click", function() {
+            	console.log(logPrefix + sMethod + isDisabled);
+                console.log("AgentAttributionScreenSubmitButton.click");
+                if(isValid()) {
+                	disablePasswordField();
+                	syncUserData();
+                	new WICI.LoadingIndicatorController().show();
+                	deActivateSubmitButton();
+                	invokeAgent(loginModel.get('employerID').toUpperCase(), loginModel.get('agentID').toUpperCase(), 
+                			model.get('agentID'), model.get('userOperation'), model.get('locale'), loginModel.get('rollId'), handleSuccessAgent, handleFailedAgent);
+                	
+                }
+            });
+        };
+    }
+    // ---------------------------------------------------------------------------------------    
+    // US4721 ends  
     function isValid() {
     	var sMethod = 'isValid() ';
         console.log(logPrefix + sMethod);

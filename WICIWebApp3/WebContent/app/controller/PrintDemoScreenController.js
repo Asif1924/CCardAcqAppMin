@@ -19,6 +19,16 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     var employerID;
     var homePhonePersonalInfo = "";
     
+    var argTransactionID = "";
+    var argMSISDN = "";
+    var argConsentGranted = "";
+    var argDeviceType = "";
+
+    var connectivityController = null;
+    
+    var PAN = "";
+    var expiryDate = "";
+    
     this.show = show;
     this.hide = hide;
     this.init = init;
@@ -31,13 +41,27 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         startNewApplicationBtn  : 	'#print_StartNewApplicationButton',
         logOutBtn               : 	'#print_LogOutButton',
         printButton             :   '#printScreen_PrintButton',
-        tokenField				:	'#printScreenTokenField'
+        tokenField				:	'#printScreenTokenField',
+        printScreenAndroidPay   :   '#printScreenAndroidPay_CheckField',
+        printScreenApplePay     :   '#printScreenApplePay_CheckField',
+        printScreenBeginSetup   :   '#printScreen_BeginSetupButton',
     };
 
     var model = new WICI.BaseModel({
         name: 'printScreen',
         refs: refs,
-        data:[]
+        data:[
+              { notField: true, name: 'printScreenAndroidPay',     value: null },
+              { notField: true, name: 'printScreenApplePay',     value: null },
+              { notField: true, name: 'keyForDisplayingCardSelection',     value: null },
+              { notField: true, name: 'keyForDisplayingApplicationStatus',     value: null },
+              { notField: true, name: 'PAN',     value: null },
+              { notField: true, name: 'expiryDate',     value: null },
+              { notField: true, name: 'deviceType',     value: null },
+              { notField: true, name: 'appStatus',     value: null },
+              { notField: true, name: 'accountNumber',     value: null },
+              { notField: true, name: 'MSISDN',     value: null },
+              ]
     });
     //---------------------------------------------------------------------------------------
     function init( argFlow ) {
@@ -47,13 +71,44 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         flow = argFlow;
         messageDialog = argMessageDialog; 	//(AA)Dependency Injection Principle: Allows for proper unit testing
         translator = argTranslator; 		//(AA)Dependency Injection Principle: Allows for proper unit testing
+        
+        var currentModel = activationItems.getModel(model.name);
+
+        if (!currentModel) {
+            activationItems.addModel(model);
+        } else {
+            model = currentModel;
+        }
+        
+        connectivityController = new WICI.ConnectivityController(new WICI.ConnectionStatus(), messageDialog, translator, WICI.AppConfig.ConnectivityConfig);
+        connectivityController.init();
 
         respAn = new WICI.PollingResponseAnalyzer();        
         tokenValue = respAn.getRetrievalToken(activationItems.getNewAccountApplicationResponse());
         employerID = activationItems.getModel('loginScreen').get('employerID');
         homePhonePersonalInfo = activationItems.getHomePhone();
+        argMSISDN = activationItems.getMobilePhone();
         
         console.log(logPrefix + sMethod + " homePhonePendingInfo : " + activationItems.getHomePhone() + " : " + homePhonePersonalInfo );
+        console.log(logPrefix + sMethod + " Mobile Number : " + activationItems.getMobilePhone() );
+        
+        model.set('appStatus', respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()));
+        console.log(logPrefix + sMethod + " appStatus ::: " + model.get('appStatus'));
+        
+        if(respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) === 'APPROVED') {
+        	PAN = respAn.getPAN(activationItems.getNewAccountApplicationResponse());
+            expiryDate = respAn.getExpiryDate(activationItems.getNewAccountApplicationResponse());
+            argTransactionID = respAn.getTransactionID(activationItems.getNewAccountApplicationResponse());
+            // argMSISDN = respAn.getMSISDN(activationItems.getNewAccountApplicationResponse());
+            argConsentGranted = respAn.getConsentGranted(activationItems.getNewAccountApplicationResponse());
+            console.log(logPrefix + sMethod + " argMSISDN : " + argMSISDN + " argConsentGranted : " + argConsentGranted);
+            
+            model.set('PAN', PAN);
+            model.set('expiryDate', expiryDate);
+            model.set('MSISDN', argMSISDN);
+            console.log(logPrefix + sMethod + " PAN=" + PAN + " expiryDate : " + expiryDate + " tokenValue : " + tokenValue);
+            console.log(logPrefix + sMethod + " argTransactionID=" + argTransactionID + " argMSISDN : " + argMSISDN + " argConsentGranted : " + argConsentGranted);
+        } 
         
         if(argPendScreenInfo){
             console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);
@@ -84,12 +139,22 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         createView();
         $(refs.tokenField).val(tokenValue);
         $(refs.printButton).hide();
-        bindEvents();			
+        bindEvents();
+        syncUserData();
     }
     //---------------------------------------------------------------------------------------
     function syncUserData(){
         var sMethod = 'syncUserData() ';
-        console.log(logPrefix + sMethod);
+        
+        model.set('printScreenAndroidPay',   $(refs.printScreenAndroidPay).is(':checked') ? 'Y' : 'N');
+        model.set('printScreenApplePay',   $(refs.printScreenApplePay).is(':checked') ? 'Y' : 'N');
+        
+        if(model.get('printScreenAndroidPay') === 'Y') {
+        	model.set('deviceType', "ANDROID");
+        } else if(model.get('printScreenApplePay') === 'Y') {
+        	model.set('deviceType',"APPLE");
+        }
+        console.log(logPrefix + sMethod + ' model data: ' + model.toString());
     }
     //---------------------------------------------------------------------------------------
     function show(){
@@ -135,7 +200,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         $screenContainer.empty();
         assembleNavigationBarAtTop();
         if( !fromPendScreen ){
-        	WICI.BreadcrumbsHelper.assembleBreadcrumbs(6, $screenContainer, activationItems);
+        	WICI.BreadcrumbsHelper.assembleBreadcrumbs(7, $screenContainer, activationItems);
         }
         assemblePageHTML($screenContainer, "#WICIPrintDemoScreen-template");
         $screenContainer.addClass("breadcrumbPadding");
@@ -164,7 +229,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             return "chooseProduct_NoSpecificCard";
        
           //  return (activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
-        
+        model.set('keyForDisplayingCardSelection', activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
         return (activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
     }
     
@@ -174,12 +239,34 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         if(appStatus==="DECLINED")
         	return "printScreen_ApplicationDeclined";
         
+        model.set('keyForDisplayingApplicationStatus', activationItems.getAccountApplicationStatus());
    		return activationItems.getAccountApplicationStatus();     		
     }
     
+    function getConsentGrantedFlag() {
+    	var sMethod = 'getConsentGrantedFlag() ';
+        console.log(logPrefix + sMethod );
+        
+        return activationItems.getAppResponseConsentGranted();
+    }
+    
+    function getArgTransactionID() {
+    	var sMethod = 'getArgTransactionID() ';
+        console.log(logPrefix + sMethod );
+        
+        return activationItems.getAppResponseTransactionID();
+    }
+
+    function getArgPAN() {
+    	var sMethod = 'getArgPAN() ';
+        console.log(logPrefix + sMethod );
+        
+        return activationItems.getAppResponsePAN();
+    }
+    
     function assemblePageHTML($element, templateName) {
-        var sMethod = 'assemblePageHTML() ';
-        console.log(logPrefix + sMethod);
+       var sMethod = 'assemblePageHTML() ';
+       console.log(logPrefix + sMethod);
        
        $(templateName).template("printDemoScreenPage");
         $.tmpl("printDemoScreenPage", {
@@ -188,7 +275,9 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             activationItems: activationItems,
             tokenValue:tokenValue,
             appStatus:appStatus,
-            fromPendingScreen:fromPendScreen
+            fromPendingScreen:fromPendScreen,
+            consentGranted: argConsentGranted,
+            appStatusFromResponse: respAn.getAppStatus(activationItems.getNewAccountApplicationResponse())
         }).appendTo($element);
     }
     //---------------------------------------------------------------------------------------
@@ -213,11 +302,42 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             WICI.BluetothHelper.toggle().done(printFile).fail(alert);
         });
         app.flowController.bindSettingsButtonEvent();
+        
+        $(refs.printScreenAndroidPay).change(function() {
+        	syncUserData();
+        });
+        
+        $(refs.printScreenApplePay).change(function() {
+        	syncUserData();
+        });
+        
+        $(refs.printScreenBeginSetup).click(function() {
+        	var sMethod = 'printScreenBeginSetupClick() ';
+            console.log(logPrefix + sMethod + " argTransactionID : " + argTransactionID + " PAN : " + PAN + " argMSISDN : " + argMSISDN + " DeviceType : " + model.get('deviceType') );
+
+            new WICI.LoadingIndicatorController().show();
+            
+            try {
+    			var isDevice = new WICI.DeviceDetectionHelper().any();
+    	
+    			if (isDevice) {
+    				app.zebraPrinterWrapper.getDecryptedAccountNumber(activationItems, decryptPANSuccess, decryptPANFailure);
+    			} else {
+    				// Web print
+    				model.set('accountNumber', "6666555544443333");
+    				argDeviceType = model.get('deviceType');
+    		        connectivityController.InstantIssuance(argTransactionID, PAN, argMSISDN, argDeviceType, successInitActivate,failedInitActivate);
+    			}
+    		} catch (error) {
+    			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+    		}
+        });
+        
     }
     
     function handleLogout(){
     	if(fromPendScreen)
-    		hide();
+    	hide();
     	app.flowController.logOutClick(self);
     }
     
@@ -235,6 +355,58 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     function showNextScreen(){
         //syncUserData();
         flow.next();
+    }
+    //---------------------------------------------------------------------------------------
+	function decryptPANSuccess(response) {
+	    var sMethod = 'decryptPANSuccess() ';
+	    console.log(logPrefix + sMethod + " response from decrypt : " + response);
+	    
+	    model.set('accountNumber', response);
+	    
+	    console.log(logPrefix + sMethod + " argTransactionID : " + argTransactionID + " PAN : " + PAN + " argMSISDN : " + argMSISDN + " DeviceType : " + model.get('deviceType') );
+	    argDeviceType = model.get('deviceType');
+        connectivityController.InstantIssuance(argTransactionID, PAN, argMSISDN, argDeviceType, successInitActivate,failedInitActivate);
+	}
+	//---------------------------------------------------------------------------------------
+	function decryptPANFailure(error) {
+	    var sMethod = 'decryptPANFailure() ';
+	    console.log(logPrefix + sMethod + " error : " + error);
+	    
+	    new WICI.LoadingIndicatorController().hide();
+        hide();
+     	app.navigationController.adhocPendingScreen = new WICI.InstantIssuanceSetupCompleteScreenController(activationItems, translator, messageDialog);
+    	app.navigationController.adhocPendingScreen.init(flow);
+    	app.navigationController.adhocPendingScreen.show();
+	}
+	//---------------------------------------------------------------------------------------
+    function successInitActivate( argResponse ){
+        var sMethod = 'successInitActivate() ';
+        console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " enstreamResponse: "+argResponse.enstreamResponse);
+
+        new WICI.LoadingIndicatorController().hide();
+        if( !argResponse.error && argResponse.enstreamResponse === 'Y' ){ 
+        	hide();
+         	app.navigationController.adhocPendingScreen = new WICI.InstantIssuanceSetupInsScreenController(activationItems, translator, messageDialog);
+	    	app.navigationController.adhocPendingScreen.init(flow);
+	    	app.navigationController.adhocPendingScreen.show();
+        } else {
+        	hide();
+         	app.navigationController.adhocPendingScreen = new WICI.InstantIssuanceSetupCompleteScreenController(activationItems, translator, messageDialog);
+	    	app.navigationController.adhocPendingScreen.init(flow);
+	    	app.navigationController.adhocPendingScreen.show();
+        }
+    }
+
+    function failedInitActivate( argResponse ){
+        var sMethod = 'failedInitActivate() ';
+        if(argResponse)
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " enstreamResponse: "+argResponse.enstreamResponse);
+
+        new WICI.LoadingIndicatorController().hide();
+        hide();
+     	app.navigationController.adhocPendingScreen = new WICI.InstantIssuanceSetupCompleteScreenController(activationItems, translator, messageDialog);
+    	app.navigationController.adhocPendingScreen.init(flow);
+    	app.navigationController.adhocPendingScreen.show();
     }
     //---------------------------------------------------------------------------------------
     function printFile() {
@@ -676,5 +848,5 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 	  }
       
 }
-// US4282 Ends 
+// US4282 Ends
 };

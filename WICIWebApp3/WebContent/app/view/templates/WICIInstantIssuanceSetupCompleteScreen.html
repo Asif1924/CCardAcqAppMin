@@ -1,0 +1,37 @@
+<script id="WICIInstantIssuanceSetupCompleteScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="pendingScreen_PageContents">
+	
+        <div data-role="fieldcontain" class="">
+				<br><br><br>
+					<span class="printPageTitle" data-translationKey="printScreen_Title"></span>
+	         	<br><br><br>
+					<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
+					<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingCardSelection')}"></span>
+					<span class="printPageSubTitle" data-translationKey="printScreen_PayParaSymbol"></span>
+	         	<br><br><br>
+					<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingApplicationStatus')}" />
+				<br><br><br>
+					<span class="printPageSubTitle" data-translationKey="printScreen_PayInCompletePara1"></span>
+				<br><br><br>
+					<span class="printPageSubTitle" data-translationKey="printScreen_PayInCompletePara2"></span>
+				<br><br><br>
+					<span class="printPageSubTitle greenText" data-translationKey="printScreen_PayInCompletePara3"></span>
+					<span class="printPageSubTitle greenText" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingCardSelection')}"></span>
+					<span class="printPageSubTitle greenText" >!</span>
+				<br><br><br>
+	    </div>
+	
+		<br><br><br><br><br>
+		
+		<center>
+            <span id="instantIssuanceComplete_StartNewApplicationButton" class="button greenflat afterPrintButtonWidth uppercase">
+            	<span class="buttonText" data-translationKey="printResponseStatus_StartNewApplication_Button"></span>
+			</span><br>
+			<span id="instantIssuanceComplete_LogOutButton" class="button darkgrayflat afterPrintButtonWidth uppercase">
+            	<span class="buttonText" data-translationKey="printResponseStatus_LogOut_Button"></span>
+			</span>
+        </center>
+	
+	
+	</div>
+</script>

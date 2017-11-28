@@ -231,6 +231,49 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			offlineCallback
 		);
     };
+    
+    // ---------------------------------------------------------------------------------------
+    this.InstantIssuance = function(argTransactionID, argPAN, argMSISDN, argDeviceType, argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'InstantIssuance() ';
+        console.log(logPrefix + sMethod);
+        
+        var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+        
+        var requestParams = {
+    			"transactionID": argTransactionID,
+    			"PAN": argPAN,
+    			"MSISDN": argMSISDN,
+    			"deviceType" : argDeviceType,
+    		};
+    	console.log(logPrefix + sMethod + JSON.stringify(requestParams));
+    		
+    	connRequestBuilder.setHttpType( "POST" );
+    	connRequestBuilder.setParams(requestParams);
+    		
+        var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("InstantIssuance Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback(jqXHR,textStatus,errorThrown);
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("InstantIssuance");
+        	}
+    	};        		
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.InstantIssuance,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.INSTANTISSUANCE_REQUEST_INTERVAL
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+    
     // ---------------------------------------------------------------------------------------
     this.GetVersion = function(argSuccessCallback, argFailureCallback, argCompleteCallback) {
     	console.log("GetVersion");

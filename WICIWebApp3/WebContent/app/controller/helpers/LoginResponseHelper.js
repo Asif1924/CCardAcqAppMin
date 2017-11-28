@@ -34,8 +34,11 @@ WICI.LoginResponseHelper = function() {
 		}
 		// US4231
 		else if( loginResponseObject && loginResponseObject.msg === "Login Failed. Please Contact your administrator"){
-			return "loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage";	
-		}  
+			return "loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage";
+		}// US4744
+		else if(loginResponseObject && loginResponseObject.data.statusCode === "5000"){
+			return "loginScreen_IncorrectUserNamaAndPassword";
+		}
 		return "loginScreen_FailureMessage";
 	}
 	function getLatestDictionaryInfo(){

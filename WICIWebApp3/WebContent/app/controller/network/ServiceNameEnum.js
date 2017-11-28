@@ -11,5 +11,6 @@ WICI.ServiceNameEnum = {
 		GetDictionaryVersion					: 	"DictionaryVersion", //palceholder
 		Vocabulary_EN							: 	"res/messages_en_1.1.js", //placeholder
 		Vocabulary_FR 							: 	"res/messages_fr_1.1.js", //placeholder
-		Agent									:	"Agent"
+		Agent									:	"Agent",
+		InstantIssuance							:	"InstantIssuance",
 };

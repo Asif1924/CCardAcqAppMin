@@ -118,11 +118,18 @@ WICI.Validator = function() {
     };
 
     //---------------------------------------------------------------------------------------
-    this.phone= function(value) {
-        if(value===null){
-            return false;
-        }
-        return regexMatch(/^[0-9]{10}$/, value);
+    this.phone= function(value,flagCanBeEmpty) {
+    	if(value === null){
+    			if(flagCanBeEmpty){
+    				return true;
+    			}
+    			return false;
+    		}else{
+    			if(flagCanBeEmpty){
+    				return regexMatch(/^[0-9]{10}$/, value);
+    			}
+    			return regexMatch(/^[0-9]{10}$/, value);
+    		}
     };
 
     this.sin= function(value) {

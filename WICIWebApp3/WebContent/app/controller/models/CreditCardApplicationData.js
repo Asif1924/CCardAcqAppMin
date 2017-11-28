@@ -58,6 +58,7 @@ WICI.CreditCardApplicationData = function() {
 
 	// US4282
 	var homePhone = null;
+	var mobilePhone = null;
 	
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
@@ -89,6 +90,10 @@ WICI.CreditCardApplicationData = function() {
 		homePhone = argHomePhone;
 	};
 	
+	this.setMobilePhone = function(argMobilePhone) {
+		mobilePhone = argMobilePhone;
+	};
+	
 	this.setAccountApplicationResponse = function(argResponseObject) {
 		accountApplicationResponse = argResponseObject;
 	};
@@ -99,6 +104,10 @@ WICI.CreditCardApplicationData = function() {
 	
 	this.getHomePhone = function() {
 		return homePhone;
+	};
+	
+	this.getMobilePhone = function() {
+		return mobilePhone;
 	};
 	
 	this.getAccountApplicationResponse = function() {
@@ -144,6 +153,37 @@ WICI.CreditCardApplicationData = function() {
 				case 'APPROVED': returnValue = 'APPROVED'; break;
 				default: break;
 			}
+		}
+		return returnValue;
+	};
+	
+	// US4709
+	this.getAppResponseConsentGranted = function() {
+	
+		var returnValue = '';
+		var respAn = new WICI.PollingResponseAnalyzer();
+		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
+			returnValue = respAn.getConsentGranted(this.getAccountApplicationResponse());
+		}
+		return returnValue;
+	};
+	
+	this.getAppResponseTransactionID = function() {
+		
+		var returnValue = '';
+		var respAn = new WICI.PollingResponseAnalyzer();
+		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
+			returnValue = respAn.getTransactionID(this.getAccountApplicationResponse());
+		}
+		return returnValue;
+	};
+	
+	this.getAppResponsePAN = function() {
+		
+		var returnValue = '';
+		var respAn = new WICI.PollingResponseAnalyzer();
+		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
+			returnValue = respAn.getPAN(this.getAccountApplicationResponse());
 		}
 		return returnValue;
 	};

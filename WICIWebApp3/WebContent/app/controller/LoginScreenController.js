@@ -104,6 +104,11 @@ WICI.LoginScreenController = function(app) {
                 name: 'rollId',
                 value: null,
                 validation: null
+            }, {
+                notField: true,
+                name: 'enableEnstreamAuth',
+                value: null,
+                validation: null
             }
         ]
     });
@@ -449,6 +454,10 @@ WICI.LoginScreenController = function(app) {
         		model.set('rollId', argResponse.data.roleId);
         	}
         	console.log("WICI Login Response RollID ::"+ model.get('rollId'));
+        	if(argResponse.data.enableEnstreamAuth != null) {
+        		model.set('enableEnstreamAuth', argResponse.data.enableEnstreamAuth);
+        	}
+        	console.log("WICI Login Response enableEnstreamAuth ::"+ model.get('enableEnstreamAuth'));
             app.accountProfileHelper.initialize(argResponse.data.roles,argResponse.data.roleId);
         }
 
@@ -494,8 +503,10 @@ WICI.LoginScreenController = function(app) {
         loginHelper.setLoginResponseObject(argResponse);
 
         new WICI.LoadingIndicatorController().hide();
-        //messageDialog.error( translator.translateKey("loginScreen_FailureMessage"), translator.translateKey("loginScreen_Dialog_ErrorTitle"), enableLoginCredentialsFieldsAndFocusAgentIDField);
+        // US4744
         messageDialog.error(translator.translateKey(loginHelper.getBundleCodeForErrorMessage()), translator.translateKey("loginScreen_Dialog_ErrorTitle"), enableLoginCredentialsFieldsAndFocusAgentIDField);
+        //messageDialog.error( translator.translateKey("loginScreen_FailureMessage"), translator.translateKey("loginScreen_Dialog_ErrorTitle"), enableLoginCredentialsFieldsAndFocusAgentIDField);
+        
     }
     // ---------------------------------------------------------------------------------------
     function respondToUserLocationLookup(argResponse) {
