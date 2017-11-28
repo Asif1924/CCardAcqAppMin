@@ -482,6 +482,9 @@ public class AccountApplicationRequestTypeConverter
 
 				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
+			    argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
+				
+				
 				// Moved to EmailInfo model
 				// argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				// argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));

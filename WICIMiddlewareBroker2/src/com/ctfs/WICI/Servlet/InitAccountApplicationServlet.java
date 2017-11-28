@@ -66,14 +66,14 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String sMethod = this.getClass().getName() + "[queueAccountApplicationRequest] ";
 		log.info(sMethod);
 
-		String transactionID = "";		
+		String transactionID = "";
 		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);	
 		
 		AuthorizationHelper authorizationHelper = new AuthorizationHelper();
 
 		AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
 
-		//US3125 - Sep 16th 2014 Release
+		//US3125 - Sep 16th 2014 Release consentGranted
 		log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
 		String serialNumber=null;
 		if (values.getMfgSerial() != null) {
@@ -86,7 +86,6 @@ public class InitAccountApplicationServlet extends WICIServlet
 			//transactionID = (String) dbInsertionResponse.getData();
 			transactionID = (String) dbInsertionResponse.getAccountApplicationRequestType().getExternalReferenceId();
 			WICIResponse databaseResponse = new WICIResponse(false, AppConstants.QUEUE_REQUEST_SUBMIT, transactionID);
-						
 			final AccountApplicationRequestType aaObject = dbInsertionResponse.getAccountApplicationRequestType();
 			
 			// Update response
@@ -125,6 +124,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 		DatabaseResponse databaseResponse = null;
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
 		String employerId = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employerID");
+		String unitNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("suiteunit");
+		String streetNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("streetnumber");
+		String streetName= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("addressline1");
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
 		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
@@ -132,6 +134,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData,tabSerialNum,authfieldCheckEnable);
 		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString(aaObject);
 		String transactionID = aaObject.getExternalReferenceId();
+		String consentGranted = aaObject.getEnstreamConsent();
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
 		String currentTelephone = aaObject.getCurrentTelephoneNumber();
 		try
@@ -139,11 +142,11 @@ public class InitAccountApplicationServlet extends WICIServlet
 			if (employerId != null && employerId.equalsIgnoreCase("E")
 					|| !authfieldCheckEnable) {
 				wicidbHelper.insertAccountApplicationData(transactionID,
-						userID, requestData, retrievalToken, currentTelephone);
+						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName);
 			} else {
 				wicidbHelper.insertAccountApplicationData(transactionID,
 						(employerId + userID), requestData, retrievalToken,
-						currentTelephone);
+						currentTelephone,consentGranted,unitNumber,streetNumber,streetName);
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}

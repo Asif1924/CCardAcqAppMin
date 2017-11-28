@@ -115,7 +115,6 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			accountApplicationSubmissionResponse = new WICIDBHelper().retrieveAccountApplicationResponse(argTransactionID);
 
 			retrieveResponse = new WICIResponse(false, accountApplicationSubmissionResponse.getTransactionState(), accountApplicationSubmissionResponse);
-			 
 			//For logging purposes only
 			Gson gson = new Gson();
 			String printedResponse = gson.toJson(retrieveResponse, WICIResponse.class);	

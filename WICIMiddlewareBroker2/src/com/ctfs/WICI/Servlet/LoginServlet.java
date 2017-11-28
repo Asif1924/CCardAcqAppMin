@@ -66,6 +66,8 @@ public class LoginServlet extends WICIServlet
 		WICIResponse appResponse = new WICIResponse();
 		WICILoginResponse loginResponse = new WICILoginResponse();
 		boolean authfieldCheckEnable=false; 
+	    boolean enableEnstreamAuth = false; 
+		String CONFIG_NAME_ENABLE_ENSTREAM_AUTH = "ENABLE_ENSTREAM_AUTH"; 
 
 		try
 		{
@@ -84,6 +86,9 @@ public class LoginServlet extends WICIServlet
 			log.info("Employer Id Valid returned value :: " + employerIDValid);
 			String roleId=null;
 			// US4231
+			
+			
+			
 			if(employerID != "" && employerID != null) {
 				if (!"E".equalsIgnoreCase(employerID.toUpperCase())) {
 					try {
@@ -138,7 +143,9 @@ public class LoginServlet extends WICIServlet
 				LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
 				loginResponse = loginInvocationHelper.checkLocation(userLocation, derivedUserID);
 				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
-				
+				WICIDBHelper wicidbhelper = new WICIDBHelper();	
+				enableEnstreamAuth = wicidbhelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_ENSTREAM_AUTH);
+				loginResponse.setEnableEnstreamAuth(enableEnstreamAuth);
 				try {
 					WICIDBHelper wicidbHelper = new WICIDBHelper();
 					LoginInfo logonInfo = new LoginInfo();

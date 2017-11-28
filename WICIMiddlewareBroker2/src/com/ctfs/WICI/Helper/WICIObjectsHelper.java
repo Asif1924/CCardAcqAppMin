@@ -287,7 +287,7 @@ public class WICIObjectsHelper
 			mangledPendAARequest.setCreditLimit(pAARequest.getCreditLimit());
 			mangledPendAARequest.setCustomerValueInd(pAARequest.getCustomerValueInd());
 			mangledPendAARequest.setExpiryDate(pAARequest.getExpiryDate());
-			
+			mangledPendAARequest.setEncryptedPan(pAARequest.getEncryptedPan());
 			mangledPendAARequest.setAccountReference(null);
 			mangledPendAARequest.setExternalReferenceId(null);
 			mangledPendAARequest.setApplicationId(null);
@@ -339,5 +339,21 @@ public class WICIObjectsHelper
 		unretrievableResponse.setMsg("UNRETRIEVABLE");
 		return unretrievableResponse;
 	}
+	public String accountApplicationSerializeAccount(Object obj) throws Exception
+	{
+		String sMethod = this.getClass().getName() + "[accountApplicationSerializeAccount] ";
+		log.info(sMethod);
+
+		String accountApplicationReturnValue = "";
+		com.thoughtworks.xstream.XStream accountApplicationParser = new com.thoughtworks.xstream.XStream();
+
+		accountApplicationReturnValue = accountApplicationParser.toXML(obj);
+//		accountApplicationReturnValue = accountApplicationReturnValue.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+		accountApplicationReturnValue = accountApplicationReturnValue.replace("<accountNumber>", "");
+		accountApplicationReturnValue = accountApplicationReturnValue.replace("</accountNumber>", "");
+		log.log(Level.FINE, sMethod + "accountApplicationReturnValue:" + accountApplicationReturnValue);
+		return accountApplicationReturnValue;
+	}
+	
 
 }

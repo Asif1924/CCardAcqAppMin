@@ -1,5 +1,14 @@
 package com.ctfs.WICI.Helper;
 
+import static com.ctfs.WICI.AppConstants.ACTIVATED;
+import static com.ctfs.WICI.AppConstants.AGENT_FOUND_MSG;
+import static com.ctfs.WICI.AppConstants.AGENT_NOT_FOUND;
+import static com.ctfs.WICI.AppConstants.AGENT_NOT_FOUND_MSG;
+import static com.ctfs.WICI.AppConstants.DELETE_AGENT_FOUND;
+import static com.ctfs.WICI.AppConstants.SEARCH_AGENT_FOUND;
+import static com.ctfs.WICI.AppConstants.SUPER_ADMIN;
+import static com.ctfs.WICI.AppConstants.UPDATE_AGENT_FOUND;
+
 import java.io.Reader;
 import java.io.StringReader;
 import java.sql.Connection;
@@ -14,6 +23,7 @@ import javax.naming.NamingException;
 
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.AppConstants;
+import com.ctfs.WICI.Model.AccountApplicationSubmissionRequest;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.DictionaryInfo;
 import com.ctfs.WICI.Model.LoginInfo;
@@ -30,7 +40,6 @@ import com.ctfs.WICI.dblayer.ConfigurationTableEntity;
 import com.ctfs.WICI.dblayer.interfaces.IConfigurationTableEntity;
 import com.ctfs.WICI.exception.DuplicateAgentIDException;
 import com.google.gson.Gson;
-import static com.ctfs.WICI.AppConstants.*;
 
 public class WICIDBHelper
 {
@@ -51,6 +60,10 @@ public class WICIDBHelper
 // AUTHFIELD_CHECK_ENABLED
 	static final String TRANSACTION_TYPE = "ACCOUNTAPPLICATION";
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yy");
+	
+	
+
+
 	protected Connection connectToDB(boolean enableAutoCommit) throws SQLException, NamingException
 	{
 		if (mockedConnection != null)
@@ -728,14 +741,14 @@ public class WICIDBHelper
 		return agentIdExistsFlag;
 	}
 
-	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone) throws Exception
+	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName) throws Exception
 	{
 		String sMethod = "[insertAccountApplicationData] ";
-		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone);
+		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
 
 		// Create sql statement
-		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE)"
-				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?)";
+		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER,STREET_NAME)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?)";
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -758,7 +771,10 @@ public class WICIDBHelper
 
 			preparedStatement.setString(6, retrievalToken);
 			preparedStatement.setString(7, currentTelephone);
-			
+			preparedStatement.setString(8, consentGranted);
+			preparedStatement.setString(9, unitNumber);
+			preparedStatement.setString(10, streetNumber);
+			preparedStatement.setString(11, streetName);
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1195,7 +1211,7 @@ public class WICIDBHelper
 		AccountApplicationSubmissionResponse submissionResponse = new AccountApplicationSubmissionResponse();
 		
 		// Create sql statement
-		String sql = "SELECT TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_TYPE = ? AND TRANSACTION_STATE IN ( ?,? )";
+		String sql = "SELECT TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_TYPE = ? AND TRANSACTION_STATE IN ( ?,? )";
 		log.info(sMethod + "::SQL::" + sql);
 
 		Connection connection = null;
@@ -1234,6 +1250,9 @@ public class WICIDBHelper
 				submissionResponse.setResponseData(responseData);
 				
 				submissionResponse.setRetrievalToken(resultSet.getString("RETRIEVAL_TOKEN"));
+				submissionResponse.setCurrentTelephone(resultSet.getString("CURRENT_TELEPHONE"));
+				submissionResponse.setConsentGranted(resultSet.getString("CONSENT_GRANTED"));
+				submissionResponse.setExternalReferencId(argTransactionID);
 				
 			}
 		}
@@ -1722,6 +1741,58 @@ public class WICIDBHelper
 		}
 		return roleId;
 	}
+
+	public AccountApplicationSubmissionRequest retrieveAccountApplicationRequest(
+			String argTransactionID) throws Exception {
+		String sMethod = "[retrieveAccountApplicationRequest] ";
+		log.info(sMethod + "::Called with parameter TRANSACTION_ID="
+				+ argTransactionID);
+		AccountApplicationSubmissionRequest accountApplicationRequest= new AccountApplicationSubmissionRequest();
+
+		// Create sql statement
+		String sql = "SELECT  REQUEST_DATA, CONSENT_GRANTED, ADM_APP_ID, UNIT_NUMBER, STREET_NUMBER, STREET_NAME, TRANSACTION_STATE FROM "
+				+ WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ?";
+		log.info(sMethod + "::SQL::" + sql);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, argTransactionID);
+			
+			// Get only the first row from the table
+			preparedStatement.setMaxRows(1);
+
+			// Execute a query
+			resultSet = preparedStatement.executeQuery();
+
+			// Extract data from result set
+			while (resultSet.next()) {
+				// Retrieve accountApplication request
+
+				String requestDataString = resultSet.getString("REQUEST_DATA");
+				//log.info("the requestDataString .."+requestDataString);
+				accountApplicationRequest.setConsentGranted(resultSet.getString("CONSENT_GRANTED"));
+				accountApplicationRequest.setAdmAppId(resultSet.getString("ADM_APP_ID"));
+				accountApplicationRequest.setUnitNumber(resultSet.getString("UNIT_NUMBER"));
+				accountApplicationRequest.setStreetNumber(resultSet.getString("STREET_NUMBER"));
+				accountApplicationRequest.setStreetName(resultSet.getString("STREET_NAME"));
+				accountApplicationRequest.setTransactionState(resultSet.getString("TRANSACTION_STATE"));
+				accountApplicationRequest.setRequestString(requestDataString);
+
+			}
+		} catch (Exception ex) {
+			 ex.printStackTrace();
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return accountApplicationRequest;
+	}
+	
 }
 
 

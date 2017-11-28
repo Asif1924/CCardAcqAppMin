@@ -51,7 +51,7 @@ public class ReceiptCustomerInfoHelper
 		populatedCustomerInformationOfReceipt.setIdentityWatch(validateNotNullString(prepareIdentityWatchYesNo(validateNotNullString(insuranceCode), preferredLanguage)));
 
 		populatedCustomerInformationOfReceipt.setStoreNumber( validateNotNullString(""+storeNumber) );
-
+	
 		return populatedCustomerInformationOfReceipt;
 	}
 
@@ -212,5 +212,5 @@ public class ReceiptCustomerInfoHelper
 		
 		populatedCCAData.models.add(chooseProductModel);
 	}
-
+	
 }

@@ -89,6 +89,12 @@ public class PendAccountApplicationRequest
 	{
 		this.maskedPAN = maskedPAN;
 	}
+	public String getEncryptedPan() {
+		return encryptedPan;
+	}
+	public void setEncryptedPan(String encryptedPan) {
+		this.encryptedPan = encryptedPan;
+	}
 	String 	externalReferenceId;
 	String 	applicationId;
 	String 	accountReference;
@@ -100,5 +106,7 @@ public class PendAccountApplicationRequest
 	String 	appStatus;
 	String	customerValueInd;
 	String	maskedPAN; //US3692
+	String  encryptedPan; // US4709
+	
 	
 }

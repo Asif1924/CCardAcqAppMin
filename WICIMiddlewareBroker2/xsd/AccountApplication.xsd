@@ -1744,6 +1744,14 @@
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
+			<xsd:element name="encryptedPan" maxOccurs="1"
+				minOccurs="0" type="xsd:base64Binary">
+				<xsd:annotation>
+					<xsd:documentation>
+						Symmetrically encrpyted card number.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 

@@ -2,9 +2,11 @@
 package com.ctc.ctfs.channel.accountacquisition;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
@@ -564,8 +566,18 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "tuSessionID",
     "tuExamResult",
     "emailConsentFlag",
+    "enstreamConsent",
+    "msisdn",
+    "admAppId",
+    "pan",
+    "unitNumber",
+    "streetName",
+    "streetNumber",
+    "transactionState",
+    "deviceType",
     "requestedCreditLimit" //US3270 Feb 17th, 2015
 })
+@XmlRootElement(name="AccountApplicationRequest") 
 public class AccountApplicationRequestType
     implements Serializable
 {
@@ -739,8 +751,53 @@ public class AccountApplicationRequestType
     protected String tuExamResult;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String emailConsentFlag;
-    
-    protected Integer requestedCreditLimit;  //US3270 Feb 17th, 2015
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String enstreamConsent;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String msisdn;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String pan;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String admAppId;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String unitNumber;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String streetName;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String streetNumber;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String transactionState;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String deviceType;
+    /**
+	 * @return the msisdn
+	 */
+	public String getMsisdn() {
+		return msisdn;
+	}
+
+	/**
+	 * @param msisdn the msisdn to set
+	 */
+	public void setMsisdn(String msisdn) {
+		this.msisdn = msisdn;
+	}
+
+	/**
+	 * @return the enstreamConsent
+	 */
+	public String getEnstreamConsent() {
+		return enstreamConsent;
+	}
+
+	/**
+	 * @param enstreamConsent the enstreamConsent to set
+	 */
+	public void setEnstreamConsent(String enstreamConsent) {
+		this.enstreamConsent = enstreamConsent;
+	}
+
+	protected Integer requestedCreditLimit;  //US3270 Feb 17th, 2015
     
     /**
      * Gets the value of the externalReferenceId property.
@@ -999,6 +1056,48 @@ public class AccountApplicationRequestType
     }
 
     /**
+	 * @return the unitNumber
+	 */
+	public String getUnitNumber() {
+		return unitNumber;
+	}
+
+	/**
+	 * @param unitNumber the unitNumber to set
+	 */
+	public void setUnitNumber(String unitNumber) {
+		this.unitNumber = unitNumber;
+	}
+
+	/**
+	 * @return the streetName
+	 */
+	public String getStreetName() {
+		return streetName;
+	}
+
+	/**
+	 * @param streetName the streetName to set
+	 */
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+
+	/**
+	 * @return the streetNumber
+	 */
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	/**
+	 * @param streetNumber the streetNumber to set
+	 */
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	/**
      * Gets the value of the middleInitial property.
      * 
      * @return
@@ -1360,6 +1459,20 @@ public class AccountApplicationRequestType
     }
 
     /**
+	 * @return the admAppId
+	 */
+	public String getAdmAppId() {
+		return admAppId;
+	}
+
+	/**
+	 * @param admAppId the admAppId to set
+	 */
+	public void setAdmAppId(String admAppId) {
+		this.admAppId = admAppId;
+	}
+
+	/**
      * Gets the value of the currentCountry property.
      * 
      * @return
@@ -2800,6 +2913,48 @@ public class AccountApplicationRequestType
     public void setRequestedCreditLimit(Integer value) {
         this.requestedCreditLimit = value;
     }
+
+	/**
+	 * @return the pan
+	 */
+	public String getPan() {
+		return pan;
+	}
+
+	/**
+	 * @param pan the pan to set
+	 */
+	public void setPan(String pan) {
+		this.pan = pan;
+	}
+
+	/**
+	 * @return the transactionState
+	 */
+	public String getTransactionState() {
+		return transactionState;
+	}
+
+	/**
+	 * @param transactionState the transactionState to set
+	 */
+	public void setTransactionState(String transactionState) {
+		this.transactionState = transactionState;
+	}
+
+	/**
+	 * @return the deviceType
+	 */
+	public String getDeviceType() {
+		return deviceType;
+	}
+
+	/**
+	 * @param deviceType the deviceType to set
+	 */
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
+	}
     
 
 }

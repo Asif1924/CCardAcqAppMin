@@ -14,6 +14,7 @@ import com.channel.ctfs.ctc.webicgateway.RequestBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
 import com.channel.ctfs.ctc.webicgateway.StatusType;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupRequest;
 import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupResponse;
 import com.ctfs.WICI.Helper.AddressLookupHelper;
@@ -112,4 +113,7 @@ public class AddressLookupServlet extends WICIServlet
 		
 		return appResponse;
 	}
+
+	
+	
 }

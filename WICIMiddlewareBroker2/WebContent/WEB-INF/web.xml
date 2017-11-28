@@ -90,6 +90,13 @@
 		<servlet-name>AgentServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.AgentServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>InstantIssuanceServlet</display-name>
+		<servlet-name>InstantIssuanceServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.InstantIssuanceServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>/AddressLookup</url-pattern>
@@ -97,6 +104,10 @@
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InstantIssuanceServlet</servlet-name>
+		<url-pattern>/InstantIssuance</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AgentServlet</servlet-name>

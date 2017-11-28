@@ -96,5 +96,16 @@ public class AccountApplicationHelper
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(externalRefId);
 		return retrievalToken;
 	}
+	//  serialize the request for call sharedservices
+	public String serializeRequestStr(Object obj) throws Exception
+	{
+		String sMethod = this.getClass().getName() + "[serializeRequestStr] ";
+		log.info(sMethod);
+
+		WICIObjectsHelper wiciObjectsHelper = new WICIObjectsHelper();
+		return (wiciObjectsHelper.accountApplicationSerializeAccount(obj));
+	}
+	
+	
 
 }

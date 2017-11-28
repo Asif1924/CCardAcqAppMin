@@ -103,6 +103,6 @@ public class ReceiptCustomerInfo
 	String insuranceCode;
 	String creditProtector;
 	String identityWatch;
-	String storeNumber;		
+	String storeNumber;
 	
 }

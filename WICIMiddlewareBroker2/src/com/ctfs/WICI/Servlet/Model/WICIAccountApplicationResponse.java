@@ -22,7 +22,16 @@ public class WICIAccountApplicationResponse
 		return appStatus;
 	}
 	
+	String encryptedPan;
 	
+	public String getEncryptedPan() {
+		return encryptedPan;
+	}
+
+	public void setEncryptedPan(String encryptedPan) {
+		this.encryptedPan = encryptedPan;
+	}
+
 	String	maskedPAN; //US3692
 	public String getMaskedPAN()
 	{
@@ -63,6 +72,15 @@ public class WICIAccountApplicationResponse
 		catch (Exception e)
 		{
 			result.accountNumber = null;
+		}
+		
+		try
+		{
+			result.encryptedPan = Base64.encodeBase64String(entity.getEncryptedPan());
+		}
+		catch (Exception e)
+		{
+			result.encryptedPan = null;
 		}
 
 		try

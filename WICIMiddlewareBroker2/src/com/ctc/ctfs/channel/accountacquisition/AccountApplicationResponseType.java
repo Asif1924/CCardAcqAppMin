@@ -90,7 +90,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "cashAPR",
     "appStatus",
     "customerValueInd",
-    "maskedPAN"
+    "maskedPAN",
+    "encryptedPan",
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -108,8 +109,32 @@ public class AccountApplicationResponseType
     protected String appStatus;
     protected String customerValueInd;
     protected String maskedPAN;
+    protected byte[] encryptedPan;
+   
 
     /**
+     * Gets the value of the EncryptedPan property.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
+     */
+    public byte[] getEncryptedPan() {
+		return encryptedPan;
+	}
+
+    /**
+     * Sets the value of the EncryptedPan property.
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
+     */
+	public void setEncryptedPan(byte[] encryptedPan) {
+		this.encryptedPan = encryptedPan;
+	}
+
+	/**
      * Gets the value of the accountNumber property.
      * 
      * @return
@@ -322,4 +347,5 @@ public class AccountApplicationResponseType
         this.maskedPAN = value;
     }
 
+	
 }

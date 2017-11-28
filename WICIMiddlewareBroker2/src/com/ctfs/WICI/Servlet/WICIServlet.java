@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.WICI.Configuration.EnvironmentConfiguration;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIPortalProxyFactory;
@@ -23,7 +24,7 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 	private 				static 			final 		long 			serialVersionUID 		= 3551571714724114885L;
 	protected				static 						Logger			log						= Logger.getLogger(WICIServlet.class.getName());
 	public static final String EMPTY_STRING = "";
-
+	public static final String HYPHEN_SYMBOL = "-";
 	public WICIServlet() {
 	}
 
@@ -138,6 +139,13 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
 		return wiciConfigurationFactory.createWebServicesConfiguration();
 	}
+	public WICIConfiguration getSharedServicesEndpoint(){
+		String sMethod = this.getClass().getName() + "[getSharedServicesEndpoint] ";
+		log.info(sMethod + "---Sharedserviceendpoint");
+
+		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
+		return wiciConfigurationFactory.createSharedServicesConfiguration();
+	}
 
 	public AccountAcquisitionPortalProxy getWICIWebServicesProxy(){
 		String sMethod = this.getClass().getName() + "[getWICIWebServicesProxy] ";
@@ -146,5 +154,14 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
 		return wiciPortalProxyFactory.createWICIWebServicesPortalProxy();
 	}
+	
+     public SharedWebServicesSOAPProxy getWICISharedServicesProxy(){
+		String sMethod = this.getClass().getName() + "[getWICIWebSharedServicesProxy] ";
+		log.info(sMethod + "---getting web sharedservices portal proxy");
+
+		WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
+		return wiciPortalProxyFactory.createWICIWebSharedServicesPortalProxy();
+	}
+	
 
 }
