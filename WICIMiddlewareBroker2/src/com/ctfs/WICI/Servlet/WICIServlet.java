@@ -141,7 +141,7 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 	}
 	public WICIConfiguration getSharedServicesEndpoint(){
 		String sMethod = this.getClass().getName() + "[getSharedServicesEndpoint] ";
-		log.info(sMethod + "---Sharedserviceendpoint");
+		log.info(sMethod + "---getting web Sharedservice endpoint");
 
 		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
 		return wiciConfigurationFactory.createSharedServicesConfiguration();

@@ -97,7 +97,7 @@ public class AccountApplicationResponseType
     implements Serializable
 {
 
-    protected byte[] accountNumber;
+    protected String accountNumber;
     protected String accountReference;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String expiryDate;
@@ -109,7 +109,7 @@ public class AccountApplicationResponseType
     protected String appStatus;
     protected String customerValueInd;
     protected String maskedPAN;
-    protected byte[] encryptedPan;
+    protected String encryptedPan;
    
 
     /**
@@ -119,7 +119,7 @@ public class AccountApplicationResponseType
      *     possible object is
      *     byte[]
      */
-    public byte[] getEncryptedPan() {
+    public String getEncryptedPan() {
 		return encryptedPan;
 	}
 
@@ -130,7 +130,7 @@ public class AccountApplicationResponseType
      *     allowed object is
      *     byte[]
      */
-	public void setEncryptedPan(byte[] encryptedPan) {
+	public void setEncryptedPan(String encryptedPan) {
 		this.encryptedPan = encryptedPan;
 	}
 
@@ -141,7 +141,7 @@ public class AccountApplicationResponseType
      *     possible object is
      *     byte[]
      */
-    public byte[] getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
@@ -152,8 +152,8 @@ public class AccountApplicationResponseType
      *     allowed object is
      *     byte[]
      */
-    public void setAccountNumber(byte[] value) {
-        this.accountNumber = ((byte[]) value);
+    public void setAccountNumber(String value) {
+        this.accountNumber = ((String) value);
     }
 
     /**

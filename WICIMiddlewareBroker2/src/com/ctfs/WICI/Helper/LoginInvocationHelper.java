@@ -120,7 +120,13 @@ public class LoginInvocationHelper
 		WICICheckLocationResponse userLocationResponse = new WICICheckLocationResponse();
 		WebICCheckLocationRequest checkLocationRequest = new WebICCheckLocationRequest();
 		checkLocationRequest.setLocationID(userLocation);
+		
 		userLocationResponse = attemptUserLocationCheck(checkLocationRequest);
+		
+		if( userLocationResponse != null && userLocationResponse.getOutletProvince() != null && userLocationResponse.getOutletProvince().equalsIgnoreCase("NF"))
+		{
+			userLocationResponse.setOutletProvince("NL");
+		}
 		loginResponse.setCheckLocation(userLocationResponse);
 		String message = "SUCCESSFUL Authentication and authorization for user " + argDerivedUserID;
 		loginResponse.setRoles(getFMRRolesJSON());

@@ -341,6 +341,49 @@ public class WICIDBHelper
 		return enabled;
 	}
 
+	public boolean isAuthfieldCheckEnabledforWebicGateway(String config)
+	{
+		String sMethod = "[isAuthfieldCheckEnabledforWebicGateway] ";
+		log.info(sMethod);
+
+		boolean enabled = false;
+
+		String sql = "SELECT CONFIG_NAME, CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, config);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next())
+			{
+				enabled = new Boolean(resultSet.getString("CONFIG_VALUE"));
+				System.out.println("Enabled"+enabled);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			enabled = false;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return enabled;
+	}
+	
 	public String getAirwatchDFNSearchPrefix()
 	{
 		String sMethod = "[getAirwatchDFNSearchPrefix] ";

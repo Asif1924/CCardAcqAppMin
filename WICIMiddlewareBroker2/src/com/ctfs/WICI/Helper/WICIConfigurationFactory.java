@@ -79,28 +79,7 @@ public class WICIConfigurationFactory
 		String sMethod = this.getClass().getName() + "[SharedServicesConfiguration] ";
 		log.info(sMethod);
 
- /*     Old Code - US3537	WICI - Externalize WICIMiddlewareBroker Configuration   
 		WICIConfiguration conf = new WICIConfiguration();
-		String webservicesEndPoint = getEndpointFromConfigurationFile();
-		QName serviceName = new QName("http://www.ctc.ctfs.channel.com/WebICGateway/", "WebICGateway");
-		String accountApplicationDelay = getAccountApplicationDelayFromConfigurationFile();
-
-		conf.setWebservicesEndpoint(webservicesEndPoint);
-		conf.setServiceName(serviceName);
-
-		try
-		{
-			conf.setAccountApplicationDelay(Integer.parseInt(accountApplicationDelay));
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + "---error setting AccountApplicationDelay: " + e.getMessage());
-		}
-*/
-		
-		//New Code Begin - US3537	WICI - Externalize WICIMiddlewareBroker Configuration
-		WICIConfiguration conf = new WICIConfiguration();
-//		QName serviceName = new QName("http://www.ctc.ctfs.channel.com/WebICGateway/", "WebICGateway");
 		QName serviceName = new QName("http://web.sharedservices.ctfs.com/SharedWebServices/", "SharedWebServices");
 				
 		   	    
@@ -123,7 +102,6 @@ public class WICIConfigurationFactory
 		{
 			log.warning(sMethod + "---error setting AccountApplicationDelay: " + e.getMessage());
 		}
-		// New code End
 
 		log.info(sMethod + "---WebServices endpoint set to " + conf.getWebservicesEndpoint());
 		log.info(sMethod + "---ServiceName set to " + conf.getServiceName());

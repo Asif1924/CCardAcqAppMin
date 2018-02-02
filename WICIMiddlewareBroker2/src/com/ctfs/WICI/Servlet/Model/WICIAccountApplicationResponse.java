@@ -67,7 +67,7 @@ public class WICIAccountApplicationResponse
 
 		try
 		{
-			result.accountNumber = Base64.encodeBase64String(entity.getAccountNumber());
+			result.accountNumber = entity.getAccountNumber();
 		}
 		catch (Exception e)
 		{
@@ -76,7 +76,7 @@ public class WICIAccountApplicationResponse
 		
 		try
 		{
-			result.encryptedPan = Base64.encodeBase64String(entity.getEncryptedPan());
+			result.encryptedPan = entity.getEncryptedPan();
 		}
 		catch (Exception e)
 		{

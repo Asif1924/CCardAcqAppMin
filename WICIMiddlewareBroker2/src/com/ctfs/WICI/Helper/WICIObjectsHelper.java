@@ -28,6 +28,7 @@ import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationResponse;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
+import com.ctfs.WICI.Model.WebIcMQRespVO;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
@@ -145,7 +146,40 @@ public class WICIObjectsHelper
 		}
 		return result;
 	}
+	
+	public WebIcMQRespVO deserializeXMLToAccountApplicationResponseObjectforSS(String xmlStr)
+	{
+		String sMethod = this.getClass().getName() + "[deserializeXMLToAccountApplicationResponseObject] ";
+		log.info(sMethod);
 
+		xmlStr = xmlStr.replace("tns:", "");
+		WebIcMQRespVO deserializedAccountApplicationResponseObject = new WebIcMQRespVO();
+		XStream xstream = new XStream(new DomDriver());
+
+		xstream.alias("WebIcMQRespVO", WebIcMQRespVO.class);
+		xmlStr = xmlStr.replaceAll("cashApr>", "cashAPR>");
+		deserializedAccountApplicationResponseObject = (WebIcMQRespVO) xstream.fromXML(xmlStr);
+
+		return deserializedAccountApplicationResponseObject;
+	}
+
+	public String deserializeXMLToAccountApplicationResponseString(String xmlStr)
+	{
+		String sMethod = this.getClass().getName() + "[deserializeXMLToAccountApplicationResponseString] ";
+		log.info(sMethod);
+		
+		xmlStr = xmlStr.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+		String deserializedAccountApplicationResponseObject = null;
+
+		xmlStr = xmlStr.replaceAll("<tokenNumber>", "");
+		xmlStr = xmlStr.replaceAll("</tokenNumber>", "");
+		xmlStr = xmlStr.replaceAll("<accountNumber>", "");
+		xmlStr = xmlStr.replaceAll("</accountNumber>", "");
+		deserializedAccountApplicationResponseObject = xmlStr;
+
+		return deserializedAccountApplicationResponseObject;
+	}
+	
 	public AccountApplicationResponseType deserializeXMLToAccountApplicationResponseObject(String xmlStr)
 	{
 		String sMethod = this.getClass().getName() + "[deserializeXMLToAccountApplicationResponseObject] ";
