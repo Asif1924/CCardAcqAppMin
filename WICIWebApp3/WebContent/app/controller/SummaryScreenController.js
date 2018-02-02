@@ -453,7 +453,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     }*/
     
     //---------------------------------------------------------------------------------------
-	    function printCoupon() {
+	function printCoupon() {
 		var sMethod = 'printCoupon() ';
 		console.log(logPrefix + sMethod);
 		try {
@@ -573,7 +573,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
 		    	activationItems.setNewAccountApplicationResponse(argResponse);		    	
 		    	
-		    	var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+		    	var pendScreenInfo = { isPendToApproved:false,fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
 		    	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
 		    	app.navigationController.adhocPrintDemoScreen.init(flow);
 		    	// app.navigationController.adhocPrintDemoScreen.show();
@@ -634,7 +634,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
          	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(respdummy));
         	activationItems.setNewAccountApplicationResponse(respdummy);
              
-            var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(respdummy),accountApplicationResponse:respdummy };
+            var pendScreenInfo = { isPendToApproved:false,fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(respdummy),accountApplicationResponse:respdummy };
         	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
         	app.navigationController.adhocPrintDemoScreen.init(flow);
         	app.navigationController.adhocPrintDemoScreen.show();

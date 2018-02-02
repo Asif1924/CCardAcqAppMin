@@ -459,7 +459,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     	    app.navigationController.adhocPrintDemoScreen.show();   			
     	}*/
     	    	
-    	var pendScreenInfo = { fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+    	var pendScreenInfo = { isPendToApproved:true,fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
     	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
     	app.navigationController.adhocPrintDemoScreen.init(flow);
     	app.navigationController.adhocPrintDemoScreen.show();

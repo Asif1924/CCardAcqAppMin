@@ -59,6 +59,8 @@ WICI.CreditCardApplicationData = function() {
 	// US4282
 	var homePhone = null;
 	var mobilePhone = null;
+	// US4797
+	var consentGranted = null;
 	
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
@@ -90,6 +92,10 @@ WICI.CreditCardApplicationData = function() {
 		homePhone = argHomePhone;
 	};
 	
+	this.setConsentGranted = function(argConsentGranted) {
+		consentGranted = argConsentGranted;
+	};
+	
 	this.setMobilePhone = function(argMobilePhone) {
 		mobilePhone = argMobilePhone;
 	};
@@ -104,6 +110,10 @@ WICI.CreditCardApplicationData = function() {
 	
 	this.getHomePhone = function() {
 		return homePhone;
+	};
+	
+	this.getConsentGranted = function() {
+		return consentGranted;
 	};
 	
 	this.getMobilePhone = function() {

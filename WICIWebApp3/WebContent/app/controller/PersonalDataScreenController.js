@@ -97,8 +97,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         province_prev:      '#personalData_PreviousAddress_Province_TextField',
         
         // US4709
-        secondaryPhoneRadioButton       :   '#secondaryphoneRadioButton',
-        primaryPhoneRadioButton         :   '#primaryphoneRadioButton',
+        homePhoneRadioGroup     	    :   '#primaryPhoneRadioGroup',
+        cellPhoneRadioGroup		        :   '#secondaryPhoneRadioGroup',
+        consentYesOrNoRadioButton       :   '#consentYesOrNoRadioButton',
         yes_CheckField					:	'#yes_CheckField',
         nothanks_CheckField				:	'#nothanks_CheckField',
         primaryMobile_CheckField		:	'#primaryMobile_CheckField',
@@ -242,7 +243,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 validation : {
                     type : 'phone',
                     message : 'personalData1_validation_cellPhone',
-                    canBeEmpty : false,
+                    canBeEmpty : true,
                     group: [ 1 ]
                 }
             }, {
@@ -253,9 +254,44 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     message : 'personalData1_validation_correspondence',
                     group: [ 1 ]
                 }
-            },            
-            { name: 'consentGranted',     value: null, validation: null },
+            }, {
+                name : 'homePhoneRadioGroup',
+                value : null,
+                validation : {
+                    type : 'termsAndConditions',
+                    message : 'personalData1_validation_primaryRadio',
+                    canBeEmpty : false,
+                    group: [ 1 ]
+                }
+            }, {
+                name : 'cellPhoneRadioGroup',
+                value : null,
+                validation : {
+                    type : 'termsAndConditions',
+                    message : 'personalData1_validation_secondaryRadio',
+                    canBeEmpty : true,
+                    group: [ 1 ]
+                }
+            }, {
+                name : 'consentYesOrNoRadioButton',
+                value : null,
+                validation : {
+                    type : 'termsAndConditions',
+                    message : 'personalData1_validation_MobilePaymentYesOrNo',
+                    canBeEmpty : true,
+                    group: [ 1 ]
+                }
+            },
+            
+            { name: 'consentGranted',     		 value: null, validation: null },
             { notField:true, name: 'MSISDN',     value: null, validation: null },
+            { notField: true, name: 'primaryMobile_CheckField',       value: null },
+            { notField: true, name: 'primaryLandline_CheckField',     value: null },
+            { notField: true, name: 'secondaryLandline_CheckField',   value: null },
+            { notField: true, name: 'secondaryMobile_CheckField',     value: null },
+            
+            { notField: true, name: 'yes_CheckField',   value: null },
+            { notField: true, name: 'nothanks_CheckField',     value: null },
             ]
     });
     var addressModel = new WICI.BaseModel({
@@ -480,93 +516,65 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
         console.log(logPrefix + sMethod + " age :: after sync:: " + currModel.get('age'));
         
-        // US4709
+        currModel.set('primaryMobile_CheckField',      $(refs.primaryMobile_CheckField).is(':checked') ? 'Y' : 'N');
+        currModel.set('primaryLandline_CheckField',    $(refs.primaryLandline_CheckField).is(':checked') ? 'Y' : 'N');
+        currModel.set('secondaryLandline_CheckField',  $(refs.secondaryLandline_CheckField).is(':checked') ? 'Y' : 'N');
+        currModel.set('secondaryMobile_CheckField',    $(refs.secondaryMobile_CheckField).is(':checked') ? 'Y' : 'N');                
+        
+        currModel.set('homePhoneRadioGroup', isPrimaryPhoneSelected(currModel));
+        currModel.set('cellPhoneRadioGroup', isSecondaryPhoneSelected(currModel));
+                
         //currModel.set('email', $(refs.email).val());
+        //currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
+        //currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
+
         var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
         var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
         
-        console.log(logPrefix + sMethod + " secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
-       
-        if(($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "")) && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod +" 4 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked') + 
-    				" secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', primaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);
-    	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 5 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked') + 
-    				" secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', primaryPhone);
-    	} else if(($(refs.primaryLandline_CheckField).is(':checked')) && (primaryPhone !== "") && ($(refs.secondaryMobile_CheckField).is(':checked')) && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 6 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked')
-    				+ " secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', primaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);
-    	} else if(($(refs.primaryMobile_CheckField).is(':checked')) && (primaryPhone !== "")  && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 7 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked')
-    				+ " secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', primaryPhone);
-    	} else if($(refs.secondaryMobile_CheckField).is(':checked') && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod +" 8 : secondary mobile  mobile checked :"+ $(refs.secondaryMobile_CheckField).is(':checked')+ "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);
-    	} else if($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod + " 2 :  primaryPhone : "+primaryPhone + " primary landline checked  :" +$(refs.primaryLandline_CheckField).is(':checked'));
-    		currModel.set('homePhone', primaryPhone);
-    		// this is for confirmation screen
-    		currModel.set('cellPhone', "");
-    	} else if($(refs.secondaryLandline_CheckField).is(':checked') && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod + " 3 : secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked'));
-    		currModel.set('homePhone', secondaryPhone);
-    		// this is for confirmation screen
-    		currModel.set('cellPhone', "");
-    	} else if($(refs.primaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone === "")) {
+        if(!$(refs.mobilePayments).hasClass('hideElement')){
+        	currModel.set('yes_CheckField',  $(refs.yes_CheckField).is(':checked') ? 'Y' : 'N');
+            currModel.set('nothanks_CheckField',    $(refs.nothanks_CheckField).is(':checked') ? 'Y' : 'N');
+            currModel.set('consentYesOrNoRadioButton', isConsentGrantedSelected(currModel));
+        }
+        
+        currModel.set('homePhone', primaryPhone);
+        currModel.set('cellPhone', secondaryPhone);
+        console.log(logPrefix + sMethod + " model home phone :: " + currModel.get('homePhone'));
+        console.log(logPrefix + sMethod + " model cell phone :: " + currModel.get('cellPhone'));
         	
-        	console.log(logPrefix + sMethod + "  1  : secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
-        	currModel.set('homePhone', primaryPhone);
-        	currModel.set('cellPhone', primaryPhone);
-    	}
-        console.log(logPrefix + sMethod + " model home phone :: " +currModel.get('homePhone'));
-        console.log(logPrefix + sMethod + " model cell phone :: " +currModel.get('cellPhone'));
         // This logic is for filtering the mobile number entered in UI
         // Only for sending to Enstream request
+        // Reprint logic for saving number is added here
         if(primaryPhone !== "") {
-        	if($(refs.primaryMobile_CheckField).is(':checked')) {
-        		activationItems.setMobilePhone(primaryPhone);
-            }
+        	activationItems.setHomePhone(currModel.get('homePhone'));
+        		if($(refs.primaryMobile_CheckField).is(':checked')) {
+        			activationItems.setMobilePhone(primaryPhone);
+        		}
         }
         if(secondaryPhone !== "") {
-        	if($(refs.secondaryMobile_CheckField).is(':checked')) {
-        		activationItems.setMobilePhone(secondaryPhone);
-            }
+        	activationItems.setHomePhone(currModel.get('cellPhone'));
+        		if($(refs.secondaryMobile_CheckField).is(':checked')) {
+        			activationItems.setMobilePhone(secondaryPhone);
+        		}
         }
         if(primaryPhone !== "" && secondaryPhone !== "") {
-        	if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')) {
-        		activationItems.setMobilePhone(primaryPhone);
-            }
+        	activationItems.setHomePhone(currModel.get('homePhone'));
+        		if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')) {
+        			activationItems.setMobilePhone(primaryPhone);
+        		}
         }
         console.log(logPrefix + sMethod + " Mobile Number :: " + activationItems.getMobilePhone());
         
-        // US4282
-        activationItems.setHomePhone(currModel.get('homePhone'));
-
+		// US4282
+        //activationItems.setHomePhone(currModel.get('homePhone'));
+        console.log(logPrefix + sMethod + " PersonalData HomePhone : " + activationItems.getHomePhone());
+        
         if($(refs.yes_CheckField).is(':checked')) {
         	currModel.set('consentGranted', 'Y');
-        }
-        if($(refs.nothanks_CheckField).is(':checked')) {
+        } else if($(refs.nothanks_CheckField).is(':checked')) {
         	currModel.set('consentGranted', 'N');
         }
-        // US4709
-        if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.homePhone).val() !== '' && $(refs.secondaryMobile_CheckField).is(':checked') && $(refs.cellPhone).val() === '' ){
-        	console.log(logPrefix + sMethod+ "consentGranted : N" );
-        	currModel.set('consentGranted', 'N');
-        }
-        // US4709
-        if($(refs.secondaryLandline_CheckField).is(':checked') && $(refs.cellPhone).val() !== '' && $(refs.primaryMobile_CheckField).is(':checked') && $(refs.homePhone).val() === '' ){
-        	console.log(logPrefix + sMethod+ "consentGranted : N" );
-        	currModel.set('consentGranted', 'N');
-        }
+        
         // US4709 new condition for storing radio 
         if($(refs.primaryMobile_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ) {
      		console.log(logPrefix + sMethod + " Either of Mobile is checked ");
@@ -575,9 +583,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
      		console.log(logPrefix + sMethod + " Either of landline is checked ");
      		hideElement();
      		currModel.set('consentGranted', 'N');
-     	}
- 		// Hide Mobile payments section
-     	else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
+     	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
      		console.log(logPrefix + sMethod + " Both Landline is checked ");
      		hideElement();
      	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') ) {
@@ -595,9 +601,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
          
         // US4709 
         if($(refs.mobilePayments).hasClass('hideElement')){
-        		currModel.set('consentGranted', 'N');
+        	currModel.set('consentGranted', 'N');
         }
         console.log(logPrefix + sMethod + " PersonalData consentGranted : " + currModel.get('consentGranted'));
+        
+        // US4797
+        activationItems.setConsentGranted(currModel.get('consentGranted'));
+        console.log(logPrefix + sMethod + " activationItems.getConsentGranted() : " + activationItems.getConsentGranted());
         
         currModel = models.addressModel;
 
@@ -634,11 +644,26 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
     }
     // ---------------------------------------------------------------------------------------
+    function isPrimaryPhoneSelected (currentModel) {
+        return  currentModel.get('primaryMobile_CheckField') == 'Y' ||
+        currentModel.get('primaryLandline_CheckField') == 'Y';
+    }
+    // ---------------------------------------------------------------------------------------
+    function isSecondaryPhoneSelected (currentModel) {
+        return currentModel.get('secondaryLandline_CheckField') == 'Y' ||
+        currentModel.get('secondaryMobile_CheckField') == 'Y';
+    }
+ // ---------------------------------------------------------------------------------------
+    function isConsentGrantedSelected(currentModel) {
+        return (currentModel.get('consentGranted') !== 'Y' &&
+        currentModel.get('consentGranted') !== 'N');
+    }
+    
+    // ---------------------------------------------------------------------------------------
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
-        app.validationDecorator.clearErrArrtibute();
-        
+
         var currModel = models.personalDataModel;
         
         $(refs.loyaltyMembershipNumber).val(currModel.get('loyaltyMembershipNumber'));
@@ -816,26 +841,31 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         $(refs.primaryLandline_CheckField).change(function(event) {
             console.log(refs.primaryLandline_CheckField + '::change');
+            setConsentFlag(true);
             showHideMobilePayments();
         });
         
         $(refs.primaryMobile_CheckField).change(function(event) {
             console.log(refs.primaryMobile_CheckField + '::change');
+            setConsentFlag(false);
             showHideMobilePayments();
         });
         
         $(refs.secondaryLandline_CheckField).change(function(event) {
             console.log(refs.secondaryLandline_CheckField + '::change');
+            setConsentFlag(true);
             showHideMobilePayments();
         });
         
         $(refs.secondaryMobile_CheckField).change(function(event) {
             console.log(refs.secondaryMobile_CheckField + '::change');
+            setConsentFlag(false);
             showHideMobilePayments();
         });
         
         $(refs.yes_CheckField).change(function(event) {
             console.log(refs.yes_CheckField + '::change');
+            setConsentFlag(true);
             if($(refs.yes_CheckField).is(':checked') === 'Y') {
             	currModel.set('consentGranted', 'Y');
             }
@@ -843,6 +873,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         $(refs.nothanks_CheckField).change(function(event) {
             console.log(refs.nothanks_CheckField + '::change');
+            setConsentFlag(true);
             if($(refs.nothanks_CheckField).is(':checked') === 'Y') {
             	currModel.set('consentGranted', 'N');
             }
@@ -1221,199 +1252,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	// No validation for apt/suit/unit field for aptFlag No.
         }
     }
-    // US4709
-  //---------------------------------------------------------------------------------------
-    function validatePhoneNumber(argHomePhone , argCellPhone) {
-    	var sMethod = "validatePhoneNumber() :: ";
-    	var primaryPhone = argHomePhone.replace(/-/g, '');
-    	var secondaryPhone = argCellPhone.replace(/-/g, '');
-    	console.log(logPrefix + sMethod + "primaryPhone : " + primaryPhone + " secondaryPhone :: "+secondaryPhone); 
-    	console.log(logPrefix + sMethod + "argHomePhone : " + argHomePhone + " argCellPhone :: "+argCellPhone); 
-    	var canBeEmptyFlagH = true;
-    	var canBeEmptyFlagC= true;
-    	
-    	var validationResultH;
-        var validationResultC;
-    	
-    	if((primaryPhone === null || primaryPhone === "null" || primaryPhone === "" ) && (secondaryPhone === null || secondaryPhone === "null" || secondaryPhone === "")){
-    		console.log("Both are null ");
-        	$.each(models.personalDataModel.data, function(index, item) {
-				if(item.name == "cellPhone") {
-					canBeEmptyFlagC = item.validation.canBeEmpty = true;
-				}
-				if(item.name == "homePhone") {
-					canBeEmptyFlagH = item.validation.canBeEmpty = false;
-				}
-				
-			});
-    		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
-    		if(validationResultH.length === 0) {            	
-                if (app.validationsOn) {
-                    app.validationDecorator.clearErrArrtibute();
-                }
-            }else {
-                if (app.validationsOn) {                	     
-                	app.validationDecorator.applyErrAttribute(validationResultH);
-                	app.validationDecorator.focusControl(refs.idnumbers);
-                	return;
-                }
-            }
-        } else {
-	        if(primaryPhone !== "" && secondaryPhone !== ""){
-	            var validHP =  models.personalDataModel.isPhone_valid(primaryPhone);
-	            var validCP = models.personalDataModel.isPhone_valid(secondaryPhone);
-	        	console.log("validHP :: " + validHP + " validCP :: " + validCP);
-	            	
-	        	if(!validCP && !validHP){
-	        		console.log("validHP :: " + validHP + " validCP :: " + validCP + "BOTH are not valid");
-	        		$.each(models.personalDataModel.data, function(index, item) {
-	    				if(item.name == "cellPhone") {
-	    					canBeEmptyFlagC = item.validation.canBeEmpty = false;
-	    				}
-	    				if(item.name == "homePhone") {
-	    					canBeEmptyFlagH = item.validation.canBeEmpty = false;
-	    				}
-	    			});
-	        		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
-	        		
-	        		if(validationResultH.length === 0) {
-	                    if (app.validationsOn) {
-	                        app.validationDecorator.clearErrArrtibute();
-	                    }
-	                }else {
-	                  if (app.validationsOn) {
-	                    	app.validationDecorator.applyErrAttribute(validationResultH);
-	                  }
-	                }
-	        		
-	        		validationResultC = models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
-	        		
-	        		if(validationResultC.length === 0) {
-	                    if (app.validationsOn) {
-	                        app.validationDecorator.clearErrArrtibute();
-	                    }
-	                } else {
-	                  if (app.validationsOn) {
-	                    	app.validationDecorator.applyErrAttribute(validationResultC);
-	                    	return;
-	                  }
-	                }
-	        	}else if(!validHP && validCP){
-            		console.log("validHP :: " + validHP + " validCP :: " + validCP + "Primary is not valid secondary is valid");
-            		$.each(models.personalDataModel.data, function(index, item) {
-        				if(item.name == "cellPhone") {
-        					canBeEmptyFlagC = item.validation.canBeEmpty = true;
-        				}
-        				if(item.name == "homePhone") {
-        					canBeEmptyFlagH = item.validation.canBeEmpty = false;
-        				}
-        			});
-            		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
-            		
-            		if(validationResultH.length === 0) {
-                        if (app.validationsOn) {
-                            app.validationDecorator.clearErrArrtibute();
-                        }
-                    } else {
-                      if (app.validationsOn) {
-                        	app.validationDecorator.applyErrAttribute(validationResultH);
-                        	return;
-                      }
-                    }
-            	}else if(!validCP && validHP){
-            		console.log("validHP :: " + validHP + " validCP :: " + validCP + " Secondary is not valid primary is valid");
-            		$.each(models.personalDataModel.data, function(index, item) {
-        				if(item.name == "cellPhone") {
-        					canBeEmptyFlagC = item.validation.canBeEmpty = false;
-        				}
-        				if(item.name == "homePhone") {
-        					canBeEmptyFlagH = item.validation.canBeEmpty = true;
-        				}
-        			});
-            		validationResultC = models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
-            		
-            		if(validationResultC.length === 0) {
-                        if (app.validationsOn) {
-                            app.validationDecorator.clearErrArrtibute();
-                        }
-                    }else {
-                      if (app.validationsOn) {
-                        	app.validationDecorator.applyErrAttribute(validationResultC);
-                        	return;
-                      }
-                    }
-            	}
-        } else if(primaryPhone !== "" ){
-        	console.log("validHP :: " + validHP +" primaryPhone  is not null");
-        	var validHP =  models.personalDataModel.isPhone_valid(primaryPhone);
-        	console.log("validHP :: " + validHP);
-        	
-        	$.each(models.personalDataModel.data, function(index, item) {
-				if(item.name == "cellPhone") {
-					canBeEmptyFlagC = item.validation.canBeEmpty = true;
-				}
-				if(item.name == "homePhone") {
-					canBeEmptyFlagH = item.validation.canBeEmpty = false;
-				}
-			});
-        	if(!validHP){
-        		validationResultH = models.personalDataModel.validatePhoneNumberHC('homePhone', canBeEmptyFlagH);
-        		
-        		if(validationResultH.length === 0) {
-                    if (app.validationsOn) {
-                        app.validationDecorator.clearErrArrtibute();
-                    }
-                }else {
-                    if (app.validationsOn) {
-                    	app.validationDecorator.applyErrAttribute(validationResultH);
-                    	return;
-                    }
-                }
-        		
-        	} else{
-        		// home phone is valid 
-        	}
-        } else if(secondaryPhone !== ""){
-        	console.log("validHP :: " + validHP +" secondary   is not null");
-        	var validCP = models.personalDataModel.isPhone_valid(secondaryPhone);
-        	console.log("validCP :: " + validCP);
-        	$.each(models.personalDataModel.data, function(index, item) {
-				if(item.name == "cellPhone") {
-					//canBeEmptyFlagC = item.validation.canBeEmpty = false;
-					if(!validCP){
-						canBeEmptyFlagC = item.validation.canBeEmpty = false;
-					}else{
-						canBeEmptyFlagC = item.validation.canBeEmpty = true;
-					}
-				}
-				if(item.name == "homePhone") {
-					canBeEmptyFlagH = item.validation.canBeEmpty = true;
-				}
-				
-			});
-        	
-        	if(!validCP){
-        		validationResultC =  models.personalDataModel.validatePhoneNumberHC('cellPhone', canBeEmptyFlagC);
-        		
-        		if(validationResultC.length === 0) {
-                    if (app.validationsOn) {
-                        app.validationDecorator.clearErrArrtibute();
-                    }
-                }
-                else {
-                    if (app.validationsOn) {
-                    	app.validationDecorator.applyErrAttribute(validationResultC);
-                    	return;
-                    }
-                }
-        	}else{
-        		// cell phone is valid 
-        	}
-        	
-        }
-        }
-    }
-    
     //---------------------------------------------------------------------------------------
     function validatePrevAddrAptSuitUnit(argAptFlag) {
     	var sMethod = "validatePrevAddrAptSuitUnit() :: ";
@@ -1868,7 +1706,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function showPrevScreen() {
         var sMethod = 'showPrevScreen() ';
         console.log(logPrefix + sMethod);
-        validatePhoneNumber($(refs.homePhone).val(),$(refs.cellPhone).val());
         flow.back();
     }
     // ---------------------------------------------------------------------------------------
@@ -1893,74 +1730,59 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             var currModel = models.addressModel;
             var enteredYears = models.addressModel.get('years');
             var enteredMonthes = models.addressModel.get('months');
-            
-            // US4709
-            validatePhoneNumber($(refs.homePhone).val(),$(refs.cellPhone).val());
-            
-            var secRez = [];
-            var priRez = [];
-            
-            if($(refs.homePhone).val().replace(/-/g, '') !== "" && $(refs.cellPhone).val().replace(/-/g, '') !== ""){
-            	if(!($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.primaryLandline_CheckField).is(':checked')) ){
-            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
-            		priRez[0] = refs.primaryMobile_CheckField;
-            		priRez[1] = refs.primaryLandline_CheckField;
-            		console.log(logPrefix + sMethod + " priRez :: "+ priRez.length);
-            		if(priRez.length>0){
-            			$(refs.primaryPhoneRadioButton).addClass('errorField');
-            			app.validationDecorator.applyNumberIdError(refs.primaryPhoneRadioButton);
-            		}
-            	}
-            	if(!($(refs.secondaryMobile_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) ){
-            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
-            		secRez[0] = refs.secondaryLandline_CheckField;
-            		secRez[1] = refs.secondaryMobile_CheckField;
-            		console.log(logPrefix + sMethod + " secRez :: "+ secRez.length);
-            		if(secRez.length>0){
-            			$(refs.secondaryPhoneRadioButton).addClass('errorField');
-            			app.validationDecorator.applyNumberIdError(refs.secondaryPhoneRadioButton);
-            			return;
-            		}
-            	}
-            }
-            
-            if($(refs.homePhone).val().replace(/-/g, '') !== ""){
-            	if(!($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.primaryLandline_CheckField).is(':checked')) ){
-            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
-            		priRez[0] = refs.primaryMobile_CheckField;
-            		priRez[1] = refs.primaryLandline_CheckField;
-            		console.log(logPrefix + sMethod + " priRez :: "+ priRez.length);
-            		if(priRez.length>0){
-            			$(refs.primaryPhoneRadioButton).addClass('errorField');
-            			app.validationDecorator.applyNumberIdError(refs.primaryPhoneRadioButton);
-            			return;
-            		}
-            	}
-            }
-            
-            if($(refs.cellPhone).val().replace(/-/g, '') !== ""){
-            	if(!($(refs.secondaryMobile_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) ){
-            		//app.validationDecorator.focusControl(refs.secondaryLandline_CheckField);
-            		secRez[0] = refs.secondaryLandline_CheckField;
-            		secRez[1] = refs.secondaryMobile_CheckField;
-            		console.log(logPrefix + sMethod + " secRez :: "+ secRez.length);
-            		if(secRez.length>0){
-            			$(refs.secondaryPhoneRadioButton).addClass('errorField');
-            			app.validationDecorator.applyNumberIdError(refs.secondaryPhoneRadioButton);
-            			return;
-            		}
-            	}
-            }
-            
             // US4112
             // Id validation start here
             valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers);
-        	
+            // US4781
+            // Phone number validation based on canBeEmpty true or false
+            if($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() !== '') {
+            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are not null");
+            	setFlag(false, false);
+            } else if($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() === '') {
+            	console.log(logPrefix + sMethod + "HomePhone is not null and CellPhone is null");
+            	setFlag(false, true);
+            } else if($(refs.homePhone).val() === '' && $(refs.cellPhone).val() !== '') {
+            	console.log(logPrefix + sMethod + "HomePhone is null and CellPhone is not null");
+            	setFlag(true, false);
+            } else if($(refs.homePhone).val() === '' && $(refs.cellPhone).val() === '') {
+            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null");
+            	setFlag(false, true);
+            } 
+            
+            if($(refs.homePhone).val() === '' && 
+            		($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked'))) {
+            	console.log(logPrefix + sMethod + "HomePhone is null and radio button is checked");
+            	setFlag(false, true);
+            } 
+            
+            if($(refs.cellPhone).val() === '' && 
+            		($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked'))) {
+            	console.log(logPrefix + sMethod + "CellPhone is null and radio button is checked");
+            	setFlag(true, false);
+            }
+            
+            if(($(refs.homePhone).val() === '' && $(refs.cellPhone).val() === '') && 
+            		(($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked'))) &&
+            		($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked'))) {
+            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null and homephone radio and cellphone radio are checked");
+            	setFlag(false, false);
+            }
+                 
+            if($(refs.primaryMobile_CheckField).is(':checked') ||  $(refs.secondaryMobile_CheckField).is(':checked')){
+            	if(!$(refs.yes_CheckField).is(':checked') && !$(refs.nothanks_CheckField).is(':checked') && !$(refs.mobilePayments).hasClass('hideElement')){
+            		console.log(logPrefix + sMethod + "setConsentFlag(false)");
+                	setConsentFlag(false);
+            	}else{
+            		console.log(logPrefix + sMethod + "setConsentFlag(true)");
+                	setConsentFlag(true);
+            	}
+            }
+            
             var temprez;
        		// validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
             for (var i = 1; i <= validationGrroupsCol; i++) {
                if (i <= personalDataValidationMax ) {
-            	   temprez = models.personalDataModel.validate(i);
+                    temprez = models.personalDataModel.validate(i);
                } else {
                     temprez = models.addressModel.validate(i);
                }
@@ -2010,12 +1832,14 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-                app.validationDecorator.applyErrAttribute(rez);
                 
+                // US4781
+                app.validationDecorator.applyErrAttribute(rez);
                 // US4112
                 if(!valid){
                 	app.validationDecorator.focusControl(refs.idnumbers);                	
-                } 
+                }
+                syncUserData();
                 return;
             }
             // US4112
@@ -2024,12 +1848,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                  	app.validationDecorator.focusControl(refs.idnumbers);
                  	 return;
                  }
-            	var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
-             	var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
-             	if(primaryPhone === "" && secondaryPhone === "" ){
-             		app.validationDecorator.focusControl(refs.homePhone);
-             		return;
-             	}
             }
 
             var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel);
@@ -2042,11 +1860,49 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 app.validationDecorator.applyErrAttribute(rez, true);
                 return;
             }
+            
+            syncUserData();
         }
-
+        // US4781
+        updatePhoneNumberInModel();
         flow.next();
     }
-
+    // US4781
+    // setting canBeEmpty flag based on the input entered
+    function setFlag(argHomeFlag, argPhoneFlag) {
+    	var sMethod = 'setFlag() ';
+        console.log(logPrefix + sMethod);
+    	$.each(models.personalDataModel.data, function(index, item) {
+    		if(item.name == "homePhone") {
+				item.validation.canBeEmpty = argHomeFlag;
+				console.log(logPrefix + sMethod + " homePhone :: canBeEmpty " + item.validation.canBeEmpty);
+			}
+			if(item.name == "cellPhone") {
+				item.validation.canBeEmpty = argPhoneFlag;
+				console.log(logPrefix + sMethod + " cellPhone :: canBeEmpty " + item.validation.canBeEmpty);
+			}
+			if(item.name == "homePhoneRadioGroup") {
+				item.validation.canBeEmpty = argHomeFlag;
+				console.log(logPrefix + sMethod + " homePhoneRadioGroup :: canBeEmpty " + item.validation.canBeEmpty);
+			}
+			if(item.name == "cellPhoneRadioGroup") {
+				item.validation.canBeEmpty = argPhoneFlag;
+				console.log(logPrefix + sMethod + " cellPhoneRadioGroup :: canBeEmpty " + item.validation.canBeEmpty);
+			}
+		});
+    }
+    // US4781
+    function setConsentFlag(argConsentFlag) {
+    	var sMethod = 'setConsentFlag() ';
+        console.log(logPrefix + sMethod);
+    	$.each(models.personalDataModel.data, function(index, item) {
+    			if(item.name == "consentYesOrNoRadioButton") {
+    				item.validation.canBeEmpty = argConsentFlag;
+    				console.log(logPrefix + sMethod + " consentYesOrNoRadioButton :: canBeEmpty " + item.validation.canBeEmpty);
+    			}    		
+		});
+    }
+    
     function selectDOBFileld() {
         app.validationDecorator.focusControl(refs.birthDate);
     }
@@ -2138,42 +1994,86 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 expiryDate: refs.idExpiryDate
             },
             rez, scanned, prop;
+        // US4451
+        if (parser.checkSupportedID(response.data, ['ANSI']) > 0) {
+        	try {
+                // DE1667
+                rez = parser.parse(response.data);            
+                var idType = JSON.stringify(rez.idType);
+                var idNumber = JSON.stringify(rez.idNumber);
+                var idProvince = JSON.stringify(rez.idProvince);
+                
+                var currModel = models.personalDataModel;
+                
+                if(idType != "null" && idProvince != "null" && idNumber != "null" ) {
+                  if( idProvince.split('"').join('') === "MB" && idType.split('"').join('') === "DR" ) {
+                	  idNumberValue  = idNumber.split('*').join('');
+                	  currModel.set("idnumbers", idNumberValue.split('"').join(''));
+                	  rez.idNumber = currModel.get('idnumbers');
+                  } 
+                }
+                
+                if(idType != "null") {
+                	currModel.set('idtype', idType.split('"').join(''));
+                }
+                
+                if (!containsAny(rez, mapping)) {
+                    throw ('ERROR! Got the empty data.');
+                }
+                
+                for (prop in mapping) {
+                    $(mapping[prop]).val(rez[prop]);
+                }
 
-        try {
-            // DE1667
-            rez = parser.parse(response.data);            
-            var idType = JSON.stringify(rez.idType);
-            console.log( "onScanSuccessCallback : from scanned data : idType : " + idType);
-            
-            var currModel = models.personalDataModel;
-            if(idType != "null") {
-            	currModel.set('idtype', idType.split('"').join(''));
+                // Populate the id-types dropdown and set the id-type.
+                populateIdTypesList(true);
+                $(refs.idtype + ' [value="' + rez.idType + '"]').attr(
+                    'selected', 'selected'
+                );
+                
+                // US4535
+                disableScannedDriversLicenceFields();                       
+            } catch (e) {
+                messageDialog.error(
+                    translator.translateKey('scanID_parsingErrorText'),
+                    translator.translateKey('personalData_Scan_Id_Label'),
+                    $.noop
+                );
             }
-            
-            console.log( "onScanSuccessCallback : from model : idType : " + currModel.get('idtype'));
-            
-            if (!containsAny(rez, mapping)) {
-                throw ('ERROR! Got the empty data.');
-            }
-            for (prop in mapping) {
-                $(mapping[prop]).val(rez[prop]);
-            }
+        } else {
+        	try {
+                rez = parser.parseNewDL(response.data);
+                var idType = JSON.stringify(rez.idType);
+                var idNumber = JSON.stringify(rez.idNumber);
+              
+                var currModel = models.personalDataModel;
+          	    currModel.set("idnumbers", parseInt(idNumber));
+               	currModel.set('idtype', idType.split('"').join(''));
+                
+                if (!containsAny(rez, mapping)) {
+                    throw ('ERROR! Got the empty data.');
+                }
+                
+                for (prop in mapping) {
+                    $(mapping[prop]).val(rez[prop]);
+                }
 
-            // Populate the id-types dropdown and set the id-type.
-            populateIdTypesList(true);
-            $(refs.idtype + ' [value="' + rez.idType + '"]').attr(
-                'selected', 'selected'
-            );
-            
-            // US4535
-            disableScannedDriversLicenceFields();                       
-        } catch (e) {
-            messageDialog.error(
-                translator.translateKey('scanID_parsingErrorText'),
-                translator.translateKey('personalData_Scan_Id_Label'),
-                $.noop
-            );
+                // Populate the id-types dropdown and set the id-type.
+                populateIdTypesList(true);
+                $(refs.idtype + ' [value="' + rez.idType + '"]').attr(
+                    'selected', 'selected'
+                );
+                
+                disableScannedDriversLicenceFields();                       
+            } catch (e) {
+                messageDialog.error(
+                    translator.translateKey('scanID_parsingErrorText'),
+                    translator.translateKey('personalData_Scan_Id_Label'),
+                    $.noop
+                );
+            }
         }
+
     }
 
     // ---------------------------------------------------------------------------------------
@@ -2209,6 +2109,61 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	    $(refs.mobilePayments).addClass('hideElement');
     	}
     }
+    // US4781  
+    // ---------------------------------------------------------------------------------------
+    function updatePhoneNumberInModel()
+    {
+    	var sMethod = "updatePhoneNumberInModel()";
+    	var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
+        var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
+        
+        var currModel = models.personalDataModel;
+    	console.log(logPrefix + sMethod + " secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
+            
+        if(($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "")) && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod +" 4 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked') + 
+    				" secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', primaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);        	        	
+    	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 5 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked') + 
+    				" secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', primaryPhone);
+    	} else if(($(refs.primaryLandline_CheckField).is(':checked')) && (primaryPhone !== "") && ($(refs.secondaryMobile_CheckField).is(':checked')) && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 6 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked')
+    				+ " secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', primaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);
+    	} else if(($(refs.primaryMobile_CheckField).is(':checked')) && (primaryPhone !== "")  && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "")) {
+    		console.log(logPrefix + sMethod +" 7 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked')
+    				+ " secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', primaryPhone);        	        	
+    	} else if($(refs.secondaryMobile_CheckField).is(':checked') && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod +" 8 : secondary mobile  mobile checked :"+ $(refs.secondaryMobile_CheckField).is(':checked')+ "secondaryPhone :: "+secondaryPhone);
+    		currModel.set('homePhone', secondaryPhone);
+        	currModel.set('cellPhone', secondaryPhone);        	        	
+    	} else if($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod + " 2 :  primaryPhone : "+primaryPhone + " primary landline checked  :" +$(refs.primaryLandline_CheckField).is(':checked'));
+    		currModel.set('homePhone', primaryPhone);
+    		// this is for confirmation screen
+    		currModel.set('cellPhone', "");    		    		
+    	} else if($(refs.secondaryLandline_CheckField).is(':checked') && (secondaryPhone !== "") ) {
+    		console.log(logPrefix + sMethod + " 3 : secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked'));
+    		currModel.set('homePhone', secondaryPhone);
+    		// this is for confirmation screen
+    		currModel.set('cellPhone', "");    		    		
+    	} else if($(refs.primaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone === "")) {
+        	
+        	console.log(logPrefix + sMethod + "  1  : secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
+        	currModel.set('homePhone', primaryPhone);
+            currModel.set('cellPhone', primaryPhone);            
+    	}
+    	
+        console.log(logPrefix + sMethod + " model home phone :: " +currModel.get('homePhone'));
+        console.log(logPrefix + sMethod + " model cell phone :: " +currModel.get('cellPhone'));
+    };
     // ---------------------------------------------------------------------------------------
     function showElement(){
     	var sMethod = logPrefix + '[showElement]: ';

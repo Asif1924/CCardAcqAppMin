@@ -88,6 +88,16 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         employerID = activationItems.getModel('loginScreen').get('employerID');
         homePhonePersonalInfo = activationItems.getHomePhone();
         argMSISDN = activationItems.getMobilePhone();
+        // US4797
+        argConsentGranted = activationItems.getConsentGranted();
+        if(argConsentGranted == null) {
+        	argConsentGranted = 'N';
+        }
+        // For pending to approved, there is no Enstream flow for now. 
+        // So checking app from pend screen and making it to N for consent Granted
+        if(argPendScreenInfo && argPendScreenInfo.isPendToApproved){
+       		argConsentGranted = 'N';
+        }
         
         console.log(logPrefix + sMethod + " homePhonePendingInfo : " + activationItems.getHomePhone() + " : " + homePhonePersonalInfo );
         console.log(logPrefix + sMethod + " Mobile Number : " + activationItems.getMobilePhone() );
@@ -100,8 +110,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             expiryDate = respAn.getExpiryDate(activationItems.getNewAccountApplicationResponse());
             argTransactionID = respAn.getTransactionID(activationItems.getNewAccountApplicationResponse());
             // argMSISDN = respAn.getMSISDN(activationItems.getNewAccountApplicationResponse());
-            argConsentGranted = respAn.getConsentGranted(activationItems.getNewAccountApplicationResponse());
-            console.log(logPrefix + sMethod + " argMSISDN : " + argMSISDN + " argConsentGranted : " + argConsentGranted);
+            // argConsentGranted = respAn.getConsentGranted(activationItems.getNewAccountApplicationResponse());
+            console.log(logPrefix + sMethod + " argMSISDN : " + argMSISDN);
             
             model.set('PAN', PAN);
             model.set('expiryDate', expiryDate);

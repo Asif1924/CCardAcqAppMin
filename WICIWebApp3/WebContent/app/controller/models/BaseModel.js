@@ -128,7 +128,7 @@ WICI.BaseModel = function(config) {
                 isError=!validator.emailAddress(value);
                 break;
             case 'phone':
-                isError=!validator.phone(value, validation.canBeEmpty);
+                isError=!validator.phone(value);
                 break;
             case 'sin':
                 isError=!validator.sin(value);
@@ -243,32 +243,7 @@ WICI.BaseModel = function(config) {
     	}
     	return result;
     };
-    
-    // US4709
-    this.validatePhoneNumberHC = function(fieldName, fieldValue)
-    {
-    	console.log('WICI.BaseModel::validatePhoneNumberHC(' + fieldName + " : " + fieldValue + ')');
-    	var result = [];
 
-    	if(fieldName!=='' && fieldValue !== '')
-    	{
-	    	$.each(this.data, function(index, item) {
-	    		if(item.name == fieldName)
-	    		{
-	    			var fieldValidationResult;
-	    			if(!fieldValue) {
-	    				fieldValidationResult= {name: item.name, err: item.validation.message, uiid: refs[item.name]};
-	    			}	    			
-	    			if (fieldValidationResult !== null) {	    				
-	    				result.push(fieldValidationResult);
-	                }
-	    			return false;
-	    		}
-	        });
-    	}    	
-    	return result;
-    };
-    
     // US4168    
     this.calculateAge = function(model) {
     	var fullYears;
@@ -289,12 +264,6 @@ WICI.BaseModel = function(config) {
     this.isEmail_valid = function(email){
     	var pattern = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
     	return pattern.test(email);
-    };
-    
-    // US4709
-    this.isPhone_valid = function(phoneNumberValue){
-      	var pattern = /^[0-9]{10}$/;
-    	return pattern.test(phoneNumberValue);
     };
     // ---------------------------------------------------------------
     this.isUserAgentId_valid = function(userAgentIdValue){

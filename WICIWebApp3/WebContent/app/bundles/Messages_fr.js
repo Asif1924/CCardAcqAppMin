@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_fr =  {
-	version											:							"38",
+	version											:							"39",
 	yes 											: 							"Oui",
 	no                                 				  :                         "Non",
 	cancel  										  : 						"Annuler",
@@ -180,7 +180,7 @@ WICI.dictionary_fr =  {
 	personalData_Mobile								  :							"Cellulaire",
 	personalData_MobilePayments						  :							"Les paiements mobiles sont arrivés!",
 	personalData_MobilePayments_Para1				  :							"Souhaitez-vous configurer Apple Pay<span class=\"MD\"><sup></sup></span> ou Android Pay<span class=\"MC\"><sup></sup></span> dès aujourd’hui si votre demande de carte de crédit est approuvée?",
-	personalData_MobilePayments_Para2				  :							"Si vous sélectionnez OUI!, nous vérifierons que vos informations personnelles et votre numéro de téléphone mobile correspondent aux données de votre fournisseur de services mobiles et échangerons des informations telles que vos informations de compte et le statut du compte mobile.",
+	personalData_MobilePayments_Para2				  :							"En sélectionnant OUI!, vous consentez à ce que la Banque Canadian Tire procède à une vérification de vos renseignements personnels, comme votre nom, votre adresse, votre date de naissance et votre numéro de téléphone mobile auprès de votre fournisseur de services mobiles et vous autorisez votre fournisseur de services mobiles à nous fournir ces renseignements <i><b>(Tenue de compte, type de compte, etc.)</i></b>.  Les renseignements concernant votre compte de téléphonie mobile seront utilisés pour vérifier votre identité et contribueront à notre stratégie de lutte contre la fraude en nous permettant d’effectuer des analyses et des enquêtes.",
 	personalData_MobilePayments_Para3				  :							"Vous recevrez les instructions pour configurer votre appareil lorsque votre demande de carte de crédit sera approuvée. Nous vous enverrons un message texte avec un code de sécurité à 3 chiffres dont vous aurez besoin pour terminer la configuration. Les tarifs standard de messagerie texte et de transmission de données peuvent s’appliquer.",
 	personalData_MobilePayments_Para4				  :							"Tout appareil utilisant Android Kit Kat 4.4 ou une version plus récente",
 	personalData_MobilePayments_Para5				  :							"Tout iPhone 6 ou modèle plus récent",
@@ -362,6 +362,9 @@ WICI.dictionary_fr =  {
 	personalData1_validation_homePhone                :"Entrez un numéro de téléphone (rés.) valide.",
 	personalData1_validation_cellPhone                :"Entrez un numéro de téléphone (cell.) valide.",
 	personalData1_validation_correspondence           :"Entrez une langue de correspondance valide.",
+	personalData1_validation_primaryRadio			  :	'Sélectionnez PrimaryRadio valide',
+    personalData1_validation_secondaryRadio			  :	'Sélectionnez SecondaryRadio valide',
+    personalData1_validation_MobilePaymentYesOrNo	  : 'Select Mobile payment yes or no radio',
 	// US3623
     personalData1_validation_preAddrNotInCanada			: 	'Sélectionnez valide Adresse précédente pas au Canada Oui / Non',
 
@@ -1359,11 +1362,13 @@ WICI.dictionary_fr =  {
 	printScreen_SetUpInsCardNo							:	"Numéro de la carte : ",
 	printScreen_SetUpInsExpiryDate						:	"Date d’expiration : ",
 	printScreen_SetUpInsSecurityCode					:	"Code de sécurité : ",
-	printScreen_SetUpInsSecurityCodeIns					:	"Code à 3 chiffres indiqué dans <br>le message texte provenant <br>du numéro 1 888 XXX XXXX",
+	printScreen_SetUpInsSecurityCodeIns					:	"Code à 3 chiffres indiqué dans <br>le message texte provenant <br>du numéro 1 647 493 1657",
 	printScreen_PayInCompletePara1						:	"Malheureusement, nous ne sommes pas en mesure de lier votre compte avec Apple Pay ou Android Pay pour le moment, mais votre application est approuvée. Vous recevrez votre carte dans les 10 prochains jours ouvrables.",
 	printScreen_PayInCompletePara2						:	"Veuillez essayer de vous inscrire sur Apple Pay ou Android Pay dès que vous recevez votre carte par le poste.",
 	printScreen_PayInCompletePara3						:	"N’oubliez pas que vous pouvez acheter en magasin aujourd’hui avec votre carte temporaire ",
 	printScreen_PayParaSymbol							:	"!",
+	// US4787
+	printScreen_safty_instuction_for_user               :   "Dans le souci de protéger votre sécurité et vos informations<br> personnelles, nous vous prions de ne pas donner votre<br> appareil personnel au préposé aux ventes.",
 
 	// Print screen END ..............................................................
 

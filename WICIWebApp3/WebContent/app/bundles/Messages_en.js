@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
 WICI.dictionary_en =  {
-	version												:	"38",
+	version												:	"39",
 	yes 												: 	"Yes",
 	no 													: 	"No",
 	cancel  											:  	"Cancel",
@@ -182,7 +182,7 @@ WICI.dictionary_en =  {
 	personalData_Mobile									:	"Mobile",	
 	personalData_MobilePayments							:	"Mobile Payments are Here!",
 	personalData_MobilePayments_Para1					:	"Would you like to set up Apple Pay<sup>&reg;</sup> or Android Pay<sup>&trade;</sup> today if your credit card application is approved?",
-	personalData_MobilePayments_Para2					:	"If you select YES!, we will verify that your personal information and mobile number matches the records of your mobile provider and exchange such information as your tenure and mobile account status.",
+	personalData_MobilePayments_Para2					:	"By selecting YES!, you consent to Canadian Tire Bank &#40;&#8220;CTB&#8221;&#41; verifying your personal information &#40;CTB Information&#41; including your name, address, date of birth and mobile number with your mobile service provider &#40;&#8220;MSP&#8221;&#41; and consent to your MSP providing CTB your account information <i><b>&#40;account status, account type, etc.&#41;</i></b>.  The MSP information will be used to verify your identity and to conduct fraud analysis and fraud investigations.",
 	personalData_MobilePayments_Para3					:	"Once you complete your credit card application and if you are approved, you will be provided with instructions to set up your device. We will send you a text message with a 3-digit security code which you will need to complete the setup. Standard message and data rates may apply.",
 	personalData_MobilePayments_Para4					:	"Any Android device running Android Kit Kat 4.4 or above",
 	personalData_MobilePayments_Para5					:	"Any iPhone 6 or newer device",
@@ -370,6 +370,9 @@ WICI.dictionary_en =  {
     personalData1_validation_homePhone					: 	'Enter valid Home Phone',
     personalData1_validation_cellPhone					: 	'Enter valid Cellular Telephone',
     personalData1_validation_correspondence				: 	'Select valid Correspondence',
+    personalData1_validation_primaryRadio				: 	'Select valid PrimaryRadio',
+    personalData1_validation_secondaryRadio				: 	'Select valid SecondaryRadio',
+    personalData1_validation_MobilePaymentYesOrNo	    : 	'Select Mobile payment yes or no radio',
     // US3623
     personalData1_validation_preAddrNotInCanada			: 	'Select valid Previous address not in Canada Yes/No',
 
@@ -1147,11 +1150,13 @@ WICI.dictionary_en =  {
 	printScreen_SetUpInsCardNo							:	"Card Number: ",
 	printScreen_SetUpInsExpiryDate						:	"Expiry Date: ",
 	printScreen_SetUpInsSecurityCode					:	"Security Code: ",
-	printScreen_SetUpInsSecurityCodeIns					:	"3-digit code in a text message <br>from 1-800-XXX-XXXX",
+	printScreen_SetUpInsSecurityCodeIns					:	"3-digit code in a text message <br>from 1-647-493-1657",
 	printScreen_PayInCompletePara1						:	"Unfortunately we are unable to register your account for Apple Pay or Android Pay at this time; however, your application is still approved. You should receive your physical card in 7-10 business days.",
 	printScreen_PayInCompletePara2						:	"Please try to register for Apple Pay or Android Pay once you receive your physical card in the mail.",
 	printScreen_PayInCompletePara3						:	"Remember, you can still shop in-store today with your temporary ",
 	printScreen_PayParaSymbol							:	".",
+	// US4787
+	printScreen_safty_instuction_for_user               :   "To help safeguard your security and personal information,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> please do not pass your personal device to the sales associate.",
 	
 
 	// Print screen END ..............................................................

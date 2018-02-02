@@ -72,6 +72,8 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
 
     var exports = {};
     exports.parse = parse;
+    exports.checkSupportedID = checkSupportedID;
+    exports.parseNewDL = parseNewDL;
     return exports;
 
     // Lets go!!!!
@@ -121,6 +123,25 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         }
 
         return personModel;
+    }
+    
+    // US4451
+    function parseNewDL(data) {
+    	 var personNewDLModel;
+    	 
+         try {
+             personNewDLModel = returnBasePersonModel();
+             
+             // HERE IS WHERE WE WOULD START WORKING WITH
+             // RETURNED VALUE FROM pdf417 PhoneGap plugin
+             // hopefully PDF417 plugin returns similar string value
+
+             finishNewDLPersonModel(personNewDLModel, data);
+         } catch (e) {
+             console.log('could not parse the New DL scan data, got ' + e);
+         }
+
+         return personNewDLModel;
     }
 
     function returnBaseIDDataModel() {
@@ -251,6 +272,8 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                 valItemsFound++;
             }
         }
+        
+        return valItemsFound;
 
         // if found is not = to search array throw an exception.
         // Could have not thrown exception but this is easiest.
@@ -497,6 +520,122 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         pModel.dateOfBirth = transformDate(pModel.dateOfBirth, '-');
         // US4365
         pModel.expiryDate = transformDate(pModel.expiryDate, '-');
+    }
+    // US4451
+    function finishNewDLPersonModel(pModel, data) {
+    	var sMethod = "finishNewDLPersonModel() : ";
+
+        var arr = data.split("?");
+        for (var i=0; i<1; i++) {
+          var trackOne = arr[0];
+          if(trackOne.substr(3,13).indexOf(["^"]) == -1) {
+            trackOne = trackOne.substr(0,16) + "^" + trackOne.substr(16,trackOne.lastIndexOf(''));    
+          }  
+          var trackOneArr = trackOne.split("^");
+          for (var j=0; j<1; j++) {
+            var stateCity = trackOneArr[0];
+            var province = stateCity.substr(1,2);
+            var city = stateCity.substr(3,stateCity.lastIndexOf(''));
+            //console.log("Province : " + province + "\n" + "City : " + city);
+            
+            var middleName = "";
+            var names = trackOneArr[1];
+            var arrNames = names.split("$");
+            for(var l=0; l<1; l++) {
+              var lastName = arrNames[0];
+              var firstName = arrNames[1];
+              if(arrNames[2] != undefined) {
+                  middleName = arrNames[2];
+              }
+              if(lastName.substr(lastName.lastIndexOf('')-1, lastName.lastIndexOf('')).includes(",")) {
+                lastName = lastName.substr(0, lastName.lastIndexOf('')-1);
+              }
+              //console.log("LastName : " + lastName + "\n" + "FirstName : " + firstName + "\n" + "MiddleName : " + middleName);
+            }    
+            
+            var address = trackOneArr[2];            
+            var arrAddress = address.split("$");
+            var unitNumber = "";
+            for(var l=0; l<1; l++) {
+              var houseNumberandStreet = arrAddress[0];      
+              var houseNumber = houseNumberandStreet.substr(0,houseNumberandStreet.indexOf(" "));
+              var streetName = houseNumberandStreet.substr(houseNumberandStreet.indexOf(" ")+1, houseNumberandStreet.lastIndexOf(''));
+              var cityStatePostalcode = arrAddress[1];
+              var postalCode = cityStatePostalcode.substr(cityStatePostalcode.lastIndexOf('')-7,cityStatePostalcode.lastIndexOf(''));
+              if(houseNumber.includes("/")) {
+					var unitNumberArray =  houseNumber.split("/");
+					unitNumber = unitNumberArray[0];
+					houseNumber = unitNumberArray[1];
+			  } else if(houseNumber.includes("-")) {
+					var unitNumberArray =  houseNumber.split("-");
+					unitNumber = unitNumberArray[0];
+					houseNumber = unitNumberArray[1];
+			  }
+              //console.log("Unit Number : " + unitNumber + "\n" + "Street Number : " + houseNumber + "\n" + "Street Name : " + streetName + "\n" + "Postal Code : " + postalCode.replace(' ', ''));
+            }   
+          }
+          
+          var trackTwo = arr[1];  
+          var trackTwoArr = trackTwo.split("=");
+          for(k=0; k<1;k++) {
+            var idNumber = trackTwoArr[0];
+            var expiryDOB = trackTwoArr[1];
+            if(idNumber.substr(0, 1).includes(";")) {
+            	idNumber = idNumber.substr(1, idNumber.lastIndexOf(''));
+            }
+            var provinceCode = idNumber.substr(0,6);
+            var idNumberVal = idNumber.substr(6, idNumber.lastIndexOf('')); 
+            //console.log("ID Number : " + idNumberVal + "\n" + "Province Code : " + provinceCode);    
+          }
+          var year = new Date().getFullYear().toString().substr(0,2);            
+          var expiryDate = year+expiryDOB.substr(0,4)+expiryDOB.substr(expiryDOB.lastIndexOf('')-2,expiryDOB.lastIndexOf(''));
+          var DOB = expiryDOB.substr(4,12);
+          //console.log("Expiry Date : " + expiryDate + "\n" + "DOB : " + DOB);
+        }                       
+        
+        // Last name
+        pModel.lastName = cleanFinalString(lastName);
+        // First name
+        pModel.firstName = cleanFinalString(firstName);
+        // Middle name
+        if (middleName != '') {
+            pModel.middleName_Initial = cleanFinalString(middleName);
+        }
+
+        // Address Finishing
+        // Logic Reference: https://en.wikipedia.org/wiki/Magnetic_stripe_card#cite_note-14 
+        // Go through the United States and Canada driver's licenses section.  We would need to look at track1 and track2 data
+
+        // Street Name
+        pModel.addressLine1_StreetName = streetName;               
+        // Unit/Suite
+        if(unitNumber != '') {
+        	pModel.addressLine1_Unit = cleanFinalString(unitNumber);
+        }
+        
+        // Street Number
+        pModel.addressLine1_CivicStreetNumber = cleanFinalString(houseNumber);            
+        // Now that all parsing is done with addressLine1,
+        pModel.addressLine1 = cleanFinalString(streetName);
+        // Postal code
+        pModel.addressPostal = cleanFinalString(postalCode.replace(' ', ''));
+        // Province
+        pModel.idProvince = provinceCodeLookupMap[provinceCode];
+        pModel.addressProvince = province;
+        // IdNumber
+        pModel.idNumber = idNumberVal;        
+        // City
+        pModel.addressCity = city;
+
+        // ID Type in WICI Standard
+        pModel.idType = "DR";
+        // Gender
+        pModel.gender = "";
+        // Date Of Birth
+        pModel.dateOfBirth = transformDate(DOB, '-');
+        // Expiry Date
+        pModel.expiryDate = transformDate(expiryDate, '-');
+        
     }
 
     // Function to clean a string

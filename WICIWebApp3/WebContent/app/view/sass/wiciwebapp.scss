@@ -603,7 +603,7 @@ table{
   border-spacing: 0;
   width: 100%;
   border: none;
-  padding: 65px 0 10px 0;
+  padding: 40px 0 10px 0;
 }
 
 .printAndroidApplePayTable {
@@ -911,6 +911,19 @@ tr {
 .printPageInsScreenTitle {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20pt;
+  font-color: #000;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.marginForInsScreenTitle{
+  margin-top: -200px;
+  margin-left: 18px;
+}
+
+.printPageInsScreenTitleForUser {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
   font-color: #000;
   font-weight: bold;
 }
@@ -3279,5 +3292,130 @@ p.offer_details_title_3 {
   vertical-align: baseline;
 } 
 
+/* -----  US4800 starts ------ */
+
+/* OMP Android */
+  
+  #ompCard_setUpPageAndroid {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMP.png")};
+    background-repeat: no-repeat;
+    width:125%;
+    background-position: -50px 50px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+
+  #ompCard_setUpPageAndroid.en_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMP.png")};
+  }
+
+  #ompCard_setUpPageAndroid.fr_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMP_FR.png")};
+  }
+  
+  
+  /* OMR  Android */
+  #omrCard_setUpPageAndroid {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMR.png")};
+    background-repeat: no-repeat;
+    width:125%;
+    background-position: -50px 50px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+
+  #omrCard_setUpPageAndroid.en_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMR.png")};
+  }
+
+  #omrCard_setUpPageAndroid.fr_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMR_FR.png")};
+  }
+  
+  /* OMC Android */
+  #omcCard_setUpPageAndroid {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMC_EN.png")};
+    background-repeat: no-repeat;
+    width:125%;
+    background-position: -50px 50px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+
+  #omcCard_setUpPageAndroid.en_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMC_EN.png")};
+  }
+
+  #omcCard_setUpPageAndroid.fr_card {
+    background-image: #{inline_image("AndroidPay_PayScreen_OMC_FR.png")};
+  }
+  
+  /* OMC ios */
+  #omcCard_setUpPageIos{
+    background-image: #{inline_image("ApplePay_PayScreen_OMC_EN.png")};
+    background-repeat: no-repeat;
+    width: 75%;
+    background-position: 0px 80px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+  
+  #omcCard_setUpPageIos.en_card {
+    background-image: #{inline_image("ApplePay_PayScreen_OMC_EN.png")};
+  }
+
+  #omcCard_setUpPageIos.fr_card {
+    background-image: #{inline_image("ApplePay_PayScreen_OMC_FR.png")};
+  }
+  
+  /* OMP  ios */
+  #ompCard_setUpPageIos{
+    background-image: #{inline_image("ApplePay_PayScreen_OMP_EN.png")};
+    background-repeat: no-repeat;
+    width: 75%;
+    background-position: 0px 80px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+  
+  #ompCard_setUpPageIos.en_card {
+    background-image: #{inline_image("ApplePay_PayScreen_OMP_EN.png")};
+  }
+
+  #ompCard_setUpPageIos.fr_card {
+    background-image: #{inline_image("ApplePay_PayScreen_OMP_FR.png")};
+  }
+  
+  /* OMR ios */
+  #omrCard_setUpPageIos{
+    background-image: #{inline_image("ApplePay_PayScreen_EN_OMR.png")};
+    background-repeat: no-repeat;
+    width: 75%;
+    background-position: 0px 80px;
+    background-size: 100%;
+    height: 720px;
+    display: block;
+  }
+  
+  #omrCard_setUpPageIos.en_card {
+    background-image: #{inline_image("ApplePay_PayScreen_EN_OMR.png")};
+  }
+
+  #omrCard_setUpPageIos.fr_card {
+    background-image: #{inline_image("ApplePay_PayScreen_FR_OMR.png")};
+  }
+  
+  .marginOL{
+    margin-top: 0px;
+  }
+  
+  /*
+  
+/* ------- US4800 ----------- */
  /* new css ends */
  

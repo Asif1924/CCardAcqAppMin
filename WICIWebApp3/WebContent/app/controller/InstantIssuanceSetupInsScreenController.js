@@ -13,6 +13,7 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
     
     var creditCardNumber = "";
     var expiryDate = "";
+    var chooseProductModel = null;
     
     this.show = show;
     this.hide = hide;
@@ -44,7 +45,8 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
         flow = argFlow;
         messageDialog = argMessageDialog; 	//(AA)Dependency Injection Principle: Allows for proper unit testing
         translator = argTranslator; 		//(AA)Dependency Injection Principle: Allows for proper unit testing
-
+        
+        chooseProductModel = activationItems.getModel('chooseProductModel');
         try {
 			var isDevice = new WICI.DeviceDetectionHelper().any();
 	
@@ -62,7 +64,6 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
         getFormattedExpirydate();
         
         createView();
-        imageToggle();
         alignSecurityCode();
         bindEvents();
         syncUserData();
@@ -117,6 +118,9 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
 
         $screenContainer.addClass("breadcrumbPadding");
         $screenContainer.addClass("pageHeaderPadding");
+        
+        // US4800
+        toggleImage();
     }
 
     // ---------------------------------------------------------------------------------------
@@ -173,9 +177,18 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
         
         $.subscribe('translatorFinished',function(){
         	console.log('Language :: change');
-        	imageToggle();
+        	toggleImage();
         	alignSecurityCode();
         });
+        
+        // US4800
+        updateOmpCardLanguageAndroid();
+        updateOmrCardLanguageAndroid();
+        updateOmcCardLanguageAndroid();
+        
+        updateOmpCardLanguageIos();
+        updateOmrCardLanguageIos();
+        updateOmcCardLanguageIos();
     }
     
     function handleLogout(){
@@ -212,13 +225,88 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
 		return expiryDate = argExpiryDate.substring(argExpiryDate.length - 2, argExpiryDate.length)+"/"+argExpiryDate.substring(0, argExpiryDate.length - 2);
 	}
 	
-	function imageToggle() {
-		var img = $(refs.image);
-        var src = img.prop('src');
-        var lang = translator.getCurrentLanguage();
-        img.prop('src', src.replace(src.slice(-6, -4), lang));
-	}
-	
+	// ---------------------------------------------------------------------------------------
+    function toggleImage() {
+    	var sMethod = " :: toggleImage() :: ";
+    	console.log(logPrefix + sMethod);
+        if(chooseProductModel.get('productCard') === "OMC"){
+        	updateOmcCardLanguageAndroid();
+        	updateOmcCardLanguageIos();
+        }else if(chooseProductModel.get('productCard') === "OMP"){
+        	updateOmpCardLanguageAndroid();
+        	updateOmpCardLanguageIos();        	
+        }else if(chooseProductModel.get('productCard') === "OMR"){
+        	updateOmrCardLanguageAndroid();
+        	updateOmrCardLanguageIos();
+        }
+    }
+	// US4800 
+    function updateOmpCardLanguageAndroid() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#ompCard_setUpPageAndroid").removeClass("fr_card");
+            $("#ompCard_setUpPageAndroid").addClass("en_card");
+        } else {
+            $("#ompCard_setUpPageAndroid").removeClass("en_card");
+            $("#ompCard_setUpPageAndroid").addClass("fr_card");
+        }
+    }
+    
+    function updateOmrCardLanguageAndroid() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#omrCard_setUpPageAndroid").removeClass("fr_card");
+            $("#omrCard_setUpPageAndroid").addClass("en_card");
+        } else {
+            $("#omrCard_setUpPageAndroid").removeClass("en_card");
+            $("#omrCard_setUpPageAndroid").addClass("fr_card");
+        }
+    }
+    
+    function updateOmcCardLanguageAndroid() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#omcCard_setUpPageAndroid").removeClass("fr_card");
+            $("#omcCard_setUpPageAndroid").addClass("en_card");
+        } else {
+            $("#omcCard_setUpPageAndroid").removeClass("en_card");
+            $("#omcCard_setUpPageAndroid").addClass("fr_card");
+        }
+    }
+    
+    function updateOmcCardLanguageIos() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#omcCard_setUpPageIos").removeClass("fr_card");
+            $("#omcCard_setUpPageIos").addClass("en_card");
+        } else {
+            $("#omcCard_setUpPageIos").removeClass("en_card");
+            $("#omcCard_setUpPageIos").addClass("fr_card");
+        }
+    }
+    
+    function updateOmrCardLanguageIos() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#omrCard_setUpPageIos").removeClass("fr_card");
+            $("#omrCard_setUpPageIos").addClass("en_card");
+        } else {
+            $("#omrCard_setUpPageIos").removeClass("en_card");
+            $("#omrCard_setUpPageIos").addClass("fr_card");
+        }
+    }
+    
+    function updateOmpCardLanguageIos() {
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#ompCard_setUpPageIos").removeClass("fr_card");
+            $("#ompCard_setUpPageIos").addClass("en_card");
+        } else {
+            $("#ompCard_setUpPageIos").removeClass("en_card");
+            $("#ompCard_setUpPageIos").addClass("fr_card");
+        }
+    }
+    
 	function alignSecurityCode() {
 		var sMethod = 'alignSecurityCode() ';
 	    console.log(logPrefix + sMethod);
