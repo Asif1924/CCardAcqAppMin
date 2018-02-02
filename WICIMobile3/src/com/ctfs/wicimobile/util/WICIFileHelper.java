@@ -23,6 +23,7 @@ public class WICIFileHelper {
     public final static String PrintOutMockupProvinceSuffix = "_555";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
     public final static String PrintOutMockupMarkssuffix = "_MARKS";
+    public final static String PrintOutMockupFGLsuffix = "_FGL";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
     String templateName, templateFileName;
     
@@ -212,34 +213,39 @@ public class WICIFileHelper {
 	                // Set suffix for correspondence language
 	                templateName += "_{lang}";
 	                
-	                if (cardType.equalsIgnoreCase("OMC") &&
-	                	((province.equalsIgnoreCase("QC") ||
-	                	  province.equalsIgnoreCase("PE") ||
-	                	  province.equalsIgnoreCase("NL") ||
-	                	  province.equalsIgnoreCase("NB") ||
-	                	  province.equalsIgnoreCase("NS")))) {
-	//                	cardType += PrintOutMockupQCProvinceSuffix;
+	                // US4644
+	                if(isCardTypeOMCForProvince(cardType,province)){
+	                    // cardType += PrintOutMockupQCProvinceSuffix;
 	                	templateName += PrintOutMockupProvinceSuffix + PrintOutMockupCouponSuffix;
-	                }else {
+	                }else{
 	                	templateName += PrintOutMockupCouponSuffix;
 	                }
-	        	}else {
+	        	}
+	        	// US4644
+	        	// WICI - Print out an FGL coupon
+	        	else if(storeNo >= 4000 && storeNo <= 5999){
+	
+	        		templateName = "PrintOutMockup_" + cardType + PrintOutMockupFGLsuffix;
+	                         
+	                // Set suffix for correspondence language
+	                templateName += "_{lang}";
+	                
+	                if (cardType.equalsIgnoreCase("OMC")) {
+	                	templateName += PrintOutMockupCouponSuffix;
+	                }
+	        	} else {
 	        		templateName = "PrintOutMockup_" + cardType;
 	                
 	                // Set suffix for correspondence language
 	                templateName += "_{lang}";
 	                
-	                if (cardType.equalsIgnoreCase("OMC") &&
-	                	((province.equalsIgnoreCase("QC") ||
-	                	  province.equalsIgnoreCase("PE") ||
-	                	  province.equalsIgnoreCase("NL") ||
-	                	  province.equalsIgnoreCase("NB") ||
-	                	  province.equalsIgnoreCase("NS")))) {
-	//                	cardType += PrintOutMockupQCProvinceSuffix;
-	                	templateName += PrintOutMockupProvinceSuffix + PrintOutMockupCouponSuffix;
-	                }else {
-	                	templateName += PrintOutMockupCouponSuffix;
-	                }                       		
+	                // US4644
+	                if(isCardTypeOMCForProvince(cardType,province)){
+	                   // cardType += PrintOutMockupQCProvinceSuffix;
+		               templateName += PrintOutMockupProvinceSuffix + PrintOutMockupCouponSuffix;	
+	                }else{
+	            	   templateName += PrintOutMockupCouponSuffix;
+	                }
 	        	}
         	}        
 	        	
@@ -322,6 +328,19 @@ public class WICIFileHelper {
                 connection.close();
             }
         }        
+    }
+    
+    public boolean isCardTypeOMCForProvince(String cardType , String province){
+    	if (cardType.equalsIgnoreCase("OMC") &&
+            	((province.equalsIgnoreCase("QC") ||
+            	  province.equalsIgnoreCase("PE") ||
+            	  province.equalsIgnoreCase("NL") ||
+            	  province.equalsIgnoreCase("NB") ||
+            	  province.equalsIgnoreCase("NS")))) {
+    		return true;	
+    	} else {
+    		return false;
+    	}
     }
     
     private String DecryptAccountNumber (Context context, String cryptedAccountNumber) {
