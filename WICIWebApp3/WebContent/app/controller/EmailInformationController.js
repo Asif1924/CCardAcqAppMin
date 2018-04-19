@@ -171,13 +171,13 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         	console.log(logPrefix + sMethod + "receiveemail_optin :: ");
             clearRadios('receiveEmail');
             $(refs.receiveemail_optin).addClass('ui-btn-active');
-            model.set('receiveEmail', 'N');
+            model.set('receiveEmail', 'Y');
         });
         $(refs.receiveemail_optout).click(function() {
         	console.log(logPrefix + sMethod + "receiveemail_optout :: ");
             clearRadios('receiveEmail');
             $(refs.receiveemail_optout).addClass('ui-btn-active');
-            model.set('receiveEmail', 'Y');
+            model.set('receiveEmail', 'N');
         });
 
         $.subscribe('translatorFinished',function(){
