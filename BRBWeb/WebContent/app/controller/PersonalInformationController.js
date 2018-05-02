@@ -143,16 +143,19 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		blockNameEmploymentInformation	:	'employmentInformation',
     		blockFinancialInformation		:	'financialInformation',
     		breadcrumbTrailArea				:	'#PersonalInformationScreen #BreadcrumbTrailArea1',
+    		steps2                          :   '#PersonalInformationScreen #steps2',
     		personalInformation_YearID		:	'#personalInformation_YearID',
     		personalInformation_AddressSince_YearID		:	'#personalInformation_AddressSince_YearID',
-    		personalInformation_EmployerSince_YearID		:	'#personalInformation_EmployerSince_YearID'
+    		personalInformation_EmployerSince_YearID		:	'#personalInformation_EmployerSince_YearID',
+            personalInformation_Horizontal_Line_1  : '#Page_2_HR_line_1',
+            personalInformation_Horizontal_Line_2  : '#Page_2_HR_line_2'
     };
     
     var model = new BRB.BaseModel({
         name: 'personalInformation',
         refs: refs, 
         data:[
-                {name: 'title',         			value: null, validation: {type: 'presence', message: 'personalInformation_TitleError', group: [1]}},
+                {name: 'title',         			value: null, validation: null},
                 {name: 'loyaltyMembershipNumber',   value: null, validation: {type: 'minSize', message: 'personalInformation_LoyaltyMembershipNumberError', canBeEmpty: true, minlength: 16, group: [1]}},
                // {name: 'loyaltyMembershipNumberPrefix',   value:null, validation: {type: 'minSize', message: 'personalInformation_LoyaltyMembershipNumberPreError', minlength: 6, group: [1]}},
                 {notField:true, name: 'loyaltyMembershipNumberInternal',  value: null, validation: null },
@@ -227,7 +230,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         
         if(!argPopup) {
         	BRB.AppConfig.TrackingScreenID = 3;
-        }        
+        } 
+        
+        cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
         
         flow = argFlow;  
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
@@ -275,7 +281,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			// Work around IE8 page-proofs issue
 			updatePageStylesheet(true);			
 		}
+		
 		toggle10XImege();
+		toggleHeader();
+		
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -398,6 +407,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
        // $(refs.loyaltyMembershipNumberPrefix).val(model.get('loyaltyMembershipNumberPrefix'));
         restoreSinceYearsField();
         toggle10XImege();
+        toggleHeader();
 	}
 	
 	function restoreSinceYearsField() {
@@ -564,13 +574,20 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         }
         
         var sinceYears =  tmp;
+        var todaysDate = new Date();
         var sinceMonths = $(refs.sinceMonths).val() === 'null' ? null : $(refs.sinceMonths).val();
+        var currentMonth = todaysDate.getMonth();
+        var currMonth = currentMonth+1;
+        var currentYear = todaysDate.getFullYear();
         if (sinceYears != null && sinceMonths != null) {
         	enteredDate = new Date(sinceYears, sinceMonths, 1);
         }
         
         var fullYears = model.getFullYears(enteredDate);
-        if (enteredDate == null || fullYears >=2 || fullYears < 0) {	
+        if((sinceMonths==currMonth) && (sinceYears==currentYear)){
+        	$(refs.prevAddressArea).show();
+    		model.set('isPrevAddressExist', true);
+        } else if (enteredDate == null || fullYears >=2 || fullYears < 0) {	
         	if (!argPopup) {
         		$(refs.prevAddressArea).hide();
         		model.set('isPrevAddressExist', false);
@@ -895,7 +912,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			assembleNavigationBarAtTop();
 			//note order is important
 			assemblePageHTML($screenContainer, "#BRBPersonalInformation-template");
-			insertAfterElement($(refs.breadcrumbTrailArea), "#creditCardDescription-template");
+			insertAfterElement($(refs.steps2), "#creditCardDescription-template");
 			$screenContainer.addClass("breadcrumbPadding");
 		} else {
 			assemblePageHTML($screenContainer, "#BRBPersonalInformation-template");
@@ -919,6 +936,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		createAndIsertToDomInputsWithPlaceHolder();
 		bindInputTranslations();
 		 toggle10XImege();
+		 toggleHeader();
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -933,13 +951,13 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	function assemblePageHTML($element, templateName) {
 		var isMOA =  app.getIsMOARequest();
 		BRB.Log("assemblePageHTML() :: " + isMOA);
-		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isMOA':isMOA}); 
+		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isMOA':isMOA , 'cardType':cardTypeGlobal}); 
 		$element.append(html);
 	}
 	
 	//---------------------------------------------------------------------------------------
 	function insertAfterElement($element, templateName) {
-		var html = $(templateName).tmpl({'screenIsPopup':false}); 
+		var html = $(templateName).tmpl({'screenIsPopup':false, 'cardType':cardTypeGlobal}); 
 		$element.after(html);
 	}
 	
@@ -1045,6 +1063,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			setMoneyNumericFormat();
 			updatePageStylesheet();
 			toggle10XImege();
+			toggleHeader();
 		});
     }
     
@@ -1320,7 +1339,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		
 		fillDaysControl(refs.dateOfBirth_Day);
 		toggle10XImege();
-		
+		toggleHeader();
 		// US3622
 	    $(refs.jobDesc_OtherArea).hide();	   		
 	}
@@ -1738,4 +1757,17 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 					'topBanner10XImageBlock');  
 		}
 	}  
+	function toggleHeader(){
+		if(translator.getCurrentLanguage() == 'en'){
+			$(refs.personalInformation_Horizontal_Line_1).removeClass('Width_TD_08');
+			$(refs.personalInformation_Horizontal_Line_1).addClass('Width_TD_16');
+			$(refs.personalInformation_Horizontal_Line_2).removeClass('Width_TD_08');
+			$(refs.personalInformation_Horizontal_Line_2).addClass('Width_TD_16');
+		}else {
+			$(refs.personalInformation_Horizontal_Line_1).removeClass('Width_TD_16');
+			$(refs.personalInformation_Horizontal_Line_1).addClass('Width_TD_08');
+			$(refs.personalInformation_Horizontal_Line_2).removeClass('Width_TD_16');
+			$(refs.personalInformation_Horizontal_Line_2).addClass('Width_TD_08');
+		}
+	}
 }

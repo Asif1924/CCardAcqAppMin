@@ -1,6 +1,7 @@
 <script id="BRBOverview-template" type="text/x-jquery-tmpl">
- 
-	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+
+	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">
+	    {{if !isMOA }}
 		<div class="customMargin row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-2  ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
@@ -15,50 +16,176 @@
 				</div>
 				
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-2">
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
 				</div>
-
+               
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3 ">
 					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
 				</div>
 		</div>
-	</div>
-	
-	<div class="ScreenLayout container-fluid" id="overviewPageContents">
-		<div class="overviewTable">
-			<div class="overviewTopTable row">
-				<div class="overviewTopTableTopCell col-xs-6">
-					<p class="overviewTopTableTitle" data-translationKey="overview_TopTableLeftColTitle"></p>				
+		{{else}}	
+	      <div class="customMargin row">
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
 				</div>
-				<div class="overviewTopTableTopCell col-xs-6">
-					<p class="overviewTopTableTitle" data-translationKey="overview_TopTableRightColTitle"></p>
-				</div>		
-			</div>	
-			<div class="overviewTopTable row">
-				<div class="overviewTopTableBottomCell col-xs-6">
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableLeftCol1"></p>						
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableLeftCol2"></p>
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableLeftCol3"></p>
-				</div>				
-				<div class="overviewTopTableBottomCell col-xs-6">
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableRightCol1"></p>
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableRightCol2"></p>
-					<p class="overviewTopTableText" data-translationKey="overview_TopTableRightCol3"></p>
-				</div>		
-			</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3 ">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</div>
+
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
+				</div>
 		</div>
+	 
+	 {{/if}}	
+	 
+	</div>
+
+	<div class="ScreenLayout container-fluid" id="overviewPageContents">
+		{{if !isMOA }}
+		<table class="stretchThisTable grayTableNoBorderCompareCards">
+		<tr>
+		   <td align="center" class="eligibleCardTitleFont"  data-translationKey="overview_TopTableLeftColTitle"></td>
+		</tr>
+		</table>
 		
+		<table class="stretchThisTable grayTableCardEligible">
+		<tr>
+		  <td class="redBackground Width_TD_50 listItem_title_font" align="center" data-translationKey="overview_AmIEligibleTable_Mastercard"></td>
+		  <td class="blckBackground Width_TD_50 listItem_title_font" align="center"  data-translationKey="overview_AmIEligibleTable_World_elite_card"></td>
+		</tr>
+		<tr>
+		  <td>
+		  	 <br>
+		     <ul class="cardList arialFont">
+		         <li data-translationKey="overview_TopTableLeftCol1"></li>
+		         <li data-translationKey="overview_TopTableLeftCol2"></li>
+		         <li data-translationKey="overview_TopTableLeftCol3"></li>
+		         <br>
+		         <br>
+		         <br>
+		     </ul>
+		  </td>
+		  <td>
+		       <br>
+		       <ul class="cardList arialFont">
+		         <li data-translationKey="overview_TopTableLeftCol1"></li>
+		         <li data-translationKey="overview_TopTableLeftCol2"></li>
+		         <li data-translationKey="overview_TopTableLeftCol3"></li>
+		         <li data-translationKey="overview_TopTableLeftCol4"></li>
+		         <li data-translationKey="overview_TopTableLeftCol5"></li>
+		     </ul>
+		  </td>
+		</tr>
+		</table>
+		<table class="stretchThisTable grayTableNoBorderCompareCards">
+		<tr>
+		   <td  colspan="2">
+		   <P align="center" class="eligibleCardTitleFont"  data-translationKey="overview_TopTableRightColTitle"></p>
+		   <ul class="cardList Margin_left">
+		         <li data-translationKey="overview_TopTableRightCol1"></li>
+		         <li data-translationKey="overview_TopTableRightCol2"></li>
+		         <li data-translationKey="overview_TopTableRightCol3"></li>
+		     </ul>
+		   </td>
+		</tr>
+		<tr>
+		  <td colspan="2">
+		    <p  class="table_text_big" data-translationKey="overview_AmIEligibleTable_Do_you_alreadyHave"></p>
+		   </td>
+		</tr>
+		</table>
+		{{else}}
+		<!-- OMX starts-->
+		{{if cardType === "OMX"}}
+		    <table class="stretchThisTable grayTableNoBorderCompareCards">
+				   <tr>
+				      <td>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_TopTableLeftColTitle_DEC"></p>	
+					          <ul class="cardList margin_left oicEligible_listItemFont">
+					             <li data-translationKey="overview_TopTableLeftCol1"></li>
+					             <li data-translationKey="overview_TopTableLeftCol2"></li>
+					             <li data-translationKey="overview_TopTableLeftCol3"></li>
+					          </ul>			
+				     </td>
+				   </tr>
+				    <tr>
+				      <td>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_TopTableRightColTitle"></p>
+					          <ul class="margin_left cardList oicEligible_listItemFont">
+							      <li data-translationKey="overview_TopTableRightCol1"></li>
+							      <li data-translationKey="overview_TopTableRightCol2"></li>
+							      <li data-translationKey="overview_TopTableRightCol3"></li>
+		                      </ul>
+				     </td>
+				   </tr>
+				   <tr>
+				      <td>
+				      <br>
+				          <p  class="table_text_big comapreCardsTD" data-translationKey="overview_AmIEligibleTable_Do_you_alreadyHave"></p>
+				      </td>
+				   </tr>
+		   </table>
+		<!-- OMX ends-->
+		
+		<!-- OMZ starts-->
+		{{else cardType === "OMZ"}}  
+		      <table class="stretchThisTable grayTableNoBorderCompareCards ">
+				   <tr>
+				      <td class="Width_TD_50">
+					      <p class="decoupledEligibleCardFont" data-translationKey="overview_TopTableLeftColTitle_DEC"></p>	
+					          <ul class="cardList oicEligible_listItemFont">
+					            <li data-translationKey="overview_TopTableLeftCol1"></li>
+					            <li data-translationKey="overview_TopTableLeftCol2"></li>  
+					            <li data-translationKey="overview_TopTableLeftCol3"></li> 
+					            <li data-translationKey="overview_TopTableLeftCol4"></li>
+					            <li data-translationKey="overview_TopTableLeftCol5"></li>
+					            
+					             <!-- <li data-translationKey="overview_TopTableLeftCol1"></li>
+					             <li data-translationKey="overview_TopTableLeftCol2"></li>
+					             <li data-translationKey="overview_TopTableLeftCol3"></li>
+					             <li data-translationKey="overview_TopTableLeftCol4"></li>
+					             <li data-translationKey="overview_TopTableLeftCol5"></li>  -->
+					             
+					          </ul>			
+				     </td>
+				     <td class="Width_TD_50">
+					      <p class="decoupledEligibleCardFont" data-translationKey="overview_TopTableRightColTitle"></p>
+					          <ul class="cardList oicEligible_listItemFont">
+							      <li data-translationKey="overview_TopTableRightCol1"></li>
+							      <li data-translationKey="overview_TopTableRightCol2"></li>
+							      <li data-translationKey="overview_TopTableRightCol3"></li>
+							      <br>
+							      <br>
+							      <br>
+							      <br>
+		                      </ul>
+				     </td>
+				   </tr>
+		   </table>
+		<!-- OMZ ends-->
+		    {{/if}}
+		{{/if}}
 		<div class="row">
-		<p class="overviewTitle" data-translationKey="overview_Title"></p>
+		{{if !isMOA }}
+		   <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_Ecomm"></p></br></center>
+		{{else}}
+		   <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_DEC"></p><br></center>
+		{{/if}}
 	   <!--	<p><strong><span class="overviewNSBigText" data-translationKey="overview_NS_Attention"></span></strong></p>  -->
-		<div>
+		<!-- <div>
 			<div class="overviewPrintDisclosureImage">
 				<div class="overviewPrintDownloadLink" data-translationKey="overview_PrintDownload_LinkText"/>
 			</div>
-		</div>
+		</div> -->
 		
 		<!-- =============================== Center Table ==================================== -->
-		<table class="overviewCenterTableContainer">
+		<table class="overviewCenterTableContainer arialFont">
 			<tr>
 				<td style="border: none;">
 					<table class="overviewCenterTable">
@@ -68,7 +195,16 @@
 						<tr>
 							<td class="overviewCenterTableTitle" data-translationKey="overview_NS_DisclosureLeft1"></td>
 							<td class="overviewCenterTableData">
-								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1"></p> 
+							    {{if !isMOA }}
+							         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1"></p>
+								{{else}}
+								      {{if cardType === "OMX"}}
+								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMX"></p>
+								      {{else cardType === "OMZ"}}
+								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMZ"></p>
+					   				  {{/if}}
+								{{/if}}
+								 
 							</td>
 						</tr>
 						<tr>
@@ -108,8 +244,71 @@
 				 
 		<!-- ============================== Center Table End ================================= -->
 <!-- US3382 -->
-	<div class="overviewCenterTableContainer makeCorrectionSection" data-translationKey="Overview_NS_EffectiveDate"></div>
-
+		      <table class="tableNoBorder stretchThisTable">
+				  <tr class="tableNoBorder">
+				      <td class="Width_TD_34"> 
+				         <div class="overviewCenterTableContainer makeCorrectionSection" data-translationKey="Overview_NS_EffectiveDate"></div>
+				      </td>
+					  <td>
+					        <div>
+			                    <div class="overviewPrintDisclosureImage">
+				                     <div class="overviewPrintDownloadLink" data-translationKey="overview_PrintDownload_LinkText"/>
+			                    </div>
+		                    </div>
+					  </td>
+				   </tr>
+				   {{if isMOA }}
+					  {{if cardType === "OMZ"}}
+					     <tr class="tableNoBorder">
+					         <td colspan="2">
+						         <p data-translationKey="overview_CustomerServiceDepartment_PleaseNoteOMX_only"></p>
+						    </td>
+				          </tr>
+				      {{/if}}
+				   {{/if}}
+			</table>
+			{{if !isMOA }}
+			<center>
+			<table id="chooseCardTable" class="borderCollapse chooseTheCardTable stretchThisTable_overview_compareCards arialFont">
+				  <tr>
+				   <th colspan="2">
+				   <div id="hexagon">
+				       <center><span  data-translationKey="overview_Page_choose_the_card"></center></span>
+				   </div>
+				   </th>
+				   </tr>
+				   <tr>
+					  <td>
+					        <div class="chooseCardOMX"></div>
+					        <div>
+					               <center>
+                                   <label><input type="radio" id='triangleMastercard' name="optradio"></label>
+                                   <label for='omxcard' data-translationKey="overview_ChooseCard_Masterdard"></label>
+                                   </center>
+                            </div>
+					  </td>
+					  <td> 
+					        <div class="chooseCardOMZ"></div>
+					        <div>
+					              <center>
+                                      <label><input type="radio" id='triangleWorldEliteMastercard' name="optradio"></label>
+                                      <label for='omzcard' data-translationKey="overview_ChooseCard_World_elite_card"></label>
+                                  </center>    
+                            </div>
+					        </td>
+				  </tr>
+		 </table>
+		 </center>
+		 <center>
+		 <table class="stretchThisTable whiteTableWithoutBorder">
+				<tr>
+				  <td colspan="2">
+				    <p class="MarginLeft25 FontSize12 arialFont" data-translationKey="overview_ChooseCard_Note"></p>
+				   </td>
+				</tr>
+		 </table>
+		 </center>
+		{{/if}}
 	</div>	
 	
 			<div class="overviewBottomTable row" >
@@ -120,13 +319,21 @@
 			</tr> 
 			-->
 				<div style="border-bottom: solid 1px #CCC" >
-					<p class="overviewCenterTableRightBlockTitle elementTop10" data-translationKey="overview_LostOrStolenCards_Title"></p>
-					<p class="overviewCenterTableRightBlockData" data-translationKey="overview_LostOrStolenCards_Text"></p>
+					<!-- <p class="overviewCenterTableRightBlockTitle elementTop10" data-translationKey="overview_LostOrStolenCards_Title"></p>
+					<p class="overviewCenterTableRightBlockData" data-translationKey="overview_LostOrStolenCards_Text"></p> -->
 					<br>
-						<p class="overviewCenterTableRightBlockTitle" data-translationKey="overview_CustomerServiceDepartment_Title"></p>
-						<p class="overviewCenterTableRightBlockData customMargin " data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
-						<p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
-						<p class="overviewCenterTableRightBlockData" data-translationKey="overview_CustomerServiceDepartment_Text3"></p>
+						<p class="overviewCenterTableRightBlockTitle arialFont" data-translationKey="overview_CustomerServiceDepartment_Title"></p>
+						<p class="overviewCenterTableRightBlockData customMargin arialFont" data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
+						<p class="overviewCenterTableRightBlockData customMargin arialFont" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
+						{{if !isMOA }}
+					      <p class="overviewCenterTableRightBlockData arialFont" data-translationKey="overview_CustomerServiceDepartment_Text3"></p>
+					    {{else}}
+								{{if cardType === "OMX"}}
+								    <p class="overviewCenterTableRightBlockData arialFont" data-translationKey="overview_CustomerServiceDepartment_Text3_DEC_OMX"></p>
+							    {{else cardType === "OMZ"}}
+									<p class="overviewCenterTableRightBlockData arialFont" data-translationKey="overview_CustomerServiceDepartment_Text3_DEC_OMZ"></p>
+							    {{/if}}
+						{{/if}}
 						<b><p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text4"></p>
 						<p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text5"></p>
 						<p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text6"></p></b>
@@ -185,10 +392,10 @@
 								<div class="startApplicationButtonContainer" id="overview_continueButtonContainer">
 										<div class="continueButtonContainer" >
 											<span class="continueButtonInactive startApplicationButton continueButtonRightPosition" id="startApplication_Button" tabindex=3>
-												<span class="buttonText" data-translationKey="overview_startApplication_Button_Label"></span>
+												<span class="buttonText upperCaseField arialFont" data-translationKey="overview_startApplication_Button_Label"></span>
 											</span>
-											<span class="continueButtonGrayTriangle" id="startApplicationButtonTriangle">
-											</span>
+											<!-- <span class="continueButtonGrayTriangle" id="startApplicationButtonTriangle">
+											</span> -->
 										</div>
 								</div>
 							</div>							
@@ -207,15 +414,15 @@
 										<div class="overviewSecurityMessagingImage">
 											<b class="overviewStartApplicationInfoTitle" data-translationKey="overview_SecurityMessaging_Title"></b>
 										</div>
-										<p class="overviewStartApplicationInfoText" data-translationKey="overview_SecurityMessaging_Content"></p>
-										<p class="overviewStartApplicationInfoText">
+										<p class="overviewStartApplicationInfoText arialFont" data-translationKey="overview_SecurityMessaging_Content"></p>
+										<p class="overviewStartApplicationInfoText arialFont">
 											<span data-translationKey="overview_SecurityMessaging_MoreInfo"></span>
 											<span id="privacyCharter" class="overviewLink" data-translationKey="overview_SecurityMessaging_PrivacyCharter"/>
 										</p>																
-										<div class="overviewAutoTimeoutImage">
-											<b class="overviewStartApplicationInfoTitle" data-translationKey="overview_AutoTimeout_Title"/>
+										<div class="overviewAutoTimeoutImage arialFont">
+											<b class="overviewStartApplicationInfoTitle arialFont" data-translationKey="overview_AutoTimeout_Title"/>
 										</div>
-										<p class="overviewStartApplicationInfoText" data-translationKey="overview_AutoTimeout_Content"></p>
+										<p class="overviewStartApplicationInfoText arialFont" data-translationKey="overview_AutoTimeout_Content"></p>
 								</div>
 							</td>
 						</tr>
@@ -227,96 +434,87 @@
 		
 
 		<br>
-		{{if !isMOA }}
-		<div class="footnoteContentBlock overviewFootnoteBlock">
-		            <span class="footnoteContentText">
-					<p data-translationKey="Overview_ctm_LegalTextEComm1"></p>
-					<p data-translationKey="Overview_ctm_LegalTextEComm2"></p>
-					<p data-translationKey="Overview_ctm_LegalTextEComm3"></p>
- 					<p data-translationKey="Overview_ctm_LegalTextEComm4"></p>
-					<p data-translationKey="Overview_ctm_LegalTextEComm5"></p>
-					<p data-translationKey="Overview_ctm_LegalTextEComm6"></p>
+		 <div class="scrollbar" id="style-1">
+                   <div class="force-overflow">
+				               <div class="footnoteContentBlock overviewFootnoteBlock">
+						            <span class="footnoteContentText">
+									<p data-translationKey="Overview_ctm_LegalTextEComm1"></p>
+									{{if !isMOA }}
+									       <p data-translationKey="Overview_ctm_LegalTextEComm2"></p>
+									{{else}}
+											   {{if cardType === "OMX"}}
+											       <p data-translationKey="Overview_ctm_LegalTextEComm2_DEC_OMX"></p>
+											   {{else cardType === "OMZ"}}
+											       <p data-translationKey="Overview_ctm_LegalTextEComm2_DEC_OMZ"></p>
+											   {{/if}}
+									{{/if}}
+									<p data-translationKey="Overview_ctm_LegalTextEComm3"></p>
+									{{if !isMOA }}
+				 					           <p data-translationKey="Overview_ctm_LegalTextEComm4"></p>
+				 					{{else}}
+				 					           {{if cardType === "OMX"}}
+											      <p data-translationKey="Overview_ctm_LegalTextEComm4_DEC_OMX"></p>
+											   {{else cardType === "OMZ"}}
+											       <p data-translationKey="Overview_ctm_LegalTextEComm4_DEC_OMZ"></p>
+											   {{/if}}
+				 					{{/if}}
+									<p data-translationKey="Overview_ctm_LegalTextEComm5"></p>
+									
+									{{if !isMOA }}
+				 					           <p data-translationKey="Overview_ctm_LegalTextEComm6"></p>
+				 					{{else}}
+				 					           {{if cardType === "OMX"}}
+											     <p data-translationKey="Overview_ctm_LegalTextEComm6_DEC_OMX"></p>
+											   {{else cardType === "OMZ"}}
+											      <p data-translationKey="Overview_ctm_LegalTextEComm6_DEC_OMZ"></p>
+											   {{/if}}
+				 					{{/if}}
+				
+										<table class="overviewContentTableContainer">
+											<tr>
+												<td class="overviewContent1">
+												<span class="overviewContentLeftAlign" data-translationKey="overview_AverageEComm"></span></td>
+												<td class="overviewContent2" data-translationKey="overview_Average0EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_Average1EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_Average2EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_Average3EComm"></td>
+											</tr>
+											<tr>
+												<td class="overviewContent1">
+												<span class="overviewContentLeftAlign" data-translationKey="overview_MonthlyCreditChargesEComm"></span></td>
+												<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges0EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges1EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges2EComm"></td>
+												<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges3EComm"></td>
+											</tr>
+										</table>
+									{{if !isMOA }}
+				 					          <p data-translationKey="Overview_ctm_LegalTextEComm7_newLine_1"></p>
+				 					          <p data-translationKey="Overview_ctm_LegalTextEComm7_newLine_2"></p>
+				 					         
+				 					{{else}}
+											   {{if cardType === "OMZ"}}
+											      <p data-translationKey="Overview_ctm_LegalTextEComm7_newLine_1"></p>
+											      <p data-translationKey="Overview_ctm_LegalTextEComm7_newLine_2"></p>
+											   {{/if}}
+											   
+				 					{{/if}}
 
-						<table class="overviewContentTableContainer">
-							<tr>
-								<td class="overviewContent1">
-								<span class="overviewContentLeftAlign" data-translationKey="overview_AverageEComm"></span>
-								<span class="overviewContentRightAlign" data-translationKey="overview_Average0EComm"></span>
-								</td>
-								<td class="overviewContent2" data-translationKey="overview_Average1EComm"></td>
-								<td class="overviewContent2" data-translationKey="overview_Average2EComm"></td>
-								<td class="overviewContent2" data-translationKey="overview_Average3EComm"></td>
-							</tr>
-							<tr>
-								<td class="overviewContent1">
-								<span class="overviewContentLeftAlign" data-translationKey="overview_MonthlyCreditChargesEComm"></span>
-								<span class="overviewContentRightAlign" data-translationKey="overview_MonthlyCreditCharges0EComm"></span>
-								</td>
-								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges1EComm"></td>
-								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges2EComm"></td>
-								<td class="overviewContent2" data-translationKey="overview_MonthlyCreditCharges3EComm"></td>
-							</tr>
-						</table>
-						
-						
-
-					<span data-translationKey="Overview_ctm_LegalTextEComm7"></span><br>
-					<span data-translationKey="Overview_ctm_LegalTextEComm8"></span><br>
-					<span data-translationKey="Overview_ctm_LegalTextEComm9"></span><br>
-					<span data-translationKey="Overview_ctm_LegalTextEComm10"></span><br>
-
-					
-					<!-- <br><span data-translationKey="Overview_ctm_LegalText6"></span> //--> 
-					</span>	
-		  <!--<span class="footnoteContentText">
-				<sup>1</sup>
-				<span data-translationKey="overview_footnoteContentText1"></span>
-				<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
-				<span ></span>
-				<span>   </span>
-				<br> 
-				<sup>2</sup>
-				<span data-translationKey="overview_footnoteContentText2"></span>
-				<span> </span>
-				<br>
-				<span data-translationKey="overview_footnoteContentText4"></span>
-				<br>
-				<span data-translationKey="overview_footnoteContentText5"></span>
-			</span>-->
-		</div>
-		{{else}}
-		<div class="footnoteContentBlock overviewFootnoteBlock">
-		            <span class="footnoteContentText">
-					<span data-translationKey="Overview_ctm_LegalText1"></span><br> 
-					<span data-translationKey="Overview_ctm_LegalText2"></span><br> 
-					<span data-translationKey="Overview_ctm_LegalText3"></span><br> 
- 					<span data-translationKey="Overview_ctm_LegalText4"></span><br>
-					<span data-translationKey="Overview_ctm_LegalText5"></span>
-					<!-- <br><span data-translationKey="Overview_ctm_LegalText6"></span> //--> 
-					</span>	
-		  <!--<span class="footnoteContentText">
-				<sup>1</sup>
-				<span data-translationKey="overview_footnoteContentText1"></span>
-				<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
-				<span ></span>
-				<span>   </span>
-				<br> 
-				<sup>2</sup>
-				<span data-translationKey="overview_footnoteContentText2"></span>
-				<span> </span>
-				<br>
-				<span data-translationKey="overview_footnoteContentText4"></span>
-				<br>
-				<span data-translationKey="overview_footnoteContentText5"></span>
-			</span>-->
-		</div>
-		{{/if}}
-
+									<span data-translationKey="Overview_ctm_LegalTextEComm7"></span><br>
+									<span data-translationKey="Overview_ctm_LegalTextEComm8"></span><br>
+									<span data-translationKey="Overview_ctm_LegalTextEComm9"></span><br>
+									{{if !isMOA }}
+									   <p data-translationKey="Overview_ctm_LegalTextEComm10"></p>
+									{{else}}
+									   <p data-translationKey="Overview_ctm_LegalTextEComm10_DEC"></p>
+									{{/if}}
+									</span>	
+						</div> 
+                   </div>
+          </div>
+		<br><br><br><br>
 		<br>
 		<br>
 	</div>
-	
-
 	</div>
- 
  </script>

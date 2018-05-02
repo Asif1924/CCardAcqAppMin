@@ -2,6 +2,7 @@
 <!-- US3011 -->
 <div id="creditCardDescription" class="creditCard"> 
 <!-- US3964 -->
+<!--
 	<div id="piTopList" class="piDescriptionList">
 		<div class="col-sm-4">
 			<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
@@ -29,7 +30,31 @@
 			</div>
 		</div>
 	</div>			
-</div>
+</div>  -->
+
+<!-- US4591 Starts-->
+     <div id="piTopList" class="piDescriptionList elementTop10">
+	      <table class="whiteTableWithoutBorder cardInformationTable">
+	          <tr>
+	               <td class="Width_TD_70">
+	               <!-- add if condition for OMX and OMZ cards -->
+	                 {{if cardType === "OMX"}}
+	                   <p class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForTriangleMastercard"></p>
+	                 {{else cardType === "OMZ"}}  
+	                    <p class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForWorld_elite_card"></p>
+	                 {{/if}}
+	               </td>
+	                 {{if cardType === "OMX"}}
+	                   <td class="Width_TD_30 OMXCard4percentage"></td>
+	                 {{else cardType === "OMZ"}}   
+	                    <td class="Width_TD_30 OMZCard4percentage"></td>
+	                 {{/if}}
+	                 </td>
+	          </tr>
+	      </table>
+     </div> 
+<!-- US4591 Ends-->
+
 <!--  US3083 
 {{if !app.isNSSelected() }}
 <div id="creditCardDescription" class="creditCard"> 

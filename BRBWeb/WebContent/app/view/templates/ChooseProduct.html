@@ -1,24 +1,242 @@
 <script id="chooseProduct-template" type="text/x-jquery-tmpl">
-<div id="choseProduct" class="container-fluid" >	
-	<div class="row">
-		<!--US4541-->
-		{{if !isMOA }}
-		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1"></div>
-		<div class="chooseProductTitle1" data-translationKey="chooseProduct_Title2"></div>
-       	{{else}}
-		<div class="chooseProductTitle" data-translationKey="chooseProduct_Title"></div>
-       	{{/if}}
-		<div id="productListBlock" class="chooseProductBlock">
-			<div class="col-sm-4">
+<div id="choseProduct" class="container-fluid" >
+            <center class="elementWithBottomMargin15">
+					<div>
+						<span class="overview_page_subtitle" data-translationKey="overview_page_Title_lets_get_started"></span><br>
+						<span class="overview_page_subtitle" data-translationKey="overview_page_Title_it_will_take_few_min"></span>
+					</div>
+           </center>
+           <center>
+           <table class="tableNoBorder stretchThisTable_overview">
+				  <tr class="tableNoBorder">
+				      <td class="width_td_hr hrAttributes"></td>
+					  <td class="Width_TD_35">
+					        {{if !isMOA }}
+							    <span class="PageTitle" data-translationKey="overview_Page_tiltle_Ecomm"></span>	
+					       {{else}}
+					           <span class="PageTitle" data-translationKey="overview_Page_tiltle_Decoupled"></span>
+		                   {{/if}}
+					  </td>
+					  <td class="width_td_hr hrAttributes"></td>
+				   </tr>
+			</table>
+			</center>	
+			{{if !isMOA }}
+			<br>
+			<!-- <table class="tableNoBorder stretchThisTable_overview">
+				  <tr class="tableNoBorder">
+				      <td class="Width_TD_60">
+				        <span class="overviewPageComareCards" data-translationKey="overview_page_CompareCards"></span>	
+				      </td>
+					  <td class="Width_TD_30"><div class="compareCardsOMX"></div></td>
+					  <td class="Width_TD_20"><div class="compareCardsOMZ"></div></td>
+				   </tr>
+			</table> -->
+			<center>
+			  <!-- Image removed for compare cards <div class="compare_cards_chart"></div> -->
+			  
+			  <table class="stretchThisTable_overviewPage compareCardsFont">
+			  <tr>
+				      <td class="Width_TD_60">
+				           <span class="overviewPageComareCards" data-translationKey="overview_page_CompareCards"></span>
+				      </td>
+					  <td class="Width_TD_20">
+				          <div class="compareCardsOMX"></div>
+					  </td>
+					  <td class="Width_TD_20">
+				           <div class="compareCardsOMZ"></div>
+					  </td>
+				   </tr>
+		          <tr>
+				  <tr class="listItem_title_font">
+				      <td class="Width_TD_60 bgColorGreyHeader">
+				         <center>
+				           <span data-translationKey="overview_pageCompareCards_table_title"></span>
+				         <center>  	
+				      </td>
+					  <td class="Width_TD_20 bgColorRed">
+					     <center>
+				           <span data-translationKey="overview_compareCards_Masterdard"></span>
+				         <center> 
+					  </td>
+					  <td class="Width_TD_20 bgColorBlack">
+					     <center>
+				           <span class="comapreCardsTD" data-translationKey="overview_CompareCards_World_elite_card"></span>
+				         <center> 
+					  </td>
+				   </tr>
+				   
+				    <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td1"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td2"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td3"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td4"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td5"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td6"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td7"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td8"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td9"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td10"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td11"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+				           <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorDarkGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td12"></p>
+				      </td>
+					  <td class="Width_TD_20 darkGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorDarkGreyCheck">
+					       <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   <tr>
+				      <td class="Width_TD_60 bgColorLightGreyDes">
+				           <p class="comapreCardsTD" data-translationKey="overview_pageCompareCards_table_td13"></p>
+				      </td>
+					  <td class="Width_TD_20 lightGrayWithoutRedCheck">
+					  </td>
+					  <td class="Width_TD_20 bgColorLightGreyCheck">
+					       <div class="tickImageBlack"></div>
+					  </td>
+				   </tr>
+				   
+			</table>
+			
+			  
+			</center>
+			<br>
+			{{else}}
+			          <br><br>
+	                  <!-- OMX -->	
+	                   {{if cardType === "OMX"}}	  
+		              <div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMX"></div>
+		              <!-- OMZ -->
+		               {{else cardType === "OMZ"}}  
+		              <div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMZ"></div> 
+		               {{/if}} 
+		             <p class="chooseProductTitle1 arialFont" data-translationKey="chooseProduct_Title2"></p>
+       	    
+			   <div id="productListBlock arialFont" class="chooseProductBlock">
+			<div class="col-sm-4 paddingZero">
 				<!--US4541-->
-				{{if !isMOA }}
-				<a href="#" id="topBanner4PercentImage" class="topBanner4PercentImageBlock" />
-				{{else}}
-				<a href="#" id="topBanner10XImage" class="topBanner10XImageBlock" />
+				{{if isMOA }}
+				       {{if cardType === "OMX"}}
+				       <a href="#" id="topBannerOMXImage" class="topBannerOMXImageBlock" /> 
+				       {{else cardType === "OMZ"}}  
+				       <a href="#" id="topBannerOMZImage" class="topBannerOMZImageBlock" />
+				       {{/if}} 
+				      <ul class="compareCards">						
+						<!-- US3627 //-->
+						<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA0"></li>
+						{{if cardType === "OMX"}}
+								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA1"></li>
+								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA2"></li>
+						 {{else cardType === "OMZ"}}
+						        <li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA1_OMZ"></li>
+								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA2_OMZ"></li>
+						 {{/if}}
+					 </ul> 
 				{{/if}}
 			</div>
-			<div class="col-sm-8">
-				<div class="liContent">
+			<div class="col-sm-8 paddingZero">
+				<div class="liContent arialFont">
 				   {{if !isMOA }}
 					<!--<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>-->
 					<!--<div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>-->
@@ -43,39 +261,64 @@
 						
 					 </ul> 
 					{{else}}
-						<div class="overviewProductTitle" data-translationKey="chooseProduct_TitleA"></div>
-					  <div class="overviewProductSubTitle overviewNSTableRedText" data-translationKey="personalInfo_Loyalty_HeaderRed"></div>
-					  	<ul class="simpleList" id="rewardsOnPurchasList">
-						<li>
-							<div class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet1"></div>
-						</li>							
-						<li>
-							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet2"></span>
-						</li>							
-						<li>
-							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet3"></span>
-						</li>
-						<li>
-							<span class="listItemText" data-translationKey="personalInfo_Loyalty_Bullet4"></span>
-						</li>
-						<!-- US3627 //-->
-						<li>
-							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA0"></span>
-						</li>
-						<li>
-							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA1"></span>
-						</li>
-						<li>
-							<span class="listItemText" data-translationKey="chooseProduct_DescriptionA2"></span>
-						</li>
-						
-					 </ul> 
+					{{if cardType === "OMX"}}
+					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet1"></p>
+					      <p class="chooseProductMargin"data-translationKey="personalInfo_Loyalty_Bullet2"></p>
+					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet3"></p>
+					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet4"></p>
+					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet5"></p>
+					{{else cardType === "OMZ"}}  
+					<span class="paragraph ">
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet1"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet2"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet3"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet4"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet5"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet6"></p>
+					      <p  data-translationKey="personalInfo_Loyalty_Bullet7"></p>
+					      <p  data-translationKey="overview_pageCompareCards_table_td9"></p>
+					      <p  data-translationKey="overview_pageCompareCards_table_td10"></p>
+					      <p  data-translationKey="overview_pageCompareCards_table_td11"></p>
+					      <p  data-translationKey="overview_pageCompareCards_table_td12"></p>
+					      <p  data-translationKey="overview_pageCompareCards_table_td13"></p>
+					  </span>  
+					   {{/if}}  
 					{{/if}}
 				</div> 
 			</div>
 		</div>
-		<a href="#" class="chooseProductLink hideElement" data-translationKey="chooseProduct_LinkText"></a>
-	</div>
-</div>
- 
+			{{/if}}
+			<!-- <table class="whiteTableApproveWithBorder stretchThisTable_overview_compareCards">
+				  <tr>
+				   <th colspan="2">
+				   <div id="hexagon">
+				       <center><span  data-translationKey="overview_Page_choose_the_card"></center></span>
+				   </div>
+				   </th>
+				   </tr>
+				   <tr>
+					  <td>
+					        <div class="chooseCardOMX"></div>
+					        <br>
+					        <div>
+					               <center>
+                                   <label><input type="radio" id='omxcard' name="optradio"></label>
+                                   <label for='omxcard' data-translationKey="overview_ChooseCard_Masterdard"></label>
+                                   </center>
+                            </div>
+					  </td>
+					  <td> 
+					        <div class="chooseCardOMZ"></div>
+					        <br>
+					        <div>
+					                <center>
+                                      <label><input type="radio" id='omzcard' name="optradio"></label>
+                                      <label for='omzcard' data-translationKey="overview_ChooseCard_World_elite_card"></label>
+                                    </center>  
+                            </div>
+					        </td>
+				  </tr>
+		 </table> -->
+				
+</div> 
 </script>

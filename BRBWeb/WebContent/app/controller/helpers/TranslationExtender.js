@@ -16,5 +16,7 @@ BRB.TranslationExtender = function () {
 		$('#choseProduct').trigger('translationStop');
 		$('#confirmation_date_of_birth').trigger('translationStop');
 		$('#personalInformation_DateOfBirth_Year').trigger('translationStop');
+		$('#BreadcrumbTrailArea1').trigger('translationStop');
+		$('#BreadcrumbTrailArea1').trigger('translationStop');
 	}
 };

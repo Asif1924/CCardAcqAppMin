@@ -1,6 +1,7 @@
 <script id="BRBIdentityVerification-template" type="text/x-jquery-tmpl">	
 	<span><!-- Dont remove span, IE8!!! -->
-	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
+	{{if !isMOA }}		
 		<div class="customMargin row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
@@ -15,17 +16,48 @@
 				</div>
 				
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2">
-					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
 				</div>
 
 				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
 				</div>
 		</div>
+		<table id="steps5" class="tableNoBorder stretchThisTable_overview">
+				  <tr class="tableNoBorder">
+				      <td id="Page_5_HR_line_1" class="Width_TD_14 hrAttributes"></td>
+					  <td id="Page_4_title" class="Width_TD_34" align="center">
+							   <span class="PageTitle" data-translationKey="identityVerification_steps5_OUT_5_Ecomm"></span>	
+					  </td>
+					  <td id="Page_5_HR_line_2" class="Width_TD_14 hrAttributes"></td>
+				   </tr>
+	    </table>
+		{{else}}
+		       <div class="customMargin row">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3 ">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</div>
+
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2 ">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
+				</div>
+
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+				</div>
+		</div>
+		{{/if}}
 	</div>
-	
 		
-	<div class="ScreenLayout" id="IdentityVerification_PageContents">
+	<div class="ScreenLayout grayTableSpacerTop40" id="IdentityVerification_PageContents">
 		<!--
 		<div>
 			<span class="pageSubTitle" data-translationKey="identityVerification_Title"></span>
@@ -114,11 +146,11 @@
 					<div class="questionSubmit">
 						<div class="continueButtonContainer" id="identityVerification_Question1SubmitContainer">
 				        	<div class="floatToRight largeContinueButton continueButtonRightPosition" id="identityVerification_Question1Submit">
-					        	<a href="#" class="continueButton" id="identityVerification_Question1SubmitRect">
+					        	<a href="#" class="continueButton marginRight55" id="identityVerification_Question1SubmitRect">
 						        	<span class="buttonText" data-translationKey="identityVerification_Submit"></span>
 					        	</a>
-					        	<span class="continueButtonTriangle" id="identityVerification_Question1SubmitTriangle">
-					        	</span>
+					        	<!-- <span class="continueButtonTriangle" id="identityVerification_Question1SubmitTriangle">
+					        	</span> -->
 				        	</div>
 		        		</div>
 	        		</div>
@@ -192,11 +224,11 @@
 					<div class="questionSubmit">
 						<div class="continueButtonContainer" id="identityVerification_Question2SubmitContainer">
 				        	<div class="floatToRight largeContinueButton continueButtonRightPosition" id="identityVerification_Question2Submit">
-					        	<a href="#" class="continueButton" id="identityVerification_Question2SubmitRect">
+					        	<a href="#" class="continueButton marginRight55" id="identityVerification_Question2SubmitRect">
 						        	<span class="buttonText" data-translationKey="identityVerification_Submit"></span>
 					        	</a>
-					        	<span class="continueButtonTriangle" id="identityVerification_Question2SubmitTriangle">
-					        	</span>
+					        	 <!-- <span class="continueButtonTriangle" id="identityVerification_Question2SubmitTriangle">
+					        	</span> -->
 				        	</div>
 		        		</div>
 	        		</div>
@@ -269,11 +301,11 @@
 					<div class="questionSubmit">
 						<div class="continueButtonContainer" id="identityVerification_Question3SubmitContainer">
 				        	<div class="floatToRight largeContinueButton continueButtonRightPosition" id="identityVerification_Question3Submit">
-					        	<a href="#" class="continueButton" id="identityVerification_Question3SubmitRect">
+					        	<a href="#" class="continueButton marginRight55" id="identityVerification_Question3SubmitRect">
 						        	<span class="buttonText" data-translationKey="identityVerification_Submit"></span>
 					        	</a>
-					        	<span class="continueButtonTriangle" id="identityVerification_Question3SubmitTriangle">
-					        	</span>
+					        <!--	<span class="continueButtonTriangle" id="identityVerification_Question3SubmitTriangle">
+					        	</span> -->
 				        	</div>
 		        		</div>
 	        		</div>
@@ -347,11 +379,11 @@
 					<div class="questionSubmit">
 						<div class="continueButtonContainer" id="identityVerification_Question4SubmitContainer">
 				        	<div class="floatToRight largeContinueButton continueButtonRightPosition" id="identityVerification_Question4Submit">
-					        	<a href="#" class="continueButton" id="identityVerification_Question4SubmitRect">
+					        	<a href="#" class="continueButton marginRight55" id="identityVerification_Question4SubmitRect">
 						        	<span class="buttonText" data-translationKey="identityVerification_Submit"></span>
 					        	</a>
-					        	<span class="continueButtonTriangle" id="identityVerification_Question4SubmitTriangle">
-					        	</span>
+					        <!--	<span class="continueButtonTriangle" id="identityVerification_Question4SubmitTriangle">
+					        	</span> -->
 				        	</div>
 		        		</div>
 	        		</div>
@@ -361,139 +393,247 @@
 
 				
 				<div>
-					<div id="identityVerification_TitleBlock">
+					<!-- <div id="identityVerification_TitleBlock">
 						<span class="pageSubTitle leftalign" data-translationKey="identityVerification_Title"></span>
 						<br>
-					</div>
-					<div id="identityVerification_ExamTable" class="stretchThisTable grayTable examTableHeightCards">
-						<div id="protection_note" class="grayTableTopBorder">	
+					</div> -->
+					<div id="identityVerification_ExamTable" class="stretchThisTable examTableHeightCards fieldLabelsCell paddingLeftZero grayTableBottomBorder">
+						<div id="protection_note">	
 							<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
 								<span class="leftalign" data-translationKey="identityVerification_ProtectionNote"></span>			
 							</div>												
 						</div>
-						<div id="examFinalStep" class="hideElement">
-							<div class="grayTableTopBorder">	
-								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12">
+						<!-- <div id="examFinalStep" class="hideElement">  -->
+						
+						<div id="examFinalStep" class="hideElement"> 
+							<div>	
+								<div class="col-xs-12">
 									<br>
-									<span id="examFinalStepMsg" class="congratulationsLabel" data-translationKey="identityVerification_Congratulations"></span>
+									  <center>
+		                                 <div id="approval_block">
+		                                  <table class="tableNoBorder stretchThisTable">
+							                   <tr class="tableNoBorder">
+								                      <td class="width_td_hr"><hr class="hrAttributes"></td>
+								                      <td class="title_approve_width">
+									                        <span class="congratulation_font" data-translationKey="identityVerification_Congratulations"></span><br>	
+									                        <span class="fontForApproveTitle" data-translationKey="approve_you_have_been_approve_label"></span>								
+								                      </td>
+								                      <td class="width_td_hr"><hr class="hrAttributes"></td>
+							                    </tr>
+				                         </table>	
+		                                <div>
+		                            </center>
 									<br>			
 								</div>												
 							</div>
-							<div id="examFinalStep112" class="grayTableNoBorder">	
-								<div class="fieldLabelsCell fieldLabelsTopCell customerCardContainer elementBottom10 col-xs-12 col-sm-4 col-md-3">
-									<div class="customerCard"/>
-									<span class="custormerCreditCardNumber" id="identityVerification_Pan_Number">XXXX XXXX XXXX 1234</span>
-									<span class="custormerCardName" id="identityVerification_UserName"></span>			
-								</div>	
-								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-8 col-md-9">
-									<span id="identityVerification_UserNameFull">FirstName LastNAme</span>
-									<br><br>
-									<span id="identityVerification_CardNumberText" data-translationKey="identityVerification_CardNumberText">Card Number: </span>
-									<span id="identityVerification_CardNumber">XXXX XXXX XXXX 1234</span>
-									<br><br>
-									<span id="identityVerification_CardLimitText" data-translationKey="identityVerification_CardLimitText">Card Limit: </span>
-									<span id="identityVerification_CardLimit">$000,000</span>
-									<br><br>
-									<span id="identityVerification_CardAPRText" data-translationKey="identityVerification_CardAPRText">APR: </span>
-									<span id="identityVerification_CardAPR">00.00%</span>					
-								</div>						
-							</div>
-							<div id="examFinalStep113" class="grayTableNoBorder">	
-								<div class="fieldLabelsCell fieldLabelsTopCell congratulationsTextContent elementBottom10 col-xs-12">
-									<span data-translationKey="identityVerification_FinalText1"></span>
-											<br>
-										<!--{{if !app.isNSSelected() }}
-											<span data-translationKey="identityVerification_FinalText2old"></span>
-											{{/if}}
-											{{if app.isNSSelected() }}
-											<span data-translationKey="identityVerification_FinalText2"></span>
-											{{/if}}-->
-											<!-- US3011 -->
-											<span data-translationKey="identityVerification_FinalText2"></span>
-											<br>
-											<span data-translationKey="identityVerification_FinalText3"></span>
-											<br>
-											<b><a id="identityVerification_customerEmail" class="emailField" href="mailto:customer@mail.com">customer@mail.com.</a>.</b>
-											<span data-translationKey="identityVerification_FinalText4"></span>			
-								</div>	
-							</div>
-							<div id="examFinalStep114" class="grayTableBottomBorder">	
-								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-7 col-md-8">
-									<span data-translationKey="identityVerification_FinalText5"></span>
+							<center>
+							<div id="examFinalStep112">	
+							<table class="whiteTableApprove">
+							<tr class="withoutBorderTr"><td>
+								<div class="font_forCardInfo customerCardContainer">
+								
+									<!-- <div class="customerCard"/> -->
+									  {{if cardType === "OMX"}}
+								           <div class="customerCard_OMX"/>
+								      {{else cardType === "OMZ"}}
+								           <div class="customerCard_OMZ"/>  
+								      {{/if}} 
+									<!--<span class="custormerCreditCardNumber" id="identityVerification_Pan_Number">XXXX XXXX XXXX 1234</span>
+									<span class="custormerCardName" id="identityVerification_UserName"></span> -->			
 								</div>
-								{{if !isMOA }}
-								<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-12 col-sm-5 col-md-4">
-									<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
-										<div class="floatToRight continueButtonRightPosition continueButtonClick" id="identityVerification_ContinueButton">
-											<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton1Rect">
-												<span class="buttonText" data-translationKey="continue_Button_Label"></span>
-											</a>
-											<span class="continueButtonTriangle"></span>
-										</div>
-									</div>
+								</td>
+								<td>	
+								<div class=" font_forCardInfo elementTopBottom30">
+								    <span id="identityVerification_CardNumberText" class="approvedContentSpan" data-translationKey="identityVerification_Customer_Name">Customer Name: </span>
+									<span id="identityVerification_UserNameFull" class="approvedContentSpan">FirstName LastNAme</span>
+									<br>
+									<span id="identityVerification_CardNumberText" class="approvedContentSpan" data-translationKey="identityVerification_CardNumberText">Card Number: </span>
+									<span id="identityVerification_CardNumber" class="approvedContentSpan">XXXX XXXX XXXX 1234</span>
+									<br>
+									<span id="identityVerification_CardLimitText" class="approvedContentSpan" data-translationKey="identityVerification_CardLimitText">Card Limit: </span>
+									<span id="identityVerification_CardLimit" class="approvedContentSpan">$000,000</span>
+									<br>
+									<span id="identityVerification_CardAPRText" class="approvedContentSpan" data-translationKey="identityVerification_CardAPRText">APR: </span>
+									<span id="identityVerification_CardAPR" class="approvedContentSpan">00.00%</span>					
 								</div>
-								{{/if}}
+								</td>
+								</tr>
+								</table>						
 							</div>
+							</center>
+							<div class="brbWhiteBackgroundPage">
+							  <table class="approveContentTable">
+							   <tr>
+							   <td>
+							             {{if cardType === "OMX"}}
+	                              		       <span class="fontForApproveTitle" data-translationKey="approved_title_one_OMX"></span>
+	                              		 {{else cardType === "OMZ"}}  
+	                              		       <span class="fontForApproveTitle" data-translationKey="approved_title_one_OMZ"></span>
+	                              		{{/if}}
+	                              		
+	                              		<br>
+	                              		<ul>
+	                              		    <li class="fontForApprovePageContent" data-translationKey="approved_title_one_listItem1"></li>
+	                              		    <li class="fontForApprovePageContent" data-translationKey="approved_title_one_listItem2"></li>
+	                              		    <li class="fontForApprovePageContent" data-translationKey="approved_title_one_listItem3"></li>
+	                              		</ul>		   
+							           <br>
+							           <br>
+							           <span class="fontForApproveTitle" data-translationKey="approved_title_two"></span>
+	                              	   <br>
+							            <ul>
+	                              		    
+	                              		    {{if cardType === "OMX"}}
+	                              		       <li class="fontForApprovePageContent" data-translationKey="approved_title_two_listItem_OMX"></li>
+	                              		    {{else cardType === "OMZ"}}  
+	                              		       <li class="fontForApprovePageContent" data-translationKey="approved_title_two_listItem_OMZ"></li>
+	                              		    {{/if}}
+	                              		    <li class="fontForApprovePageContent" data-translationKey="approved_title_two_listItem2"></li>
+	                              		    <li class="fontForApprovePageContent" data-translationKey="approved_title_two_listItem3"></li>
+	                              	    </ul>	
+							   </td>
+							   </tr>
+							  </table>
+							  </div>
+							  <br>
+							  <br>
+							  <a href="#" class="continueButton_approve submitApplicationButton" id="identityVerification_ContinueButton" >
+			        	      	<span class="buttonText" data-translationKey="approved_page_continueShoppingButton"></span>
+		        	          </a>
+		        	          <br>
+		        	          <br>
+		        	          
+			                 <br><br><br>
 						</div>
-						<div id="examFinalStepPending" class="hideElement alignToTop">
-							<div class="row">
-                				<div class="fieldLabelsCell fieldLabelsTopCell elementBottom10 col-xs-12">
-                        			<br>
-                        			<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
-								</div>
-							</div>
-							{{if !isMOA }}
-								<div class="congratulationsTextContent grayTableNoBorder row">
-									<div id="tu_pendingending"  class="hideElement">
-	                                	<div class="col-xs-2 col-sm-1">
-	                        				<div class="tu_pendingending_exclamation_point"></div>
-										</div>
-										<div class="col-xs-10 col-sm-11"> 
-	                                		<span  data-translationKey="identityVerification_TUPendingText1"></span>
-											<br><br>
-										</div>
-									</div>
-								</div>
-							{{/if}}
-							<div class="grayTableNoBorder row">
-								<div class="fieldLabelsCell col-xs-12">
-                           			<span  data-translationKey="identityVerification_TUPendingText2"></span>
-									<br><br>
-								</div>
-	                		</div>
-							<div class="row">
-								<div class="fieldLabelsCell col-xs-12">
-											<span data-translationKey="identityVerification_PendingText1"></span>
-											<br>
-											<span data-translationKey="identityVerification_PendingText2"></span>
-											<br><br>
-											<b>
-												<span data-translationKey="identityVerification_PendingText3"></span>
-											</b>
-								</div>
-							</div>
-							<div class="grayTableNoBorder row">
-								<div class="fieldLabelsCell col-xs-12 col-sm-7">
-									<span data-translationKey="identityVerification_PendingText4"></span>
-								</div>
-								{{if !isMOA }}
-									<div class="fieldLabelsCell col-xs-12 col-sm-5">
-										<div class="continueButtonContainer" id="identityVerification_continueButtonContainer">
-											<div class="floatToRight continueButtonClick elementTopBottom10" id="identityVerification_ContinueButton">
-												<a href="#" class="continueButton submitApplicationButton" id="identityVerification_ContinueButton2Rect">
-													<span class="buttonText" data-translationKey="continue_Button_Label"></span>
-												</a>
-												<span class="continueButtonTriangle"></span>
+						<center>
+							<!--   <div id="declinedPageConetent"  class="hideElement"> -->
+							{{if !isMOA }}	
+							<div id="examFinalStepPendingDeclined" class="hideElement">
+							  <div class="whiteTableApprove">
+							  
+							       <table class="declinedTableContent whiteTableApprove">
+							          <tr class="withoutBorderTr">
+										          <td  colspan="2">
+										             <span class="pendingPageTitle" data-translationKey="pending_page_title"></span>
+										          </td>
+							          </tr>
+							          <tr class="withoutBorderTr">
+										          <td  colspan="2">
+										            <div>
+													     <span class="fontPendDeclain" data-translationKey="pending_page_statusName">Approval Status: </span>
+														 <span id="pendingPageStatusName" class="pendingTextStyle upperCaseField" data-translationKey="pending_page_status">PENDING</span>
+														 <br>
+														 <span class="fontPendDeclain" data-translationKey="pending_page_card_type">Card Type:</span>
+														 {{if cardType === "OMX"}}
+					                   							<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_Mastercard" >Triangle Mastercard</span>
+					                 					 {{else cardType === "OMZ"}}  
+					                    						<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_World_elite_card" >World Elite Triangle Mastercard</span>
+					                 				     {{/if}}
+																		
+											         </div>               
+										          </td> 
+							          </tr>
+							          <tr class="withoutBorderTr">
+									              <td class="Width_TD_10">
+											           <div class="errorImageForDeclined"/>
+										          </td>
+										          <td>	
+										               <div class="pendingPageSubTitle">
+										                   <span data-translationKey="declined_message_one"></span>
+										                   <br>
+											               <span class="fontForApprovePageContent whatsNextSpan" data-translationKey="declined_message_two" ></span>
+										               </div>
+										               
+										               <div>
+										                  <ul class="paddingLeftZero leftList simpleHyphenList">
+						                              		    <li class="fontForPendingDeclinedPageContent" data-translationKey="pendingDeclined_page_li_one"></li>
+						                              		    {{if cardType === "OMX"}}
+					                   								<li class="fontForPendingDeclinedPageContent" data-translationKey="pendingDeclined_page_li_two_OMX"></li>
+					                 					        {{else cardType === "OMZ"}}  
+					                    						    <li class="fontForPendingDeclinedPageContent" data-translationKey="pendingDeclined_page_li_two_OMZ"></li>
+					                 				            {{/if}}
+																
+						                              		    
+			                              				  </ul>
+										               </div>
+										          </td>
+								      </tr>
+								      <tr class="withoutBorderTr">
+										          <td colspan="2">
+										            <span class="noteTextFont" data-translationKey="pending_page_note"></span>
+										          </td>
+								      </tr>
+								     </table>
+								     <br>
+                                     <br>
+                                     <br>
+								     <a href="#" class="continueButton_approve submitApplicationButton" id="identityVerification_ContinueButton" >
+			        	             	<span class="buttonText upperCaseField" data-translationKey="pending_page_close_button_text"></span>
+		        	          		 </a>
+							  </div>
+					    </div>
+					    <br>
+					 {{else}} 
+					            <div id="examFinalStepPendingDeclined" class="hideElement alignToTop ">
+										<div class="row">
+			                				<div class="fieldLabelsCell fieldLabelsTopCell elementBottom10 col-xs-12">
+			                        			<br>
+			                        			<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
 											</div>
 										</div>
-									</div>
-							    {{/if}}
-							</div>							
+										<div class="grayTableNoBorder row">
+											<div class="fieldLabelsCell col-xs-12">
+			                           			<span  data-translationKey="identityVerification_TUPendingText2"></span>
+								                      <br><br>
+											</div>
+				                        </div>
+										<div class="row">
+											<div class="fieldLabelsCell col-xs-12">
+														<span data-translationKey="identityVerification_PendingText1"></span>
+														<br>
+														<span data-translationKey="identityVerification_PendingText2"></span>
+														<br><br>
+														<b>
+															<span data-translationKey="identityVerification_PendingText3"></span>
+														</b>
+											</div>
+										</div>
+										<div class="grayTableNoBorder row">
+											<div class="fieldLabelsCell col-xs-12 col-sm-7">
+												<span data-translationKey="identityVerification_PendingText4"></span>
+											</div>
+										</div>							
+                                 </div>
+					  {{/if}}	
+							  <!-- <span class="noteTextFont textAlignLeft" data-translationKey="pending_page_note"></span> -->
+							</div>
+					  </center>
+							</div>
 						</div>
 					</div>
 				</div>
 		</center>
-			<div id="identityVerification_PageFooter" class="footerText row" >
+	
+	    {{if !isMOA}}
+	    <div id="pendingDeclinedApproved" class="scrollbar_identityPage hideElement">
+		<div class="force-overflow">	
+						    <span class="footnoteContentText">
+                   
+                            <p data-translationKey="identityVerification_FooterText4"></p>
+				            <p data-translationKey="identityVerification_FooterText5"></p>
+                  </span>
+			</div>
+          </div>
+          <div id="tuAuthQuestionsHeaderPart">
+				<div id="identityVerification_PageFooter" class="footerText row stretchThisTable_overviewPage" >
+				 		<span data-translationKey="identityVerification_FooterTextTuAuth1"></span>
+						<br>
+						<span data-translationKey="identityVerification_FooterTextTuAuth2"></span>
+				<div>
+		  </div>
+	      <br><br><br><br><br><br><br><br><br>
+	     {{else}}
+			<div id="identityVerification_PageFooter" class="footerText row stretchThisTable_overviewPage" >
 			<!-- {{if !app.isNSSelected() }} 
 				<span id="identityVerification_FooterNote" class="identityVerificationFooterNote" data-translationKey="identityVerification_FooterText1old"></span>
 				<br>
@@ -521,11 +661,12 @@
 				<span data-translationKey="identityVerification_FooterText3"></span>
 				<br>
 				-->
-				<span data-translationKey="identityVerification_FooterText4"></span>
-				<br>
-				<span data-translationKey="identityVerification_FooterText5"></span>				
+				<p data-translationKey="identityVerification_FooterText4"></p>
+				<p data-translationKey="identityVerification_FooterText5"></p>				
 			<div>
 			<br><br><br>
+			{{/if}} 
+			
 	</div>
 
 </script>

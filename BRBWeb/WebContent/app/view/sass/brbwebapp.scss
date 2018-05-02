@@ -50,17 +50,29 @@ body {
     padding-top: 0px;
 }
 .pageTitle {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 32px;
+    color: #000;
+}
+.pendingPageTitle {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 21pt;
-    font-color: #000;
+    font-size: 30px;
+    color: #000;
+}
+
+.pendingPageSubTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-color: #000000;
 }
 .pageSubTitle {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     font-color: #333333;
     /*2016-02-29 chrch: removing padding for responsive */
-    padding-left: 0px;
+    padding-left: 10px;
 }
 .summaryPageSubTitle {
     font-family: Arial, Helvetica, sans-serif;
@@ -113,9 +125,9 @@ body {
     background-size: 100%;
 }
 .PageHeader_CanadianTireTabLogo {
-    background-image: #{inline-image("ctfs_tab_with_logo.png")};
+    background-image: #{inline-image("brb_page_header_logo.png")};
     height: 94px;
-    width: 290px;
+    width: 200px;
     background-size: 100%;
     background-repeat: no-repeat;
     /* 2015-02-03 chrch: remove float for responsive */
@@ -127,9 +139,9 @@ body {
     margin-right: auto;
 }
 .PageHeader_CanadianTireTabLogo_fr {
-    background-image: #{inline-image("ctfs_tab_with_logo_fr.png")};
+    background-image: #{inline-image("brb_logo_FR.png")};
     height: 94px;
-    width: 290px;
+    width: 200px;
     background-size: 100%;
     background-repeat: no-repeat;
     /* 2015-03-13 chrch: remove float for responsive */
@@ -1128,9 +1140,9 @@ td.fieldHeight20 {
 /* START - Choose Product Screen */
 
 .PageTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
     font-weight: bold;
-    font-size: 21pt;
+    font-size: 32px;
     color: #000;
 }
 .CC_Labels {
@@ -1527,14 +1539,47 @@ div.ui-slider-switch {
 		padding-bottom: 15px;
 	}
 	@media(min-width: 918px){
-		padding-top: 25px;
+		padding-top: 35px;
 	}
 } 
 
 /* Continue button*/
 
 .continueButton {
-    border-radius: 10px;
+   /* border-radius: 10px; */
+    display: inline-block;
+    overflow: visible;
+    width: 100%;
+    text-align: center;
+    width: 200px;
+    padding: 8px 0px 8px 0px;
+    //float: left;
+    text-align: center;
+    text-decoration: none;
+    
+    font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;
+    /* 	text-shadow: 0px 1px 0px #000; */
+    color: #e6e2cf;
+    position: relative;
+    text-shadow: none;
+    /*background: #{inline_image("ContinueButtonBackground.png")};*/
+    background-color: #ed1c24;
+    /* 2016-02-05 chrch: changing min width for responsive */
+    
+    min-width: 170px;
+    width:auto;
+    overflow: visible;
+    /* 2016-02-05 chrch: removing height for responsive */
+    /*height: 22px;*/
+    
+    cursor: pointer;
+    float: left;
+    /* border-radius: 10px; */
+}
+
+/* US4591 */
+.backButtonGray {
+   /* border-radius: 10px; */
     display: inline-block;
     overflow: visible;
     width: 100%;
@@ -1549,7 +1594,8 @@ div.ui-slider-switch {
     color: #e6e2cf;
     position: relative;
     text-shadow: 1px 0 0 #000;
-    background: #{inline_image("ContinueButtonBackground.png")};
+    /*background: #{inline_image("ContinueButtonBackground.png")};*/
+    background-color: #5a5a5a;
     /* 2016-02-05 chrch: changing min width for responsive */
     
     min-width: 170px;
@@ -1560,10 +1606,137 @@ div.ui-slider-switch {
     
     cursor: pointer;
     float: left;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+}
+
+.borderCollapse{
+  border-collapse: separate;
+}
+
+.backButtonGray > .buttonText {
+    font-family: Arial;
+    font-size: 10pt;
+    color: #FFF;
+    line-height: 22px;
+    height: 72px;
 }
 a.continueButtonFocused:focus {
     border: 1px solid gray;
+}
+.bgColorRed{
+      background-color: #ed1c24;
+}
+
+.bgColorBlack{
+      background-color: #000000;
+}
+
+.bgColorGreyHeader{
+      background-color: #afaeb0;
+}
+
+.bgColorDarkGreyDes{
+      background-color: #e0dedf;
+}
+
+.paragraph p{
+    padding: 0;
+    margin-left: 10px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.bgColorLightGreyDes{
+      background-color: #f7f7f6;
+}
+.bgColorDarkGreyCheck{
+      background-color: #d5d4d4;
+}
+
+.bgColorLightGreyCheck{
+      background-color: #e3e2e1;
+}
+
+.margin_left{
+      margin-left: 15px;
+}
+.lightGrayWithRedCheck{
+    background-image:  url('../../images/brb_red_checkmark.png'), url('../../images/light_without_check.png');
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+}
+.darkGrayWithRedCheck{
+    background-image:  url('../../images/brb_red_checkmark.png'), url('../../images/dark_without_check.png');
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+}
+
+.darkGrayWithoutRedCheck{
+  background: #{inline_image("dark_without_check.png")};
+}
+
+.lightGrayWithoutRedCheck{
+  background: #{inline_image("light_without_check.png")};
+}
+
+.lightGradiant{
+    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.58) 89%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.58) 89%,rgba(0,0,0,0.65) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.58) 89%,rgba(0,0,0,0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 */
+    
+}
+.chooseProductMargin{
+   margin: 10px;
+}
+
+.continueButton_approve {
+    border-radius: 0px;
+    display: inline-block;
+    overflow: visible;
+    width: 100%;
+    text-align: center;
+    width: 200px;
+    margin-right: 200px;
+    padding: 8px 0px 8px 0px;
+    text-align: center;
+    text-decoration: none;
+    font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;
+    text-shadow: 0px 1px 0px #000;
+    color: #e6e2cf;
+    position: relative;
+    text-shadow: 1px 0 0 #000;
+    //background: #{inline_image("ContinueButtonBackground.png")};
+    background-color: #ed1c24;
+    min-width: 170px;
+    width: auto;
+    margin-right: 50px;
+    overflow: visible;
+    /* height: 22px; */
+    cursor: pointer;
+    float: right;
+    border-radius: 0px;
+}
+
+.continueButton_approve > .buttonText {
+    font-family: Arial;
+    font-size: 9pt;
+    color: #FFF;
+    line-height: 22px;
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+
+.continueButton_approve > .active,
+.active {
+    //position: relative;
+    margin-top: 1px;
+}
+a.continueButtonFocused_approve:focus {
+    border: 0px;
 }
 .largeContinueButtonRightPosition {
   width: 155px;
@@ -1596,7 +1769,11 @@ a.continueButtonFocused:focus {
    }
    background-repeat: no-repeat;
  }
-
+ 
+.pendingPageDescWidth{
+   width: 520px;
+   padding-left: 15px;
+}
 /* 2016-02-25 chrch: Identification Verification Page - new class for responsive
 .smallContinueButton{
   min-width: 90px;
@@ -1632,12 +1809,23 @@ a.continueButtonFocused:focus {
     margin-right: 90px
 }
 .continueButton > .buttonText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
     font-size: 9pt;
     color: #FFF;
     line-height: 22px;
     float: left;
     width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+
+ .buttonTextReview {
+    font-family: Arial;
+    font-size: 9pt;
+    color: #FFF;
+    line-height: 22px;
+    float: left;
+    width: 250px;
     height: 100%;
     font-weight: bold;
 }
@@ -1679,7 +1867,7 @@ a.continueButtonFocused:focus {
     background-repeat: no-repeat;
 }
 .continueButtonInactive {
-    border-radius: 10px;
+  /*  border-radius: 10px;  */
     display: inline-block;
     overflow: visible;
     width: 100%;
@@ -1729,7 +1917,7 @@ a.continueButtonFocused:focus {
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FFE0DFDF, EndColorStr=#FFCBCBCB);
 }
 .continueButtonInactive > .buttonText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
     font-size: 9pt;
     color: #FFF;
     line-height: 22px;
@@ -1742,7 +1930,13 @@ a.continueButtonFocused:focus {
 /* 2016-02-22 chrch: Conditional formatting for responsive */
 @media(min-width: 768px){
  .continueButtonRightPosition {
-    margin-right: 55px;
+    margin-right: -15px;
+ }
+}
+
+@media(min-width: 768px){
+ .continueButtonRightPositionReview {
+    margin-right: 80px;
  }
 }
 
@@ -1817,27 +2011,27 @@ a.continueButtonFocused:focus {
 }
 
 .chooseProductRedText{
-margin-left: 35px;
-color: red;
-font-size: 16px;
-font-weight: bold;
-font-family: Arial, Helvetica Neue, sans-serif;
+    margin-left: 35px;
+    color: #ed1c24;
+    font-size: 19px;
+    font-weight: bold;
+    font-family: Arial;
 }
 
 .chooseProductTitle1{
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 15px;
     color: #333333;
     font-family: Arial, Helvetica Neue, sans-serif;
     margin-left: 35px;
 }
 
 .chooseProductTitle2{
-margin-left: 25px;
-font-size: 16px;
-font-family: Arial, Helvetica Neue, sans-serif;
-color: #333333;
-opacity: 0.9;
+	margin-left: 25px;
+	font-size: 16px;
+	font-family: Arial, Helvetica Neue, sans-serif;
+	color: #333333;
+	opacity: 0.9;
 }
 
 .chooseProductTitle3{
@@ -1954,7 +2148,8 @@ ul.simpleFootList {
 
 .simpleFootList > li {
 	list-style-type: inherit;
-	margin: 10px;
+	margin-left: 7px;
+    margin-bottom: 7px;
 	height: auto;
 	list-style-type: none;
 }
@@ -1982,7 +2177,7 @@ ul.simpleFootList {
 .overviewTitle {
 	font-family: Arial, Helvetica Neue, sans-serif;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 16px;
 	margin-top: 30px;
 	margin-bottom: 10px;
 	margin-left: 5px;
@@ -2000,6 +2195,7 @@ ul.simpleFootList {
 	/*2016-03-04 chrch: add width for responsive */
 	width: 100%;
 }
+
 
 .overviewTopTable {
 	/*2016-03-04 chrch: remove width for responsive */
@@ -2084,9 +2280,9 @@ ul.simpleFootList {
 }
 
 .overviewCenterTableContainer {
-	margin-top: 8px;
+	/*margin-top: 8px;*/
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 10pt;
 	width: 100%;
 	border: none;
 }
@@ -2103,7 +2299,7 @@ ul.simpleFootList {
 
 .overviewCenterTableTitle {
 	width: 22%;
-	font-size: 14px;
+	font-size: 12pt;
 	font-weight: bold;
 	padding-left: 10px !important;
 	padding-right: 10px !important;
@@ -2134,7 +2330,7 @@ padding-right: 10px;
 }
 
 .overviewContent2{
-width: 5%;
+width: 7%;
 text-align: center;
 height: 25px
 }
@@ -2187,9 +2383,15 @@ height: 25px
 .overviewCenterTableTextTab {
 	margin-left: 20px;
 }
-
+.comapreCardsTD {
+	margin-left: 10px;
+    text-shadow: none;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 .overviewCenterTableRightBlockTitle {
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: bold;
 	padding-left: 10px !important;
 	padding-right: 15px !important;
@@ -2342,7 +2544,7 @@ height: 25px
 }
 @media (min-width: 768px) {
     .startApplicationButton {
-        width: 200px;
+        width:  73%;
         float: left;
         margin-right: 0px;
     }
@@ -2393,9 +2595,10 @@ height: 25px
   }
 }
 .footnoteContentText {
-    font-size: 11px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #818181;
+    font-size: 10px;
+    font-family: Arial;
+    color: #515151;
+    line-height: 15px;
 }
 /* End Overview */
 /* Overview Nova Scotia */
@@ -2427,7 +2630,7 @@ height: 25px
     border-left: none;
 }
 .overviewNSTableRedText {
-    color: red;
+    color: #ed1c24;
 }
 .overviewNSTableBlackText {
     color: black;
@@ -2533,7 +2736,10 @@ height: 25px
     padding-top: 3px;
 }
 .makeCorrectionSection {
-    margin-left: 5px;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .makeCorrectionSectionSpan {
     height: 22px;
@@ -2549,12 +2755,22 @@ height: 25px
     display: table-cell;
 }
 .personalTitle {
-    margin-top: 27px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 .personalInfoTitle {
+  margin-top: 15px;
+  /*2016-03-07 chrch: Changing padding for responsive*/
+  padding-bottom: 15px;
+  /* 2016-02-10 chrch: Personal Information Page - Adding negative margins for responsive */
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.confirmationTitle {
   margin-top: 27px;
   /*2016-03-07 chrch: Changing padding for responsive*/
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   /* 2016-02-10 chrch: Personal Information Page - Adding negative margins for responsive */
   margin-left: -15px;
   margin-right: -15px;
@@ -2580,7 +2796,6 @@ height: 25px
   margin-bottom: 10px;
 }
 .useMyCTProfileInformationButton {
-    border-radius: 10px;
     display: inline-block;
     overflow: visible;
     width: 100%;
@@ -2596,7 +2811,8 @@ height: 25px
     color: #e6e2cf;
     position: relative;
     text-shadow: 1px 0 0 #000;
-    background: #{inline_image("ContinueButtonBackground.png")};
+   /* background: #{inline_image("ContinueButtonBackground.png")}; */
+    background-color: #ed1c24;
     min-width:181px;
     /*width:auto;*/
     overflow: visible;
@@ -2604,7 +2820,6 @@ height: 25px
     /*height: 23px;*/
     cursor: pointer;
     float: left;
-    border-radius: 10px;
 }
 .buttonCTText {
   /* 2016-02-08 chrch: Personal Information Page - removing padding for responsive */
@@ -2761,6 +2976,13 @@ height: 25px
     }
 }
 
+.overview_page_subtitle{
+   font-family: Arial;
+    /* font-weight: bold; */
+    font-size: 22px;
+    line-height: 26px;
+}
+
 .liContent {
     /*margin-left: 10px;
   margin-right: 10px;*/
@@ -2852,6 +3074,8 @@ height: 25px
         border: 0px;
     }
 }
+
+
 .grayTableBorderGray {
     background-color: #F7F7F7;
     border: 1px solid;
@@ -2953,6 +3177,9 @@ height: 25px
 .grayTableSpacerBottom10 {
     padding-bottom: 10px;
 }
+.paddingBottom40 {
+    padding-bottom: 40px;
+}
 .grayTableForAdditionalInputsGroup {
     tr td {
         border: 0px;
@@ -2968,7 +3195,7 @@ height: 25px
     display: block;
 }
 .additionalInformation_EarnReward {
-    background-image: #{inline-image("earn_rewards.png")};
+    background-image: #{inline-image("brb_suppcard_banner.jpg")};
     height: 74px;
     width: 290px;
     background-size: 100%;
@@ -2988,7 +3215,7 @@ height: 25px
     }    
 }
 .additionalInformation_EarnReward_fr {
-    background-image: #{inline-image("earn_rewards_fr.png")}
+    background-image: #{inline-image("brb_suppcard_banner_FR.jpg")}
     ;
     height: 74px;
     width: 290px;
@@ -3207,13 +3434,33 @@ height: 25px
     height: 505px;
 }
 .customerCard {
-    background: #{inline_image("default_generic_card.png")};
+    background: #{inline_image("BRB_Confirmation_Screens_Blank_OMC.png")};
     background-repeat: no-repeat;
     background-position:0 35px;
     /*background-position-x: 20px;*/
     
-    height: 170px;
-    width: 250px;
+    height: 194px;
+    width: 280px;
+}
+
+.customerCard_OMX {
+    background: #{inline_image("brb_omx_choose.png")};
+    background-repeat: no-repeat;
+    background-position:0 35px;
+    /*background-position-x: 20px;*/
+    
+    height: 194px;
+    width: 200px;
+}
+
+.customerCard_OMZ {
+    background: #{inline_image("brb_omz_choose.png")};
+    background-repeat: no-repeat;
+    background-position:0 35px;
+    /*background-position-x: 20px;*/
+    
+    height: 194px;
+    width: 200px;
 }
 .custormerCardName {
     position: relative;
@@ -3226,7 +3473,7 @@ height: 25px
     color: #333333;
 }
 .congratulationsLabel {
-    font-size: 20px;
+    font-size: 18px;
     color: #df1b23
 }
 .congratulationsTextContent {
@@ -3253,7 +3500,7 @@ height: 25px
     font-size: 12px;
     color: #333333;
     /*2016-03-10 chrch: removing margins*/
-    /*margin-left: 19px;*/
+    margin-left: 19px;
     padding-top: 20px;
 }
 #confirmation_Privacy_Area {
@@ -3662,12 +3909,17 @@ div.tooltip_err span {
 .elementTop10{
 	padding-top: 10px;
 }
-
+.elementTop20{
+	padding-top: 20px;
+}
 .elementTopBottom10 {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
+.elementTopBottom30{
+  padding-top: 0px;
+  padding-bottom: 30px;
+}
 /* US3979 */
 .elementTopBottom5 {
     padding-top: 5px;
@@ -3720,6 +3972,14 @@ div.tooltip_err span {
     position: relative;
     top: -2px;
 }
+
+.superscriptsHeader {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14pt !important;
+    position: relative;
+    top: -2px;
+}
+
 .superscriptsFootnote {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 6pt;
@@ -3957,6 +4217,906 @@ input:-moz-placeholder {
     margin: 0px auto;
     outline-style: none;
 }
+/* US4675 scrollbar css starts */
+
+.font_forCardInfo{
+    font-color: #333333;
+    background-color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding-left: 15px;
+    text-align: left;
+    //font-weight: bold;
+
+}
+.approvedContentSpan{
+	display: inline-block;
+    margin: 2px 0 3px 0;
+}
+.fontPendDeclain{
+    font-color: #333333;
+    background-color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+.errorImageForDeclined{
+    background: #{inline_image("BRB_ERROR_SadFace.png")};
+    background-repeat: no-repeat;
+    /*background-position-x: 20px;*/
+    height: 200px;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.textAlignLeft{
+    float: left;
+    text-align: left;
+    padding-left: 70px;
+}
+.fontForApprovePageContent{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000;
+    padding-top: 10px;
+}
+.fontForPendingDeclinedPageContent{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+.whatsNextSpan{
+	display: block;
+    margin: 10px 0 20px 0;
+}
+.fontForApproveTitle{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+    font-color: #000;
+}
+.approveContentTable{
+   
+    background-color: rgb(247, 247, 247);
+    border: 0px;
+    border: 0px;
+    width: 90%;
+    tr td {
+        border: 0px;
+        padding: 40px;
+        background-color: rgb(247, 247, 247);
+    }
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0px;
+    border-left:1px solid #CCCCCC;
+    border-right:1px solid #CCCCCC;
+
+
+}
+
+.declinedTableContent{
+    background-color: #FFFFFF;
+    border: 0px;
+    border: 0px;
+    width: 90%;
+    tr td {
+        border: 0px;
+        padding: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #FFFFFF;
+    }
+}
+.whiteTableApprove {
+    background-color: #FFFFFF;
+    border: 0px;
+    tr td {
+        border: 0px;
+        background-color: #FFFFFF;
+        border-radius: 0px;
+        border-bottom: 0px;
+        margin: 0px;
+        //padding: 12px;
+    }
+    border-radius: 0px;
+}
+
+.withoutBorderTr{
+        border: 0px;
+        background-color: #FFFFFF;
+        border-radius: 0px;
+        border-bottom: 0px;
+}
+.hrAttributes{
+    background-position: center;
+    background-image: #{inline-image("brb_horiz_line.png")};
+    background-repeat: no-repeat;
+    background-size: 95%;
+  /*size: 5px;
+  color: #cccccc;*/
+  
+}
+#approval_block{
+  width : 100%;
+  padding-left: 15px;
+  padding-right:15px;
+}
+
+.marginLeft46{
+   margin-left: 46px;
+}
+.width_td_hr{
+  width: 30%;
+}
+.title_approve_width{
+ text-align: center;
+ width: 30%;
+}
+.congratulation_font{
+   text-align:center;
+   font-size: 28px;
+   color: #df1b23;
+   font-weight: bold;
+}
+
+.noteTextFont{
+   text-align:center;
+   font-size: 18px;
+   color: #df1b23;
+   font-weight: bold;
+}
+
+.errorMessageFont{
+   text-align:center;
+   font-size: 22px;
+   color: #df1b23;
+   font-weight: bold;
+   font-style: italic;
+}
+
+ .scrollbar
+{
+    float: left;
+    height: 200px;
+    width: 100%;
+    background: #ffffff;
+    overflow-y: scroll;
+    padding: 15px;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 1px;
+}
+
+ .scrollbar_identityPage
+{
+    height: 200px;
+    width: 90%;
+    background: #ffffff;
+    overflow-y: scroll;
+    padding: 15px;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 1px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.force-overflow
+{
+	min-height: 450px;
+}
+
+#wrapper_footer_scrollbar
+{
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+#pendingDeclinedApproved::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#pendingDeclinedApproved::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#pendingDeclinedApproved::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+.pendingTextStyle{
+  color: #000000;
+  font-size: 14px;
+  font-family: Arial, Helvetica Neue, sans-serif;
+}
+
+.cardTypeTextStyle{
+  color: #ed1c24;
+  font-size: 14px;
+  font-family: Arial, Helvetica Neue, sans-serif;
+}
+/* ------------------------- US4591 starts------------------------------- */
+.compareCardsOMZ{
+    background-image: #{inline-image("TriangleCard_World_Elite_E_.png")};
+    height: 120px;
+    width: 160px;
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    background-size: 100%;
+}
+.paddingLeftZero{
+	 padding-left: 0px;
+}
+
+.arialFont{
+  font-family: Arial;
+}
+
+.paddingZero{
+  padding: 0;
+}
+.marginRight55{
+  margin-right: 55px;
+}
+.compareCardsOMX{
+    background-image: #{inline-image("TriangleCard_Basic_E.png")};
+    height: 120px;
+    width: 160px;
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    background-size: 100%;
+}
+
+.compareCardsFont{
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+}
+.chooseCardOMZ{
+    background-image: #{inline-image("TriangleCard_World_Elite_E_.png")};
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    height: 140px;
+    width: 200px;
+    margin-top: 40px;
+    /* margin-left: 130px; */
+    background-size: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.chooseCardOMX{
+    background-image: #{inline-image("TriangleCard_Basic_E.png")};
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    height: 140px;
+    width: 200px;
+    margin-top: 40px;
+    /* margin-left: 130px; */
+    background-size: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.overviewPageComareCards{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 32px;
+    font-color: #000;
+    margin-left: 0px;
+}
+.compare_cards_chart {
+    background-image: #{inline-image("WICIChart_for_Comparition_FR.png")};
+    height: 750px;
+    width: 880px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    /* float: left; */
+    margin-top: 5px;
+    display: block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.compare_cards_chart_fr {
+    background-image: #{inline-image("WICIChart_for_Comparition_FR.png")};
+    height: 400px;
+    width: 500px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    /* 2015-03-13 chrch: remove float for responsive */
+    /* float: left; */
+    margin-top: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.whiteTableWithoutBorder{
+    border-collapse: inherit;
+    background-color: #FFFFFF;
+    border-left: 0px solid #ffffff;
+    border-bottom: 0px solid #ffffff;
+    border-top: 0px solid #ffffff;
+    border-right: 0px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    tr td {
+        border-left: 0px solid #ffffff;
+        border-bottom: 0px solid #ffffff;
+        border-top: 0px solid #ffffff;
+        border-right: 0px solid #ffffff;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+    }
+    border-radius: 5px;
+}
+
+.compareCards > li {
+	list-style-image: #{inline_image("bullet.png")};
+	list-style-type: square;
+	margin-left: 25px;
+}
+.OMXCard4percentage{
+    background-image: #{inline-image("brb_omx_4_.png")};
+    height: 150px;
+    width: 200px;
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    background-size: 100%;
+}
+
+.OMZCard4percentage{
+    background-image: #{inline-image("brb_omz_4_.png")};
+    height: 150px;
+    width: 200px;
+    background-repeat: no-repeat;
+    backgroud-position:center;
+    background-size: 100%;
+}
+.stretchThisTable_overview {
+    width: 94%;
+    margin-left: 20px;
+}
+.stretchThisTable_overviewPage {
+    width: 94%;
+    border-left: 0px solid #ffffff;
+    border-bottom: 0px solid #ffffff;
+    border-top: 0px solid #ffffff;
+    border-right: 0px solid #ffffff;
+    
+    td div{
+	    display: block;
+	    margin-left: auto;
+	    margin-right: auto;
+	    border : 0px; 
+    }
+    tr td{
+        border-left: 0px solid #ffffff;
+	    border-bottom: 0px solid #ffffff;
+	    border-top: 0px solid #ffffff;
+	    border-right: 0px solid #ffffff;
+    }
+}
+.cardInformationTable {
+    width: 98%;
+}
+.listItem_title_font {
+	font-family: Arial;
+    font-size: 16px;
+    color: #ffffff;
+    text-shadow: none;
+}
+.table_text{
+   font-family: Arial;
+   font-size:  14px;
+   color: #000000;
+}
+.table_text_big{
+   font-family: Arial;
+   font-size:  20px;
+   color: #000000;
+}
+.personalInfoPageTextSub_subTitle{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    float: right;
+}
+.MarginLeft25{
+      margin-left: 25px;
+}
+.MarginLeft50{
+      margin-left: 50px;
+}
+
+.needHelpImage{
+    background-image: #{inline-image("brb_needhelp.png")};
+    height: 50px;
+    width: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.needHelpImage_fr{
+    background-image: #{inline-image("brb_needhelp_fr.png")};
+    height: 50px;
+    width: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.cardList > li {
+	list-style-image: #{inline_image("brb_checkmark.png")};
+}
+.tickImageBlack{
+     background-image: #{inline-image("brb_checkmark.png")};
+     width: 20px;
+     height: 20px;
+     background-repeat: no-repeat;
+}
+
+.marginLEftMinus4{
+  margin-bottom: -4px;
+}
+.tickImageRed{
+     background-image: #{inline-image("brb_red_checkmark.png")};
+     width: 20px;
+     height: 20px;
+     background-repeat: no-repeat;
+}
+.redBackground{
+  background-color : #ed1c24;
+}
+.blckBackground{
+  background-color : #000000;
+}
+.grayTableCardEligible {
+    background-color: #f7f7f7;
+    border-left: 1px solid #cccccc;
+    border-bottom: 2px solid #f7f7f7;
+    border-top: 2px solid #f7f7f7;
+    tr td {
+        border-left: 1px solid #CCCCCC;
+    }
+}
+
+.grayTableNoBorderCompareCards {
+    background-color: #F7F7F7;
+    border-left: 2px solid #f7f7f7;
+    border-bottom: 2px solid #f7f7f7;
+    border-top: 2px solid #f7f7f7;
+    border-right: 2px solid #f7f7f7;
+    tr td {
+        border-left: 2px solid #f7f7f7;
+        border-bottom: 2px solid #f7f7f7;
+        border-top: 2px solid #f7f7f7;
+        border-right: 2px solid #f7f7f7;
+    }
+}
+.Margin_left{
+ margin-left: 40%;
+}
+.Width_TD_30{
+    width: 30%;	
+}
+.Width_TD_35{
+    width: 35%;	
+}
+
+.Width_TD_34{
+    width: 34%;	
+}
+
+.Width_TD_20{
+   width: 20%;	
+}
+.Width_TD_19{
+  width: 19%;	
+}
+.Width_TD_18{
+  width: 18%;	
+}
+
+.Width_TD_14{
+  width: 14%;	
+}
+
+.Width_TD_15{
+  width: 15%;	
+}
+.Width_TD_24{
+  width: 24%;
+}
+.Width_TD_23{
+   width: 23%;
+}
+.Width_TD_12{
+  width: 12%;
+}
+.Width_TD_50{
+  width: 50%;
+}
+.Width_TD_60{
+   width: 60%;
+}
+.Width_TD_70{
+   width: 70%;
+}
+.Width_TD_40{
+   width: 40%;
+}
+
+.Width_TD_42{
+   width: 42%;
+}
+.Width_TD_10{
+   width: 10%;
+}
+
+.Width_TD_08{
+   width: 8%;
+}
+.Width_TD_16{
+   width: 16%;
+}
+.Width_TD_23{
+   width: 23%;
+}
+
+.textCapitalise{
+     text-transform: capitalize;
+}
+
+.borderBottomWhite{
+ tr td{
+  border-bottom: 2px solid #ffffff;
+  }
+}
+
+.borderBottomGray{
+  border-bottom: 2px solid #f7f7f7;
+}
+.whiteTableApproveWithBorder {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    tr td {
+        height: 100px;
+        width: 50%;
+        align: center;
+        border: 1px solid #CCCCCC;
+        background-color: #FFFFFF;
+        border-radius: 0px;
+        border-bottom: 0px;
+    }
+    tr th{
+       height : 10px;
+       align : center;
+       
+    }
+    border-radius: 0px;
+}
+
+
+.chooseTheCardTable {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-bottom: 2px solid #ffffff;
+    tr td {
+        height: 100px;
+        width: 50%;
+        align: center;
+        border: 1px solid #CCCCCC;
+        background-color: #FFFFFF;
+        border-radius: 0px;
+        border-bottom: 2px solid #ffffff;
+    }
+    tr th{
+       height : 10px;
+       align : center;
+       
+    }
+    border-radius: 0px;
+}
+.stretchThisTable_overview_compareCards {
+    width: 93%;
+}
+
+.FontSize12{
+    font-size: 12pt;
+}
+.arrow_down {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #c0c4c7;
+}
+
+#hexagon {
+	width: 100%;
+    height: 40px;
+    background: #cccccc;
+    position: relative;
+    padding-top: 15px;
+    text-shadow: none;
+    font-size: 12pt
+}
+
+#hexagon:after {
+	content: "";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 0;
+    height: 0;
+   
+	@media(max-width: 521px) and (min-width: 521px){
+		border-left: 220px solid transparent;
+        border-right: 220px solid transparent;
+        border-top: 25px solid #cccccc;
+	}
+	@media (max-width: 692px) and (min-width: 692px){
+	    border-left: 297px solid transparent;
+	    border-right: 297px solid transparent;
+	    border-top: 25px solid #cccccc;
+    }
+    @media(max-width: 767px) and (min-width: 767px){
+		border-left: 320px solid transparent;
+        border-right: 320px solid transparent;
+        border-top: 25px solid #cccccc;
+	}
+	@media(max-width: 971px) and (min-width: 971px){
+		border-left: 425px solid transparent;
+        border-right: 425px solid transparent;
+        border-top: 25px solid #cccccc;
+	}
+	@media (max-width: 1199px) {
+        border-left: 440px solid transparent;
+    	border-right: 440px solid transparent;
+    	border-top: 25px solid #cccccc;
+    }
+    @media (min-width: 1200px) {
+        border-left: 440px solid transparent;
+    	border-right: 440px solid transparent;
+    	border-top: 25px solid #cccccc;
+    }
+   
+	
+}
+.eligibleCardTitleFont{
+   font-family: Arial;
+    font-weight: bold;
+    font-size: 16pt;
+    font-color: #000;
+    padding-right: 20px;
+}
+.decoupledEligibleCardFont{
+    font-family: Arial-bold;
+    font-size: 24px;
+    color: #000000;
+    text-align: left;
+    line-height: 28px;
+    font-weight: bold;
+}
+.oicEligible_listItemFont{
+   font-size: 16px;
+   font-family: Arial;
+   color: #181819;
+}
+
+
+.oicEligible_PleaseReadFont{
+    font-size: 24px;
+    font-family: Arial;
+    color: #000000;
+    font-weight: bold;
+    margin: 0;
+}
+#topBannerOMXImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.topBannerOMXImageBlock {
+    background: #{inline_image("brb_omx_4_.png")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMXImageBlock_fr {
+    background: #{inline_image("brb_omx_4_.png")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+}
+
+#topBannerOMZImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.topBannerOMZImageBlock {
+    background: #{inline_image("brb_omz_4_.png")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMZImageBlock_fr {
+    background: #{inline_image("brb_omz_4_.png")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+}
+
+/* ------------------------- US4591 ends--------------------------------- */
+
+/* --------------------------------- Loading --------------------------- */
+.loader{
+	margin:200px auto;
+}
+.loader span{
+	width:16px;
+	height:16px;
+	border-radius:50%;
+	display:inline-block;
+	position:absolute;
+	left:50%;
+	margin-left:-10px;
+	-webkit-animation:3s infinite linear;
+	-moz-animation:3s infinite linear;
+	-o-animation:3s infinite linear;
+	
+}
+
+
+.loader span:nth-child(2){
+	background:#e2e2e2;
+	-webkit-animation:kiri 1.2s infinite linear;
+	-moz-animation:kiri 1.2s infinite linear;
+	-o-animation:kiri 1.2s infinite linear;
+	
+}
+.loader span:nth-child(3){
+	background:#afafaf;
+	z-index:100;
+}
+.loader span:nth-child(4){
+	background:#ed1c24;
+	-webkit-animation:kanan 1.2s infinite linear;
+	-moz-animation:kanan 1.2s infinite linear;
+	-o-animation:kanan 1.2s infinite linear;
+}
+
+
+@-webkit-keyframes kanan {
+    0% {-webkit-transform:translateX(20px);
+    }
+   
+	50%{-webkit-transform:translateX(-20px);
+	}
+	
+	100%{-webkit-transform:translateX(20px);
+	z-index:200;
+	}
+}
+@-moz-keyframes kanan {
+    0% {-moz-transform:translateX(20px);
+    }
+   
+	50%{-moz-transform:translateX(-20px);
+	}
+	
+	100%{-moz-transform:translateX(20px);
+	z-index:200;
+	}
+}
+@-o-keyframes kanan {
+    0% {-o-transform:translateX(20px);
+    }
+   
+	50%{-o-transform:translateX(-20px);
+	}
+	
+	100%{-o-transform:translateX(20px);
+	z-index:200;
+	}
+}
+
+
+
+
+@-webkit-keyframes kiri {
+     0% {-webkit-transform:translateX(-20px);
+	z-index:200;
+    }
+	50%{-webkit-transform:translateX(20px);
+	}
+	100%{-webkit-transform:translateX(-20px);
+	}
+}
+
+@-moz-keyframes kiri {
+     0% {-moz-transform:translateX(-20px);
+	z-index:200;
+    }
+	50%{-moz-transform:translateX(20px);
+	}
+	100%{-moz-transform:translateX(-20px);
+	}
+}
+@-o-keyframes kiri {
+     0% {-o-transform:translateX(-20px);
+	z-index:200;
+    }
+	50%{-o-transform:translateX(20px);
+	}
+	100%{-o-transform:translateX(-20px);
+	}
+}
+
+/* --------------------------------- Loading --------------------------- */
+
+/* US4675 scrollbar css ends */
 /* 2016-02-10 chrch: Personal Information Page - new class for responsive */
 .personalInformation_GrossAnnualIncome_TextField{
   width: 90%;		

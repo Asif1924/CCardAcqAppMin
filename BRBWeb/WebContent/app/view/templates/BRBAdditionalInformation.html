@@ -1,8 +1,10 @@
 <script id="BRBAdditionalInformation-template" type="text/x-jquery-tmpl">
 <span><!-- Dont remove span, IE8!!! -->
-<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
+
+	{{if !isMOA }}
 		<div class="customMargin row">
-				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2 ">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
 				</div>
 				
@@ -15,19 +17,51 @@
 				</div>
 				
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-2">
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
 				</div>
 
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
 					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
 				</div>
 		</div>
-	</div>
+	 {{else}}	
+	      <div class="customMargin row">
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</div>
 
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
+				</div>
+		</div>
+	 {{/if}}	
+	 
+           <table id="steps3" class="tableNoBorder stretchThisTable_overview">
+				  <tr class="tableNoBorder">
+				      <td id="Page_3_HR_line_1" class="Width_TD_18 hrAttributes"></td>
+					  <td class="Width_TD_40">
+					   {{if !isMOA }}
+							    <span class="PageTitle" data-translationKey="additionalInformation_step_3_of_5_Ecomm"></span>
+				       {{else}}	
+							    <span class="PageTitle" data-translationKey="additionalInformation_step_3_of_5_Decouple"></span>
+			           {{/if}}		
+					  </td>
+					  <td id="Page_3_HR_line_2" class="Width_TD_18 hrAttributes"></td>
+				   </tr>
+			</table>
+	</div>
 
 <div class="ScreenLayout" id="AdditionalInformation_PageContents">
     <div id="additionalSuplementaryCardArea">
-        <div class="personalInfoTitle row">
+        <div class="confirmationTitle row">
             <span class="pageSubTitle leftalign" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
             <div id="getSuplementaryCard_requiredFieldIndicatorBlock" class="floatToRight">
                 <span class="requiredField redSpan">*</span>
@@ -256,7 +290,7 @@
 					<tr class="fieldRow">					
 						<td class="fieldLabelsCell fieldValuesCell fieldLabelsCellWithCheckBoxDecoratorFix"  colspan="2">
 							<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet1"></span><br><br>
-							<span class="floatLeft boldSpan" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet2"></span>
+							<span class="floatLeft marginLeft46" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet2"></span>
 							<ul class="leftList simpleHyphenList">
 								<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet3"></li>
 								<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet4"></li>
@@ -266,10 +300,11 @@
           					<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet7"></span><br><br>
           					<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet8"></span>
 						</td>
-					</tr>		
+					</tr>
 					<tr class="fieldRow">					
 						<td>
 							<span class="footnoteContentText">
+							<br>
 							<ul class="simpleFootList">
 							<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet9"></li>
 							<li data-translationKey="additionalInformation_OptionalInsurance_Details16_Bullet91"></li>
@@ -301,14 +336,17 @@
 								<li data-translationKey="additionalInformation_OptionalInsurance_Details14_Bullet3"></li>
 								<li data-translationKey="additionalInformation_OptionalInsurance_Details14_Bullet4"></li>
 								<li data-translationKey="additionalInformation_OptionalInsurance_Details14_Bullet5"></li>
+								<li data-translationKey="additionalInformation_OptionalInsurance_Details14_Bullet6"></li>
+								<li data-translationKey="additionalInformation_OptionalInsurance_Details14_Bullet7"></li>
           					</ul>
           					<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details14_1"></span><br><br>
           					<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_Details14_2"></span>
 						</td>
-					</tr>		
+					</tr>
 					<tr class="fieldRow">					
 						<td>
 							<span class="footnoteContentText">
+							<br>
 							<ul class="simpleFootList">
 							<li data-translationKey="additionalInformation_footnoteContentText5"></li>
 							<!-- US3979 //-->
@@ -324,7 +362,7 @@
 				<tr>
 					<td>
 						<table id="additionalInsuranceTable" 
-							class="grayTableBorderGray optionalProduct_optionalInsuranceTableWith">
+							class="borderCollapse grayTableBorderGray optionalProduct_optionalInsuranceTableWith">
 							<span class="boldSpan floatLeftSpan fieldCellWithBoldFontSize14 additionalInformation_OptionalInsurance_Details15" data-translationKey="additionalInformation_OptionalInsurance_Details15"></span>
 							<tbody>
 							
@@ -372,12 +410,12 @@
 															id="additionalInformation_optionalInsurance_PA_Agreement"
 															type="checkbox" /></td>
 														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
-															<sup class="redSpanForInputsGroup">*</sup>
-															<span class="floatLeftSpan"
-															data-translationKey="additionalInformation_ProtectionAdvantage_Text"></span>
+															<span data-translationKey="additionalInformation_ProtectionAdvantage_Text"></span>
 														</td>
 													</tr>
 												</table>
+												
+												<p class="MarginLeft50" data-translationKey="additionalInformation_Quebec_new_lineProtectionAdvantage"></p>
 											</div>
 										</div>
 									</td>
@@ -406,7 +444,7 @@
 									</td>
 								</tr>
 								<tr class="fieldRow"  id="additionalInsuranceTable_row_six">
-									<td class="fieldLabelsCell fieldValuesTopMargin" colspan="2"
+									<td class="fieldLabelsCell" colspan="2"
 										id="additionalInformation_OptionalInsurance_CP_Area">
 										<div class="elementWithRightMargin15">
 											<div id="additionalInformation_OptionalInsurance_CP_Table"
@@ -419,12 +457,12 @@
 															id="additionalInformation_optionalInsurance_CP_Agreement"
 															type="checkbox" /></td>
 														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
-															<sup class="redSpanForInputsGroup">*</sup>
 															<span class="floatLeft"
 															data-translationKey="additionalInformation_Credit_Protector_Text"></span>
 														</td>
 													</tr>
 												</table>
+												<p class="MarginLeft50" data-translationKey="additionalInformation_Quebec_new_lineProtectionAdvantage"></p>
 											</div>
 											<div>
 									</td>
@@ -466,7 +504,6 @@
 															id="additionalInformation_optionalInsurance_IW_Agreement"
 															type="checkbox" /></td>
 														<td class="fieldLabelsCellWithCheckBoxDecoratorFix">
-															<sup class="redSpanForInputsGroup">*</sup>
 															<span class="floatLeft"
 															data-translationKey="additionalInformation_Identity_Watch_Text"></span>
 														</td>
@@ -545,15 +582,13 @@
 	        	<a href="#" class="continueButton submitApplicationButton" id="additionalInformation_ContinueButtonHref">
 		        	<span class="buttonText" data-translationKey="continue_Button_Label"></span>
 	        	</a>
-	        	<span class="continueButtonTriangle"></span>
+	        	<!-- <span class="continueButtonTriangle"></span> -->
         	</div>
 			<div class="backButtonRightPosition popup_CancelButton col-xs-12 col-sm-8" id="additionalInformation_BackButton">
         		<div id="additionalInformation_BackButtonContainer">
-	        		<a href="#" class="backButton continueButton floatToRight" id="additionalInformation_BackButtonHref">
+	        		<a href="#" class="backButton backButtonGray floatToLeft" id="additionalInformation_BackButtonHref">
 		        		<span class="buttonText" data-translationKey="back_Button_Label"></span>
 		        	</a>
-		        	<span class="backButtonTriangle floatToRight">
-		        	</span>		        	
 	        	</div>
        		</div>
 		</div>
@@ -617,7 +652,7 @@
 				<span data-translationKey="additionalInformation_footnoteContentText4old"></span>
 				<br>
 				<sup class="additionalInformationFootnoteAsterixFontSize">***</sup>
-				<span data-translationKey="additionalInformation_footnoteContentText5old"></span>
+				<span data-translationKey="additionalInformation_footnoteContentText5"></span>
 			{{/if}}
 			<br>			
 			<span data-translationKey="additionalInformation_footnoteContentText6old"></span>
@@ -669,15 +704,26 @@
 			<span data-translationKey="additionalInformation_footnoteContentText6"></span>
 			<br>
 			<span data-translationKey="additionalInformation_footnoteContentText7"></span> -->
-			<ul class="simpleFootList">
-				<li data-translationKey="additionalInformation_footnoteContentText6_1"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText7"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText8"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText9"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText10"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText11"></li>
-				<li data-translationKey="additionalInformation_footnoteContentText12"></li>
-			</ul>
+			<div class="scrollbar" id="style-1">
+                   <div class="force-overflow">
+								<ul class="simpleFootList">
+									<li data-translationKey="additionalInformation_footnoteContentText6_1"></li>
+									<li data-translationKey="additionalInformation_footnoteContentText7"></li>
+									<!-- US4591 starts-->
+									                  {{if cardType === "OMX"}}
+									                     <li data-translationKey="additionalInformation_footnoteContentText7_AddedLineOMX"></li>
+									                  {{else cardType === "OMZ"}}   
+									                     <li data-translationKey="additionalInformation_footnoteContentText7_AddedLineOMZ"></li> 
+									                  {{/if}}   
+									<!-- US4591 starts-->
+									<li data-translationKey="additionalInformation_footnoteContentText8"></li>
+									<li data-translationKey="additionalInformation_footnoteContentText9"></li>
+									<li data-translationKey="additionalInformation_footnoteContentText10"></li>
+									<li data-translationKey="additionalInformation_footnoteContentText11"></li>
+									<li data-translationKey="additionalInformation_footnoteContentText12"></li>
+								</ul>
+			       </div>
+		   </div>
 		<span>
 	</div>    
 	<br>

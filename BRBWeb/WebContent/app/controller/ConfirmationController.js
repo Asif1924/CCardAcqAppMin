@@ -44,9 +44,15 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     		editInsuranceButton				:	"#confirmation_Insurance_EditButton",
     		confirmation_date_of_birth		:	"#confirmation_date_of_birth",
     		confirmation_at_this_addres		:	"#confirmation_at_this_addres",
+    		step4                           :   "#steps4",
     		birth_day_sup_card_section		:	"#birth_day_sup_card_section",
     		howLongMonthes_conf_employment_section	:	"#howLongMonthes_conf_employment_section",
-    		languageButton					:	"#Confirmation_LanguageButton"
+    		languageButton					:	"#Confirmation_LanguageButton",
+    		confirmation_horizontal_Line_1  :   '#Page_4_HR_line_1',
+    		confirmation_horizontal_Line_2  :   '#Page_4_HR_line_2',
+    		confirmation_page4_title         :   '#Page_4_title'	
+    			
+    		
     };
     var model = new BRB.BaseModel({
         name: 'confirmation',
@@ -92,6 +98,9 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
         messageDialog = argMessageDialog;   //(AA)Dependency Injection Principle: Allows for proper unit testing
 
+        cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);   
+		
         if (!activationItems) {
             BRB.Log(logPrefix + sMethod + ' "activationItems" is null!!!');
             activationItems = {};
@@ -176,8 +185,15 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		assembleNavigationBarAtTop();
 		//assemblePageHTML($screenContainer, "#creditCardDescription-template");
 		assemblePageHTML($screenContainer, "#BRBConfirmation-template");
+		insertAfterElement($(refs.step4), "#creditCardDescription-template");	
+		toggleHeader();   
 		/*2016-02-16 chrch: Confirmation Screen - removing breadcrumbPaddingConfirmation class for responsive */
 		//$screenContainer.find('#BreadcrumbTrailArea1').addClass('breadcrumbPaddingConfirmation');		
+	}
+	//---------------------------------------------------------------------------------------
+	function insertAfterElement($element, templateName) {
+		var html = $(templateName).tmpl({'screenIsPopup':false, 'cardType':cardTypeGlobal}); 
+		$element.after(html);
 	}
 	//---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
@@ -197,7 +213,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		BRB.Log("isMOA :: " + isMOA);
 		
 	    $(templateName).template("confirmationScreenPage");     
-        $.tmpl("confirmationScreenPage",{activationItems:activationItems, 'isMOA':isMOA}).appendTo($element);
+        $.tmpl("confirmationScreenPage",{activationItems:activationItems, 'isMOA':isMOA, 'cardType':cardTypeGlobal}).appendTo($element);
 	}
 	//---------------------------------------------------------------------------------------
     function bindEvents(){
@@ -232,7 +248,11 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		
 		$(refs.languageButton).on("mouseup", function() {
 			formatGrossIncometValues();
+			toggleHeader();
 		});
+		$('#BreadcrumbTrailArea1').bind('translationStop', function() {
+            toggleHeader();
+        });
 	}	
     //---------------------------------------------------------------------------------------
     function formatGrossIncometValues() {
@@ -388,7 +408,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		translator.run("ConfirmationScreen");
 		//US4219					  
 		//hide CP and  PA  if age is >76 
-		hidePAandCPAgeRestriction();		
+		hidePAandCPAgeRestriction();	
 		if(wasSkSelectedOnEditScreen != app.getCurrentProvince()){
 			// for the first time launch wasSkSelectedOnEditScreen will be the same as isSkSelectedFrlag
 			var needToChangeCancelButtonBehavior = false;
@@ -470,7 +490,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		translator.run("ConfirmationScreen");
 		//US4219					  
 		//hide CP and  PA  if age is >76
-		hidePAandCPAgeRestriction();		
+		hidePAandCPAgeRestriction();	
 		$(refs.editInsuranceButton).on("mouseup", function(){
 			BRB.AppConfig.TrackingScreenID = 10;
 			popUp_OptionalProductsScreen(populateInsurancefArea, 'insurancefArea');
@@ -485,5 +505,17 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		activationItems.getModel('additionalInformation')
 				.get('sameAddressArea') === 'Y' ? $("#addressInfo").hide() : $(
 				"#addressInfo").show();
+	}
+	
+	function toggleHeader(){
+		var sMethod=" toggleHeader ::";
+		BRB.Log(logPrefix + sMethod + " isCurrentLanguageEnglish() :: " + translator.isCurrentLanguageEnglish());
+		if(translator.getCurrentLanguage() === 'en'){
+			$(refs.confirmation_page4_title).removeClass('Width_TD_42');
+			$(refs.confirmation_page4_title).addClass('Width_TD_35');
+		}else {			
+			$(refs.confirmation_page4_title).removeClass('Width_TD_35');
+			$(refs.confirmation_page4_title).addClass('Width_TD_42');
+		}
 	}
 };

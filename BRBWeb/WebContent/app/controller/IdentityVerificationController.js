@@ -60,7 +60,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
     		exam4_Answer					:	'input[name=Exam4_Answer]',
     		
     		examFinalStep					:	'#examFinalStep',
-    		examFinalStepPending			:	'#examFinalStepPending',
+    		examFinalStepPending			:	'#examFinalStepPendingDeclined',
     		tuPendingending					:	'#tu_pendingending',
     		customerEmail					:	'#identityVerification_customerEmail',
     		userNameFull					:	'#identityVerification_UserNameFull',
@@ -73,8 +73,13 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
     		languageButton 					: 	'#IdentityVerification_LanguageButton',
     		footerNote	 					: 	'#identityVerification_FooterNote',
     		continueButton	 				: 	'.continueButtonClick',
-    		titleBlock 						:   '#identityVerification_TitleBlock'
-    			
+    		titleBlock 						:   '#identityVerification_TitleBlock',
+    		pendingDeclinedApproved			:	'#pendingDeclinedApproved',
+    		tuAuthQuestionsHeaderPart		:	'#tuAuthQuestionsHeaderPart',
+    		step5							:	'#steps5',
+    		horizontalLineOne               :   '#Page_5_HR_line_1',
+    		horizontalLineTwo               :   '#Page_5_HR_line_2',
+    		IdentityVerification_PageContents	:	'#IdentityVerification_PageContents'
     };
     var model = new BRB.BaseModel({
         name: 'identityVerification',
@@ -98,6 +103,9 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
         messageDialog = argMessageDialog;   //(AA)Dependency Injection Principle: Allows for proper unit testing
 		
+        cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);   
+		
 		connectivityController = new BRB.ConnectivityController(new BRB.ConnectionStatus(), messageDialog, translator, BRB.AppConfig.ConnectivityConfig);
 		connectivityController.init();
 		
@@ -118,9 +126,9 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		createView();
 		bindEvents();
 		fillControlsWithData();	
-		
+		toggleHeader();
 		// Hide language button
-		$(refs.languageButton).hide();
+		//$(refs.languageButton).hide();
 	}    
 	//---------------------------------------------------------------------------------------
 	function fillControlsWithData()
@@ -131,7 +139,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		var currentModel = activationItems.getModel('personalInformation');
         if (currentModel !== null) {
             var userData = currentModel.get('firstName') + ' ' + currentModel.get('lastName');
-            $(refs.userName).text(userData.substring(0, 13));
+            //$(refs.userName).text(userData.substring(0, 13));
             $(refs.userNameFull).text(userData);
             $(refs.customerEmail).attr('href','mailto:'+currentModel.get('email'))
             					 .text(currentModel.get('email'));
@@ -204,7 +212,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	function assemblePageHTML($element, templateName) {
 		var isMOA =  app.getIsMOARequest();
 		BRB.Log("isMOA :: " + isMOA);
-		var html = $(templateName).tmpl({'isMOA' : isMOA}); 
+		var html = $(templateName).tmpl({'isMOA' : isMOA, 'cardType': cardTypeGlobal}); 
 		$element.append(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -274,6 +282,10 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		$(refs.continueButton).on("mouseup", function(){
 			app.closeBRBWebWindow();
 		});
+		
+		$('#BreadcrumbTrailArea1').bind('translationStop', function() {
+            toggleHeader();
+        });
 	}	
     //---------------------------------------------------------------------------------------
     function updateNumericValuesFormat() {
@@ -424,16 +436,22 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         }
         var response = getAAResponse();
         if (response && response.appStatus && response.appStatus == "APPROVED"){
-        	BRB.Log(sMethod + '::Response APPROVED::' + argResponse.msg);
-        	setAdjudicationData(argResponse);
-        	return;
+        	 cardTypeGlobal = response.respCardType;
+             BRB.Log(sMethod + '::resCardType:' + cardTypeGlobal); 
+        	 BRB.Log(sMethod + '::Response APPROVED::' + argResponse.msg);
+        	 setAdjudicationData(argResponse);
+        	 return;
         }
         if (response && response.appStatus && response.appStatus == "PENDING"){
+        	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+     		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);   
         	BRB.Log(sMethod + '::Response PENDING::' + argResponse.msg);       	
         	showPendingScreen();
         	return;
         }
         if (response && response.appStatus && response.appStatus == "DECLINED"){
+        	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+     		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
         	BRB.Log(sMethod + '::Response DECLINED::' + argResponse.msg);       	
         	showPendingScreen();
         	return;
@@ -444,7 +462,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	function adjudicationFailed(argResponse){
 		var sMethod = "adjudicationFailed(argResponse)";
 		BRB.Log(logPrefix + sMethod);
-        BRB.Log(logPrefix + sMethod + "\n" + argResponse);
+        BRB.Log(logPrefix + sMethod + "\n" + JSON.stringify(argResponse));
         updateAdjudicationModel(argResponse, false);
         new BRB.LoadingIndicatorController().hide();
 //      showPendingScreen();
@@ -487,8 +505,10 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	function setAdjudicationData(argResponse){
 		var resp = argResponse.data.accountAppResponse;	
 		showCongratulationScreen();
-		$(refs.cardNumber).text(resp.accountNumber + '*');
-		showPanNumberOnCreditCardImage(resp.accountNumber);
+		var cardNumber = new String(resp.accountNumber);
+		$(refs.cardNumber).text(getRightViewForCardNumber(cardNumber));
+		//$(refs.cardNumber).text(resp.accountNumber);
+		//showPanNumberOnCreditCardImage(resp.accountNumber);
 		if (translator.isCurrentLanguageEnglish()) {
 			$(refs.cardLimit).text('$' + numberWithSeparators(resp.creditLimit));
 			$(refs.cardAPR).text(resp.apr + '%');
@@ -513,6 +533,14 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		return result;
 	}
 	//---------------------------------------------------------------------------------------
+	function getRightViewForCardNumber(str){
+		var result = "";
+		for(var i=0,end=4,start=0; i<=3 && i<str.length; ++i,start = end,end += 4){
+			result += (str.substring(start, end) + "-").toUpperCase();
+		}
+		return result.substring(0, result.length-1);
+	}
+	//---------------------------------------------------------------------------------------
 	function showCongratulationScreen(){
 		app.flowStateHelper.setFlowFinish();
     	hideGroupOfBlocksOnResult();
@@ -522,6 +550,12 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         /*2016-03-11 chrch: updating css for display (US3964) */
         $(refs.examFinalStep).css('display', 'inline-block');
 		$(refs.languageButton).show();
+		$(refs.pendingDeclinedApproved).show();
+		$(refs.tuAuthQuestionsHeaderPart).hide();
+		$(refs.step5).hide();
+		$(refs.IdentityVerification_PageContents).removeClass("paddingBottom40");
+		$(refs.IdentityVerification_PageContents).removeClass("grayTableSpacerTop40");
+		$(refs.examTable).removeClass("fieldLabelsCell paddingLeftZero grayTableBottomBorder");
 		new BRB.LoadingIndicatorController().hide();
 	}
 	//---------------------------------------------------------------------------------------
@@ -536,6 +570,12 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		$(refs.examFinalStepPending).show();
 		// Show header language button
 		$(refs.languageButton).show();
+		$(refs.pendingDeclinedApproved).show();
+		$(refs.tuAuthQuestionsHeaderPart).hide();
+		$(refs.step5).hide();
+		$(refs.IdentityVerification_PageContents).addClass("paddingBottom40");
+		$(refs.IdentityVerification_PageContents).removeClass("grayTableSpacerTop40");
+		$(refs.examTable).removeClass("fieldLabelsCell paddingLeftZero grayTableBottomBorder");
 		new BRB.LoadingIndicatorController().hide();
 	}
 	//---------------------------------------------------------------------------------------
@@ -547,6 +587,12 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		$(refs.tuPendingending).show();
 		// Show header language button
 		$(refs.languageButton).show();
+		$(refs.pendingDeclinedApproved).show();
+		$(refs.tuAuthQuestionsHeaderPart).hide();
+		$(refs.step5).hide();
+		$(refs.IdentityVerification_PageContents).addClass("paddingBottom40");
+		$(refs.IdentityVerification_PageContents).removeClass("grayTableSpacerTop40");
+		$(refs.examTable).removeClass("fieldLabelsCell paddingLeftZero grayTableBottomBorder");
 		new BRB.LoadingIndicatorController().hide();
 	}
 	//---------------------------------------------------------------------------------------
@@ -586,5 +632,22 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		$('#protection_note').hide();
 		$(refs.footerNote).hide();
 		$(refs.titleBlock).hide();
+	}
+	
+	//---------------------------------------------------------------------------------------
+    function toggleHeader(){
+    	var sMethod = "toggleHeader() : ";
+    	BRB.Log(logPrefix + sMethod + translator.getCurrentLanguage());
+		if(translator.getCurrentLanguage() == 'en'){
+			$(refs.horizontalLineOne).removeClass('Width_TD_10');
+			$(refs.horizontalLineOne).addClass('Width_TD_14');
+			$(refs.horizontalLineTwo).removeClass('Width_TD_10');
+			$(refs.horizontalLineTwo).addClass('Width_TD_14');
+		}else {
+			$(refs.horizontalLineOne).removeClass('Width_TD_14');
+			$(refs.horizontalLineOne).addClass('Width_TD_10');
+			$(refs.horizontalLineTwo).removeClass('Width_TD_14');
+			$(refs.horizontalLineTwo).addClass('Width_TD_10');
+		}
 	}
 };

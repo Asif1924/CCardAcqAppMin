@@ -2,7 +2,11 @@
 	<div id="personalInfoTable" class="grayTableTopBorder row">	
 		<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-12">
 			<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('suplementaryYesNo'))}></span>
-			<span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember"></span>			
+			{{if activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}
+			    <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_Yes"></span>
+			{{else !activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}
+			    <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No"></span>
+			{{/if}}			
 		</div>		
 	</div> 
 	{{if activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}

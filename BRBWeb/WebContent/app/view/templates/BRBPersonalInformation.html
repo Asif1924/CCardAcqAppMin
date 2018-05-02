@@ -1,6 +1,7 @@
 <script id="BRBPersonalInformation-template" type="text/x-jquery-tmpl">
 	
-	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">		
+	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
+	 {{if !isMOA }}	
 		<div class="customMargin row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
@@ -15,16 +16,49 @@
 				</div>
 				
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-2">
-					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Confirmation"></span>
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
 				</div>
-
+                
 				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3 ">
 					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_IdentityVerification"></span>
 				</div>
 		</div>
+		{{else}}
+		      <div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3  ">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="selectedBreadcrumbCell currentBreadcrumb col-sm-3 ">
+					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_PersonalInformation"></span>
+				</div>
+
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3 ">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_AdditionalInformation"></span>
+				</div>
+				
+				<div style="padding-right: 0px;padding-left: 0px;" class="unselectedBreadcrumbCell col-sm-3">
+					<span class="BreadcrumbTextStyle unselectedBreadcrumb" data-translationKey="breadCrumbItem_Review_and_submit"></span>
+				</div>
+		{{/if}}	
 	</div>
 
-	<div class="ScreenLayout elementTop10" id="PersonalInformation_PageContents">
+    <center>
+           <table id="steps2" class="tableNoBorder stretchThisTable_overview">
+				  <tr class="tableNoBorder">
+				      <td id="Page_2_HR_line_1" class="Width_TD_16 hrAttributes"></td>
+					  <td class="Width_TD_40">
+					        {{if !isMOA }}
+							   <span class="PageTitle" data-translationKey="personalInformation_step_2_of_5_Eomm"></span>	
+						   {{else}}
+						       <span class="PageTitle" data-translationKey="personalInformation_step_2_of_5_Decoupled"></span>	
+						   {{/if}}
+					  </td>
+					  <td id="Page_2_HR_line_2" class="Width_TD_16 hrAttributes"></td>
+				   </tr>
+			</table>
+	</center>	
+
+	<div class="ScreenLayout" id="PersonalInformation_PageContents">
 		<div class="row personalScreenTable" id="makeCorrectionSection">
 			<div class="errorCell floatToRight"></div>
 				<span class="makeCorrectionSectionSpan"
@@ -37,7 +71,7 @@
 			class="personalScreenTable stretchThisTable elementWithPaddingRightLeft25">
 			<td class="fieldCellSize3">				
 				<div class="errorCell floatToRight"></div>	
-			</td>
+			</td> 
 			<td>
 				<span class="makeCorrectionSectionSpan"
 					data-translationKey="personalInformation_makeCorrections"></span>
@@ -88,7 +122,11 @@
 					</div>
 					<div class="row">
 						<div class="fieldLabelsText fieldLabelsCellWithTopAlign fieldCellSize100" colspan="4">
-							<span class="alignToBottom" data-translationKey="personalInfo_CTM_Text"/>						
+						    {{if cardType === "OMX"}}
+							       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>	
+							{{else cardType === "OMZ"}}  
+							       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMZ"/>	
+							{{/if}}		
 						</div>
 					</div>	
 				</div>
@@ -97,7 +135,7 @@
 			<div class="grayTableNoBorder row">	
 				<div class="fieldLabelsCell elementTopBottom10 col-xs-12 col-sm-3">
 					<span data-translationKey="personalInformation_TitleField"></span>
-					<sup class="redSpanForInputsGroup">*</sup>
+					<!-- <sup class="redSpanForInputsGroup">*</sup> -->
 				</div>
 				<div class="fieldValuesCell elementTopBottom10 col-xs-12 col-sm-9" data-translationKey="personalInformation_Title_TextField">
 					<div class="errorCell tooltip_err">
@@ -149,6 +187,17 @@
 					</div>
 				</div>	                
 			</div>
+			
+			   <div class="grayTableNoBorder row">
+	            <div class="fieldLabelsCell elementTopBottom10 col-sm-3">
+				</div>
+				<div class="fieldValuesCell elementTopBottom10 col-sm-9">
+					<div class="row">
+						 <span  class="fieldCellWithBoldFontSize14 leftList" data-translationKey="personalInformation_provide_email_to_get_bonus"></span>
+					</div>
+				</div>	                
+			</div>
+			
 	        <div class="grayTableNoBorder row">
 	            <div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 					<span data-translationKey="personalInformation_EmailAddress"></span>
@@ -164,12 +213,14 @@
 							<div class="fieldValuesCell col-xs-10 col-sm-6">
 								<input class="fieldValuesTextField upperCaseField" id="personalInformation_Email_TextField" type="text" maxlength="60"/>
 							</div>
-							<div id="personalInformation_Email_Help" class="questionCell ctfsTooltip emailTooltip col-xs-2 col-sm-6">
+							{{if !isMOA }}
+							   <div id="personalInformation_Email_Help" class="questionCell ctfsTooltip emailTooltip col-xs-2 col-sm-6">
 									<span>
 										<div class="hintArrow emailHintArrow"></div>
 										<p data-translationKey="personalInformation_EmailAddressHint">
 									</span>
-							</div>								
+							   </div>
+						    {{/if}}
 						</div>
 					</div>
 				</div>	                
@@ -178,16 +229,6 @@
 			<div class="grayTableNoBorder row">	                   
 				<div class="fieldLabelsCell elementTopBottom5 col-sm-3">
 				</div>
-				
-	            <div class="fieldValuesCell col-xs-12 col-sm-9">   	
-					<div class="row">
-						<div class="grayTableForInputsGroup">							
-							<div class="fieldLabelsNoteText fieldLabelsCell fieldLabelsCellWithTopAlign col-xs-10 col-sm-11">
-								<span data-translationKey="personalInformation_EmailAddressNote"></span>
-							</div>		                        	
-						</div>	                       	
-					</div>	                
-				</div>   
 			</div>			
 			
 			<div class="grayTableNoBorder row">	                   
@@ -224,7 +265,8 @@
 					</div>		        		
 	            </div>   
 			</div>
-	        <div class="grayTableNoBorder row">        
+			<br><br>
+	        <div class="grayTableTopBorder row">        
 				<div class="fieldLabelsCell elementTopBottom10 elementNoRightPadding col-sm-3">
 					<span data-translationKey="personalInformation_PrimaryPhone"></span>
 					<span> </span>
@@ -662,7 +704,7 @@
 			</div>
 			<!-- End //-->	
 
-			<div id="peraonalInfoTable" class="grayTableBottomBorder row">
+			<div id="peraonalInfoTable" class="hideElement grayTableBottomBorder row">
 				<div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 					<span data-translationKey="personalInformation_BankingProducts"></span>
 				</div>
@@ -709,54 +751,70 @@
 							<a href="#" class="continueButton" id="personalInformation_continueButtonHref">
 								<span class="buttonText" data-translationKey="continue_Button_Label"></span>
 							</a>
-							<span class="continueButtonTriangle">
-							</span>
+							<!-- <span class="continueButtonTriangle">
+							</span> -->
 						</div>
 				</div>
 			</div>
 			<div class="footnoteContentBlock overviewNSBorderTop row">
 			<!--	{{if !app.isNSSelected() }}
-				<span class="footnoteContentText">
-					<sup>1</sup>
-					<span data-translationKey="overview_footnoteContentText1Extended"></span>
-					<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
-					<span ></span>
-					<span>   </span>
-					<br>
-					<sup>2</sup>
-					<span data-translationKey="overview_footnoteContentText2"></span>
-					<span> </span>
-					<br>
-					<span data-translationKey="overview_footnoteContentText4"></span>
-					<br>
-					<span data-translationKey="overview_footnoteContentText5"></span>
-				</span>
+			<div class="scrollbar" id="style-1">
+                   <div class="force-overflow">
+								<span class="footnoteContentText">
+									<sup>1</sup>
+									<span data-translationKey="overview_footnoteContentText1Extended"></span>
+									<span class="overviewLinkGray" data-translationKey="overview_footnoteContentText1Link"/>
+									<span ></span>
+									<span> </span>
+									<br>
+									<sup>2</sup>
+									<span data-translationKey="overview_footnoteContentText2"></span>
+									<span> </span>
+									<br>
+									<span data-translationKey="overview_footnoteContentText4"></span>
+									<br>
+									<span data-translationKey="overview_footnoteContentText5"></span>
+								</span>
+				</div>
+	       </div>			
 				{{/if}} 
 				{{if app.isNSSelected() }}
-				<span class="footnoteContentText">
-					<span data-translationKey="personalInfo_LegalText1"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText2"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText3"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText4"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText5"></span>
-				</span>
+				<div class="scrollbar" id="style-1">
+                   <div class="force-overflow">
+							<span class="footnoteContentText">
+								<span data-translationKey="personalInfo_LegalText1"></span>
+								<br>
+								<span data-translationKey="personalInfo_LegalText2"></span>
+								{{if cardType === "OMX"}}
+								<span data-translationKey="personalInfo_LegalText2_OMX"></span>
+								<br>
+								{{else cardType === "OMZ"}}  
+								<span data-translationKey="personalInfo_LegalText2_OMZ"></span>
+								{{/if}}
+							     <br>
+								<br>
+								<span data-translationKey="personalInfo_LegalText4"></span>
+								<br><br>
+								<span data-translationKey="personalInfo_LegalText5"></span>
+							</span>
+					</div>
+				</div>				
 				{{/if}} -->
 				<!-- US3011 -->
-				<span class="footnoteContentText">
-					<span data-translationKey="personalInfo_LegalText1"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText2"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText3"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText4"></span>
-					<br>
-					<span data-translationKey="personalInfo_LegalText5"></span>
-				</span>
+				<div class="scrollbar" id="style-1">
+                   <div class="force-overflow">
+									<span class="footnoteContentText">
+										<p data-translationKey="personalInfo_LegalText1"></p>
+										{{if cardType === "OMX"}}
+										<p data-translationKey="personalInfo_LegalText2_OMX"></p>
+										{{else cardType === "OMZ"}}  
+										<p data-translationKey="personalInfo_LegalText2_OMZ"></p>
+										{{/if}}
+										<p data-translationKey="personalInfo_LegalText4"></p>
+										<p data-translationKey="personalInfo_LegalText5"></p>
+									</span>
+       			  </div>
+       			 </div> 									
 			</div>
 			<br>
 			<br>

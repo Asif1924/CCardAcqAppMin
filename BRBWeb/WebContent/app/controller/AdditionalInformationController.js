@@ -110,8 +110,11 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     		blockSuplementaryCardArea		:	'suplementaryCardArea',
     		blockInsuranceArea				:	'insurancefArea',
     		breadcrumbTrailArea				:	'#AdditionalInformationScreen #BreadcrumbTrailArea1',
+    		steps3                          :   '#steps3',
     		footnoteBlock					:	'#additionalInformation_FootnoteBlock',
-    		additionalBirthDateID			:	'#additionalInformation_DateOfBirth_YearID'
+    		additionalBirthDateID			:	'#additionalInformation_DateOfBirth_YearID',
+    		optionalProduct_horizontal_Line_1 :  '#Page_3_HR_line_1',
+    		optionalProduct_horizontal_Line_2 :  '#Page_3_HR_line_2'
 
     			
     };
@@ -207,6 +210,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
         messageDialog = argMessageDialog;   //(AA)Dependency Injection Principle: Allows for proper unit testing
 		
+        cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
+		
 		connectivityController = new BRB.ConnectivityController(new BRB.ConnectionStatus(), messageDialog, translator, BRB.AppConfig.ConnectivityConfig);
 		connectivityController.init();
 		
@@ -229,10 +235,11 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		}
 		toggle10XImege();
 		hidePAandCPAgeRestriction();
+		toggleHeader();
 		
 	}    
 	//---------------------------------------------------------------------------------------
-	function initUI(){
+	function initUI(isURLOpenFlag){
 		
 		fillControlsWithData();
 		bindEvents();		
@@ -243,8 +250,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		
 		showHideSuplementaryCard();
 		showHideAddressContainer();
-		updateOptionalInsuranceVisibility();
+		updateOptionalInsuranceVisibility(isURLOpenFlag);
 		toggle10XImege();
+		toggleHeader();
 	}
 	//---------------------------------------------------------------------------------------
 	
@@ -379,8 +387,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$screenContainer.fadeIn(1000);
 		translator.run("AdditionalInformationScreen");
 		toggle10XImege();
+		toggleHeader();
 		focusFirstElement();
-		initUI();
+		initUI(false);
 	}
 	this.popup = popup;	
 	//---------------------------------------------------------------------------------------
@@ -439,11 +448,12 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		// changeIsSkSelectedFlag();
 		$screenContainer.show();
 		translator.run("AdditionalInformationScreen");
-		initUI();
+		initUI(false);
 		
 		// Work around IE8 page-proofs issue
 		updatePageStylesheet();
 		toggle10XImege();
+		toggleHeader();
 	}
 	//---------------------------------------------------------------------------------------
 	function updatePageStylesheet(isPoup) {
@@ -463,6 +473,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$('body').css('height','100%');
 		//window.scrollBy(0, 0);
 		toggle10XImege();
+		toggleHeader();
 	}
 	//---------------------------------------------------------------------------------------
 	function hide(){
@@ -474,7 +485,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		if( !argPopup ){
 			assembleNavigationBarAtTop();
 			assemblePageHTML($screenContainer, "#BRBAdditionalInformation-template");
-			insertAfterElement($(refs.breadcrumbTrailArea), "#creditCardDescription-template");		
+			insertAfterElement($(refs.steps3), "#creditCardDescription-template");		
 			$screenContainer.addClass("breadcrumbPadding");	
 		}else{
 			assemblePageHTML($screenContainer, "#BRBAdditionalInformation-template");
@@ -505,12 +516,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     }
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isSkSelected':isSkSelected}); 
+		var isMOA =  app.getIsMOARequest();
+		BRB.Log("assemblePageHTML() :: " + isMOA);
+		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isSkSelected':isSkSelected, 'isMOA':isMOA, 'cardType':cardTypeGlobal}); 
 		$element.append(html);
 	}
 	//---------------------------------------------------------------------------------------
 	function insertAfterElement($element, templateName) {
-		var html = $(templateName).tmpl({'screenIsPopup':false}); 
+		var html = $(templateName).tmpl({'screenIsPopup':false, 'cardType':cardTypeGlobal}); 
 		$element.after(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -573,21 +586,21 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		
 		$(refs.optionalInsurance_CP).change(function() {
             $(refs.optionalInsuranceYesNoLable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalInsurance_CP).is(':checked'))));
-            updateOptionalInsuranceVisibility();
+            updateOptionalInsuranceVisibility(true);
         });
 		
 		$(refs.optionalInsurance_IW).change(function() {
             $(refs.optionalInsurance_IW_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalInsurance_IW).is(':checked'))));
-            updateOptionalInsuranceVisibility();
+            updateOptionalInsuranceVisibility(true);
         });
 		
 		$(refs.optionalInsurance_PA).change(function() {
             $(refs.optionalInsurance_PA_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalInsurance_PA).is(':checked'))));
-            updateOptionalInsuranceVisibility();
+            updateOptionalInsuranceVisibility(true);
         });
 		
 		$(refs.optionalInsurance_NA).change(function() {
-			updateOptionalInsuranceVisibility();
+			updateOptionalInsuranceVisibility(true);
         });
 		
 		$(refs.title).change(function() {
@@ -597,6 +610,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		if (!argPopup) {
 			bindTranslationCallbacks();
 			toggle10XImege();
+			toggleHeader();
 		}
 	}
     //---------------------------------------------------------------------------------------
@@ -607,10 +621,11 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 
 		$('#choseProduct').bind('translationStop', function() {
 			unbindEvents();
-			initUI();
+			initUI(false);
 			validationDecorate(_validationResult, true);
 			var ieHelper = new BRB.IeUIHelper(); 
 			toggle10XImege();
+			toggleHeader();
 			if(ieHelper.needToAddValueToInput()){
 				addValuesToInputs(ieHelper);
 			} else {
@@ -664,11 +679,11 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		});
     }
     //---------------------------------------------------------------------------------------    
-    function updateOptionalInsuranceVisibility()
+    function updateOptionalInsuranceVisibility(isURLOpenFlag)
     {
-    	showHideOptionalInsuranceIW();
-        showHideOptionalInsuranceCP();
-        showHideOptionalInsurancePA();
+    	showHideOptionalInsuranceIW(isURLOpenFlag);
+        showHideOptionalInsuranceCP(isURLOpenFlag);
+        showHideOptionalInsurancePA(isURLOpenFlag);
         showHideInsuranceFieldIndicatorBlock();
     }
     //---------------------------------------------------------------------------------------
@@ -813,9 +828,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		}
 	}
 	// ---------------------------------------------------------------------------------------
-	function showHideOptionalInsuranceCP(){
+	function showHideOptionalInsuranceCP(isURLOpenFlag){
         var sMethod = 'showHideOptionalInsuranceCP() ';
-        BRB.Log(logPrefix + sMethod);    
+        BRB.Log(logPrefix + sMethod + ":: isURLOpenFlag :: " + isURLOpenFlag);    
         
         if (!$(refs.optionalInsurance_CP).is(':checked')) {
             $(refs.optionalInsurance_CP_Area).hide();
@@ -823,20 +838,22 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_CP_Area).show();
-            if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsuranceCP_en, '_blank');
-                win.focus();
-            }
-            else {
-            	var win = window.open(url.OptionalInsuranceCP_fr, '_blank');
-                win.focus();
+            if(isURLOpenFlag) {
+            	if(translator.getCurrentLanguage() == 'en') {
+                	var win = window.open(url.OptionalInsuranceCP_en, '_blank');
+                    win.focus();
+                }
+                else {
+                	var win = window.open(url.OptionalInsuranceCP_fr, '_blank');
+                    win.focus();
+                }
             }
         }
     }
     //---------------------------------------------------------------------------------------
-    function showHideOptionalInsuranceIW(){
+    function showHideOptionalInsuranceIW(isURLOpenFlag){
         var sMethod = 'showHideOptionalInsuranceIW() ';
-        BRB.Log(logPrefix + sMethod);
+        BRB.Log(logPrefix + sMethod + ":: isURLOpenFlag :: " + isURLOpenFlag);
         
         if (!$(refs.optionalInsurance_IW).is(':checked')) {
             $(refs.optionalInsurance_IW_Area).hide();
@@ -844,20 +861,22 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_IW_Area).show();
-            if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsuranceIW_en, '_blank');
-                win.focus();
-            }
-            else {
-            	var win = window.open(url.OptionalInsuranceIW_fr, '_blank');
-                win.focus();
+            if(isURLOpenFlag) {
+            	if(translator.getCurrentLanguage() == 'en') {
+                	var win = window.open(url.OptionalInsuranceIW_en, '_blank');
+                    win.focus();
+                }
+                else {
+                	var win = window.open(url.OptionalInsuranceIW_fr, '_blank');
+                    win.focus();
+                }
             }
         }
     }
 	//---------------------------------------------------------------------------------------
-    function showHideOptionalInsurancePA(){
+    function showHideOptionalInsurancePA(isURLOpenFlag){
         var sMethod = 'showHideOptionalInsurancePA() ';
-        BRB.Log(logPrefix + sMethod);
+        BRB.Log(logPrefix + sMethod + ":: isURLOpenFlag :: " + isURLOpenFlag);
         
         if (!$(refs.optionalInsurance_PA).is(':checked')) {
             $(refs.optionalInsurance_PA_Area).hide();
@@ -865,13 +884,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         }
         else{
             $(refs.optionalInsurance_PA_Area).show();
-            if(translator.getCurrentLanguage() == 'en') {
-            	var win = window.open(url.OptionalInsurancePA_en, '_blank');
-                win.focus();
-            }
-            else {
-            	var win = window.open(url.OptionalInsurancePA_fr, '_blank');
-                win.focus();
+            if(isURLOpenFlag) {
+            	if(translator.getCurrentLanguage() == 'en') {
+                	var win = window.open(url.OptionalInsurancePA_en, '_blank');
+                    win.focus();
+                }
+                else {
+                	var win = window.open(url.OptionalInsurancePA_fr, '_blank');
+                    win.focus();
+                }
             }
         }
     }
@@ -1145,4 +1166,18 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		
 		$('#additionalInformation_DateOfBirth_Year').attr('placeholder',translatedText);
     }
+  //---------------------------------------------------------------------------------------
+    function toggleHeader(){
+		if(translator.getCurrentLanguage() == 'en'){
+			$(refs.optionalProduct_horizontal_Line_1).removeClass('Width_TD_15');
+			$(refs.optionalProduct_horizontal_Line_1).addClass('Width_TD_18');
+			$(refs.optionalProduct_horizontal_Line_2).removeClass('Width_TD_15');
+			$(refs.optionalProduct_horizontal_Line_2).addClass('Width_TD_18');
+		}else {
+			$(refs.optionalProduct_horizontal_Line_1).removeClass('Width_TD_18');
+			$(refs.optionalProduct_horizontal_Line_1).addClass('Width_TD_15');
+			$(refs.optionalProduct_horizontal_Line_2).removeClass('Width_TD_18');
+			$(refs.optionalProduct_horizontal_Line_2).addClass('Width_TD_15');
+		}
+	}
 };

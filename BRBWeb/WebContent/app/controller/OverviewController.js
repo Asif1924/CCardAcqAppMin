@@ -31,7 +31,11 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
     		
     		overviewNS_continueButton				:   '#overviewNS_ContinueButton',
   			// US4580
-    		promoCodeHidden							:	'#promoCodeHidden'
+    		promoCodeHidden							:	'#promoCodeHidden',
+    		chooseCard_CheckArea                    :   '#chooseCardTable',
+    		omxCard                                 :   '#triangleMastercard',
+    		omzCard                                 :   '#triangleWorldEliteMastercard'
+    			
     };
     
     var model = new BRB.BaseModel({
@@ -41,11 +45,26 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
               {name: 'promoCode',  value: null, validation: { type: 'format', message: 'overview_PromoCodeError', matcher: /^[a-z\u00C0-\u017F0-9,_'\-.~@\[\]\}\{\)\( ]{4,5}$/i, canBeEmpty: true}},
               {name: 'pcid',  	   value: null, validation: null },
               {name: 'provinces',  value: null, validation: { type: 'presence', message: 'overview_ProvinceError' }},
+              {name: 'cardType',   value: null, validation: null },
               {name: 'requestingSystem', value: null, validation: null },
+              { notField: true, 
+            	name: 'chooseCard_CheckArea',    
+            	value: null, 
+            	validation: {
+            		type: 'termsAndConditions',     
+            		message: 'additionalInformation_NoRadioSelecedError', 
+            		canBeEmpty : (app.getIsMOARequest()) ? true : false,
+            		group:[6]}}
+              
        ]
     });
     
     var profileInfoModel = app.customerTransactionModel;
+  //---------------------------------------------------------------------------------------
+	function isCardSelected() {
+		return  $(refs.omxCard).is(':checked') || 
+		$(refs.omzCard).is(':checked');
+	}
     
     //---------------------------------------------------------------------------------------
 	function init( argFlow ) {		
@@ -53,9 +72,24 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         BRB.Log(logPrefix + sMethod);
         
         this.initiateAppHelper = new BRB.InitiateAppHelper();
+        isMOA =  app.getIsMOARequest();
+        if(isMOA){
+        	cardType =  this.initiateAppHelper.getCardTypeParam();
+            BRB.Log(logPrefix + "BRB OIC cardType ::" +this.initiateAppHelper.getCardTypeParam());
+            if(cardType !== null || cardType!== ""){
+            	if(cardType === 'OMX' || cardType === 'OMZ' || cardType === 'omx' || cardType === 'omz'){
+            		model.set('cardType', cardType.toUpperCase());
+        	    }else{
+        	    	model.set('cardType', 'OMX');
+        	    }
+            }
+        }
+        
+        createView();
         
         BRB.Log(logPrefix + this.initiateAppHelper.getPCIDParam());
         pcid = this.initiateAppHelper.getPCIDParam();
+        
         BRB.AppConfig.TrackingScreenID = 1;
         flow = argFlow;        
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
@@ -74,8 +108,10 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         } else {
             model = currentModel;
         }
+        
+       
 		
-		createView();
+		//createView();
 		
 		// US4580
 		hidePromoCodeField();
@@ -117,8 +153,25 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         } else {
         	model.set('promoCode', $(refs.promoCode).val().toUpperCase());
 		}
-        	
+        
+        if(app.getIsMOARequest()){
+        	BRB.Log(logPrefix + sMethod +' cardType : ' + cardType);
+        	if(cardType !== " " || cardType !== null){
+        		BRB.Log(logPrefix + sMethod +' cardType : ' + cardType);
+        		//model.set('cardType', cardType);
+        	}
+        }else{
+        	if($(refs.omxCard).is(':checked')){
+            	model.set('cardType', 'OMX');
+            }else if($(refs.omzCard).is(':checked')){
+            	model.set('cardType', 'OMZ');
+            }
+        	model.set('chooseCard_CheckArea',  isCardSelected());
+        }
+        	    
+        BRB.Log(logPrefix + sMethod +' cardType : ' + model.get('cardType'));
         BRB.Log(logPrefix + sMethod +' model data: ' + model.toString());
+        
     }
 	//---------------------------------------------------------------------------------------
 	function restoreCreditCardData(){
@@ -201,10 +254,10 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	function assemblePageHTML($element, templateName) {
 		//var html = $(templateName).tmpl(); 
 		//US4541
-		var isMOA =  app.getIsMOARequest();
+	    isMOA =  app.getIsMOARequest();
 		BRB.Log("isMOA :: " + isMOA);
 		
-		var html = $(templateName).tmpl({'isMOA':isMOA, 'screenIsPopup':false}); 
+		var html = $(templateName).tmpl({'isMOA':isMOA, 'screenIsPopup':false, 'cardType' : model.get('cardType')}); 
 		$element.append(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -212,7 +265,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		//US4541
 		var isMOA =  app.getIsMOARequest();
 		BRB.Log("isMOA :: " + isMOA);
-		var html = $(templateName).tmpl({activationItems:activationItems, 'isMOA':isMOA,'screenIsPopup':false}).appendTo($element); 
+		var html = $(templateName).tmpl({activationItems:activationItems, 'isMOA':isMOA,'screenIsPopup':false, 'cardType' : model.get('cardType')}).appendTo($element); 
 		$element.after(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -336,8 +389,19 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         
 	    if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
+    		
+    		if(app.getIsMOARequest()){
+    			var rez1 = [];		
+        		if (!model.get('chooseCard_CheckArea')){
+        			rez1 = model.validate(6);
+        		}
+    			var rez2 = model.validate();
+        	    rez = rez2.concat(rez1);
+    		}else{
+    		    rez = model.validate();
+    		}
             
-            var rez = model.validate();
+            
             if (rez.length > 0) {
                 var errStrArr =[];
                 $.each(rez, function(index, item) {
@@ -439,11 +503,11 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 		if (app.ieUIHelper.isIe8Browser()){
 		   app.ieUIHelper.toggleNSImege(translator);
 		}else{
-		 	translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner10XImage').addClass(
-			'topBanner10XImageBlock').removeClass(
-			'topBanner10XImageBlock_fr') : $('#choseProduct a#topBanner10XImage')
-			.addClass('topBanner10XImageBlock_fr').removeClass(
-					'topBanner10XImageBlock');  
+		 	translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBannerOMXImage').addClass(
+			'topBannerOMXImageBlock').removeClass(
+			'topBannerOMXImageBlock_fr') : $('#choseProduct a#topBannerOMXImage')
+			.addClass('topBannerOMXImageBlock_fr').removeClass(
+					'topBannerOMXImageBlock');  
 		}
 	}  
 	
