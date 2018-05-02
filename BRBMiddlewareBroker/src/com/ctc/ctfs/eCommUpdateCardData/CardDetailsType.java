@@ -45,7 +45,6 @@ public class CardDetailsType
     protected String maskedPan;
     @XmlElement(required = true, nillable = true)
     protected String expiryDate;
-
     /**
      * Gets the value of the referenceNumber property.
      * 
@@ -117,5 +116,5 @@ public class CardDetailsType
     public void setExpiryDate(String value) {
         this.expiryDate = value;
     }
-
+    
 }

@@ -1718,6 +1718,28 @@
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
+			
+			<xsd:element name="respCardType" maxOccurs="1" minOccurs="0" >
+				<xsd:annotation>
+					<xsd:documentation>
+						Represents the response CardType of the
+						application.
+						VALUES.
+						OMX = Triangle Mastercard 
+						OMZ = Triangle World Elite Mastercard
+						OMP = Gas Advantage Mastercard
+						OMR = Cash Advantage Mastercard
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="tns:UpperCaseStringType">
+						<xsd:enumeration value="OMX"></xsd:enumeration>
+						<xsd:enumeration value="OMZ"></xsd:enumeration>
+						<xsd:enumeration value="OMP"></xsd:enumeration>
+						<xsd:enumeration value="OMR"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 

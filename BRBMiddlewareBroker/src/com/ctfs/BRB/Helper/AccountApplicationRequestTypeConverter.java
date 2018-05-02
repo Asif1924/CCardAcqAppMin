@@ -122,16 +122,17 @@ public class AccountApplicationRequestTypeConverter
 			model = data.getModel(CreditCardApplicationData.MODEL_OVERVIEW);
 			if (model != null)
 			{
+				ar.setRequestedProductType(model.get("cardType"));
 				// US4580
-				if( ar.getChannelIndicator() == "WP"){
+				if( ar.getChannelIndicator() == "WP") {
 			   		String requestingSystemID = model.get("requestingSystem");
 			   		String storeIndicator = new ServerConfigurationHelper().createStoreIndicatorStringSetting(requestingSystemID .toUpperCase());
 			   		log.info(requestingSystemID   +storeIndicator);
 			   		ar.setAgencyPromoCode(storeIndicator);
-			   					   	 }
-				  else{
-				   ar.setAgencyPromoCode(model.get("promoCode"));
-			      }
+			    }
+				else {
+					ar.setAgencyPromoCode(model.get("promoCode"));
+			    }
 			}
 		}
 		catch (Exception e)
@@ -155,7 +156,8 @@ public class AccountApplicationRequestTypeConverter
 		}
 		// Old code for WP channel only
 		// ar.setAgentId("MQSYS");
-		ar.setRequestedProductType("OMC");// was omp
+		// US4591 & US4592
+		//ar.setRequestedProductType("OMC");// was omp
 
 		//Added (02/06/2014) -- (AA). Please ensure this block is removed later
 		//Removed (03/27/2014) -- (AA). Removed for final BRBMiddlewareBroker build

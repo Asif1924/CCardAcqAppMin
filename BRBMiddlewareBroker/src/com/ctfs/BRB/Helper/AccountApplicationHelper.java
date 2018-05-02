@@ -254,7 +254,7 @@ public class AccountApplicationHelper
 
 			CustomerEmailModel customerEmailModel = new CustomerEmailModel();
 			customerEmailModel.initializeModel(accountAppResponse.getCreditLimit(), accountAppResponse.getApr(), accountAppResponse.getCashAPR(), accountRequest.getFirstName(),
-					accountRequest.getLastName(), accountRequest.getInsuranceCode(), clientId, accountRequest.getPreferedLanguage(), emails);
+					accountRequest.getLastName(), accountRequest.getInsuranceCode(), clientId, accountRequest.getPreferedLanguage(), emails, accountAppResponse.getRespCardType());
 
 			String username = ApplicationSettingsManager.getInstance().getEmailServiceUserName();
 			String password = ApplicationSettingsManager.getInstance().getEmailServiceUserPwd();

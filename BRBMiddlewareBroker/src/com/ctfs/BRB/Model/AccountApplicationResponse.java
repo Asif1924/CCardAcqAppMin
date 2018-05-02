@@ -19,6 +19,7 @@ public class AccountApplicationResponse
 	protected String cashAPR;
 	protected String appStatus;
 	protected String customerValueInd;
+	protected String respCardType;
 
 	public String getAccountNumber()
 	{
@@ -86,6 +87,17 @@ public class AccountApplicationResponse
 		return customerValueInd;
 	}
 
+	/**
+	 * @return the respCardType
+	 */
+	public String getRespCardType() {
+		return respCardType;
+	}
+
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
+
 	public AccountApplicationResponse entityToModel(AccountApplicationResponseType argEntity, String argBrbTransactionID) throws Exception
 	{
 		String sMethod = "[entityToModel] ";
@@ -96,6 +108,10 @@ public class AccountApplicationResponse
 		this.customerValueInd = argEntity.getCustomerValueInd();
 		this.expiryDate = argEntity.getExpiryDate();
 		this.accountNumber = null;
+		
+		if(appStatus != null && appStatus.equalsIgnoreCase("APPROVED")) {
+			this.respCardType = argEntity.getRespCardType();
+		}
 
 		if(appStatus != null && appStatus.equalsIgnoreCase("APPROVED"))
 		{

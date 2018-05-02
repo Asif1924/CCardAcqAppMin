@@ -108,8 +108,8 @@ public class ECommCardDataFacade extends AbstractECommCardDataFacade
 			CardDetailsType cardDetails = new CardDetailsType();
 			cardDetails.setExpiryDate(accountAppResponse.getExpiryDate());
 			cardDetails.setMaskedPan(accountAppResponse.getAccountNumber());
-			cardDetails.setReferenceNumber(getReferenceNumber(accountRequestWrapper.getBrbTransactionId()));
-
+			cardDetails.setReferenceNumber(getReferenceNumber(accountRequestWrapper.getBrbTransactionId()));			
+			
 			customerInfoType.setCardDetails(cardDetails);
 			cardRequest.setCustomerInfo(customerInfoType);
 

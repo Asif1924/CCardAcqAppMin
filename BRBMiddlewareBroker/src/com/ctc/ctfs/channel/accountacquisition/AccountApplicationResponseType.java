@@ -82,7 +82,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "apr",
     "cashAPR",
     "appStatus",
-    "customerValueInd"
+    "customerValueInd",
+    "respCardType"
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -99,6 +100,7 @@ public class AccountApplicationResponseType
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String appStatus;
     protected String customerValueInd;
+    protected String respCardType;
 
     /**
      * Gets the value of the accountNumber property.
@@ -289,5 +291,29 @@ public class AccountApplicationResponseType
     public void setCustomerValueInd(String value) {
         this.customerValueInd = value;
     }
+
+    /**
+     * Gets the value of the respCardType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+	public String getRespCardType() {
+		return respCardType;
+	}
+
+	/**
+     * Sets the value of the respCardType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
 
 }

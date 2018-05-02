@@ -20,7 +20,8 @@ public class CustomerEmailModel extends BaseModel
 	protected final static String ProtectionAdvantageAttribute = "OP_ProtectionAdvantage";
 	protected final static String CreditProtectorAttribute = "OP_CreditProtector";
 	protected final static String IdentityWatchClassicAttribute = "OP_IdentityWatchClassic";
-	protected final static String ProductTypeValue = "OMC";
+	//protected final static String ProductTypeValue = "OMC";
+	protected final static String ProductTypeValue = "respCardType";
 		
 	protected String creditLimit;
 	protected String apr;
@@ -31,7 +32,8 @@ public class CustomerEmailModel extends BaseModel
 	protected String customerName;	
 	protected String customerKey;
 	protected int clientId;		
-	protected List <String> emails;	
+	protected List <String> emails;
+	protected String respCardType;
 	
 	public void initializeModel (			
 			String creditLimit,
@@ -42,13 +44,15 @@ public class CustomerEmailModel extends BaseModel
 			String insuranceCode,			
 			int clientId,
 			String preferedLanguage,			
-			List <String> emails){		
+			List <String> emails,
+			String respCardType){		
 		this.creditLimit = creditLimit;
 		this.apr = apr;
 		this.cashAPR = cashAPR;
 		this.customerName = String.format("%s %s", firstName, lastName);			
 		this.clientId = clientId;		
 		this.emails = emails;
+		this.respCardType = respCardType;
 		
 		processPreferedLanguage (preferedLanguage);
 		processInsuranceData (insuranceCode);	
@@ -229,6 +233,20 @@ public class CustomerEmailModel extends BaseModel
 		this.emails = emails;
 	}
 	
+	/**
+	 * @return the respCardType
+	 */
+	public String getRespCardType() {
+		return respCardType;
+	}
+
+	/**
+	 * @param respCardType the respCardType to set
+	 */
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
+
 	public Boolean isModelValid () {
 		if (customerName.isEmpty() || 
 				clientId == 0 ||
@@ -247,7 +265,7 @@ public class CustomerEmailModel extends BaseModel
 		
 		Attribute productType = new Attribute();
 		productType.setName(ProductTypeAttribute);
-		productType.setValue(ProductTypeValue);
+		productType.setValue(getRespCardType());
 		attributes.add(productType);
 		
 		Attribute customerName = new Attribute();
