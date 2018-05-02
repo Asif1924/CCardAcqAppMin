@@ -13,9 +13,11 @@ public class WICICardReplacementStrategy implements ReplacementStrategy {
         // Initialize MappingTable
         _mappingTable = new Hashtable<String, String>();
         
-        _mappingTable.put("OMC", "Options� MasterCard�"); 
+        //_mappingTable.put("OMC", "Options� MasterCard�"); 
         _mappingTable.put("OMP", "Gas Advantage� MasterCard�");
         _mappingTable.put("OMR", "Cash Advantage� MasterCard�");
+        _mappingTable.put("OMX", "Triangle� Mastercard�");
+        _mappingTable.put("OMZ", "Triangle� World Elite Mastercard�");
     }  
 
     @Override
