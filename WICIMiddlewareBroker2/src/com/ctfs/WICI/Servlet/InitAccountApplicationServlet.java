@@ -65,7 +65,8 @@ public class InitAccountApplicationServlet extends WICIServlet
 	{
 		String sMethod = this.getClass().getName() + "[queueAccountApplicationRequest] ";
 		log.info(sMethod);
-
+		log.info(sMethod + " requestMediator : " + requestMediator);
+		
 		String transactionID = "";
 		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);	
 		

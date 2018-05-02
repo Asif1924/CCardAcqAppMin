@@ -300,17 +300,13 @@ public class WICIObjectsHelper
 	}
 
 	public WICIResponse convertPendAccountApplicationRequestToWICIResponse(PendAccountApplicationRequest pAARequest)
-	{
-		
+	{		
 		WICIResponse convertedResponse = new WICIResponse();
 		PendAccountApplicationRequest mangledPendAARequest = new PendAccountApplicationRequest();
 		if( "PENDING".equalsIgnoreCase(pAARequest.getAppStatus()) || "DECLINED".equalsIgnoreCase(pAARequest.getAppStatus()) ){
 			mangledPendAARequest.setAppStatus(pAARequest.getAppStatus());
 			convertedResponse.setData(mangledPendAARequest);
-		}else if( "APPROVED".equalsIgnoreCase(pAARequest.getAppStatus())){
-			
-			
-			
+		}else if( "APPROVED".equalsIgnoreCase(pAARequest.getAppStatus())){								
 			//US3692
 			mangledPendAARequest.setMaskedPAN(pAARequest.getMaskedPAN());
 			 
@@ -325,6 +321,7 @@ public class WICIObjectsHelper
 			mangledPendAARequest.setAccountReference(null);
 			mangledPendAARequest.setExternalReferenceId(null);
 			mangledPendAARequest.setApplicationId(null);
+			mangledPendAARequest.setRespCardType(pAARequest.getRespCardType());
 			convertedResponse.setData(mangledPendAARequest);
 		}
 		

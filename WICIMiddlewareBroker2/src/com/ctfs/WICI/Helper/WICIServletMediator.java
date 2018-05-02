@@ -33,6 +33,17 @@ public class WICIServletMediator
 {
 	static Logger 			log 				= Logger.getLogger(WICIServletMediator.class.getName());
 	HTTPMethodType 			httpMethodType;
+	@Override
+	public String toString() {
+		return "WICIServletMediator [httpMethodType=" + httpMethodType
+				+ ", postRequestBody=" + postRequestBody + ", servletRequest="
+				+ servletRequest + ", servletResponse=" + servletResponse
+				+ ", postRequestBodyAsJson=" + postRequestBodyAsJson
+				+ ", contentType=" + contentType + ", requestKVPairs="
+				+ requestKVPairs + ", skipRequestSanitization="
+				+ skipRequestSanitization + "]";
+	}
+
 	StringBuffer 			postRequestBody;
 	HttpServletRequest 		servletRequest;
 	HttpServletResponse 	servletResponse;

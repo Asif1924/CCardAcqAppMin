@@ -32,7 +32,7 @@ public class AccountApplicationHelper
 		boolean enable_webic_auth = false;
 		WICIDBHelper wicidbhelper = new WICIDBHelper();	
 		enable_webic_auth = wicidbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
-		
+		log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
 		if(enable_webic_auth){
 		
 		RequestBody requestBody = new RequestBody();
@@ -226,7 +226,10 @@ public class AccountApplicationHelper
 			}
 			if (webIcMQRespVO.getMaskedPAN() != null) {
 				accountApplicationResponse.setMaskedPAN(webIcMQRespVO.getMaskedPAN());
-			}	
+			}
+			if (webIcMQRespVO.getRespCardType() != null) {
+				accountApplicationResponse.setRespCardType(webIcMQRespVO.getRespCardType());
+			}
 		}
 		
 		return accountApplicationResponse;

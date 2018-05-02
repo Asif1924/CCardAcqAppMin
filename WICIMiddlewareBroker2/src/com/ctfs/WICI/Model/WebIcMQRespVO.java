@@ -32,6 +32,8 @@ public class WebIcMQRespVO
 	protected String storeNumber;
 	protected String version;
 	protected String encryptedPan;
+	protected String respCardType;
+	
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -205,6 +207,12 @@ public class WebIcMQRespVO
 	}
 	public void setEncryptedPan(String encryptedPan) {
 		this.encryptedPan = encryptedPan;
+	}
+	public String getRespCardType() {
+		return respCardType;
+	}
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
 	}
 	
 	

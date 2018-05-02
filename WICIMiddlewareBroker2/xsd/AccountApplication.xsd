@@ -1635,7 +1635,7 @@
 						Element update when accountnumber field is
 						encrypted.
 						In the format 5446XXXXXXXX1234
-		</xsd:documentation>
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
 			<xsd:element name="accountReference" type="tns:acctReferenceType"
@@ -1751,6 +1751,28 @@
 						Symmetrically encrpyted card number.
 					</xsd:documentation>
 				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="respCardType" maxOccurs="1" minOccurs="0" >
+				<xsd:annotation>
+					<xsd:documentation>
+						Represents the response CardType of the
+						application.
+						VALUES.
+						OMX = Triangle Mastercard 
+						OMZ = World Elite Mastercard
+						OMP = Gas Advantage card
+						OMR = Cash Advantage card
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="tns:UpperCaseStringType">
+						<xsd:enumeration value="OMX"></xsd:enumeration>
+						<xsd:enumeration value="OMZ"></xsd:enumeration>
+						<xsd:enumeration value="OMP"></xsd:enumeration>
+						<xsd:enumeration value="OMR"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>

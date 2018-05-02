@@ -49,7 +49,7 @@ public class CreditCardApplicationData
 	private List<BaseModel> deserializeRequestBody(StringBuffer argRequestBody)
 	{
 		String sMethod = this.getClass().getName() + "[deserializeRequestBody] ";
-		log.info(sMethod);
+		log.info(sMethod + " argRequestBody : " + argRequestBody);
 
 		List<BaseModel> models = null;
 
@@ -67,7 +67,9 @@ public class CreditCardApplicationData
 			Gson gson = new Gson();
 			Type compoundType = new TypeToken<AccountApplicationPostRequest>(){}.getType();
 			postRequest = gson.fromJson(argRequestBody.toString(), compoundType);
+			log.info(sMethod + " postRequest : " + postRequest);
 			models = postRequest.getAccountApplicationData();
+			
 
 		}
 		catch (JsonSyntaxException e)

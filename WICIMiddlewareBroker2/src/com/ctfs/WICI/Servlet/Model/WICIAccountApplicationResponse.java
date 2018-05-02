@@ -43,6 +43,14 @@ public class WICIAccountApplicationResponse
 	}
 	
 	
+	public String getRespCardType() {
+		return respCardType;
+	}
+
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
+
 	String accountReference;
 	String expiryDate;
 	String creditLimit;
@@ -51,6 +59,7 @@ public class WICIAccountApplicationResponse
 
 	String appStatus;
 	String customerValueInd;
+	String respCardType;
 
 	public WICIAccountApplicationResponse()
 	{
@@ -119,6 +128,14 @@ public class WICIAccountApplicationResponse
 			result.maskedPAN = null;
 		}
 		
+		try 
+		{
+			result.respCardType = entity.getRespCardType().toString();
+		} 
+		catch (Exception e) 
+		{
+			result.respCardType = null;
+		}
 
 		return result;
 	}

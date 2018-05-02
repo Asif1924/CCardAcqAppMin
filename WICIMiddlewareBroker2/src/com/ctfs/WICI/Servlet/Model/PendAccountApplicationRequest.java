@@ -95,6 +95,13 @@ public class PendAccountApplicationRequest
 	public void setEncryptedPan(String encryptedPan) {
 		this.encryptedPan = encryptedPan;
 	}
+	public String getRespCardType() {
+		return respCardType;
+	}
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
+	
 	String 	externalReferenceId;
 	String 	applicationId;
 	String 	accountReference;
@@ -107,6 +114,5 @@ public class PendAccountApplicationRequest
 	String	customerValueInd;
 	String	maskedPAN; //US3692
 	String  encryptedPan; // US4709
-	
-	
+	String  respCardType;	
 }

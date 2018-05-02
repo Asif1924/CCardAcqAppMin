@@ -92,6 +92,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "customerValueInd",
     "maskedPAN",
     "encryptedPan",
+    "respCardType",
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -110,9 +111,34 @@ public class AccountApplicationResponseType
     protected String customerValueInd;
     protected String maskedPAN;
     protected String encryptedPan;
+    protected String respCardType;
    
 
     /**
+     * Gets the value of the ResponseCardType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     */
+    
+    public String getRespCardType() {
+		return respCardType;
+	}
+
+    /**
+     * Sets the value of the ResponseCardType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     */
+    
+	public void setRespCardType(String respCardType) {
+		this.respCardType = respCardType;
+	}
+
+	/**
      * Gets the value of the EncryptedPan property.
      * 
      * @return
