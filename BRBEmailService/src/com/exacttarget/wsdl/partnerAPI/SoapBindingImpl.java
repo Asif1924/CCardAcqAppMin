@@ -54,6 +54,9 @@ public class SoapBindingImpl implements com.exacttarget.wsdl.partnerAPI.Soap{
 	        			if(attribute.getName().equalsIgnoreCase("OP_ProtectionAdvantage")){
 	        				emailInfo.setProtectionAdvantage(attribute.getValue());
 	        			}
+	        			if(attribute.getName().equalsIgnoreCase("productType")){
+	        				emailInfo.setProductType(attribute.getValue());
+	        			}
 	        			
 	        			
 	        		}
@@ -63,7 +66,7 @@ public class SoapBindingImpl implements com.exacttarget.wsdl.partnerAPI.Soap{
 	        		if(triggeredSendDefinition.getCustomerKey().equals("BRB_French")){
 	        			emailInfo.setLang(BRBEmail.Language.FRC);
 	        		}
-	        		BRBEmailUtil emailUtil = new BRBEmailUtil();
+	        		BRBEmailUtil emailUtil = new BRBEmailUtil(emailInfo.getProductType());
 	        		if(emailUtil.sendEmail(emailInfo)){
 	        			response.setOverallStatus("OK");	        			
 	        		} else{

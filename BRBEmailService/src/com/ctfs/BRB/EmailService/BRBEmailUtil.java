@@ -28,7 +28,7 @@ public class BRBEmailUtil
 
     private static final HashMap<String, String> emailformats = new HashMap<String, String>();
 
-    public BRBEmailUtil()
+    public BRBEmailUtil(String productType)
     {
 	log.info("Setting up exchange connection ...");
 
@@ -64,13 +64,24 @@ public class BRBEmailUtil
 	log.info("Loading email templates ...");
 	try
 	{
-	    // Subject lines
-	    emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.subject.en"));
-	    emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.subject.fr"));
 	    
-	    // Message Body
-	    emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.en")), "UTF-8"))));
-	    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.fr")), "UTF-8"))));
+	    	
+			if (productType != null && productType.equalsIgnoreCase("OMX")) {
+			// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omx.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omx.fr"));
+			// Message Body	
+	    	emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omx.en")), "UTF-8"))));
+		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omx.fr")), "UTF-8"))));	
+			}
+			if (productType != null && productType.equalsIgnoreCase("OMZ")) {
+			// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omz.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omz.fr"));
+			// Message Body	
+			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omz.en")), "UTF-8"))));
+	        emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omz.fr")), "UTF-8"))));
+			}
 	    log.info("Email templates loaded.");
 	}
 	catch (Exception e)
@@ -175,14 +186,14 @@ public class BRBEmailUtil
 
     }
 
-    public static synchronized BRBEmailUtil getInstance()
+    /*public static synchronized BRBEmailUtil getInstance()
     {
 	if (_instance == null)
 	{
-	    _instance = new BRBEmailUtil();
+	    _instance = new BRBEmailUtil(String productType);
 	}
 	return _instance;
-    }
+    }*/
 
     public boolean sendEmail(BRBEmail info)
     {

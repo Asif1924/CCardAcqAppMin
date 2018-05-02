@@ -20,8 +20,9 @@ public class BRBEmail
     private String creditProtector;
     private String identityWatch;
     private String protectionAdvantage;
+    private String productType;
     
-    public String getCashApr() {
+	public String getCashApr() {
 		return cashApr;
 	}
 	public void setCashApr(String cashApr) {
@@ -119,6 +120,11 @@ public class BRBEmail
 	public void setCreditLimit(String creditLimit) {
 		this.creditLimit = creditLimit;
 	}
-    
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
     
 }
