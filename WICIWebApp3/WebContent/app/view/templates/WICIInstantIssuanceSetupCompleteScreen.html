@@ -5,11 +5,14 @@
 				<br><br><br>
 					<span class="printPageTitle" data-translationKey="printScreen_Title"></span>
 	         	<br><br><br>
-					<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
+				{{if activationItems.getModel('printScreen').get('respCardType') === "OMX" || activationItems.getModel('printScreen').get('respCardType') === "OMZ"}}					
+	         		<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingApplicationStatus')}" />
+					<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingCardSelection')}"></span>
+				{{else}}					
+					<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
 					<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingCardSelection')}"></span>
 					<span class="printPageSubTitle" data-translationKey="printScreen_PayParaSymbol"></span>
-	         	<br><br><br>
-					<span class="printPageSubTitle" data-translationKey="${activationItems.getModel('printScreen').get('keyForDisplayingApplicationStatus')}" />
+				{{/if}}				
 				<br><br><br>
 					<span class="printPageSubTitle" data-translationKey="printScreen_PayInCompletePara1"></span>
 				<br><br><br>

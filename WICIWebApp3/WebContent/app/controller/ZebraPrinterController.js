@@ -67,13 +67,26 @@ WICI.ZebraPrinterController = function () {
         console.log(activationItems.getModel('personalData').get('correspondence'));
         console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
         console.log('--------------------');
+        var respCardType;
+        if(app.getDemoMode()) {
+        	// Down sell in demo logic goes here
+        	if(activationItems.getModel('financialData').get('grossIncome') == "88888") {
+        		respCardType = applicationResponse.respCardType;
+        	} else {
+        		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+        	}            	
+        } else {
+        	respCardType = applicationResponse.respCardType;
+        }        
+        console.log(logPrefix + sMethod + " respCardType :: " + respCardType);
+        
         try {
             // Send response to mobile side
             cordova.exec(successCallback,
                 failureCallback,
                 "ZebraPrinterPlugin",
                 "printOutMockup",
-                [activationItems.getModel('chooseProductModel').get('productCard'),
+                [respCardType ? respCardType : "",
                  activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
                  activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
                  activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",

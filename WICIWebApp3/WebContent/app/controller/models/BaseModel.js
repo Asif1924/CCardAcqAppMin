@@ -313,6 +313,6 @@ WICI.BaseModel = function(config) {
     programCheck = function(item){
     	return !(item.name == "agencyPromoCode" &&  (item.value == "BLANK" || item.value == "S.O."));
     };
-    //---------------------------------------------------------------
-    console.log(logPrefix + 'constructor end.');
+    
+	console.log(logPrefix + 'constructor end.');
 };

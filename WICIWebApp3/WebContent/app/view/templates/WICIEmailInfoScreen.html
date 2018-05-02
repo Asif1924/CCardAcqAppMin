@@ -8,8 +8,8 @@
 		</center>
 		
 		<center>
-	        {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMC"}}
-		           <a href="#" id="omcCardEmailInfo" class="emailInfoCard"></a>
+	        {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMX" || activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"}}
+		           <a href="#" id="omxCardEmailInfo" class="emailInfoCard"></a>
 		    {{else activationItems.getModel('chooseProductModel').get('productCard') === "OMP" || 
 	                    	               activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}} 
 	              <a href="#" id="emailInfo_OMR_OMP_image" class="emailInfo_OMR_OMP_cardImage"></a>   

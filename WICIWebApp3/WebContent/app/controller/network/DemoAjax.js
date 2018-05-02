@@ -114,7 +114,8 @@ WICI.Demo_PollAccountApplicationResponse = {
 					"apr": "19.99",
 					"cashAPR": "22.99",
 					"appStatus": "APPROVED",
-					"customerValueInd": "1"
+					"customerValueInd": "1",
+					"respCardType": "OMX"
 				}
 			},
 			"RetrievalToken": "EA496B1568BD",
@@ -164,7 +165,8 @@ WICI.Demo_AccountApplication = {
 					"apr": "19.99",
 					"cashAPR": "22.99",
 					"appStatus": "APPROVED",
-					"customerValueInd": "1"
+					"customerValueInd": "1",
+					"respCardType": "OMX"
 				}
 			},
 			"RetrievalToken": "EA496B1568BD",

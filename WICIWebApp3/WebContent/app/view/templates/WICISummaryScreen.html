@@ -57,6 +57,8 @@
 							<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
 						{{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMP' }}
 							<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+					    {{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' }}
+							<span data-translationKey="signature_World_ELiteMasterCard" ></span>		
 						{{else}}
 							<span data-translationKey="signature_OptionsMasterCard" ></span>
 						{{/if}}
@@ -86,7 +88,7 @@
 		personalData_CTMNumber_TextField					:	"",
 	  personalData_CTMAccountText      					:	""
 		//-->
-        {{if activationItems.getModel('chooseProductModel').get('productCard')=='OMC' }}
+        {{if activationItems.getModel('chooseProductModel').get('productCard')=='OMX' }}
         <center>
 			<div id="personalData_MyCTMArea" >
 			<br>

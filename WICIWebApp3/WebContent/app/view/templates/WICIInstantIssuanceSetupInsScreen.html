@@ -17,27 +17,33 @@
 						<td align="center" class="androidApplePaytd androidPaytdWidth">
                              <!-- US4800 starts --->
 							{{if activationItems.getModel('printScreen').get('printScreenAndroidPay') === 'Y' }}
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMC"}}
-                                    <a href="#" id="omcCard_setUpPageAndroid"  data-lang-class>
+                                 {{if resCardType == "OMX"}}
+                                    <a href="#" id="omxCard_setUpPageAndroid"  data-lang-class>
                                  {{/if}}
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') === "OMP"}}
+                                 {{if resCardType === "OMP"}}
                                     <a href="#" id="ompCard_setUpPageAndroid"  data-lang-class>
                                  {{/if}}
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}}
+                                 {{if resCardType === "OMR"}}
                                     <a href="#" id="omrCard_setUpPageAndroid"  data-lang-class>
+                                 {{/if}}
+                                 {{if resCardType === "OMZ"}}
+                                    <a href="#" id="omzCard_setUpPageAndroid"  data-lang-class>
                                  {{/if}}
 								 <!-- <img id="androidAppleMobileImage" src="app/images/and_en.png" data-lang-src width="125%" align="right" style="margin: 10px 0 10px 0;"/> -->
 							{{else activationItems.getModel('printScreen').get('printScreenApplePay') === 'Y' }}
 								<!-- <img id="androidAppleMobileImage" src="app/images/ios_en.png" data-lang-src width="75%" align="right" style="margin: 10px 30px 10px 0;"/> -->
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMC"}}
-                                    <a href="#" id="omcCard_setUpPageIos" data-lang-class>
+                                 {{if resCardType == "OMX"}}
+                                    <a href="#" id="omxCard_setUpPageIos" data-lang-class>
                                  {{/if}}
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') === "OMP"}}
+                                 {{if resCardType === "OMP"}}
                                     <a href="#" id="ompCard_setUpPageIos" data-lang-class>
                                  {{/if}}
-                                 {{if activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}}
+                                 {{if resCardType === "OMR"}}
                                     <a href="#" id="omrCard_setUpPageIos" data-lang-class>
                                  {{/if}}
+                                 {{if resCardType === "OMZ"}}
+                                    <a href="#" id="omzCard_setUpPageIos" data-lang-class>
+                                 {{/if}} 
 							{{/if}}
                             <!-- US4800 ends --->
 						</td>

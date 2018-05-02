@@ -219,15 +219,15 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         }else{
         	$(refs.receiveemailArea).show();
         }
-       updateOmcCardLanguage();
+       updateOmxCardLanguage();
        updateOmpOmrCardLanguage();
     }
    // ---------------------------------------------------------------------------------------
     function toggleImage() {
     	var sMethod = " :: toggleImage() :: ";
-    	console.log(logPrefix + sMethod);
-        if(chooseProductModel.get('productCard') === "OMC"){
-     	   updateOmcCardLanguage();
+    	
+        if(chooseProductModel.get('productCard') ===  "OMX" || chooseProductModel.get('productCard') ===  "OMZ"){
+     	   updateOmxCardLanguage();
         }else if(chooseProductModel.get('productCard') === "OMP" || chooseProductModel.get('productCard') === "OMR"){
      	   updateOmpOmrCardLanguage();
         }
@@ -401,16 +401,16 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
     }
     
     //----------------------------------------------------------------------------------------
-    function updateOmcCardLanguage() {
-    	var sMethod = 'updateOmcCardLanguage() ';
+    function updateOmxCardLanguage() {
+    	var sMethod = 'updateOmxCardLanguage() ';
         console.log(logPrefix + sMethod);
         // Choose what card to display: English or French.
         if (app.translator.getCurrentLanguage() === "en") {
-            $("#omcCardEmailInfo").removeClass("fr_card");
-            $("#omcCardEmailInfo").addClass("en_card");
+            $("#omxCardEmailInfo").removeClass("fr_card");
+            $("#omxCardEmailInfo").addClass("en_card");
         } else {
-            $("#omcCardEmailInfo").removeClass("en_card");
-            $("#omcCardEmailInfo").addClass("fr_card");
+            $("#omxCardEmailInfo").removeClass("en_card");
+            $("#omxCardEmailInfo").addClass("fr_card");
         }
     }
     

@@ -15,15 +15,17 @@ WICI.CreditCardApplicationData = function() {
 	}
 
 	var cardFriendlyNames = {
-		'omc' 	: 'chooseProduct_OptionsMasterCard',
+		'omx' 	: 'chooseProduct_OptionsMasterCard',
 		'omp' 	: 'chooseProduct_GasAdvantageMasterCard',
-		'omr' 	: 'chooseProduct_CashAdvantageMasterCard'
+		'omr' 	: 'chooseProduct_CashAdvantageMasterCard',
+		'omz' 	: 'signature_World_ELiteMasterCard'	
 	};
 	
 	var cardFriendlyNamesWithoutReg = {
-		'omc' 	: 'signature_OptionsMasterCard',
+		'omx' 	: 'signature_OptionsMasterCard',
 		'omp' 	: 'signature_GasAdvantageMasterCard',
-		'omr' 	: 'signature_CashAdvantageMasterCard'
+		'omr' 	: 'signature_CashAdvantageMasterCard',
+		'omz' 	: 'signature_World_ELiteMasterCard'	
 	};
 	
 
@@ -62,6 +64,8 @@ WICI.CreditCardApplicationData = function() {
 	// US4797
 	var consentGranted = null;
 	
+	var respCardType = null;
+	
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
 
@@ -96,6 +100,10 @@ WICI.CreditCardApplicationData = function() {
 		consentGranted = argConsentGranted;
 	};
 	
+	this.setRespCardType = function(argRespCardType) {
+		respCardType = argRespCardType;
+	};
+	
 	this.setMobilePhone = function(argMobilePhone) {
 		mobilePhone = argMobilePhone;
 	};
@@ -110,6 +118,10 @@ WICI.CreditCardApplicationData = function() {
 	
 	this.getHomePhone = function() {
 		return homePhone;
+	};
+	
+	this.getRespCardType = function() {
+		return respCardType;
 	};
 	
 	this.getConsentGranted = function() {
@@ -134,6 +146,8 @@ WICI.CreditCardApplicationData = function() {
 		var respAn = new WICI.PollingResponseAnalyzer();
 		if( respAn.isValidResponse(this.getAccountApplicationResponse()) ){
 			var status = respAn.getAppStatus(this.getAccountApplicationResponse());
+			var cardType = this.getRespCardType() ? this.getRespCardType() : respAn.getCardType(this.getNewAccountApplicationResponse());
+			var consentGranted = this.getConsentGranted() ? this.getConsentGranted() : respAn.getConsentGranted(this.getNewAccountApplicationResponse());
 			switch (status) {
 				case 'PENDING': 
 					if (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines) {
@@ -143,7 +157,15 @@ WICI.CreditCardApplicationData = function() {
 					}
 					break;
 				case 'DECLINED': returnValue = 'printScreen_ApplicationDeclined'; break;
-				case 'APPROVED': returnValue = 'printScreen_ApplicationApproved'; break;
+				case 'APPROVED':
+					if ((cardType === "OMX" || cardType === "OMZ") && consentGranted === 'Y') {
+						returnValue = 'printScreen_ApplicationApproved_OMX_OMZ';
+					} else if ((cardType === "OMX" || cardType === "OMZ") && consentGranted === 'N') {
+						returnValue = 'printScreen_ApplicationApproved';
+					} else {
+						returnValue = 'printScreen_ApplicationApproved_RedLabel';
+					}
+					break;
 				default: break;
 			}
 		}

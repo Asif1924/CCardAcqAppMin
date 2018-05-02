@@ -163,7 +163,7 @@ WICI.MessageDialog = function(translate){
 	function scanLoyalty(title, onScanSuccessCallback, onScanErrorCallback, yesButton, noButton, translate) {
 		console.log("MessageDialog.Scan:");
 		var dialog = new WICI.ScanLoyaltyDialog(
-				buildTitle(title, "personalData_Scan_Loyalty_Label"),
+				buildTitle(title, "personalData_Scan_Loyalty_Dialog_Label"),
                 buildCallback(onScanSuccessCallback),
                 buildCallback(onScanErrorCallback),
                 buildButton(yesButton, "scanLoyaltyDialog_yes"),

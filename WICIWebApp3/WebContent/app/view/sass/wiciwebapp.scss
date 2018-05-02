@@ -105,7 +105,7 @@ html,body {
 }
 
 #omcCard.fr {
-  background-image: #{inline_image("omc_fr.png")} !important;
+  background-image: #{inline_image("omx_fr.png")} !important;
 }
 
 .EmailInfoDontMissText{
@@ -253,7 +253,7 @@ html,body {
 
 .Login_CanadianTireLogo{
   background-image: inline-image("CTB_LoginScreen_Logo_English.png");
-  height: 120px;
+  height: 130px;
   /*height: 230px; Mark's Logo removed*/
   width: 477px;
   background-size: 100%;
@@ -269,8 +269,8 @@ html,body {
 }
 
 .PageHeader_CanadianTireLogo_inner {
-  height: 60px;
-  width: 247px;
+  height: 65px;
+  width: 250px;
   background-size: 100%;
   max-width: 100%;
   background-repeat: no-repeat;
@@ -603,7 +603,7 @@ table{
   border-spacing: 0;
   width: 100%;
   border: none;
-  padding: 40px 0 10px 0;
+  padding: 65px 0 10px 0;
 }
 
 .printAndroidApplePayTable {
@@ -747,35 +747,35 @@ tr {
 }
 
 #androidPay {
-  background-image: #{inline_image("android_pay.png")};
-  background-size: 60px;
+  background-image: #{inline_image("google_pay.png")};
+  background-size: 110px;
   height: 75px;
   margin: 0 auto;
   width: 50%;
   background-repeat: no-repeat;
   float: left;
-  top: -50px;
+  top: -45px;
   left: 5px;
 }
 
 #androidPay.fr {
-  background-image: #{inline_image("android_pay.png")} !important;
+  background-image: #{inline_image("google_pay.png")} !important;
 }
 
 #androidPayInsIss {
-  background-image: #{inline_image("android_pay.png")};
-  background-size: 60px;
+  background-image: #{inline_image("google_pay.png")};
+  background-size: 120px;
   height: 75px;
   margin: 0 auto;
   width: 50%;
   background-repeat: no-repeat;
   float: left;
-  top: -50px;
+  top: -45px;
   left: 60px;
 }
 
 #androidPayInsIss.fr {
-  background-image: #{inline_image("android_pay.png")} !important;
+  background-image: #{inline_image("google_pay.png")} !important;
 }
 
 #applePay {
@@ -786,7 +786,7 @@ tr {
   width: 50%;
   background-repeat: no-repeat;
   float: left;
-  top: -50px;
+  top: -45px;
   left: 65px;  
 }
 
@@ -795,7 +795,7 @@ tr {
 }
 
 #androidPayIns {
-  	background-image: #{inline_image("android_pay.png")};
+  	background-image: #{inline_image("google_pay.png")};
     background-size: 20px;
     height: 22px;
     margin: 0 auto;
@@ -807,7 +807,7 @@ tr {
 }
 
 #androidPayIns_fr {
-  	background-image: #{inline_image("android_pay.png")};
+  	background-image: #{inline_image("google_pay.png")};
 	background-size: 20px;
     height: 22px;
     margin: 0 auto;
@@ -868,7 +868,7 @@ tr {
 }
 
 #androidPayCompletePage {
-  background-image: #{inline_image("android_pay.png")};
+  background-image: #{inline_image("google_pay.png")};
   background-size: 100px;
   height: 100px;
   margin: 0 auto;
@@ -878,7 +878,7 @@ tr {
 }
 
 #androidPayCompletePage.fr {
-  background-image: #{inline_image("android_pay.png")} !important;
+  background-image: #{inline_image("google_pay.png")} !important;
 }
 
 #applePayCompletePage {
@@ -917,7 +917,7 @@ tr {
 }
 
 .marginForInsScreenTitle{
-  margin-top: -200px;
+  margin-top: -250px;
   margin-left: 18px;
 }
 
@@ -1080,22 +1080,22 @@ tr {
 }
 
 /* US4637 Email page starts */
- #omcCardEmailInfo {
+ #omxCardEmailInfo {
     background-image: #{inline_image("emailInfo_for_OMC.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
-  #omcCardEmailInfo.en_card {
+  #omxCardEmailInfo.en_card {
     background-image: #{inline_image("emailInfo_for_OMC.png")};
   }
 
-  #omcCardEmailInfo.fr_card {
+  #omxCardEmailInfo.fr_card {
     background-image: #{inline_image("emailInfo_for_OMC_fr.png")};
   }
   .emailInfoCard{
-      background-size: 800px 600px;
+      background-size: 765px 600px;
       display: block;
       text-decoration: none;
       position: relative;
@@ -1231,6 +1231,18 @@ tr {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16pt;
   font-color:#5E5D5D;
+}
+
+
+.supCardAttention{
+	text-align: center;
+}
+
+.supCardAttentionText{
+	color: #FF0000;
+	font-weight: bold;
+	font-size: 16pt;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .fieldValuesPhoneField {
@@ -1582,15 +1594,15 @@ text-align: center;
 
 /* START - Product Images */
 #omcCard {
-  background-image: #{inline_image("omc_en.png")};
-  background-size: 176px;
+  background-image: #{inline_image("omx_en.png")};
+  background-size: 185px;
   height: 205px;
   margin: 0 auto;
   width: 260px;
 }
 
 #omcCard.fr {
-  background-image: #{inline_image("omc_fr.png")} !important;
+  background-image: #{inline_image("omx_fr.png")} !important;
 }
 
 #omcCardBottom {
@@ -1657,6 +1669,7 @@ text-align: center;
 
 #creditCardProductList .creditCardSelectedBgColor {
   background-color: #aaaaaa;
+  
 }
 
 #creditCardProductList .creditCardProductClickableProduct span {
@@ -1682,7 +1695,8 @@ text-align: center;
 
   #omcCard {
     background-repeat: no-repeat;
-    background-position: 15px 35px;
+    background-position: 25px 35px;
+    padding-top:5px;
   }
 
   #ompCard {
@@ -1740,7 +1754,7 @@ text-align: center;
 
   #omcCard {
     background-repeat: no-repeat;
-    background-position: 15px 35px;
+    background-position: 25px 35px;
   }
 
   #ompCard {
@@ -1825,7 +1839,12 @@ text-align: center;
 
 .driversLicenseSpan
 {
-  top: 15px !important;
+  top: 6px !important;
+}
+
+.scanDriversLicesnseSpan
+{
+  top: 17px !important;
 }
 
 .proceedToConfirmationButtonWidth{
@@ -1880,13 +1899,12 @@ text-align: center;
 }
 
 .scanIdButtonWidth {
-  width: 180px;
+  width: 355px;
+ 
 }
 
 .scanLoyaltyButtonWidth {
-  width: 275px;
-  height: 75px;
-  vertical-align:  text-bottom;
+   vertical-align:  text-bottom;
 }
 
 .addressLookupButtonWidth{
@@ -2586,6 +2604,10 @@ div.ui-slider-switch
   margin-left: 10px;
 }
 
+.elementWithLeft15 {
+  margin-left: 15px;
+}
+
 .elementWithTop17 {
   padding-top: 17px;
 }
@@ -2623,6 +2645,10 @@ div.ui-slider-switch
 
 .marginTop23 {
   margin-top: -23px;
+}
+
+.marginTop20 {
+  margin-top: 20px;
 }
 
 .marginTopMinus3{
@@ -2874,7 +2900,7 @@ and (max-width: 705px) {
 }
 
 .bottomSpacing {
-  margin-bottom: 35px;
+  margin: 15px;
 }
 
 .MC, .MD, .MDMC {
@@ -3297,88 +3323,107 @@ p.offer_details_title_3 {
 /* OMP Android */
   
   #ompCard_setUpPageAndroid {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMP.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMP.png")};
     background-repeat: no-repeat;
-    width:125%;
-    background-position: -50px 50px;
-    background-size: 100%;
+    width:100%;
+    background-position: 40px 60px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
 
   #ompCard_setUpPageAndroid.en_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMP.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMP.png")};
   }
 
   #ompCard_setUpPageAndroid.fr_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMP_FR.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMP_FR.png")};
   }
   
   
   /* OMR  Android */
   #omrCard_setUpPageAndroid {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMR.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMR.png")};
     background-repeat: no-repeat;
-    width:125%;
-    background-position: -50px 50px;
-    background-size: 100%;
+    width:100%;
+    background-position: 40px 75px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
 
   #omrCard_setUpPageAndroid.en_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMR.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMR.png")};
   }
 
   #omrCard_setUpPageAndroid.fr_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMR_FR.png")};
+    background-image: #{inline_image("GooglePay_PayScreen_OMR_FR.png")};
   }
   
-  /* OMC Android */
-  #omcCard_setUpPageAndroid {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMC_EN.png")};
+  /* OMX Android */
+  #omxCard_setUpPageAndroid {
+    background-image: #{inline_image("GooglePay_PayScreen_OMX.png")};
     background-repeat: no-repeat;
-    width:125%;
-    background-position: -50px 50px;
-    background-size: 100%;
+    width:100%;
+    background-position: 40px 70px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
 
-  #omcCard_setUpPageAndroid.en_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMC_EN.png")};
+  #omxCard_setUpPageAndroid.en_card {
+    background-image: #{inline_image("GooglePay_PayScreen_OMX.png")};
   }
 
-  #omcCard_setUpPageAndroid.fr_card {
-    background-image: #{inline_image("AndroidPay_PayScreen_OMC_FR.png")};
+  #omxCard_setUpPageAndroid.fr_card {
+    background-image: #{inline_image("GooglePay_PayScreen_OMX.png")};
   }
   
-  /* OMC ios */
-  #omcCard_setUpPageIos{
-    background-image: #{inline_image("ApplePay_PayScreen_OMC_EN.png")};
+  /* OMZ  Android */
+  #omzCard_setUpPageAndroid {
+    background-image: #{inline_image("GooglePay_PayScreen_OMZ.png")};
     background-repeat: no-repeat;
-    width: 75%;
-    background-position: 0px 80px;
-    background-size: 100%;
+    width:100%;
+    background-position: 40px 75px;
+    background-size: 85%;
+    height: 720px;
+    display: block;
+  }
+
+  #omzCard_setUpPageAndroid.en_card {
+    background-image: #{inline_image("GooglePay_PayScreen_OMZ.png")};
+  }
+
+  #omzCard_setUpPageAndroid.fr_card {
+    background-image: #{inline_image("GooglePay_PayScreen_OMZ.png")};
+  }
+  
+  /* OMX ios */
+  #omxCard_setUpPageIos{
+    background-image: #{inline_image("applePay_PayScreen_EN_OMX.png")};
+    background-repeat: no-repeat;
+    width: 80%;
+    background-position: 25px 70px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
   
-  #omcCard_setUpPageIos.en_card {
-    background-image: #{inline_image("ApplePay_PayScreen_OMC_EN.png")};
+  #omxCard_setUpPageIos.en_card {
+    background-image: #{inline_image("applePay_PayScreen_EN_OMX.png")};
   }
 
-  #omcCard_setUpPageIos.fr_card {
-    background-image: #{inline_image("ApplePay_PayScreen_OMC_FR.png")};
+  #omxCard_setUpPageIos.fr_card {
+    background-image: #{inline_image("applePay_PayScreen_FR_OMX.png")};
   }
   
   /* OMP  ios */
   #ompCard_setUpPageIos{
     background-image: #{inline_image("ApplePay_PayScreen_OMP_EN.png")};
     background-repeat: no-repeat;
-    width: 75%;
-    background-position: 0px 80px;
-    background-size: 100%;
+    width: 80%;
+    background-position: 25px 70px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
@@ -3395,9 +3440,9 @@ p.offer_details_title_3 {
   #omrCard_setUpPageIos{
     background-image: #{inline_image("ApplePay_PayScreen_EN_OMR.png")};
     background-repeat: no-repeat;
-    width: 75%;
-    background-position: 0px 80px;
-    background-size: 100%;
+    width: 80%;
+    background-position: 25px 70px;
+    background-size: 85%;
     height: 720px;
     display: block;
   }
@@ -3410,10 +3455,172 @@ p.offer_details_title_3 {
     background-image: #{inline_image("ApplePay_PayScreen_FR_OMR.png")};
   }
   
+  /* OMZ ios */
+  #omzCard_setUpPageIos{
+    background-image: #{inline_image("applePay_PayScreen_EN_OMZ.png")};
+    background-repeat: no-repeat;
+    width: 80%;
+    background-position: 25px 70px;
+    background-size: 85%;
+    height: 720px;
+    display: block;
+  }
+  
+  #omzCard_setUpPageIos.en_card {
+    background-image: #{inline_image("applePay_PayScreen_EN_OMZ.png")};
+  }
+
+  #omzCard_setUpPageIos.fr_card {
+    background-image: #{inline_image("applePay_PayScreen_FR_OMZ.png")};
+  }
+  
   .marginOL{
     margin-top: 0px;
   }
+    
+  #signatureScreenProductList {
+   //padding: 5px 95px;
+   overflow: hidden;
+  }
   
+  #signatureScreenProductList ul {
+     height:235px;
+     overflow: hidden;   
+  }
+  #signatureScreenProductList li {
+	  float: left;
+	  list-style: none;
+	  width: 235px;
+	  padding: 0 50px 0 0;
+	  display:table;
+  }
+#signatureScreenProductList .creditCardProductClickableProduct {
+  @include border-radius(5px);
+  height: 150px;
+  margin: 0 auto;
+  outline-style: none;
+}
+
+#signatureScreenProductList .creditCardSelectedBgColor {
+  background-color: #aaaaaa;
+  border-radius:  5px;
+}
+
+#signatureScreenProductList .creditCardProductClickableProduct span {
+  color: #000000;
+  font-size: 14px;
+  width: 180px;
+  position: static;
+  margin: 0 auto;
+  padding-top: 150px;
+  display: block;
+}
+
+/* START - Product Images */
+
+#signatureScreenOmcCard {
+  background-image: #{inline_image("omx_en.png")};
+  background-repeat: no-repeat;
+  background-size: 235px;
+  height: 205px;
+  width: 230px;
+}
+#signatureScreenOmzCard {
+    background-image: #{inline_image("omz_en.png")};
+    background-repeat: no-repeat;
+    background-size: 235px;
+    width: 245px;
+ }
+ 
+ #signatureScreenOmcCard.en_card {
+    background-image: #{inline_image("omx_en.png")};
+  }
+  #signatureScreenOmcCard.fr_card {
+    background-image: #{inline_image("omx_fr.png")};
+  }
+  #signatureScreenOmzCard.en_card {
+    background-image: #{inline_image("omz_en.png")};
+ }
+ #signatureScreenOmzCard.fr_card {
+    background-image: #{inline_image("omz_fr.png")};
+ }
+
+.sigScreen_ChooseCardTitle
+{
+    color: #7F7F7F;
+    font-size:26px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+
+}
+.sigScreen_WorldEliteCardTitle{
+ text-shadow: none;
+ text-align:center;
+}
+.sigScreen_WorldEliteCardTitle_fr{
+ text-shadow: none;
+ text-align:center;
+}
+
+.sigScreen_WorldEliteCardNote{
+ text-shadow: none;
+}
+.sigScreen_WorldEliteCardNote_1{
+ 
+ text-shadow: none;
+}
+.sigScreen_WorldEliteCardNote_2{
+ text-shadow: none;
+}
+.sigScreen_WorldEliteCardNote_3{
+ text-shadow: none;
+}
+.sigScreen_WorldEliteCardNote_4{
+ text-shadow: none;
+}
+.sigScreen_WorldEliteCardNote_5{
+ text-shadow: none;
+}
+
+.sigScreen_TriangleCardTitle{ 
+ text-align:center;
+ text-shadow: none;
+}
+#signatureScreen_text{
+border-left: 0px solid;
+border-right: 0px solid;
+
+}
+#signatureScreen_TriangleCardContent{
+border-left: 0px solid;
+border-right: 0px solid;
+width:300px;
+}
+#signatureScreen_WorldEliteCardContent{
+border-left: 0px solid;
+border-right: 0px solid;
+width:300px;
+}
+span#triangelMasterCard {
+    //padding-left: 100px;
+}
+span#worldElite_MasterCard {
+    //padding-left: 60px;
+}
+
+#omzChartImage{
+ margin-top: 40px;
+ width: 100%;
+}
+
+.padding_NewInsurence_Chapter{
+  display: list-item;
+ text-align: -webkit-match-parent;
+padding-top:5px;
+
+}
+      
   /*
   
 /* ------- US4800 ----------- */

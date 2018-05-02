@@ -13,6 +13,8 @@
 				<span class="summaryPageSubTitle" data-translationKey="signature_CashAdvantageMasterCard" ></span>
 			{{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMP' }}
 				<span class="summaryPageSubTitle" data-translationKey="signature_GasAdvantageMasterCard" ></span>
+		    {{else activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' }}
+				<span class="summaryPageSubTitle" data-translationKey="signature_World_ELiteMasterCard" ></span>		
 			{{else}}
 				<span class="summaryPageSubTitle" data-translationKey="signature_OptionsMasterCard" ></span>
 			{{/if}}

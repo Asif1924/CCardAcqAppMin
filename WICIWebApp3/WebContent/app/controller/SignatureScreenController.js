@@ -27,7 +27,11 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
             signDate:   '#signatureScreen_SignDate',
             userSingnature: '#signatureScreen_SingnatureContainer',
             singnatureCardName: '#singnatureCardName',
-            image: '#SignatureImage'
+            signatureScreenOmcCard:"#signatureScreenOmcCard",
+            signatureScreenOmzCard:"#signatureScreenOmzCard",
+            signatureScreenProductCard:"#signatureScreenProductList",
+            image: '#SignatureImage',
+            chartImage:'#omzChartImage'	
     };
 	//---------------------------------------------------------------------------------------
     var model = new WICI.BaseModel({
@@ -39,7 +43,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 
                 {notField:true, name: 'userSingnatureNative', value: null, validation: null},
                 {notField:true, name: 'modelsData', value: null, validation: null},
-
+                {notField:true, name: 'sigcardSelection', value: false, validation: null},
                 {name: 'signDate',  value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signDate'}}
              ]
     });
@@ -56,16 +60,15 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         initModel();
 
         // Added for warning section
-				parseCardNameAndType();
+        parseCardNameAndType();
 
-				createView();
-				toggleCardImage();
-				bindEvents();
+		createView();
+		toggleCardImage();
+		bindEvents();
+		displayProductTitle();			
         restoreCreditCardData();        
         // US3766
         parseCardNameAndType();
-        
-        displayProductTitle();
         toggleWarningDIV();
 	}
 	//---------------------------------------------------------------------------------------
@@ -85,11 +88,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 
 		// Initialize signature if it not jet initialized
 		if (!signatureControl) {
-//			fixSignatureWidth();
 		    // This is the part where jSignature is initialized.
-		    //signatureControl = $(refs.signature).jSignature();
 			signatureInit();
-
 
 		    $(refs.signature).bind('change', onSignatureChaged);
 		    showSignatureDate();
@@ -117,17 +117,32 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         $(refs.signDate).text(signatureDate);
 	}
 	//---------------------------------------------------------------------------------------
-//    function fixSignatureWidth(){
-//    	//flexibly adjust signature width
-//    	var signatureWidth = 600;
-//		if(window && window.devicePixelRatio) {
-//			 $(".sugnatureFixes").css('width', (signatureWidth/window.devicePixelRatio)+'px');
-//		}
-//    }
-	//---------------------------------------------------------------------------------------
 	function displayProductTitle()
 	{
-		$(refs.singnatureCardName).html(cardNameGlobal);
+		 $('#triangle_world_ELite_MasterCardNote').hide();
+		 $('#sigworldElite_MasterCardNote_OMZ').hide();
+	     $('#worldElite_MasterCard').hide();
+	     $('#worldElite_MasterCard_License1').hide();
+	     $('#sigworldElite_MasterCardNote').hide();
+	     $('#omz_signatureScreen_Licence_Content').hide();
+	     $('.omz_overview_CostOfCreditDisclosure').hide();
+	     var eligbleFlag =verifyCardValidation();
+	     if(eligbleFlag){
+		    $('#omz_image').show();
+		    $('#omp_image').hide();
+		    $(refs.image).attr('src', "app/images/omx_en.png");
+			$(refs.singnatureCardName).html(cardNameGlobal);
+	     }
+	     else{
+			$('#SignatureScreen_OMZContents').hide();
+			 $('#omz_image').hide();
+			 $('#omp_image').show();
+			 model.set('sigcardSelection', false);
+			 if( activationItems.getModel('chooseProductModel').get('productCard')  === 'OMZ' ){
+				 $(refs.image).attr('src', "app/images/omx_en.png");
+				 activationItems.getModel('chooseProductModel').set('productCard', 'OMX');
+			 }
+		 }
 	}
 	//---------------------------------------------------------------------------------------
 	function hide(){
@@ -142,6 +157,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		assemblePageHTML($screenContainer, "#WICISignatureScreen-template");
 		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");
+		updateOmxCardLanguage();
+		updateOmzCardLanguage();
 	}
 	//---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop(){
@@ -175,7 +192,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 			"ClientName":nameOfCustomer,
 			"CardType":cardTypeGlobal,
 			"CardName":cardNameGlobal
-				}).appendTo($element);
+		}).appendTo($element);
 	}
 	//---------------------------------------------------------------------------------------
 	function bindEvents(){
@@ -193,7 +210,27 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         $.subscribe('translatorFinished',function(e){
             parseCardNameAndType();
             displayProductTitle();
+            toggleChartImage () ;
+            updateOmzCardLanguage();
+            updateOmxCardLanguage();
+            if(  activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' && model.get('sigcardSelection') && verifyCardValidation() ){
+            	OMZCardContentDisplay();
+            }
+            if(activationItems.getModel('chooseProductModel').get('productCard') === 'OMX' && model.get('sigcardSelection') ){
+            	OMXCardContentDislay();
+            }
         });
+        
+      $(refs.signatureScreenOmzCard).click(function() {
+			OMZCardContentDisplay();
+
+		});
+
+		$(refs.signatureScreenOmcCard).click(function() {
+			OMXCardContentDislay();
+
+		});
+        
         // Bind to the checkbox
         $('#signatureScreen_AcceptAgreement').click(function() {
         	toggleWarningDIV();
@@ -247,7 +284,6 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
                 return;
             }
         }
-	    //$.unsubscribe('translatorFinished');
 		flow.next();
 	}
 	//---------------------------------------------------------------------------------------
@@ -259,9 +295,10 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
 
         model.set('signDate',   Date.now().toString('yyyy-MM-dd'));
+        model.set('sigcardSelection',   model.get('sigcardSelection'));
 
         model.set('modelsData', activationItems.getDataStringTillModel(model.name));
-
+        
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
     }
 	//---------------------------------------------------------------------------------------
@@ -272,7 +309,13 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         var dataEnteredInThePrevScreens = activationItems.getDataStringTillModel(model.name);
         var savedData = model.get('modelsData');
         var dataEqual = true;
-
+       
+        if(  activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' && model.get('sigcardSelection') && verifyCardValidation() ){
+        	OMZCardContentDisplay();
+        }
+        if(activationItems.getModel('chooseProductModel').get('productCard') === 'OMX' && model.get('sigcardSelection') ){
+        	OMXCardContentDislay();
+        }
         if(savedData === null)
         {
         	model.set('modelsData', dataEnteredInThePrevScreens);
@@ -300,7 +343,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 
 	function parseCardNameAndType()
 	{
-		cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard')
+		cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard');
 		cardNameGlobal = activationItems.getCardFriendlyName(cardTypeGlobal);
 		cardNameGlobal = translator.translateKey(cardNameGlobal).replace("<br>", "");
 	}
@@ -320,11 +363,122 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	   		$("#warningTableSig").removeClass("warningTableCleared").addClass("warningTable");
 	   }
 	}
-
+	function bindHandler(){		  
+       parseCardNameAndType();
+       $(refs.proceedButton).removeClass('grayflat');
+       $(refs.proceedButton).addClass('greenflat');
+       $(refs.proceedButton).bind('click',bindHandler);
+	}
+	function clearCardsSelection() {
+		
+        $("#signatureScreen_WorldEliteCardContent").removeClass('creditCardSelectedBgColor');
+        $("#signatureScreen_TriangleCardContent").removeClass('creditCardSelectedBgColor');
+	}
+	// ---------------------------------------------------------------------------------------
+    function updateSelectedCardStyle(card) {
+        clearCardsSelection();
+        card.addClass('creditCardSelectedBgColor');
+    }
+	function toggleChartImage () {
+		 var img = $(refs.chartImage);
+         var src = img.prop('src');
+         var lang = translator.getCurrentLanguage();
+         img.prop('src', src.replace(src.slice(-6, -4), lang));
+	}
+	function updateOmxCardLanguage() {
+	       if (app.translator.getCurrentLanguage() === "en") {
+	           $("#signatureScreenOmcCard").removeClass("fr_card");
+	           $("#signatureScreenOmcCard").addClass("en_card");
+	           $("#sigScreen_WorldEliteCardTitle_1").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#sigScreen_WorldEliteCardTitle_2").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#overviewCostOfCreditDisclosure").hide();
+	           $("#overviewCostOfCreditDisclosureOMZ").show();
+	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_EN.png");
+	       } else {
+	           $("#signatureScreenOmcCard").removeClass("en_card");
+	           $("#signatureScreenOmcCard").addClass("fr_card");
+	           $("#sigScreen_WorldEliteCardTitle_1").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#sigScreen_WorldEliteCardTitle_2").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#overviewCostOfCreditDisclosure").show();
+	           $("#overviewCostOfCreditDisclosureOMZ").hide();
+	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_FR.png");
+	       }
+	   }
+	   
+	   function updateOmzCardLanguage() {
+	       if (app.translator.getCurrentLanguage() === "en") {
+	           $("#signatureScreenOmzCard").removeClass("fr_card");
+	           $("#signatureScreenOmzCard").addClass("en_card");
+	           $("#sigScreen_WorldEliteCardTitle_1").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#sigScreen_WorldEliteCardTitle_2").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
+	           $("#overviewCostOfCreditDisclosure").hide();
+	           $("#overviewCostOfCreditDisclosureOMZ").show();
+	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_EN.png");
+	       } else {
+	           $("#signatureScreenOmzCard").removeClass("en_card");
+	           $("#signatureScreenOmzCard").addClass("fr_card");
+	           $("#sigScreen_WorldEliteCardTitle_1").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#sigScreen_WorldEliteCardTitle_2").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
+	           $("#overviewCostOfCreditDisclosure").show();
+	           $("#overviewCostOfCreditDisclosureOMZ").hide();
+	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_FR.png");
+	       }
+	   }
+	   
 	function toggleCardImage () {
 		 var img = $(refs.image);
            var src = img.prop('src');
            var lang = translator.getCurrentLanguage();
            img.prop('src', src.replace(src.slice(-6, -4), lang));
 	}
+	
+	function verifyCardValidation(){
+	    if(activationItems.getModel('chooseProductModel').get('productCard') == 'OMX' ||  activationItems.getModel('chooseProductModel').get('productCard') == 'OMZ'){
+			 return (activationItems.getModel('financialData').get('grossIncome') >= 80000 || activationItems.getModel('financialData').get('grossHouseholdIncome')>= 150000)? true :false; 
+		}
+	}
+	
+
+   function OMZCardContentDisplay() {
+		$('#triangle_world_ELite_MasterCardNote').show();
+		$('#sigworldElite_MasterCardNote_OMZ').show();
+		$('#worldElite_MasterCard').show();
+		$('#triangle_MasterCard_License1').hide();
+		$('#worldElite_MasterCard_License1').show();
+		$('#omz_signatureScreen_Licence_Content').show();
+		$('#omx_signatureScreen_Licence_Content').hide();
+		$('.omz_overview_CostOfCreditDisclosure').show();
+		$('.omx_overview_CostOfCreditDisclosure').hide();
+		$('#triangelMasterCard').hide();
+		$('#sigworldElite_MasterCardNote').show();
+		$('#sigtriangelMasterCardNote').hide();
+		updateSelectedCardStyle($('#signatureScreen_WorldEliteCardContent'));
+		$(refs.image).attr('src', "app/images/omz_en.png");
+		activationItems.getModel('chooseProductModel').set('productCard', 'OMZ');
+		model.set('sigcardSelection', true);
+	}
+	
+	function OMXCardContentDislay(){
+		$('#triangle_world_ELite_MasterCardNote').hide();
+		$('#sigworldElite_MasterCardNote_OMZ').hide();
+		$('#worldElite_MasterCard').hide();
+		$('.omz_overview_CostOfCreditDisclosure').hide();
+		$('.omx_overview_CostOfCreditDisclosure').show();
+		$('#omz_signatureScreen_Licence_Content').hide();
+		$('#omx_signatureScreen_Licence_Content').show();
+		$('#worldElite_MasterCard_License1').hide();
+		$('#triangle_MasterCard_License1').show();
+		$('#triangelMasterCard').show();
+		$('#sigworldElite_MasterCardNote').hide();
+		$('#sigtriangelMasterCardNote').show();
+		updateSelectedCardStyle($('#signatureScreen_TriangleCardContent'));
+		$(refs.image).attr('src', "app/images/omx_en.png");
+        model.set('sigcardSelection',   true);
+        activationItems.getModel('chooseProductModel').set('productCard', 'OMX');
+	}
+
 };

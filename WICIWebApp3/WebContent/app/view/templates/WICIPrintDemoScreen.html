@@ -9,7 +9,7 @@
 			<div data-role="fieldcontain" class="printTest">
 	        	<span class="pageTitle" data-translationKey="printScreen_Title"></span>
 	         	<br><br>
-					<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
+					<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
 					<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
 	         	<br><br>
 					<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
@@ -20,11 +20,31 @@
 		
 	{{else consentGranted === 'N' }}
 		
+		{{if respCardType === 'OMX' || respCardType === 'OMZ'}}		
 			<center>
+				<div data-role="fieldcontain" class="printTest">
+		        	<span class="pageTitle" data-translationKey="printScreen_Title_OMX_OMZ"></span>
+		         	<br><br>
+						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span><br><br>
+						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_1"></span>		
+						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+		         	<br><br>
+		         	{{if  respCardType  === 'OMX' }}
+						<img id="SignatureImage" src="app/images/omx_en.png" data-lang-src width="320""/>
+					{{else respCardType === 'OMZ' }}
+						<img id="SignatureImage" src="app/images/omz_en.png" data-lang-src width="320""/>
+					{{/if}}					
+				   	<br><br>	
+						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+				   	<br>
+            	</div>
+			</center>
+		{{else}}
+		 	<center>
 				<div data-role="fieldcontain" class="printTest">
 		        	<span class="pageTitle" data-translationKey="printScreen_Title"></span>
 		         	<br><br>
-						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
+						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
 						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
 		         	<br><br>
 						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
@@ -32,17 +52,23 @@
 		        </div>
 				<br><br><br>
 			</center>
+		{{/if}}
 		
 	{{else consentGranted === 'Y' }}
 		
 			<div data-role="fieldcontain" >
 	        	<span class="printPageTitle" data-translationKey="printScreen_Title"></span>
 	         	<br><br><br>
-				<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle"></span>	
-				<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
-				<span class="printPageSubTitle" data-translationKey="printScreen_PayParaSymbol"></span>
-	         	<br><br><br>
-				<span class="printPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+	         	{{if respCardType === 'OMX' || respCardType === 'OMZ'}}
+	         		<span class="printPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+				{{else}}
+					<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
+					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+					<span class="printPageSubTitle" data-translationKey="printScreen_PayParaSymbol"></span>
+		         	<br><br><br>
+					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+				{{/if}}
 				<br><br><br>
 				<span class="printPageSubTitle" data-translationKey="printScreen_ReceiveCard" />
 				<br><br><br>
@@ -75,8 +101,7 @@
 	        </div>
 		
 		{{/if}}
-			
-		<br><br><br><br><br>
+		<br><br><br>
 		
 	    <center>
             <span id="print_StartNewApplicationButton" class="button greenflat afterPrintButtonWidth uppercase">

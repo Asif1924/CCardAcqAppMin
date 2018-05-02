@@ -1849,7 +1849,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                  	 return;
                  }
             }
-
+                              
             var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel);
             var rez = [];
             if (edgeValidation != null) {
@@ -1911,7 +1911,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function hideShowMoneyAdvantage (){
 
         cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard');
-        if(cardTypeGlobal === 'OMC') {
+        if(cardTypeGlobal === 'OMX') {
             $(refs.moneyAdvantageContainer).show();
         }
         else {
@@ -1960,7 +1960,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             	$('#personalData_CTMNumber_TextField').val('');
             	messageDialog.error(
             			 translator.translateKey('scanLoyalty_parsingErrorText'),
-                         translator.translateKey('personalData_Scan_Loyalty_Label'),
+                         translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
                          $.noop
                 );
             }
@@ -1969,7 +1969,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	$('#personalData_CTMNumber_TextField').val('');
             messageDialog.error(
                  translator.translateKey('scanLoyalty_parsingErrorText'),
-                 translator.translateKey('personalData_Scan_Loyalty_Label'),
+                 translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
                      $.noop
             );
         }

@@ -31,6 +31,7 @@ WICI.PollingResponseAnalyzer =  function () {
 	this.getAppStatus = getAppStatus;
 	this.isOldResponseType = isOldResponseType;
 	this.isNewResponseType = isNewResponseType;
+	this.getCardType = getCardType;
 	
 	this.getData = getData;
 	this.getRetrievalToken = getRetrievalToken;
@@ -105,6 +106,13 @@ WICI.PollingResponseAnalyzer =  function () {
 			return argResponse.data.appStatus;
 		if( isNewResponseType(argResponse) )
 			return argResponse.data.ResponseData.data.appStatus;
+	}
+	
+	function getCardType(argResponse) {
+		if( isOldResponseType(argResponse) )
+			return null;
+		if( isNewResponseType(argResponse) )
+			return argResponse.data.ResponseData.data.respCardType;
 	}
 	
 	// US4709
@@ -274,7 +282,7 @@ WICI.PollingResponseAnalyzer =  function () {
               return false;
         }     
        
-        //{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
+        //{"error":false,"msg":"COMPLETE","data":{"ResponseData":{"error":false,"msg":"","data":{"accountNumber":"maktFoAp51qsRswEprlHq8SYeQ2pQ4Rzgc8m68RBuGYn1jB+XcMLnJ2ABlHvTKMFoKTgMONIpUdy0R4W4ongNWXSde0iP3lcxgWXpSEp6yZ+5chVHTt0YGdfqelcnZ5hwEuWp+xxMGNZJO7plTNFwE12jzVtFAIGWF2V3R1viqEoclsm94NTpurZbOYhi63yCc32OvIQYAz8i4ofy8J0ASYxRWsN2BczYG9yxb7qWuQylKgyMtKyEowEOJHqOzoBJxkwKt+YKbV8vXS1ns/vwNXP68foeJvUY/DnkTiD3TIAR5a2rgtAXhGEnCwqQm474quLCIiYF/HZMszpeYH2UBT01030sIWxGbY2jYsZDLwiNf0Ud/LMwDB9cEuLEsA12cvJ7FYrkv9rGVuScyhpdUKX79+CO0kUyKechgS+u1cRl8P4iMba/d5MzMo7PWvX3Puzcfgjm9RSWpgC2a5teahzA2Tbuur0KOs61mAAo/7E6xPzmKAF8VSzd5VN4MzGwkCSzIZ1erfwKCqWmYdcNk1fZ5L9OoVFtPT+0DiuG2W8moBvdvtZWxC0vHoZKb/J13WRvv0pQBi8S3w3flCq0t/3nMFnKoKDiMRQ7PxN48Z9BT5dHUe/n+zUgLNBrBpmexh77Dmd1yLL2W6IeaDUsDwyHoDyaySMEfrU7rhh8i8=","expiryDate":"1811","creditLimit":"5000","apr":"19.99","cashAPR":"21.99","appStatus":"APPROVED","customerValueInd":"0", "respCardType": "OMX"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"COMPLETE"}}
         return ( argResponse && !argResponse.error && argResponse.msg==="COMPLETE" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="APPROVED" && argResponse.data.ResponseData.data.accountNumber!=="" && argResponse.data.ResponseData.data.expiryDate!=="" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ) ;
   }
 

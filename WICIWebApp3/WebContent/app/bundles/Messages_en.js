@@ -91,14 +91,16 @@ WICI.dictionary_en =  {
 	loginScreen_EmployerIDLookup_FailedMessage			:	"Invalid Employer Id. Please correct and try again",
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards 			: 	"CHOOSE ONE OF THE FOLLOWING CREDIT CARDS",
-    chooseProduct_CanadianTireOptionsMC 			    : 	"Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
-    chooseProduct_OptionsMasterCard 					: 	"Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+    chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+    chooseProduct_OptionsMasterCard 					: 	"Triangle<sup>&trade;</sup> <br> Mastercard<sup>&reg;</sup> <br> \n <p>Triangle Rewards<sup>&trade;</sup></p>",
+   //US4590
+   // chooseProduct_Triangle_Rewards 					    : 	"Triangle  Rewards<sup>&trade;</sup>",
 	chooseProduct_GasAdvantageMasterCard 				: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	chooseProduct_CashAdvantageMasterCard				: 	"Cash Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	chooseProduct_NoSpecificCard						:	"card",
 
 	// US3920
-	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"OMC Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}]}]}",
+	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"Triangle Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}]}]}",
 
 	// US4194
 	program_Marks_PromoCode 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
@@ -129,7 +131,9 @@ WICI.dictionary_en =  {
     
     // Old line
     // overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash advances and related fees) - <strong>19.99%</strong></p> <p>Cash advances and related fees - <strong>21.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash advances and related fees) and <strong>27.99%</strong> for cash advances and related fees.</p>",
-    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p> For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only, if you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of  <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_ChooseProduct_Right1     :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p> For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>, if you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of  <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_OMZ_Right1  :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p>",
     overview_CostOfCreditDisclosure_Left2       :   "Interest-Free Grace Period",
     overview_CostOfCreditDisclosure_Right2      :   "<p>At least <strong>21</strong> days or, if you are a resident of Quebec, at least <strong>26</strong> days.</p><p> You will benefit from an interest-free grace period of at least <strong>21</strong> days (at least <strong>26</strong> days if you are a resident of Quebec) on new purchases if we receive payment in full of the balance due on your current statement by the payment due date.</p><p> There is no grace period for cash transactions, such as convenience cheques, balance transfers or cash advances, or for fees for such transactions.</p>",
     overview_CostOfCreditDisclosure_Left3       :   "Minimum Payment",
@@ -145,6 +149,8 @@ WICI.dictionary_en =  {
     overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
     // US3381
     overview_EffectiveDate						:	"<b>Information effective as of July 23, 2015</b>",
+    
+    overview_Triangle_world_ELite_MasterCardNote :	"<b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> can impose higher card acceptance costs on merchants.</b>",
     
 	personalData_TellUsAboutYourself					:	"Tell us about yourself",
 	personalData_IDType									:	"ID Type",
@@ -179,17 +185,18 @@ WICI.dictionary_en =  {
 	personalData_PrimaryPhone							:	"Primary Phone",
 	personalData_SecondaryPhone							:	"Secondary Phone",
 	personalData_Landline								:	"Landline",
-	personalData_Mobile									:	"Mobile",	
+	personalData_Mobile									:	"Mobile",
+	
 	personalData_MobilePayments							:	"Mobile Payments are Here!",
-	personalData_MobilePayments_Para1					:	"Would you like to set up Apple Pay<sup>&reg;</sup> or Android Pay<sup>&trade;</sup> today if your credit card application is approved?",
+	personalData_MobilePayments_Para1					:	"Would you like to set up Apple Pay<sup>&reg;</sup> or Google Pay<sup>&trade;</sup> today if your credit card application is approved?",
 	personalData_MobilePayments_Para2					:	"By selecting YES!, you consent to Canadian Tire Bank &#40;&#8220;CTB&#8221;&#41; verifying your personal information &#40;CTB Information&#41; including your name, address, date of birth and mobile number with your mobile service provider &#40;&#8220;MSP&#8221;&#41; and consent to your MSP providing CTB your account information <i><b>&#40;account status, account type, etc.&#41;</i></b>.  The MSP information will be used to verify your identity and to conduct fraud analysis and fraud investigations.",
 	personalData_MobilePayments_Para3					:	"Once you complete your credit card application and if you are approved, you will be provided with instructions to set up your device. We will send you a text message with a 3-digit security code which you will need to complete the setup. Standard message and data rates may apply.",
 	personalData_MobilePayments_Para4					:	"Any Android device running Android Kit Kat 4.4 or above",
 	personalData_MobilePayments_Para5					:	"Any iPhone 6 or newer device",
 	personalData_AndroidorApplePay_Yes					:	"YES!",
 	personalData_AndroidorApplePay_NoThanks				:	"No Thanks",
-	personalData_TermsandConditions_Para1				:	"Apple Pay and iPhone are trademarks of Apple, Inc.",
-	personalData_TermsandConditions_Para2				:	"Android and Android Pay are trademarks of Google, Inc.",
+	personalData_TermsandConditions_Para1				:	"Apple Pay, the Apple logo and iPhone are trademarks of Apple, Inc.",
+	personalData_TermsandConditions_Para2				:	"Android, Google Pay, and the Google Logo are trademarks of Google LLC",
 	
 	// US4364
 	personalData_ExpiryDate								:	"ID Expiry Date",
@@ -243,15 +250,16 @@ WICI.dictionary_en =  {
 	// US3623
 	personalData_PreviousAddress_NotInCanada			:	"Previous address is not in Canada:",
 
-	personalData_Note									:	"<sup>*</sup> Please note, we may send you SMS notifications to your mobile phone number for account notices, these messages will be at no cost to you.",
+	personalData_Note									:	"Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
 	
 	// US4637
 	EmailInfo_PageTitle									:	"E-MAIL INFORMATION",
 	
 	//US3625
-	personalData_Scan_Loyalty_Label                     :   "Scan My Canadian Tire ‘Money’ card",
-	scanLoyaltyDialog_holdText							:   "Hold the My Canadian Tire ‘Money’ card to be scanned behind tablet as shown in the picture above so the barcode is in view of the camera. Scanning will happen automatically. When you hear the beep, the scan is successful. The app will close, and you will return to the current page.",
-	scanLoyaltyDialog_pressText							:   "Press Continue to launch Scan My Canadian Tire ‘Money’ card.",
+	personalData_Scan_Loyalty_Label                     :   "Scan Triangle Rewards<sup>&trade;</sup> Card (Formerly My Canadian Tire Money<sup>&reg;</sup>)",
+	personalData_Scan_Loyalty_Dialog_Label              :   "Scan Triangle Rewards Card",
+	scanLoyaltyDialog_holdText							:   "Hold the Triangle Rewards card to be scanned behind tablet as shown in the picture above so the barcode is in view of the camera. Scanning will happen automatically. When you hear the beep, the scan is successful. The app will close, and you will return to the current page.",
+	scanLoyaltyDialog_pressText							:   "Press Continue to launch Scan Triangle Rewards card.",
 	scanLoyalty_parsingErrorText						: 	"Card not supported. Please enter data manually",
     scanLoyaltyDialog_yes                               :   "Continue",
     
@@ -294,6 +302,7 @@ WICI.dictionary_en =  {
 	supCardRequest_PageTitle							:	"SUPPLEMENTARY CARD REQUEST",
 
 	supCardRequest_WouldYouLikeACard					:	"Would you like a supplementary card?",
+	supCardAttention_Text								:	"Attention! When adding a supplementary card holder,<br> complete and accurate information must be included.",
 
 	supCardRequest_ForWhom								:	"Supplementary card request for:",
 	supCardRequest_Spouse								:	"Spouse",
@@ -314,6 +323,19 @@ WICI.dictionary_en =  {
 
 	sigScreen_Date										:	"Date: ",
 	sigScreen_ProceedToConfirmation						:	"PROCEED TO NEXT PAGE",
+	sigScreen_ChooseCardRightForYou                     :   "Choose the card that's right for you:",
+	sigScreen_OMZCard_Note                              :   "<p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'><b>Please note the Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> and Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup></p> <p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'>have the same fees, grace period and minimum payment formula.</b></p>",
+	
+	sigScreen_WorldEliteCard_text                       :	"<p style='-webkit-margin-before: 0em; -webkit-margin-after: 0.3em; webkit-margin-start: 1em; '><strong>I would like to switch my <br> application to the Triangle<sup>&trade;</sup><br>World Elite Mastercard.<sup>&reg;</sup></strong></p>",
+	sigScreen_WorldEliteCard_text1                       :	"<strong>application to the Triangle<sup>&trade;</sup></strong> <br>",
+	sigScreen_WorldEliteCard_text2                       :	" <strong>World Elite Mastercard.<sup>&reg;</sup><strong><br>",
+	sigScreen_WorldEliteCard_Note_text                   :	"<strong> Consider if:</strong> <br><br>",
+	sigScreen_WorldEliteCard_Note_text1                   :	" You have excellent credit <br><br>",
+	sigScreen_WorldEliteCard_Note_text2                   :	" You meet the minimum <br> ",
+	sigScreen_WorldEliteCard_Note_text3                   :	" income requirement<br>",
+	sigScreen_WorldEliteCard_Note_text4                   :  " ",
+    sigScreen_TriangleCard_text                         :   "<p><strong>I'll stick with the</strong> <br>Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup><br></p>", 
+    sigScreen_TriangleCard_text1                        :   "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
 
 	ProvincesList_null									:	'Please select...',
     IdTypesList_null									:	'Please select...',
@@ -918,7 +940,7 @@ WICI.dictionary_en =  {
 	PromoCode_Intecept									:	'Intercept',
 	PromoCode_Grand_Opening								:	'Grand Opening',
 	PromoCode_Other										:	'Other',
-	PromoCode_OMC_Days									:	'OMC Days',
+	PromoCode_OMC_Days									:	'Triangle Days',
 	PromoCode_Eastern_Events							:	'Eastern Events Program',
 	PromoCode_Western_Events							:	'Western Events Program',
 	PromoCode_Eastern_Local								:	'Eastern Local Program',
@@ -942,15 +964,16 @@ WICI.dictionary_en =  {
 	// signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
     signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees.",
 	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash transactions and related fees.",
-	signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
+	signatureScreen_License2_OMZ						:	"<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may still issue me a Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99& for cash transactions and related fees.</b>",
+	// signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
 	// US3766
-	signatureScreen_License4							:	'Canadian Tire Bank may collect, use and share personal information about me for the purposes described in the "Canadian Tire Privacy Charter" including marketing and selling by way of  telephone, automatic dialing-announcing device or other form of telecommunication.',
+	signatureScreen_License4							:	'Canadian Tire Bank may collect, use and share personal information about me for the purposes described in the "Canadian Tire Privacy Charter" including marketing and selling by way of email, telephone, automatic dialing-announcing device or other form of telecommunication.',
 	signatureScreen_License5							:	"I will be bound by the terms and conditions of the Canadian Tire Bank Cardmember Agreement that I will receive with the Card, as such agreement may be amended from time to time. I will be solely liable for any charges to the account, including charges made by anyone to whom I have asked that you issue a supplementary card. I will be the only person who receives a monthly statement.",
-	signatureScreen_License6							:	"You may obtain credit and other personal information about me from, and exchange such information with, credit reporting agencies.",
+	signatureScreen_License6							:	"<u> You may obtain credit and other personal information about me from, and exchange such information with, credit reporting agencies.</u>",
 	signatureScreen_License7							:	"Each person to whom I have asked that you issue a supplementary card has authorized me to provide you with the above information about them.",
 	signatureScreen_License8							:	"If I provide you with my Social Insurance Number, you may use it to identify me, including with credit reporting agencies.",
 	signatureScreen_License9							:	"I have read and understood this application and I have received a brochure containing additional disclosure relating to this application.",
-
+	sigworldElite_MasterCardNote_1                      :  " <b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>can impose higher card acceptance costs on merchants.</b>",
 
 	signatureScreen_Reset_Button_Label             		:    "Clear Signature",
 
@@ -1069,6 +1092,9 @@ WICI.dictionary_en =  {
     // US4432
     summary_FGL_highlighter_SubTitle		            :   "Your application must be verified by a store representative",
     
+    decline_World_ELiteMasterCard_Note                  :" <b>Note</b>: if a customer is declined for Elite, but approved for Triangle, they will get the Triangle approval screen.",
+    
+    
 	// Summary screen END ................................................................
 
     // AgentAttribution screen STARTS
@@ -1106,13 +1132,19 @@ WICI.dictionary_en =  {
 	// Print screen START ..............................................................
 
 	printScreen_Title									:	"Application Complete!",
-	printScreen_SubTitle								:	"Thank you for applying for the",
+	printScreen_Title_OMX_OMZ                         	:   "Application Complete!",
+	printScreen_SubTitle								:	"Thank you for applying",
+	printScreen_SubTitle_1                              :	"You qualify for the",
+	printScreen_SubTitle_OMP_OMR						:	"Thank you for applying for the",
 	printScreen_Button_Label                            :   "Reprint",
 
 	printScreen_TokenLabel								: 	"Reference&nbsp;#&nbsp;",
 	
 	printScreen_UnknownStatus                   		:   "Unknown application status",
-	printScreen_ApplicationApproved                   	:   "Your application has been <b class='RedLabel'>APPROVED!</b>",
+	
+	printScreen_ApplicationApproved_RedLabel          	:   "Your application has been <b class='RedLabel'>APPROVED!</b>",
+	printScreen_ApplicationApproved                   	:   "Your application has been APPROVED.",
+	printScreen_ApplicationApproved_OMX_OMZ            	:   "Your application has been <b class='RedLabel'>APPROVED</b> for the ",
 	printScreen_ApplicationDeclined                   	:   "Unfortunately, we could not process your application response at this time. Please check your mail regularly.",
 
 	printerSetupDialog_yes                              :   "Apply",
@@ -1139,20 +1171,20 @@ WICI.dictionary_en =  {
 	
 	// US4709
 	printScreen_ReceiveCard								:	"You should receive your physical card in 7-10 business days.",
-	printScreen_Register								:	"Register for Apple Pay or Android Pay and use your phone to make easy and secure payments where ‘tap and pay’ is accepted. Certain merchants may have established a maximum dollar limit for a single transaction. For example, the limit at Canadian Tire stores is $100.",
+	printScreen_Register								:	"Register for Apple Pay or Google Pay and use your phone to make easy and secure payments where ‘tap and pay’ is accepted. Certain merchants may have established a maximum dollar limit for a single transaction. For example, the limit at Canadian Tire stores is $100.",
 	print_BeginSetup_Button								:	"BEGIN SETUP",
 	print_Done_Button									:	"DONE",
 	printScreen_SetUpIns								:	"Setup Instructions",
 	printScreen_SetUpInsPara1							:	"Check your mobile phone to ensure you received a text message with a 3-digit security code",
-	printScreen_SetUpInsPara2							:	"<span style=\"margin-left: -40px;\">Open</span> <a href=\"#\" id=\"androidPayIns\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">on any Android device <br>running Android Kit Kat 4.4 or above</span>",
+	printScreen_SetUpInsPara2							:	"Open Google Pay on any Android device <br>running Android Kit Kat 4.4 or above</span>",
 	printScreen_SetUpInsApplePara2						:	"<span style=\"margin-left: -40px;\">Open</span> <a href=\"#\" id=\"applePayIns\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">on any iPhone 6 or newer device</span>",
 	printScreen_SetUpInsPara3							:	"<span style=\"margin-left: -38px;\">Follow the on-screen prompts using the</span><br><span style=\"margin-left: -38px;\"> information below:</span>",
 	printScreen_SetUpInsCardNo							:	"Card Number: ",
 	printScreen_SetUpInsExpiryDate						:	"Expiry Date: ",
 	printScreen_SetUpInsSecurityCode					:	"Security Code: ",
 	printScreen_SetUpInsSecurityCodeIns					:	"3-digit code in a text message <br>from 1-647-493-1657",
-	printScreen_PayInCompletePara1						:	"Unfortunately we are unable to register your account for Apple Pay or Android Pay at this time; however, your application is still approved. You should receive your physical card in 7-10 business days.",
-	printScreen_PayInCompletePara2						:	"Please try to register for Apple Pay or Android Pay once you receive your physical card in the mail.",
+	printScreen_PayInCompletePara1						:	"Unfortunately we are unable to register your account for Apple Pay or Google Pay at this time; however, your application is still approved. You should receive your physical card in 7-10 business days.",
+	printScreen_PayInCompletePara2						:	"Please try to register for Apple Pay or Google Pay once you receive your physical card in the mail.",
 	printScreen_PayInCompletePara3						:	"Remember, you can still shop in-store today with your temporary ",
 	printScreen_PayParaSymbol							:	".",
 	// US4787
@@ -1199,7 +1231,7 @@ WICI.dictionary_en =  {
 
 	//Added by DPS ***************************
 	//OMC_LEGAL
-	legal_omc_first_chapter								: "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at canadiantire.ca or cffs.comictm for more details.Canadian Tire Options Mastercard cardmembers paying with their Options Mastercard collect Canadian Tire 'Money' at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire 'Money' program collect Canadian Tire 'Money' on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus, or promotional offers or redemption transactions.",
+	legal_omc_first_chapter								: "<sup>1</sup> Terms, conditions and restrictions apply. See program rules at canadiantire.ca or cffs.comictm for more details.Canadian Tire Options Mastercard cardmembers paying with their Options Mastercard collect Canadian Tire Money at a rate that is 10X (or 2X as the case may be) the rate at which other members of the My Canadian Tire Money program collect Canadian Tire Money on purchases made by such other members at Canadian Tire stores (if those other members paid by cash, debit or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus, or promotional offers or redemption transactions.",
 	legal_omc_second_chapter 							: "<sup>2</sup> Minimum fuel purchase required. Rate may vary by location. See local gas bars for details.",
 	/*
 	legal_omc_third_chapter 							: "&dagger; Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
@@ -1209,7 +1241,7 @@ WICI.dictionary_en =  {
                                                           "<br/><sup>&reg;/&trade;</sup> Mark's is a registered trademark of Mark's Work Warehouse Ltd.",
     // Old line
     // legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard and the Mastercard Brand Mark are registered trademarks, and Paypass and MasterPass are trademarks, of Mastercard International Incorporated.",
-    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard,Secure Code and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",
+    legal_omc_sixth_chapter 							: "<sup>&reg;/&trade;</sup> Mastercard,SecureCode and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",
     //OMP_LEGAL
 	legal_omp_first_chapter 							: "Based on the level of net new purchases (purchases less credits) that are posted to your Gas Advantage Mastercard account in any monthly billing period, you will be entitled to a discount on each litre of gasoline or diesel fuel that is purchased for a motor vehicle at Canadian Tire gas bars during the following monthly billing period and that is charged to your Gas Advantage Mastercard.",
 	// US3997
@@ -1240,11 +1272,11 @@ WICI.dictionary_en =  {
 	                                                       "<br><br> <sup>&reg;/&trade;</sup> Mark’s/L’Équipeur is a registered trademark of Mark’s Work Wearhouse Ltd. <p>",
 	legal_omr_nine_chapter 							    :  "<sup>&reg;/&trade;</sup> Mastercard, and World Mastercard, Secure Code and Cirrus are registered trademarks, and the circles design is a trademark of Mastercard International Incorporated.",	
 	// OMC
-    omc_first_chapter 								: "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'",
-    omc_second_chapter 								: "Apply for a Canadian Tire Options Mastercard today. It's a faster way to collect your Canadian Tire 'Mondey'.<br /> Simply use pay with your Options Mastercard and collect Canadian Tire 'Money' everywhere you shop - it's accepted worldwide.",
-    omc_fourth_chapter 								: "<b class='RedLabel'>10X</b> Canadian Tire 'Money' every day at Canadian Tire stores<sup>1</sup>",
-    omc_fives_chapter 								: "<b style='color: #d52b1e;'>10X</b> Canadian Tire 'Money' every day at Sport Check<sup>&reg;</sup>, Mark's<sup>&reg;</sup> and PartSource<sup>&reg;</sup>",
-    omc_sixt_chapter 									: "Collect Canadian Tire 'Money' at participating Canadian Tire gas bar locations<sup>2</sup>",
+    omc_first_chapter 								: "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE Money",
+    omc_second_chapter 								: "Apply for a Canadian Tire Options Mastercard today. It's a faster way to collect your Canadian Tire 'Mondey'.<br /> Simply use pay with your Options Mastercard and collect Canadian Tire Money everywhere you shop - it's accepted worldwide.",
+    omc_fourth_chapter 								: "<b class='RedLabel'>10X</b> Canadian Tire Money every day at Canadian Tire stores<sup>1</sup>",
+    omc_fives_chapter 								: "<b style='color: #d52b1e;'>10X</b> Canadian Tire Money every day at Sport Check<sup>&reg;</sup>, Mark's<sup>&reg;</sup> and PartSource<sup>&reg;</sup>",
+    omc_sixt_chapter 									: "Collect Canadian Tire Money at participating Canadian Tire gas bar locations<sup>2</sup>",
     omc_eight_chapter 								: "Plus enjoy great cardmember features",
     omc_nine_chapter 									: "<b><i>PayPass</i><span style=\"font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;\"><sup>&trade;</sup></span></b> for faster checkout",
     omc_ten_chapter 									: "<b>Chip technology</b>  for added security",
@@ -1297,39 +1329,46 @@ WICI.dictionary_en =  {
 	
 	//******************************************
 
-	// personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&ldquo;CTC&rdquo;), Canadian Tire Financial Services Limited (&ldquo;CTFS&rdquo;), and Canadian Tire Bank (&ldquo;CTB&rdquo;), including from their respective business units operating under the Canadian Tire,  Canadian Tire 'Money' Rewards Program (or Canadian Tire 'Money' Advantage<sup>&reg;</sup> Program if you are a resident of Nova Scotia), Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
-	personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&quot;CTC&quot;),  and Canadian Tire Bank (&quot;CTFS&quot;) and Canadian Tire Services Limited (&quot;CTS&quot;), including from their respective business units operating under the Canadian Tire, My Canadian Tire ‘Money’ Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTS affiliates and/or marketing partners. You may contact CTC-CTFS-CTS, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+	// personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&ldquo;CTC&rdquo;), Canadian Tire Financial Services Limited (&ldquo;CTFS&rdquo;), and Canadian Tire Bank (&ldquo;CTB&rdquo;), including from their respective business units operating under the Canadian Tire,  Canadian Tire Money Rewards Program (or Canadian Tire Money Advantage<sup>&reg;</sup> Program if you are a resident of Nova Scotia), Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+	personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to you by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&quot;CTC&quot;), Canadian Tire Services Limited (&quot;CTS&quot;), and Canadian Tire Bank (&quot;CTB&quot;), including from their respective business units operating under the Canadian Tire, Triangle Rewards<sup style='font-size: .5em;'>TM</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other affiliates and/or marketing partners. You may contact CTC-CTS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or <span style=\"font-family: Helvetica, Arial, sans-serif; font-size: 12pt; color: #1569C7\";><u>customerservice@canadiantire.ca</u></span>. You may withdraw your consent at any time.<br> <p>Please respond yes or no to receiving such electronic messaging. </p>",
 	personalData_Yes								    : "&nbsp;&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData_No								        : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',
 	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?",
-	signature_OptionsMasterCard 					    : 	"Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard 					    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage Mastercard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",
-	omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE 'MONEY'<sup>&reg</sup>",
-    omc_second_chapter_ectm                             : "Apply for a Canadian Tire Options Mastercard today. It's a faster way to collect your Canadian Tire 'Money'<sup>&reg;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
+	//omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE Money<sup>&reg</sup>",
+    omc_second_chapter_ectm                             : "Apply for Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> today. It's a faster way to collect your Canadian Tire Money<sup>&reg;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
 
-    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>4%</span></b> (that’s 10X back!) Canadian Tire ‘Money’ every day at Canadian Tire stores, including on automotive service<sup>1</sup>.",
-    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>4%</span></b> Canadian Tire 'Money' every day at SportChek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
-    omc_sixt_chapter_ectm                               : "<b>Collect</b> Canadian Tire 'Money' at participating Canadian Tire gas bars<sup>2</sup>.",
-    omc_seventh_chapter_ectm                            : "<b>Collect </b> Canadian Tire 'Money' everywhere else you shop<sup>1</sup>.",
-
-    legal_omc_first_chapter_ectm                        : "<sup>1</sup> In the form of Canadian Tire ‘Money’ (CT ‘Money’™). Terms and conditions apply to collecting and redeeming. Visit ctfs.com/ctm for more information. Canadian Tire Options Mastercard cardmembers paying with their Options Mastercard collect Canadian Tire ‘Money’ at a rate that is 10X (equates to 4%) the rate at which other member of the My Canadian Tire ‘Money’® program collect Canadian Tire ‘Money’ on purchases made by such other members at Canadian Tire stores (if other members paid by cash, debit, or a credit card not linked to this loyalty program). The offered rate is exclusive of any bonus or promotional offers or redemption transactions.  CT ‘Money’ is collected on the pre-tax amount at Canadian Tire and PartSource.",
+    omc_fourth_chapter_ectm                             : "<b>Collect <span class='RedLabel'>4%</span></b> in Canadian Tire Money every day at Canadian Tire stores, including on automotive service<sup>1</sup>.",
+    omc_fives_chapter_ectm                              : "<b>Collect <span class='RedLabel'>4%</span></b> in Canadian Tire Money every day at Sport Chek<sup>&reg;</sup>, Mark's<sup>&reg;</sup>, and PartSource<sup>&reg;</sup><sup>1</sup>.",
+    omc_sixt_chapter_ectm                               : "<b>Collect</b> Canadian Tire Money at participating Canadian Tire gas bars<sup>2</sup>.",
+    omc_seventh_chapter_ectm                            : "<b>Collect </b> Canadian Tire Money everywhere else you shop<sup>1</sup>.",
+    omc_eight_chapter_ectm                             : "<b>Redeem </b> your Canadian Tire Money at Canadian Tire, and at designated Partner locations<sup></sup> such as Sport Check and Marks. <sup>1</sup>",
+    
+    legal_omc_first_chapter_ectm                        : "<sup>1</sup> In the form of electronic Canadian Tire Money® (CT Money®). Terms and conditions apply to collecting and redeeming. Visit triangle.com for more information. The offered rate is exclusive of any bonus or promotional offers or redemption transactions.  CT Money is collected on the pre-tax amount at Canadian Tire and PartSource.",
     legal_omc_seventh_chapter_ectm                      :" Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
     legal_omc_second_chapter_ectm                       : "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details." ,
     legal_omc_fourth_chapter_ectm		                :" † Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
-    personalData_CTMField                               : "My Canadian Tire 'Money'<sup>&reg;</sup> Account Number",
-    personalData_CTMAccountText                         : "If you are already a Member, please enter your My Canadian Tire 'Money' Account number. If you are approved for the credit card that you are applying for, your My Canadian Tire 'Money' Account will be linked to your new Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>. If left blank, a My Canadian Tire 'Money' Account number will be assigned to you.",
-    // personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire 'Money'<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+    personalData_CTMField                               : "Triangle  Rewards<sup>&trade;</sup> Account Number (formerly My Canadian Tire Money<sup>&reg;</sup>) ",
+    personalData_CTMAccountText                         : "If you are already a Member, please enter your Triangle  Rewards<sup>&trade;</sup> Account Number. If you are approved for the credit card that you are applying for, your Triangle  Rewards<sup>&trade;</sup> Account will be linked to your new Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>. If left blank, Triangle  Rewards<sup>&trade;</sup> Account Number will be assigned to you.",
+    
+    personalData_Scan_TextField                         : "<b> Why are we scanning your licence?</b>  We scan your driver’s licence to automatically and accurately capture select information required to complete a credit card application.  This includes your name, address, date of birth, driver’s licence number and expiry date.",
+    
+    // personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire Money<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
     // signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.</b>",
     signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash transactions and related fees) and 27.99% for cash transactions and related fees.</b>",
-    signatureScreen_License3                            : "The Card is issued by Canadian Tire Bank. The My Canadian Tire 'Money' Program is provided and administered by Canadian Tire Corporation, Limited.",
+    signatureScreen_License3                            : "The Card is issued by Canadian Tire Bank. The Triangle Rewards<sup>&trade;</sup> Program is provided and administered by Canadian Tire Corporation, Limited.",
+
     signatureScreen_License3_OMP                        : "The Card is issued by Canadian Tire Bank.",
     signatureScreen_License3_OMR                        : "The Card is issued by Canadian Tire Bank.",
-    signatureScreen_License7a                           : "If I am not already a member, I will also be automatically enrolled in the My Canadian Tire 'Money' Program, even if I am not approved for the Card.",
-    signatureScreen_License7b                           : "I will be bound by the My Canadian Tire 'Money' Program rules, a copy of which are available at canadiantire.ca or ctfs.com/ctm",
+    signatureScreen_License7a                           : "If I am not already a member, I will also be automatically enrolled in the Triangle Rewards<sup>&trade;</sup> Program, even if I am not approved for the Card.",
+
+    signatureScreen_License7b                           : "I will be bound by the Triangle Rewards<sup>&trade;</sup> Program rules, a copy of which are available at triangle.com.",
 
     optionalProducts_ProtectionAdvantage_Title          :   "Canadian Tire Protection Advantage<sup>&reg;</sup>",
     // Old line
@@ -1387,7 +1426,7 @@ WICI.dictionary_en =  {
       PA_offer_details_title_small                      :   "&mdash; Must be read in full prior to completing an enrolment",
       PA_offer_details_title_2_bold                     :   "Credit Protector Insurance Disclosure",
       PA_optional_covarage                              :   "Credit Protector is optional insurance coverage",
-      PA_Credit_Protector_p_1                           :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida (ABIC). ABLAC and ABIC carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or cover your monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
+      PA_Credit_Protector_p_1                           :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida. ABLAC, ABIC, their subsidiaries and affiliates carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or make monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
       PA_Credit_Protector_p_2                           :   "Credit Protector may cover you for one of the following situations:",
       PA_Credit_Protector_p_3_terminal_illness          :   "Terminal Illness and Life and Dismemberment",
       Pa_Credit_Protector_P_coverages                   :   "These coverages are available to you and your spouse.",
@@ -1402,7 +1441,7 @@ WICI.dictionary_en =  {
       PA_UL_LI_2_3                                      :   "To be eligible for Life and Dismemberment you or your spouse must be under 80 years old.",
       PA_UL_LI_2_4                                      :   "At age 80, your Life and Dismemberment coverage is replaced by <span style=\"font-weight: bold;\">Accidental Death and Accidental Dismemberment</span>, which means you or your spouse die or suffer a dismemberment directly caused by an accident. If the death of the Primary Cardmember and the Primary Cardmember’s spouse occur simultaneously, only one benefit will be paid.",
       PA_p_Involuntary                                  :   "Involuntary Unemployment and Total Disability",
-      PA_P_quality_for_benifits                         :   "If you qualify for these benefits, Credit Protector may make your monthly payments equal to 5% of your outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
+      PA_P_quality_for_benifits                         :   "If you qualify for these benefits, Credit Protector may make monthly payments equal to 5% of outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
       PA_P_To_be_eligible                               :   "To be eligible for both these coverages, you must be working permanently for salary or wages at least 25 hours a week or more for a single employer.",
       PA_P_YOU_QUALIFY_FOR                              :   "You <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits if you lose a temporary or contract job; at the end of normal seasonal employment; or if you are convicted of a crime.",
       PA_P_Involuntary_Unemployment                     :   "Involuntary Unemployment",
@@ -1412,10 +1451,11 @@ WICI.dictionary_en =  {
       PA_P_Pricing                                      :   "Pricing",
       PA_UL_LI_MONTHLY_PREMIUM                          :   "Monthly premium is <span style=\"font-weight: bold;\">$1.10 for every $100 of your Average Daily Balance</span>, plus applicable taxes, billed monthly to your credit card account.",
       PA_LI_AT_AGE                                      :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
-      PA_LI_DEPENDING_HOW                               :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
+      PA_LI_DEPENDING_HOW                               :   "The premium will fluctuate depending on how you use your card and is tied to your average daily balance.",
       PA_LI_YOU_DO_NOT                                  :   "You do not pay premium:",
-      PA_LI_1_IF_YOU_HAVE_NOT                           :   "&#45; If you have not used your card that month; and",
-      PA_LI_1_HAVE_NOT_CARRIED                          :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments; or",
+      PA_LI_1_IF_YOU_HAVE_NOT                           :   "&#45; if you have not used your card that month and;",
+      PA_LI_1_HAVE_NOT_CARRIED                          :   "&#45; have not carried a balance from the previous month nor had any fees, Special Payment Plan amounts come due or other charges to your account or;",
+
       PA_LI_1_IF_YOUR_AVERAGE                           :   "&#45; if your Average Daily Balance  for the month is less than $10.",
       PA_LI_PRICE_EXAMPLE                               :   "Price examples:",
       PA_TABLE_TD_AVERAGE_DAILY                         :   "Average Daily Balance",
@@ -1448,6 +1488,21 @@ WICI.dictionary_en =  {
       PA_Li_you_can_cancel_this_1                       :   "You can cancel this insurance at any time by calling the number on the back of your  card.",
       PA_Li_you_can_cancel_this_2                       :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">within</span> the first 45 days, of issuance of the Certificate of Insurance, you will receive a refund for any premium paid.",
       PA_Li_you_can_cancel_this_3                       :   "If you cancel <span style=\"border-bottom: 1px solid #58595b;\">after</span> the first 45 days, you will be refunded any unearned premium, if applicable.",
+      
+      PA_P_Enrolling_you_agree_this                     :    "By enrolling in Credit Protector Insurance, you agree that:",
+      PA_P_Enrolling_you_agree_this_1                   :     "<span class=\"padding_NewInsurence_Chapter\">You are applying for Credit Protector Insurance;</span>",
+      PA_P_Enrolling_you_agree_this_2                   :     "<span class=\"padding_NewInsurence_Chapter\">You acknowledge the information you provided is complete and true;</span>",
+      PA_P_Enrolling_you_agree_this_3                   :     "<span class=\"padding_NewInsurence_Chapter\">You understand concealment, misrepresentation or false declaration concerning your Canadian Tire Bank  credit card application could cause your coverage to be void;</span>",
+      PA_P_Enrolling_you_agree_this_4                   :     "<span class=\"padding_NewInsurence_Chapter\">You have been given the opportunity to read the Credit Protector Insurance Disclosure, and if you are a  resident of Quebec, the Credit Protector Distribution Guide and agree to be bound by its terms; </span>",
+      PA_P_Enrolling_you_agree_this_5                   :     "<span class=\"padding_NewInsurence_Chapter\">You have read and understood the disclosures including the limitations and exclusions of Credit Protector Insurance;</span>",
+      PA_P_Enrolling_you_agree_this_6                   :     "<span class=\"padding_NewInsurence_Chapter\">You authorize the insurer to obtain, provide and exchange personal information with Canadian Tire Bank  as may be required for the administration and servicing of Credit Protector Insurance;</span>",
+      PA_P_Enrolling_you_agree_this_7                   :     "<span class=\"padding_NewInsurence_Chapter\">You acknowledge that Canadian Tire Bank is not the agent of the insurer and no person has the authority  to waive or modify any provisions of the application or Certificate of Insurance;</span>",
+      PA_P_Enrolling_you_agree_this_8                   :     "<span class=\"padding_NewInsurence_Chapter\">You authorize Canadian Tire Bank to charge the premiums to your Canadian Tire Bank issued credit card;</span>",
+      PA_P_Enrolling_you_agree_this_9                   :     "<span class=\"padding_NewInsurence_Chapter\">You have requested this application and all related documents to be in English. (Vous avez demandé que ce document et tous les documents y afférents soient rédigés et signés en anglais);</span> ",
+      PA_P_Enrolling_you_agree_this_10                   :    "<span class=\"padding_NewInsurence_Chapter\">Your verbal or electronic agreement shall be deemed to have been signed and/or delivered, and will constitute a ‘writing’ for the purpose of any law requiring the agreement to be signed. Any verbal or electronic agreement that is entered into or accepted by you, or in your name, or reported to be entered into and accepted by you, will be considered to be binding upon you;</span> ",
+      PA_P_Enrolling_you_agree_this_11                   :    "<span class=\"padding_NewInsurence_Chapter\">A true copy of this authorization is as valid as the original; and</span>",
+      PA_P_Enrolling_you_agree_this_12                   :    "<span class=\"padding_NewInsurence_Chapter\">Assurant is committed to safeguarding the privacy of its customers’ information in accordance with good  business practices. It may collect, use, and share personal information provided by you to it, and obtained from others with your consent, or as required or permitted by law. Personal information includes your name, contact information, customer file, and product preferences. It may use the information to: serve you as a customer; communicate with you; create statistics about its business to better understand customer needs and preferences.It may process and store your information in another country, which may be subject to access by government authorities under applicable laws of that country. You may obtain a copy of its privacy policy by calling <b>1&#8208;888&#8208;778&#8208;8023</b> or from its website (www.assurantsolutions.ca/privacy).</span><br> ",
+      
       PA_P_identity_watch_disclosure                    :   "Identity Watch Classic<span class=\"radio_sup\">&reg;</span> Disclosure",
       PA_P_eligiblity                                   :   "Eligibility",
       PA_P_the_subscription                             :   "The subscription is effective as of the enrolment date indicated on your welcome letter, which is included in the Identity Watch Classic welcome package. You are eligible to receive benefits as of the enrolment date indicated on your welcome letter as long as your subscription remains current. Eligibility for the benefits also requires you to be a current Identity Watch Classic subscriber at the time the applicable event occurs.",
@@ -1483,7 +1538,7 @@ WICI.dictionary_en =  {
       OP_CP_P_small                                     :   "&#45;&#45; Must be read in full prior to completing an enrolment",
       OP_CP_disclosure                                  :   "Credit Protector Insurance Disclosure",
       OP_CP_coverage                                    :   "Credit Protector is optional insurance coverage",
-      OP_CP_creator_group                               :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida (ABIC). ABLAC and ABIC carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or cover your monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
+      OP_CP_creator_group                               :   "Credit Protector is a creditor’s group insurance product offered for a financial interest by Canadian Tire Bank on its issued credit cards, and underwritten by American Bankers Life Assurance Company of Florida (ABLAC), and American Bankers Insurance Company of Florida . ABLAC, ABIC, their subsidiaries and affiliates carry on business in Canada under the name of Assurant<sup>&reg;</sup>. What this means is that Credit Protector is a type of insurance that may help to pay down your outstanding balance, or make monthly payments, in certain situations, on the Canadian Tire Bank issued credit card, up to a maximum benefit of $20,000. <span style=\"font-weight: bold;\">For residents of Quebec: there are other similar products available on the market, which you may have already. If you are unsure, you are encouraged to look into it.</span>",
       OP_CP_P_may_cover                                 :   "Credit Protector may cover you for one of the following situations:",
       OP_CP_P_these_coverage                            :   "These coverages are available to you and your spouse.",
       OP_CP_P_if_you_qualify                            :   "If you qualify for these benefits, Credit Protector may pay down your outstanding balance with a one-time, lump sum payment, up to the maximum benefit of $20,000.",
@@ -1496,16 +1551,16 @@ WICI.dictionary_en =  {
       OP_CP_Li_2_3_to_be                                :   "To be eligible for Life and Dismemberment you or your spouse must be under 80 years old.",
       OP_CP_Li_2_4_At_age                               :   "At age 80, your Life and Dismemberment coverage is replaced by <span style=\"font-weight: bold;\">Accidental Death and Accidental Dismemberment</span>, which means you or your spouse die or suffer a dismemberment directly caused by an accident. If the death of the Primary Cardmember and the Primary Cardmember’s spouse occur simultaneously, only one benefit will be paid.",
       OP_CP_P_involuntary                               :   "Involuntary Unemployment and Total Disability",
-      OP_CP_P_INVO_if_you_qualify                       :   "If you qualify for these benefits, Credit Protector may make your monthly payments equal to 5% of your outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
+      OP_CP_P_INVO_if_you_qualify                       :   "If you qualify for these benefits, Credit Protector may make monthly payments equal to 5% of your outstanding balance (less the amount of any Special Payment Plans, like Equal Payments) up to $1,000 a month, to the maximum benefit of $20,000.",
       OP_CP_P_both_the_coverage                         :   "To be eligible for both these coverages, you must be working permanently for salary or wages at least 25 hours a week or more for a single employer.",
       OP_CP_P_qualify_for_benifits                      :   "You <span style=\"border-bottom: 1px solid #58595b;\">will not</span> qualify for benefits if you lose a temporary or contract job; at the end of normal seasonal employment; or if you are convicted of a crime.",
       OP_CP_P_may_cover_you_if                          :   "May cover you if you lose your job for at least 30 days through no fault of your own, such as, layoff or strike, or, if you are self-employed, bankruptcy started by your creditors.",
       OP_CP_Li_total_diasability                        :   "May cover you if you become totally disabled and are unable to work fully for at least 30 days, and are treated by a qualified physician.",
       OP_CP_Li_3_1_monthly                              :   "Monthly premium is <span style=\"font-weight: bold;\">$1.10 for every $100 of your Average Daily Balance</span>, plus applicable taxes, billed monthly to your credit card account.",
       OP_CP_Li_3_2_at_age_80                            :   "At age 80, the monthly premium becomes $0.59 for every $100 of your Average Daily Balance, plus applicable taxes.",
-      OP_CP_Li_3_3_depending                            :   "Depending how you use your card, the premium will fluctuate, but coverage remains the same.",
-      OP_CP_Li_4_1_if_you_have                          :   "&#45; If you have not used your card that month; and",
-      OP_CP_Li_4_2_have_not_carried                     :   "&#45; have not carried a balance from the previous month on any outstanding Special Payment Plans, like Equal Payments; or",
+      OP_CP_Li_3_3_depending                            :   "The premium will fluctuate depending on how you use your card and is tied to your average daily balance.",
+      OP_CP_Li_4_1_if_you_have                          :   "&#45; If you have not used your card that month and;",
+      OP_CP_Li_4_2_have_not_carried                     :   "&#45; have not carried a balance from the previous month nor had any fees, Special Payment Plan amounts come due or other charges to your account or;",
       OP_CP_Li_4_3_your_average                         :   "&#45; if your Average Daily Balance  for the month is less than $10.",
       OP_CP_call_the_insurance                          :   "Call the insurers at <span style=\"font-weight: bold;\">1-800-480-1853</span>. This number can also be found on your Certificate of Insurance.",
       OP_CP_Li_5_if_you_enroll_today                    :   "If you enrol today, we will create a customer file and share that information with the insurers so your coverage begins immediately.",

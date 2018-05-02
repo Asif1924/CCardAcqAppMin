@@ -532,14 +532,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $('#omrCard').parent().hide();
         $('#omcCard').unbind('click');
         $('#omcCard').parent().css('width', '100%');
-        model.set('productCard', 'OMC');
+        model.set('productCard', 'OMX');
         activateApplyButton();
         showOMC();
     }
     // ----------ADDED by DPS
     function omcHandler(needToUpdateButton) {
-        console.log('omc');
-        model.set('productCard', 'OMC');
+        console.log('omx');
+        model.set('productCard', 'OMX');
         showOMC();
 
         // Update selected card style

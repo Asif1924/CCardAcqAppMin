@@ -23,6 +23,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     var argMSISDN = "";
     var argConsentGranted = "";
     var argDeviceType = "";
+    var respCardType= "";
 
     var connectivityController = null;
     
@@ -55,6 +56,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
               { notField: true, name: 'printScreenApplePay',     value: null },
               { notField: true, name: 'keyForDisplayingCardSelection',     value: null },
               { notField: true, name: 'keyForDisplayingApplicationStatus',     value: null },
+              { notField: true, name: 'respCardType',     value: null },
               { notField: true, name: 'PAN',     value: null },
               { notField: true, name: 'expiryDate',     value: null },
               { notField: true, name: 'deviceType',     value: null },
@@ -88,6 +90,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         employerID = activationItems.getModel('loginScreen').get('employerID');
         homePhonePersonalInfo = activationItems.getHomePhone();
         argMSISDN = activationItems.getMobilePhone();
+        
         // US4797
         argConsentGranted = activationItems.getConsentGranted();
         if(argConsentGranted == null) {
@@ -109,6 +112,19 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         	PAN = respAn.getPAN(activationItems.getNewAccountApplicationResponse());
             expiryDate = respAn.getExpiryDate(activationItems.getNewAccountApplicationResponse());
             argTransactionID = respAn.getTransactionID(activationItems.getNewAccountApplicationResponse());
+            if(app.getDemoMode()) {
+            	// Down sell in demo logic goes here
+            	if(activationItems.getModel('financialData').get('grossIncome') == "88888") {
+            		respCardType = respAn.getCardType(activationItems.getNewAccountApplicationResponse());
+            	} else {
+            		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+            	}            	
+            } else {
+            	respCardType = respAn.getCardType(activationItems.getNewAccountApplicationResponse());
+            }
+            
+            model.set('respCardType', respCardType);
+            activationItems.setRespCardType(respCardType);
             // argMSISDN = respAn.getMSISDN(activationItems.getNewAccountApplicationResponse());
             // argConsentGranted = respAn.getConsentGranted(activationItems.getNewAccountApplicationResponse());
             console.log(logPrefix + sMethod + " argMSISDN : " + argMSISDN);
@@ -118,6 +134,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             model.set('MSISDN', argMSISDN);
             console.log(logPrefix + sMethod + " PAN=" + PAN + " expiryDate : " + expiryDate + " tokenValue : " + tokenValue);
             console.log(logPrefix + sMethod + " argTransactionID=" + argTransactionID + " argMSISDN : " + argMSISDN + " argConsentGranted : " + argConsentGranted);
+            console.log(logPrefix + sMethod + " respCardType : " + activationItems.getRespCardType());
         } 
         
         if(argPendScreenInfo){
@@ -234,13 +251,20 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 
     function getKeyForCardSelection(  ){
         var sMethod = 'getKeyForCardSelection() ';
+        
+        var appStatus = model.get('appStatus');
         //console.log(logPrefix + sMethod + " card=" + activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
-        if(appStatus==="DECLINED")
-            return "chooseProduct_NoSpecificCard";
+        if(appStatus==="DECLINED") {
+        	model.set('keyForDisplayingCardSelection', activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
+        	if(model.get('keyForDisplayingCardSelection') != null)
+        		return model.get('keyForDisplayingCardSelection');
+        	else
+        		return "chooseProduct_NoSpecificCard";
+        }
        
           //  return (activationItems.getCardFriendlyName(activationItems.getModel('chooseProductModel').get('productCard')));
-        model.set('keyForDisplayingCardSelection', activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
-        return (activationItems.getCardFriendlyNameWithoutReg(activationItems.getModel('chooseProductModel').get('productCard')));
+        model.set('keyForDisplayingCardSelection', activationItems.getCardFriendlyNameWithoutReg(respCardType));
+        return (activationItems.getCardFriendlyNameWithoutReg(respCardType));
     }
     
     function getKeyForApplicationStatus(  ){
@@ -285,6 +309,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             activationItems: activationItems,
             tokenValue:tokenValue,
             appStatus:appStatus,
+            respCardType:respCardType,
             fromPendingScreen:fromPendScreen,
             consentGranted: argConsentGranted,
             appStatusFromResponse: respAn.getAppStatus(activationItems.getNewAccountApplicationResponse())
@@ -685,7 +710,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
          var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
          appStatus = respAn.getAppStatus(activationItems.getAccountApplicationResponse());   
         
-     	if(appStatus == "APPROVED" && employerID != "E" && (cardType == "OMC" || cardType == "OMP" || cardType == "OMR") ) {
+     	if(appStatus == "APPROVED" && employerID != "E" && (cardType == "OMX" || cardType == "OMP" || cardType == "OMR" || cardType == "OMZ") ) {
       		 messageDialog.homePhone(translator.translateKey("homePhoneInputTitle_one"),translator.translateKey("homePhoneInputTitle_two"), homePhoneconfirmYes, translator.translateKey("homePhoneMessage_Title")); 
        	} else {
        		// No homephone display  other than FMR and OMC/OMP/OMR.
@@ -714,7 +739,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     	var cardType = activationItems.getModel('chooseProductModel').get('productCard');
         console.log(logPrefix + sMethod + " employerID : " + employerID + " cardType : " + cardType);
         
-     	if(employerID != "E" && (cardType == "OMC" || cardType == "OMP" || cardType == "OMR") ) {
+     	if(employerID != "E" && (cardType == "OMX" || cardType == "OMP" || cardType == "OMR" || cardType == "OMZ") ) {
       		messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
        	} else {
        		// No reprint other than FMR and OMC/OMP/OMR.
@@ -767,7 +792,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod + " cardType : " + cardType);
         
         // US4414
-        if(employerID != "E" && appStatus == "APPROVED" && (cardType == "OMP" || cardType == "OMR" || cardType == "OMC")) {
+        if(employerID != "E" && appStatus == "APPROVED" && (cardType == "OMP" || cardType == "OMR" || cardType == "OMX" || cardType == "OMZ")) {
              new WICI.LoadingIndicatorController().hide();
              messageDialog.homePhone(translator.translateKey("homePhoneInputTitle_one"),translator.translateKey("homePhoneInputTitle_two"), homePhoneconfirmYes, translator.translateKey("homePhoneMessage_Title"));
         } else {
@@ -846,7 +871,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 	var cardType = activationItems.getModel('chooseProductModel').get('productCard');
 	                console.log(logPrefix + sMethod + " cardType : " + cardType);
 	                
-	                if(employerID != "E" && appStatus == "APPROVED" && cardType == "OMC") {
+	                if(employerID != "E" && appStatus == "APPROVED" && (cardType == "OMX" || cardType == "OMZ")) {
         	             rePrintFile();
               	    } else {
               	         printFile();

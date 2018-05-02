@@ -409,7 +409,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
         		// US3462 
         		// Print Coupon after submit app if cardtype is OMC
-        		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMC"){
+        		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
+        			activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
         			printCoupon();
         		}             
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);

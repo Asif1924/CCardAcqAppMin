@@ -1,6 +1,116 @@
 <script id="WICISignatureScreen-template" type="text/x-jquery-tmpl"> 
 	<div class="ScreenLayout" id="SignatureScreen_PageContents">
 		<br>
+		
+		<div id="SignatureScreen_OMZContents"
+		</br>
+	  				<div>
+					 <center>  <img id="omzChartImage" src="app/images/triangle_comparison_chart_EN.png" data-lang-class/> </center>
+	 				</div>
+		 </br>
+		
+		   <div id="chooseProductScreen_PageHeader">
+		      <center>
+              <span class="sigScreen_ChooseCardTitle" data-translationKey="sigScreen_ChooseCardRightForYou"></span>
+               <br>
+               <span id="sigScreenOMZ_textId" data-translationKey="sigScreen_OMZCard_Note"></span>
+              </center>
+                <br>               
+                 <ul id="signatureScreenProductList">
+                 <table align="center" style="border: none;>
+		         <tr>
+				 <li>
+				 <td id="signatureScreen_WorldEliteCardContent" >
+                   <span class="sigScreen_WorldEliteCardTitle" id="sigScreen_WorldEliteCardTitle_1"  data-translationKey="sigScreen_WorldEliteCard_text"></span>
+                   <a href="#" id="signatureScreenOmzCard"  class="creditCardProductClickableProduct"></a><br> 
+                   <center><span class="sigScreen_WorldEliteCardNote_1" data-translationKey="sigScreen_WorldEliteCard_Note_text"></span>
+                   <span class="sigScreen_WorldEliteCardNote_2" data-translationKey="sigScreen_WorldEliteCard_Note_text1"></span>
+                   <span class="sigScreen_WorldEliteCardNote_3" data-translationKey="sigScreen_WorldEliteCard_Note_text2"></span>
+                   <span class="sigScreen_WorldEliteCardNote_4" data-translationKey="sigScreen_WorldEliteCard_Note_text3"></span>
+                   <span class="sigScreen_WorldEliteCardNote_5" data-translationKey="sigScreen_WorldEliteCard_Note_text4"></span>
+                  </center>
+                  </td>
+                </li>
+                 <td id="signatureScreen_text"> </td>
+                <li>
+                 <td id="signatureScreen_TriangleCardContent">
+                  
+                   <span  class="sigScreen_TriangleCardTitle " data-translationKey="sigScreen_TriangleCard_text"> </span>
+                    <a href="#" id="signatureScreenOmcCard" class="creditCardProductClickableProduct ">
+                    </a><br>
+                  <center>  <span class="sigScreen_WorldEliteCardNote" style="visibility: hidden;" data-translationKey="sigScreen_WorldEliteCard_Note_text"></span>
+                    <span class="sigScreen_WorldEliteCardNote" style="visibility: hidden;" data-translationKey="sigScreen_WorldEliteCard_Note_text1"></span>
+                    <span class="sigScreen_WorldEliteCardNote"  style="visibility: hidden;" data-translationKey="sigScreen_WorldEliteCard_Note_text2"></span>
+                    <span class="sigScreen_WorldEliteCardNote"  style="visibility: hidden;" data-translationKey="sigScreen_WorldEliteCard_Note_text3"></span>
+                    <span class="sigScreen_WorldEliteCardNote"  style="visibility: hidden;" data-translationKey="sigScreen_WorldEliteCard_Note_text4"></span>
+                    </center>
+                   </td>
+                   
+                </li>
+                </tr> 
+                </table>
+               </ul>
+           
+         </div>
+            <br />
+		 <div class="signature_Omc">
+		 <table class="overviewCenterTableContainer cocd_table">
+           <tr>
+          <td style="border: none;">
+         <table class="overviewCenterTable">
+                    <tr>
+                    <th colspan="2" id="overviewCenterTableTitlePadding" data-translationKey="overview_CostOfCreditDisclosure_Title"></th>
+                   </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left1"></td>
+                    <td class="overviewCenterTableData">
+                        <p id="overviewCenterTableTextWithoutMargin" class="omx_overview_CostOfCreditDisclosure" data-translationKey="overview_CostOfCreditDisclosure_Right1"></p>
+                        <p id="overviewCenterTableTextWithoutMargin" class="omz_overview_CostOfCreditDisclosure" data-translationKey="overview_CostOfCreditDisclosure_OMZ_Right1"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left2"></td>
+                    <td class="overviewCenterTableData">
+                        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_Right2"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left3"></td>
+                    <td class="overviewCenterTableData">
+                        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_Right3"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left4"></td>
+                    <td class="overviewCenterTableData">
+                        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_Right4"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left5"></td>
+                    <td class="overviewCenterTableData">
+                        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_Right5"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td class="overviewCenterTableTitle" style="border-bottom: none !important;" data-translationKey="overview_CostOfCreditDisclosure_Left6"></td>
+                    <td class="overviewCenterTableData" style="border-bottom: none !important;">
+                        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_Right6"></p>
+                    </td>
+                    </tr>
+            </table>
+             </td>
+        </td>
+    </tr>
+</table>
+</div>
+<div class="overviewCenterTableContainer elementWithLeft10 bottomSpacing elementWithFontSize10" data-translationKey="overview_EffectiveDate"></div>
+<div id="triangle_world_ELite_MasterCardNote" class="overviewCenterTableContainer elementWithLeft15  elementWithFontSize10" data-translationKey="overview_Triangle_world_ELite_MasterCardNote"></div>
+</div>
+<br>
+		
+		
+		
 		<br>
 		<center>
 			<span id="SigClickHere" class="pageTitle" data-translationKey="sigScreen_Title"></span>
@@ -17,13 +127,15 @@
 				{{else CardType === 'OMP' }}
 					<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
 				{{else}}
-					<span data-translationKey="signature_OptionsMasterCard" ></span>
+					<span id="triangle_MasterCard_License1" data-translationKey="signature_OptionsMasterCard" ></span>
+					<span id="worldElite_MasterCard_License1" data-translationKey="signature_World_ELiteMasterCard" ></span>	
 				{{/if}}
 				<span data-translationKey="signatureScreen_License1_1" />
 				<span data-translationKey="signatureScreen_License1_2" />
 			</li>
 			<br>
-			<li><span data-translationKey="signatureScreen_License2"/></li>
+			<li id ="omx_signatureScreen_Licence_Content"> <span  data-translationKey="signatureScreen_License2"/></li>
+			<li id ="omz_signatureScreen_Licence_Content"> <span  data-translationKey="signatureScreen_License2_OMZ"/></li>
 			<br>
 				{{if CardType === 'OMR' }}
 					<li><span data-translationKey="signatureScreen_License3_OMR"/></li>
@@ -46,7 +158,7 @@
 			<br>
 			<li><span data-translationKey="signatureScreen_License7"/></li>
 			<br>
-			{{if CardType === 'OMC' }}
+			{{if CardType === 'OMX' }}
 				<li><span data-translationKey="signatureScreen_License7a"/></li>
 				<br>
 				<li><span data-translationKey="signatureScreen_License7b"/></li>
@@ -75,8 +187,10 @@
 								<img id="SignatureImage" src="app/images/omr_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{else CardType === 'OMP' }}
 								<img id="SignatureImage" src="app/images/omp_en.png" data-lang-src width="180" style="margin-top:10px;"/>
+							{{else CardType === 'OMZ' }}
+								<img id="SignatureImage" src="app/images/omz_en.png" data-lang-src width="180" style="margin-top:10px;"/>	
 							{{else}}
-								<img id="SignatureImage" src="app/images/omc_en.png" data-lang-src width="180" style="margin-top:10px;"/>
+								<img id="SignatureImage" src="app/images/omx_en.png" data-lang-src width="180" style="margin-top:10px;"/>
 							{{/if}}
 							<br/>
            </td>
@@ -87,7 +201,8 @@
 							{{else CardType === 'OMP' }}
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
 							{{else}}
-								<span data-translationKey="signature_OptionsMasterCard" ></span>
+								<span id="triangelMasterCard" data-translationKey="signature_OptionsMasterCard" ></span>
+							    <span id="worldElite_MasterCard" data-translationKey="signature_World_ELiteMasterCard" ></span>		
 							{{/if}}
 
 				</b>
@@ -126,7 +241,8 @@
 							{{else CardType === 'OMP' }}
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
 							{{else}}
-								<span data-translationKey="signature_OptionsMasterCard" ></span>
+								<span id="sigtriangelMasterCardNote" data-translationKey="signature_OptionsMasterCard"></span>
+							    <span id="sigworldElite_MasterCardNote" data-translationKey="signature_World_ELiteMasterCard"> </span>
 							{{/if}}
 					</div>
 				</div>
@@ -135,13 +251,16 @@
 		<br>
 		<br>
 		<br>
+		
 		<center>
             <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
             	<span class="buttonText" data-translationKey="sigScreen_ProceedToConfirmation"></span>
 			</span>
         </center>
 		<br>
+		<span id="sigworldElite_MasterCardNote_OMZ" data-translationKey="sigworldElite_MasterCardNote_1"> </span>
 		<br>
+		
 		<br>
 	</div>
 </script>
