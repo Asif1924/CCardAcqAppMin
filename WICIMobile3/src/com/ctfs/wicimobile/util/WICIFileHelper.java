@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
+import com.ctfs.wicimobile.models.WICICardmemberModel;
 import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
@@ -27,6 +29,8 @@ public class WICIFileHelper {
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
     public final static String PrintOutMockupCardTypeForOMXandOMZsuffix = "OMX_OMZ";
     String templateName, templateFileName;
+    // DE1724 printout language
+    static String preferedLang;
     
     @SuppressWarnings("null")
 	public void processMockupFile(
@@ -39,10 +43,13 @@ public class WICIFileHelper {
             String maskedPAN,
             String province,
             String storeNumber,
-            String employeeId) throws ConnectionException, IOException {
+            String employeeId,
+            String correspondenceLanguage) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
+        preferedLang = correspondenceLanguage;
+        
         
         try {
         	// Print Approved, Declined/Pending print goes here.
@@ -193,10 +200,12 @@ public class WICIFileHelper {
             String firstName,
             String middleInitial,
             String lastName,
-            String storeNumber) throws ConnectionException, IOException {
+            String storeNumber,
+            String correspondenceLanguage) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
+        preferedLang = correspondenceLanguage;
                 
         try {    
         	
@@ -268,13 +277,16 @@ public class WICIFileHelper {
     }
 
     public static InputStream readTemplate(Context context, String templateName) throws IOException {
-        String lang = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings().getAppLanguage();
-        Log.d(LOG_TAG, "readTemplate \"" + templateName + "\", lang: " + lang);
-        if (lang == null || lang.equals("")) {
-            lang = "E";
+    	 Log.d(LOG_TAG, "PreferedLang " + preferedLang);
+    	// DE1724 printout language
+        if (preferedLang == null || preferedLang.equals("")) {
+        	preferedLang = "E";
         }
-        templateName = templateName.replace("{lang}", lang);
+        Log.d(LOG_TAG, "preferedLang " + preferedLang );
+        templateName = templateName.replace("{lang}", preferedLang);
+        Log.d(LOG_TAG, "templateName " + templateName);
         String fileName = PrintOutMockupFilePath + templateName + PrintOutMockupFileExtension;
+        Log.d(LOG_TAG, "fileName " + fileName);
         return context.getAssets().open(fileName);
     }
     

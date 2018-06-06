@@ -243,7 +243,9 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                             cardmemberModel.getMaskedPAN(),        
                             cardmemberModel.getProvince(),
                             cardmemberModel.getStoreNumber(),
-                            cardmemberModel.getEmployeeId());
+                            cardmemberModel.getEmployeeId(),
+                            // DE1724 printout language 
+                            cardmemberModel.getCorrespondenceLanguage());
                 }
                 else {
                     // Print test file
@@ -292,8 +294,9 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                             cardmemberModel.getFirstName(),
                             cardmemberModel.getMiddleInitial(),
                             cardmemberModel.getLastName(),
-                            cardmemberModel.getStoreNumber()
-                            );
+                            cardmemberModel.getStoreNumber(),
+                            // DE1724 printout language 
+                            cardmemberModel.getCorrespondenceLanguage());
                 }
                 // Call UI callback with search results
                 PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
