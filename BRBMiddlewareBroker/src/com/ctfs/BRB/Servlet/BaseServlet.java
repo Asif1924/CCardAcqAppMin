@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.BRB.Configuration.EnvironmentConfiguration;
 import com.ctfs.BRB.Helper.BRBServletMediator;
 import com.ctfs.BRB.Helper.BRBTransactionIdValidator;
@@ -154,13 +155,29 @@ public abstract class BaseServlet extends HttpServlet implements EnvironmentConf
 
 		return new AccountApplicationConfigurationFactory().createWebServicesEndpoint();
 	}
+	
+	public IConfiguration getWebServicesEndpointforSS() throws Exception
+	{
+		String sMethod = "[getWebServicesEndpointforSS]";
+		log.info(sMethod + "---getting web services endpoint for SS");
+
+		return new AccountApplicationConfigurationFactory().createWebServicesEndpointforSS();
+	}
 
 	public AccountAcquisitionPortalProxy getWebServicesProxy() throws Exception
 	{
-		String sMethod = "[getWICIWebServicesProxy]";
+		String sMethod = "[getWebServicesProxy]";
 		log.info(sMethod + "---getting web services portal proxy");
 
 		return (AccountAcquisitionPortalProxy) new AccountApplicationProxyBuilder().createWebServicesPortalProxy();
+	}
+	
+	public SharedWebServicesSOAPProxy getSharedWebServicesProxy() throws Exception
+	{
+		String sMethod = "[getSharedWebServicesProxy]";
+		log.info(sMethod + "---getting Shared web services portal proxy");
+
+		return (SharedWebServicesSOAPProxy) new AccountApplicationProxyBuilder().createSharedWebServicesPortalProxy();
 	}
 
 	protected void validateTransactionId(String transactionId)

@@ -34,4 +34,23 @@ public class ECommCardDataConfigurationFactory extends ConfigurationFactory
 
 		return ENDPOINT_PROPERTY_NAME + requestingSystem;
 	}
+	
+	@Override
+	public QName getEndpointServiceNameforSS()
+	{
+		String sMethod = "[getEndpointServiceNameforSS]";
+		log.info(sMethod + "::SERVICE-NAMESPACE::" + SERVICE_NAMESPACE + "::SERVICE-NAME::" + SERVICE_NAME);
+
+		return new QName(SERVICE_NAMESPACE, SERVICE_NAME);
+	}
+
+	@Override
+	public String getPropertyNameforSS()
+	{
+		String sMethod = "[getPropertyNameforSS]";
+		log.info(sMethod + "::ENDPOINT-PROPERTY-NAME::" + ENDPOINT_PROPERTY_NAME + ", ::REQUESTINGSYSTEM::" + requestingSystem);
+
+		return ENDPOINT_PROPERTY_NAME + requestingSystem;
+	}
+
 }

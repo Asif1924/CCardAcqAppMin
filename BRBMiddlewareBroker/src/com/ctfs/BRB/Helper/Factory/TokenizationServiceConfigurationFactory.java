@@ -28,4 +28,23 @@ public class TokenizationServiceConfigurationFactory extends ConfigurationFactor
 
 		return ENDPOINT_PROPERTY_NAME;
 	}
+	
+	@Override
+	public QName getEndpointServiceNameforSS()
+	{
+		String sMethod = "[getEndpointServiceName]";
+		log.info(sMethod + "::SERVICE-NAMESPACE::" + SERVICE_NAMESPACE + "::SERVICE-NAME::" + SERVICE_NAME);
+
+		return new QName(SERVICE_NAMESPACE, SERVICE_NAME);
+	}
+
+	@Override
+	public String getPropertyNameforSS()
+	{
+		String sMethod = "[getPropertyName]";
+		log.info(sMethod + "::ENDPOINT-PROPERTY-NAME::" + ENDPOINT_PROPERTY_NAME);
+
+		return ENDPOINT_PROPERTY_NAME;
+	}
+
 }

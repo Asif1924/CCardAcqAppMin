@@ -13,6 +13,7 @@ public class CustomerEmailModel extends BaseModel
 	protected final static String YesInsuranceCode = "1";
 	protected final static String LanguageAttribute = "CustomerKey";
 	protected final static String ProductTypeAttribute = "ProductType";	
+	protected final static String AppStatusAttribute = "AppStatus";	
 	protected final static String CustomerNameAttribute = "CustomerName";
 	protected final static String CreditLimitAttribute = "creditLimit";
 	protected final static String AprAttribute = "apr";
@@ -22,7 +23,10 @@ public class CustomerEmailModel extends BaseModel
 	protected final static String IdentityWatchClassicAttribute = "OP_IdentityWatchClassic";
 	//protected final static String ProductTypeValue = "OMC";
 	protected final static String ProductTypeValue = "respCardType";
-		
+	protected final static String AppStatusValue = "appStatus";
+	
+	
+	
 	protected String creditLimit;
 	protected String apr;
 	protected String cashAPR;
@@ -34,6 +38,8 @@ public class CustomerEmailModel extends BaseModel
 	protected int clientId;		
 	protected List <String> emails;
 	protected String respCardType;
+	protected String loyaltyMembershipNumber;
+	protected String appStatus;
 	
 	public void initializeModel (			
 			String creditLimit,
@@ -45,7 +51,10 @@ public class CustomerEmailModel extends BaseModel
 			int clientId,
 			String preferedLanguage,			
 			List <String> emails,
-			String respCardType){		
+			String respCardType,
+			String loyaltyMembershipNumber,
+			String appStatus
+			){		
 		this.creditLimit = creditLimit;
 		this.apr = apr;
 		this.cashAPR = cashAPR;
@@ -53,6 +62,8 @@ public class CustomerEmailModel extends BaseModel
 		this.clientId = clientId;		
 		this.emails = emails;
 		this.respCardType = respCardType;
+		this.loyaltyMembershipNumber = loyaltyMembershipNumber;
+		this.appStatus = appStatus; 
 		
 		processPreferedLanguage (preferedLanguage);
 		processInsuranceData (insuranceCode);	
@@ -247,6 +258,7 @@ public class CustomerEmailModel extends BaseModel
 		this.respCardType = respCardType;
 	}
 
+
 	public Boolean isModelValid () {
 		if (customerName.isEmpty() || 
 				clientId == 0 ||
@@ -265,8 +277,15 @@ public class CustomerEmailModel extends BaseModel
 		
 		Attribute productType = new Attribute();
 		productType.setName(ProductTypeAttribute);
+//		productType.setValue(ProductTypeValue);
 		productType.setValue(getRespCardType());
 		attributes.add(productType);
+		
+		Attribute appStatus = new Attribute();
+		appStatus.setName(AppStatusAttribute);
+//		productType.setValue(ProductTypeValue);
+		appStatus.setValue(getAppStatus());
+		attributes.add(appStatus);
 		
 		Attribute customerName = new Attribute();
 		customerName.setName(CustomerNameAttribute);
@@ -304,5 +323,21 @@ public class CustomerEmailModel extends BaseModel
 		attributes.add(identityWatchClassic);		
 		
 		return attributes;
+	}
+
+	public String getLoyaltyMembershipNumber() {
+		return loyaltyMembershipNumber;
+	}
+
+	public void setLoyaltyMembershipNumber(String loyaltyMembershipNumber) {
+		this.loyaltyMembershipNumber = loyaltyMembershipNumber;
+	}
+
+	public String getAppStatus() {
+		return appStatus;
+	}
+
+	public void setAppStatus(String appStatus) {
+		this.appStatus = appStatus;
 	}
 }

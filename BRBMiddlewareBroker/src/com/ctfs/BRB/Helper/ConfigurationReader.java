@@ -51,7 +51,7 @@ public class ConfigurationReader
 	
 	public void loadConfiguration() throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.loadConfiguration()";
+		String sMethod="com.ctfs.BRB.Helper.ConfigurationReader.loadConfiguration()";
 		log.info(sMethod+ " Entry");
 		String errorReason = null;
 		try
@@ -84,7 +84,7 @@ public class ConfigurationReader
 		
 	public List getCategorys() throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategorys()";
+		String sMethod="com.ctfs.BRB.Helper.ConfigurationReader.getCategorys()";
 		log.info(sMethod+ " Entry");
 		
 		if (configuration == null)
@@ -106,7 +106,7 @@ public class ConfigurationReader
 	
 	public boolean categoryExists(String category) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.categoryExists()";
+		String sMethod="com.ctfs.BRB.Helper.ConfigurationReader.categoryExists()";
 		log.info(sMethod+ " Entry");
 		
 		if (configuration == null)
@@ -132,7 +132,7 @@ public class ConfigurationReader
 	
 	public Map getCategoryKeys(String category) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategoryKeys()";
+		String sMethod="com.ctfs.BRB.Helper.ConfigurationReader.getCategoryKeys()";
 		log.info(sMethod+ " Entry");
 				
 		if (configuration == null)
@@ -178,7 +178,7 @@ public class ConfigurationReader
 	
 	public String getCategoryKeyValue(String category, String key) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategoryKeyValue()";
+		String sMethod="com.ctfs.BRB.Helper.ConfigurationReader.getCategoryKeyValue()";
 		log.info(sMethod+ " Entry");
 		
 		if (configuration == null)

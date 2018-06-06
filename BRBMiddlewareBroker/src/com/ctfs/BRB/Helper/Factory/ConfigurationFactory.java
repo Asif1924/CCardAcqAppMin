@@ -2,14 +2,13 @@ package com.ctfs.BRB.Helper.Factory;
 
 import java.io.InputStream;
 import java.util.Map;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 
+import com.ctfs.BRB.Helper.ApplicationConfiguration;
 import com.ctfs.BRB.Interfaces.IConfiguration;
 import com.ctfs.BRB.Model.Configuration;
-import com.ctfs.BRB.Helper.*;
 
 public abstract class ConfigurationFactory
 {
@@ -36,6 +35,10 @@ public abstract class ConfigurationFactory
 	public abstract QName getEndpointServiceName();
 
 	public abstract String getPropertyName();
+	
+	public abstract QName getEndpointServiceNameforSS();
+
+	public abstract String getPropertyNameforSS();
 
 	public IConfiguration createWebServicesEndpoint() throws Exception
 	{
@@ -58,6 +61,31 @@ public abstract class ConfigurationFactory
 		}
 
 		log.info(sMethod + "::New Endpoint Address::" + conf.getWebservicesEndpoint());
+
+		return conf;
+	}
+	
+	public IConfiguration createWebServicesEndpointforSS() throws Exception
+	{
+		String sMethod = "[createWebServicesEndpointforSS]";
+		log.info(sMethod + "::Called!");
+
+		IConfiguration conf = null;
+		try
+		{
+			conf = new Configuration();
+			String webservicesEndPointforSS = getPropertyFromConfigurationFileforSS();
+			conf.setWebservicesEndpointforSS(webservicesEndPointforSS);
+			conf.setServiceNameforSS(getEndpointServiceNameforSS());
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+
+		log.info(sMethod + "::New Endpoint Address for SS::" + conf.getWebservicesEndpointforSS());
 
 		return conf;
 	}
@@ -193,6 +221,36 @@ public abstract class ConfigurationFactory
 			log.info("getPropertyFromConfigurationFile( " + getPropertyName() + ") : "+ enviroinmentMap.get(getPropertyName()));
 				
 			propertyValue = enviroinmentMap.get(getPropertyName()).toString();// getEndpointFromConfigurationFile();
+		  	
+			// Validate endpointProperty value
+			validateEndpointPropertyValue(propertyValue);
+
+			propertyValue += getEndpointSuffix();
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}		 
+
+		return propertyValue;  
+		 
+	} 
+	
+	protected String getPropertyFromConfigurationFileforSS() throws Exception
+	{
+		String sMethod = "[getPropertyFromConfigurationFileforSS]";
+		String propertyValue = null;
+		
+		
+		try
+		{			
+			ApplicationConfiguration.readApplicationConfiguration();
+			Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
+			log.info("getPropertyFromConfigurationFileforSS( " + getPropertyNameforSS() + ") : "+ enviroinmentMap.get(getPropertyNameforSS()));
+				
+			propertyValue = enviroinmentMap.get(getPropertyNameforSS()).toString();// getEndpointFromConfigurationFile();
 		  	
 			// Validate endpointProperty value
 			validateEndpointPropertyValue(propertyValue);

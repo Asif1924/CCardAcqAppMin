@@ -6,12 +6,16 @@ import java.util.logging.Logger;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 import com.channel.ctfs.ctc.webicgateway.RequestBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
+import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
+import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.BRB.EmailService.CustomerEmailModel;
 import com.ctfs.BRB.EmailService.EmailAuthorizationModel;
 import com.ctfs.BRB.EmailService.EmailServiceHelper;
@@ -26,6 +30,7 @@ import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.AccountApplicationResponse;
 import com.ctfs.BRB.Model.BRBIdentityExamBridge;
 import com.ctfs.BRB.Model.MessageType;
+import com.ctfs.BRB.Model.WebIcMQRespVO;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.ctfs.BRB.dblayer.interfaces.IAppTransactionTableEntity;
 import com.ctfs.BRB.dblayer.interfaces.ICustomerTransactionTableEntity;
@@ -37,12 +42,21 @@ public class AccountApplicationHelper
 	static Logger log = Logger.getLogger(AccountApplicationHelper.class.getName());
 	static final String APPROVED_STATUS = "APPROVED";
 	static final int ECOMCARDDATA_ATTEMPTS_NUMBER = 3;
+	
+	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
 
 	public BRBIdentityExamBridge doRequest(String brbTransactionId) throws Exception
 	{
 		String sMethod = "[doRequest] ";
 		log.info(sMethod + "::Called.");
-
+		
+		boolean enable_webic_auth = false;
+		BRBDBHelper brbdbhelper = new BRBDBHelper();	
+		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
+		
+		if(enable_webic_auth)
+		{
+			log.info(sMethod + "::Called from webicgateway.");
 		RequestBody requestBody = new RequestBody();
 		ResponseBody responseBody = new ResponseBody();
 		AccountApplicationResponseType accountResponse = null;
@@ -86,20 +100,22 @@ public class AccountApplicationHelper
 			reportAppState(accountResponse, brbTransactionId);
 
 			// Check response
-			if (accountAppResponse.isModelValid())
+			//if (accountAppResponse.isModelValid())
+			if(accountAppResponse.getAppStatus()!=null)
 			{
 				// Check result
-				if (!sendEmailToCustomer(accountAppRequestWrapper, accountAppResponse))
-				{
-					throw new BrbFlowException("Send Email to the Customer operation failed");
-				}
-
+					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
+						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse,accountResponse.getQueueName())) {
+							throw new BrbFlowException("Send Email to the Customer operation failed");
+						}
+					}
 				// Check result
 				if (!callECommCardDataService(accountAppRequestWrapper, accountAppResponse))
 				{
 					throw new BrbFlowException("Comunicate with ECommCardData Web Service operation failed");
 				}
 			}
+			
 		}
 		catch (BrbFlowException ex)
 		{
@@ -131,6 +147,107 @@ public class AccountApplicationHelper
 		}
 
 		return brbIdentityExamBridge;
+		}
+		else
+		{
+			
+			//Sharedservice call
+			log.info(sMethod + "::Called from Sharedservice.");
+			ServiceRequest serviceRequest = new ServiceRequest();
+			ServiceResponse serviceResponse = new ServiceResponse();
+			AccountApplicationResponseType accountResponse = null;
+			WebIcMQRespVO response = null;
+			AccountApplicationRequestWrapper accountAppRequestWrapper = null;
+			AccountApplicationResponse accountAppResponse = null;	
+			BRBIdentityExamBridge brbIdentityExamBridge = null;
+			try
+			{
+				IAppTransactionTableEntity appTransactionTableEntity = new BRBDBHelper().getFromApplicationTransactionTable(brbTransactionId);
+
+				// Deserialize AccountApplication request wrapper
+				accountAppRequestWrapper = new BRBGsonDecorator().getWrappedGson().fromJson(appTransactionTableEntity.getAccountAppData(), AccountApplicationRequestWrapper.class);
+
+				// Set TU session id value
+				accountAppRequestWrapper.getAccountApplicationRequest().setTUSessionID(appTransactionTableEntity.getSessionId());
+				
+				// Restore and set tuExamResult value
+				String tuExamRes = getTUScoreResult(appTransactionTableEntity.getScoreIdentityExamResponse());
+
+				// Set tuExamResult
+				accountAppRequestWrapper.getAccountApplicationRequest().setTUExamResult(tuExamRes);
+					
+				SharedWebServicesSOAPProxy accountApplicationProxy = (SharedWebServicesSOAPProxy) new AccountApplicationProxyBuilder().createSharedWebServicesPortalProxy();
+
+				String requestBodyString = serializeRequest(accountAppRequestWrapper.getAccountApplicationRequest());
+				log.info(sMethod + requestBodyString);
+
+				validateUserRequest(requestBodyString, ResourceHelper.getInstance().getValidationAccountApplicationPath());
+
+				serviceRequest.setMethodName("processIcApplication");
+				serviceRequest.setServiceArgument1(requestBodyString);
+				serviceRequest.setServiceName("CTFSWebICGatewayService");
+				log.info("serviceRequest=" + serviceRequest.getServiceArgument1());
+				
+				serviceResponse = accountApplicationProxy.processRequest(serviceRequest);
+				log.info("serviceResponse=" + serviceResponse.getPassFail()+","  + serviceResponse.getResponseArgument1());
+				
+				response = deserializeResponseforSS(serviceResponse);
+
+				// Map Account Application Response
+				accountAppResponse = (new AccountApplicationResponse()).entityToModelforSS(response, brbTransactionId);
+
+				brbIdentityExamBridge = new BRBIdentityExamBridge(accountAppResponse, brbTransactionId);
+				
+				// Report application state
+				reportAppState(accountResponse, brbTransactionId);
+
+				// Check response
+				if(accountAppResponse.getAppStatus()!=null)
+				{// Check result
+					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
+						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse, response.getQueueName())) {
+							throw new BrbFlowException("Send Email to the Customer operation failed");
+						}
+					}
+
+					// Check result
+					if (!callECommCardDataService(accountAppRequestWrapper, accountAppResponse))
+					{
+						throw new BrbFlowException("Comunicate with ECommCardData Web Service operation failed");
+					}
+				}
+			}
+			catch (BrbFlowException ex)
+			{
+				log.warning(sMethod + " BrbFlow Exception: " + ex.getMessage());
+
+				// According CTCOFSMB-1363
+				new AppStateReporter().reportState(brbTransactionId, AccountApplicationStatus.PENDING, null, null, null);
+				throw ex;
+			}
+			catch (ValidatorException ex)
+			{
+				log.warning(sMethod + " Validator Exception: " + ex.getMessage());
+
+				new AppStateReporter().reportState(brbTransactionId, null, null, null, ErrorState.XSDError);
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				log.warning(sMethod + " General Exception: " + ex.getMessage());
+
+				new AppStateReporter().reportState(brbTransactionId, null, null, null, ErrorState.OtherError);
+				throw ex;
+			}
+			finally
+			{			 
+				// According to CTCOFSMB-1343
+				new BRBDBHelper().deleteFromCustomerTransactionTable(brbTransactionId);
+				
+			}
+
+			return brbIdentityExamBridge;
+		}
 	}
 
 	private void reportAppState(AccountApplicationResponseType accountResponse, String transactionId)
@@ -205,6 +322,32 @@ public class AccountApplicationHelper
 
 		return result;
 	}
+	
+	public WebIcMQRespVO deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
+	{
+		String sMethod = "[deserializeResponseforSS] ";
+		log.info(sMethod + "::Called.");
+
+		WebIcMQRespVO result = null;
+
+		String response = serviceResponse.getResponseArgument1();
+		if (response == null)
+		{
+			return result;
+		}
+
+		try
+		{
+			result = (new GenericObjectsHelper()).deserializeXMLToAccountApplicationResponseObjectforSS(response);
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			throw e;
+		}
+
+		return result;
+	}
 
 	public String serializeRequest(Object obj) throws Exception
 	{
@@ -232,7 +375,7 @@ public class AccountApplicationHelper
 		return ignoreEmailServiceSetting;
 	}
 
-	protected boolean sendEmailToCustomer(AccountApplicationRequestWrapper accountRequestWrapper, AccountApplicationResponse accountAppResponse) throws Exception
+	protected boolean sendEmailToCustomer(AccountApplicationRequestWrapper accountRequestWrapper, AccountApplicationResponse accountAppResponse,String queueName) throws Exception
 	{
 		String sMethod = "[sendEmailToCustomer] ";
 		log.info(sMethod + "::Called.");
@@ -251,10 +394,17 @@ public class AccountApplicationHelper
 			emails.add(accountRequest.getCurrentEmailAddress());
 
 			int clientId = Integer.parseInt(ApplicationSettingsManager.getInstance().getEmailServiceClientId());
-
+			
+			String appStatus=accountAppResponse.getAppStatus();
+			if (queueName != null && queueName.equalsIgnoreCase("STOREID")) {
+				appStatus = "STOREID";
+			}
+			log.info("queueName : "+queueName + "appStatus :"+appStatus);
+			
 			CustomerEmailModel customerEmailModel = new CustomerEmailModel();
 			customerEmailModel.initializeModel(accountAppResponse.getCreditLimit(), accountAppResponse.getApr(), accountAppResponse.getCashAPR(), accountRequest.getFirstName(),
-					accountRequest.getLastName(), accountRequest.getInsuranceCode(), clientId, accountRequest.getPreferedLanguage(), emails, accountAppResponse.getRespCardType());
+					accountRequest.getLastName(), accountRequest.getInsuranceCode(), clientId, accountRequest.getPreferedLanguage(), emails, accountRequest.getRequestedProductType(),
+					accountAppResponse.getLoyaltyMembershipNumber(),appStatus);
 
 			String username = ApplicationSettingsManager.getInstance().getEmailServiceUserName();
 			String password = ApplicationSettingsManager.getInstance().getEmailServiceUserPwd();

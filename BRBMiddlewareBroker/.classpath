@@ -4,6 +4,7 @@
 	<classpathentry kind="lib" path="libs/develop/batik.jar"/>
 	<classpathentry kind="lib" path="libs/develop/batik-css-1.7.jar"/>
 	<classpathentry kind="lib" path="libs/develop/nekohtml.jar"/>
+	<classpathentry kind="lib" path="libs/ApplicationAdjudicationServiceBO.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry including="com/" kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>

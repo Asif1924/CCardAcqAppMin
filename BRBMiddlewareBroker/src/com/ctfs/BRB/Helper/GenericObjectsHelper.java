@@ -36,6 +36,7 @@ import com.ctfs.BRB.Model.BaseModel;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
 import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Model.Response;
+import com.ctfs.BRB.Model.WebIcMQRespVO;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -190,6 +191,22 @@ public class GenericObjectsHelper
 		deserializedAccountApplicationResponseObject = (AccountApplicationResponseType) xstream.fromXML(xmlStr);
 		return deserializedAccountApplicationResponseObject;
 	}
+	
+	public WebIcMQRespVO deserializeXMLToAccountApplicationResponseObjectforSS(String xmlStr)
+	{
+		String sMethod = this.getClass().getName() + "[deserializeXMLToAccountApplicationResponseObject] ";
+		log.info(sMethod);
+
+		xmlStr = xmlStr.replace("tns:", "");
+		WebIcMQRespVO deserializedAccountApplicationResponseObject = new WebIcMQRespVO();
+		XStream xstream = new XStream(new DomDriver());
+
+		xstream.alias("WebIcMQRespVO", WebIcMQRespVO.class);
+		xmlStr = xmlStr.replaceAll("cashApr>", "cashAPR>");
+		deserializedAccountApplicationResponseObject = (WebIcMQRespVO) xstream.fromXML(xmlStr);
+
+		return deserializedAccountApplicationResponseObject;
+	}
 
 	public String accountApplicationSerialize(Object obj) throws Exception
 	{
@@ -283,6 +300,23 @@ public class GenericObjectsHelper
 		xstream.alias("WebICIdentityExamResponse", WebICIdentityExamResponse.class);
 		xstream.aliasType("question", Question.class);
 		xstream.aliasType("answer", Answer.class);
+		deserializedWebICIdentityExamResponseObject = (WebICIdentityExamResponse) xstream.fromXML(xmlStr);
+		return deserializedWebICIdentityExamResponseObject;
+	}
+	
+	public WebICIdentityExamResponse deserializeXMLToWebICIdentityExamResponseforSSObject(String xmlStr)
+	{
+		String sMethod = "[deserializeXMLToWebICIdentityExamResponseforSSObject] ";
+		log.info(sMethod);
+
+		log.info(sMethod + "xmlStr:\n" + xmlStr);
+
+		WebICIdentityExamResponse deserializedWebICIdentityExamResponseObject = new WebICIdentityExamResponse();
+		XStream xstream = new XStream(new DomDriver());
+
+		xstream.alias("WebICIdentityExamResponse", WebICIdentityExamResponse.class);
+		xstream.aliasType("com.ctfs.webic.ioclasses.WebICQuestionBO", Question.class);
+		xstream.aliasType("com.ctfs.webic.ioclasses.WebICAnswerBO", Answer.class);
 		deserializedWebICIdentityExamResponseObject = (WebICIdentityExamResponse) xstream.fromXML(xmlStr);
 		return deserializedWebICIdentityExamResponseObject;
 	}

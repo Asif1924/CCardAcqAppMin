@@ -76,6 +76,7 @@
         <pathelement location="libs/httpclient-cache-4.2.2.jar"/>
         <pathelement location="libs/httpcore-4.2.2.jar"/>
         <pathelement location="libs/httpmime-4.2.2.jar"/>
+    	<pathelement location="libs/ApplicationAdjudicationServiceBO.jar"/>
 
         <pathelement location="libs/develop/mockito-core-1.9.5.jar"/>
     	<pathelement location="libs/commons-io-2.4.jar"/>

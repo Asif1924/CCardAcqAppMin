@@ -41,4 +41,29 @@ public class ECommCardDataSimulatorProxyBuilder implements IPortalProxyBuilder
 
 		return createdProxy;
 	}
+	
+	
+	@Override
+	public Object createSharedWebServicesPortalProxy() throws Exception
+	{
+		String sMethod = "[createSharedWebServicesPortalProxy]";
+		log.info(sMethod + "::Called.");
+
+		BasicHttpBinding_IResponseServiceProxy createdProxy = null;
+
+		try
+		{
+			IConfiguration conf = new ECommCardDataSimulatorConfigurationFactory(requestingSystem).createWebServicesEndpoint();
+			createdProxy = new BasicHttpBinding_IResponseServiceProxy(new URL(conf.getWebservicesEndpoint()), conf.getServiceName());						
+		}
+		catch (Exception e)
+		{
+			log.info(sMethod + "::Exception::" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+
+		return createdProxy;
+	}
+
 }

@@ -1,7 +1,5 @@
 package com.ctfs.BRB.Helper;
 
-import static org.mockito.Mockito.when;
-
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.logging.Logger;
@@ -10,6 +8,9 @@ import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 import com.channel.ctfs.ctc.webicgateway.RequestBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
+import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
+import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctc.ctfs.channel.webicidentityexamination.WebICIdentityExamRequest;
 import com.ctc.ctfs.channel.webicidentityexamination.WebICIdentityExamResponse;
 import com.ctfs.BRB.Helper.Factory.AccountApplicationProxyBuilder;
@@ -19,6 +20,7 @@ import com.ctfs.BRB.Model.BRBIdentityExamBridge;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
 import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Resources.ResourceHelper;
+import com.ctfs.BRB.Util.Utility;
 import com.ctfs.BRB.dblayer.ApplicationTransactionTableEntity;
 import com.ctfs.BRB.dblayer.CustomerTransactionTableEntity;
 import com.ctfs.BRB.dblayer.interfaces.IAppTransactionTableEntity;
@@ -27,6 +29,8 @@ import com.google.gson.Gson;
 public class IdentityExamHelper
 {
 	static Logger log = Logger.getLogger(IdentityExamHelper.class.getName());
+	
+	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
 
 	protected String brbTransactionId;	
 
@@ -40,6 +44,12 @@ public class IdentityExamHelper
 		String sMethod = "[doRequest]";
 		log.info(sMethod + " Called...");
 		
+		boolean enable_webic_auth = false;
+		BRBDBHelper brbdbhelper = new BRBDBHelper();	
+		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
+		
+		if(enable_webic_auth)
+		{
 		RequestBody requestBody = new RequestBody();
 		ResponseBody responseBody = new ResponseBody();
 
@@ -131,6 +141,87 @@ public class IdentityExamHelper
 		}
 		
 		return brbIdentityExam;
+		}
+		else
+		{
+			ServiceRequest serviceRequest = new ServiceRequest();
+			ServiceResponse serviceResponse = new ServiceResponse();
+
+			WebICIdentityExamResponse response = null;
+			BRBIdentityExamBridge brbIdentityExam = null;
+
+			SharedWebServicesSOAPProxy sharedWebServicesSOAPProxy = (SharedWebServicesSOAPProxy) new AccountApplicationProxyBuilder().createSharedWebServicesPortalProxy();
+
+			try
+			{
+				brbTransactionId = argMediator.getBrbTransactionId();
+				
+				// Save AA request
+				SaveAccountAppRequestData(argMediator);
+				
+				WebICIdentityExamRequest identityExamRequest = getWebICIdentityExamRequest(argMediator);
+				identityExamRequest = (WebICIdentityExamRequest)Utility.convertToUpperCase(identityExamRequest);
+				if(identityExamRequest!=null && Utility.validateIdentityExamRequest(identityExamRequest)){
+				String requestBodyString = serializeRequest(identityExamRequest);
+				validateUserRequest(requestBodyString, ResourceHelper.getInstance().getValidationWebICIdentityExaminationPath());
+				
+				serviceRequest.setMethodName("verifyIdentityExam");
+				serviceRequest.setServiceArgument1(requestBodyString);
+				serviceRequest.setServiceName("CTFSWebICGatewayService");
+				
+				log.info("serviceRequest=" + serviceRequest.getServiceArgument1());
+				}
+				
+				// US3627
+				if(brbTransactionId.toLowerCase().contains("moa")) {
+					try
+					{
+						// Call AccountAppication flow
+						brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+					}
+					catch (Exception ex)
+					{
+						log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
+						ex.printStackTrace();
+						
+						brbIdentityExam = null;
+					}
+				}
+				else {
+					serviceResponse = sharedWebServicesSOAPProxy.processRequest(serviceRequest);
+					log.info("serviceResponse=" + serviceResponse.getPassFail()+","  + serviceResponse.getResponseArgument1());
+					
+					response = deserializeResponseforSS(serviceResponse);
+
+				// Create proxy class
+				brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), brbTransactionId);			
+				
+				if (!brbIdentityExam.isIdentityExamModelValid()) {
+					try
+					{
+						// Call AccountAppication flow
+						brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+					}
+					catch (Exception ex)
+					{
+						log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
+						ex.printStackTrace();
+						
+						brbIdentityExam = null;
+					}
+				  }
+				}
+			}
+			catch (Exception e)
+			{
+				log.warning(sMethod + " Exception: " + e.getMessage());
+							
+				// Call AccountAppication flow
+				brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+			}
+			
+			return brbIdentityExam;
+		}
 	}
 	
 	private void SaveAccountAppRequestData(BRBServletMediator mediator) throws Exception
@@ -242,6 +333,33 @@ public class IdentityExamHelper
 		}
 		return result;
 	}
+	
+	
+	public WebICIdentityExamResponse deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
+	{
+		String sMethod = "[deserializeResponseforSS] ";
+		log.info(sMethod + " Called...");
+
+		WebICIdentityExamResponse result = null;
+		String xmlStr = serviceResponse.getResponseArgument1();
+		if (xmlStr == null)
+		{
+			return result;
+		}
+		log.info(sMethod + " xmlStr: \n" + xmlStr);
+
+		try
+		{
+			result = (new GenericObjectsHelper()).deserializeXMLToWebICIdentityExamResponseforSSObject(xmlStr);
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			throw e;
+		}
+		return result;
+	}
+
 
 	public String serializeRequest(Object obj) throws Exception
 	{

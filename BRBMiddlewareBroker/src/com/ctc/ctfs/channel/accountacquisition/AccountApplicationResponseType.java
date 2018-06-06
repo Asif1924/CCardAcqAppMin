@@ -83,7 +83,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "cashAPR",
     "appStatus",
     "customerValueInd",
-    "respCardType"
+    "respCardType",
+    "loyaltyMembershipNumber"
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -101,6 +102,8 @@ public class AccountApplicationResponseType
     protected String appStatus;
     protected String customerValueInd;
     protected String respCardType;
+    protected String loyaltyMembershipNumber;
+    protected String queueName;
 
     /**
      * Gets the value of the accountNumber property.
@@ -304,6 +307,8 @@ public class AccountApplicationResponseType
 		return respCardType;
 	}
 
+	
+
 	/**
      * Sets the value of the respCardType property.
      * 
@@ -315,5 +320,21 @@ public class AccountApplicationResponseType
 	public void setRespCardType(String respCardType) {
 		this.respCardType = respCardType;
 	}
+	
+	public String getLoyaltyMembershipNumber() {
+		return loyaltyMembershipNumber;
+	}
 
+	public void setLoyaltyMembershipNumber(String loyaltyMembershipNumber) {
+		this.loyaltyMembershipNumber = loyaltyMembershipNumber;
+	}
+
+	public String getQueueName() {
+		return queueName;
+	}
+
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+	
 }

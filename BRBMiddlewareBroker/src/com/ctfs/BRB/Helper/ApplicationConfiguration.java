@@ -13,7 +13,7 @@ public class ApplicationConfiguration
 	
 	public synchronized static void initialize(String configFile) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.initialize()";
+		String sMethod="com.ctfs.BRB.Helper.ApplicationConfiguration.initialize()";
 		log.info(sMethod+ " Entry");
 	
 		if (!initializationStatus)
@@ -41,7 +41,7 @@ public class ApplicationConfiguration
 	
 	public static void readApplicationConfiguration()
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.readApplicationConfiguration()";
+		String sMethod="com.ctfs.BRB.Helper.ApplicationConfiguration.readApplicationConfiguration()";
 		log.info(sMethod+ " Entry");
 		try
 		{
@@ -66,7 +66,7 @@ public class ApplicationConfiguration
 	
 	public static Map getCategoryKeys(String category) 
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategoryKeys()";
+		String sMethod="com.ctfs.BRB.Helper.ApplicationConfiguration.getCategoryKeys()";
 		log.info(sMethod+ " Entry");
 		Map rc = null;
 		try
@@ -83,7 +83,7 @@ public class ApplicationConfiguration
 	
 	public static String getCategoryKeyValue(String category, String key)
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategoryKeyValue()";
+		String sMethod="com.ctfs.BRB.Helper.ApplicationConfiguration.getCategoryKeyValue()";
 		log.info(sMethod+ " Entry");
 		String rc = null;
 		try
@@ -100,7 +100,7 @@ public class ApplicationConfiguration
 	
 	public static List getCategorys()
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategorys()";
+		String sMethod="com.ctfs.BRB.Helper.ApplicationConfiguration.getCategorys()";
 		log.info(sMethod+ " Entry");
 		List rc = null;
 		try

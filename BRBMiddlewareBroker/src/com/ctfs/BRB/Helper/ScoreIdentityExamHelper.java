@@ -9,6 +9,9 @@ import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 import com.channel.ctfs.ctc.webicgateway.RequestBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
+import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
+import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
+import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctc.ctfs.channel.webicidentityexamination.Answer;
 import com.ctc.ctfs.channel.webicidentityexamination.IdentityExam;
 import com.ctc.ctfs.channel.webicidentityexamination.Question;
@@ -28,6 +31,8 @@ public class ScoreIdentityExamHelper
 	static final String EMPTY_STRING = "";
 	static final String QUESTION_REFERENCE = "<question reference=\"../question\"/>";
 
+	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
+	
 	protected String brbTransactionId;
 
 	/**
@@ -45,7 +50,13 @@ public class ScoreIdentityExamHelper
 	{
 		String sMethod = "[doRequest()]";
 		log.info(sMethod);
-
+		
+		boolean enable_webic_auth = false;
+		BRBDBHelper brbdbhelper = new BRBDBHelper();	
+		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
+		
+		if(enable_webic_auth)
+		{
 		// Define body objects
 		RequestBody requestBody = new RequestBody();
 		ResponseBody responseBody = new ResponseBody();
@@ -104,6 +115,70 @@ public class ScoreIdentityExamHelper
 		}
 
 		return brbIdentityExam;
+		}
+		else
+		{
+			ServiceRequest serviceRequest = new ServiceRequest();
+			ServiceResponse serviceResponse = new ServiceResponse();
+
+			WebICScoreIdentityExamResponse response = null;
+			BRBIdentityExamBridge brbIdentityExam = null;
+
+			// Create Score WS proxy
+			SharedWebServicesSOAPProxy sharedWebServicesSOAPProxy = (SharedWebServicesSOAPProxy) new AccountApplicationProxyBuilder().createSharedWebServicesPortalProxy();
+
+			try
+			{
+				// Save internal transaction id
+				brbTransactionId = requestMediator.getBrbTransactionId();
+
+				// Form request body
+				String requestBodyString = getFormedScoreIdentityExamRequest(requestMediator);
+
+				// Set up request body
+				serviceRequest.setMethodName("scoreIdentityExam");
+				serviceRequest.setServiceArgument1(requestBodyString);
+				serviceRequest.setServiceName("CTFSWebICGatewayService");
+				
+				log.info("serviceRequest=" + serviceRequest.getServiceArgument1());
+				
+				serviceResponse = sharedWebServicesSOAPProxy.processRequest(serviceRequest);
+				log.info("serviceResponse=" + serviceResponse.getPassFail()+","  + serviceResponse.getResponseArgument1());
+				
+				response = deserializeResponseforSS(serviceResponse);
+
+				// Create proxy class
+				brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), response.getResult(), getBrbTransactionId());
+
+				// Save BRBIdentityExamBridge object internal state
+				new ScoreIdentityExamMemento().saveState(brbIdentityExam, serviceResponse.getResponseArgument1());
+
+				if (!brbIdentityExam.doesFourthQuestionExist())
+				{
+					try
+					{
+						// Call AccountAppication flow
+						brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+					}
+					catch (Exception ex)
+					{
+						log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
+						ex.printStackTrace();
+						
+						brbIdentityExam = null;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				log.warning(sMethod + " Exception: " + e.getMessage());
+				e.printStackTrace();
+				// Call AccountAppication flow
+				brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
+			}
+
+			return brbIdentityExam;
+		}
 	}
 
 	private String getFormedScoreIdentityExamRequest(BRBServletMediator requestMediator) throws Exception
@@ -173,6 +248,37 @@ public class ScoreIdentityExamHelper
 
 		return result;
 	}
+	
+	
+	private WebICScoreIdentityExamResponse deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
+	{
+		String sMethod = "[deserializeResponseforSS()] ";
+		log.info(sMethod);
+
+		String xmlStr = serviceResponse.getResponseArgument1();
+		WebICScoreIdentityExamResponse result = null;
+		
+		if (xmlStr == null)
+		{
+			return result;
+		}
+		log.info(sMethod + " xmlStr: \n" + xmlStr);
+
+		try
+		{
+			String replacedXmlStr = xmlStr.replace(QUESTION_REFERENCE, EMPTY_STRING);
+			result = deserializeWebICScoreIdentityExamResponse(replacedXmlStr);
+			log.info(sMethod + " result: \n" + result);
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			throw e;
+		}
+
+		return result;
+	}
+
 
 	private String getResponseBody(ResponseBody responseBody)
 	{
@@ -220,6 +326,28 @@ public class ScoreIdentityExamHelper
 		xstream.aliasType("question", Question.class);
 		xstream.aliasType("answer", Answer.class);
 
+		scoreIdentityExamResponse = (WebICScoreIdentityExamResponse) xstream.fromXML(xmlStr);
+
+		return scoreIdentityExamResponse;
+	}
+	
+	private WebICScoreIdentityExamResponse deserializeWebICScoreIdentityExamResponseforSS(String xmlStr)
+	{
+		String sMethod = "[deserializeWebICScoreIdentityExamResponseforSS] ";
+		log.info(sMethod);
+
+		log.info(sMethod + "xmlStr:\n" + xmlStr);
+
+		WebICScoreIdentityExamResponse scoreIdentityExamResponse = new WebICScoreIdentityExamResponse();
+		XStream xstream = new XStream(new DomDriver());
+
+		xstream.alias("WebICScoreIdentityExamResponse", WebICScoreIdentityExamResponse.class);
+		xstream.aliasType("identityExam", IdentityExam.class);
+		xstream.aliasType("question", Question.class);
+		xstream.aliasType("answer", Answer.class);
+		xstream.aliasType("com.ctfs.webic.ioclasses.WebICQuestionBO", Question.class);
+		xstream.aliasType("com.ctfs.webic.ioclasses.WebICAnswerBO", Answer.class);
+		
 		scoreIdentityExamResponse = (WebICScoreIdentityExamResponse) xstream.fromXML(xmlStr);
 
 		return scoreIdentityExamResponse;

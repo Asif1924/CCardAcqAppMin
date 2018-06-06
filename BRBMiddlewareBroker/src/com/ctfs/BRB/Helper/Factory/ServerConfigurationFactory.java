@@ -25,6 +25,22 @@ public class ServerConfigurationFactory extends ConfigurationFactory
 		return PROPERTY_NAME;
 	}
 
+	
+	@Override
+	public QName getEndpointServiceNameforSS()
+	{
+		return null;
+	}
+
+	@Override
+	public String getPropertyNameforSS()
+	{
+		String sMethod = "[getPropertyName]";
+		log.info(sMethod + "::PROPERTY_NAME::" + PROPERTY_NAME);
+
+		return PROPERTY_NAME;
+	}
+
 	public String getIgnoreEmailServiceProperty()
 	{
 		String sMethod = "[getIgnoreEmailServicePropertyName]";

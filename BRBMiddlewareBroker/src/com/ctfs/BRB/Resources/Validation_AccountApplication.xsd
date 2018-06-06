@@ -1566,6 +1566,7 @@
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
+			
 		</xsd:sequence>
 	</xsd:complexType>
 

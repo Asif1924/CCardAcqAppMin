@@ -80,7 +80,7 @@ public class AccountApplicationRequestTypeConverter
 		populatedAccountApplicationRequest.setPreviousCountry(CountryType.CA);
 		populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
 		populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA);
-
+		
 		// From AccountApplication.xsd v1.14 this filed have been removed
 		// populatedAccountApplicationRequest.etRoadsideOnRequestFlag("N");
 
@@ -124,15 +124,15 @@ public class AccountApplicationRequestTypeConverter
 			{
 				ar.setRequestedProductType(model.get("cardType"));
 				// US4580
-				if( ar.getChannelIndicator() == "WP") {
+				if( ar.getChannelIndicator() == "WP"){
 			   		String requestingSystemID = model.get("requestingSystem");
 			   		String storeIndicator = new ServerConfigurationHelper().createStoreIndicatorStringSetting(requestingSystemID .toUpperCase());
 			   		log.info(requestingSystemID   +storeIndicator);
 			   		ar.setAgencyPromoCode(storeIndicator);
-			    }
-				else {
-					ar.setAgencyPromoCode(model.get("promoCode"));
-			    }
+			   					   	 }
+				  else{
+				   ar.setAgencyPromoCode(model.get("promoCode"));
+			      }
 			}
 		}
 		catch (Exception e)
@@ -156,8 +156,7 @@ public class AccountApplicationRequestTypeConverter
 		}
 		// Old code for WP channel only
 		// ar.setAgentId("MQSYS");
-		// US4591 & US4592
-		//ar.setRequestedProductType("OMC");// was omp
+//		ar.setRequestedProductType("OMC");// was omp
 
 		//Added (02/06/2014) -- (AA). Please ensure this block is removed later
 		//Removed (03/27/2014) -- (AA). Removed for final BRBMiddlewareBroker build
