@@ -33,6 +33,7 @@ public class WebIcMQRespVO
 	protected String version;
 	protected String encryptedPan;
 	protected String respCardType;
+	protected String queueName;
 	
 	public String getAccountNumber() {
 		return accountNumber;
@@ -214,6 +215,10 @@ public class WebIcMQRespVO
 	public void setRespCardType(String respCardType) {
 		this.respCardType = respCardType;
 	}
-	
-	
+	public String getQueueName() {
+		return queueName;
+	}
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
 }

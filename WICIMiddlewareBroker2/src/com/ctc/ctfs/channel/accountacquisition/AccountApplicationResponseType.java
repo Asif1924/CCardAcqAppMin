@@ -93,6 +93,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "maskedPAN",
     "encryptedPan",
     "respCardType",
+    "queueName",
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -112,6 +113,7 @@ public class AccountApplicationResponseType
     protected String maskedPAN;
     protected String encryptedPan;
     protected String respCardType;
+    protected String queueName;
    
 
     /**
@@ -372,6 +374,20 @@ public class AccountApplicationResponseType
     public void setMaskedPAN(String value) {
         this.maskedPAN = value;
     }
+
+	/**
+	 * @return the queueName
+	 */
+	public String getQueueName() {
+		return queueName;
+	}
+
+	/**
+	 * @param queueName the queueName to set
+	 */
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
 
 	
 }

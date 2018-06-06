@@ -102,6 +102,19 @@ public class PendAccountApplicationRequest
 		this.respCardType = respCardType;
 	}
 	
+	/**
+	 * @return the queueName
+	 */
+	public String getQueueName() {
+		return queueName;
+	}
+	/**
+	 * @param queueName the queueName to set
+	 */
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+
 	String 	externalReferenceId;
 	String 	applicationId;
 	String 	accountReference;
@@ -115,4 +128,5 @@ public class PendAccountApplicationRequest
 	String	maskedPAN; //US3692
 	String  encryptedPan; // US4709
 	String  respCardType;	
+	String  queueName;
 }

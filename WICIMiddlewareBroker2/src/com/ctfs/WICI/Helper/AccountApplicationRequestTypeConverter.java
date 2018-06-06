@@ -81,6 +81,12 @@ public class AccountApplicationRequestTypeConverter
                     else if( storeNo >= 6000 && storeNo <= 6999 ) {
     			        populatedAccountApplicationRequest.setChannelIndicator("IC");	
     			    } 
+                    else if( storeNo >= 1000 && storeNo <= 1999 && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
+    			        populatedAccountApplicationRequest.setChannelIndicator("GB");
+    			    }
+                    else if( storeNo == 500 &&  !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
+    			        populatedAccountApplicationRequest.setChannelIndicator("OS");
+    			    }
     			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"))) {
     			    	populatedAccountApplicationRequest.setChannelIndicator("DP");
                     }

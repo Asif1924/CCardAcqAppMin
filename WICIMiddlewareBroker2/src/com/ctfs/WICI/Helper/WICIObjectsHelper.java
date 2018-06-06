@@ -305,6 +305,7 @@ public class WICIObjectsHelper
 		PendAccountApplicationRequest mangledPendAARequest = new PendAccountApplicationRequest();
 		if( "PENDING".equalsIgnoreCase(pAARequest.getAppStatus()) || "DECLINED".equalsIgnoreCase(pAARequest.getAppStatus()) ){
 			mangledPendAARequest.setAppStatus(pAARequest.getAppStatus());
+			mangledPendAARequest.setQueueName(pAARequest.getQueueName());
 			convertedResponse.setData(mangledPendAARequest);
 		}else if( "APPROVED".equalsIgnoreCase(pAARequest.getAppStatus())){								
 			//US3692
@@ -322,6 +323,7 @@ public class WICIObjectsHelper
 			mangledPendAARequest.setExternalReferenceId(null);
 			mangledPendAARequest.setApplicationId(null);
 			mangledPendAARequest.setRespCardType(pAARequest.getRespCardType());
+			mangledPendAARequest.setQueueName(pAARequest.getQueueName());
 			convertedResponse.setData(mangledPendAARequest);
 		}
 		

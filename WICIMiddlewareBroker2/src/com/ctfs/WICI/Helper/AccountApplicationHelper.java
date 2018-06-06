@@ -230,6 +230,9 @@ public class AccountApplicationHelper
 			if (webIcMQRespVO.getRespCardType() != null) {
 				accountApplicationResponse.setRespCardType(webIcMQRespVO.getRespCardType());
 			}
+			if (webIcMQRespVO.getQueueName() != null) {
+				accountApplicationResponse.setQueueName(webIcMQRespVO.getQueueName());
+			}
 		}
 		
 		return accountApplicationResponse;

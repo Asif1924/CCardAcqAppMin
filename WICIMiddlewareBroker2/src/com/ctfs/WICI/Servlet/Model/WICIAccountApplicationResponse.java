@@ -60,6 +60,7 @@ public class WICIAccountApplicationResponse
 	String appStatus;
 	String customerValueInd;
 	String respCardType;
+	String queueName;
 
 	public WICIAccountApplicationResponse()
 	{
@@ -135,6 +136,15 @@ public class WICIAccountApplicationResponse
 		catch (Exception e) 
 		{
 			result.respCardType = null;
+		}
+		
+		try 
+		{
+			result.queueName = entity.getQueueName().toString();
+		} 
+		catch (Exception e) 
+		{
+			result.queueName = null;
 		}
 
 		return result;

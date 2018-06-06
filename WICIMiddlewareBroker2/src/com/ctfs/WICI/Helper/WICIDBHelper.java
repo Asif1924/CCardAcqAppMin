@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 
+import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionRequest;
@@ -784,17 +785,18 @@ public class WICIDBHelper
 		return agentIdExistsFlag;
 	}
 
-	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName) throws Exception
+	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId) throws Exception
 	{
 		String sMethod = "[insertAccountApplicationData] ";
 		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
 
 		// Create sql statement
-		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER,STREET_NAME)"
-				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?)";
+		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
+				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?)";
 
 		log.info(sMethod + "::SQL::" + sql);
-
+	
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -818,6 +820,11 @@ public class WICIDBHelper
 			preparedStatement.setString(9, unitNumber);
 			preparedStatement.setString(10, streetNumber);
 			preparedStatement.setString(11, streetName);
+			preparedStatement.setString(12, accountApplicationRequestType.getChannelIndicator());
+			preparedStatement.setString(13, accountApplicationRequestType.getRequestedProductType());
+			preparedStatement.setString(14, employerId);
+			preparedStatement.setString(15, accountApplicationRequestType.getAgencyPromoCode());
+			preparedStatement.setInt(16, accountApplicationRequestType.getStoreNumber());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1074,14 +1081,14 @@ public class WICIDBHelper
 
 	}	
 	
-	public String updateAccountApplicationData(String argTransactionID, String argAccountApplicationResponse, String argTransactionState) throws Exception
+	public String updateAccountApplicationData(String argTransactionID, String argAccountApplicationResponse, String argTransactionState,String appStatus) throws Exception
 	{
 		String sMethod = "[updateAccountApplicationData] ";
 		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID + ", RESPONSE_DATA=" + argAccountApplicationResponse + ", TRANSACTION_STATE=" + argTransactionState);
 
 		// Create sql statement
+		//String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?,STATUS =? WHERE TRANSACTION_ID = ?";
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ? WHERE TRANSACTION_ID = ?";
-
 		log.info(sMethod + "::SQL::" + sql);
 
 		Connection connection = null;
@@ -1098,8 +1105,8 @@ public class WICIDBHelper
 			preparedStatement.setCharacterStream(1, clobReader, argAccountApplicationResponse.length());
 
 			preparedStatement.setString(2, argTransactionState);
+			//preparedStatement.setString(3, appStatus);
 			preparedStatement.setString(3, argTransactionID);
-
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1119,7 +1126,7 @@ public class WICIDBHelper
 	public PendAccountApplicationResponse updatePendingAccountApplicationData(PendAccountApplicationRequest argPAARequestObject) throws PendingApplicationDatabaseUpdateException
 	{
 		String sMethod = "[updatePendingAccountApplicationData] ";
-		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?, ADM_APP_ID = ? WHERE TRANSACTION_ID = ?";
+		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?, ADM_APP_ID = ?,STATUS = ? WHERE TRANSACTION_ID = ?";
 		log.info(sMethod + "::SQL::" + sql);
 
 		WICIResponse convertedRequestToResponse = new WICIObjectsHelper().convertPendAccountApplicationRequestToWICIResponse(argPAARequestObject);
@@ -1129,12 +1136,14 @@ public class WICIDBHelper
 		String transactionState = ( "PENDING".equalsIgnoreCase(argPAARequestObject.getAppStatus()) ? AppConstants.QUEUE_REQUEST_PENDING : AppConstants.QUEUE_REQUEST_COMPLETE );
 		String admAppId = argPAARequestObject.getApplicationId();
 		String transactionId = argPAARequestObject.getExternalReferenceId();
+		String appStatus=argPAARequestObject.getAppStatus();
 
 		log.info(sMethod + " Attempting to update with the following values: ");		
 		log.info(sMethod + " responseJSON= " + responseJSON);
 		log.info(sMethod + " transactionState= " + transactionState);
 		log.info(sMethod + " admAppId= " + admAppId);
 		log.info(sMethod + " transactionId= " + transactionId);
+		log.info(sMethod + " appStatus= " + appStatus);
 		
 		PendAccountApplicationResponse updateResponse = new PendAccountApplicationResponse();
 		updateResponse.setStatus(AppConstants.PEND_ACCOUNT_APPLICATION_REQUEST_UPDATE_FAILURE);
@@ -1151,7 +1160,8 @@ public class WICIDBHelper
 			preparedStatement.setString(1, responseJSON);
 			preparedStatement.setString(2, transactionState);
 			preparedStatement.setString(3, admAppId);
-			preparedStatement.setString(4, transactionId);
+			preparedStatement.setString(4, appStatus);
+			preparedStatement.setString(5, transactionId);
 
 			preparedStatement.executeUpdate();
 			connection.commit();

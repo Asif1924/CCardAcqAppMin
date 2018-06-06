@@ -45,7 +45,7 @@ public class AccountApplicationRequestThread implements Work
 		WICIAccountApplicationResponse submissionResponse = new WICIAccountApplicationResponse();
 		String tabletResponse = "";
 
-		updateTable(transactionID, tabletResponse, AppConstants.QUEUE_REQUEST_PENDING);
+		//updateTable(transactionID, tabletResponse, AppConstants.QUEUE_REQUEST_PENDING,submissionResponse.getAppStatus());
 
 		try
 		{
@@ -76,7 +76,7 @@ public class AccountApplicationRequestThread implements Work
 		if( "PENDING".equalsIgnoreCase(submissionResponse.getAppStatus() ) )
 			transactionState = AppConstants.QUEUE_REQUEST_PENDING;
 			
-		updateTable(transactionID, tabletResponse, transactionState);
+		updateTable(transactionID, tabletResponse, transactionState,submissionResponse.getAppStatus());
 		
 	}
 
@@ -124,7 +124,7 @@ public class AccountApplicationRequestThread implements Work
 		}
 	}
 
-	private void updateTable(String argTransactionID, String argAccountApplicationResponse, String argTransactionState)
+	private void updateTable(String argTransactionID, String argAccountApplicationResponse, String argTransactionState,String appStatus)
 	{
 		String sMethod = this.getClass().getName() + "[AccountApplicationRequestThread].[updateTable] ";
 		log.info(sMethod);
@@ -132,7 +132,7 @@ public class AccountApplicationRequestThread implements Work
 		try
 		{
 			WICIDBHelper wicidbHelper = new WICIDBHelper();
-			wicidbHelper.updateAccountApplicationData(argTransactionID, argAccountApplicationResponse, argTransactionState);
+			wicidbHelper.updateAccountApplicationData(argTransactionID, argAccountApplicationResponse, argTransactionState,appStatus);
 			
 			//If the app is approved, set the initial value of its retrieval count
 			new WICIDBHelper().updateRetrievalCountForApprovedApp(argTransactionID);

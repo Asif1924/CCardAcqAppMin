@@ -143,11 +143,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 			if (employerId != null && employerId.equalsIgnoreCase("E")
 					|| !authfieldCheckEnable) {
 				wicidbHelper.insertAccountApplicationData(transactionID,
-						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName);
+						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId);
 			} else {
-				wicidbHelper.insertAccountApplicationData(transactionID,
-						(employerId + userID), requestData, retrievalToken,
-						currentTelephone,consentGranted,unitNumber,streetNumber,streetName);
+				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId);
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}
