@@ -2,7 +2,7 @@ package com.ctfs.BRB.EmailService;
 
 public class BRBEmail
 {
-    public enum Language {ENU,FRC};
+	public enum Language {ENU,FRC};
     public enum TokenType {ACN, TCN};
     public enum RequestorType { WSP50110030273, WSP50139059239 , WSP50120834693}; //Apple, Samsung, Android
     
@@ -21,7 +21,15 @@ public class BRBEmail
     private String identityWatch;
     private String protectionAdvantage;
     private String productType;
+    private String loyaltyMembershipNumber;
+    private String appStatus;
     
+	public String getAppStatus() {
+		return appStatus;
+	}
+	public void setAppStatus(String appStatus) {
+		this.appStatus = appStatus;
+	}
 	public String getCashApr() {
 		return cashApr;
 	}
@@ -125,6 +133,12 @@ public class BRBEmail
 	}
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+	public String getLoyaltyMembershipNumber() {
+		return loyaltyMembershipNumber;
+	}
+	public void setLoyaltyMembershipNumber(String loyaltyMembershipNumber) {
+		this.loyaltyMembershipNumber = loyaltyMembershipNumber;
 	}
     
 }

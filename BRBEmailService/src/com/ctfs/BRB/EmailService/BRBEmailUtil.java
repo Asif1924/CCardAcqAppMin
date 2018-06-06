@@ -28,7 +28,7 @@ public class BRBEmailUtil
 
     private static final HashMap<String, String> emailformats = new HashMap<String, String>();
 
-    public BRBEmailUtil(String productType)
+    public BRBEmailUtil(String productType,String appStatus)
     {
 	log.info("Setting up exchange connection ...");
 
@@ -62,26 +62,73 @@ public class BRBEmailUtil
 	// Load email templates
 
 	log.info("Loading email templates ...");
+	log.info("appStatus: "+appStatus+"productType :"+productType);
 	try
 	{
-	    
-	    	
-			if (productType != null && productType.equalsIgnoreCase("OMX")) {
+			if ((appStatus!=null&&appStatus.equalsIgnoreCase("APPROVED")) && (productType != null && productType.equalsIgnoreCase("OMX"))) {
 			// Subject lines
-			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omx.en"));
-			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omx.fr"));
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.approve.subject.omx.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.approve.subject.omx.fr"));
 			// Message Body	
-	    	emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omx.en")), "UTF-8"))));
-		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omx.fr")), "UTF-8"))));	
+	    	emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.approve.body.omx.en")), "UTF-8"))));
+		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.approve.body.omx.fr")), "UTF-8"))));	
 			}
-			if (productType != null && productType.equalsIgnoreCase("OMZ")) {
+			else if ((appStatus!=null&&appStatus.equalsIgnoreCase("APPROVED")) && (productType != null && productType.equalsIgnoreCase("OMZ"))) {
 			// Subject lines
-			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omz.en"));
-			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.subject.omz.fr"));
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.approve.subject.omz.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.approve.subject.omz.fr"));
 			// Message Body	
-			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omz.en")), "UTF-8"))));
-	        emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.body.omz.fr")), "UTF-8"))));
+			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.approve.body.omz.en")), "UTF-8"))));
+	        emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.approve.body.omz.fr")), "UTF-8"))));
 			}
+			else if((appStatus!=null&&appStatus.equalsIgnoreCase("PENDING")) && (productType != null && productType.equalsIgnoreCase("OMX"))) {
+				// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omx.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omx.fr"));
+			// Message Body	
+		    emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omx.en")), "UTF-8"))));
+			emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omx.fr")), "UTF-8"))));	
+			}
+			else if ((appStatus!=null&&appStatus.equalsIgnoreCase("PENDING")) && (productType != null && productType.equalsIgnoreCase("OMZ"))) {
+			// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omz.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omz.fr"));
+			// Message Body	
+			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omz.en")), "UTF-8"))));
+		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omz.fr")), "UTF-8"))));
+			}	
+			else if((appStatus!=null&&appStatus.equalsIgnoreCase("STOREID")) && (productType != null && productType.equalsIgnoreCase("OMX"))) {
+				// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.subject.omx.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.subject.omx.fr"));
+			// Message Body	
+		    emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.body.omx.en")), "UTF-8"))));
+			emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.body.omx.fr")), "UTF-8"))));	
+			}
+			else if ((appStatus!=null&&appStatus.equalsIgnoreCase("STOREID")) && (productType != null && productType.equalsIgnoreCase("OMZ"))) {
+			// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.subject.omz.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.subject.omz.fr"));
+			// Message Body	
+			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.body.omz.en")), "UTF-8"))));
+		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.storeidpend.body.omz.fr")), "UTF-8"))));
+			}
+			else if((appStatus!=null&&appStatus.equalsIgnoreCase("DECLINED")) && (productType != null && productType.equalsIgnoreCase("OMX"))) {
+				// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omx.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omx.fr"));
+			// Message Body	
+		    emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omx.en")), "UTF-8"))));
+			emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omx.fr")), "UTF-8"))));	
+			}
+			else if ((appStatus!=null&&appStatus.equalsIgnoreCase("DECLINED")) && (productType != null && productType.equalsIgnoreCase("OMZ"))) {
+			// Subject lines
+			emailformats.put("BRBSUBJECT_EN", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omz.en"));
+			emailformats.put("BRBSUBJECT_FR", EmailConfigReader.getInstance().prop.getProperty("brb.pend.subject.omz.fr"));
+			// Message Body	
+			emailformats.put("BRBBODY_EN", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omz.en")), "UTF-8"))));
+		    emailformats.put("BRBBODY_FR", FileUtils.readFully(new BufferedReader(new InputStreamReader(new FileInputStream(EmailConfigReader.getInstance().prop.getProperty("brb.pend.body.omz.fr")), "UTF-8"))));
+			}	
 	    log.info("Email templates loaded.");
 	}
 	catch (Exception e)
@@ -178,10 +225,22 @@ public class BRBEmailUtil
     
     private static String format(String key, BRBEmail emailParams)
     {
+    	System.out.println("key :"+key+"emailParams:"+emailParams);
+    	if(emailParams.getCreditLimit()!=null){
     	emailformats.put(key,emailformats.get(key).replace("%%CreditLimit%%", emailParams.getCreditLimit()));
-    	emailformats.put(key,emailformats.get(key).replace("%%apr%%", emailParams.getApr()));
-    	emailformats.put(key,emailformats.get(key).replace("%%CashAPR%%", emailParams.getCashApr()));
-    	emailformats.put(key,emailformats.get(key).replace("%%emailaddress%%", emailParams.getTo()));
+    	}
+    	if(emailParams.getApr()!=null){
+        emailformats.put(key,emailformats.get(key).replace("%%apr%%", emailParams.getApr()));	
+    	}
+    	if(emailParams.getCashApr()!=null){
+        emailformats.put(key,emailformats.get(key).replace("%%CashAPR%%", emailParams.getCashApr()));
+    	}
+    	if(emailParams.getTo()!=null){
+    		emailformats.put(key,emailformats.get(key).replace("%%emailaddress%%", emailParams.getTo()));	
+    	}
+    	
+    	//emailformats.put(key,emailformats.get(key).replace("%%LoyaltyNumber%%", emailParams.getLoyaltyMembershipNumber()));
+    	
     	return emailformats.get(key).replace("%%CustomerName%%", emailParams.getCustomerName());
 
     }
