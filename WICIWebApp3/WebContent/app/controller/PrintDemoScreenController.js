@@ -24,6 +24,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     var argConsentGranted = "";
     var argDeviceType = "";
     var respCardType= "";
+    var dupConvenceEnable =null;
+    var argQueueName = null;
 
     var connectivityController = null;
     
@@ -46,6 +48,12 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         printScreenAndroidPay   :   '#printScreenAndroidPay_CheckField',
         printScreenApplePay     :   '#printScreenApplePay_CheckField',
         printScreenBeginSetup   :   '#printScreen_BeginSetupButton',
+        cardSelection_DecliancePage_Id :'#cardSelection_DecliancePage_Id',
+        title_DecliancePage_Id : '#title_DecliancePage_Id',
+        cardSelection_DecliancePage_title : '#cardSelection_DecliancePage_title',
+        printScreen_subTitle_Id : '#printScreen_subTitle_Id',
+        keyForApplicationStatusId  : '#keyForApplicationStatusId',
+        
     };
 
     var model = new WICI.BaseModel({
@@ -63,6 +71,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
               { notField: true, name: 'appStatus',     value: null },
               { notField: true, name: 'accountNumber',     value: null },
               { notField: true, name: 'MSISDN',     value: null },
+              { notField: true, name: 'dupConvenceEnable',     value: null },
               ]
     });
     //---------------------------------------------------------------------------------------
@@ -90,7 +99,21 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         employerID = activationItems.getModel('loginScreen').get('employerID');
         homePhonePersonalInfo = activationItems.getHomePhone();
         argMSISDN = activationItems.getMobilePhone();
+        argQueueName = respAn.getQueueName(activationItems.getNewAccountApplicationResponse());
         
+        console.log(logPrefix + sMethod + " QuequeName : " + argQueueName );
+        console.log(logPrefix + sMethod + " Application response  from Server : " + respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()));
+        
+        if( respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) === 'DECLINED'  && argQueueName === 'DUPECONV'){
+        	
+        	dupConvenceEnable ='Y';
+        	
+        }
+        if(dupConvenceEnable == null) {
+        	dupConvenceEnable = 'N';
+        }
+        model.set('dupConvenceEnable', dupConvenceEnable);
+        console.log(logPrefix + sMethod + " dupConvenceEnable  : " +  model.get('dupConvenceEnable'));
         // US4797
         argConsentGranted = activationItems.getConsentGranted();
         if(argConsentGranted == null) {
@@ -103,7 +126,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         }
         
         console.log(logPrefix + sMethod + " homePhonePendingInfo : " + activationItems.getHomePhone() + " : " + homePhonePersonalInfo );
-        console.log(logPrefix + sMethod + " Mobile Number : " + activationItems.getMobilePhone() );
+        console.log(logPrefix + sMethod + " Mobile Number : " + activationItems.getMobilePhone() +" argConsentGranted : " +argConsentGranted );
         
         model.set('appStatus', respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()));
         console.log(logPrefix + sMethod + " appStatus ::: " + model.get('appStatus'));
@@ -167,6 +190,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         $(refs.tokenField).val(tokenValue);
         $(refs.printButton).hide();
         bindEvents();
+        displayDupConvenceScreen();
         syncUserData();
     }
     //---------------------------------------------------------------------------------------
@@ -268,12 +292,18 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     }
     
     function getKeyForApplicationStatus(  ){
+    	
         var sMethod = 'getKeyForApplicationStatus() ';
-        //console.log(logPrefix + sMethod + " status=" + activationItems.getAccountApplicationStatus());
-        if(appStatus==="DECLINED")
-        	return "printScreen_ApplicationDeclined";
         
-        model.set('keyForDisplayingApplicationStatus', activationItems.getAccountApplicationStatus());
+        console.log(logPrefix + sMethod + " status=" + respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) +   "  argQuequeName= "+argQueueName+ " responseCardType=  "+activationItems.getModel('chooseProductModel').get('productCard'));
+        
+        if( respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) == "DECLINED" && argQueueName == "DUPECONV" &&  activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ){
+        	return "printScreen_ApplicationDeclined_OMX_DUPECONV";
+        }
+        if(appStatus === "DECLINED"){
+        	return "printScreen_ApplicationDeclined";
+        }
+         model.set('keyForDisplayingApplicationStatus', activationItems.getAccountApplicationStatus());
    		return activationItems.getAccountApplicationStatus();     		
     }
     
@@ -312,6 +342,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             respCardType:respCardType,
             fromPendingScreen:fromPendScreen,
             consentGranted: argConsentGranted,
+            dupConvenceEnable: dupConvenceEnable,
             appStatusFromResponse: respAn.getAppStatus(activationItems.getNewAccountApplicationResponse())
         }).appendTo($element);
     }
@@ -805,6 +836,26 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     function approvedPrintFailedAttempts() {
         return approvedPrintFailedAttempts;
     }
+   //---------------------------------------------------------------------------------------
+	   function displayDupConvenceScreen() {
+		var sMethod = 'displayDupConvenceScreen() ';
+		console.log(logPrefix + sMethod);
+
+		if (model.get('dupConvenceEnable') === 'Y') {
+			$(refs.cardSelection_DecliancePage_Id).hide();
+			$(refs.cardSelection_DecliancePage_title).hide();
+			$(refs.printScreen_subTitle_Id).hide();
+			$(refs.printScreen_subTitle_Id).hide();
+			$(refs.keyForApplicationStatusId).hide();
+		
+		} else {
+			$(refs.cardSelection_DecliancePage_Id).show();
+			$(refs.cardSelection_DecliancePage_title).show();
+			$(refs.printScreen_subTitle_Id).show();
+			$(refs.keyForApplicationStatusId).show();
+		}
+		//console.log(logPrefix + sMethod + "dupConvenceEnable  :"+ model.get('dupConvenceEnable'));
+   } 
     //---------------------------------------------------------------------------------------
     function testPrintFailedAttempts() {
         return testPrintFailedAttempts;

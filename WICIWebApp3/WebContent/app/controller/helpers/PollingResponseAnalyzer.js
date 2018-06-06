@@ -44,6 +44,9 @@ WICI.PollingResponseAnalyzer =  function () {
 	
 	this.cannotFindApp = cannotFindApp;
 	
+	this.getQueueName = getQueueName;
+	
+	
 	function cannotFindApp(argResponse){
 		//{"error":false,"data":{}};		
 		if( argResponse && !argResponse.error && argResponse.data && $.isEmptyObject(argResponse.data)) return true;
@@ -103,7 +106,7 @@ WICI.PollingResponseAnalyzer =  function () {
 
 	function getAppStatus( argResponse ){
 		if( isOldResponseType(argResponse) )
-			return argResponse.data.appStatus;
+			return argResponse.data.appStatus; 	
 		if( isNewResponseType(argResponse) )
 			return argResponse.data.ResponseData.data.appStatus;
 	}
@@ -166,6 +169,13 @@ WICI.PollingResponseAnalyzer =  function () {
 		if( isNewResponseType(argResponse) )
 			return argResponse.data.ResponseData.data.expiryDate;
 	}
+	function getQueueName( argResponse ){
+		if( isOldResponseType(argResponse) )
+				return argResponse.data.queueName;
+		if( isNewResponseType(argResponse) )
+			return argResponse.data.ResponseData.data.queueName;
+	}
+	
 	
 	function isEncryptedPAN( argResponse ) {
 		return argResponse.data.ResponseData.data.encryptedPan && argResponse.data.ResponseData.data.encryptedPan !=="";

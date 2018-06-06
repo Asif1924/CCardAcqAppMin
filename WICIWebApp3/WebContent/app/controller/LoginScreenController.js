@@ -36,7 +36,11 @@ WICI.LoginScreenController = function(app) {
         CTFSLogo: '#CTFSLogo',
         language_choser: '#language_choser',
         logoType: '#CTFSLogo',
-        testPrintButtonID: '#loginScreen_TestPrintButton'
+        testPrintButtonID: '#loginScreen_TestPrintButton',
+        retailNetWork : '#retailNetWorkId',	
+        employeeNumberId : '#employeeNumberIDTextField',
+        employeeNumberRowId:'#employeeNumberID_Row',
+        retailNetworkSelectionId:'#retail_DropDown_Row'
     };
 
     var model = new WICI.BaseModel({
@@ -51,7 +55,30 @@ WICI.LoginScreenController = function(app) {
                 matcher: /^[a-zA-Z0-9]{1}$/,
                 group: [1]
             }
-        }, {
+        }, 
+        
+        {
+            name : 'retailNetWork',
+            value : null,
+            validation : {
+                type : 'presence',
+                message : 'RetailNetWork is not selected',
+                group: [1],
+                canBeEmpty : true
+            }
+        }, 
+         {
+            name: 'employeeNumberId',
+            value: null,
+            validation: {
+                type: 'format',
+                message: '',
+                group: [1],
+                matcher: /[1-9]{1,8}/,
+                canBeEmpty : true
+            }
+        },
+        {
             name: 'firstName',
             value: null,
             validation: {
@@ -104,7 +131,9 @@ WICI.LoginScreenController = function(app) {
                 name: 'rollId',
                 value: null,
                 validation: null
-            }, {
+            
+    		}, 
+            {
                 notField: true,
                 name: 'enableEnstreamAuth',
                 value: null,
@@ -138,10 +167,10 @@ WICI.LoginScreenController = function(app) {
         createView();
         createSlider();
         bindEvents();
-
         setToggleLanguageSlider(translator.getCurrentLanguageFSDPFormat());
         setFrenchlogo();
-
+        populateNetworkRetailList();
+   	    hideRetailNetWorkData();
     }
 
     function setFrenchlogo() {
@@ -159,13 +188,14 @@ WICI.LoginScreenController = function(app) {
         model.set('agentID', $(refs.agentID).val().toLowerCase());
         //model.set('passwordFieldID', $(refs.passwordFieldID).val());
         model.set('locationFieldID', $(refs.locationFieldID).val().toLowerCase());
-
+        model.set('retailNetWork', $(refs.retailNetWork).val());
+        model.set('employeeNumberId', $(refs.employeeNumberId).val());
         model.set('password', $(refs.password).val().toUpperCase());
         
         if (validateNameFields) {
             model.set('firstName', $(refs.firstName).val().toLowerCase());
             model.set('lastName', $(refs.lastName).val().toLowerCase());
-        }
+           }
 
         console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
     }
@@ -186,6 +216,7 @@ WICI.LoginScreenController = function(app) {
 
     function createView() {
         $screenContainer.empty();
+       
         assembleTitleHTML($screenContainer, "#WICILoginScreen-template");
 
         $(refs.locationFieldID).autoNumeric('init', {
@@ -195,6 +226,15 @@ WICI.LoginScreenController = function(app) {
             mDec: '0',
             aSep: ''
         });
+        
+        $(refs.employeeNumberId).autoNumeric('init', {
+            aSep: '', 
+            aDec: ',',
+            vMax: '99999999',
+            vMin: '0',
+            lZero: 'keep' 
+        });
+        
        }
 
     function createSlider() {
@@ -218,7 +258,9 @@ WICI.LoginScreenController = function(app) {
 
         $(refs.loginButtonID).click(function() {
             generateAgentId();
+           
             invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+            
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -229,7 +271,31 @@ WICI.LoginScreenController = function(app) {
         $(refs.language_choser).on("change", function() {
             translator.toggleLanguage(true);
             app.language.setLanguage(translator.getCurrentLanguageFSDPFormat());
+            populateNetworkRetailList();
         });
+        /****************************/
+        $(refs.retailNetWork).change(function () {
+      	  console.log( "Handler for .change() called."+$(refs.retailNetWork ).val() );
+      	if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
+      		 $(refs.employeeNumberRowId).show();
+      		 $.each(model.data, function(index, item) {
+ 				if(item.name == "employeeNumberId") {
+ 					 item.validation.canBeEmpty = false;
+ 					 $(refs.employeeNumberId).val(model.get('tempEmpNumberID'));
+ 				}
+ 			});
+      	}else{
+      		 $(refs.employeeNumberId).val('');
+      		 $(refs.employeeNumberRowId).hide();
+      		employeeNumberIdValidation();
+      		 
+      	}
+      	
+      	 retailNetWorkSelectionValidation();
+      	
+      	
+      	});
+      
         /****************************/
 
         // listen to the EmployerId blur
@@ -251,6 +317,11 @@ WICI.LoginScreenController = function(app) {
 
                 $(refs.agentID).val(agentId);
             }
+           if($(refs.employeeNumberId).val().length > 0) {
+        	   $(refs.agentID).val($(refs.employeeNumberId).val());
+           }
+           
+            
         }
     }
 
@@ -271,6 +342,12 @@ WICI.LoginScreenController = function(app) {
     }
 
     function resetForm() {
+    	
+
+		     hideRetailNetWorkData();
+		employeeNumberIdValidation();
+		$(refs.retailNetWork).val(null);
+		retailNetWorkSelectionValidation();
         var firstNameRow = $(refs.firstName).closest('tr'),
             lastNameRow = $(refs.lastName).closest('tr'),
             agentIdRow = $(refs.agentID).closest('tr'),
@@ -305,20 +382,26 @@ WICI.LoginScreenController = function(app) {
 
         if($(refs.agentID).val().toUpperCase() === "DEMO"){
         	$(refs.password).closest('tr').addClass('hidden');
+        	$(refs.employeeNumberRowId).hide();
         } else {
         	$(refs.password).closest('tr').removeClass('hidden');
         }
     }
     
     function changeFormForEmployer() {
-        //hideAgentIdField
+    	
+    	$(refs.retailNetworkSelectionId).show();
+    //(refs.employeeNumberRowId).show();
         $(refs.agentID).closest('tr').addClass('hidden');
         $(refs.password).closest('tr').addClass('hidden');
         //showNameFields
         $(refs.firstName).closest('tr').removeClass('hidden');
         $(refs.lastName).closest('tr').removeClass('hidden');
+        retailNetWorkSelectionValidation();
     }
-
+   
+ 
+    
     function showVersions() {
         var constructedMessage = "WebApp Version = " + WICI.version + "<br>";
         constructedMessage += "APK Version = " + app.apkVersionHelper.getAPKVersion() + "<br>";
@@ -373,7 +456,7 @@ WICI.LoginScreenController = function(app) {
 
             var rez = model.validate(1);
             app.validationDecorator.applyErrAttribute(rez);
-
+            
             if (validateNameFields) {
                 var rez2 = model.validate(2);
                 app.validationDecorator.applyErrAttribute(rez2);
@@ -540,6 +623,33 @@ WICI.LoginScreenController = function(app) {
         }
     }
     // ---------------------------------------------------------------------------------------
+	    function populateNetworkRetailList() {
+		var sMethod = 'populateNetworkRetailList() ';
+		console.log(logPrefix + sMethod);
+		
+		syncUserData();
+		var controlRef = $(refs.retailNetWork);
+		controlRef.empty();
+		var selected = model.get('retailNetWork');
+		var list = new WICI.RetailNetWorkList();
+
+		$.each(list.data, function(index, item) {
+			var optTempl = '<option value="' + item.value + '" ';
+			optTempl = optTempl + '>' + translator.translateKey(item.text)
+					+ '</option>';
+			controlRef.append(optTempl);
+		});
+
+		if (selected) {
+			$(refs.retailNetWork + " [value='" + selected + "']")
+					.attr("selected", "selected");
+		}
+
+	}
+    
+    
+    // ---------------------------------------------------------------------------------------
+    
     function handleLookupFailed() {
         new WICI.LoadingIndicatorController().hide();
         messageDialog.error(
@@ -629,4 +739,42 @@ WICI.LoginScreenController = function(app) {
             new WICI.TestPrintHelper(translator, messageDialog).testPrint();
         }
     }
+    
+    function hideRetailNetWorkData(){
+    	$(refs.retailNetworkSelectionId).hide();
+   	    $(refs.employeeNumberRowId).hide();
+    	
+    }
+       
+   function  retailNetWorkSelectionValidation(){
+	   
+	 	if($(refs.retailNetWork ).val() === 'null' &&  $(refs.employerID).val().toUpperCase() == 'E'){
+      		$.each(model.data, function(index, item) {
+ 				if(item.name == "retailNetWork") { 
+ 				item.validation.canBeEmpty = false;
+ 				}
+      		});
+      		
+	 	}
+      		else{
+      			$.each(model.data, function(index, item) {
+     				if(item.name == "retailNetWork") { 
+     				item.validation.canBeEmpty = true;
+     				}
+          		});
+      		}
+      		
+      	}
+
+function employeeNumberIdValidation(){
+	$.each(model.data, function(index, item) {
+			if(item.name == "employeeNumberId") {
+				 item.validation.canBeEmpty = true;
+				
+			}
+		});
+	
+}
+	
+   
 };

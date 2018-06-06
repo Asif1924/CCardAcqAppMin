@@ -7,12 +7,26 @@
 	
 		<center>
 			<div data-role="fieldcontain" class="printTest">
-	        	<span class="pageTitle" data-translationKey="printScreen_Title"></span>
+	        	<span id="cardSelection_DecliancePage_title" class="pageTitle" data-translationKey="printScreen_Title"></span>
 	         	<br><br>
-					<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
-					<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+					<span id="printScreen_subTitle_Id" class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>
+					
+					{{if dupConvenceEnable === 'Y' }}
+					
+					<span class="summaryPageSubTitle" data-translationKey="signature_OptionsMasterCard_Dupconvence_text">dupConvenceEnable</span>
+					
+					{{/if}}
+					
+						
+					<span id="cardSelection_DecliancePage_Id" class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
 	         	<br><br>
-					<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+					<span id ="keyForApplicationStatusId" class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+					
+					{{if dupConvenceEnable === 'Y' }}
+					
+					<span data-translationKey="${keyForDisplayingApplicationStatus}" />
+					
+					{{/if}}
 				<br>
 	        </div>
 			<br><br><br>
@@ -35,7 +49,7 @@
 						<img id="SignatureImage" src="app/images/omz_en.png" data-lang-src width="320""/>
 					{{/if}}					
 				   	<br><br>	
-						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
+						<span  class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
 				   	<br>
             	</div>
 			</center>

@@ -67,6 +67,7 @@ WICI.dictionary_en =  {
 
 	loginScreen_UserID_Label							:	"User ID",
 	loginScreen_EmployerID_Label						:	"Employer ID",
+	loginScreen_RetailNetWork_Label                        : "Retail Network",
 	loginScreen_AgentID_Label 							: 	"Agent ID",
 	loginScreen_Location_Number 						: 	"Store or Location No.",
     loginScreen_First_Name		 						: 	"Employee First Name",
@@ -951,6 +952,14 @@ WICI.dictionary_en =  {
 	// For QC specific french change
 	Program_MW999_QC									:	'Marks Store',
 	
+	RetailNetWorkList_null							: 	'Please select...',
+	Canadian_Tire                                       :   'Canadian Tire'    ,
+	Gas                                                 :   'Gas+',
+	Marks                                               :   'Mark\'\s',
+	SportsCheck_OR_Atmosphere                           :   'Sport Chek/Atmosphere',
+	
+	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
+	
 	// Signature screen START ................................................................
 
 
@@ -1146,6 +1155,7 @@ WICI.dictionary_en =  {
 	printScreen_ApplicationApproved                   	:   "Your application has been APPROVED.",
 	printScreen_ApplicationApproved_OMX_OMZ            	:   "Your application has been <b class='RedLabel'>APPROVED</b> for the ",
 	printScreen_ApplicationDeclined                   	:   "Unfortunately, we could not process your application response at this time. Please check your mail regularly.",
+	printScreen_ApplicationDeclined_OMX_DUPECONV        :   "<p align=\"center\" sytle=\"font-weight:normal;\">Our system noticed that you already have a Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>.The name of the Canadian Tire Options Mastercard has changed to the Triangle Mastercard.This means that a Triangle Mastercard application is not required, and a credit bureau check was not completed. You are already a member in the Triangle Rewards program and you will receive the redesigned Triangle Mastercard when your existing Options Mastercard expires.</p>",
 
 	printerSetupDialog_yes                              :   "Apply",
 	printerSetupDialog_no                               :   "Cancel",
@@ -1335,7 +1345,8 @@ WICI.dictionary_en =  {
 	personalData_No								        : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',
 	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?",
-	signature_OptionsMasterCard 					    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard 					    : "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard_Dupconvence_text         : "Thanks for applying for a Triangle Mastercard!",
 	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage Mastercard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",

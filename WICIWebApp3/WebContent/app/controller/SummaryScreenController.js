@@ -52,7 +52,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
                     name: 'summaryAgentID',
                     value: null,
                     validation: {
-                        type: 'format',
+                        type: 'equalCheck',
                         message: '',
                         matcher: activationItems.getModel('loginScreen').get('agentID'),
                         group: [1]
@@ -66,7 +66,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         dataFields.push({
                     name: 'summaryFirstName',  value: null,
                     validation: {
-                        type: 'format',
+                        type: 'equalCheck',
                         message: '',
                         matcher: activationItems.getModel('loginScreen').get('firstName'),
                         group: [1]
@@ -76,7 +76,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
                     name: 'summaryLastName',
                     value: null,
                     validation: {
-                        type: 'format',
+                        type: 'equalCheck',
                         message: '',
                         matcher: activationItems.getModel('loginScreen').get('lastName'),
                         group: [1]

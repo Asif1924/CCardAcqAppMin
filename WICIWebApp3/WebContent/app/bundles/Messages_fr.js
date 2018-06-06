@@ -67,11 +67,13 @@ WICI.dictionary_fr =  {
 
 	loginScreen_UserID_Label                          :                         "Code d'utilisateur",
 	loginScreen_EmployerID_Label                      :                         "Code d'employeur",
+	loginScreen_RetailNetWork_Label                                             :"Réseau de détail",
 	loginScreen_AgentID_Label                         :                         "Numéro du représentant",
 	loginScreen_Location_Number                       :                         "Numéro de magasin ou d'emplacement",
     loginScreen_First_Name		 					  : 	                    "Prénom de l'employé",
     loginScreen_Last_Name		 					  : 	                    "Nom de famille de l'employé",
-	loginScreen_Button_Label                          :                         "CONNEXION",
+	loginScreen_Button_Label                          :                          "CONNEXION",
+	loginScreen_EmployeeNumberID_Label                  :                       "Numéro d'employé",
 
 	loginScreen_Dialog_ErrorTitle                     :                         "Erreur de connexion",
 	loginScreen_FailureMessage                        :                         "La connexion a échoué. Veuillez essayer de nouveau. ",
@@ -333,7 +335,14 @@ WICI.dictionary_fr =  {
 
 	ProvincesList_null                                :"Veuillez sélectionner...",
 	IdTypesList_null                                  :"Veuillez sélectionner...",
-	// US4078
+	RetailNetWorkList_null                             :"Veuillez sélectionner...",
+
+	Canadian_Tire 									: 'Canadian Tire',
+	Gas 									        :'Essence+',
+	Marks 											: 'Mark\'\s/L\'\équipeur',
+	SportsCheck_OR_Atmosphere 						: 'Sport Chek/Atmosphere',
+	
+	
 	IdTypesList_DR                                    :" PERMIS DE CONDUIRE",
 	IdTypesList_HE                                    :" CARTE D'ASSURANCE-MALADIE",
 	IdTypesList_PR                                    :" CARTE DE RÉSIDENT PERMANENT",
@@ -1372,7 +1381,7 @@ WICI.dictionary_fr =  {
 	printScreen_ApplicationApproved                   :                         "Votre demande a été APPROUVÉE.",
 	printScreen_ApplicationApproved_OMX_OMZ           :   						"Votre demande est <b class='RedLabel'>APPROUVÉE</b> pour la carte ",
 	printScreen_ApplicationDeclined                   :                         "Malheureusement, la réponse à votre demande n'a pu être traitée. Veuillez vérifier votre courrier régulièrement.",
-
+	printScreen_ApplicationDeclined_OMX_DUPECONV      :                         "<p align=\"center\" sytle=\"font-weight:normal;\" >Nous avons remarqué que vous détenez déjà une carte Mastercard<sup style='font-size: .5em;'>MD</sup> Options<sup style='font-size: .5em;'>MD</sup> Canadian Tire. La carte Mastercard Triangle est le nouveau nom de la carte Mastercard Options Canadian Tire.  Vous n’avez donc pas besoin de présenter une nouvelle demande. Nous n’avons pas non plus effectué de vérification auprès de l’agence d’évaluation du crédit. Vous êtes déjà membre du programme Récompenses Triangle et vous recevrez la nouvelle carte Mastercard Triangle à l’expiration de votre carte Mastercard Options.</p>",
     printerSetupDialog_macLabel                       :   						"Adresse MAC de l'imprimante:",
     printerSetupDialog_ie                             :   						"Par exemple:",
     printerSetupDialog_yes                            :                         "Faites une demande",
@@ -1568,6 +1577,7 @@ WICI.dictionary_fr =  {
 	personalData1_validation_ReceiveEmail				:"Sélectionnez intérêt légitime par e-mail",
 	summary_TellAboutYourself_Email_Consent             : "Abonnement aux courriels de marketing?",
 	signature_OptionsMasterCard 					    : "Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
+	signature_OptionsMasterCard_Dupconvence_text        : "Merci d’avoir présenté une demande de carte Mastercard Triangle!",
 	signature_GasAdvantageMasterCard 					: "Mastercard Avantage Essence",
 	signature_CashAdvantageMasterCard					: "Mastercard Avantage Remise",
 	omc_first_chapter_ectm                              : "UNE FAÇON PLUS RAPIDE D'OBTENIR DE L'Argent  CANADIAN TIRE<sup style='font-size: .5em;'>MD</sup>",

@@ -88,7 +88,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // Initialize model
         initModel();
         createView();
-        
+       
         // US4194
         if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
@@ -108,7 +108,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         bindEvents();
         populateProgramsList();
         populateProvinces();
-
+        $('#provinceTextField').attr('disabled', 'disabled');
         //restoreCreditCardData();
         //showCOCD();
 

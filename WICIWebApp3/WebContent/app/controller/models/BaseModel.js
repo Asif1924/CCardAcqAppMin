@@ -167,6 +167,14 @@ WICI.BaseModel = function(config) {
             case 'suiteUnit':
             	isError=!validator.suiteUnit(value);
                 break;
+            case 'equalCheck':
+                if(value === null){
+                    isError = true;
+                } else {
+                	isError  = value.trim() === validation.matcher.trim() ? false : true;
+                	
+                }
+                break;     
 
         }
 
@@ -262,7 +270,7 @@ WICI.BaseModel = function(config) {
     //----------------------------------------------------------------
     // US4637
     this.isEmail_valid = function(email){
-    	var pattern = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
+    	var pattern = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/;
     	return pattern.test(email);
     };
     // ---------------------------------------------------------------

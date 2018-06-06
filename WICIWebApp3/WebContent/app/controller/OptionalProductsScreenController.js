@@ -611,18 +611,22 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     //---------------------------------------------------------------------------------------
     // US4738
     function removePAandCPifSK_AB_MBProvince() {
- 	var loginModel =  activationItems.getModel('loginScreen');
- 	var chooseProductDataModel = activationItems.getModel('chooseProductModel');
- 	console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
- 	console.log("---------"+"loginModel: "+loginModel.get('employerID')+"--------"); 	
-       
-       if(chooseProductDataModel.get('province') === 'SK'){
-    	    hidePAandCP();
-       }
-       if(loginModel.get('employerID') !== "J" && ( chooseProductDataModel.get('province') === 'AB' || 
-		   		chooseProductDataModel.get('province') === 'MB')){
-    	    hidePAandCP();
-       }
+        var sMethod = " removePAandCPifSK_AB_MBProvince() :: "; 
+        console.log(logPrefix + sMethod );
+              var loginModel =  activationItems.getModel('loginScreen');
+              var chooseProductDataModel = activationItems.getModel('chooseProductModel');
+              console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
+              console.log("---------"+"loginModel: "+loginModel.get('employerID')+"--------"); 
+        
+        if(loginModel.get('employerID') !== "K" && chooseProductDataModel.get('province') === 'SK'){
+           hidePAandCP();
+        }
+        if(loginModel.get('employerID') !== "J" && chooseProductDataModel.get('province') === 'AB'){
+           hidePAandCP();
+        }
+        if(chooseProductDataModel.get('province') === 'MB'){
+           hidePAandCP();
+        }
     }
     //---------------------------------------------------------------------------------------
     // US4168
