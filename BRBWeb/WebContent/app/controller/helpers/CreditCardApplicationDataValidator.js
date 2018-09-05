@@ -174,7 +174,7 @@ BRB.CreditCardApplicationDataValidator = function( argOutgoingCCData ) {
 		
 		try {
 			var entityModel = outgoingCCData.getModel('personalInformation');
-			var entityValue = entityModel.get('primaryPhone');
+			var entityValue = entityModel.get('homePhone');
 			
 			return entityValue != null && !_.isEmpty(entityValue);
 		} catch (error) {

@@ -100,8 +100,8 @@ public class AccountApplicationHelper
 			reportAppState(accountResponse, brbTransactionId);
 
 			// Check response
-			//if (accountAppResponse.isModelValid())
-			if(accountAppResponse.getAppStatus()!=null)
+			//if(accountAppResponse.getAppStatus()!=null)
+			if (accountAppResponse.isModelValid())
 			{
 				// Check result
 					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
@@ -199,17 +199,19 @@ public class AccountApplicationHelper
 				brbIdentityExamBridge = new BRBIdentityExamBridge(accountAppResponse, brbTransactionId);
 				
 				// Report application state
-				reportAppState(accountResponse, brbTransactionId);
+				reportAppStateforSS(response, brbTransactionId);
 
 				// Check response
 				if(accountAppResponse.getAppStatus()!=null)
-				{// Check result
+				{
 					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
 						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse, response.getQueueName())) {
 							throw new BrbFlowException("Send Email to the Customer operation failed");
 						}
 					}
-
+				}
+				if (accountAppResponse.isModelValid())
+					{
 					// Check result
 					if (!callECommCardDataService(accountAppRequestWrapper, accountAppResponse))
 					{
@@ -253,6 +255,33 @@ public class AccountApplicationHelper
 	private void reportAppState(AccountApplicationResponseType accountResponse, String transactionId)
 	{
 		String sMethod = "[reportAppState] ";
+		log.info(sMethod + "::Called.");
+
+		try
+		{
+			if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.APPROVED.toString()))
+			{
+				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.APPROVED, null, null, null);
+			}
+			else if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.PENDING.toString()))
+			{
+				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.PENDING, null, null, null);
+			}
+			else if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.DECLINED.toString()))
+			{
+				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.DECLINED, null, null, null);
+			}
+
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+		}
+	}
+	
+	private void reportAppStateforSS(WebIcMQRespVO accountResponse, String transactionId)
+	{
+		String sMethod = "[reportAppStateforSS] ";
 		log.info(sMethod + "::Called.");
 
 		try

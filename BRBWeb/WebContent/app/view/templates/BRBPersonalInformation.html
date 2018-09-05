@@ -1,6 +1,6 @@
 <script id="BRBPersonalInformation-template" type="text/x-jquery-tmpl">
 	
-	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
+	<div id="BreadcrumbTrailArea1" class="breadcrumBorder container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
 	 {{if !isMOA }}	
 		<div class="customMargin row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2  ">
@@ -43,6 +43,7 @@
 	</div>
 
     <center>
+        <br><br>
            <table id="steps2" class="tableNoBorder stretchThisTable_overview">
 				  <tr class="tableNoBorder">
 				      <td id="Page_2_HR_line_1" class="Width_TD_16 hrAttributes"></td>
@@ -125,7 +126,8 @@
 						    {{if cardType === "OMX"}}
 							       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>	
 							{{else cardType === "OMZ"}}  
-							       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMZ"/>	
+							       <span id="personalInfo_CTM_OMZ" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMZ"/>
+							       <span id="personalInfo_CTM_OMX" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>
 							{{/if}}		
 						</div>
 					</div>	
@@ -174,7 +176,7 @@
 					<span> </span>
 					<sup class="redSpanForInputsGroup">*</sup>
 				</div>
-				<div class="fieldValuesCell elementTopBottom10 col-sm-9">
+				<div class="Width_TD_70 fieldValuesCell elementTopBottom10 col-sm-9" id="personalInformation_DateOfBirth_Control">
 					<div class="row">
 						<div class="fieldLabelsSubCell elementBottom10 col-xs-7 col-sm-4 col-md-3" data-translationKey="personalInformation_Month">
 						</div>
@@ -274,17 +276,17 @@
 				</div>
 				<div class="fieldValuesCell elementTopBottom10 col-sm-9">
 					<table class="grayTableForInputsGroup ">
-						<tbody id="personalInformation_PrimaryPhone_Control">
+						<tbody id="personalInformation_HomePhone_Control">
 							<tr>
 								<td class="fieldValuesCell">
-									<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_PrimaryPhone1_TextField" type="tel" maxlength="3" />
+									<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_HomePhone1_TextField" type="tel" maxlength="3" />
 								</td>
 								
 								
 								<td class="separatorCell" > - </td>
 
 								<td class="fieldValuesCell">
-									<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_PrimaryPhone2_TextField" type="tel" maxlength="3"/>
+									<input class="fieldValuesTextField phoneValuesCellShort" id="personalInformation_HomePhone2_TextField" type="tel" maxlength="3"/>
 								</td>
 								
 								<td class="separatorCell" >
@@ -292,20 +294,28 @@
 								</td>
 								
 								<td class="fieldValuesCell">
-									<input class="fieldValuesTextField phoneValuesCellLong" id="personalInformation_PrimaryPhone3_TextField" type="tel" maxlength="4"/>
+									<input class="fieldValuesTextField phoneValuesCellLong" id="personalInformation_HomePhone3_TextField" type="tel" maxlength="4"/>
 								</td>
 							</tr>
+							
 						</tbody>
 					</table>					
 				</div>
 	        </div>
 			<!-- US3979 //-->	        
 	        <div class="grayTableNoBorder row">	                   
-				<div class="fieldLabelsCell elementTopBottom5 col-sm-3">
-				</div>
+				     <div class="fieldLabelsCell elementTopBottom10 elementNoRightPadding col-sm-3">
+											 <span data-translationKey="personalInformation_PhoneType_Field"></span>
+											 <span> </span>
+											 <sup class="redSpanForInputsGroup">*</sup>
+				     </div>
 				
 	            <div class="fieldValuesCell col-xs-12 col-sm-9">   	
 					<div class="row">
+				                  <div class="fieldValuesCell elementTopBottom10 col-xs-12 col-sm-9" data-translationKey="personalInformation_PhoneType_TextField">
+				                 </div>				
+							
+					    
 						<div class="grayTableForInputsGroup">							
 							<div class="fieldLabelsNoteText fieldLabelsCell fieldLabelsCellWithTopAlign col-xs-10 col-sm-11">
 								<span data-translationKey="personalInformation_PrimaryPhoneNote"></span>
@@ -789,7 +799,8 @@
 								<span data-translationKey="personalInfo_LegalText2_OMX"></span>
 								<br>
 								{{else cardType === "OMZ"}}  
-								<span data-translationKey="personalInfo_LegalText2_OMZ"></span>
+								<span id="personalInfo_LegalText2_OMZ_ID"  data-translationKey="personalInfo_LegalText2_OMZ"></span>
+								<span id="personalInfo_LegalText2_OMX_ID" data-translationKey="personalInfo_LegalText2_OMX"></span>
 								{{/if}}
 							     <br>
 								<br>
@@ -808,7 +819,8 @@
 										{{if cardType === "OMX"}}
 										<p data-translationKey="personalInfo_LegalText2_OMX"></p>
 										{{else cardType === "OMZ"}}  
-										<p data-translationKey="personalInfo_LegalText2_OMZ"></p>
+										<p id="personalInfo_LegalText20_OMZ_ID" data-translationKey="personalInfo_LegalText2_OMZ"></p>
+										<p id="personalInfo_LegalText20_OMX_ID" data-translationKey="personalInfo_LegalText2_OMX"></p>
 										{{/if}}
 										<p data-translationKey="personalInfo_LegalText4"></p>
 										<p data-translationKey="personalInfo_LegalText5"></p>

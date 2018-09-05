@@ -57,7 +57,12 @@ public class WICIFileHelper {
         	// Approved, Declined/Pending print is same for OMC and OMP. 
         	// But in OMC coupon is decoupled. OMP coupon is in Approved, Declined/Pending print.
 	        if (serverResponseStatus != ServerResponseStatus.APPROVED){
-	        	templateFileName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupPendDecSuffix;
+	        	if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
+	        		templateFileName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupPendDecSuffix;
+        		} else {
+        			templateFileName = "PrintOutMockup_" + cardType + PrintOutMockupPendDecSuffix;
+        		}
+	        	// templateFileName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupPendDecSuffix;
 	        } else {
 	        	templateFileName = "PrintOutMockup_" + cardType;
 	        }

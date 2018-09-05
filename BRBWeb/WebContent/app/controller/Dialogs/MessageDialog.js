@@ -6,7 +6,9 @@ BRB.MessageDialog = function(translate){
 	this.error = error;
 	this.info = info;
 	this.confirm = confirm;
+	this.htmlReqirementEligibilityConfirm = htmlReqirementEligibilityConfirm;
 	this.htmlConfirm = htmlConfirm;
+	this.htmlCreditDisclosureInfo = htmlCreditDisclosureInfo;
 	this.settings = settings;
 	
 	function error(message, title, callback, uiDecoration, dialogTemplateOverride){
@@ -50,6 +52,22 @@ BRB.MessageDialog = function(translate){
 				buildTitle(title, "confirmDialog_defaultTitle"),
 				buildButton(yesButton, "confirmDialog_yes"),
 				buildButton(noButton, "confirmDialog_no"));
+		dialogQueue.enqueue(dialog);
+	}
+	
+	function htmlReqirementEligibilityConfirm(message, yesCallback, noCallback, yesButton, noButton) {
+		var dialog = new BRB.HTMLConfirmEligibiltyReqirementMessageDialog(message,
+				buildCallback(yesCallback),
+				buildCallback(noCallback),
+				buildButton(yesButton, "confirmDialog_yes"),
+				buildButton(noButton, "confirmDialog_no"));
+		dialogQueue.enqueue(dialog);
+	}
+	function htmlCreditDisclosureInfo( startButton, noButton,  translate ) {
+		var dialog = new BRB.HTMLCreditDisclosureInfo(
+				buildButton(startButton, "overview_startApplication_Button_Label"),
+				buildButton(noButton, "overview_startApplication_Button_Label"),
+				translate);
 		dialogQueue.enqueue(dialog);
 	}
 	

@@ -82,7 +82,7 @@ public class WICIDBHelper
 
 		return connection;
 	}
-
+	
 	protected void closeDBConnection(Connection connection)
 	{
 		String sMethod = "[closeDBConnection] ";
@@ -341,7 +341,7 @@ public class WICIDBHelper
 
 		return enabled;
 	}
-
+	
 	public boolean isAuthfieldCheckEnabledforWebicGateway(String config)
 	{
 		String sMethod = "[isAuthfieldCheckEnabledforWebicGateway] ";

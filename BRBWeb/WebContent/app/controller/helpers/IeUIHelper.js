@@ -13,7 +13,7 @@ BRB.IeUIHelper = function() {
 	function addStylesForIE8 (){
 		if(!document.createStyleSheet)return;
 		var sheet = document.createStyleSheet();
-		fixHeaderLayout(sheet);
+		//fixHeaderLayout(sheet);
 		fixSelectsLayout(sheet);
 		fixCardaLayout(sheet);
 		addGifAnimation();
@@ -49,8 +49,8 @@ BRB.IeUIHelper = function() {
 	function fixHeaderLayout(sheet){
 		// shifts logo and language toggle button
 		sheet.addRule('.languageRegion', 'padding-right: 20px;');
-		sheet.addRule('.PageHeader_CanadianTireTabLogo', 'margin-left: 20px;');
-		sheet.addRule('.PageHeader_CanadianTireTabLogo_fr', 'margin-left: 20px;');
+		sheet.addRule('.pageHeader_CantireBankOrTriangle', 'margin-left: 20px;');
+		sheet.addRule('.pageHeader_CantireBankOrTriangle', 'margin-left: 20px;');
 	}
 	// ---------------------------------------------------------------------------------------
 	function fixSelectsLayout(sheet){

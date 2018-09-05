@@ -34,3 +34,26 @@
        			top.location = self.location;
    			   }
 		</script>
+		
+		<!-- US4980 BRB/OIC - Enable Moxie live chat -->	
+		
+		<script data-concierge="1" data-concierge-host="gomoxie.solutions" data-displayconfig='{"positionMethod":"javascript"}'
+		src="https://asset.gomoxie.solutions/concierge/ctfstest/client/concierge-client.js"
+		defer="defer"></script>
+			
+		<script>
+		
+			(function(config) {
+				var conTag = document.createElement('script');
+				var host = config.isUK ? 'uk.gomoxie.solutions' : 'gomoxie.solutions';
+				conTag.src = 'https://asset.gomoxie.solutions/concierge/ctfstest/client/concierge-client.js';
+				conTag.setAttribute('data-concierge', '1');
+				conTag.setAttribute('defer', 'true');
+				conTag.setAttribute('data-concierge-host', host);
+				document.body.appendChild(conTag);
+				}({
+				tenantName: 'ctfstest',
+				isUK: false
+			}));
+		</script>
+		

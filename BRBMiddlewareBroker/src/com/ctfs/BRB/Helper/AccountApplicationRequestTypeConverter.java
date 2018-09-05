@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 public class AccountApplicationRequestTypeConverter
 {
 	private static final String ASC_CTMA="004477";
-	private static final String ASC_ECTM="002277"; //New Asc for US3382 - CP Revitalization //ASC_ECTM="003377"; 
+	private static final String ASC_ECTM="001177"; //New Asc for US4941 - Instant Issuance - BRB+OIC - Flow changes 
 	private static final String ASC_DEFAULT="005577";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
@@ -383,7 +383,8 @@ public class AccountApplicationRequestTypeConverter
 					ar.setAcquistionStrategyCode(ASC_DEFAULT);
 				}
 				
-				ar.setCurrentTelephoneNumber(model.get("primaryPhone"));
+				ar.setCurrentTelephoneNumber(model.get("homePhone"));
+				ar.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				ar.setPreferedLanguage(model.get("correspondence"));
 				ar.setEmailConsentFlag(model.get("receiveEmail"));
 				ar.setCurrentAddressType(model.get("house"));

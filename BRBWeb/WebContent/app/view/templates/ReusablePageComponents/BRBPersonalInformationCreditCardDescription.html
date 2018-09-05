@@ -1,0 +1,31 @@
+<script id="personalInformationCreditCardDescription-template" type="text/x-jquery-tmpl">
+<!-- US3011 -->
+<div id="creditCardDescription" class="creditCard"> 
+<!-- US3964 -->
+
+<!-- US4591 Starts-->
+     <div id="piTopList" class="piDescriptionList elementTop10">
+	      <table class="whiteTableWithoutBorder cardInformationTable">
+	          <tr>
+	               <td class="Width_TD_70">
+	               <!-- add if condition for OMX and OMZ cards -->
+	                 {{if cardType === "OMX"}}
+	                   <p class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForTriangleMastercard"></p>
+	                 {{else cardType === "OMZ"}}  
+	                    <p id="OMZ_title" class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForWorld_elite_card"></p>
+	                    <p id="OMX_title" class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForTriangleMastercard"></p>
+	                 {{/if}}
+	               </td>
+	                 {{if cardType === "OMX"}}
+	                   <td class="Width_TD_30 OMXCard4percentage"></td>
+	                 {{else cardType === "OMZ"}}   
+	                    <td id="OMZ_image" class="Width_TD_30 OMZCard4percentage"></td>
+	                    <td id="OMX_image" class="Width_TD_30 OMXCard4percentage"></td>
+	                 {{/if}}
+	                 </td>
+	          </tr>
+	      </table>
+     </div> 
+<!-- US4591 Ends-->
+			
+</script>

@@ -21,7 +21,7 @@ public class AccountApplicationResponse
 	protected String customerValueInd;
 	protected String respCardType;
 	protected String loyaltyMembershipNumber;
-
+	protected String queueName;
 
 	public String getAccountNumber()
 	{
@@ -99,6 +99,19 @@ public class AccountApplicationResponse
 	public void setRespCardType(String respCardType) {
 		this.respCardType = respCardType;
 	}
+	
+	/**
+	 * @return the queueName
+	 */
+	public String getQueueName() {
+		return queueName;
+	}
+
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+
+	
 	public String getLoyaltyMembershipNumber() {
 		return loyaltyMembershipNumber;
 	}
@@ -117,7 +130,7 @@ public class AccountApplicationResponse
 		this.expiryDate = argEntity.getExpiryDate();
 		this.accountNumber = null;
 		this.loyaltyMembershipNumber=argEntity.getLoyaltyMembershipNumber();
-
+		this.queueName=argEntity.getQueueName();
 		if(appStatus != null && appStatus.equalsIgnoreCase("APPROVED")) {
 			this.respCardType = argEntity.getRespCardType();
 		}
@@ -200,7 +213,8 @@ public class AccountApplicationResponse
 		this.customerValueInd = argEntity.getCustomerValueInd();
 		this.expiryDate = argEntity.getExpiryDate();
 		this.accountNumber = null;
-
+		this.loyaltyMembershipNumber=argEntity.getLoyaltyMembershipNumber();
+		this.queueName=argEntity.getQueueName();
 		if(appStatus != null && appStatus.equalsIgnoreCase("APPROVED")) {
 			this.respCardType = argEntity.getRespCardType();
 		}
@@ -222,15 +236,20 @@ public class AccountApplicationResponse
 				String agentIPAddress = ApplicationSettingsManager.getInstance().getTokenizationServiceAgentIP();
 
 				TokenizationHelper tokenizationHelper = new TokenizationHelper();
-
-				// Get masked PAN
-				this.accountNumber = tokenizationHelper.getCreditCardPAN(argBrbTransactionID, decryptedPAN, this.getExpiryDate(), agentIPAddress);
-
-				log.info(sMethod + "::MASKED PAN IS::" + this.accountNumber);
-
-				Gson gson = new Gson();
-				String json = gson.toJson(this, AccountApplicationResponse.class);
-				log.info(sMethod + "::AccountApplicationResponse::" + json);
+				if(!(argBrbTransactionID.contains("moa"))){
+					// Get masked PAN
+					this.accountNumber = tokenizationHelper.getCreditCardPAN(argBrbTransactionID, decryptedPAN, this.getExpiryDate(), agentIPAddress);
+					log.info(sMethod + "::MASKED PAN IS::" + this.accountNumber);
+					Gson gson = new Gson();
+					String json = gson.toJson(this, AccountApplicationResponse.class);
+					log.info(sMethod + "::AccountApplicationResponse::" + json);
+				}else{
+					log.info(sMethod + "::MASKED PAN IS IF MOA::" + decryptedPAN);
+					this.appStatus="PENDING";
+					Gson gson = new Gson();
+					String json = gson.toJson(this, AccountApplicationResponse.class);
+					log.info(sMethod + "::AccountApplicationResponse::" + json);
+				}
 			}
 			catch (Exception e)
 			{

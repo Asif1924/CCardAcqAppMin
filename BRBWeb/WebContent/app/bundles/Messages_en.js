@@ -38,7 +38,6 @@ BRB.dictionary_en = {
 	confirmDialog_defaultTitle 							: 	"Confirm",
 	confirmDialog_yes 									: 	"Yes",
 	confirmDialog_no 									: 	"No",
-	
 	settings_defaultTitle								: 	"Settings",
 	settings_logOutButton								: 	"Log Out",
 	settings_chooseProductButton						: 	"Abandon Application",
@@ -55,13 +54,13 @@ BRB.dictionary_en = {
 	messageDialog_yes 									: 	"Yes",
 	messageDialog_no 									: 	"No",
 	
-	breadCrumbItem_Overview								:	"OVERVIEW",
-	breadCrumbItem_PersonalInformation					:	"PERSONAL INFORMATION",
-	breadCrumbItem_AdditionalInformation				:	"OPTIONAL PRODUCTS",
-	breadCrumbItem_Confirmation							:	"CONFIRMATION",
+	breadCrumbItem_Overview								:	"Overview",
+	breadCrumbItem_PersonalInformation					:	"Personal Information",
+	breadCrumbItem_AdditionalInformation				:	"Optional Products",
+	breadCrumbItem_Confirmation							:	"Confirmation",
 	// US4591
-	breadCrumbItem_Review_and_submit                    :   "REVIEW AND SUBMIT",
-	breadCrumbItem_IdentityVerification					:	"IDENTITY VERIFICATION",
+	breadCrumbItem_Review_and_submit                    :   "Review and Submit",
+	breadCrumbItem_IdentityVerification					:	"Identity Verification",
 		
 	loginScreen_UserID_Label							:	"User ID",
 	loginScreen_AgentID_Label 							: 	"Agent ID",
@@ -96,6 +95,7 @@ BRB.dictionary_en = {
 	
 	PageHeader_CanadianTireTabLogo						:	'<div class="PageHeader_CanadianTireTabLogo"></div>',
 	PageHeader_CanadianTireNeedHelp                     :   '<div class="needHelpImage"></div>',
+	pageHeader_CantireBankOrTriangle                    :   '<div class="logoBankOrTriangle"></div>',
 	
 	session_Expired_ErrorTitle							: 	"Application timed out",
 	session_Expired_ErrorMsg							:	"Due to inactivity your application has timed out. \nPlease restart your application to have it properly submitted. \nNote: your application will timeout after 30 minutes of total time or 10 minutes of inactivity.",
@@ -170,8 +170,8 @@ BRB.dictionary_en = {
 	overview_TopTableRightCol1							:	"Previous address (if less than 2 years at current address)",
 	overview_TopTableRightCol2							:	"Annual income",
 	overview_TopTableRightCol3							:	"Current employer name and address",
-	overview_AmIEligibleTable_Mastercard			  	:	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
-	overview_AmIEligibleTable_World_elite_card          :   "Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
+	overview_AmIEligibleTable_Mastercard			  	:	"<b>Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup></b>",
+	overview_AmIEligibleTable_World_elite_card          :   "<b>Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup></b>",
 	
 	overview_compareCards_Masterdard			  	:	"Triangle<sup>&trade;</sup> <br> Mastercard<sup>&reg;</sup>",
 	overview_CompareCards_World_elite_card          :   "Triangle<sup>&trade;</sup> World<br> Elite Mastercard<sup>&reg;</sup>",
@@ -403,7 +403,8 @@ BRB.dictionary_en = {
 	personalInformation_JobDescriptionError				:	"Please enter your occupation description",
 	personalInformation_EmployerSinceMonthError			:	"Please enter a valid month",
 	personalInformation_EmployerSinceYearError			:	"Please enter a valid year",
-	personalInformation_GrossAnnualIncomeError			:	"Please enter your gross annual personal income.  Do not include spaces, periods or commas (e.g. 35,000 per year)",
+	personalInformation_GrossAnnualIncomeError_OMZ			:	"Eligibility Requirement: a minimum individual income of $80,000.",
+	personalInformation_GrossAnnualIncomeError_OMX			:	"Please enter your gross annual personal income.  Do not include spaces, periods or commas (e.g. 35,000 per year)",
 	// US3961
 	personalInformation_GrossAnnualHouseholdIncomeError	:	"Please enter your gross annual household income.  Do not include spaces, periods or commas (e.g. 35,000 per year)",	
 	personalInformation_EmailAddressHint				:	"You must provide your email address so that we can send the terms & conditions, as well as the approval details of your new card upon approval. If you do not provide your email address you will need to apply for a credit card by different means.",
@@ -1122,6 +1123,7 @@ BRB.dictionary_en = {
 	
 	confirmation_Application_Authorization_Item5        :   "I will be bound by the terms and conditions of the Canadian Tire Bank Cardmember Agreement that I will receive with the Card, as such agreement may be amended from time to time. I will be solely liable for any charges to the account, including charges made by anyone to whom I have asked that you issue a supplementary card. I will be the only person who receives a monthly statement.",
 	confirmation_Application_Authorization_Item6        :   "<u>You may obtain credit and other personal information about me from, and exchange such information with, credit reporting agencies.</u>",
+	confirmation_Application_Authorization_Item6a       : "I consent to Canadian Tire Bank (“CTB”) verifying my personal information (CTB Information) including my name, address, date of birth, mobile number with my mobile service provider (“MSP”) and consent to my MSP providing CTB my account information (account status, account type, etc.). The MSP information will be used to verify my identity and to conduct fraud analysis and fraud investigations.",
 	confirmation_Application_Authorization_Item7        :   "Each person to whom I have asked that you issue a supplementary card has authorized me to provide you with the above information about them.",
 	confirmation_Application_Authorization_Item8        :   "If I provide you with my Social Insurance Number, you may use it to identify me, including with credit reporting agencies.",
 	confirmation_Application_Authorization_Item9		:	"I agree that if approved you can provide me with initial disclosure statement and cardmember agreement by way of an email to the email address provided in this application.",
@@ -1149,7 +1151,7 @@ BRB.dictionary_en = {
 	identityVerification_NoSelectionError				:   "You must answer each identity verification question presented to continue",
 	
 	identityVerification_Title							:   "Identity Verification",
-	identityVerification_Congratulations				:   "CONGRATULATIONS!",
+	identityVerification_Congratulations				:   "<strong>Congratulations, you've been approved!</strong>",
 	identityVerification_Customer_Name                  :     "Customer Name: ",
 	identityVerification_CardNumberText					:   "Card Number: ",
 	identityVerification_CardLimitText					:   "Credit Limit: ",
@@ -1168,8 +1170,8 @@ BRB.dictionary_en = {
 	identityVerification_FinalText4						:	"If this is incorrect, please call 1-800-459-6415. You will also receive a copy of this information in the welcome package that includes your physical card.",
 	identityVerification_FinalText5						:	"*Take note of your last four digits for reference in your My CT account and checkout process.",
 	
-	identityVerification_PendingTitle					:   "THANK YOU - WE HAVE RECEIVED YOUR APPLICATION",
-	identityVerification_PendingText1					:	"Your application is now being reviewed by our application team. We were unable to process your application form instantly today.",
+	identityVerification_PendingTitle					:   "<strong>Thank you - We have received your application</strong>",
+	identityVerification_PendingText1					:	"Your application is now under review by our application team. Depending on the level of information you provided, processing can take from a few days to a couple of weeks.", 
 	identityVerification_PendingText2					:	"Depending on the level of information you provided, approval can take from a few days to couple of weeks.",
 	identityVerification_PendingText3					:	"When will I receive my card?",
 	identityVerification_PendingText4					:	"If approved, you will receive correspondence in the mail within 7-10 business days.",
@@ -1202,16 +1204,16 @@ BRB.dictionary_en = {
 	identityVerification_ApplicationDataValidatonFailed	:	"Unfortunately, the application could not be submitted due to an internal issue. Please try again.",
 	
 	// -- US4675 starts -- //
-	approve_you_have_been_approve_label                 :   "YOU'VE BEEN APPROVED",
-	approved_title_one_OMX                              :   "You have been <span class=\"overviewNSTableRedText\">approved</span> for your Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> ",
-	approved_title_one_OMZ                              :   "You have been <span class=\"overviewNSTableRedText\">approved</span> for your Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
+	//approve_you_have_been_approve_label                 :   "YOU'VE BEEN APPROVED",
+	approved_title_one_OMX                              :   "You have been <span class=\"overviewNSTableRedText\">approved</span> for your new Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> ",
+	approved_title_one_OMZ                              :   "You have been <span class=\"overviewNSTableRedText\">approved</span> for your new Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
 	approved_title_two                                  :   "Over the next 7-10 business days, you will receive:",
-	approved_title_one_listItem1                        :   "You will receive an email with your Initial Disclosure Statement and Cardmember Agreement.",
-	approved_title_one_listItem2                        :   "Your card is now added to your online shopping profile, so you can start using it online today.",
-	approved_title_one_listItem3                        :   "Please make note of the last 4 digits of your card number for your Checkout process.",
-	approved_title_two_listItem_OMX                        :   "Your Triangle Mastercard  &amp; Welcome Package.",
-	approved_title_two_listItem_OMZ                        :   "Your Triangle World Elite Mastercard &amp; Welcome Package.",
-	approved_title_two_listItem2                        :   "Your Triangle Rewards<sup>&trade;</sup> &amp; Welcome Package.",
+	approved_title_one_listItem1                        :   "You will receive an email with your Initial Disclosure Statement and Cardmember Agreement",
+	approved_title_one_listItem2                        :   "Your card is now added to your online shopping profile, so you can start using it online today",
+	approved_title_one_listItem3                        :   "Please make note of the last four digits of your card number for your Checkout process",
+	approved_title_two_listItem_OMX                        :   "Your Triangle Mastercard and Welcome Package",
+	approved_title_two_listItem_OMZ                        :   "Your Triangle World Elite Mastercard and Welcome Package",
+	approved_title_two_listItem2                        :   "Your Triangle Rewards<sup>&trade;</sup> Card and Welcome Package",
 	approved_title_two_listItem3                        :   "A confirmation email.",
 	approved_page_continueShoppingButton                :   "CONTINUE SHOPPING",
 	pending_page_title                                  :   "THANK YOU - WE HAVE RECEIVED YOUR APPLICATION",
@@ -1223,16 +1225,16 @@ BRB.dictionary_en = {
 	pending_page_sub_subtitle                           :   "If approved, your credit card welcome package will arrive in the mail within 7-10 business days, containing:",
 	pending_page_li_one                                 :   "Your Canadian Tire Options® Mastercard® & Welcome package.",
 	pending_page_li_two                                 :   "Your My Canadian Tire 'Money' card & Welcome package",
-	pending_page_note                                   :   "NOTE: PLEASE DO NOT ATTEMPT TO RESUBMIT YOUR APPLICATION.",
+	pending_page_note                                   :   "<b>NOTE: PLEASE DO NOT ATTEMPT TO RESUBMIT YOUR APPLICATION.<b>",
 	pending_page_close_button_text                      :   "CLOSE",
-	declined_message_one                                :   "<b>Unfortunately we are unable to instantly process your application today. Your application is now being reviewed by our application team. Depending on the level of information provided, processing can take from a few days to a couple of weeks.</b>",
-	declined_message_two                                :   "What happens next?",
+	declined_message_one                                :   "Unfortunately we are unable to instantly process your application today. Your application is now being reviewed by our application team. Depending on the level of information provided, processing can take from a few days to a couple of weeks.",
+	declined_message_two                                :   "<strong>What happens next?</strong>",
 	declined_message_three                              :   "Questions? Please call 1-800-459-6415.",
 	pendinDeclinedPageOMX_OMZ                           :   "<span class=\"overviewNSTableRedText\"> &#91; Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> OR Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>&#93;</span>",
 	
-	pendingDeclined_page_li_one                         :   " &#45; You will receive your Triangle Rewards<sup>TM</sup> welcome package in the mail.",
-	pendingDeclined_page_li_two_OMX                     :   " &#45; If approved for credit, you will receive your Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> welcome package in the mail within 7-10 business days.",
-	pendingDeclined_page_li_two_OMZ                     :   " &#45; If approved for credit, you will receive your Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> welcome package in the mail within 7-10 business days.",
+	pendingDeclined_page_li_one                         :   "You will also receive a Triangle Rewards<sup>TM</sup> Card and welcome package separately within 7-10 business days.",
+	pendingDeclined_page_li_two_OMX                     :   " If approved, your welcome package containing your Triangle Mastercard will arrive in the mail within 7-10 business days.",
+	pendingDeclined_page_li_two_OMZ                     :   " If approved, your welcome package containing your Triangle World Elite Mastercard will arrive in the mail within 5-7 business days.",
 
 	// -- US4675 ends --//
 
@@ -1494,7 +1496,39 @@ BRB.dictionary_en = {
 	overview_MonthlyCreditCharges2EComm								:	"$16.43",
 	overview_MonthlyCreditCharges3EComm								:	"$32.86 ",
 		
-	endstatemeant                                          :   ""
+	endstatemeant                                         			 :   "",
+	decline_chapter_one_text                              			 :  "<b>Unfortunately our Instant Credit services are temporarily</b>",
+	decline_chapter_two_text                              			 : "<b>unavailable, however your application will still be processed.<b>",
+	decline_chapter_three_text                        				 :  "<strong>Questions?</strong> Please call 1-800-459-6415. ",
+	decline_chapter_note                              				  : "<b>NOTE: PLEASE DO NOT ATTEMPT TO RESUBMIT YOUR APPLICATION.<b>",
+	pending_verification_status                       				 :"PENDING - ID Verification",
+	verification_message_one_omx                          			 :"You have been approved for a Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>, pending an in-store ID verification.",
+	verification_message_two_omx                          			 :"To meet government regulations, we need to view your government issued photo identification before we can open an account for you.",
+	verification_message_one_omz                          			 :"You have been approved for a Triangle<sup>&trade;</sup>  World Elite Mastercard<sup>&reg;</sup>, pending an in-store ID verification.",
+	verification_message_two_omz                         			 :"To meet government regulations, we need to view your government issued photo identification before we can open an account for you.",
+	pending_Verification_chapter_one 									:"<strong>ID Request:</strong> You will receive a letter in the mail requesting you to visit your closest Canadian Tire store to verify your identity with your government issued photo ID",
+	pending_Verification_chapter_two 								:"<strong>ID Verification:</strong> Bring your letter and your government issued photo ID to Customer Service  at your closest Canadian Tire store within 20 days of receipt",
+	pending_Verification_chapter_three_omx					 		:"<strong> Welcome Package:</strong> If approved, your welcome package containing your Triangle Mastercard will arrive in the mail within 7-10 business days <br><br>You will also receive a Triangle Rewards<sup>TM</sup> card and welcome package separately within 7-10 business days.",
+	pending_Verification_chapter_three_omz 							 :"<strong>Welcome Package:</strong> If approved, your welcome package containing your Triangle World Elite Mastercard will arrive in the mail within 7-10 business days <br><br> You will also receive a Triangle Rewards<sup>TM</sup> card and welcome package separately within 7-10 business days.",
+    personalInformation_PhoneType_Field	                             : "Phone Type",
+    personalInformation_PhoneType_TextField							 :	'<select class=\"fieldValuesSelectField titleField\" id=\"personalInformation_PhoneType_TextField\" />',
+    personalData_HOME                                                :"Home",
+    personalData_MOBILE                                              :"Mobile",
+    personalData_OTHER                                               :"Other",
+    personalInformation_EligibilityText                              :" <p><strong>Eligibility Requirement:</strong> a minimum individual income of $80,000 is required. If the requirement for this product cannot be met, we suggest applying for the Triangle<sup>TM</sup> Mastercard<sup>&reg;</sup>.</p>  <p> Select '\Yes\' if you want to transfer your information to the Triangle<sup>TM</sup> Mastercard<sup>&reg;</sup> application.</p> <p> Select '\No\' to continue with the Triangle<sup>TM</sup> World Elite Mastercard<sup>&reg;</sup>.</p> ",
+    creditDisclosure_TitleText                                        :"<p class=\"creditDiscloseTitle\"><strong>Please read the information below and click '\Start Application\' to continue.</strong></p>"
+    
+    
+    
+	
+		
+		
+		
+		
+
+	
+
+
 										
 		
 	//--------------- END --------------------- Identity Verification section -------------- END -----------		

@@ -240,7 +240,6 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	}    
 	//---------------------------------------------------------------------------------------
 	function initUI(isURLOpenFlag){
-		
 		fillControlsWithData();
 		bindEvents();		
 		
@@ -485,7 +484,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		if( !argPopup ){
 			assembleNavigationBarAtTop();
 			assemblePageHTML($screenContainer, "#BRBAdditionalInformation-template");
-			insertAfterElement($(refs.steps3), "#creditCardDescription-template");		
+			insertAfterElement($(refs.steps3), "#creditCardDescription-template");	
 			$screenContainer.addClass("breadcrumbPadding");	
 		}else{
 			assemblePageHTML($screenContainer, "#BRBAdditionalInformation-template");
@@ -516,6 +515,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     }
 	//---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
+		
 		var isMOA =  app.getIsMOARequest();
 		BRB.Log("assemblePageHTML() :: " + isMOA);
 		var html = $(templateName).tmpl({'screenIsPopup':argPopup, 'isSkSelected':isSkSelected, 'isMOA':isMOA, 'cardType':cardTypeGlobal}); 
@@ -523,7 +523,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	}
 	//---------------------------------------------------------------------------------------
 	function insertAfterElement($element, templateName) {
+		
 		var html = $(templateName).tmpl({'screenIsPopup':false, 'cardType':cardTypeGlobal}); 
+		
 		$element.after(html);
 	}
 	//---------------------------------------------------------------------------------------
@@ -1180,4 +1182,5 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			$(refs.optionalProduct_horizontal_Line_2).addClass('Width_TD_15');
 		}
 	}
+ 
 };

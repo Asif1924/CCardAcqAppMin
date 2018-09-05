@@ -56,7 +56,7 @@ BRB.IdentityExamHelper = function() {
 				"firstName": personalInfoModel.get('firstName'),
 				"middleName": personalInfoModel.get('initial'),
 				"lastName": personalInfoModel.get('lastName'),
-				"phoneNumber": personalInfoModel.get('primaryPhone'),
+				"phoneNumber": personalInfoModel.get('homePhone'),
 				"dateOfBirth": parseInt(personalInfoModel.get('dateOfBirth_Month'))  + "/" + personalInfoModel.get('dateOfBirth_Day') + "/" + personalInfoModel.get('dateOfBirth_Year'),
 				"addressLine1": address.addressLine1,
 				"addressLine2": address.addressLine2,

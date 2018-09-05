@@ -131,6 +131,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	     populateFinancialInformationfArea();
 	     populateGetSuplementaryCardfArea();
 	     populateInsurancefArea();
+	    
 	}
 	//---------------------------------------------------------------------------------------
 	function restoreCheckBoxes(){
@@ -181,6 +182,9 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	}
 	//---------------------------------------------------------------------------------------
 	function createView() {
+		var sMethod = 'createView() ';
+		BRB.Log(logPrefix + sMethod);
+		
 		$screenContainer.empty();
 		assembleNavigationBarAtTop();
 		//assemblePageHTML($screenContainer, "#creditCardDescription-template");
@@ -192,6 +196,8 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	}
 	//---------------------------------------------------------------------------------------
 	function insertAfterElement($element, templateName) {
+		var sMethod = 'insertAfterElement() ';
+		BRB.Log(logPrefix + sMethod);
 		var html = $(templateName).tmpl({'screenIsPopup':false, 'cardType':cardTypeGlobal}); 
 		$element.after(html);
 	}
@@ -271,7 +277,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     }
     //---------------------------------------------------------------------------------------
     function formatPhoneValues() {
-    	var val = activationItems.getModel('personalInformation').get('primaryPhone');
+    	var val = activationItems.getModel('personalInformation').get('homePhone');
     	$("#confirmation_AboutYourSelf_PrimaryPhone").text(activationItems.getFormattedPhoneNumber(val));
     	var val2 = activationItems.getModel('additionalInformation').get('primaryPhone');
     	$("#confirmation_SuplementaryCard_Phone").text(activationItems.getFormattedPhoneNumber(val2));
@@ -299,11 +305,15 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     }
     //---------------------------------------------------------------------------------------
 	function popUp_PersonalInformationEditScreen(onPopupHideHandler, blockName){
+		 var sMethod = 'popUp_PersonalInformationEditScreen() ';
+	        BRB.Log(logPrefix + sMethod);
 		$screenContainer.fadeOut(1000);
+		
 		var loadAsPopup = true;
 		var editAboutYourselfScreen = new BRB.PersonalInformationController(activationItems, translator, messageDialog, loadAsPopup);
 		var screenBelow = $screenContainer; 
 		editAboutYourselfScreen.popup(screenBelow, onPopupHideHandler, blockName, flow);
+		
 	}	
 	//---------------------------------------------------------------------------------------
 	function popUp_OptionalProductsScreen(onPopupHideHandler, blockName,wasOptionalProductsCleared){
@@ -444,15 +454,16 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		});
 	}
 	//---------------------------------------------------------------------------------------
-	function populateFinancialInformationfArea () {	
+	function populateFinancialInformationfArea () {
 		var sMethod = "populateFinancialInformationfArea() :: ";
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_FinancialInformationArea").empty();
 		$("#BRBConfirmationFinancialSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_FinancialInformationArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
+		
 		var val = activationItems.getModel('personalInformation').get('grossHouseholdIncome');
-		BRB.Log(logPrefix + sMethod + val);
+		BRB.Log(logPrefix + sMethod + val );
 		if (translator.isCurrentLanguageEnglish()) {
 			$("#confirmation_FinancialInformation_GrossAnnualIncome").text('$' + activationItems.getFormattedGrossAnnualIncome(activationItems.getModel('personalInformation').get('grossIncome')));
 			// US3961
@@ -462,9 +473,13 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 			// US3961
 			$("#confirmation_FinancialInformation_GrossAnnualHouseholdIncome").text(activationItems.getFormattedGrossAnnualHouseholdIncome(activationItems.getModel('personalInformation').get('grossHouseholdIncome')) + ' $');		
 		}
+		
 		$(refs.editFinancialButton).on("mouseup", function(){
 			BRB.AppConfig.TrackingScreenID = 8;
+			BRB.Log("edit finaceButton" );
 			popUp_PersonalInformationEditScreen(populateFinancialInformationfArea, 'financialInformation');
+			
+			//  return;
 		});	
 	}
 	//---------------------------------------------------------------------------------------
@@ -518,4 +533,5 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 			$(refs.confirmation_page4_title).addClass('Width_TD_42');
 		}
 	}
+	
 };

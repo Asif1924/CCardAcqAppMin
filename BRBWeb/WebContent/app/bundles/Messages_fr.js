@@ -56,13 +56,13 @@ BRB.dictionary_fr = {
 		messageDialog_yes 									:	"Oui",
 		messageDialog_no 									:	"Non",
 			
-		breadCrumbItem_Overview								:	"APERÇU",
-		breadCrumbItem_PersonalInformation					:	"RENSEIGNEMENTS PERSONNELS",
-		breadCrumbItem_AdditionalInformation				:	"PRODUITS FACULTATIFS",
-		breadCrumbItem_Confirmation							:	"CONFIRMATION",
+		breadCrumbItem_Overview								:	"Survol",
+		breadCrumbItem_PersonalInformation					:	"Données personnelles",
+		breadCrumbItem_AdditionalInformation				:	"Produits facultatifs",
+		breadCrumbItem_Confirmation							:	"Confirmation",
 		// US4591
-		breadCrumbItem_Review_and_submit                    :   "REVUE ET SOUMETTRE",
-		breadCrumbItem_IdentityVerification					:	"VÉRIFICATION D’IDENTITÉ",
+		breadCrumbItem_Review_and_submit                    :   "Vérifier et envoyer",
+		breadCrumbItem_IdentityVerification					:	"Vérification d’identité",
 			
 		loginScreen_UserID_Label							:	"Code d’utilisateur",
 		loginScreen_AgentID_Label 							:	"Code de représentant",
@@ -96,6 +96,7 @@ BRB.dictionary_fr = {
 		
 		PageHeader_CanadianTireTabLogo						:	'<div class="PageHeader_CanadianTireTabLogo_fr"></div>',
 		PageHeader_CanadianTireNeedHelp                     :   '<div class="needHelpImage_fr"></div>',
+		pageHeader_CantireBankOrTriangle                    :   '<div class="logoBankOrTriangle_fr"></div>',
 				
 		session_Expired_ErrorTitle							: 	"Demande timed out",
 		session_Expired_ErrorMsg							:	"En raison d'une période d’inactivité prolongée, votre demande a expiré. <br>Veuillez représenter une demande afin qu’elle nous soit acheminée avec succès. <br>Remarque : votre session expirera au bout de 30 minutes ou après 10 minutes d'inactivité.",
@@ -181,8 +182,8 @@ BRB.dictionary_fr = {
 		overview_Title_DEC									:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.",
 		overview_PrintDownload_LinkText						:	"<a href='https://customer.ctfs.com/SharedContent/documents/f_online_disclosure.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
 		
-		overview_AmIEligibleTable_Mastercard			  	:	"Mastercard<sup>MD</sup> Triangle<sup>MC</sup>",
-		overview_AmIEligibleTable_World_elite_card          :   "World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup>",
+		overview_AmIEligibleTable_Mastercard			  	:	"<b>Mastercard<sup>MD</sup> Triangle<sup>MC</sup><b>",
+		overview_AmIEligibleTable_World_elite_card          :   "<b>World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup><b>",
 		
 		overview_compareCards_Masterdard			  	:	"Mastercard<sup>MD</sup><br> Triangle<sup>MC</sup>",
 		overview_CompareCards_World_elite_card          :   "World Elite <br>Mastercard<sup>MD</sup> Triangle<sup>MC</sup>",
@@ -429,7 +430,8 @@ BRB.dictionary_fr = {
 		personalInformation_EmployerSinceMonthError			:	"Veuillez entrer un mois valable.",
 		personalInformation_EmployerSinceYearError			:	"Veuillez entrer une année valable.",
 		// US3961
-		personalInformation_GrossAnnualIncomeError			:	"Veuillez entrer le montant de votre revenu annuel personnel brut. N’utilisez pas d’espace, de point ni de virgule (p. ex. : 35 000).",	
+		personalInformation_GrossAnnualIncomeError_OMX			:"Veuillez entrer le montant de votre revenu annuel personnel brut. N’utilisez pas d’espace, de point ni de virgule (p. ex. : 35 000)",	
+		personalInformation_GrossAnnualIncomeError_OMZ			:"Critère d'admissibilité : Revenu individuel minimum de 80 000 $.",
 		personalInformation_GrossAnnualHouseholdIncomeError	:	"Veuillez entrer le montant de votre revenu annuel brut du ménage. N’utilisez pas d’espace, de point ni de virgule (p. ex. : 35 000).",		
 		personalInformation_EmailAddressHint				:	"Vous devez fournir votre adresse courriel afin que puissions vous envoyer les modalités, ainsi que les détails de l’approbation de votre nouvelle carte lorsque votre demande sera approuvée. Si vous ne fournissez pas votre adresse courriel, vous devrez présenter une demande de carte de crédit par le biais d’une autre méthode.",
 		// US3979
@@ -1149,6 +1151,7 @@ BRB.dictionary_fr = {
 		confirmation_Application_Authorization_Item1        :   "Veuillez ouvrir un compte à mon nom pour le type de carte de crédit émise par la Banque Canadian Tire indiqué ci-dessus (la « carte ») à un taux d’intérêt annuel de 19,99 % pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et de 22,99 % pour les transactions au comptant et les frais afférents.",		
 		confirmation_Application_Authorization_Item5        :   "Je serai lié par les modalités du contrat du titulaire de carte de la Banque Canadian Tire que je recevrai avec la carte, lequel peut être modifié de temps à autre. Je serai la seule personne responsable de tous les débits imputés à ce compte, y compris ceux portés au compte par toute personne pour laquelle je vous ai demandé d’émettre une carte additionnelle. Je serai la seule personne qui recevra un relevé de compte.",
 		confirmation_Application_Authorization_Item6        :   "<u>Vous pouvez obtenir des renseignements sur mes antécédents de crédit et d’autres renseignements personnels me concernant auprès d’agences d’évaluation du crédit et communiquer de tels renseignements à ces agences.</u>",
+		confirmation_Application_Authorization_Item6a       :  "Je consens à ce que la Banque Canadian Tire procède à une vérification de mes   renseignements personnels, comme mon nom, mon adresse, ma date de naissance, mon numéro de téléphone mobile auprès de mon fournisseur de services mobiles et j’autorise mon fournisseur de services mobiles à fournir ces renseignements (Tenue de compte, type de compte, etc.) à la Banque Canadian Tire. Les renseignements concernant mon compte de téléphonie mobile seront utilisés pour vérifier mon identité et d’effectuer des analyses et des enquêtes contre la fraude.",
 		confirmation_Application_Authorization_Item7        :   "Chaque personne pour laquelle je vous ai demandé d’émettre une carte additionnelle m’a autorisé à vous fournir les renseignements ci-dessus la concernant.",
 		confirmation_Application_Authorization_Item8        :   "Si je vous fournis mon numéro d’assurance sociale, vous pouvez l’utiliser à des fins d’identification, notamment auprès d’agences d’évaluation du crédit.",
 		confirmation_Application_Authorization_Item9		:	"J’accepte que, si vous approuvez ma demande, vous me transmettiez un document d’information initial et un contrat du titulaire de carte par voie électronique à l’adresse électronique fournie dans cette demande.",
@@ -1188,9 +1191,9 @@ BRB.dictionary_fr = {
 		identityVerification_NoSelectionError				:   "Vous devez répondre à chaque question de vérification d’identité posée avant de continuer",
 		
 		identityVerification_Title							:   "Vérification d'identité",
-		identityVerification_Congratulations				:   "FÉLICITATIONS",
+		identityVerification_Congratulations				:   "<strong>Félicitations, votre demande est acceptée!</strong>",
 		identityVerification_Customer_Name                  :   "Nom du client : ",
-		identityVerification_CardNumberText					:   "Numéro de la carte : ",
+		identityVerification_CardNumberText					:   "Numéro de carte : ",
 		identityVerification_CardLimitText					:   "Limite de crédit : ",
 		identityVerification_CardAPRText					:   "TIA :",
 		
@@ -1206,8 +1209,11 @@ BRB.dictionary_fr = {
 		identityVerification_FinalText4						:	"En cas d’erreur, veuillez composer le 1 800 459-6415. Vous recevrez aussi une copie de ces renseignements dans la trousse de bienvenue contenant votre carte.",
 		identityVerification_FinalText5						:	"*Notez les quatre derniers chiffres pour pouvoir vous y référer lors de l’utilisation de Mon compte CT et lors du processus de paiement.",
 		
-		identityVerification_PendingTitle					:   "MERCI. NOUS AVONS BIEN REÇU VOTRE DEMANDE DE CARTE.",
-		identityVerification_PendingText1					:	"Notre équipe passe actuellement votre demande en revue. Nous n’avons pas été en mesure de traiter votre demande instantanément.",
+		identityVerification_PendingTitle					:   "<strong>Merci - Nous avons reçu votre demande</strong>",
+
+		identityVerification_PendingText1					:	"Votre demande est maintenant à l'étude par notre équipe. Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à quelques semaines, selon les renseignements fournis.",
+
+                                                              
 		identityVerification_PendingText2					:	"Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.",
 		identityVerification_PendingText3					:	"Quand vais-je recevoir ma carte?",
 		identityVerification_PendingText4					:	"Si votre demande est approuvée, vous en serez avisé par courrier dans les sept à dix jours ouvrables suivants.",
@@ -1241,36 +1247,36 @@ BRB.dictionary_fr = {
 		
 		// -- US4675 starts -- //
 		approve_you_have_been_approve_label                 :   "VOTRE DEMANDE DE CARTE DE CRÉDIT A ÉTÉ APPROUVÉE!",
-		approved_title_one_OMX                              :   "Votre demande de carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup>a été <span class=\"overviewNSTableRedText\">approuvée<\span>",
-		approved_title_one_OMZ                              :   "Votre demande de carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été <span class=\"overviewNSTableRedText\">approuvée<\span>",
-		approved_title_two                                  :   "Vous recevrez ce qui suit dans un délai de sept à dix jours ouvrables :",
-		approved_title_one_listItem1                        :   "Vous recevrez par courriel le document d’information initial et le contrat du titulaire de carte.",
-		approved_title_one_listItem2                        :   "Votre carte a été ajoutée à votre profil de magasinage en ligne; vous pouvez donc commencer à l’utiliser en ligne dès maintenant. ",
-		approved_title_one_listItem3                        :   "Veuillez noter les quatre derniers chiffres du numéro de votre carte pour le processus de paiement.",
-		approved_title_two_listItem_OMX                     :   "votre carte Mastercard Triangle et la trousse de bienvenue;",
-		approved_title_two_listItem_OMZ                     :   "votre carte World Elite Mastercard Triangle et la trousse de bienvenue;",
-		approved_title_two_listItem2                        :   "votre carte Triangle Rewards<sup>MC</sup> et la trousse de bienvenue;",
+		approved_title_one_OMX                              :   "Votre demande de carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été <span class=\"overviewNSTableRedText\">approuvée</span>.",
+		approved_title_one_OMZ                              :   "Votre demande de carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été <span class=\"overviewNSTableRedText\">approuvée</span>.",
+		approved_title_two                                  :   "Au cours des 7 aux 10 prochains jours ouvrables, vous recevrez :",
+		approved_title_one_listItem1                        :   "Vous recevrez votre Déclaration initiale et votre Contrat du titulaire de carte par courriel.",
+		approved_title_one_listItem2                        :   "Votre carte est dors et déjà ajoutée à votre profil d'achat en ligne, de sorte que vous pouvez commencer à l'utiliser en ligne dès aujourd'hui.",
+		approved_title_one_listItem3                        :   "Veuillez noter les quatre derniers chiffres de votre numéro de carte pour le processus de paiement.",
+		approved_title_two_listItem_OMX                     :   "Votre Mastercard Triangle accompagnée de votre trousse de bienvenue.",
+		approved_title_two_listItem_OMZ                     :   "Votre World Elite Mastercard Triangle accompagnée de votre trousse de bienvenue.",
+		approved_title_two_listItem2                        :   "Votre carte Récompense Triangle<sup>MC</sup> et votre trousse de bienvenue.",
 		approved_title_two_listItem3                        :   "un courriel de confirmation.",
 		approved_page_continueShoppingButton                :   "CONTINUER À MAGASINER",
 		pending_page_title                                  :   "MERCI. NOUS AVONS BIEN REÇU VOTRE DEMANDE DE CARTE.",
 		pending_page_statusName                             :   "État de la demande : ",
-		pending_page_status                                 :   "EN TRAITEMENT",
-		pending_page_card_type                              :   "Type de carte :",
+		pending_page_status                                 :   "EN ATTENTE",
+		pending_page_card_type                              :   "Carte :",
 		pending_page_description                            :   "Unfortunately we are unable to instantly process your application today, your application is now being reviewed by our application team. Depending on the level of information provided, processing can take from a few days to a couple of weeks.",
 		pending_page_subtitle_desc                          :   "What happens next?",
 		pending_page_sub_subtitle                           :   "If approved, your credit card welcome package will arrive in the mail within 7-10 business days, containing:",
 		pending_page_li_one                                 :   "Your Canadian Tire Options® Mastercard® & Welcome package.",
 		pending_page_li_two                                 :   "Your My Canadian Tire 'Money' card & Welcome package",
-		pending_page_note                                   :   "REMARQUE : N’ESSAYEZ PAS DE SOUMETTRE DE NOUVEAU VOTRE DEMANDE.",
-		pending_page_close_button_text                      :   "CONCLURE",
-		declined_message_one                                :   "<b>Malheureusement, nous ne sommes pas en mesure de traiter votre demande aujourd’hui. Votre demande est en cours d’examen par notre équipe. Le processus de traitement dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.</b>",
-		declined_message_two                                :   "Quelles sont les prochaines étapes?",
+		pending_page_note                                   :   "<b>IMPORTANT: NE PRÉSENTEZ PAS UNE NOUVELLE DEMANDE.</b>",
+		pending_page_close_button_text                      :   "FERMER",
+		declined_message_one                                :   "Malheureusement, nous ne sommes pas en mesure de traiter instantanément votre demande aujourd'hui. Notre équipe passe actuellement votre demande de carte en revue. Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.",
+		declined_message_two                                :   "<strong>Que se passe-t-il ensuite?</strong>",
 		declined_message_three                              :   "Questions? Please call 1-800-459-6415.",
-		pendinDeclinedPageOMX_OMZ                           :   "<span class=\"overviewNSTableRedText\"> &#91; Mastercard<sup>MD</sup> Triangle<sup>MC</sup>  OR  World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> &#93;</span>",
+		pendinDeclinedPageOMX_OMZ                           :   "<span class=\"overviewNSTableRedText\"> &#91; Mastercard<sup>MD</sup> Triangle<sup>MC</sup> OR  World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> &#93;</span>",
 		
-		pendingDeclined_page_li_one                         :   " &#45; Vous recevrez votre carte Triangle Rewards<sup>MC</sup> et la trousse de bienvenue par la poste.",
-		pendingDeclined_page_li_two_OMX                     :   " &#45; Si votre demande est approuvée, vous recevrez votre trousse de bienvenue pour la carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup> par la poste dans un délai de sept à dix jours ouvrables.",
-		pendingDeclined_page_li_two_OMZ                     :   " &#45; Si votre demande est approuvée, vous recevrez votre trousse de bienvenue pour la carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> par la poste dans un délai de sept à dix jours ouvrables.",
+		pendingDeclined_page_li_one                         :   "Vous recevrez également une carte Récompenses Triangle<sup>MC</sup> et une trousse de bienvenue au programme Récompenses Triangle séparément dans un délai de 7 à 10 jours ouvrables.",
+		pendingDeclined_page_li_two_OMX                     :   "Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte Mastercard Triangle vous parviendra par la poste dans un délai de 7 à 10 jours ouvrables.",
+		pendingDeclined_page_li_two_OMZ                     :   "Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte World Elite Mastercard Triangle vous parviendra par la poste dans un délai de 7 à 10 jours ouvrables.",
 		
 		// -- US4675 ends --//
 		
@@ -1539,7 +1545,36 @@ BRB.dictionary_fr = {
 		overview_MonthlyCreditCharges1EComm						:	"8&#44;22 &#36;",
 		overview_MonthlyCreditCharges2EComm						:	"16&#44;43 &#36;",
 		overview_MonthlyCreditCharges3EComm						:	"32&#44;86 &#36;",
-		sdfsfasff : ""	
+		sdfsfasff 												: ""	,
+		decline_chapter_one_text                               :  "<b>Malheureusement, nos services de crédit instantané sont temporairement</b>",
+		decline_chapter_two_text                               : "<b>indisponibles, mais votre demande sera quand même traitée dès que possible.<b>",
+		decline_chapter_three_text                             :  "<strong>Vous avez des questions? Composez le 1 800 459-6415.   ",
+
+
+		decline_chapter_note                                 : "<b>IMPORTANT: NE PRÉSENTEZ PAS UNE NOUVELLE DEMANDE.<b>",
+		pending_verification_status                          : "<span>EN ATTENTE -<br> </span>",
+		pending_verification_status_2                          : "<span class=\"peding_verification\"> vérification d’identité</span>",
+		verification_message_one_omx                          :"Votre demande pour une carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été approuvée sous réserve de la vérification de votre identité en magasin. ",  
+		verification_message_two_omx                          :"Pour répondre à  la réglementation gouvernementale, nous sommes tenus de vérifier votre identité au moyen d’une pièce d'identité avec photo délivrée par une autorité gouvernementale avant de pouvoir émettre une carte à votre nom.",
+		verification_message_one_omz                          :"Votre demande pour une carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> est approuvée sous réserve de la vérification de votre identité en magasin.",
+		verification_message_two_omz                          :"Pour répondre à  la réglementation gouvernementale, nous sommes tenus de vérifier votre identité au moyen d’une pièce d'identité avec photo délivrée par une autorité gouvernementale avant de pouvoir émettre une carte à votre nom.",
+
+		pending_Verification_chapter_one 								:"<strong> Demande de vérification d’identité :</strong>  Vous recevrez une lettre par la poste vous demandant de visiter le magasin Canadian Tire le plus près de chez vous afin de vérifier votre identité à l'aide d'une pièce d'identité avec photo émise par le gouvernement.",
+		pending_Verification_chapter_two 								:"<strong>Vérification d’identité :</strong> Apportez votre lettre et votre pièce d'identité avec photo au comptoir du service à la clientèle de votre magasin Canadian Tire le plus proche dans les 20 jours suivant la réception du courrier.",
+		pending_Verification_chapter_three_omx					 		:"<strong>Trousse de bienvenue :</strong> Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte Mastercard Triangle vous parviendra par la poste dans un délai de 7 à 10 jours ouvrables.<br>Vous recevrez également une carte Récompenses Triangle<sup>MC</sup> et une trousse de bienvenue au programme Récompenses Triangle séparément dans un délai de 7 à 10 jours ouvrables.",
+		pending_Verification_chapter_three_omz 							 :"<strong>Trousse de bienvenue : </strong> Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte Mastercard Triangle vous parviendra par la poste dans un délai de 10 jours ouvrables.<br>Vous recevrez également une carte Récompenses Triangle<sup>MC</sup>  et une trousse de bienvenue au programme Récompenses Triangle séparément dans un délai de 7 à 10 jours ouvrables.",
+	    personalInformation_PhoneType_Field	                             : "Type de téléphone",
+	    personalInformation_PhoneType_TextField							 :	'<select class=\"fieldValuesSelectField titleField\" id=\"personalInformation_PhoneType_TextField\" />',
+	    personalData_HOME                                                :"Domicile",
+	    personalData_MOBILE                                              :"Cellulaire",
+	    personalData_OTHER                                               :"Autre",
+	    personalInformation_EligibilityText                              :" <p><strong>Critères d’admissibilité : </strong> Un revenu individuel minimum de 80 000 $ est requis. Si le critère d’admissibilité pour ce produit ne peut être satisfait, nous vous suggérons d’opter pour la Mastercard<sup>MD</sup> Triangle<sup>MC</sup>.</p> <p> Sélectionnez « Oui » si vous voulez transférer vos renseignements à l'application Mastercard<sup>MD</sup> Triangle<sup>MC</sup>.</p> <p> Sélectionnez « Non » si vous voulez continuer avec la carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup>.</p> ",
+	    creditDisclosure_TitleText                                        :"<p class=\"creditDiscloseTitle\"><strong>Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.</strong></p>"	 
+
+		 
+
+
+		
 		//----end-----US3084 iLoyalty - BRB front facing chagnes -  Loyalty Notification --------------//	
 				
 	};	

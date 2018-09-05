@@ -84,7 +84,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "appStatus",
     "customerValueInd",
     "respCardType",
-    "loyaltyMembershipNumber"
+    "loyaltyMembershipNumber",
+    "queueName"
 })
 public class AccountApplicationResponseType
     implements Serializable

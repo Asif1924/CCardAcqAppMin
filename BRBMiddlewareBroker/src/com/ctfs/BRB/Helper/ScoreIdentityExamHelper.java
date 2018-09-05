@@ -268,7 +268,6 @@ public class ScoreIdentityExamHelper
 		{
 			String replacedXmlStr = xmlStr.replace(QUESTION_REFERENCE, EMPTY_STRING);
 			result = deserializeWebICScoreIdentityExamResponse(replacedXmlStr);
-			log.info(sMethod + " result: \n" + result);
 		}
 		catch (Exception e)
 		{

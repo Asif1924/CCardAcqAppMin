@@ -257,8 +257,7 @@ public class CustomerEmailModel extends BaseModel
 	public void setRespCardType(String respCardType) {
 		this.respCardType = respCardType;
 	}
-
-
+	
 	public Boolean isModelValid () {
 		if (customerName.isEmpty() || 
 				clientId == 0 ||

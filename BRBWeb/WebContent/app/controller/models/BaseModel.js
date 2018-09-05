@@ -321,28 +321,15 @@ BRB.BaseModel = function(config) {
 
 		BRB.Log('BRB.BaseModel::validateEdge FullYears=' + fullYears);		
 		BRB.Log('BRB.BaseModel::validateEdge Province=' + province);
-
-		if (province !== null
-				&& province != ''
-				&& (province === 'NF' || province === 'NB' || province === 'NS'
-						|| province === 'BC' || province === 'YT'
-						|| province === 'NT' || province === 'NL' || province === 'NU')
-				&& fullYears < 19) {
-			BRB.Log('BRB.BaseModel::validateEdge < 19');
-			validationResult = {
-					name : 'birthDate',
-					err : 'personalInformation_DOB_19YearsError',
-					uiid : birthDateField,
-					province : province				
-			};
-		} else if (fullYears < 18) {
-			BRB.Log('BRB.BaseModel::validateEdge < 18');
-			validationResult = {
-				name : 'birthDate',
-				err : 'personalInformation_DOB_18YearsError',
-				uiid : birthDateField
-			};
-		}
+		// US4976 
+    	if (fullYears < 18 && province !== null && province != '' && $.inArray(province, ['AB', 'SK', 'MB', 'ON', 'QC', 'PE']) != -1) {    		
+    		validationResult = {name : 'birthDate',err : 'personalInformation_DOB_18YearsError',uiid : birthDateField};
+    	} else if(fullYears < 19 && province !== null && province != '' && $.inArray(province, ['NB', 'NS', 'BC', 'YT', 'NT', 'NL', 'NU']) != -1){
+    		BRB.Log('BRB.BaseModel::validateEdge < 19');
+    		validationResult = {name : 'birthDate',err : 'personalInformation_DOB_19YearsError',uiid : birthDateField};
+    	} else if(fullYears < 18){
+    		validationResult = {name : 'birthDate',err : 'personalInformation_DOB_18YearsError',uiid : birthDateField };
+    	}
 
 		return validationResult;
 	};

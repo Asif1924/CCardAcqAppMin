@@ -251,7 +251,7 @@ BRB.FlowController = function(activationItems, backOutFlowCallback, screensDefin
 	{
 		if(translate.isCurrentLanguageEnglish())
 		{
-			link.text("Francais");
+			link.text("Français");
 		}
 		else
 		{

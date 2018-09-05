@@ -42,7 +42,7 @@ body {
 }
 .postalStrikeContentText {
     font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
 }
 
 .brbWhiteBackgroundPage {
@@ -50,44 +50,44 @@ body {
     padding-top: 0px;
 }
 .pageTitle {
-    font-family: Arial;
+    font-family: Lato;
     font-weight: bold;
     font-size: 32px;
     color: #000;
 }
 .pendingPageTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 30px;
     color: #000;
 }
 
 .pendingPageSubTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 18px;
     font-color: #000000;
 }
 .pageSubTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 18px;
     font-color: #333333;
     /*2016-02-29 chrch: removing padding for responsive */
     padding-left: 10px;
 }
 .summaryPageSubTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 18pt;
     font-color: #000;
 }
 .locationDetailsFont {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 18pt;
     font-color: #000;
 }
 .exitApplicationFont {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 18pt;
     font-color: #000;
@@ -400,30 +400,37 @@ body {
 }
 .currentBreadcrumb {
 	/* 2015-02-03 chrch: change x and y pos of image */
-  	background:  #{inline-image("sprite-bg-nav.png")} no-repeat center 30px;
-  	background-position-x: center;
+  	background:  #{inline-image("red_indicator.png")} no-repeat center 30px;
+  	/* background-position-x: center; */
+  	background-position: bottom;
+  	margin-bottom: -1px;
+}
+
+.breadcrumBorder{
+  border-bottom: solid #cccccc 3px;
+  border-top: solid #cccccc 3px;
 }
 .selectedBreadcrumb {
     display: block;
     height: 30px;
     /*2016-02-03 chrch: removing margin for responsive*/
     /* margin-bottom: 20px; */
-    padding-top: 10px;
+    padding-top: 20px;
     /*2016-02-03 chrch: adding padding for responsive*/
     padding-right: 0px;
     padding-left: 0px;
-    font-family: Arial;
+    font-family: Lato;
     font-size: 16px;
-    color: #FFF;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #E74646), color-stop(100%, #B01F1F));
-    background: -moz-linear-gradient(top, #E74646, #B01F1F);
-    background: -ms-linear-gradient(top, #E74646, #B01F1F);
-    background: -o-linear-gradient(top, #E74646, #B01F1F);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#E74646', endColorstr='#B01F1F');
+    color: #black;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #FFFFFF));
+    background: -moz-linear-gradient(top, #FFFFFF, #FFFFFF);
+    background: -ms-linear-gradient(top, #FFFFFF, #FFFFFF);
+    background: -o-linear-gradient(top, #FFFFFF, #FFFFFF);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#FFFFFF');
     /*2016-03-16 chrch: Making this conditional only for larger screens */
-    @media(min-width: 768px){
+    /* @media(min-width: 768px){
     	border-right: 2px solid gray !important;
-    }
+    }*/
 }
 .unselectedBreadcrumb {
     display: block;
@@ -431,18 +438,18 @@ body {
     /*2016-02-03 chrch: removing margin for responsive*/
     /* margin-bottom: 20px; */
     
-    padding-top: 10px;
+    padding-top: 20px;
     /*2016-02-03 chrch: adding padding for responsive*/
     
     padding-right: 0px;
     padding-left: 0px;
     color: black;
     text-shadow: none;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #C6C6C6), color-stop(100%, #919191));
-    background: -moz-linear-gradient(top, #C6C6C6, #919191);
-    background: -ms-linear-gradient(top, #C6C6C6, #919191);
-    background: -o-linear-gradient(top, #C6C6C6, #919191);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#919191');
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #FFFFFF));
+    background: -moz-linear-gradient(top, #FFFFFF, #FFFFFF);
+    background: -ms-linear-gradient(top, #FFFFFF, #FFFFFF);
+    background: -o-linear-gradient(top, #FFFFFF, #FFFFFF);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#FFFFFF');
 }
 /* 2015-02-03 chrch: conditional display for responsive */
 
@@ -463,15 +470,15 @@ body {
     }
 }
 .BreadcrumbTextNumberStyle {
-    font-family: Arial Narrow, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 14pt;
     text-shadow: 1px 50% white;
 }
 .BreadcrumbTextStyle {
-    font-family: Arial Narrow, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 12px;
+    font-family: Lato;
+    /*font-weight: bold;*/
+    font-size: 16px;
     text-shadow: none;
     white-space: nowrap;
     /*2016-02-29 chrch: Adding padding for responsive */
@@ -539,7 +546,7 @@ body {
     border: 1px solid #CCCCCC;
     font-color: #5E5D5D;
     background-color: #F7F7F7;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 14pt;
     padding-left: 15px;
@@ -609,7 +616,7 @@ tr td {
     border-right: 1px solid #EA2323;
 }
 .fieldLabelsTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14pt;
     font-color: #5E5D5D;
 }
@@ -649,7 +656,7 @@ tr td {
     font-color: #5E5D5D;
     background-color: #F7F7F7;
     width: 50%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 14pt;
     padding-left: 15px;
@@ -665,7 +672,7 @@ tr td {
     -webkit-border-bottom-left-radius: 0px;
     font-color: #333333;
     background-color: #F7F7F7;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     padding-left: 15px;
     text-align: left;
@@ -698,7 +705,7 @@ tr td {
     -webkit-border-bottom-left-radius: 0px;
     background-color: #F7F7F7;
     width: 50%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 16pt;
     font-color: #5E5D5D;
@@ -823,7 +830,7 @@ tr td {
   width: 90%;
   /* width: 300px; */
   color: #5E5D5D;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato;
   font-size: 9pt;
   padding-left: 5px;
 }
@@ -834,7 +841,7 @@ tr td {
   line-height: 30px;
   width: 100%;
   color: #5E5D5D;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato;
   font-size: 9pt;  
   padding-left: 15px;
   padding-right: 15px;
@@ -845,7 +852,7 @@ tr td {
   #background-color: transparent;  
   width: 100%;
   color: #5E5D5D;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato;
   font-size: 8pt;  
   padding-left: 15px;
   padding-right: 15px;
@@ -855,7 +862,7 @@ tr td {
     height: 33px;
     /* 2016-02-04 chrch: changing widths for responsive */
     width: 90%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 9pt;
     color: #5E5D5D;
     padding-top: 4px;
@@ -876,7 +883,7 @@ tr td {
     -moz-appearance: button;
 }
 .fieldValuesText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     font-color: #5E5D5D;
 }
@@ -887,14 +894,14 @@ tr td {
     height: 30px;
     width: 100%;
     color: #5E5D5D;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 162t;
     font-color: #5E5D5D;
 }
 .fieldValuesCheckBoxField {
     height: auto;
     width: auto;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 9pt;
 }
 .upperCaseField {
@@ -1027,7 +1034,7 @@ td.fieldHeight20 {
     ui-disabled: true;
 }
 .buttonText {
-    font-family: Arial;
+    font-family: Lato;
     font-size: 16pt;
     color: #FFF;
     line-height: 22px;
@@ -1140,13 +1147,13 @@ td.fieldHeight20 {
 /* START - Choose Product Screen */
 
 .PageTitle {
-    font-family: Arial;
+    font-family: Lato;
     font-weight: bold;
     font-size: 32px;
     color: #000;
 }
 .CC_Labels {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 18pt;
     color: #000;
@@ -1242,7 +1249,7 @@ a.editButtonSize:focus {
     width: 10em;
     height: 8em;
     padding: 2em 1em;
-    font-family: Arial;
+    font-family: Lato;
     font-weight: bold;
     font-size: small;
     color: #000;
@@ -1275,7 +1282,7 @@ a.editButtonSize:focus {
     width: 24em;
     height: 19em;
     padding: 2em 1em;
-    font-family: Arial;
+    font-family: Lato;
     font-weight: bold;
     font-size: small;
     color: #000;
@@ -1337,7 +1344,7 @@ a.editButtonSize:focus {
 .ui-btn-up-r,
 .ui-btn-hover-r,
 .ui-btn-down-r {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     text-decoration: none;
 }
 /* This is to fix a bug with jquery mobile, DE-681 */
@@ -1614,7 +1621,7 @@ div.ui-slider-switch {
 }
 
 .backButtonGray > .buttonText {
-    font-family: Arial;
+    font-family: Lato;
     font-size: 10pt;
     color: #FFF;
     line-height: 22px;
@@ -1720,8 +1727,8 @@ a.continueButtonFocused:focus {
 }
 
 .continueButton_approve > .buttonText {
-    font-family: Arial;
-    font-size: 9pt;
+    font-family: Lato;
+    font-size: 10pt;
     color: #FFF;
     line-height: 22px;
     float: left;
@@ -1809,7 +1816,7 @@ a.continueButtonFocused_approve:focus {
     margin-right: 90px
 }
 .continueButton > .buttonText {
-    font-family: Arial;
+    font-family: Lato;
     font-size: 9pt;
     color: #FFF;
     line-height: 22px;
@@ -1820,7 +1827,7 @@ a.continueButtonFocused_approve:focus {
 }
 
  .buttonTextReview {
-    font-family: Arial;
+    font-family: Lato;
     font-size: 9pt;
     color: #FFF;
     line-height: 22px;
@@ -1917,7 +1924,7 @@ a.continueButtonFocused_approve:focus {
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FFE0DFDF, EndColorStr=#FFCBCBCB);
 }
 .continueButtonInactive > .buttonText {
-    font-family: Arial;
+    font-family: Lato;
     font-size: 9pt;
     color: #FFF;
     line-height: 22px;
@@ -2000,7 +2007,7 @@ a.continueButtonFocused_approve:focus {
     margin-left: 20px;
     /*2016-03-07 chrch: new margin for responsive*/
     margin-right: 20px;
-    font-family: Arial, Helvetica Neue, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 16px;
     color: #333333;
@@ -2015,21 +2022,21 @@ a.continueButtonFocused_approve:focus {
     color: #ed1c24;
     font-size: 19px;
     font-weight: bold;
-    font-family: Arial;
+    font-family: Lato;
 }
 
 .chooseProductTitle1{
     padding-top: 10px;
     font-size: 15px;
     color: #333333;
-    font-family: Arial, Helvetica Neue, sans-serif;
+    font-family: Lato;
     margin-left: 35px;
 }
 
 .chooseProductTitle2{
 	margin-left: 25px;
 	font-size: 16px;
-	font-family: Arial, Helvetica Neue, sans-serif;
+	font-family: Lato;
 	color: #333333;
 	opacity: 0.9;
 }
@@ -2037,7 +2044,7 @@ a.continueButtonFocused_approve:focus {
 .chooseProductTitle3{
 padding-top: 10px;
 font-size: 14px;
-font-family: Arial, Helvetica Neue, sans-serif;
+font-family: Lato;
 color: #333333;
 margin-left: 25px;
 }
@@ -2090,7 +2097,7 @@ margin-left: 25px;
 }
 
 .productDescriptionTitle {
-	font-family: Arial, Helvetica Neue, sans-serif;
+	font-family: Lato;
 	font-weight: bold;
 	font-size: 16px;
 	color: #cf1b23;
@@ -2155,7 +2162,7 @@ ul.simpleFootList {
 }
 
 .listItemText {
-	font-family: Arial, Helvetica Neue, sans-serif;
+	font-family: Lato;
 	font-size: 14px;
 	color: #000000;
 }
@@ -2175,7 +2182,7 @@ ul.simpleFootList {
 }
 
 .overviewTitle {
-	font-family: Arial, Helvetica Neue, sans-serif;
+	font-family: Lato;
 	font-weight: bold;
 	font-size: 16px;
 	margin-top: 30px;
@@ -2281,7 +2288,7 @@ ul.simpleFootList {
 
 .overviewCenterTableContainer {
 	/*margin-top: 8px;*/
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Lato;
 	font-size: 10pt;
 	width: 100%;
 	border: none;
@@ -2498,7 +2505,7 @@ height: 25px
 }
 .overviewStartApplicationText {
     font-color: #333333;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     /* 2016-02-05 chrch: change to padding for responsive */
     
@@ -2596,7 +2603,7 @@ height: 25px
 }
 .footnoteContentText {
     font-size: 10px;
-    font-family: Arial;
+    font-family: Lato;
     color: #515151;
     line-height: 15px;
 }
@@ -2608,7 +2615,7 @@ height: 25px
 }
 .overviewNSTable {
     width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 12px;
     margin-top: 60px;
     /*border : 0px;*/
@@ -2825,7 +2832,7 @@ height: 25px
   /* 2016-02-08 chrch: Personal Information Page - removing padding for responsive */
   /*padding-right: 60px;
     padding-left: 60px;*/
-    font-family: Arial;
+    font-family: Lato;
     font-size: 9pt;
     color: #FFF;
     font-weight: bold;
@@ -2835,7 +2842,7 @@ height: 25px
 .buttonCTText_fr {
     padding-right: 5px;
     padding-left: 5px;
-    font-family: Arial;
+    font-family: Lato;
     font-size: 9pt;
     color: #FFF;
     font-weight: bold;
@@ -2948,7 +2955,7 @@ height: 25px
     border-left: 1px solid #CCCCCC;
 }
 .liTitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 14px;
     font-color: #333333;
@@ -2963,7 +2970,7 @@ height: 25px
 
 /*2016-03-07 chrch: New class for responsive*/
 .overviewProductSubTitle{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 14px;
     font-color: #333333;
@@ -2977,7 +2984,7 @@ height: 25px
 }
 
 .overview_page_subtitle{
-   font-family: Arial;
+   font-family: Lato;
     /* font-weight: bold; */
     font-size: 22px;
     line-height: 26px;
@@ -2994,7 +3001,7 @@ height: 25px
 /*Personal information*/
 
 .pageSubHeader {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 18px;
     font-color: #333333;
     padding-left: 6px;
@@ -3006,7 +3013,7 @@ height: 25px
     float: left;
 }
 .requiredField {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 8pt;
     font-color: #000
 }
@@ -3115,13 +3122,13 @@ height: 25px
     margin-left: -5px;
 }
 .redSpanForInputsGroup {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 11px;
     color: red;
     margin-left: -2px;
 }
 .SpanForInputsGroup {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 11px;
     color: #333333;
 }
@@ -3390,15 +3397,23 @@ height: 25px
 /* 2016-02-03 chrch: Remove width and float, change text-align for responsive */
 
 .languageRegion {
-    text-align: center;
-    margin-top: 20px;
-    /*width: 50px;*/
+    text-align: right;
+    /* margin-top: 20px; */
+    /* align-items: center; */
+    padding-right: 50px;
+    /* margin-right: 20px; */
+    background-color: #000000;
+    color: #ffffff;
+    height: 35px;
+    padding-top: 9px;
 }
 .languageLink {
-    text-decoration: underline;
-    color: #000000;
+/*    text-decoration: underline; */
+    color: #ffffff;
     font-size: 12px;
     cursor: pointer;
+    text-shadow: none;
+    text-transform: uppercase;
 }
 .callout {
     color: red;
@@ -3446,21 +3461,17 @@ height: 25px
 .customerCard_OMX {
     background: #{inline_image("brb_omx_choose.png")};
     background-repeat: no-repeat;
-    background-position:0 35px;
-    /*background-position-x: 20px;*/
-    
-    height: 194px;
-    width: 200px;
+    background-position:15px 5px;
+    height: 250px;
+    width: 350px;
 }
 
 .customerCard_OMZ {
     background: #{inline_image("brb_omz_choose.png")};
     background-repeat: no-repeat;
-    background-position:0 35px;
-    /*background-position-x: 20px;*/
-    
-    height: 194px;
-    width: 200px;
+    background-position:0 5px;
+    height: 250px;
+    width: 350px;
 }
 .custormerCardName {
     position: relative;
@@ -3473,7 +3484,7 @@ height: 25px
     color: #333333;
 }
 .congratulationsLabel {
-    font-size: 18px;
+    font-size: 35px;
     color: #df1b23
 }
 .congratulationsTextContent {
@@ -3496,7 +3507,7 @@ height: 25px
     margin-left: -4px;
 }
 .footerText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 12px;
     color: #333333;
     /*2016-03-10 chrch: removing margins*/
@@ -3509,12 +3520,12 @@ height: 25px
     max-width: 100%;
 }
 .fieldCellWithFontSize12 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 12px;
     font-color: #333333;
 }
 .fieldCellWithBoldFontSize14 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     font-color: #333333;
     font-weight: bold;
@@ -3536,12 +3547,12 @@ height: 25px
     padding-top: 15px;
 }
 .privacylistItemText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 11px;
     color: #333333;
 }
 .privacylistItemLargeText {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     color: #333333;
 }
@@ -3733,7 +3744,7 @@ div.ctfsTooltip span {
     margin-top: 40px;
     margin-left: -150px;
     width: 200px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     font-size: 12px;
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -3815,7 +3826,7 @@ div.tooltip_err:hover span {
     margin-left: -100px; /* 20px; */
     width: auto;
     max-width: 250px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     font-size: 12px;
     -moz-box-shadow: 5px 5px 8px #666;
     -webkit-box-shadow: 5px 5px 8px #666;
@@ -3852,6 +3863,7 @@ div.tooltip_err span {
 /*2016-03-10 chrch: new class for responsive*/
 .customerCardContainer{
 	margin-top: -15px;
+   vertical-align: middle;
 }
 
 /*2016-03-10 chrch: new class for responsive*/
@@ -3958,7 +3970,7 @@ div.tooltip_err span {
 .print_link {
     display: block;
     float: right;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 13px;
     text-decoration: underline;
     color: blue;
@@ -3967,21 +3979,21 @@ div.tooltip_err span {
     display: none;
 }
 .superscripts {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     font-size: 7pt !important;
     position: relative;
     top: -2px;
 }
 
 .superscriptsHeader {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     font-size: 14pt !important;
     position: relative;
     top: -2px;
 }
 
 .superscriptsFootnote {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato;
     font-size: 6pt;
     position: relative;
     top: -2px;
@@ -4222,10 +4234,11 @@ input:-moz-placeholder {
 .font_forCardInfo{
     font-color: #333333;
     background-color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    padding-left: 15px;
-    text-align: left;
+    font-family: Lato;
+    font-size: 24px;
+    padding-left: 35px;
+    padding-top:20px;
+    display: table-cell;
     //font-weight: bold;
 
 }
@@ -4236,8 +4249,8 @@ input:-moz-placeholder {
 .fontPendDeclain{
     font-color: #333333;
     background-color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-family: Lato;
+    font-size: 25px;
     text-align: left;
     font-weight: bold;
 }
@@ -4257,13 +4270,13 @@ input:-moz-placeholder {
     padding-left: 70px;
 }
 .fontForApprovePageContent{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-family: Lato;
+    font-size: 20px;
     color: #000;
-    padding-top: 10px;
+    
 }
 .fontForPendingDeclinedPageContent{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 14px;
     color: #000;
 }
@@ -4272,10 +4285,11 @@ input:-moz-placeholder {
     margin: 10px 0 20px 0;
 }
 .fontForApproveTitle{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-weight: bold;
     font-size: 23px;
     font-color: #000;
+    padding-left: 20px;
 }
 .approveContentTable{
    
@@ -4352,7 +4366,7 @@ input:-moz-placeholder {
   width: 30%;
 }
 .title_approve_width{
- text-align: center;
+ text-align: left;
  width: 30%;
 }
 .congratulation_font{
@@ -4455,15 +4469,15 @@ input:-moz-placeholder {
 }
 
 .pendingTextStyle{
-  color: #000000;
-  font-size: 14px;
-  font-family: Arial, Helvetica Neue, sans-serif;
+  color: #df1b23;
+  font-size: 25px;
+  font-family: Lato;
 }
 
 .cardTypeTextStyle{
-  color: #ed1c24;
-  font-size: 14px;
-  font-family: Arial, Helvetica Neue, sans-serif;
+  font-size: 25px;
+  font-family: Lato;
+  font-weight: bold;
 }
 /* ------------------------- US4591 starts------------------------------- */
 .compareCardsOMZ{
@@ -4498,7 +4512,7 @@ input:-moz-placeholder {
 }
 
 .compareCardsFont{
-    font-family: Arial;
+    font-family: Lato;
     font-size: 14px;
     color: #000000;
 }
@@ -4532,7 +4546,7 @@ input:-moz-placeholder {
     
 }
 .overviewPageComareCards{
-    font-family: Arial;
+    font-family: Lato;
     font-weight: bold;
     font-size: 32px;
     font-color: #000;
@@ -4633,23 +4647,23 @@ input:-moz-placeholder {
     width: 98%;
 }
 .listItem_title_font {
-	font-family: Arial;
+	font-family: Lato;
     font-size: 16px;
     color: #ffffff;
     text-shadow: none;
 }
 .table_text{
-   font-family: Arial;
+   font-family: Lato;
    font-size:  14px;
    color: #000000;
 }
 .table_text_big{
-   font-family: Arial;
+   font-family: Lato;
    font-size:  20px;
    color: #000000;
 }
 .personalInfoPageTextSub_subTitle{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lato;
     font-size: 18pt;
     float: right;
 }
@@ -4659,7 +4673,29 @@ input:-moz-placeholder {
 .MarginLeft50{
       margin-left: 50px;
 }
+.logoBankOrTriangle{
+    background-image: #{inline-image("Logos_EN.png")};
+    height: 70px;
+    margin-left: auto;
+    width: 200px;
+    margin-right: auto;
+    background-size: 100%;
+    background-position: center;
+    /* background-position-x: center; */
+    background-repeat: no-repeat;
+}
 
+.logoBankOrTriangle_fr{
+    background-image: #{inline-image("Logos_FR.png")};
+    height: 70px;
+    margin-left: auto;
+    width: 200px;
+    margin-right: auto;
+    background-size: 100%;
+    background-position: center;
+    /* background-position-x: center; */
+    background-repeat: no-repeat;
+}
 .needHelpImage{
     background-image: #{inline-image("brb_needhelp.png")};
     height: 50px;
@@ -4914,7 +4950,7 @@ input:-moz-placeholder {
 	
 }
 .eligibleCardTitleFont{
-   font-family: Arial;
+   font-family: Lato;
     font-weight: bold;
     font-size: 16pt;
     font-color: #000;
@@ -4930,14 +4966,14 @@ input:-moz-placeholder {
 }
 .oicEligible_listItemFont{
    font-size: 16px;
-   font-family: Arial;
+   font-family: Lato;
    color: #181819;
 }
 
 
 .oicEligible_PleaseReadFont{
     font-size: 24px;
-    font-family: Arial;
+    font-family: Lato;
     color: #000000;
     font-weight: bold;
     margin: 0;
@@ -5125,3 +5161,172 @@ input:-moz-placeholder {
 .personalInformation_GrossAnnualHouseholdIncome_TextField{
   width: 90%;		
 }
+.OMX_legal_footer_Image_EN {
+    background: #{inline_image("OMX_Legal_Footer_EN.jpg")};
+    height: 120px;
+    margin: 0px auto;
+    background-repeat: no-repeat;
+    
+}
+
+.OMZ_legal_footer_Image_EN {
+    background: #{inline_image("OMZ_Legal_Footer_EN.jpg")};
+     height: 120px;
+     margin: 0px auto;
+     background-repeat: no-repeat;
+}
+.OMX_legal_footer_Image_FR {
+    background: #{inline_image("OMX_Legal_Footer_FR.jpg")};
+    height: 120px;
+    margin: 0px auto;
+    background-repeat: no-repeat;
+    
+}
+.OMZ_legal_footer_Image_FR {
+    background: #{inline_image("OMZ_Legal_Footer_FR.jpg")};
+     height: 120px;
+     margin: 0px auto;
+     background-repeat: no-repeat;
+}
+.customerCard_HeaderImage{
+   background: #{inline_image("Triangle_Indicator_Bar.jpg")};
+   height: 50px;
+   position: relative;
+   background-repeat: no-repeat;
+}
+.approvedTable{
+ width: 100%;
+ box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+}
+#headerIamge{
+width: 100%;
+height: 50px;
+}
+
+.text_with_redColor{
+    font-size: 20px;
+    color: #df1b23;
+    font-family: Lato;
+    padding-left: 50px;
+}
+.text_under_review{
+    font-size: 20px;
+    font-family: Lato;
+    padding-left: 50px;
+}
+.text_under_review_pending{
+    font-size: 20px;
+     font-family: Lato;
+   
+}
+.declined_pageTitle{
+text-align: left;
+}
+.text_what_next{
+    font-size: 25px;
+     font-family: Lato;
+    padding-left: 50px;
+}
+#examFinalStep  {
+   text-align: left;
+  } 
+ #review_list_td{
+  padding-left: 30px;
+ }   
+ #div_note{
+ text-align: left;
+ }
+.text_under_review_p{
+    font-size: 20px;
+    font-family: Lato;
+    padding-left: 50px;
+    -webkit-margin-after: 0em;
+}
+
+.text_with_redColor_Note{
+    font-size: 20px;
+    color: #df1b23;
+    font-family: Lato;
+    padding-left: 50px;
+}
+.text_under_review_pending_p{
+  font-size: 20px;
+  font-family: Lato;
+  -webkit-margin-before: 0.5em;
+
+}
+.text_under_review_verification_pending_p{
+  font-size: 20px;
+  font-family: Lato;
+  -webkit-margin-before: 0.5em;
+  padding-left: 50px;
+
+}
+
+.text_under_review_p_before_space{
+   font-size: 20px;
+   font-family: Lato;
+  -webkit-margin-before: 0.5em;
+  -webkit-margin-before: 0.5em;
+   padding-left: 50px;
+}
+#order_item_li
+{
+padding-left: 2px;
+
+}
+#order_item_li > li {
+  list-style-type: none;
+  counter-increment: item;
+  padding: 0 0 0 4em;
+  text-indent: -1em;
+  counter-increment: item;
+  list-style-type: none;
+}
+
+#order_item_li > li:before {
+  display: inline-block;
+  width: 1em;
+  padding-right: 0.5em;
+  font-weight: bold;
+  text-align: right;
+  content: counter(item) ".";
+}
+#pending_french{
+padding-left: 200px;
+
+
+}
+
+.eligibilityReqirementFont {
+    font-family: Lato;
+    text-align: left;
+    font-size: 13pt;
+    font-color: #000;
+}
+.scrollbar_creditDiscloure {
+    float: left;
+    height: 350px;
+    width: 780px;
+    background: #ffffff;
+    overflow-y: scroll;
+    border-style: solid;
+    border-color: #CCCCCC;
+    
+}
+#header_scetion_id.ui-header > .ui-btn 
+{ display: none; }
+
+.box_content{
+ width: 800px;
+ margin-left: -150px 
+}
+
+.creditDiscloseTitle{
+font-family: Lato;
+ text-align: center;
+ font-size: 15pt;
+
+}
+
+

@@ -30,9 +30,10 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
 	// US4637
 	private static final String MODEL_EMAILINFO_SCREEN = "emailInfoScreen";
+	private static final String MODEL_MOBILEPAYMENTS_SCREEN = "mobilePaymentsScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
-	private static final String ASC_ECTM="2277"; //New Asc for US3381 - CP Revitalization //ASC_ECTM="3377";  
+	private static final String ASC_ECTM="1177"; //New Asc added for US4926 - Instant Issuance WICI - TSYS Enstream Integration //ASC_ECTM="2277"; //ASC_ECTM="3377";  
 	private static final String ASC_DEFAULT="5577";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
@@ -143,6 +144,7 @@ public class AccountApplicationRequestTypeConverter
                     populateOptionalProductsModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
                     // US4637
                     populateEmailInfoModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
+                    populateMobilePaymentsModel(argCreditCardApplicationData, populatedAccountApplicationRequest);
 
                     try
                     {
@@ -488,7 +490,7 @@ public class AccountApplicationRequestTypeConverter
 
 				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
-			    argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
+			    //argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
 				
 				
 				// Moved to EmailInfo model
@@ -603,6 +605,26 @@ public class AccountApplicationRequestTypeConverter
 			{
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
+			}
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void populateMobilePaymentsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
+		String sMethod = "[populateMobilePaymentsModel()]";
+		log.info(sMethod);
+
+		BaseModel model;
+		try
+		{
+			model = argCreditCardData.getModel(MODEL_MOBILEPAYMENTS_SCREEN);
+			if (model != null)
+			{
+				argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
 			}
 		}
 		catch (Exception e)

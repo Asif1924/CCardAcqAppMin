@@ -132,7 +132,7 @@ public class AccountApplicationRequestThread implements Work
 		try
 		{
 			WICIDBHelper wicidbHelper = new WICIDBHelper();
-			wicidbHelper.updateAccountApplicationData(argTransactionID, argAccountApplicationResponse, argTransactionState,appStatus);
+//			wicidbHelper.updateAccountApplicationData(argTransactionID, argAccountApplicationResponse, argTransactionState,appStatus);
 			
 			//If the app is approved, set the initial value of its retrieval count
 			new WICIDBHelper().updateRetrievalCountForApprovedApp(argTransactionID);

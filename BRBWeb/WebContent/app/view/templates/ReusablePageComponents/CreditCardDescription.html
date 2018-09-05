@@ -41,13 +41,13 @@
 	                 {{if cardType === "OMX"}}
 	                   <p class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForTriangleMastercard"></p>
 	                 {{else cardType === "OMZ"}}  
-	                    <p class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForWorld_elite_card"></p>
+	                    <p id="OMZ_title" class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForWorld_elite_card"></p>
 	                 {{/if}}
 	               </td>
 	                 {{if cardType === "OMX"}}
 	                   <td class="Width_TD_30 OMXCard4percentage"></td>
 	                 {{else cardType === "OMZ"}}   
-	                    <td class="Width_TD_30 OMZCard4percentage"></td>
+	                    <td id="OMZ_image" class="Width_TD_30 OMZCard4percentage"></td>
 	                 {{/if}}
 	                 </td>
 	          </tr>

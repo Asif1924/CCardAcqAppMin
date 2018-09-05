@@ -79,7 +79,9 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
     		step5							:	'#steps5',
     		horizontalLineOne               :   '#Page_5_HR_line_1',
     		horizontalLineTwo               :   '#Page_5_HR_line_2',
-    		IdentityVerification_PageContents	:	'#IdentityVerification_PageContents'
+    		IdentityVerification_PageContents	:	'#IdentityVerification_PageContents',
+    		DeclinedContent                 :   '#DeclinedContent',
+    		examFinalStepPendingVerification : '#examFinalStepPendingVerification'
     };
     var model = new BRB.BaseModel({
         name: 'identityVerification',
@@ -386,7 +388,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		BRB.Log(sMethod + '::Response::' + argResponse);
 		if (argResponse.error == true) {
 			BRB.Log(sMethod + '::Response Error::' + argResponse.msg);
-			showErrorPendingScreen();
+			showErrorDelinedScreen();
 			return;
 		}
 		var identityExamModel = app.identityExamHelper.updateIdentityExamResponseObject(argResponse);
@@ -403,7 +405,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 			adjudicationSuccess(argResponse);
 		}else {
 			BRB.Log(sMethod + '::FAILED');
-			showErrorPendingScreen();
+			showErrorDelinedScreen();
 		}	    
 	}
 	//---------------------------------------------------------------------------------------
@@ -412,7 +414,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		BRB.Log(sMethod);
 //		invokeAdjudication(adjudicationSuccess, adjudicationFailed);
 		app.flowStateHelper.setBRBTransIdRecordAlreadyDeleted();
-		showErrorPendingScreen();
+		showErrorDelinedScreen();
 	}
 	//---------------------------------------------------------------------------------------
 	function showMessageForDataValidationIssue()
@@ -430,8 +432,9 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         BRB.Log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
         updateAdjudicationModel(argResponse, true);
         if (argResponse.error == true) {
-    		BRB.Log(sMethod + '::Response Error::' + argResponse.msg);
-    		showErrorPendingScreen();
+    		BRB.Log(sMethod + '::Response Error: testing called pending screen:' + argResponse.msg);
+    		//showErrorPendingScreen();
+    		showErrorDelinedScreen();
     		return;
         }
         var response = getAAResponse();
@@ -445,7 +448,15 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         if (response && response.appStatus && response.appStatus == "PENDING"){
         	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
      		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);   
-        	BRB.Log(sMethod + '::Response PENDING::' + argResponse.msg);       	
+        	BRB.Log(sMethod + '::Response PENDING::' + argResponse.msg); 
+        	BRB.Log(sMethod + '::Response queueName::' + response.queueName); 
+        	
+        	if( response.queueName == "STOREID" ){
+        		BRB.Log(sMethod + '::showPendingVerificationScreen::'); 
+        		showPendingVerificationScreen();
+            	return;	
+        	}
+        	
         	showPendingScreen();
         	return;
         }
@@ -453,7 +464,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
      		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
         	BRB.Log(sMethod + '::Response DECLINED::' + argResponse.msg);       	
-        	showPendingScreen();
+        	showErrorDelinedScreen();
         	return;
         }
  	}
@@ -465,8 +476,10 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         BRB.Log(logPrefix + sMethod + "\n" + JSON.stringify(argResponse));
         updateAdjudicationModel(argResponse, false);
         new BRB.LoadingIndicatorController().hide();
-//      showPendingScreen();
-        showErrorPendingScreen();
+       // showPendingScreen();
+        showErrorDelinedScreen(); 
+       
+      
 	}
 	//---------------------------------------------------------------------------------------
 	function updateAdjudicationModel(argResponse, isSuccessful){
@@ -547,8 +560,11 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         resizeSuccessBlockHeight();
         // Show header language button
         $(refs.examFinalStep).show();
+        $(refs.DeclinedContent).hide();
+        $('#examFinalStepDeclined').hide();
+        $(refs.examFinalStepPendingVerification).hide();
         /*2016-03-11 chrch: updating css for display (US3964) */
-        $(refs.examFinalStep).css('display', 'inline-block');
+      //  $(refs.examFinalStep).css('display', 'inline-block');
 		$(refs.languageButton).show();
 		$(refs.pendingDeclinedApproved).show();
 		$(refs.tuAuthQuestionsHeaderPart).hide();
@@ -560,14 +576,41 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	}
 	//---------------------------------------------------------------------------------------
 	function showPendingScreen(){
-		if (tuFailed){
-			showErrorPendingScreen();
+		BRB.Log("showPendingScreen....tuFailed" + tuFailed);
+		// US4675 : If TU fail/pass, showing pending screen for appStatus is PENDING.
+		/*if (tuFailed){
+			showErrorDelinedScreen();
 			return;
-		}
+		}*/
 		app.flowStateHelper.setFlowFinish();
 		hideGroupOfBlocksOnResult();
 		resizeMessageBlockHeight();
 		$(refs.examFinalStepPending).show();
+		$(refs.DeclinedContent).hide();
+		$(refs.examFinalStepPendingVerification).hide();
+		// Show header language button
+		$(refs.languageButton).show();
+		$(refs.pendingDeclinedApproved).show();
+		$(refs.tuAuthQuestionsHeaderPart).hide();
+		$(refs.step5).hide();
+		$(refs.IdentityVerification_PageContents).addClass("paddingBottom40");
+		$(refs.IdentityVerification_PageContents).removeClass("grayTableSpacerTop40");
+		$(refs.examTable).removeClass("fieldLabelsCell paddingLeftZero grayTableBottomBorder");
+		new BRB.LoadingIndicatorController().hide();
+	}
+		
+	function showPendingVerificationScreen(){
+		BRB.Log("showPendingVerificationScreen....tuFailed" + tuFailed);
+		/*if (tuFailed){
+			showErrorDelinedScreen();
+			return;
+		}*/
+		app.flowStateHelper.setFlowFinish();
+		hideGroupOfBlocksOnResult();
+		resizeMessageBlockHeight();
+		$(refs.examFinalStepPending).hide();
+		$(refs.examFinalStepPendingVerification).show();
+		$(refs.DeclinedContent).hide();
 		// Show header language button
 		$(refs.languageButton).show();
 		$(refs.pendingDeclinedApproved).show();
@@ -579,11 +622,13 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		new BRB.LoadingIndicatorController().hide();
 	}
 	//---------------------------------------------------------------------------------------
-	function showErrorPendingScreen(){/*First case if response FAILED*/
+	function showErrorDelinedScreen(){/*First case if response FAILED*/
 		app.flowStateHelper.setFlowFinish();
 		hideGroupOfBlocksOnResult();
 		resizeMessageTUBlockHeight();
-		$(refs.examFinalStepPending).show();
+		$(refs.examFinalStepPending).hide();
+		$(refs.DeclinedContent).show();
+		$(refs.examFinalStepPendingVerification).hide();
 		$(refs.tuPendingending).show();
 		// Show header language button
 		$(refs.languageButton).show();
@@ -629,6 +674,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	//---------------------------------------------------------------------------------------
 	function hideGroupOfBlocksOnResult() {
 		$(".card").hide();
+		$(refs.examFinalStep).hide();
 		$('#protection_note').hide();
 		$(refs.footerNote).hide();
 		$(refs.titleBlock).hide();
@@ -643,11 +689,24 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 			$(refs.horizontalLineOne).addClass('Width_TD_14');
 			$(refs.horizontalLineTwo).removeClass('Width_TD_10');
 			$(refs.horizontalLineTwo).addClass('Width_TD_14');
+			
+			$("#OMX_legal_footer_id").removeClass('OMX_legal_footer_Image_FR');
+			$("#OMX_legal_footer_id").addClass('OMX_legal_footer_Image_EN');
+			$("#OMZ_legal_footer_id").removeClass('OMZ_legal_footer_Image_FR');
+			$("#OMZ_legal_footer_id").addClass('OMZ_legal_footer_Image_EN');
+			$("#pending_french").hide();
+			
 		}else {
 			$(refs.horizontalLineOne).removeClass('Width_TD_14');
 			$(refs.horizontalLineOne).addClass('Width_TD_10');
 			$(refs.horizontalLineTwo).removeClass('Width_TD_14');
 			$(refs.horizontalLineTwo).addClass('Width_TD_10');
+			
+			$("#OMX_legal_footer_id").removeClass('OMX_legal_footer_Image_EN');
+			$("#OMX_legal_footer_id").addClass('OMX_legal_footer_Image_FR');
+			$("#OMZ_legal_footer_id").removeClass('OMZ_legal_footer_Image_EN');
+			$("#OMZ_legal_footer_id").addClass('OMZ_legal_footer_Image_FR');
+			$("#pending_french").show();
 		}
 	}
 };

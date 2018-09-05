@@ -2,7 +2,7 @@
 	<span><!-- Dont remove span, IE8!!! -->
 	<div id="BreadcrumbTrailArea1" class="container-fluid breadcrumbHeader breadcrumbHeaderOverviewPage">	
 	{{if !isMOA }}	
-		<div class="customMargin row">
+		<div class="breadcrumBorder row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-2">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
 				</div>
@@ -24,7 +24,7 @@
 				</div>
 		</div>
 		{{else}}
-		     <div class="customMargin row">
+		     <div class="breadcrumBorder row">
 				<div style="padding-right: 0px;padding-left: 0px;" class="prevSelectedBreadcrumbCell col-sm-3">
 					<span class="BreadcrumbTextStyle selectedBreadcrumb" data-translationKey="breadCrumbItem_Overview"></span>
 				</div>
@@ -42,6 +42,7 @@
 				</div>
 		   </div>
 		{{/if}}	
+		    <br><br>
 		     <table id="steps4" class="tableNoBorder stretchThisTable_overview">
 				  <tr class="tableNoBorder">
 				      <td id="Page_4_HR_line_1" class="Width_TD_15 hrAttributes"></td>
@@ -200,7 +201,8 @@
 									{{if cardType === "OMX"}}
 									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
 									{{else cardType === "OMZ"}} 
-									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li> 
+									    <li id="confirmation_Application_Authorization_Item2_OMZ_01_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li> 
+									    <li id="confirmation_Application_Authorization_Item2_OMX_01_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
 									{{/if}}
 									
 									<br>
@@ -218,7 +220,8 @@
 									{{if cardType === "OMX"}}
 									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
 									{{else cardType === "OMZ"}} 
-									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li> 
+									    <li id="confirmation_Application_Authorization_Item2_OMZ_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li>
+									    <li id="confirmation_Application_Authorization_Item2_OMX_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li> 
 									{{/if}}
 									
 									<br>
@@ -235,6 +238,8 @@
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item5"></span></li>
 									<br>
 									<li><p class="privacylistItemLargeText boldSpan" data-translationKey="confirmation_Application_Authorization_Item6"/></li>
+									<br>
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item6a"></span></li>
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7"></span></li>
 									<br>
@@ -364,7 +369,8 @@
 									<span data-translationKey="confirmation_footnoteContentText01_OMX"></span>
 									<!-- US4591 OMZ -->
 									 {{else cardType === "OMZ"}} 				
-									<span data-translationKey="confirmation_footnoteContentText01_OMZ"></span>
+									<span id="confirmation_footnoteContentText001_OMZ_ID" data-translationKey="confirmation_footnoteContentText01_OMZ"></span>
+									<span id="confirmation_footnoteContentText001_OMX_ID"  data-translationKey="confirmation_footnoteContentText01_OMX"></span>
 									{{/if}}
 									<br>
 									<span class="additionalInformationFootnoteAsterixFontSize">**</span>
@@ -385,7 +391,8 @@
 									<p data-translationKey="confirmation_footnoteContentText01_OMX"></p>
 									<!-- US4591 OMZ -->
 									{{else cardType === "OMZ"}} 					
-								      <p data-translationKey="confirmation_footnoteContentText01_OMZ"></p>
+								      <p id="confirmation_footnoteContentText01_OMZ_ID" data-translationKey="confirmation_footnoteContentText01_OMZ"></p>
+								      <p id="confirmation_footnoteContentText01_OMX_ID"  data-translationKey="confirmation_footnoteContentText01_OMX"></p>
 								      {{/if}}
 								<!--	<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
 									<span data-translationKey="confirmation_footnoteContentText02"></span>

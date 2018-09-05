@@ -143,7 +143,6 @@ public class TokenizationHelper
 			// Get RequestingSystem info by brbTransactionId from
 			// CustomerTransaction table
 			ICustomerTransactionTableEntity customerTransactionTblEntity = new BRBDBHelper().getFromCustomerTransactionTable(brbTransactionId);
-
 			// Get formatted date time
 			String formattedDate = getFormattedTimeStump();
 			

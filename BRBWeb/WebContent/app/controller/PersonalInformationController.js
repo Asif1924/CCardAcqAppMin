@@ -62,11 +62,11 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		correspondenceEnglish			:	'#personalInformation_LanguageEnglish',
     		correspondenceFrench			:	'#personalInformation_LanguageFrench',
     		
-    		primaryPhone1					:	'#personalInformation_PrimaryPhone1_TextField',
-    		primaryPhone2					:	'#personalInformation_PrimaryPhone2_TextField',
-    		primaryPhone3					:	'#personalInformation_PrimaryPhone3_TextField',
+    		homePhone1					:	'#personalInformation_HomePhone1_TextField',
+    		homePhone2					:	'#personalInformation_HomePhone2_TextField',
+    		homePhone3					:	'#personalInformation_HomePhone3_TextField',
     		
-    		primaryPhone					:	"#personalInformation_PrimaryPhone_Control",
+    		homePhone					:	"#personalInformation_HomePhone_Control",
     		
     		sin								:	'#personalInformation_SocialInsurance',
     		sin1							:	'#personalInformation_SocialInsurance1_TextField',
@@ -148,7 +148,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		personalInformation_AddressSince_YearID		:	'#personalInformation_AddressSince_YearID',
     		personalInformation_EmployerSince_YearID		:	'#personalInformation_EmployerSince_YearID',
             personalInformation_Horizontal_Line_1  : '#Page_2_HR_line_1',
-            personalInformation_Horizontal_Line_2  : '#Page_2_HR_line_2'
+            personalInformation_Horizontal_Line_2  : '#Page_2_HR_line_2',
+            phone_Type : '#personalInformation_PhoneType_TextField'
+            
     };
     
     var model = new BRB.BaseModel({
@@ -171,10 +173,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {name: 'email',         			value: null, validation: { type: 'email',       message: 'personalInformation_EmailAddressError',group:[1]} },
                 {name: 'receiveEmail',				value: false, validation: null },
                 {name: 'correspondence',			value: null, validation: { type: 'presence',    message: 'personalInformation_PreferredLanguageError',group:[1]} },
-                /*{notField:true, name: 'primaryPhone1',     		value: null, validation: { type: 'phoneShortPart',       message: '', group:[1] } },
-                {notField:true, name: 'primaryPhone2',     		value: null, validation: { type: 'phoneShortPart',       message: '', group:[1] } },
-                {notField:true, name: 'primaryPhone3',     		value: null, validation: { type: 'phoneLongPart',       message: '', group:[1] } },*/
-                {name: 'primaryPhone',     			value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', group:[1] } },
+                {name: 'homePhone',     			value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', group:[1] } },
+                {name: 'phone_Type',         		value: null, validation: { type: 'presence',   message: ' ', group:[1]} },
                 {name: 'sin',         				value: null, validation: { type: 'sin', message: 'personalInformation_SINError', canBeEmpty: true, group: [1] } },
                 {name: 'streetnumber',          	value: null, validation: {type: 'streetNumber',     message: 'personalInformation_StreetError', group:[1]} },
                 {name: 'addressline1',          	value: null, validation: {type: 'addressLine',   	message: 'personalInformation_StreetNameError', group:[1]} },
@@ -207,7 +207,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                                 
                 {name: 'howLongMonthes',    		value: null, validation: {type: 'month',   message: 'personalInformation_EmployerSinceMonthError', group:[4]} },
                 {name: 'howLongYears',			    value: null, validation: {type: 'year',   message: 'personalInformation_EmployerSinceYearError', group:[4]} },
-                {name: 'grossIncome',     			value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualIncomeError', matcher: /\d+/, group:[5] }, containerUiid: 'grossIncomeContainer' },
+                {name: 'grossIncome',     			value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualIncomeError_OMX', matcher: /\d+/, group:[5] }, containerUiid: 'grossIncomeContainer' },
                 // US3961
                 {name: 'grossHouseholdIncome',   	value: null, validation: { type: 'format', message: 'personalInformation_GrossAnnualHouseholdIncomeError', matcher: /\d+/, group:[5], canBeEmpty: true }, containerUiid: 'grossHouseholdIncomeContainer' },
                 
@@ -217,7 +217,13 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
               	{name: 'cardChequingAcct',  		value: null, validation: null },
               	{name: 'cardGasCard',  				value: null, validation: null },
               	{name: 'cardSavingsAcct',  			value: null, validation: null },
-              	{name: 'isAnyBankingProducts',      value: null, validation: null }
+              	{name: 'isAnyBankingProducts',      value: null, validation: null },
+              	{name: 'cellPhone', value: null, validation: null },
+              
+              	
+              	
+              	
+              	
            ]
     });    
     
@@ -234,7 +240,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         
         cardTypeGlobal = activationItems.getModel('overview').get('cardType');
 		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
-        
+      
+		
         flow = argFlow;  
         translator = argTranslator;         //(AA)Dependency Injection Principle: Allows for proper unit testing
         messageDialog = argMessageDialog;   //(AA)Dependency Injection Principle: Allows for proper unit testing
@@ -268,7 +275,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 //        
         
 		createView();
-		
+		hideOMXContent();
+		//dispalyEligibilityRequirement();
 //		fillControlsWithData();		
 //		bindEvents();
 //		
@@ -356,9 +364,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     	
         $(refs.email).val(model.get('email'));
         
-        $(refs.primaryPhone1).val(model.get('primaryPhone').substr(0, 3));
-        $(refs.primaryPhone2).val(model.get('primaryPhone').substr(3, 3));
-        $(refs.primaryPhone3).val(model.get('primaryPhone').substr(6, 4));
+        $(refs.homePhone1).val(model.get('homePhone').substr(0, 3));
+        $(refs.homePhone2).val(model.get('homePhone').substr(3, 3));
+        $(refs.homePhone3).val(model.get('homePhone').substr(6, 4));
+        $(refs.phone_Type).val(app.ie9SelectHelper.getRightSelectValue(model.get('phone_Type')));
         
         sin = model.get('sin');
         if (sin) {
@@ -519,7 +528,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         //$(refs.employmentType).val(model.get('employmentType'));
         $(refs.jobTitle).val(model.get('jobTitle'));
         $(refs.howLongMonthes).val(model.get('howLongMonthes'));
-        $(refs.howLongYears).val(model.get('howLongYears'));  
+        $(refs.howLongYears).val(model.get('howLongYears')); 
+        $(refs.phone_Type).val(app.ie9SelectHelper.getRightSelectValue(model.get('phone_Type')));
         // US3622
         restoreEmploymentInformationUserData();
         updateEmployerInformationArea();
@@ -630,16 +640,17 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         currentModel.set('age', model.calculateAge(model));
         BRB.Log(logPrefix + sMethod + " age :: after sync:: " + model.calculateAge(model));
         
-        /*if(app.getIsMOARequest()) {
-        	currentModel.set('email',      		"frommoa@ctfs.com");
-        }else {
-              currentModel.set('email',      		$(refs.email).val().toUpperCase());
-        }*/
-        /*model.set('primaryPhone1',  	$(refs.primaryPhone1).val());
-        model.set('primaryPhone2',  	$(refs.primaryPhone2).val());
-        model.set('primaryPhone3',  	$(refs.primaryPhone3).val());*/
-        currentModel.set('primaryPhone',  		$(refs.primaryPhone1).val() + $(refs.primaryPhone2).val() + $(refs.primaryPhone3).val());
-               
+       // currentModel.set('phone_Type', $(refs.phone_Type).val());
+        currentModel.set('homePhone' , $(refs.homePhone1).val() + $(refs.homePhone2).val() + $(refs.homePhone3).val());
+        
+       // BRB.Log(logPrefix + sMethod + " homePhone :: after sync:: " + $(refs.homePhone1).val() + $(refs.homePhone2).val() + $(refs.homePhone3).val());
+		
+		//console.log('syncAboutYourselfUserData the phone_Type.'+model.get('tempPhoneType'));
+		
+		if(currentModel.get('phone_Type') == 'Mobile' ){
+			currentModel.set('cellPhone' , currentModel.get('homePhone'));
+		  }
+            
         currentModel.set('sin',      		_.isEmpty($(refs.sin1).val() + $(refs.sin2).val() + $(refs.sin3).val()) ? null : $(refs.sin1).val() + $(refs.sin2).val() + $(refs.sin3).val());
         currentModel.set('streetnumber',   	$(refs.streetnumber).val().toUpperCase());
         currentModel.set('addressline1',   	$(refs.addressline1).val().toUpperCase());
@@ -747,6 +758,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         	syncAllUserData();
         }
         
+       
         BRB.Log(logPrefix + sMethod +' model data: \n' + model.toString());
     }
     
@@ -817,6 +829,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	}
 	
 	function popup(argScreenBelow, popupHideCallback, argBlockName, argFlow) {
+		
+		var sMethod = 'popup() ';
+        BRB.Log(logPrefix + sMethod);
+		
 		screenBelow = argScreenBelow;
 		blockName = argBlockName;
 		popupHideEventHandler = popupHideCallback;
@@ -912,7 +928,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			assembleNavigationBarAtTop();
 			//note order is important
 			assemblePageHTML($screenContainer, "#BRBPersonalInformation-template");
-			insertAfterElement($(refs.steps2), "#creditCardDescription-template");
+			insertAfterElement($(refs.steps2), "#personalInformationCreditCardDescription-template");
 			$screenContainer.addClass("breadcrumbPadding");
 		} else {
 			assemblePageHTML($screenContainer, "#BRBPersonalInformation-template");
@@ -1020,6 +1036,15 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		$(refs.jobTitle_SelectField).change(function() {			
 			bindJobTitleOther();
 		});
+		$(refs.phone_Type).change(function() {
+			model.set('phone_Type', $(refs.phone_Type).val());
+			model.set('homePhone' , $(refs.homePhone1).val() + $(refs.homePhone2).val() + $(refs.homePhone3).val());
+			//console.log('the primary phone value '+ model.get('homePhone') +  'the phone Type ' + model.get('phone_Type') );
+			if(model.get('phone_Type') == 'Mobile' ){
+				model.set('cellPhone' , model.get('homePhone'));
+				
+			  }
+		});
 		
 		if(!argPopup) {
 			bindTranslationCallbacks();
@@ -1124,19 +1149,19 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     //---------------------------------------------------------------------------------------
 	function bindAutoTabbing() {
 		
-		$(refs.primaryPhone1).keyup(function(event) {
+		$(refs.homePhone1).keyup(function(event) {
 			if ($(this).val().length == 3) {
 				if (event.keyCode != 9) {
-					$(refs.primaryPhone2).focus();
-					$(refs.primaryPhone2).select();
+					$(refs.homePhone2).focus();
+					$(refs.homePhone2).select();
 				}
 			}
 		});
 		
-		$(refs.primaryPhone2).keyup(function(event) {
+		$(refs.homePhone2).keyup(function(event) {
 			if ($(this).val().length == 3) {
 				if (event.keyCode != 9) {
-					$(refs.primaryPhone3).focus();
+					$(refs.homePhone3).focus();
 				}
 			}
 		});
@@ -1189,8 +1214,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		$(refs.sinceYears).unbind();
 		$(refs.sinceMonths).unbind();
 		$(refs.employmentType).unbind();
-		$(refs.primaryPhone1).unbind();
-		$(refs.primaryPhone2).unbind();
+		$(refs.homePhone1).unbind();
+		$(refs.homePhone2).unbind();
 		$(refs.sin1).unbind();
 		$(refs.sin2).unbind();
 		$(refs.postalcode1).unbind();
@@ -1215,12 +1240,12 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
             	$(refs.postalcode1).val(profilePostalCode.substr(0, 3));
             	$(refs.postalcode2).val(profilePostalCode.substr(3, 3));       		
         	}
-
-        	var phoneNumber = profileInfoModel.getPhoneNumber();
-        	if (phoneNumber) {
-            	$(refs.primaryPhone1).val(phoneNumber.substr(0, 3));
-            	$(refs.primaryPhone2).val(phoneNumber.substr(3, 3));
-            	$(refs.primaryPhone3).val(phoneNumber.substr(6, 4));        		
+                
+        	var homePhone = profileInfoModel.getPhoneNumber();
+        	if (homePhone) {
+            	$(refs.homePhone1).val(homePhone.substr(0, 3));
+            	$(refs.homePhone2).val(homePhone.substr(3, 3));
+            	$(refs.homePhone3).val(homePhone.substr(6, 4));        		
         	}
 
         	// parse AddressLine value
@@ -1337,6 +1362,11 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		var jobTitlesList = new BRB.JobTitlesList(translator);
 		jobTitlesList.fillSelectControl(refs.jobTitle_DropDown);
 		
+		var phoneTypeList = new BRB.PhoneTypeList(translator);
+		 phoneTypeList.fillSelectControl(refs.phone_Type);
+		
+		
+		
 		fillDaysControl(refs.dateOfBirth_Day);
 		toggle10XImege();
 		toggleHeader();
@@ -1447,9 +1477,9 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			$(refs.housingpayment).autoNumeric(formatType, {aSign: '', vMin: '0', vMax: '9999', mDec: '0', wEmpty: 'sign', aSep: ' '});			
 		}
 		
-		$(refs.primaryPhone1).numeric();
-		$(refs.primaryPhone2).numeric();
-		$(refs.primaryPhone3).numeric();
+		$(refs.homePhone1).numeric();
+		$(refs.homePhone2).numeric();
+		$(refs.homePhone3).numeric();
 		
 		$(refs.sin1).numeric();
 		$(refs.sin2).numeric();
@@ -1484,12 +1514,14 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 
         syncUserData();
 
-        if (!validate()) {
+        if (!validate() ) {
         	return;
         }
-
+        if (!OMZIncomeValidationWithResidetionalStatus(model.get('grossIncome'), model.get('grossHouseholdIncome')) ||  !OMZIncomeValidation(model.get('grossIncome'), model.get('grossHouseholdIncome')) ) {
+        	return;
+        }
+       
         $(refs.makeCorrectionSection).hide();
-		
 		// US3961        
         checkGrossAnnualIncome(model.get('grossIncome'), grossAnnualHouseholdIncome, true);
         // checkGrossAnnualIncome(model.get('grossIncome'), flowNext, true); // Old
@@ -1572,7 +1604,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		var rez = [];
 		rez.push({
 			name : 'grossIncome',
-			err : 'personalInformation_GrossAnnualIncomeError',
+			err : 'personalInformation_GrossAnnualIncomeError_OMZ',
 			uiid: refs.grossIncome
 		});
 		
@@ -1699,6 +1731,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         if ((currentModel === null) || (currentModel === undefined)) {
         	currentModel = model;
         }
+            
         
         return currentModel.validate(5);
 	}	
@@ -1770,4 +1803,83 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 			$(refs.personalInformation_Horizontal_Line_2).addClass('Width_TD_08');
 		}
 	}
-}
+	
+	//US4962
+	
+ function OMZIncomeValidationWithResidetionalStatus(grossIncome, houseHoldIncome) {
+	 var sMethod = 'OMZIncomeValidationWithResidetionalStatus()() ';
+     BRB.Log(logPrefix + sMethod + "  "+ grossIncome + "======"+ houseHoldIncome+ "selected Cardtype"+  cardTypeGlobal + " Residentioal Status"  +model.get('house') );
+		if (  grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000 &&  ( model.get('house') == 'M' || model.get('house') == 'P') ) {
+			 dispalyEligibilityRequirement();
+			 return false;
+		}
+		
+		return true;
+	
+   }
+ 
+     function OMZIncomeValidation(grossIncome, houseHoldIncome) {
+	    var sMethod = 'OMZIncomeValidation() ';
+	    BRB.Log(logPrefix + sMethod);
+	   if(activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000  &&  ( model.get('house') == 'M' || model.get('house') == 'P')) {
+		 return true;
+	   }
+	   if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000 &&  ( model.get('house') == 'O' || model.get('house') == 'R') ) {
+		   return true;
+		}
+	    
+		if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" ) {
+			highlightGrossAnnualIncome();
+			$(refs.grossIncome).focus();
+			return  false;
+		 }
+		 return true;
+	
+   }
+ 
+ 
+ //US4995
+  function dispalyEligibilityRequirement()
+  {   var sMethod = 'dispalyEligibilityRequirement() ';
+      BRB.Log(logPrefix + sMethod );
+      var message = translator
+		.translateKey('personalInformation_EligibilityText');
+      messageDialog.htmlReqirementEligibilityConfirm(message, yesCallback , noCallback);
+      return false;
+      
+   } 
+	
+	function yesCallback() {
+		var sMethod = 'yesCallback() ';
+        BRB.Log(logPrefix + sMethod);
+        var startButton = translator
+		.translateKey('overview_startApplication_Button_Label');
+        var noButton = translator
+		.translateKey('confirmDialog_no');
+        messageDialog.htmlCreditDisclosureInfo(startButton, noButton, translator);
+        activationItems.getModel('overview').set('cardType', "OMX");
+        return false;
+	}
+	
+	function noCallback() {
+		var sMethod = 'noCallback() ';
+        BRB.Log(logPrefix + sMethod);
+        return false;
+	}
+	
+	function hideOMXContent() {		
+		var sMethod = 'hideOMXContent() ';
+        BRB.Log(logPrefix + sMethod);
+		$("#OMX_title").hide();
+		$("#OMX_image").hide();
+		$("#OMZ_title").show();
+	    $("#OMZ_image").show();
+	    $("#personalInfo_CTM_OMZ").show();
+		$("#personalInfo_CTM_OMX").hide();
+		$("#personalInfo_LegalText2_OMZ_ID").show();
+		$("#personalInfo_LegalText2_OMX_ID").hide();
+		$("#personalInfo_LegalText20_OMZ_ID").show();
+		$("#personalInfo_LegalText20_OMX_ID").hide();
+	}
+	
+  };
