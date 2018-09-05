@@ -61,8 +61,9 @@ WICI.dictionary_en =  {
 	// US4637
 	breadCrumbItem_EmailInfo							:	"E-mail Info",	
 	breadCrumbItem_FinancialAndEmploymentInfo			:   "Financial and Employment Info",
-	breadCrumbItem_SupplementaryCard					:   "Supplementary Card",
+	breadCrumbItem_SupplementaryCard					:   "Supp Card",
 	breadCrumbItem_OptionalProducts						:   "Optional Products",
+	breadCrumbItem_MobilePayments					  	:	"Mobile Payments",
 	breadCrumbItem_Confirmation							:	"Confirmation",
 
 	loginScreen_UserID_Label							:	"User ID",
@@ -90,6 +91,8 @@ WICI.dictionary_en =  {
 	loginScreen_DemoModeAlert 							:   "You are logging into \n DEMO MODE \n Are you sure?",
 
 	loginScreen_EmployerIDLookup_FailedMessage			:	"Invalid Employer Id. Please correct and try again",
+	chooseProduct_PrinterConnected						:	"Printer is connected",
+	chooseProduct_PrinterNotConnected					:	"Printer is not connected. Please ensure printer is powered on, within<br> range and Bluetooth is connected before proceeding with application.",
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards 			: 	"CHOOSE ONE OF THE FOLLOWING CREDIT CARDS",
     chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
@@ -162,8 +165,8 @@ WICI.dictionary_en =  {
 	personalData_PlaceOfIssue							:	"ID Place of Issue",
 	
 	personalData_IDNumber								:	"ID Number",
-
-	personalData_DOB_18YearsError						:	"Must be 18 years of age or older to apply",
+    // US4976
+	personalData_DOB_18YearsError						:	"You must have reached the age of majority in your province to apply",
 	personalData_DOB_19YearsError						:	"Must be 19 years of age or older to apply",
 
 	personalData_ApplicantInfo 							: 	"APPLICANT INFORMATION",
@@ -179,8 +182,11 @@ WICI.dictionary_en =  {
 	personalData_LastName								:	"Last Name",
 	personalData_DateOfBirth							:	"Date of Birth",
 	personalData_EmailAddress							:	"Email Address",
+	personalData_EmailConsentText						:	"You may receive offers, promotions, contests, giveaways,  events, coupons and other information about products and services that may be of interest to you by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (“CTC”), Canadian Tire Services Limited (“CTS”), and Canadian Tire Bank (“CTB”), including from their respective business units operating under the Canadian Tire,  Triangle Rewards™ Program, Canadian Tire Drivers Academy®, Canadian Tire Home Services®, and Canadian Tire Roadside Assistance® brands, as well as from their other affiliates and/or marketing partners? You may contact CTC-CTS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or <a href='' target='_blank'>customerservice@canadiantire.ca.</a>. You may withdraw your consent at any time.<br><br>&nbsp&nbspPlease respond yes or no to receiving such electronic messaging.<br><br>",
 	personalData_HomePhone								:	"Home Phone",
 	personalData_CellPhone								:	"Cellular Phone<sup>*</sup>",
+	// US4926
+	mobilePayment_mobilePhone                           :   "Mobile Phone",
 	
 	// US4709
 	personalData_PrimaryPhone							:	"Primary Phone",
@@ -251,7 +257,7 @@ WICI.dictionary_en =  {
 	// US3623
 	personalData_PreviousAddress_NotInCanada			:	"Previous address is not in Canada:",
 
-	personalData_Note									:	"Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
+	personalData_Note									:	"<sup>*</sup> Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
 	
 	// US4637
 	EmailInfo_PageTitle									:	"E-MAIL INFORMATION",
@@ -542,8 +548,10 @@ WICI.dictionary_en =  {
 	optionalProducts_IWProducts							:   "<i><ul><li>Identity Watch Classic</li></ul></i>",
 	
 	// US3981
-	optionalProductScreen_Handoutprompts_Title			:	"Credit Protector Distribution Guide",
-	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Have you given the applicant the  Distribution Guide for their Credit Protector enrolment?",
+	optionalProductScreen_Handoutprompts_Title			:	"IMPORTANT",
+	optionalProductQCYES                                :   "Yes",
+	optionalProductQCNO                                 :   "No",
+	optionalProductScreen_Handoutprompts_YesNo_Message	:	"The Distribution Guide must be given to all customers that enrol in Credit Protector while in the province of Quebec. Have you given the applicant the Distribution Guide?",
 	optionalProductScreen_Handoutprompts_Ok_Message		:	"All applicants that enrol in  Credit Protector must be given a Distribution Guide before proceeding.",
 	
 	//-------US4131 Start --------------
@@ -979,6 +987,7 @@ WICI.dictionary_en =  {
 	signatureScreen_License4							:	'Canadian Tire Bank may collect, use and share personal information about me for the purposes described in the "Canadian Tire Privacy Charter" including marketing and selling by way of email, telephone, automatic dialing-announcing device or other form of telecommunication.',
 	signatureScreen_License5							:	"I will be bound by the terms and conditions of the Canadian Tire Bank Cardmember Agreement that I will receive with the Card, as such agreement may be amended from time to time. I will be solely liable for any charges to the account, including charges made by anyone to whom I have asked that you issue a supplementary card. I will be the only person who receives a monthly statement.",
 	signatureScreen_License6							:	"<u> You may obtain credit and other personal information about me from, and exchange such information with, credit reporting agencies.</u>",
+	signatureScreen_License6_newLine					:	"I consent to Canadian Tire Bank &#40;&#34;CTB&#34;&#41; verifying my personal information &#40;CTB Information&#41; including my name, address, date of birth, mobile number with my mobile service provider &#40;&#34;MSP&#34;&#41; and consent to my MSP providing CTB my account information &#40;account status, account type, etc.&#41;. The MSP information will be used to verify my identity and to conduct fraud analysis and fraud investigations.",
 	signatureScreen_License7							:	"Each person to whom I have asked that you issue a supplementary card has authorized me to provide you with the above information about them.",
 	signatureScreen_License8							:	"If I provide you with my Social Insurance Number, you may use it to identify me, including with credit reporting agencies.",
 	signatureScreen_License9							:	"I have read and understood this application and I have received a brochure containing additional disclosure relating to this application.",
@@ -987,6 +996,7 @@ WICI.dictionary_en =  {
 	signatureScreen_Reset_Button_Label             		:    "Clear Signature",
 
 	signatureScreen_TermsAndConditions_AcceptBox     	:    "I have read, understood and agree to the terms and conditions set out above for the ",
+	signatureScreen_TermsAndConditions_AcceptBox_MSPVerification              	:    " <b>and MSP verification.</b>",
 
 	signatureScreen_validation_acceptAgreement       	:    "Please accept Terms And Contitions",
 	signatureScreen_validation_signature             	:    "Please leave your signature",
@@ -1148,12 +1158,14 @@ WICI.dictionary_en =  {
 	printScreen_Button_Label                            :   "Reprint",
 
 	printScreen_TokenLabel								: 	"Reference&nbsp;#&nbsp;",
-	
+	// US4926
+	printScreen_MobilePayments_Para4					:	"Any Android device running<br> Android Kit Kat 4.4 or above",
 	printScreen_UnknownStatus                   		:   "Unknown application status",
 	
 	printScreen_ApplicationApproved_RedLabel          	:   "Your application has been <b class='RedLabel'>APPROVED!</b>",
 	printScreen_ApplicationApproved                   	:   "Your application has been APPROVED.",
-	printScreen_ApplicationApproved_OMX_OMZ            	:   "Your application has been <b class='RedLabel'>APPROVED</b> for the ",
+	printScreen_ApplicationApproved_OMX_OMZ            	:   "Your application for the ",
+	printScreen_ApplicationApproved_OMX_OMZ_Approved   	:   " has been <b class='RedLabel'>APPROVED</b>",
 	printScreen_ApplicationDeclined                   	:   "Unfortunately, we could not process your application response at this time. Please check your mail regularly.",
 	printScreen_ApplicationDeclined_OMX_DUPECONV        :   "<p align=\"center\" sytle=\"font-weight:normal;\">Our system noticed that you already have a Canadian Tire Options<sup>&reg;</sup> Mastercard<sup>&reg;</sup>.The name of the Canadian Tire Options Mastercard has changed to the Triangle Mastercard.This means that a Triangle Mastercard application is not required, and a credit bureau check was not completed. You are already a member in the Triangle Rewards program and you will receive the redesigned Triangle Mastercard when your existing Options Mastercard expires.</p>",
 
@@ -1181,7 +1193,9 @@ WICI.dictionary_en =  {
 	
 	// US4709
 	printScreen_ReceiveCard								:	"You should receive your physical card in 7-10 business days.",
-	printScreen_Register								:	"Register for Apple Pay or Google Pay and use your phone to make easy and secure payments where ‘tap and pay’ is accepted. Certain merchants may have established a maximum dollar limit for a single transaction. For example, the limit at Canadian Tire stores is $100.",
+	printScreen_Register_googlePay                      :   "Register for Google Pay",
+	printScreen_Register_applePay                       :   "Register for Apple Pay",
+	printScreen_Register								:	" and use your phone to make easy and secure payments where ‘tap and pay’ is accepted. Certain merchants may have established a maximum dollar limit for a single transaction. For example, the limit at Canadian Tire stores is $100.",
 	print_BeginSetup_Button								:	"BEGIN SETUP",
 	print_Done_Button									:	"DONE",
 	printScreen_SetUpIns								:	"Setup Instructions",
@@ -1340,7 +1354,7 @@ WICI.dictionary_en =  {
 	//******************************************
 
 	// personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&ldquo;CTC&rdquo;), Canadian Tire Financial Services Limited (&ldquo;CTFS&rdquo;), and Canadian Tire Bank (&ldquo;CTB&rdquo;), including from their respective business units operating under the Canadian Tire,  Canadian Tire Money Rewards Program (or Canadian Tire Money Advantage<sup>&reg;</sup> Program if you are a resident of Nova Scotia), Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
-	personalData_ReceiveEmail					        : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to you by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&quot;CTC&quot;), Canadian Tire Services Limited (&quot;CTS&quot;), and Canadian Tire Bank (&quot;CTB&quot;), including from their respective business units operating under the Canadian Tire, Triangle Rewards<sup style='font-size: .5em;'>TM</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other affiliates and/or marketing partners. You may contact CTC-CTS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or <span style=\"font-family: Helvetica, Arial, sans-serif; font-size: 12pt; color: #1569C7\";><u>customerservice@canadiantire.ca</u></span>. You may withdraw your consent at any time.<br> <p>Please respond yes or no to receiving such electronic messaging. </p>",
+	personalData_ReceiveEmail					        : "You may receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to you by email, text message &#40;standard text messaging and data rates may apply&#41; and other electronic messaging from Canadian Tire Corporation, Limited &#40;&quot;CTC&quot;&#41;, Canadian Tire Services Limited &#40;&quot;CTS&quot;&#41;, and Canadian Tire Bank &#40;&quot;CTB&quot;&#41;, including from their respective business units operating under the Canadian Tire, Triangle Rewards<sup>&trade;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from their other affiliates and/or marketing partners&#63; You may contact CTC-CTS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or <a href='' target='_blank'>customerservice@canadiantire.ca</a>. You may withdraw your consent at any time. <br> <p>Please respond yes or no to receiving such electronic messaging.</p>",
 	personalData_Yes								    : "&nbsp;&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData_No								        : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',

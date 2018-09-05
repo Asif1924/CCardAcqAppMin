@@ -69,14 +69,14 @@ WICI.ZebraPrinterController = function () {
         console.log('--------------------');
         var respCardType;
         if(app.getDemoMode()) {
-        	// Down sell in demo logic goes here
-        	if(activationItems.getModel('financialData').get('grossIncome') == "88888") {
-        		respCardType = applicationResponse.respCardType;
-        	} else {
-        		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
-        	}            	
+        	respCardType = activationItems.getModel('chooseProductModel').get('productCard');            	
         } else {
-        	respCardType = applicationResponse.respCardType;
+        // DE1735
+        	if(applicationResponse.appStatus === 'APPROVED'){
+        		respCardType = applicationResponse.respCardType;
+        	}else{
+        		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+        	}
         }        
         console.log(logPrefix + sMethod + " respCardType :: " + respCardType);
         

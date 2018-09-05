@@ -1,5 +1,5 @@
 <script id="WICIBreadcrumbs" type="text/x-jquery-tmpl">
-    <ul id="BreadcrumbTrailArea" class="breadcrumbs {{if isNotEmployee}}breadcrumbs-longer{{/if}}{{if current === 6}} breadcrumbs-full{{/if}} ScreenLayoutFullWidth">
+    <ul id="BreadcrumbTrailArea" class="breadcrumbs {{if isNotEmployee}} breadcrumbs-longer {{if current === 6 || current === 8 }} widthOptionalProductBreadcrum {{/if}} {{if current === 8 }} breadcrumbs-full {{/if}}  {{/if}} {{if !isNotEmployee}} {{if current === 6}} breadcrumbs-full{{/if}} {{/if}} ScreenLayoutFullWidth">
         <li class="{{if current === 1}}breadcrumbs-item-current{{else current > 1}}breadcrumbs-item-active{{/if}}">
             <span class="breadcrumbs-item-text-wrapper">1. <span data-translationKey="breadCrumbItem_ProductSelection"></span>
             </span>
@@ -26,7 +26,18 @@
             </span>
         </li>
         {{/if}}
-        <li class="{{if current === 7}}breadcrumbs-item-current{{/if}}">
+        {{if isNotEmployee}}
+        <li class="{{if current === 7}}breadcrumbs-item-current{{else current > 7}}breadcrumbs-item-active{{/if}}">
+            <span class="breadcrumbs-item-text-wrapper">7. <span data-translationKey="breadCrumbItem_MobilePayments"></span>
+            </span>
+        </li>        
+        {{else}}
+        <li class="{{if current === 7}}breadcrumbs-item-current{{else current > 7}}breadcrumbs-item-active{{/if}}">
+            <span class="breadcrumbs-item-text-wrapper">6. <span data-translationKey="breadCrumbItem_MobilePayments"></span>
+            </span>
+        </li>
+        {{/if}}
+        <li class="{{if current === 8}}breadcrumbs-item-current{{/if}}">
             <span class="breadcrumbs-item-text-wrapper"><span data-translationKey="breadCrumbItem_Confirmation"></span>
             </span>
         </li>

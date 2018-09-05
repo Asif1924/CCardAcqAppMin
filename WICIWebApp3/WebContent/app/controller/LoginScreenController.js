@@ -20,7 +20,6 @@ WICI.LoginScreenController = function(app) {
 
     this.syncUserData = syncUserData;
 
-
     var refs = {
         employerID: '#employerIDTextField',
         //userID            : '#userIDTextField',
@@ -46,99 +45,20 @@ WICI.LoginScreenController = function(app) {
     var model = new WICI.BaseModel({
         name: 'loginScreen',
         refs: refs,
-        data: [{
-            name: 'employerID',
-            value: null,
-            validation: {
-                type: 'format',
-                message: '',
-                matcher: /^[a-zA-Z0-9]{1}$/,
-                group: [1]
-            }
-        }, 
-        
-        {
-            name : 'retailNetWork',
-            value : null,
-            validation : {
-                type : 'presence',
-                message : 'RetailNetWork is not selected',
-                group: [1],
-                canBeEmpty : true
-            }
-        }, 
-         {
-            name: 'employeeNumberId',
-            value: null,
-            validation: {
-                type: 'format',
-                message: '',
-                group: [1],
-                matcher: /[1-9]{1,8}/,
-                canBeEmpty : true
-            }
-        },
-        {
-            name: 'firstName',
-            value: null,
-            validation: {
-                type: 'format',
-                message: '',
-                matcher: /^[a-zA-Z]{1,30}$/,
-                group: [2]
-            }
-        }, {
-            name: 'lastName',
-            value: null,
-            validation: {
-                type: 'format',
-                message: '',
-                matcher: /^[a-zA-Z]{1,30}$/,
-                group: [2]
-            }
-        },{
-        	name: 'password',
-        	value: null,
-        	validation: null
-        	
-        },
-            //{name: 'userID',                              value: null, validation: {type: 'presence',     message: '',      group: [1]} },
-            //{notField:true, name: 'passwordFieldID',          value: null, validation: {type: 'presence',     message: '',      group: [1]} },
-            {
-                name: 'locationFieldID',
-                value: null,
-                validation: {
-                    type: 'presence',
-                    message: '',
-                    group: [1]
-                }
-            }, {
-                name: 'agentID',
-                value: null,
-                validation: {
-                    type: 'format',
-                    message: '',
-                    matcher: /^[a-zA-Z0-9]{1,8}$/,
-                    group: [1]
-                }
-            }, {
-                notField: true,
-                name: 'userLocationResponse',
-                value: null,
-                validation: null
-            }, {
-                notField: true,
-                name: 'rollId',
-                value: null,
-                validation: null
-            
-    		}, 
-            {
-                notField: true,
-                name: 'enableEnstreamAuth',
-                value: null,
-                validation: null
-            }
+        data: [
+            { name: 'employerID', value: null,  validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1}$/, group: [1] } }, 
+            { name : 'retailNetWork', value : null, validation : { type : 'presence', message : 'RetailNetWork is not selected', group: [1], canBeEmpty : true } },
+            { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,8}/, canBeEmpty : true } },
+         	{ name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
+        	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
+            { name: 'password', value: null, validation: null },
+            { name: 'locationFieldID', value: null, validation: { type: 'presence', message: '', group: [1] } },
+            { name: 'agentID', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1,8}$/, group: [1] } },
+            { notField: true, name: 'userLocationResponse', value: null, validation: null },
+            { notField: true, name: 'rollId', value: null, validation: null },
+    		{ notField: true, name: 'enableEnstreamAuth', value: null, validation: null },
+            { notField: true, name: 'printerMacAddress', value: null, validation: null },
+            { notField: true, name: 'printerInRange', value: null, validation: null },
         ]
     });
     this.innerModel = model;
@@ -257,10 +177,9 @@ WICI.LoginScreenController = function(app) {
         console.log(logPrefix + sMethod);
 
         $(refs.loginButtonID).click(function() {
-            generateAgentId();
-           
-            invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
-            
+        	generateAgentId();
+        	testPrint();
+            //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -450,7 +369,7 @@ WICI.LoginScreenController = function(app) {
         }
 
 
-        syncUserData();
+        /*syncUserData();
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
 
@@ -467,7 +386,7 @@ WICI.LoginScreenController = function(app) {
             } else if (rez.length > 0) {
                 return;
             }
-        }
+        }*/
         /*
          var isDemoMode = (user.toLowerCase() === WICI.AppConfig.DemoUserCredentials.login &&
          password.toLowerCase() === WICI.AppConfig.DemoUserCredentials.password &&
@@ -579,7 +498,6 @@ WICI.LoginScreenController = function(app) {
         //dictionaryLoadingHelper.determineUpdateDictionaryOrQuit();
         return dictionaryLoadingHelper.determineUpdateDictionaryOrQuit();
     }
-
     // ---------------------------------------------------------------------------------------
     function failedLogin(argResponse) {
         var loginHelper = new WICI.LoginResponseHelper();
@@ -589,10 +507,12 @@ WICI.LoginScreenController = function(app) {
         // US4744
         messageDialog.error(translator.translateKey(loginHelper.getBundleCodeForErrorMessage()), translator.translateKey("loginScreen_Dialog_ErrorTitle"), enableLoginCredentialsFieldsAndFocusAgentIDField);
         //messageDialog.error( translator.translateKey("loginScreen_FailureMessage"), translator.translateKey("loginScreen_Dialog_ErrorTitle"), enableLoginCredentialsFieldsAndFocusAgentIDField);
-        
     }
     // ---------------------------------------------------------------------------------------
     function respondToUserLocationLookup(argResponse) {
+    	var sMethod = "respondToUserLocationLookup() : ";
+    	console.log(logPrefix + sMethod + JSON.stringify(argResponse.data));
+    	
         var userLocationResponse = argResponse.data.checkLocation;
         if (userLocationResponse) {
             var locationHelper = new WICI.UserLocationResponseHelper();
@@ -622,8 +542,65 @@ WICI.LoginScreenController = function(app) {
             model.set('userLocationResponse', null);
         }
     }
+    //---------------------------------------------------------------------------------------
+    function testPrint() {
+		var sMethod = 'testPrint() ';
+		console.log(logPrefix + sMethod);
+		
+		syncUserData();
+        if (app.validationsOn) {
+            app.validationDecorator.clearErrArrtibute();
+
+            var rez = model.validate(1);
+            app.validationDecorator.applyErrAttribute(rez);
+            
+            if (validateNameFields) {
+                var rez2 = model.validate(2);
+                app.validationDecorator.applyErrAttribute(rez2);
+
+                if (rez.length > 0 || rez2.length > 0) {
+                    return;
+                }
+            } else if (rez.length > 0) {
+                return;
+            }
+        }
+		
+		new WICI.LoadingIndicatorController().show();
+		try {
+			var isDevice = new WICI.DeviceDetectionHelper().any();
+			if (isDevice) {
+				app.zebraPrinterWrapper.testPrint(printTestFileSuccess, printTestFileFailure);
+			} else {
+				// Web print
+				 model.set('printerMacAddress', false);
+				 model.set('printerInRange', false);
+  		         invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);				 
+				 return;
+			}
+		} catch (error) {
+			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+		}
+		return;
+	}
+    //---------------------------------------------------------------------------------------
+	function printTestFileSuccess(result) {
+	    var sMethod = 'printTestFileSuccess() ';
+	    console.log(logPrefix + sMethod);
+	    
+	    model.set('printerInRange', true);
+        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);	    
+	}
+	//---------------------------------------------------------------------------------------
+	function printTestFileFailure() {
+	    var sMethod = 'printTestFileFailure() ';
+	    console.log(logPrefix + sMethod);
+	    
+	    model.set('printerInRange', false);
+        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+	}
     // ---------------------------------------------------------------------------------------
-	    function populateNetworkRetailList() {
+	function populateNetworkRetailList() {
 		var sMethod = 'populateNetworkRetailList() ';
 		console.log(logPrefix + sMethod);
 		
@@ -644,12 +621,8 @@ WICI.LoginScreenController = function(app) {
 			$(refs.retailNetWork + " [value='" + selected + "']")
 					.attr("selected", "selected");
 		}
-
 	}
-    
-    
     // ---------------------------------------------------------------------------------------
-    
     function handleLookupFailed() {
         new WICI.LoadingIndicatorController().hide();
         messageDialog.error(
@@ -676,11 +649,11 @@ WICI.LoginScreenController = function(app) {
         $(refs.passwordFieldID).removeAttr('disabled');
         $(refs.userID).focus();
     }
-
     // ---------------------------------------------------------------------------------------
     function handleLookupYes() {
         var sMethod = 'handleLookupYes()';
         console.log(logPrefix + sMethod);
+        
         try {
             // Retrieve latest printer mac address
             app.zebraPrinterWrapper.getStoredPrinterMacAddress(retrievePrinterMacAdrSuccess, retrievePrinterMacAdrFailure);
@@ -692,8 +665,6 @@ WICI.LoginScreenController = function(app) {
     // ---------------------------------------------------------------------------------------
     function showNextScreen() {
         new WICI.LoadingIndicatorController().hide();
-
-
 
         var locationHelper = new WICI.UserLocationResponseHelper();
         locationHelper.setUserLocationResponseObject(model.get('userLocationResponse'));
@@ -724,6 +695,10 @@ WICI.LoginScreenController = function(app) {
     }
     //---------------------------------------------------------------------------------------
     function checkForPrintSetupWarning() {
+    	var sMethod = 'checkForPrintSetupWarning() :: ';
+        console.log(logPrefix + sMethod + " verifyPrinterMacAddress :: " + app.zebraPrinterWrapper.verifyPrinterMacAddress());
+        
+        model.set('printerMacAddress', app.zebraPrinterWrapper.verifyPrinterMacAddress());        
         if (!app.accountProfileHelper.isAdminProfile() && !app.zebraPrinterWrapper.verifyPrinterMacAddress()) {
             app.accountProfileHelper.showNoPrinterSetupWarning(function() {
                 showNextScreen();
@@ -732,49 +707,43 @@ WICI.LoginScreenController = function(app) {
             showNextScreen();
         }
     }
-    //-------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------
     function testPrintOnLogin (isTurnedOn, isDemo, isDevice) {
         //if (isTurnedOn && isDemo && isDevice) {
     	if (isTurnedOn && isDevice) {
             new WICI.TestPrintHelper(translator, messageDialog).testPrint();
         }
     }
-    
+    // -------------------------------------------------------------------------------------
     function hideRetailNetWorkData(){
     	$(refs.retailNetworkSelectionId).hide();
    	    $(refs.employeeNumberRowId).hide();
     	
     }
-       
-   function  retailNetWorkSelectionValidation(){
-	   
-	 	if($(refs.retailNetWork ).val() === 'null' &&  $(refs.employerID).val().toUpperCase() == 'E'){
+    // -------------------------------------------------------------------------------------   
+    function  retailNetWorkSelectionValidation(){
+	 	if($(refs.retailNetWork ).val() === 'null' &&  $(refs.employerID).val().toUpperCase() == 'E') {
       		$.each(model.data, function(index, item) {
  				if(item.name == "retailNetWork") { 
  				item.validation.canBeEmpty = false;
  				}
       		});
-      		
 	 	}
-      		else{
-      			$.each(model.data, function(index, item) {
-     				if(item.name == "retailNetWork") { 
-     				item.validation.canBeEmpty = true;
-     				}
-          		});
-      		}
-      		
+   		else {
+      		$.each(model.data, function(index, item) {
+     			if(item.name == "retailNetWork") { 
+     			item.validation.canBeEmpty = true;
+     			}
+          	});
       	}
-
-function employeeNumberIdValidation(){
-	$.each(model.data, function(index, item) {
+   	}
+    // -------------------------------------------------------------------------------------
+	function employeeNumberIdValidation(){
+		$.each(model.data, function(index, item) {
 			if(item.name == "employeeNumberId") {
 				 item.validation.canBeEmpty = true;
-				
 			}
 		});
-	
-}
-	
+	}
    
 };

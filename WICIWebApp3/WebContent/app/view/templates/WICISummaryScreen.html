@@ -95,10 +95,10 @@
 			<br>
 	            <table id="myCTMTable" class="stretchThisTable">
 					<tr class="fieldRow">
-	                    <td class="fieldLabelsTopCell fieldCellSize33 selectedBreadcrumb">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
 	                        <span data-translationKey="personalData_CTMField"></span>
 	                    </td>
-	                    <td class="fieldLabelsCell">
+	                    <td class="fieldLabelsCell fieldValuesTopCell">
 	                         ${activationItems.getModel('personalData').get('loyaltyMembershipNumber')}
 	                    </td>
 	                </tr>
@@ -496,7 +496,7 @@
 				<br>
 				<br>
 	            <table id="summary_Address_Table" class="stretchThisTable">
-	                <tr class="fieldRow">
+	               <!-- <tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
 	                        <span data-translationKey="summary_FinEmp_BankingProducts"></span>
 	                    </td>
@@ -508,12 +508,12 @@
 	                        <span data-translationKey="finEmpInfo_GasCard"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardGasCard'))}></span>, &nbsp
 	                        <span data-translationKey="finEmpInfo_SavingsAcct"></span>: &nbsp <span data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('financialData').get('cardSavingsAcct'))}></span>
 	                    </td>
-	                </tr>
+	                </tr>-->
 	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
 	                        <span data-translationKey="summary_FinEmp_EmploymentType"></span>
 	                    </td>
-	                    <td class="fieldLabelsCell">
+	                    <td class="fieldLabelsCell fieldValuesTopCell">
 	                        <span data-translationKey=${activationItems.getEmploymentTypeFriendlyName(activationItems.getModel('financialData').get('employmentType'))}></span>
 	                    </td>
 	                </tr>

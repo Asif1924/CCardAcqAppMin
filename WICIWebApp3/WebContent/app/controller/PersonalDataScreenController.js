@@ -99,7 +99,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         // US4709
         homePhoneRadioGroup     	    :   '#primaryPhoneRadioGroup',
         cellPhoneRadioGroup		        :   '#secondaryPhoneRadioGroup',
-        consentYesOrNoRadioButton       :   '#consentYesOrNoRadioButton',
+        //consentYesOrNoRadioButton       :   '#consentYesOrNoRadioButton',
         yes_CheckField					:	'#yes_CheckField',
         nothanks_CheckField				:	'#nothanks_CheckField',
         primaryMobile_CheckField		:	'#primaryMobile_CheckField',
@@ -275,15 +275,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             }, {
                 name : 'consentYesOrNoRadioButton',
                 value : null,
-                validation : {
-                    type : 'termsAndConditions',
-                    message : 'personalData1_validation_MobilePaymentYesOrNo',
-                    canBeEmpty : true,
-                    group: [ 1 ]
-                }
+                validation : null
             },
             
-            { name: 'consentGranted',     		 value: null, validation: null },
+            //{ name: 'consentGranted',     		 value: null, validation: null },
             { notField:true, name: 'MSISDN',     value: null, validation: null },
             { notField: true, name: 'primaryMobile_CheckField',       value: null },
             { notField: true, name: 'primaryLandline_CheckField',     value: null },
@@ -377,8 +372,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         // onEmailChangesHandler();
         hideShowMoneyAdvantage();
-        // US4709
-        showHideMobilePayments();
         
         // US3623
          createFlips();
@@ -531,11 +524,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
         var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
         
-        if(!$(refs.mobilePayments).hasClass('hideElement')){
+        /*if(!$(refs.mobilePayments).hasClass('hideElement')){
         	currModel.set('yes_CheckField',  $(refs.yes_CheckField).is(':checked') ? 'Y' : 'N');
             currModel.set('nothanks_CheckField',    $(refs.nothanks_CheckField).is(':checked') ? 'Y' : 'N');
-            currModel.set('consentYesOrNoRadioButton', isConsentGrantedSelected(currModel));
-        }
+            //currModel.set('consentYesOrNoRadioButton', isConsentGrantedSelected(currModel));
+        }*/
         
         currModel.set('homePhone', primaryPhone);
         currModel.set('cellPhone', secondaryPhone);
@@ -569,45 +562,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         //activationItems.setHomePhone(currModel.get('homePhone'));
         console.log(logPrefix + sMethod + " PersonalData HomePhone : " + activationItems.getHomePhone());
         
-        if($(refs.yes_CheckField).is(':checked')) {
-        	currModel.set('consentGranted', 'Y');
-        } else if($(refs.nothanks_CheckField).is(':checked')) {
-        	currModel.set('consentGranted', 'N');
-        }
-        
-        // US4709 new condition for storing radio 
-        if($(refs.primaryMobile_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ) {
-     		console.log(logPrefix + sMethod + " Either of Mobile is checked ");
-     		showElement();
-     	} else if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.secondaryLandline_CheckField).is(':checked') ){
-     		console.log(logPrefix + sMethod + " Either of landline is checked ");
-     		hideElement();
-     		currModel.set('consentGranted', 'N');
-     	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
-     		console.log(logPrefix + sMethod + " Both Landline is checked ");
-     		hideElement();
-     	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') ) {
-     		console.log(logPrefix + sMethod + " both are mobile checked  ");
-     		showElement();
-     	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')  ){
-     		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
-     		showElement();
-     	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked')){
-     	    console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
-     		showElement();
-     	}
-         
-         // US4709 new condition for storing radio 
-         
-        // US4709 
-        if($(refs.mobilePayments).hasClass('hideElement')){
-        	currModel.set('consentGranted', 'N');
-        }
-        console.log(logPrefix + sMethod + " PersonalData consentGranted : " + currModel.get('consentGranted'));
-        
         // US4797
-        activationItems.setConsentGranted(currModel.get('consentGranted'));
-        console.log(logPrefix + sMethod + " activationItems.getConsentGranted() : " + activationItems.getConsentGranted());
+       // activationItems.setConsentGranted(currModel.get('consentGranted'));
+        //console.log(logPrefix + sMethod + " activationItems.getConsentGranted() : " + activationItems.getConsentGranted());
         
         currModel = models.addressModel;
 
@@ -653,12 +610,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         return currentModel.get('secondaryLandline_CheckField') == 'Y' ||
         currentModel.get('secondaryMobile_CheckField') == 'Y';
     }
- // ---------------------------------------------------------------------------------------
-    function isConsentGrantedSelected(currentModel) {
+    // ---------------------------------------------------------------------------------------
+    /*function isConsentGrantedSelected(currentModel) {
         return (currentModel.get('consentGranted') !== 'Y' &&
         currentModel.get('consentGranted') !== 'N');
-    }
-    
+    }*/    
     // ---------------------------------------------------------------------------------------
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
@@ -834,50 +790,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         // US4709
         var currModel = models.personalDataModel;
         // Hide Mobile payments if no radio button is slected for primary and cecondary phone 
-        if(!($(refs.primaryLandline_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) && !($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.secondaryMobile_CheckField).is(':checked'))){
+        /*if(!($(refs.primaryLandline_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) && !($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.secondaryMobile_CheckField).is(':checked'))){
         	hideElement();
     		currModel.set('consentGranted', 'N');
-    	}
-        
-        $(refs.primaryLandline_CheckField).change(function(event) {
-            console.log(refs.primaryLandline_CheckField + '::change');
-            setConsentFlag(true);
-            showHideMobilePayments();
-        });
-        
-        $(refs.primaryMobile_CheckField).change(function(event) {
-            console.log(refs.primaryMobile_CheckField + '::change');
-            setConsentFlag(false);
-            showHideMobilePayments();
-        });
-        
-        $(refs.secondaryLandline_CheckField).change(function(event) {
-            console.log(refs.secondaryLandline_CheckField + '::change');
-            setConsentFlag(true);
-            showHideMobilePayments();
-        });
-        
-        $(refs.secondaryMobile_CheckField).change(function(event) {
-            console.log(refs.secondaryMobile_CheckField + '::change');
-            setConsentFlag(false);
-            showHideMobilePayments();
-        });
-        
-        $(refs.yes_CheckField).change(function(event) {
-            console.log(refs.yes_CheckField + '::change');
-            setConsentFlag(true);
-            if($(refs.yes_CheckField).is(':checked') === 'Y') {
-            	currModel.set('consentGranted', 'Y');
-            }
-        });
-        
-        $(refs.nothanks_CheckField).change(function(event) {
-            console.log(refs.nothanks_CheckField + '::change');
-            setConsentFlag(true);
-            if($(refs.nothanks_CheckField).is(':checked') === 'Y') {
-            	currModel.set('consentGranted', 'N');
-            }
-        });
+    	}*/
 
         $(refs.placeofissue).change(function(event) {
             console.log(refs.placeofissue + '::change');
@@ -1181,49 +1097,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // $("#personalData_PreviousAddress_AddressLine1_TextField").val($("#personalData_PreviousAddress_AddressLine1_SelectField").val());
         });
 
-    }
-    //---------------------------------------------------------------------------------------
-    // US4709
-    function showHideMobilePayments() {
-    	var sMethod = "showHideMobilePayments() :: ";
-    	console.log(logPrefix + sMethod);
-    	var loginModel = activationItems.getModel('loginScreen');
-        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
-    	if(loginModel.get('enableEnstreamAuth')){
-    		// Show Mobile payments section
-        	if($(refs.primaryMobile_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ) {
-        		console.log(logPrefix + sMethod + " Either of Mobile is checked ");
-        		$(refs.mobilePayments).removeClass('hideElement');
-        	}else if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.secondaryLandline_CheckField).is(':checked') ){
-        		console.log(logPrefix + sMethod + " Either of landline is checked ");
-        		$(refs.mobilePayments).addClass('hideElement');
-        	}
-    		// Hide Mobile payments section
-        	else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryLandline_CheckField).is(':checked') ) {
-        		console.log(logPrefix + sMethod + " Both Landline is checked ");
-        		$(refs.mobilePayments).addClass('hideElement');
-        	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') ) {
-        		console.log(logPrefix + sMethod + " both are mobile checked  ");
-        		$(refs.mobilePayments).removeClass('hideElement');
-        	} else if($(refs.primaryLandline_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')  ){
-        		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
-        		$(refs.mobilePayments).removeClass('hideElement');
-        	}else if($(refs.primaryMobile_CheckField).is(':checked') &&$(refs.secondaryLandline_CheckField).is(':checked')){
-        		console.log(logPrefix + sMethod + " primary landline and secondary mobile checked  ");
-        		$(refs.mobilePayments).removeClass('hideElement');
-        	}
-    		
-    	}else{
-    		// if enableEnstreamAuth is true hide mobile payment section 
-    		$(refs.mobilePayments).addClass('hideElement');
-    	}
-    	
-    	
-    	/*// Initial condition for Hide Mobile payments section
-    	else if($(refs.primaryLandline_CheckField).is(':checked') && !$(refs.secondaryLandline_CheckField).is(':checked') ) {
-    		console.log(logPrefix + sMethod + " Both Landline is checked ");
-    		$(refs.mobilePayments).addClass('hideElement');
-    	}*/
     }
     //---------------------------------------------------------------------------------------
     // US4251
@@ -1767,16 +1640,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null and homephone radio and cellphone radio are checked");
             	setFlag(false, false);
             }
-                 
-            if($(refs.primaryMobile_CheckField).is(':checked') ||  $(refs.secondaryMobile_CheckField).is(':checked')){
-            	if(!$(refs.yes_CheckField).is(':checked') && !$(refs.nothanks_CheckField).is(':checked') && !$(refs.mobilePayments).hasClass('hideElement')){
-            		console.log(logPrefix + sMethod + "setConsentFlag(false)");
-                	setConsentFlag(false);
-            	}else{
-            		console.log(logPrefix + sMethod + "setConsentFlag(true)");
-                	setConsentFlag(true);
-            	}
-            }
             
             var temprez;
        		// validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
@@ -1850,7 +1713,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                  }
             }
                               
-            var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel);
+            var edgeValidation = models.personalDataModel.validateAge(models.personalDataModel, models.addressModel.get('province'));
             var rez = [];
             if (edgeValidation != null) {
                 rez.push(edgeValidation);
@@ -1891,18 +1754,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			}
 		});
     }
-    // US4781
-    function setConsentFlag(argConsentFlag) {
-    	var sMethod = 'setConsentFlag() ';
-        console.log(logPrefix + sMethod);
-    	$.each(models.personalDataModel.data, function(index, item) {
-    			if(item.name == "consentYesOrNoRadioButton") {
-    				item.validation.canBeEmpty = argConsentFlag;
-    				console.log(logPrefix + sMethod + " consentYesOrNoRadioButton :: canBeEmpty " + item.validation.canBeEmpty);
-    			}    		
-		});
-    }
-    
+
     function selectDOBFileld() {
         app.validationDecorator.focusControl(refs.birthDate);
     }
@@ -2099,7 +1951,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     }
     // US4709
     // ---------------------------------------------------------------------------------------
-    function hideElement(){
+    /*function hideElement(){
     	var sMethod = logPrefix + '[hideElement]: ';
     	console.log(sMethod);
     	
@@ -2108,7 +1960,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	if(loginModel.get('enableEnstreamAuth')){
     	    $(refs.mobilePayments).addClass('hideElement');
     	}
-    }
+    }*/
     // US4781  
     // ---------------------------------------------------------------------------------------
     function updatePhoneNumberInModel()
@@ -2164,17 +2016,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod + " model home phone :: " +currModel.get('homePhone'));
         console.log(logPrefix + sMethod + " model cell phone :: " +currModel.get('cellPhone'));
     };
-    // ---------------------------------------------------------------------------------------
-    function showElement(){
-    	var sMethod = logPrefix + '[showElement]: ';
-    	console.log(sMethod);
-    	
-    	var loginModel = activationItems.getModel('loginScreen');
-        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
-    	if(loginModel.get('enableEnstreamAuth')){
-    	    $(refs.mobilePayments).removeClass('hideElement');
-    	}   	
-    }
+    
     // ---------------------------------------------------------------------------------------
     function containsAny(obj, keys) {
         var key;

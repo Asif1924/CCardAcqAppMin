@@ -6,6 +6,7 @@ $bcHeight: 47px;
 }
 
 ul.breadcrumbs {
+  width: 100%;
   background-color: #CECECE;
   height: $bcHeight;
   left: 0;
@@ -32,12 +33,13 @@ ul.breadcrumbs {
     position: relative;
     text-shadow: 1px 50% white;
 
-    &:first-child { width: 16%; }
-    &:nth-child(2) { width: 17%; }
+    &:first-child { width: 14%; }
+    &:nth-child(2) { width: 15%; }
     &:nth-child(3) { width: 12%; }
-    &:nth-child(4) { width: 22%; }
-    &:nth-child(5) { width: 19%; }
+    &:nth-child(4) { width: 19%; }
+    &:nth-child(5) { width: 14%; }
     &:nth-child(6) { width: 13%; }
+    &:nth-child(7) { width: 13%; }
     
     &:last-child { padding: 0; }
 
@@ -74,9 +76,9 @@ ul.breadcrumbs {
     }
 
     > .breadcrumbs-item-text-wrapper {
-      display: table-cell;
       padding-left: 5px;
       vertical-align: middle;
+      display: table-cell;
     }
 
     &:first-child > .breadcrumbs-item-text-wrapper {
@@ -86,13 +88,14 @@ ul.breadcrumbs {
 
   &.breadcrumbs-longer {
     > li {
-      &:first-child { width: 14%; }
-      &:nth-child(2) { width: 13%; }
-      &:nth-child(3) { width: 13%; }
-      &:nth-child(4) { width: 18%; }
-      &:nth-child(5) { width: 19%; }
-      &:nth-child(6) { width: 13%; }
+      &:first-child { width: 12%; }
+      &:nth-child(2) { width: 10%; }
+      &:nth-child(3) { width: 10%; }
+      &:nth-child(4) { width: 17%; }
+      &:nth-child(5) { width: 11%; }
+      &:nth-child(6) { width: 10%; }
       &:nth-child(7) { width: 10%; }
+      &:nth-child(8) { width: 10%; }
     }
   }
 
@@ -103,6 +106,10 @@ ul.breadcrumbs {
 
 .breadcrumbPadding{
   padding-top: 100px !important;
+}
+
+.widthOptionalProductBreadcrum {
+  width: 104%;
 }
 
 @media only screen

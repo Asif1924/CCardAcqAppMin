@@ -413,18 +413,12 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
     function getSelectedBankingProducts() {
 
-        model.set('cardVISAMCAMEX', $(
-                refs.cardVISAMCAMEX + ' ' + 'option:selected').val());
-        model.set('cardBankLoan',
-            $(refs.cardBankLoan + ' ' + 'option:selected').val());
-        model.set('cardStoreCard', $(
-                refs.cardStoreCard + ' ' + 'option:selected').val());
-        model.set('cardChequingAcct', $(
-                refs.cardChequingAcct + ' ' + 'option:selected').val());
-        model.set('cardGasCard', $(refs.cardGasCard + ' ' + 'option:selected')
-            .val());
-        model.set('cardSavingsAcct', $(
-                refs.cardSavingsAcct + ' ' + 'option:selected').val());
+        model.set('cardVISAMCAMEX', null);
+        model.set('cardBankLoan', null);
+        model.set('cardStoreCard', null);
+        model.set('cardChequingAcct', null);
+        model.set('cardGasCard', null);
+        model.set('cardSavingsAcct', null);
     }
 
     // ---------------------------------------------------------------------------------------

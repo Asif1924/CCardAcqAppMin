@@ -197,7 +197,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         $screenContainer.empty();
         assembleNavigationBarAtTop();
         // US4637
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(7, $screenContainer, activationItems);
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(8, $screenContainer, activationItems);
         assemblePageHTML($screenContainer, screenContainerTemplateId);
         $screenContainer.addClass("breadcrumbPadding");
         assembleNavigationBarAtBottom();

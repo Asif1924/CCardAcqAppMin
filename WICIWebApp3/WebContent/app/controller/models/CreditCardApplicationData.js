@@ -158,10 +158,8 @@ WICI.CreditCardApplicationData = function() {
 					break;
 				case 'DECLINED': returnValue = 'printScreen_ApplicationDeclined'; break;
 				case 'APPROVED':
-					if ((cardType === "OMX" || cardType === "OMZ") && consentGranted === 'Y') {
+					if ((cardType === "OMX" || cardType === "OMZ")) {
 						returnValue = 'printScreen_ApplicationApproved_OMX_OMZ';
-					} else if ((cardType === "OMX" || cardType === "OMZ") && consentGranted === 'N') {
-						returnValue = 'printScreen_ApplicationApproved';
 					} else {
 						returnValue = 'printScreen_ApplicationApproved_RedLabel';
 					}

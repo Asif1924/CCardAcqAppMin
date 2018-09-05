@@ -83,18 +83,24 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			},
 		},
 		'Page7' : {
-			'screenConstructor' : WICI.SummaryScreenController,
+			'screenConstructor' : WICI.MobilePaymentsScreenController,
 			'transitionOut' : function() {
 				return 'Page8';
-			}
+			},
 		},
 		'Page8' : {
+			'screenConstructor' : WICI.SummaryScreenController,
+			'transitionOut' : function() {
+				return 'Page9';
+			}
+		},
+		'Page9' : {
             'screenConstructor' : WICI.PrintDemoScreenController,
             'transitionOut' : function() {
-                return 'Page9';
+                return 'Page10';
             },
         },
-		'Page9' : {
+		'Page10' : {
 			'screenConstructor' : WICI.ConfirmationScreenController,
 			'transitionOut' : function() {
 				return 'done';

@@ -166,18 +166,19 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		$.tmpl("pageHeader",
 			{ 	"logo_En" : translator.currentLanguageEnglish(),
 				"previousButtonId" 		: "SignatureScreen_PrevButton",
-				"settingsButtonId" 		: "SignatureScreen_SettingsButton"
-				//"nextButtonId" 			: "SignatureScreen_NextButton",
+				"nextButtonId" 			: "SignatureScreen_NextButton",
+				"settingsButtonId" 		: "SignatureScreen_SettingsButton",
 			}
 		).appendTo("#SignatureScreen");
 
-		$('#SignatureScreen_SettingsButton').addClass('rightPosition');
+		//$('#SignatureScreen_SettingsButton').addClass('rightPosition');
 	}
 	// ---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtBottom(){
 		$("#pageFooter-template").template("pageFooter");
 		$.tmpl("pageFooter", {
-				"previousButtonId" 		: "SignatureScreen_PrevButton"
+				"previousButtonId" 		: "SignatureScreen_PrevButton",
+				"nextButtonId"			: "SignatureScreen_NextButton",
 			}
 		).appendTo("#SignatureScreen");
 	}
@@ -202,6 +203,11 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         $('.SignatureScreen_PrevButton').click(function() {
         	showPrevScreen();
         });
+        
+        $('.SignatureScreen_NextButton').click(function() {
+        	showNextScreen();
+        });
+        
         $(window).bind( 'orientationchange', function(e){
         });
         $.subscribe('translatorFinished',function(e){
@@ -394,7 +400,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
 	           $("#overviewCostOfCreditDisclosure").hide();
 	           $("#overviewCostOfCreditDisclosureOMZ").show();
-	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_EN.png");
+	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_EN.png");
 	       } else {
 	           $("#signatureScreenOmcCard").removeClass("en_card");
 	           $("#signatureScreenOmcCard").addClass("fr_card");
@@ -403,7 +409,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
 	           $("#overviewCostOfCreditDisclosure").show();
 	           $("#overviewCostOfCreditDisclosureOMZ").hide();
-	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_FR.png");
+	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_FR.png");
 	       }
 	   }
 	   
@@ -416,7 +422,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
 	           $("#overviewCostOfCreditDisclosure").hide();
 	           $("#overviewCostOfCreditDisclosureOMZ").show();
-	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_EN.png");
+	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_EN.png");
 	       } else {
 	           $("#signatureScreenOmzCard").removeClass("en_card");
 	           $("#signatureScreenOmzCard").addClass("fr_card");
@@ -425,7 +431,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
 	           $("#overviewCostOfCreditDisclosure").show();
 	           $("#overviewCostOfCreditDisclosureOMZ").hide();
-	           $("#omzChartImage").attr('src',"app/images/triangle_comparison_chart_FR.png");
+	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_FR.png");
 	       }
 	   }
 	   
@@ -436,9 +442,25 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
            img.prop('src', src.replace(src.slice(-6, -4), lang));
 	}
 	
-	function verifyCardValidation(){
-	    if(activationItems.getModel('chooseProductModel').get('productCard') == 'OMX' ||  activationItems.getModel('chooseProductModel').get('productCard') == 'OMZ'){
-			 return (activationItems.getModel('financialData').get('grossIncome') >= 80000 || activationItems.getModel('financialData').get('grossHouseholdIncome')>= 150000)? true :false; 
+
+	function verifyCardValidation() {
+		var sMethod = "verifyCardValidation()";
+        console.log(logPrefix + sMethod);
+        
+		if (activationItems.getModel('chooseProductModel').get('productCard') == 'OMX'
+				|| activationItems.getModel('chooseProductModel').get('productCard') == 'OMZ') {
+			if (activationItems.getModel('financialData').get('grossIncome') >= 80000) {
+				return true;
+			}
+			//US4992
+			else if ((activationItems.getModel('financialData').get('grossIncome') < 80000)
+					&& (activationItems.getModel('financialData').get('grossHouseholdIncome') >= 150000)
+					&& ((activationItems.getModel('personalData2_Address').get('house') == 'O') 
+							|| (activationItems.getModel('personalData2_Address').get('house') == 'R'))) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 	

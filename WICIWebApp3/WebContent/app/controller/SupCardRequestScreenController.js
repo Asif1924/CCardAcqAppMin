@@ -18,6 +18,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	var addressLookupButtonEnabled = false;
 	// var $addressLookupButtonClicked = null;
 	var connectivityController = null;
+	//US4989
+	var chooseProductModel = null;
 
 	this.syncUserData = syncUserData;
 	var refs = {
@@ -317,7 +319,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		createView();
 		bindEvents();
-
+		chooseProductModel = activationItems.getModel('chooseProductModel');
+		console.log(logPrefix + sMethod + "cardType :: " + chooseProductModel.get('productCard'));
 		var currentModel = activationItems.getModel(model.name);
 		if (!currentModel) {
 			activationItems.addModel(model);
@@ -423,7 +426,10 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	}
 	// ---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
-	    $(templateName).tmpl().appendTo($element);
+	    $(templateName).tmpl( {
+	        // US4989 
+        	activationItems: activationItems,
+            } ).appendTo($element);
 	}
 	// ---------------------------------------------------------------------------------------
 	function bindEvents() {
@@ -440,11 +446,52 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		});
 
 		$.subscribe('translatorFinished', function(event) {
+			    toggleImage();
 				console.log(refs.province + 'subscribe(translatorFinished)');
 				populateProvinces();
 				$(refs.province).val(model.get("province"));
 		});
+		updateOmxCardLanguage();
+		updateOmpOmrCardLanguage();
 	}
+	// ---------------------------------------------------------------------------------------
+    function toggleImage() {
+    	var sMethod = " :: toggleImage() :: ";
+    	
+        if(chooseProductModel.get('productCard') ===  "OMX" || chooseProductModel.get('productCard') ===  "OMZ"){
+        	updateOmxCardLanguage();
+        }else if(chooseProductModel.get('productCard') === "OMP" || chooseProductModel.get('productCard') === "OMR"){
+        	updateOmpOmrCardLanguage();
+        }
+    }
+	//----------------------------------------------------------------------------------------
+    function updateOmxCardLanguage() {
+    	var sMethod = 'updateOmxCardLanguage() ';
+        console.log(logPrefix + sMethod);
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#suppCard_OMX").removeClass("fr_card");
+            $("#suppCard_OMX").addClass("en_card");
+        } else {
+            $("#suppCard_OMX").removeClass("en_card");
+            $("#suppCard_OMX").addClass("fr_card");
+        }
+    }
+    
+    //----------------------------------------------------------------------------------------
+    function updateOmpOmrCardLanguage() {
+    	var sMethod = 'updateOmpOmrCardLanguage() ';
+        console.log(logPrefix + sMethod);
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#suppCard_OMP_OMR").removeClass("fr_card");
+            $("#suppCard_OMP_OMR").addClass("en_card");
+        } else {
+            $("#suppCard_OMP_OMR").removeClass("en_card");
+            $("#suppCard_OMP_OMR").addClass("fr_card");
+        }
+        
+    }
 	// ---------------------------------------------------------------------------------------
 	function bindNavigationHandlingControls() {
 		$('.SupplementaryCardRequestScreen_NextButton').click(function() {

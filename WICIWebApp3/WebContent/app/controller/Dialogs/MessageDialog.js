@@ -14,6 +14,8 @@ WICI.MessageDialog = function(translate){
 	this.scan = scan;
 	this.scanLoyalty = scanLoyalty;
 	this.homePhone = homePhone;
+	//US4892
+	this.qcDistributionGuide = qcDistributionGuide;
 	// US4495
 	this.verifyTestPrint = verifyTestPrint;
 
@@ -85,6 +87,17 @@ WICI.MessageDialog = function(translate){
 				buildButton(noButton, "no"),
 				autoClose,
 				autoCloseCallback);
+		dialogQueue.enqueue(dialog);
+		return dialog;
+	}
+	
+	function qcDistributionGuide(message, yesCallback, noCallback, title, yesButton, noButton) {
+		var dialog = new WICI.QCDistributionGuideMessageDialoge(message,
+				buildCallback(yesCallback),
+				buildCallback(noCallback),
+				buildTitle(title, "optionalProductScreen_Handoutprompts_Title"),
+				buildButton(yesButton, "optionalProductQCYES"),
+				buildButton(noButton, "optionalProductQCNO"));
 		dialogQueue.enqueue(dialog);
 		return dialog;
 	}

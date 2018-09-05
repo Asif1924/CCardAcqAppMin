@@ -204,6 +204,9 @@ html,body {
 	margin-top: 15px;
     margin-bottom: 20px;
 }
+.marginMobilePayment{
+  margin-top: 15px;
+}
 
 .align_center {
 	text-align: center;
@@ -253,7 +256,7 @@ html,body {
 
 .Login_CanadianTireLogo{
   background-image: inline-image("CTB_LoginScreen_Logo_English.png");
-  height: 130px;
+  height: 155px;
   /*height: 230px; Mark's Logo removed*/
   width: 477px;
   background-size: 100%;
@@ -261,7 +264,7 @@ html,body {
 }
 .Login_CanadianTireLogo_French{
   background-image: inline-image("CTB_LoginScreen_Logo_French.png");
-  height: 120px;  
+  height: 135px;  
   /*height: 230px; Mark's Logo removed*/
   width: 477px;
   background-size: 100%;
@@ -270,7 +273,7 @@ html,body {
 
 .PageHeader_CanadianTireLogo_inner {
   height: 65px;
-  width: 250px;
+  width: 197px;
   background-size: 100%;
   max-width: 100%;
   background-repeat: no-repeat;
@@ -284,11 +287,11 @@ html,body {
 }
 
 .PageHeader_CanadianTireLogo_English.PageHeader_CanadianTireLogo_LeftPadding {
-  padding-left: 150px;
+ /* padding-left: 150px;*/
 }
 
 .PageHeader_CanadianTireLogo_English.PageHeader_CanadianTireLogo_RightPadding {
-  padding-right: 210px;
+ /* padding-right: 210px; */
 }
 
 .PageHeader_CanadianTireLogo_English .PageHeader_CanadianTireLogo_inner {
@@ -584,6 +587,19 @@ html,body {
   }
 }
 
+.footerNoteMobilePayment {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20%;
+}
+.mobilePaymentContentSize{
+    vertical-align: middle;
+    width: 100%;
+    background-size: 765px 6000px;
+    display: block;
+    height: 600px;
+}
 table{
   @include border-radius(11px);
   border: 1px solid #CCCCCC;
@@ -607,11 +623,12 @@ table{
 }
 
 .printAndroidApplePayTable {
-  background-color:#FFFFFF;
-  border-spacing: 0;
-  width: 100%;
-  border: none;
-  padding: 0 0 10px 0;
+    background-color: #FFFFFF;
+    border-spacing: 0;
+    border: none;
+    padding: 0 0 10px 0;
+    width: 70%;
+    
 }
 
 tr {
@@ -649,7 +666,9 @@ tr {
 .androidPaytdWidth {
   width: 30%;
 }
-
+.androidAppleNothankstdWidth{
+  width: 30%;
+}
 .applePaytdWidth {
   width: 80%;
 }
@@ -670,6 +689,14 @@ tr {
 .tableWithPadding50 {
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+.disclaimerFooterHeight{
+  height: 100px;
+}
+
+.disclaimerFooterText{
+  padding-left: 30px;
 }
 
 .grayTableNoBorder {
@@ -706,6 +733,9 @@ tr {
     margin: 0 0 10px 0;
 }
 
+.marginBottom {
+	margin-bottom: -188px;
+}
 .marginLeft25 {
   margin-left: 25px;
 }
@@ -745,17 +775,27 @@ tr {
     font-weight: bold;
     margin: 0 0 5px 0;
 }
+// US4926
 
+.tdWidth20{
+  width: 20%;
+}
+.tdWidth10{
+  width: 10%;
+}
+
+.borderLeftTDWhite{
+   border-left: solid 1px #ffffff;
+}
 #androidPay {
-  background-image: #{inline_image("google_pay.png")};
-  background-size: 110px;
-  height: 75px;
-  margin: 0 auto;
-  width: 50%;
-  background-repeat: no-repeat;
-  float: left;
-  top: -45px;
-  left: 5px;
+    background-image: #{inline_image("google_pay.png")};
+    background-size: 110px;
+    height: 75px;
+    width: 55%;
+    background-repeat: no-repeat;
+    top: -55px;
+    float: left;
+    left: 60px;
 }
 
 #androidPay.fr {
@@ -765,17 +805,29 @@ tr {
 #androidPayInsIss {
   background-image: #{inline_image("google_pay.png")};
   background-size: 120px;
-  height: 75px;
-  margin: 0 auto;
-  width: 50%;
-  background-repeat: no-repeat;
-  float: left;
-  top: -45px;
-  left: 60px;
+    height: 50px;
+    margin: 0 auto;
+    width: 50%;
+    top: -25px;
+    background-repeat: no-repeat;
+    float: left;
+    left: 60px;
 }
 
 #androidPayInsIss.fr {
   background-image: #{inline_image("google_pay.png")} !important;
+}
+
+#applePayConfiramtionPage {
+  background-image: #{inline_image("apple_pay.png")};
+  background-size: 110px;
+  height: 50px;
+  margin: 0 auto;
+  width: 55%;
+  background-repeat: no-repeat;
+  float: left;
+  top: -20px;
+  left: 60px;  
 }
 
 #applePay {
@@ -786,8 +838,8 @@ tr {
   width: 50%;
   background-repeat: no-repeat;
   float: left;
-  top: -45px;
-  left: 65px;  
+  top: -60px;
+  left: 60px; 
 }
 
 #applePay.fr {
@@ -841,7 +893,21 @@ tr {
     top: -4px;
     left: 109px;
 }
+// US4936
+#noThanks{
+    height: 75px;
+    margin: 0 auto;
+    width: 80%;
+    font-size: 30px;
+    float: left;
+    top: -55px;
+    color: #000000;
+    left: 60px;
+}
 
+.topAndroidApple{
+      top: -15px;
+}
 .inheritPadding {
 	padding-left: inherit;
 }
@@ -856,14 +922,14 @@ tr {
   position: relative;
   span {
     position: absolute;
-    top: 80px;
+    top: 60px;
     display: inline-block;    
     text-shadow: none;
     font-size: 18px;
     left: -20px;
     margin-top: 10px;
     margin-left: 20px;
-    width: 140%;
+    width: 160%;
   }
 }
 
@@ -1081,20 +1147,125 @@ tr {
 
 /* US4637 Email page starts */
  #omxCardEmailInfo {
-    background-image: #{inline_image("emailInfo_for_OMC.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardEmailInfo.en_card {
-    background-image: #{inline_image("emailInfo_for_OMC.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_EN.png")};
   }
 
   #omxCardEmailInfo.fr_card {
-    background-image: #{inline_image("emailInfo_for_OMC_fr.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_FR.png")};
   }
   .emailInfoCard{
+      background-size: 765px 570px;
+      display: block;
+      text-decoration: none;
+      position: relative;
+      border-radius: 0px;
+      margin: 0px auto;
+      outline-style: none;
+      height: 570px;
+      margin-bottom: 15px;
+  }
+  
+  /* US4989 starts */
+  
+  // chooseProduct 
+   #omxCardChooseProduct {
+    background-image: #{inline_image("chooseProductOMX_EN.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #omxCardChooseProduct.en_card {
+    background-image: #{inline_image("chooseProductOMX_EN.png")};
+  }
+
+  #omxCardChooseProduct.fr_card {
+    background-image: #{inline_image("chooseProduct_OMX_FR.png")};
+  }
+  .omxCardChooseProduct {
+    background-size: 100% 100%;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 0px;
+    margin: 0px auto;
+    outline-style: none;
+    height: 1000px;
+    margin-bottom: 15px;
+ }
+ 
+ // SupplementaryCard
+ 
+  #suppCard_OMX {
+    background-image: #{inline_image("suppCard_OMX_OMZ_EN.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #suppCard_OMX.en_card {
+    background-image: #{inline_image("suppCard_OMX_OMZ_EN.png")};
+  }
+
+  #suppCard_OMX.fr_card {
+    background-image: #{inline_image("suppCard_OMX_OMZ_FR.png")};
+  }
+  
+  .supplementaryCardImage {
+    background-size: 765px 600px;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 0px;
+    margin: 0px auto;
+    outline-style: none;
+    height: 600px;
+    margin-bottom: 15px;
+}
+ 
+ #suppCard_OMP_OMR {
+    background-image: #{inline_image("suppCard_OMP_OMR_EN.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #suppCard_OMP_OMR.en_card {
+    background-image: #{inline_image("suppCard_OMP_OMR_EN.png")};
+  }
+
+  #suppCard_OMP_OMR.fr_card {
+    background-image: #{inline_image("suppCard_OMP_OMR_FR.png")};
+  }
+ 
+ 
+ 
+  /* US4989 ends */
+  
+  // US4926 starts 
+  
+   #omxCardApprovalNoThanks {
+    background-image: #{inline_image("approved_OMX_EN.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #omxCardApprovalNoThanks.en_card {
+    background-image: #{inline_image("approved_OMX_EN.png")};
+  }
+
+  #omxCardApprovalNoThanks.fr_card {
+    background-image: #{inline_image("approved_OMX_FR.png")};
+  }
+  .omxCardApprovalNoThanks{
       background-size: 765px 600px;
       display: block;
       text-decoration: none;
@@ -1106,7 +1277,34 @@ tr {
       margin-bottom: 15px;
   }
   
- 
+  
+  #omzCardApprovalNoThanks {
+    background-image: #{inline_image("approved_OMZ_EN.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #omzCardApprovalNoThanks.en_card {
+    background-image: #{inline_image("approved_OMZ_EN.png")};
+  }
+
+  #omzCardApprovalNoThanks.fr_card {
+    background-image: #{inline_image("approved_OMZ_FR.png")};
+  }
+  .omzCardApprovalNoThanks{
+   background-size: 765px 600px;
+   display: block;
+   text-decoration: none;
+   position: relative;
+   border-radius: 0px;
+   margin: 0px auto;
+   outline-style: none;
+   height: 600px;
+   margin-bottom: 15px;
+  }
+  
+// US4926  ends 
   #emailInfo_OMR_OMP_image{
     background-repeat: no-repeat;
     background-position: center;
@@ -1114,8 +1312,8 @@ tr {
   }
   
   .emailInfo_OMR_OMP_cardImage{
-    background-image: #{inline_image("emailInfo_for_OMP_OMR.png")};
-    background-size: 800px 600px;
+    background-image: #{inline_image("emailCollection_OMP_OMR_NonLoyalty_EN.png")};
+    background-size: 800px 500px;
     display: block;
     text-decoration: none;
     position: relative;
@@ -1129,8 +1327,8 @@ tr {
   }
   
   .emailInfo_OMR_OMP_cardImage_fr {
-    background-image: #{inline_image("emailInfo_for_OMP_OMR_fr.png")};
-    background-size: 800px 600px;
+    background-image: #{inline_image("emailCollection_OMP_OMR_NonLoyalty_FR.png")};
+    background-size: 800px 500px;
     display: block;
     text-decoration: none;
     position: relative;
@@ -1141,6 +1339,15 @@ tr {
     margin-bottom: 0px;
     margin-top: 25px;
     padding-top: 25px;
+  }
+  /* US4926 */
+  .topMarginMobilePaymentWithPhone{
+    margin-top: 40%;
+    vertical-align:bottom;
+  }
+  .topMarginMobilePaymentWithoutPhone{
+    margin-top: 55%;
+    vertical-align:bottom;
   }
   
 .fieldEmailInfoCell{
@@ -2736,17 +2943,22 @@ div.ui-slider-switch
   border-bottom-right-radius: 0px;
 }
 .warningTable{
-  color: $red;
-  text-align:left;
-  width:70%;
-  padding:5px;
+  color: #d81e05;
+  text-align: left;
+  width: 95%;
   border: 0;
-  font-size: 12pt;
+  margin-left: auto;
+  font-size: 10pt;
+  
 }
 .warningTable tr td{
   border: 0;
 }
-
+// US 4963
+.signaturePageBottomMargin{
+  margin-top: 17px;
+  margin-bottom: 18px;
+}
 // US4282 starts 
 .homePhoneInput 
 {
@@ -2825,10 +3037,11 @@ div.ui-slider-switch
 .warningTableCleared{
   color: black;
   text-align:left;
-  width:70%;
+  width:95%;
   padding:5px;
   border: 0;
   font-size: 12pt;
+  margin-left: auto;
 }
 .warningTableCleared tr td{
   border: 0;
@@ -3478,6 +3691,11 @@ p.offer_details_title_3 {
     margin-top: 0px;
   }
     
+  // US4926
+   .margingMobilePhoneField{
+     margin-bottom: 50px;
+     margin-top: 30px;
+   }  
   #signatureScreenProductList {
    //padding: 5px 95px;
    overflow: hidden;
@@ -3610,7 +3828,7 @@ span#worldElite_MasterCard {
 }
 
 #omzChartImage{
- margin-top: 40px;
+ margin-top: 15px;
  width: 100%;
 }
 
@@ -3619,6 +3837,30 @@ span#worldElite_MasterCard {
  text-align: -webkit-match-parent;
 padding-top:5px;
 
+}
+
+.printerConnected {
+	background-color: #33CC33;
+    height: 40px;
+    margin: 0 -30px 0 -30px;
+    padding: 30px 0 0 0;
+    color:  #ffffff;
+    text-align:  center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+}
+
+.printerNotConnected {
+	background-color: #FF0000;
+    height: 62px;
+    margin: 0 -30px 0 -30px;
+    padding: 28px 0 0 0;
+    color:  #ffffff;
+    text-align:  center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    word-spacing: 1px;
+    line-height: 1.4em;
 }
       
   /*

@@ -85,6 +85,12 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // Principle: Allows for proper unit
         // testing
 
+        updateOmpCardLanguage();
+        // US3766
+        updateOmrCardLanguage();
+        // US4989
+        updateOmxCardLanguage();
+        
         // Initialize model
         initModel();
         createView();
@@ -93,6 +99,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
         		showPromoCodeTextField();
+        		loadCSRWorkflowOMC();
         	}
         }
         // US4433 For FGL store hide program  drop down and set the value 
@@ -139,8 +146,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             flow.logOut();
         });
         app.logOutTriggerActionService.start();
-
-
 
         try {
             (new WICI.DialogCloseHelper()).closeAllDialogs();
@@ -194,7 +199,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $screenContainer.addClass("breadcrumbPadding");
         assembleCardContentsAndDisclaimerHTML();
         assembleNavigationBarAtBottom();
-
+        updateOmxCardLanguage();
         updateOmpCardLanguage();
         // US3766
         updateOmrCardLanguage();
@@ -264,8 +269,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             updateOmrCardLanguage();
             populateProvinces();
             populateProgramsList();
+            // US4989
+            updateOmxCardLanguage();
         });
-
+        updateOmxCardLanguage();
         $(refs.agencyPromoCode).on('paste, input', inputLengthControlHandler);
 
 		// US3767 
@@ -397,6 +404,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     hideProgram();
                     // US3767 
                     hidePromoCodeDropDown();
+                    updateOmxCardLanguage();
                 }
             	//US4433 For FGl store hide and set value for  Program and show PromoCode as Empty 
             } else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999) {
@@ -522,8 +530,30 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	// Update selected card style 
         	updateSelectedCardStyle ($(this)); 
         });
-         
+        // US4989
+        $("#omcCard").click(function(){ 
+        	console.log('omc');
+        	model.set('productCard', 'OMX'); 
+        	showOMX(); 
+        	updateOmxCardLanguage();
+        });
     }
+    // US4989
+    //----------------------------------------------------------------------------------------
+    function updateOmxCardLanguage() {
+    	var sMethod = 'updateOmxCardLanguage() ';
+        console.log(logPrefix + sMethod);
+        
+        // Choose what card to display: English or French.
+        if (app.translator.getCurrentLanguage() === "en") {
+            $("#omxCardChooseProduct").removeClass("fr_card");
+            $("#omxCardChooseProduct").addClass("en_card");
+        } else {
+            $("#omxCardChooseProduct").removeClass("en_card");
+            $("#omxCardChooseProduct").addClass("fr_card");
+        }
+    }
+    //----------------------------------------------------------------------------------------
     function loadCSRWorkflowOMC() {
         $('.pageTitle').hide();
         $('.pageTitleCSR').show();
@@ -535,6 +565,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         model.set('productCard', 'OMX');
         activateApplyButton();
         showOMC();
+        updateOmxCardLanguage();
     }
     // ----------ADDED by DPS
     function omcHandler(needToUpdateButton) {
@@ -570,6 +601,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function updateSelectedCardStyle(card) {
         clearCardsSelection();
         card.addClass('creditCardSelectedBgColor');
+        
+        if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
+        if ($("#omcCard").hasClass('creditCardSelectedBgColor')) {
+			$("#omcCard").removeClass('creditCardSelectedBgColor');
+		}}
 
         activateApplyButton();
     }
@@ -586,9 +622,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // Bind with click event
             $(refs.applyButton).bind("click", function() {
                 console.log("chooseProductScreen_ApplyNowButton.click");
-                // US4571 starts
-                testPrint();
                 
+                showNextScreen();                
+                // US4571 starts
+                //testPrint();                
                 // US4571 ends 
                 // US4495 -Test Print at tablet login for FMR
                /* if (employerID.toUpperCase() != "E") {
@@ -699,6 +736,16 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             "#chooseProductScreen_disclaimerArea");
         showCOCD();
 
+        updatePageTranslation();
+    }
+    // US4989
+    // ---------------------------------------------------------------------------------------
+    function showOMX() {
+        clearDescriptionAreas();
+        $("#CC_OMC-template").tmpl().appendTo("#cardDescriptionArea");
+        $("#CC_Legal_OMC-template").tmpl().appendTo(
+            "#chooseProductScreen_disclaimerArea");
+        showCOCD();
         updatePageTranslation();
     }
     // ---------------------------------------------------------------------------------------

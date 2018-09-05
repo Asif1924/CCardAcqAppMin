@@ -1,6 +1,12 @@
 <script id="WICIChooseProductScreen-template" type="text/x-jquery-tmpl">
     <div class="ScreenLayout" id="chooseProductScreen_PageContents">
-		<br />
+    		
+		{{if activationItems.getModel('loginScreen').get('printerMacAddress') && activationItems.getModel('loginScreen').get('printerInRange')}}
+			<div class="printerConnected" data-translationKey="chooseProduct_PrinterConnected"></div>
+		{{else}}
+			<div class="printerNotConnected" data-translationKey="chooseProduct_PrinterNotConnected"></div>			
+		{{/if}}
+		
 		<br />
 		<div id="chooseProductScreen_PageHeader">
             <span class="pageTitle" data-translationKey="chooseProduct_ChooseOneOfTheCreditCards"></span>
@@ -26,8 +32,6 @@
                     </a>
                 </li>
             </ul>
-            <br />
-            <br />
         </div>
 
         <div id="cardDescriptionArea">
@@ -107,7 +111,7 @@
 		<center>
             <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">
             <!-- US4571 start -->
-            <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label_with_testprint"></span>
+            <span class="buttonText" data-translationKey="chooseProduct_ApplyNow_Button_Label"></span>
             <!-- US4571 ends -->
             <!-- US4495 - Start //-->
               <!--  {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}

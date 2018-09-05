@@ -50,7 +50,7 @@ WICI.dictionary_fr =  {
 	addressLookup_noResults                           :                         "Aucun résultat. Veuillez essayer de nouveau.",
 	addressLookup_multipleItemsExist                  :                         "Il existe plusieurs noms de rues. Sélectionnez ci-dessous",
 
-	messageDialog_ok                                  :                         "OK",
+	messageDialog_ok                                  :                         "Ok",
 
 	pageHeader_next                                   :                         "Suivant",
 	pageHeader_previous                               :                         "Retour",
@@ -63,6 +63,7 @@ WICI.dictionary_fr =  {
 	breadCrumbItem_FinancialAndEmploymentInfo		  :   						"Emploi et situation financière",
 	breadCrumbItem_SupplementaryCard				  :  						"Carte additionnelle",
 	breadCrumbItem_OptionalProducts					  :  						"Produits facultatifs",
+	breadCrumbItem_MobilePayments					  :	             			"Paiements mobiles",
 	breadCrumbItem_Confirmation						  :	             			"Confirmation",
 
 	loginScreen_UserID_Label                          :                         "Code d'utilisateur",
@@ -91,6 +92,8 @@ WICI.dictionary_fr =  {
 	loginScreen_DemoModeAlert 						  :   						"Vous entrez dans\n LE MODE DÉMO\n Êtes-vous certain?",
 
 	loginScreen_EmployerIDLookup_FailedMessage        :                         "Code d'employeur invalide. Veuillez corriger et essayer de nouveau",
+	chooseProduct_PrinterConnected					  :							"L’imprimante est connectée.",
+	chooseProduct_PrinterNotConnected				  :							"L’imprimante n’est pas connectée. Veuillez vous assurer que l'imprimante est en marche, <br>à portée de main et que Bluetooth est connecté avant de procéder à l'application.",
 
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards           :                         "CHOISISSEZ L'UNE DES CARTES DE CRÉDIT SUIVANTES",
@@ -163,8 +166,8 @@ WICI.dictionary_fr =  {
 	personalData_PlaceOfIssue                         :                         "Lieu de délivrance de la pièce d’identité",
 	
 	personalData_IDNumber                             :                         "N° de la pièce d'identité",
-
-	personalData_DOB_18YearsError                     :                         "Vous devez être âgé de 18 ans ou plus pour faire une demande.",
+    // US4976
+	personalData_DOB_18YearsError                     :                         "Vous devez avoir atteint l'âge de la majorité dans votre province pour fair une demande",
 	personalData_DOB_19YearsError                     :                         "Vous devez être âgé de 19 ans ou plus pour faire une demande",
 
 	personalData_Title                                :                         "Titre de civilité",
@@ -180,6 +183,8 @@ WICI.dictionary_fr =  {
 	personalData_EmailAddress                         :                         "Adresse électronique",
 	personalData_HomePhone                            :                         "Téléphone (rés.)",
 	personalData_CellPhone                            :                         "Téléphone (cell.)<sup>*</sup>",
+	// US4926
+	mobilePayment_mobilePhone                         :                          "Téléphone mobile",
 	
 	// US4709
 	personalData_PrimaryPhone						  :							"Numéro de téléphone principal",
@@ -799,8 +804,10 @@ WICI.dictionary_fr =  {
 	optionalProducts_IWProducts						  : 						"<ul><li>Surveillance d'identité Classique</li></ul>",
 	
 	// US3981
-	optionalProductScreen_Handoutprompts_Title			:	"Guide de distribution de la Couverture-crédit",
-	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Avez-vous fourni au demandeur le guide de distribution pour son adhésion à la Couverture-crédit?",
+	optionalProductScreen_Handoutprompts_Title			:	"IMPORTANT",
+	optionalProductQCYES                                :   "OUI",
+	optionalProductQCNO                                 :   "NON",
+	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Le Guide de distribution doit être remis à tous les clients qui souscrivent Couverture-crédit dans la province du Québec. Avez-vous remis le guide de distribution au client?",
 	optionalProductScreen_Handoutprompts_Ok_Message		:	"Avant de continuer, tous les demandeurs souscrivant à l’assurance Couverture-crédit doivent recevoir un guide de distribution.",
 
 	
@@ -1205,13 +1212,15 @@ WICI.dictionary_fr =  {
 	signatureScreen_License4                          :                         "La Banque Canadian Tire peut procéder à la collecte, à l'utilisation et à la communication de renseignements personnels me concernant aux fins décrites dans « la politique en matière de protection des renseignements personnels de Canadian Tire », notamment à des fins de commercialisation par téléphone, dispositif de composition et d'annonce automatique ou toute autre forme de télécommunication.",
 	signatureScreen_License5                          :                         "Je serai lié par les modalités du contrat du titulaire de carte de la Banque Canadian Tire que je recevrai avec la carte, lequel peut être modifié de temps à autre. Je serai la seule personne responsable de tous les débits imputés à ce compte, y compris ceux portés au compte par toute personne pour laquelle je vous ai demandé d'émettre une carte additionnelle. Je serai la seule personne qui recevra un relevé de compte mensuel.",
 	signatureScreen_License6                          :                         "<u>Vous pouvez obtenir des renseignements sur mes antécédents de crédit et d'autres renseignements personnels me concernant auprès d'agences d'évaluation du crédit et communiquer de tels renseignements à ces agences.</u>",
+	signatureScreen_License6_newLine				  :	                        "Je consens à ce que la Banque Canadian Tire procède à une vérification de mes renseignements personnels, comme mon nom, mon adresse, ma date de naissance, mon numéro de téléphone mobile auprès de mon fournisseur de services mobiles et j’autorise mon fournisseur de services mobiles à fournir ces renseignements &#40;Tenue de compte, type de compte, etc.&#41;  à la Banque Canadian Tire. Les renseignements concernant mon compte de téléphonie mobile seront utilisés pour vérifier mon identité et d’effectuer des analyses et des enquêtes contre la fraude.",
 	signatureScreen_License7                          :                         "Chaque personne pour laquelle je vous ai demandé d'émettre une carte additionnelle m'a autorisé à vous fournir les renseignements ci-dessus la concernant.",
 	signatureScreen_License8                          :                         "Si je vous fournis mon numéro d'assurance sociale, vous pouvez l'utiliser à des fins d'identification, notamment auprès d'agences d'évaluation du crédit.",
 	signatureScreen_License9                          :                         "J'ai lu et compris le texte figurant sur la présente demande de carte et ai reçu un document contenant des renseignements additionnels concernant cette demande.",
 
 	signatureScreen_Reset_Button_Label                :                         "Effacer Signature",
 
-	signatureScreen_TermsAndConditions_AcceptBox      :                         "Je confirme avoir lu, compris et accepté les modalités présentées ci-dessus, lesquelles sont  relatives à la carte ",
+	signatureScreen_TermsAndConditions_AcceptBox      :                         "Je reconnais avoir lu, compris et accepté les modalités et les conditions, telles que définies ci-dessus, pour la carte ",
+	signatureScreen_TermsAndConditions_AcceptBox_MSPVerification              	:    " <b>et mon fournisseur de services mobiles.</b>",
 
 	signatureScreen_validation_acceptAgreement        :                         "Veuillez accepter les modalités.",
 	signatureScreen_validation_signature              :                         "Veuillez signer.",
@@ -1375,11 +1384,13 @@ WICI.dictionary_fr =  {
 	printScreen_Button_Label                          :                         "Imprimer à nouveau",
 
 	printScreen_TokenLabel								: 						"Reference&nbsp;#&nbsp;",
+	printScreen_MobilePayments_Para4				  :							"Tout appareil utilisant Android Kit Kat 4.4<br> ou une version plus récente",
 	
 	printScreen_UnknownStatus                         :                         "État de demande inconnu",
 	printScreen_ApplicationApproved_RedLabel          :                         "Votre demande est <b class='RedLabel'>APPROUVÉE!</b>",
 	printScreen_ApplicationApproved                   :                         "Votre demande a été APPROUVÉE.",
-	printScreen_ApplicationApproved_OMX_OMZ           :   						"Votre demande est <b class='RedLabel'>APPROUVÉE</b> pour la carte ",
+	printScreen_ApplicationApproved_OMX_OMZ           :   						"Votre demande pour la ",
+	printScreen_ApplicationApproved_OMX_OMZ_Approved  :   						" a été <b class='RedLabel'>APPROUVÉE</b>",
 	printScreen_ApplicationDeclined                   :                         "Malheureusement, la réponse à votre demande n'a pu être traitée. Veuillez vérifier votre courrier régulièrement.",
 	printScreen_ApplicationDeclined_OMX_DUPECONV      :                         "<p align=\"center\" sytle=\"font-weight:normal;\" >Nous avons remarqué que vous détenez déjà une carte Mastercard<sup style='font-size: .5em;'>MD</sup> Options<sup style='font-size: .5em;'>MD</sup> Canadian Tire. La carte Mastercard Triangle est le nouveau nom de la carte Mastercard Options Canadian Tire.  Vous n’avez donc pas besoin de présenter une nouvelle demande. Nous n’avons pas non plus effectué de vérification auprès de l’agence d’évaluation du crédit. Vous êtes déjà membre du programme Récompenses Triangle et vous recevrez la nouvelle carte Mastercard Triangle à l’expiration de votre carte Mastercard Options.</p>",
     printerSetupDialog_macLabel                       :   						"Adresse MAC de l'imprimante:",
@@ -1406,7 +1417,9 @@ WICI.dictionary_fr =  {
 	
 	// US4709
 	printScreen_ReceiveCard								:	"Vous recevrez votre carte dans les 10 prochains jours ouvrables.",
-	printScreen_Register								:	"Inscrivez-vous à Apple Pay ou Google Pay et utilisez votre téléphone pour effectuer des paiements sécurisés en toute simplicité partout où les paiements sans contact sont acceptés. Certains commerçants peuvent avoir établi un montant maximum de paiement par transaction. Par exemple, la limite dans les magasins Canadian Tire est de 100 $ pour effectuer un paiement sans contact.",
+	printScreen_Register_googlePay                      :   "Inscrivez-vous à Google Pay",
+	printScreen_Register_applePay                       :   "Inscrivez-vous à Apple Pay",
+	printScreen_Register								:	" et utilisez votre téléphone pour effectuer des paiements sécurisés en toute simplicité partout où les paiements sans contact sont acceptés. Certains commerçants peuvent avoir établi un montant maximum de paiement par transaction. Par exemple, la limite dans les magasins Canadian Tire est de 100 $ pour effectuer un paiement sans contact.",
 	print_BeginSetup_Button								:	"COMMENCER LA CONFIGURATION",
 	print_Done_Button									:	"C’EST FINI!",
 	printScreen_SetUpIns								:	"Instructions pour la configuration",
@@ -1570,7 +1583,7 @@ WICI.dictionary_fr =  {
 	
 	//******************************************
 	// personalData_ReceiveEmail					        : "J'aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m'intéresser, par courriel, messagerie texte (sous réserve des frais standards de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (les « SFCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme de primes en Argent  Canadian Tire (ou du programme Avantage Argent  Canadian Tire si vous résidez en Nouvelle-Écosse), de l'Académie des conducteurs de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, des Services résidentiels de Canadian Tire<span class=\"superscripts\"><sup>MC</sup></span> et de l'Assistance routière Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, ainsi que d'autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT et la BCT à la C.P. 2000, Welland (Ontario)  L3B 5S3 ou à l'adresse customerservice@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
-	personalData_ReceiveEmail					        : "J’aimerais recevoir des offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standard de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Canadian Tire Limitée (les « SCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées par les marques Canadian Tire, Récompenses Triangle<sup style='font-size: .5em;'>MC</sup>, de l’Académie des conducteurs de Canadian Tire, des Services résidentiels de Canadian Tire et de l’Assistance routière Canadian Tire, ainsi que de leurs partenaires de marketing et sociétés affiliés. Vous pouvez communiquer avec la Société Canadian Tire, les SCT ou la BCT, à la C.P. 2000, Welland (Ontario) L3B 5S3 ou à l’adresse <span style=\"font-family: Helvetica, Arial, sans-serif; font-size: 12pt;  color: #1569C7\";><u>serviceclientele@canadiantire.ca</u></span>. Vous pouvez retirer votre consentement en tout temps.<br><p>Veuillez répondre oui ou non pour indiquer si vous acceptez de recevoir des messages électroniques.</p>",
+	personalData_ReceiveEmail					        : "Souhaitez-vous recevoir des offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient vous intéresser, par courriel, messagerie texte &#40;sous réserve des frais standard de données et de messagerie texte&#41; et autre messagerie électronique de La Société Canadian Tire Limitée &#40;la « Société Canadian Tire »&#41;, des Services Canadian Tire Limitée &#40;les « SCT »&#41;, de la Banque Canadian Tire &#40;la « BCT »&#41;, y compris de leurs divisions commerciales respectives exploitées par les marques Canadian Tire, Récompenses Triangle<sup style='font-size: .5em;'>MC</sup>, de l’Académie des conducteurs de Canadian Tire, des Services résidentiels de Canadian Tire et de l’Assistance routière Canadian Tire, ainsi que de leurs partenaires de marketing et sociétés affiliés&#63; Vous pouvez communiquer avec la Société Canadian Tire, les SCT ou la BCT, à la C.P. 2000, Welland &#40;Ontario&#41; L3B 5S3 ou à l’adresse <a href='' target='_blank'>serviceclientele@canadiantire.ca</a>. Vous pouvez retirer votre consentement en tout temps. <br> <p>Veuillez répondre oui ou non pour indiquer si vous acceptez de recevoir des messages électroniques.</p>",
 	
 	personalData_Yes									: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;",
 	personalData_No								    	: "&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",

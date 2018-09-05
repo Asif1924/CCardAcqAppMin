@@ -32,26 +32,16 @@
 			<br><br><br>
 		</center>
 		
-	{{else consentGranted === 'N' }}
-		
-		{{if respCardType === 'OMX' || respCardType === 'OMZ'}}		
+	{{else (appStatusFromResponse === 'APPROVED' && (consentGranted === 'N')) || ((consentGranted === 'G' || consentGranted === 'A') && queueName !== 'DIIAPPRV') }}
+		{{if respCardType === 'OMX' || respCardType === 'OMZ'}}	
+		 <br>	
 			<center>
-				<div data-role="fieldcontain" class="printTest">
-		        	<span class="pageTitle" data-translationKey="printScreen_Title_OMX_OMZ"></span>
-		         	<br><br>
-						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle"></span><br><br>
-						<span class="summaryPageSubTitle" data-translationKey="printScreen_SubTitle_1"></span>		
-						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
-		         	<br><br>
 		         	{{if  respCardType  === 'OMX' }}
-						<img id="SignatureImage" src="app/images/omx_en.png" data-lang-src width="320""/>
+		         	     <a href="#" id="omxCardApprovalNoThanks" class="omxCardApprovalNoThanks"></a>
+						
 					{{else respCardType === 'OMZ' }}
-						<img id="SignatureImage" src="app/images/omz_en.png" data-lang-src width="320""/>
+						 <a href="#" id="omzCardApprovalNoThanks" class="omzCardApprovalNoThanks"></a>
 					{{/if}}					
-				   	<br><br>	
-						<span  class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
-				   	<br>
-            	</div>
 			</center>
 		{{else}}
 		 	<center>
@@ -64,18 +54,19 @@
 						<span class="summaryPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
 					<br>
 		        </div>
-				<br><br><br>
+				<br><br>
 			</center>
 		{{/if}}
 		
-	{{else consentGranted === 'Y' }}
+	{{else appStatusFromResponse === 'APPROVED' && ((consentGranted === 'G' || consentGranted === 'A') && queueName === 'DIIAPPRV')}}
 		
 			<div data-role="fieldcontain" >
 	        	<span class="printPageTitle" data-translationKey="printScreen_Title"></span>
 	         	<br><br><br>
 	         	{{if respCardType === 'OMX' || respCardType === 'OMZ'}}
 	         		<span class="printPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
-					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
+	         		<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}" />
+					<span class="printPageSubTitle" data-translationKey="printScreen_ApplicationApproved_OMX_OMZ_Approved"></span>
 				{{else}}
 					<span class="printPageSubTitle" data-translationKey="printScreen_SubTitle_OMP_OMR"></span>	
 					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingCardSelection}"></span>
@@ -84,18 +75,36 @@
 					<span class="printPageSubTitle" data-translationKey="${keyForDisplayingApplicationStatus}" />
 				{{/if}}
 				<br><br><br>
+				<center>
+				{{if  respCardType  === 'OMX' }}
+						<img id="SignatureImage" src="app/images/omx_en.png" data-lang-src width="320""/>
+			    {{else respCardType === 'OMZ' }}
+						<img id="SignatureImage" src="app/images/omz_en.png" data-lang-src width="320""/>
+			     {{else respCardType === 'OMP' }}
+						<img id="SignatureImage" src="app/images/omp_en.png" data-lang-src width="320""/>
+				{{else}}
+						<img id="SignatureImage" src="app/images/omr_en.png" data-lang-src width="320""/>					
+			    {{/if}}	
+				</center>
+				<br><br>
 				<span class="printPageSubTitle" data-translationKey="printScreen_ReceiveCard" />
 				<br><br><br>
-				<span class="printPageSubTitle" data-translationKey="printScreen_Register" />
+				{{if consentGranted === 'G' }}
+				     <span class="printPageSubTitle" data-translationKey="printScreen_Register_googlePay" />
+				     <span class="printPageSubTitle" data-translationKey="printScreen_Register" />
+				{{else consentGranted === 'A' }}
+				     <span class="printPageSubTitle" data-translationKey="printScreen_Register_applePay" />
+				     <span class="printPageSubTitle" data-translationKey="printScreen_Register" />
+				{{/if}}
 				<br><br>
-				<table class="printAndroidApplePayTable">
+				<!-- <table class="printAndroidApplePayTable">
 						<tr>
 							<td class="androidApplePaytd">
 								<div class="agentRadiobutton">
 		                    		<input type="radio" id="printScreenAndroidPay_CheckField" name="payRadio" value="android" checked>
 		                    	</div>						
 								<a href="#" id="androidPayInsIss" class="androidApplePay bgCenter" data-lang-class>								
-	                        		<span class="pay_Labels" data-translationKey="personalData_MobilePayments_Para4"></span>
+	                        		<span class="pay_Labels" data-translationKey="printScreen_MobilePayments_Para4"></span>
 	                    		</a>
 							</td>
 							<td class="androidApplePaytd">
@@ -107,16 +116,35 @@
 	                    		</a>
 							</td>
 						</tr>
-				</table>
+				</table> -->
 				<br><br>
-				<span id="printScreen_BeginSetupButton" class="button greenflat afterPrintButtonWidth uppercase">
-		           	<span class="buttonText" data-translationKey="print_BeginSetup_Button"></span>
-				</span>
+				<table class="printAndroidApplePayTable">
+				   <tr>
+				       <td class="tdWidth10">
+							<span id="printScreen_BeginSetupButton" class="button greenflat afterPrintButtonWidth uppercase">
+					           	<span class="buttonText" data-translationKey="print_BeginSetup_Button"></span>
+							</span>
+					   </td>
+					   <td class="tdWidth20 borderLeftTDWhite">
+					   
+					        {{if  consentGranted === 'G' }}
+						        <a href="#" id="androidPayInsIss" class="androidApplePay bgCenter" data-lang-class>								
+		                        		<span class="pay_Labels" data-translationKey="printScreen_MobilePayments_Para4"></span>
+		                        </a>
+	                         {{else consentGranted === 'A' }}
+		                        <a href="#" id="applePayConfiramtionPage" class="androidApplePay bgCenter" data-lang-class>								
+		                        		<span class="pay_Labels" data-translationKey="personalData_MobilePayments_Para5"></span>
+		                        </a>
+	                        {{/if}}	
+					   </td>
+				   </tr>	
+				</table>
 	        </div>
 		
 		{{/if}}
-		<br><br><br>
-		
+		<br>
+        <br>
+        <br>
 	    <center>
             <span id="print_StartNewApplicationButton" class="button greenflat afterPrintButtonWidth uppercase">
             	<span class="buttonText" data-translationKey="printResponseStatus_StartNewApplication_Button"></span>

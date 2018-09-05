@@ -89,7 +89,7 @@ WICI.InstantIssuanceSetupCompleteScreenController = function(activationItems, ar
 
         $screenContainer.empty();
         assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(7, $screenContainer, activationItems);
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(8, $screenContainer, activationItems);
         
         assemblePageHTML($screenContainer, "#WICI"+screenName+"-template");
 

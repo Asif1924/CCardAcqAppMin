@@ -156,6 +156,12 @@
 				</b>
 			</li>
 			<br>
+			<li>
+				<b>
+					<span data-translationKey="signatureScreen_License6_newLine"/>
+				</b>
+			</li>
+			<br>
 			<li><span data-translationKey="signatureScreen_License7"/></li>
 			<br>
 			{{if CardType === 'OMX' }}
@@ -179,6 +185,7 @@
 		<div class="warningDIV" id="warningDIVSig" name="warningDIVSig">
 		<center>
 		<p class="warningHeader" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
+        <center>
 	    <table class="warningTable" id="warningTableSig" name="warningTableSig" >
         <tr>
             <td>
@@ -194,7 +201,7 @@
 							{{/if}}
 							<br/>
            </td>
-            <td style="padding:25px;">
+            <td style="width: 80%; padding:25px;">
                 <span data-translationKey="signatureScreen_WarningText1" ></span><br/><br/><b>
 							{{if CardType === 'OMR' }}
 								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
@@ -208,7 +215,9 @@
 				</b>
             </td>
         </tr>
-        </table><br />
+        </table>
+        </center>
+        <br />
 
 			<div class="signatureContainer sugnatureFixes" >
 				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
@@ -238,29 +247,27 @@
 						<label data-translationKey="signatureScreen_TermsAndConditions_AcceptBox" />
 							{{if CardType === 'OMR' }}
 								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
+								 <span data-translationKey="signatureScreen_TermsAndConditions_AcceptBox_MSPVerification"> </span>
 							{{else CardType === 'OMP' }}
 								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+								<span data-translationKey="signatureScreen_TermsAndConditions_AcceptBox_MSPVerification"> </span>
 							{{else}}
 								<span id="sigtriangelMasterCardNote" data-translationKey="signature_OptionsMasterCard"></span>
 							    <span id="sigworldElite_MasterCardNote" data-translationKey="signature_World_ELiteMasterCard"> </span>
+							    <span data-translationKey="signatureScreen_TermsAndConditions_AcceptBox_MSPVerification"> </span>
 							{{/if}}
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<br>
-		<br>
-		
-		<center>
+		<!--<center>
             <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
             	<span class="buttonText" data-translationKey="sigScreen_ProceedToConfirmation"></span>
 			</span>
-        </center>
-		<br>
-		<span id="sigworldElite_MasterCardNote_OMZ" data-translationKey="sigworldElite_MasterCardNote_1"> </span>
-		<br>
+        </center>-->
+       <div class="signaturePageBottomMargin">
+		  <span id="sigworldElite_MasterCardNote_OMZ" data-translationKey="sigworldElite_MasterCardNote_1"> </span>
+       </div>
 		
-		<br>
 	</div>
 </script>

@@ -105,9 +105,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod + " Application response  from Server : " + respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()));
         
         if( respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) === 'DECLINED'  && argQueueName === 'DUPECONV'){
-        	
         	dupConvenceEnable ='Y';
-        	
         }
         if(dupConvenceEnable == null) {
         	dupConvenceEnable = 'N';
@@ -116,6 +114,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod + " dupConvenceEnable  : " +  model.get('dupConvenceEnable'));
         // US4797
         argConsentGranted = activationItems.getConsentGranted();
+        // In Retrieval, consent granted is not in response. So adding 'N' by default
         if(argConsentGranted == null) {
         	argConsentGranted = 'N';
         }
@@ -132,16 +131,12 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod + " appStatus ::: " + model.get('appStatus'));
         
         if(respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) === 'APPROVED') {
+         // if(respAn.getAppStatus(activationItems.getNewAccountApplicationResponse()) === 'APPROVED') {
         	PAN = respAn.getPAN(activationItems.getNewAccountApplicationResponse());
             expiryDate = respAn.getExpiryDate(activationItems.getNewAccountApplicationResponse());
             argTransactionID = respAn.getTransactionID(activationItems.getNewAccountApplicationResponse());
             if(app.getDemoMode()) {
-            	// Down sell in demo logic goes here
-            	if(activationItems.getModel('financialData').get('grossIncome') == "88888") {
-            		respCardType = respAn.getCardType(activationItems.getNewAccountApplicationResponse());
-            	} else {
-            		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
-            	}            	
+           		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
             } else {
             	respCardType = respAn.getCardType(activationItems.getNewAccountApplicationResponse());
             }
@@ -192,18 +187,21 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         bindEvents();
         displayDupConvenceScreen();
         syncUserData();
+        updatePageTranslation();
     }
     //---------------------------------------------------------------------------------------
     function syncUserData(){
         var sMethod = 'syncUserData() ';
         
-        model.set('printScreenAndroidPay',   $(refs.printScreenAndroidPay).is(':checked') ? 'Y' : 'N');
-        model.set('printScreenApplePay',   $(refs.printScreenApplePay).is(':checked') ? 'Y' : 'N');
+        //model.set('printScreenAndroidPay',   $(refs.printScreenAndroidPay).is(':checked') ? 'Y' : 'N');
+        //model.set('printScreenApplePay',   $(refs.printScreenApplePay).is(':checked') ? 'Y' : 'N');
         
-        if(model.get('printScreenAndroidPay') === 'Y') {
+        if(argConsentGranted === 'G') {
         	model.set('deviceType', "ANDROID");
-        } else if(model.get('printScreenApplePay') === 'Y') {
+        } else if(argConsentGranted === 'A') {
         	model.set('deviceType',"APPLE");
+        } else if(argConsentGranted === 'N') {
+        	model.set('deviceType',"NOTHANKS");
         }
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
     }
@@ -251,10 +249,11 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         $screenContainer.empty();
         assembleNavigationBarAtTop();
         if( !fromPendScreen ){
-        	WICI.BreadcrumbsHelper.assembleBreadcrumbs(7, $screenContainer, activationItems);
+        	WICI.BreadcrumbsHelper.assembleBreadcrumbs(8, $screenContainer, activationItems);
         }
         assemblePageHTML($screenContainer, "#WICIPrintDemoScreen-template");
         $screenContainer.addClass("breadcrumbPadding");
+        toggleImage();
     }
 
     //---------------------------------------------------------------------------------------
@@ -334,8 +333,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
        
        $(templateName).template("printDemoScreenPage");
         $.tmpl("printDemoScreenPage", {
-              keyForDisplayingCardSelection: getKeyForCardSelection(),
-              keyForDisplayingApplicationStatus: getKeyForApplicationStatus(),
+            keyForDisplayingCardSelection: getKeyForCardSelection(),
+            keyForDisplayingApplicationStatus: getKeyForApplicationStatus(),
             activationItems: activationItems,
             tokenValue:tokenValue,
             appStatus:appStatus,
@@ -343,11 +342,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             fromPendingScreen:fromPendScreen,
             consentGranted: argConsentGranted,
             dupConvenceEnable: dupConvenceEnable,
+            queueName: argQueueName,
             appStatusFromResponse: respAn.getAppStatus(activationItems.getNewAccountApplicationResponse())
         }).appendTo($element);
     }
     //---------------------------------------------------------------------------------------
     function bindEvents(){
+    	var sMethod = "bindEvents";
+    	
         $(refs.prevBtn).click(function(){
             showPrevScreen();
         });
@@ -369,13 +371,13 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         });
         app.flowController.bindSettingsButtonEvent();
         
-        $(refs.printScreenAndroidPay).change(function() {
+       /* $(refs.printScreenAndroidPay).change(function() {
         	syncUserData();
         });
         
         $(refs.printScreenApplePay).change(function() {
         	syncUserData();
-        });
+        });*/
         
         $(refs.printScreenBeginSetup).click(function() {
         	var sMethod = 'printScreenBeginSetupClick() ';
@@ -397,6 +399,11 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     		} catch (error) {
     			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
     		}
+        });
+        $.subscribe('translatorFinished',function(){
+        	console.log(logPrefix + sMethod + 'Language :: change');
+        	updatePageTranslation();
+        	toggleImage();
         });
         
     }
@@ -859,6 +866,48 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     //---------------------------------------------------------------------------------------
     function testPrintFailedAttempts() {
         return testPrintFailedAttempts;
+    }
+    // ---------------------------------------------------------------------------------------
+    function toggleImage() {
+    	var sMethod = " :: toggleImage() :: ";
+    	console.log(logPrefix + sMethod + "respCardType :: " + respCardType);
+    	var cardTypeLang = model.get('respCardType');
+        if(cardTypeLang ===  "OMX"){
+        	updateOmxCardLanguage();
+        } else if(cardTypeLang === "OMZ"){
+        	updateOmzCardLanguage();
+        }
+    }
+    // ---------------------------------------------------------------------------------------
+    function updatePageTranslation() {
+        translator.run("PrintDemoScreen");
+    }
+    //----------------------------------------------------------------------------------------
+    function updateOmxCardLanguage() {
+    	var sMethod = 'updateOmxCardLanguage() ';
+        console.log(logPrefix + sMethod);
+        updatePageTranslation();
+        // Choose what card to display: English or French.
+        	if (app.translator.getCurrentLanguage() === "en") {
+                $("#omxCardApprovalNoThanks").removeClass("fr_card");
+                $("#omxCardApprovalNoThanks").addClass("en_card");
+            } else {
+                $("#omxCardApprovalNoThanks").removeClass("en_card");
+                $("#omxCardApprovalNoThanks").addClass("fr_card");
+            }
+    }  
+    //----------------------------------------------------------------------------------------
+    function updateOmzCardLanguage() {
+    	var sMethod = 'updateOmxCardLanguage() ';
+        console.log(logPrefix + sMethod);
+        updatePageTranslation();
+        	if (app.translator.getCurrentLanguage() === "en") {
+                $("#omzCardApprovalNoThanks").removeClass("fr_card");
+                $("#omzCardApprovalNoThanks").addClass("en_card");
+            } else {
+                $("#omzCardApprovalNoThanks").removeClass("en_card");
+                $("#omzCardApprovalNoThanks").addClass("fr_card");
+            }
     }
     //---------------------------------------------------------------------------------------
     function showPrinterSetupAccountProfileDialog(setupPrinterMacAddressCallback) {

@@ -9,6 +9,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     var $screenContainer = $('#OptionalProductsScreen');
     var translator =    null;
     var messageDialog = null;
+    var QcEnrollAgree = true;
+    var paAgree = true;
+    var cpAgree = true;
+   
 
     this.show = show;
     this.init = init;
@@ -191,6 +195,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         // Save CP stuff
         model.set('optionalProduct_CP_AcceptBox',   $(refs.optionalProducts_CP_Agreement).is(':checked') ? 'Y' : 'N');
         if (model.get('optionalProducts_CP') == 'Y') {
+        	
             model.set('userSingnature_CP',  $(refs.signature_CP).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CP).jSignature('getData', 'image').join(',') : null );
             model.set('userSingnatureNative_CP',  $(refs.signature_CP).jSignature('getData', 'native'));
             model.set('userSingnature',  $(refs.signature_CP).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CP).jSignature('getData', 'image').join(',') : null );
@@ -279,6 +284,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         $(refs.optionalProducts_PA_Agreement).attr('checked', model.get('optionalProduct_PA_AcceptBox') === 'Y' ? true : false);
         $(refs.optionalProducts_CP_Agreement).attr('checked', model.get('optionalProduct_CP_AcceptBox') === 'Y' ? true : false);
         $(refs.optionalProducts_IW_Agreement).attr('checked', model.get('optionalProduct_IW_AcceptBox') === 'Y' ? true : false);
+        if(model.get('optionalProducts_PA') == 'Y' || model.get('optionalProducts_CP') == 'Y' ) {
+        	QcEnrollAgree = false;
+        	console.log(logPrefix + QcEnrollAgree);
+          }
     }
     //---------------------------------------------------------------------------------------
     function updatePanelsVisibility(show)
@@ -338,7 +347,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             }
         ).appendTo("#OptionalProductsScreen");
 
-        $('#OptionalProductsScreen_SettingsButton').addClass('rightPosition');
+        $('#OptionalProductsScreen_SettingsButton').removeClass('rightPosition');
     }
     // ---------------------------------------------------------------------------------------
     function assembleNavigationBarAtBottom(){
@@ -450,10 +459,13 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         });
 
         $(refs.optionalProducts_PA_Agreement).click(function(){
+        	QcEnrollAgree = true;
+        	
             toggleWarningDIV($(refs.optionalProducts_PA_Agreement), "PA");
         });
 
         $(refs.optionalProducts_CP_Agreement).click(function(){
+        	QcEnrollAgree = true;
             toggleWarningDIV($(refs.optionalProducts_CP_Agreement), "CP");
         });
 
@@ -618,17 +630,21 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
               console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
               console.log("---------"+"loginModel: "+loginModel.get('employerID')+"--------"); 
         
-        if(loginModel.get('employerID') !== "K" && chooseProductDataModel.get('province') === 'SK'){
-           hidePAandCP();
-        }
-        if(loginModel.get('employerID') !== "J" && chooseProductDataModel.get('province') === 'AB'){
-           hidePAandCP();
-        }
-        if(chooseProductDataModel.get('province') === 'MB'){
-           hidePAandCP();
-        }
+		//US5000
+		if((loginModel.get('employerID') !== "K") && ((chooseProductDataModel.get('province') === 'SK') || (chooseProductDataModel.get('province') === 'MB'))) {
+			hidePAandCP();
+		}
+		if(loginModel.get('employerID') !== "J" && chooseProductDataModel.get('province') === 'AB'){
+			hidePAandCP();
+		}
+		if(loginModel.get('employerID') !== "C" && chooseProductDataModel.get('province') === 'QC'){
+			hidePAandCP();
+		}
+//		if(chooseProductDataModel.get('province') === 'MB') {
+//			hidePAandCP();
+//		}
     }
-    //---------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------
     // US4168
     function hidePAandCPAgeRestriction(){
     	var sMethod = " hidePAandCPAgeRestriction() :: ";    	
@@ -788,10 +804,18 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         // US3981 - Start
         if(loginModel.get('employerID').toUpperCase() !== 'E' 
         	&& chooseProductModel.get('province').toUpperCase() === 'QC') {        	
-        	if(model.get('optionalProducts_PA') == 'Y' || model.get('optionalProducts_CP') == 'Y') {
-        		messageDialog.htmlConfirm(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"), 
+        	if( model.get('optionalProducts_PA') == 'Y' &&  QcEnrollAgree &&  paAgree ) {
+        		paAgree = false;
+        		messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"), 
                 		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
-        	} else {
+        	} 
+        	else if(  model.get('optionalProducts_CP') == 'Y' &&  QcEnrollAgree && cpAgree ) {
+        		messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"), 
+                		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
+        		cpAgree = false;
+        	}
+        	
+        	else {
                 flow.next();
             }       	
         } else {
@@ -804,14 +828,16 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     function handleHandoutpromptsNo() {
         var sMethod = 'handleHandoutpromptsNo()';
         console.log(logPrefix + sMethod);
-        messageDialog.info(translator.translateKey("optionalProductScreen_Handoutprompts_Ok_Message")
-        		, translator.translateKey("optionalProductScreen_Handoutprompts_Title"), $.noop);
+        messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"), 
+        		handleHandoutpromptsYes, handleHandoutpromptsNo,  translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
     }
     // ---------------------------------------------------------------------------------------    
     function handleHandoutpromptsYes() {
+    	 QcEnrollAgree = false;
         var sMethod = 'handleHandoutpromptsYes()';
+       // console.log(logPrefix + QcEnrollAgree);
         console.log(logPrefix + sMethod);
-        flow.next();
+       // flow.next();
     }
     // US3981 - End
     //---------------------------------------------------------------------------------------

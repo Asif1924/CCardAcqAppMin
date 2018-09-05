@@ -115,12 +115,13 @@ WICI.Demo_PollAccountApplicationResponse = {
 					"cashAPR": "22.99",
 					"appStatus": "APPROVED",
 					"customerValueInd": "1",
-					"respCardType": "OMX"
+					"respCardType": "OMX",
+					"queueName" : "DIIAPPRV"
 				}
 			},
 			"RetrievalToken": "EA496B1568BD",
 			"TransactionState": "COMPLETE",
-			"consentGranted": "Y",
+			"consentGranted": "N",
 			"externalReferencId": "0A48FE6D-BD61-4CEC-B523-EA496B1568BD",
 			"currentTelephone":"8564125987"
 		}

@@ -1,5 +1,16 @@
 <script id="WICISupCardScreen-template" type="text/x-jquery-tmpl">	
 	<div class="ScreenLayout" id="SupCardScreen_PageContents">
+	
+	    <br><br><br>
+	    <center>
+	        {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMX" || activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"}}
+		           <a href="#" id="suppCard_OMX" class="supplementaryCardImage"></a>
+		    {{else activationItems.getModel('chooseProductModel').get('productCard') === "OMP" || 
+	                    	               activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}} 
+	              <a href="#" id="suppCard_OMP_OMR" class="supplementaryCardImage"></a>   
+		    {{/if}} 
+	     </center>
+	     
 		<br>		
 		<br>		
 		<center>

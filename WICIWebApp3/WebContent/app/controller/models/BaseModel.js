@@ -294,25 +294,13 @@ WICI.BaseModel = function(config) {
 
     	var itemName =  item === null ? '' : item.name;
     	var itemuiid = model.refs == null ? '' : model.refs[item.name];
-
-    	if(fullYears < 18)
-    	{
+        // US4976 
+    	if (fullYears < 18 && province !== null && province != '' && $.inArray(province, ['AB', 'SK', 'MB', 'ON', 'QC', 'PE']) != -1) {    		
+    		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid, province: province};
+    	} else if(fullYears < 19 && province !== null && province != '' && $.inArray(province, ['NB', 'NS', 'BC', 'YT', 'NT', 'NL', 'NU']) != -1){
+    		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid, province: province};
+    	} else if(fullYears < 18){
     		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
-    	}
-    	else if (fullYears == 18 && province !== null && province != '') {
-
-    		if(province === 'NF' ||
-    		   province === 'NB' ||
-    		   province === 'NS' ||
-    		   province === 'BC' ||
-    		   province === 'YT' ||
-    		   province === 'NT' ||
-    		   province === 'NL' ||
-    		   province === 'NU' )
-    		{
-    			rez= {name: itemName, err: 'personalData_DOB_19YearsError', uiid: itemuiid, province: province};
-    		}
-
     	}
 
     	return rez;
