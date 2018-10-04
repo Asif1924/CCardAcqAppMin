@@ -191,12 +191,12 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     });    
     
     var url = {    
-    		OptionalInsuranceCP_en		:	'https://customer.ctfs.com/Products/Insurance/CreditProtector/CreditProtectorTandC/',
-    		OptionalInsuranceIW_en		:	'https://customer.ctfs.com/Products/TermsandConditions/IDWatch/',
-    		OptionalInsurancePA_en		:	'https://customer.ctfs.com/Products/TermsandConditions/ProtectionAdvantage/',
-    		OptionalInsuranceCP_fr		:	'https://customer.ctfs.com/lang/fr/Products/Insurance/CreditProtector/CreditProtectorTandC/',
-    		OptionalInsuranceIW_fr		:	'https://customer.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/',
-    		OptionalInsurancePA_fr		:	'https://customer.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/'
+    		OptionalInsuranceCP_en		:	'https://www.ctfs.com/content/ctfs/en/optional-products/credit_protector_terms.html',
+    		OptionalInsuranceIW_en		:	'https://www.ctfs.com/content/ctfs/en/optional-products/identity_watch_terms.html',
+    		OptionalInsurancePA_en		:	'https://www.ctfs.com/content/ctfs/en/optional-products/protection_advantage_terms.html',
+    		OptionalInsuranceCP_fr		:	'https://www.ctfs.com/content/ctfs/fr/optional-products/credit_protector_terms.html',
+    		OptionalInsuranceIW_fr		:	'https://www.ctfs.com/content/ctfs/fr/optional-products/identity_watch_terms.html',
+    		OptionalInsurancePA_fr		:	'https://www.ctfs.com/content/ctfs/fr/optional-products/protection_advantage_terms.html'
     };
     
     //---------------------------------------------------------------------------------------
@@ -510,7 +510,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
-        	"switchLanguageButtonId" : "AdditionalInformation_LanguageButton"
+        	"switchLanguageButtonId" : "AdditionalInformation_LanguageButton", "isMOA":isMOA, "cardType":cardTypeGlobal
         }).appendTo("#AdditionalInformationScreen");
     }
 	//---------------------------------------------------------------------------------------

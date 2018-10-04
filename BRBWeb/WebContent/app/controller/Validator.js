@@ -164,7 +164,7 @@ BRB.Validator = function() {
         if(value===null){
             return false;
         }        
-        return regexMatch(/^[a-z\u00C0-\u017F0-9\'\- ]{1,5}$/i, $.trim(value));
+        return regexMatch(/^[a-z\u00C0-\u017F0-9\'\- ]{1,6}$/i, $.trim(value));
     };
     //---------------------------------------------------------------------------------------    
     this.addressLine = function(value) {

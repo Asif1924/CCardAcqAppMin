@@ -2,7 +2,11 @@
 	<div id="personalInfoTable" class="grayTableTopBorder row">	
 		{{if activationItems.getModel('personalInformation').get('title') }}
 		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
-			<span data-translationKey="personalInformation_TitleField"></span>			
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span data-translationKey="personalInformation_TitleField"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span data-translationKey="personalInformation_TitleField_OMP_OMR"></span>
+			{{/if}}
 		</div>
 		<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
 			<span id="personalNameTitle">${activationItems.getNameTitleByValue(activationItems.getModel('personalInformation').get('title'))}</span>

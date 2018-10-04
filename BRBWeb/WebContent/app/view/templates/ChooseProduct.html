@@ -3,8 +3,14 @@
             <br><br>
             <center class="elementWithBottomMargin15">
 					<div>
-						<span class="overview_page_subtitle" data-translationKey="overview_page_Title_lets_get_started"></span><br>
-						<span class="overview_page_subtitle" data-translationKey="overview_page_Title_it_will_take_few_min"></span>
+					  {{if cardType === "OMP" }}
+					      <span class="overview_page_subtitle" data-translationKey="overview_page_Title_lets_get_started_OMP_CARD"></span><br>
+						  <span class="overview_page_subtitle" data-translationKey="overview_page_Title_it_will_take_few_min_OMP_CARD"></span>
+					  {{else}}
+					      <span class="overview_page_subtitle" data-translationKey="overview_page_Title_lets_get_started"></span><br>
+						  <span class="overview_page_subtitle" data-translationKey="overview_page_Title_it_will_take_few_min"></span>
+					  {{/if}}
+						
 					</div>
 					<br>
            </center>
@@ -207,13 +213,22 @@
 			{{else}}
 			          <br><br>
 	                  <!-- OMX -->	
-	                   {{if cardType === "OMX"}}	  
-		              <div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMX"></div>
+	                  {{if cardType === "OMX"}}	  
+		              		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMX"></div>
 		              <!-- OMZ -->
-		               {{else cardType === "OMZ"}}  
-		              <div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMZ"></div> 
-		               {{/if}} 
-		             <p class="chooseProductTitle1 latoFont" data-translationKey="chooseProduct_Title2"></p>
+		              {{else cardType === "OMZ"}}  
+		              		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMZ"></div> 
+		              <!-- OMP -->
+		              {{else cardType === "OMP"}}  
+		              		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMP"></div> 
+		              {{else cardType === "OMR"}}  
+		              		<div class="chooseProductRedText" data-translationKey="chooseProduct_Title1_OMR"></div> 
+		              {{/if}} 
+		              {{if cardType === "OMP" || cardType === "OMR"}}	  
+		                <p class="chooseProductTitle1 latoFont" data-translationKey="chooseProduct_Title2_OMP_OMR"></p>
+		              {{else}} 
+		                <p class="chooseProductTitle1 latoFont" data-translationKey="chooseProduct_Title2"></p>
+		              {{/if}}   
        	    
 			   <div id="productListBlock latoFont" class="chooseProductBlock">
 			<div class="col-sm-4 paddingZero">
@@ -223,6 +238,11 @@
 				       <a href="#" id="topBannerOMXImage" class="topBannerOMXImageBlock" /> 
 				       {{else cardType === "OMZ"}}  
 				       <a href="#" id="topBannerOMZImage" class="topBannerOMZImageBlock" />
+				       <!-- OMP -->
+				       {{else cardType === "OMP"}}  
+				       <a href="#" id="topBannerOMPImage" class="topBannerOMPImageBlockChooseProduct" />
+				       {{else cardType === "OMR"}}  
+				       <a href="#" id="topBannerOMRImage" class="topBannerOMRImageBlockChooseProduct" />
 				       {{/if}} 
 				      <ul class="compareCards">						
 						<!-- US3627 //-->
@@ -233,6 +253,12 @@
 						 {{else cardType === "OMZ"}}
 						        <li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA1_OMZ"></li>
 								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA2_OMZ"></li>
+						 {{else cardType === "OMP"}}
+						        <li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA1_OMP"></li>
+								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA2_OMP"></li>	
+						{{else cardType === "OMR"}}
+						        <li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA1_OMP"></li>
+								<li class="span12 marginLEftMinus4" data-translationKey="chooseProduct_DescriptionA2_OMP"></li>				
 						 {{/if}}
 					 </ul> 
 				{{/if}}
@@ -263,28 +289,40 @@
 						
 					 </ul> 
 					{{else}}
-					{{if cardType === "OMX"}}
-					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet1"></p>
-					      <p class="chooseProductMargin"data-translationKey="personalInfo_Loyalty_Bullet2"></p>
-					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet3"></p>
-					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet4"></p>
-					      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet5"></p>
-					{{else cardType === "OMZ"}}  
-					<span class="paragraph ">
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet1"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet2"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet3"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet4"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet5"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet6"></p>
-					      <p  data-translationKey="personalInfo_Loyalty_Bullet7"></p>
-					      <p  data-translationKey="overview_pageCompareCards_table_td9"></p>
-					      <p  data-translationKey="overview_pageCompareCards_table_td10"></p>
-					      <p  data-translationKey="overview_pageCompareCards_table_td11"></p>
-					      <p  data-translationKey="overview_pageCompareCards_table_td12"></p>
-					      <p  data-translationKey="overview_pageCompareCards_table_td13"></p>
-					  </span>  
-					   {{/if}}  
+							{{if cardType === "OMX"}}
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet1"></p>
+							      <p class="chooseProductMargin"data-translationKey="personalInfo_Loyalty_Bullet2"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet3"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet4"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_Loyalty_Bullet5"></p>
+							{{else cardType === "OMZ"}}  
+							<span class="paragraph ">
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet1"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet2"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet3"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet4"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet5"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet6"></p>
+							      <p  data-translationKey="personalInfo_Loyalty_Bullet7"></p>
+							      <p  data-translationKey="overview_pageCompareCards_table_td9"></p>
+							      <p  data-translationKey="overview_pageCompareCards_table_td10"></p>
+							      <p  data-translationKey="overview_pageCompareCards_table_td11"></p>
+							      <p  data-translationKey="overview_pageCompareCards_table_td12"></p>
+							      <p  data-translationKey="overview_pageCompareCards_table_td13"></p>
+							  </span>  
+							{{else cardType === "OMP"}}
+							      <br>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_OMP_CARD_Bullet1"></p>
+							      <p class="chooseProductMargin"data-translationKey="personalInfo_OMP_CARD_Bullet2"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_OMP_CARD_Bullet3"></p>
+							      <br><br><br><br><br>
+							{{else cardType === "OMR"}}
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_OMR_CARD_Bullet1"></p>
+							      <p class="chooseProductMargin"data-translationKey="personalInfo_OMR_CARD_Bullet2"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_OMR_CARD_Bullet3"></p>
+							      <p class="chooseProductMargin" data-translationKey="personalInfo_OMR_CARD_Bullet4"></p>
+							      <br><br>
+							{{/if}}    
 					{{/if}}
 				</div> 
 			</div>

@@ -83,11 +83,19 @@
 		
 			<div class="personalInfoTitle row">
 				<div class="pageSubTitle col-xs-7 col-sm-9">
+				{{if cardType === "OMX" || cardType === "OMZ"}}
 					<span class="leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+				{{else cardType === "OMP" || cardType === "OMR"}}
+				    <span class="leftalign" data-translationKey="personalInformation_AboutYourself_OMP"></span>
+				{{/if}} 
 				</div>
 					<div class="floatToRight col-xs-5 col-sm-3" style="text-align: right; padding-right: 5px;">
 						<span class="requiredField redSpan">*</span>
-						<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+						{{if cardType === "OMX" || cardType === "OMZ" }}
+							<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+						{{else cardType === "OMP" || cardType === "OMR" }}
+							<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+						{{/if}}
 					</div>
 			</div>
 		
@@ -106,37 +114,44 @@
 			{{/if}}	
 			</div>
 			
-			<div class="grayTableNoBorder row" id="personalInformation_MoneyAdvantage_FieldContainer">
-	            <div class="fieldLabelsCell fieldLabelsTopCell alignToTop elementTopBottom10 col-xs-12 col-sm-3">
-	                        <span data-translationKey="personalInfo_CTM_label"></span>
-	            </div>						
-				<div class="fieldValuesCell elementTopBottom10 col-xs-12 col-sm-9">
-					<div class="row">
-						<div class="grayTableForInputsGroup">
-							<div class="fieldValuesCell">
-								<input class="fieldValuesTextField loyaltyNumberField" value="636574" id="personalInformation_MoneyAdvantage_TextField" type="tel" maxlength="16" />
-							</div>		                        		
-							<div class="fieldValuesCell questionSeparatorCell" >
-								<div class="errorCell hideElement" id="personalInformation_MoneyAdvantage_TextField_error"></div>
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<div class="grayTableNoBorder row" id="personalInformation_MoneyAdvantage_FieldContainer">
+		            <div class="fieldLabelsCell fieldLabelsTopCell alignToTop elementTopBottom10 col-xs-12 col-sm-3">
+		                        <span data-translationKey="personalInfo_CTM_label"></span>
+		            </div>						
+					<div class="fieldValuesCell elementTopBottom10 col-xs-12 col-sm-9">
+						<div class="row">
+							<div class="grayTableForInputsGroup">
+								<div class="fieldValuesCell">
+									<input class="fieldValuesTextField loyaltyNumberField" value="636574" id="personalInformation_MoneyAdvantage_TextField" type="tel" maxlength="16" />
+								</div>		                        		
+								<div class="fieldValuesCell questionSeparatorCell" >
+									<div class="errorCell hideElement" id="personalInformation_MoneyAdvantage_TextField_error"></div>
+								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="fieldLabelsText fieldLabelsCellWithTopAlign fieldCellSize100" colspan="4">
+							    {{if cardType === "OMX"}}
+								       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>	
+								{{else cardType === "OMZ"}}  
+								       <span id="personalInfo_CTM_OMZ" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMZ"/>
+								       <span id="personalInfo_CTM_OMX" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>
+								{{/if}}		
+							</div>
+						</div>	
 					</div>
-					<div class="row">
-						<div class="fieldLabelsText fieldLabelsCellWithTopAlign fieldCellSize100" colspan="4">
-						    {{if cardType === "OMX"}}
-							       <span class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>	
-							{{else cardType === "OMZ"}}  
-							       <span id="personalInfo_CTM_OMZ" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMZ"/>
-							       <span id="personalInfo_CTM_OMX" class="alignToBottom" data-translationKey="personalInfo_CTM_Text_OMX"/>
-							{{/if}}		
-						</div>
-					</div>	
-				</div>
-		        
-	        </div>
+			        
+		        </div>
+	        {{/if}}
 			<div class="grayTableNoBorder row">	
 				<div class="fieldLabelsCell elementTopBottom10 col-xs-12 col-sm-3">
-					<span data-translationKey="personalInformation_TitleField"></span>
+					{{if cardType === "OMX" || cardType === "OMZ" }}
+						<span data-translationKey="personalInformation_TitleField"></span>
+					{{else cardType === "OMP" || cardType === "OMR" }}
+						<span data-translationKey="personalInformation_TitleField_OMP_OMR"></span>
+					{{/if}}
+					
 					<!-- <sup class="redSpanForInputsGroup">*</sup> -->
 				</div>
 				<div class="fieldValuesCell elementTopBottom10 col-xs-12 col-sm-9" data-translationKey="personalInformation_Title_TextField">
@@ -189,17 +204,17 @@
 					</div>
 				</div>	                
 			</div>
-			
-			   <div class="grayTableNoBorder row">
-	            <div class="fieldLabelsCell elementTopBottom10 col-sm-3">
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+			   	<div class="grayTableNoBorder row">
+	            	<div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 				</div>
 				<div class="fieldValuesCell elementTopBottom10 col-sm-9">
 					<div class="row">
-						 <span  class="fieldCellWithBoldFontSize14 leftList" data-translationKey="personalInformation_provide_email_to_get_bonus"></span>
+						<span  class="fieldCellWithBoldFontSize14 leftList" data-translationKey="personalInformation_provide_email_to_get_bonus"></span>
 					</div>
 				</div>	                
-			</div>
-			
+				</div>
+			{{/if}}
 	        <div class="grayTableNoBorder row">
 	            <div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 					<span data-translationKey="personalInformation_EmailAddress"></span>
@@ -245,7 +260,11 @@
 									
 							</div>
 							<div class="fieldLabelsCell fieldLabelsCellWithTopAlign col-xs-10 col-sm-11">
-								<span data-translationKey="personalInfo_Email_Text"></span>
+							     {{if cardType === "OMP" || cardType === "OMR"}}
+									      <span data-translationKey="personalInfo_Email_Text_OMP"></span>
+								 {{else}}
+									      <span data-translationKey="personalInfo_Email_Text"></span>
+								 {{/if}}
 							</div>		                        	
 						</div>	                       	
 					</div>	                
@@ -361,10 +380,17 @@
 							
 							<td>
 								<div id="personalInformation_SocialInsurance_Help" class="questionCell ctfsTooltip">
+								{{if cardType === "OMX" || cardType === "OMZ" }}
 									<span>
 										<div class="hintArrow"></div>
 										<p data-translationKey="personalInformation_SINHint">
 									</span>
+								{{else cardType === "OMP" || cardType === "OMR" }}
+									<span>
+										<div class="hintArrow"></div>
+										<p data-translationKey="personalInformation_SINHint_OMP_OMR">
+									</span>
+								{{/if}}									
 								</div>
 							</td>
 						</tr>
@@ -381,7 +407,7 @@
 							<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetNumber"></span>
 							<span> </span>
 							<sup class="redSpanForInputsGroup">*</sup>
-							<p><input class="fieldValuesTextField addressShortField" id="personalInformation_StreetNumber_TextField" type="text" maxlength="5"/></p>
+							<p><input class="fieldValuesTextField addressShortField" id="personalInformation_StreetNumber_TextField" type="text" maxlength="6"/></p>
 	                    </div>
 						<div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-6 col-md-5">
 							<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
@@ -389,8 +415,12 @@
 							<sup class="redSpanForInputsGroup">*</sup>
 							<p><input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="28" /></p>
 	                    </div>
-	                    <div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-2 col-md-3">    		
-                     		<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
+	                    <div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-2 col-md-3">
+		                    {{if cardType === "OMX" || cardType === "OMZ" }}
+								<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
+							{{else cardType === "OMP" || cardType === "OMR" }}
+								<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite_OMP_OMR"></span>
+							{{/if}}    		                     		
 							<p><input class="fieldValuesTextField addressShortField" id="personalInformation_Suite_TextField" type="text" maxlength="5"/></p>
 							<div class="errorCell hideElement" id="personalInformation_City_TextField_error"></div> 
 	                    </div>
@@ -496,7 +526,7 @@
 								<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetNumber"></span>
 								<span> </span>
 								<sup class="redSpanForInputsGroup">*</sup>
-								<p><input class="fieldValuesTextField addressShortField" id="personalInformation_PrevStreetNumber_TextField" type="text" maxlength="5"/></p>
+								<p><input class="fieldValuesTextField addressShortField" id="personalInformation_PrevStreetNumber_TextField" type="text" maxlength="6"/></p>
 							</div>
 							<div class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell elementBottom10 col-xs-12 col-sm-6 col-md-5">
 								<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
@@ -632,7 +662,11 @@
 				<!-- End -->
 				<div class="fieldLabelsAdditionalInfoCell row">
 		             <div class="fieldLabelsCell elementTopBottom10 elementNoRightPadding fieldLabelsAdditionalInfoCell col-sm-3">		                    
-						<span data-translationKey="personalInformation_EmployerSince"></span>
+						{{if cardType === "OMX" || cardType === "OMZ" }}
+							<span data-translationKey="personalInformation_EmployerSince"></span>
+						{{else cardType === "OMP" || cardType === "OMR" }}
+							<span data-translationKey="personalInformation_EmployerSince_OMP_OMR"></span>
+						{{/if}}
 						<span> </span>
 						<sup class="redSpanForInputsGroup">*</sup>
 					</div>
@@ -686,7 +720,7 @@
 				</div>
 			</div>
 			<!-- US3961 Start //-->
-			<div id="peraonalInfoTable" class="grayTableNoBorder row">
+			<div id="personalInfoGrossHouseholdIncomeTable" class="grayTableNoBorder row">
 				<div class="fieldLabelsCell elementTopBottom10 col-sm-3">
 					<span data-translationKey="personalInformation_GrossAnnualHouseholdIncome"></span>					
 				</div>
@@ -815,15 +849,25 @@
 				<div class="scrollbar" id="style-1">
                    <div class="force-overflow">
 									<span class="footnoteContentText">
-										<p data-translationKey="personalInfo_LegalText1"></p>
+									    {{if cardType === "OMP" || cardType === "OMR"}}
+									        <p data-translationKey="personalInfo_Legal_OIC_OMP_CARD_Text1"></p>
+									    {{else}}
+									        <p data-translationKey="personalInfo_LegalText1"></p>
+									    {{/if}}
 										{{if cardType === "OMX"}}
-										<p data-translationKey="personalInfo_LegalText2_OMX"></p>
+										        <p data-translationKey="personalInfo_LegalText2_OMX"></p>
 										{{else cardType === "OMZ"}}  
-										<p id="personalInfo_LegalText20_OMZ_ID" data-translationKey="personalInfo_LegalText2_OMZ"></p>
-										<p id="personalInfo_LegalText20_OMX_ID" data-translationKey="personalInfo_LegalText2_OMX"></p>
+												<p id="personalInfo_LegalText20_OMZ_ID" data-translationKey="personalInfo_LegalText2_OMZ"></p>
+												<p id="personalInfo_LegalText20_OMX_ID" data-translationKey="personalInfo_LegalText2_OMX"></p>
 										{{/if}}
-										<p data-translationKey="personalInfo_LegalText4"></p>
-										<p data-translationKey="personalInfo_LegalText5"></p>
+										
+										{{if cardType === "OMP" || cardType === "OMR"}}
+										    <p data-translationKey="personalInfo_Legal_OIC_OMP_CARD_Text4"></p>
+									        <p data-translationKey="personalInfo_Legal_OIC_OMP_CARD_Text5"></p>
+									    {{else}}
+									        <p data-translationKey="personalInfo_LegalText4"></p>
+									        <p data-translationKey="personalInfo_LegalText5"></p>
+									    {{/if}}
 									</span>
        			  </div>
        			 </div> 									

@@ -14,6 +14,10 @@
 	                 {{else cardType === "OMZ"}}  
 	                    <p id="OMZ_title" class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForWorld_elite_card"></p>
 	                    <p id="OMX_title" class="personalInfoPageTextSub_subTitle" data-translationKey="personalInformation_ApplyForTriangleMastercard"></p>
+	                 {{else cardType === "OMP"}}  
+	                    <p id="OMZ_title" class="personalInfoPageTextSub_subTitle_OMP_CARD" data-translationKey="personalInformation_ApplyFor_OMP_CARD_OIC"></p>   
+	                 {{else cardType === "OMR"}}  
+	                    <p id="OMZ_title" class="personalInfoPageTextSub_subTitle_OMP_CARD" data-translationKey="personalInformation_ApplyFor_OMR_CARD_OIC_personalInfo"></p>         
 	                 {{/if}}
 	               </td>
 	                 {{if cardType === "OMX"}}
@@ -21,6 +25,14 @@
 	                 {{else cardType === "OMZ"}}   
 	                    <td id="OMZ_image" class="Width_TD_30 OMZCard4percentage"></td>
 	                    <td id="OMX_image" class="Width_TD_30 OMXCard4percentage"></td>
+	                 {{else cardType === "OMP"}}   
+	                    <td id="OMP_image" class="Width_TD_30">
+	                       <span data-translationKey="pageHeader_ompCard"></span>
+	                    </td>
+	                 {{else cardType === "OMR"}}   
+	                    <td id="OMR_image" class="Width_TD_30">
+	                       <span data-translationKey="pageHeader_omrCard"></span>
+	                    </td>       
 	                 {{/if}}
 	                 </td>
 	          </tr>

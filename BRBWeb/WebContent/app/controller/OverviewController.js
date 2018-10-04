@@ -34,7 +34,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
     		promoCodeHidden							:	'#promoCodeHidden',
     		chooseCard_CheckArea                    :   '#chooseCardTable',
     		omxCard                                 :   '#triangleMastercard',
-    		omzCard                                 :   '#triangleWorldEliteMastercard'
+    		omzCard                                 :   '#triangleWorldEliteMastercard',
+    		omrCard                                 :   '#topBannerOMRImage',
+            ompCard                                 :   '#topBannerOMPImage'  			
     			
     };
     
@@ -47,6 +49,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
               {name: 'provinces',  value: null, validation: { type: 'presence', message: 'overview_ProvinceError' }},
               {name: 'cardType',   value: null, validation: null },
               {name: 'requestingSystem', value: null, validation: null },
+              {name: 'clientIPAddress', value: null, validation: null },
               { notField: true, 
             	name: 'chooseCard_CheckArea',    
             	value: null, 
@@ -76,8 +79,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         if(isMOA){
         	cardType =  this.initiateAppHelper.getCardTypeParam();
             BRB.Log(logPrefix + "BRB OIC cardType ::" +this.initiateAppHelper.getCardTypeParam());
+            // US4997 - OMP card added
             if(cardType !== null || cardType!== ""){
-            	if(cardType === 'OMX' || cardType === 'OMZ' || cardType === 'omx' || cardType === 'omz'){
+            	if(cardType === 'OMX' || cardType === 'OMZ' || cardType === 'OMP' || cardType === 'omx' || cardType === 'omz' || cardType === 'omp' || cardType === 'OMR' || cardType === 'omr' ){
             		model.set('cardType', cardType.toUpperCase());
         	    }else{
         	    	model.set('cardType', 'OMX');
@@ -108,9 +112,10 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         } else {
             model = currentModel;
         }
-        
-       
-		
+         if (!app.ieUIHelper.isIE()){
+        	 BRB.Log(logPrefix + sMethod + " is IE ");
+             getClientIPAddress();
+         }
 		//createView();
 		
 		// US4580
@@ -246,7 +251,9 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
-        	"switchLanguageButtonId" : "Overview_LanguageButton"/*,
+        	"switchLanguageButtonId" : "Overview_LanguageButton",
+        	"isMOA":isMOA,
+        	'cardType' : model.get('cardType')/*,
             "previousButtonId" : "Overview_PrevButton",*/
         }).appendTo("#OverviewScreen");
     }
@@ -494,8 +501,24 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			'rightBannerNSBlock_fr') : $('#rightBannerROCImage')
 			.addClass('rightBannerNSBlock_fr').removeClass(
 					'rightBannerNSBlock');	
-						
-					
+			
+			if(model.get('cardType')=== "OMP" && model.get('cardType') !== ''){
+				if(translator.getCurrentLanguage() == 'en'){
+						$(refs.ompCard).removeClass('topBannerOMPImageBlockChooseProduct_fr');
+						$(refs.ompCard).addClass('topBannerOMPImageBlockChooseProduct');
+				}else {
+						$(refs.ompCard).removeClass('topBannerOMPImageBlockChooseProduct');
+						$(refs.ompCard).addClass('topBannerOMPImageBlockChooseProduct_fr');
+					}
+			}else if(model.get('cardType')=== "OMR" && model.get('cardType') !== ''){
+				if(translator.getCurrentLanguage() == 'en'){
+						$(refs.omrCard).removeClass('topBannerOMRImageBlockChooseProduct_fr');
+						$(refs.omrCard).addClass('topBannerOMRImageBlockChooseProduct');
+				}else {
+						$(refs.omrCard).removeClass('topBannerOMRImageBlockChooseProduct');
+						$(refs.omrCard).addClass('topBannerOMRImageBlockChooseProduct_fr');
+				}
+			}		
 		}
 	}
 	//-------------------------------------------------------------------------------------------
@@ -522,5 +545,34 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			.addClass('topBanner4PercentImageBlock_fr').removeClass(
 					'topBanner4PercentImageBlock');  
 		}
-	}  
+	}
+	
+	// US5022-------------------------------------------------------------------------------------------	
+	function getClientIPAddress() {
+		var sMethod = 'getClientIPAddress() ';
+		BRB.Log(logPrefix + sMethod);
+		window.RTCPeerConnection = window.RTCPeerConnection
+				|| window.mozRTCPeerConnection
+				|| window.webkitRTCPeerConnection;
+		var pc = new RTCPeerConnection({
+			iceServers : []
+		}), noop = function() {
+		};
+		pc.createDataChannel('');
+		pc.createOffer(pc.setLocalDescription.bind(pc), noop);
+		pc.onicecandidate = function(ice) {
+			if (ice && ice.candidate && ice.candidate.candidate) {
+				var myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
+						.exec(ice.candidate.candidate)[1];
+				pc.onicecandidate = noop;
+				model.set('clientIPAddress', myIP);
+				BRB.Log("clientIdAddress from model " + myIP);
+			}
+		};
+		
+	}	 
+		
+	
+	
+	
 };

@@ -1,6 +1,6 @@
 ensureNamespaceExists();
 
-BRB.HTMLCreditDisclosureInfo = function (startButton, noButton,  translate ){
+BRB.HTMLCreditDisclosureInfo = function (startButton, yesCallback, translate ){
 	
 	var dialogViewHelper = new BRB.DialogViewHelper();
 	var answerIsYes = false;
@@ -10,36 +10,19 @@ BRB.HTMLCreditDisclosureInfo = function (startButton, noButton,  translate ){
 	this.show = show;
 	
 	function show(showNextDialogCallback) {
-		
-		BRB.Log("showing HTMLCreditDisclosureInfo");
-		appendDialog();
+	   appendDialog();
 		dialogViewHelper.showDialog();
 		addEvents(showNextDialogCallback);
-		showing = true;
+	    showing = true;
 	 
 	}
+    
 
 	function isShowing() {
 		return showing;
 	}
 	
 
-		
-	function addEvents(showNextDialogCallback) {
-		// DANGER, we use .one( but remember to make sure the events don't stack
-		// up if making changes
-		$("#start_confirmButton").one("click", function(event) {
-			BRB.Log("click event");
-			(new BRB.DialogCloseHelper()).closeAllDialogs();
-			showOMXContent();
-		    $('body').unbind('touchmove');
-			$('body').removeClass('stop-scrolling');
-			
-		});
-		showing = false;
-		showNextDialogCallback();
-
-	}
 	
 	function appendDialog(){
 		
@@ -70,7 +53,7 @@ BRB.HTMLCreditDisclosureInfo = function (startButton, noButton,  translate ){
 		}).appendTo("body");
 	}
 	
-	function showOMXContent(){
+/*	function showOMXContent(){
 		
 		BRB.Log("showOMXContent method");
 		$("#OMX_title").show();
@@ -84,6 +67,44 @@ BRB.HTMLCreditDisclosureInfo = function (startButton, noButton,  translate ){
 		$("#personalInfo_LegalText20_OMZ_ID").hide();
 		$("#personalInfo_LegalText20_OMX_ID").show();
 		
-	  } 
+	  } */
+	
+
+	
+	function addEvents(showNextDialogCallback) {
+		// DANGER, we use .one( but remember to make sure the events don't stack
+		// up if making changes
+		/*$("#start_confirmButton").one("click", function(event) {
+			(new BRB.DialogCloseHelper()).closeAllDialogs();
+			showOMXContent();
+		    $('body').unbind('touchmove');
+			$('body').removeClass('stop-scrolling');
+			showing = false;
+			//showNextDialog();
+			event.preventDefault();
+			
+		});*/
+		
+		$("#start_confirmButton").one("click", function(event){
+			answerIsYes = true;
+		  });
+		
+		$("#" + dialogViewHelper.getMessageDialogId()).one('pagehide.DART', function(){
+			dialogViewHelper.removeDialog();
+			try {
+				if (answerIsYes){
+					yesCallback();
+				}
+			 } catch (e) {
+				BRB.Log("Internal BRB error after Confirm dialog box");
+			 }
+			showing = false;
+			showNextDialogCallback();
+		});
+	  }
+	
+	
+	
+	
 
 };

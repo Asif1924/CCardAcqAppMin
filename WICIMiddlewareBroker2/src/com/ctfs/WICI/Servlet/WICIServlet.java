@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.WICI.Configuration.EnvironmentConfiguration;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
@@ -132,13 +131,6 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		log.info(sMethod + "---Headers: " + requestHeadersString.toString());
 	}
 
-	public WICIConfiguration getWebServicesEndpoint(){
-		String sMethod = this.getClass().getName() + "[getWebServicesEndpoint] ";
-		log.info(sMethod + "---getting web services endpoint");
-
-		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
-		return wiciConfigurationFactory.createWebServicesConfiguration();
-	}
 	public WICIConfiguration getSharedServicesEndpoint(){
 		String sMethod = this.getClass().getName() + "[getSharedServicesEndpoint] ";
 		log.info(sMethod + "---getting web Sharedservice endpoint");
@@ -147,14 +139,6 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		return wiciConfigurationFactory.createSharedServicesConfiguration();
 	}
 
-	public AccountAcquisitionPortalProxy getWICIWebServicesProxy(){
-		String sMethod = this.getClass().getName() + "[getWICIWebServicesProxy] ";
-		log.info(sMethod + "---getting web services portal proxy");
-
-		WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
-		return wiciPortalProxyFactory.createWICIWebServicesPortalProxy();
-	}
-	
      public SharedWebServicesSOAPProxy getWICISharedServicesProxy(){
 		String sMethod = this.getClass().getName() + "[getWICIWebSharedServicesProxy] ";
 		log.info(sMethod + "---getting web sharedservices portal proxy");

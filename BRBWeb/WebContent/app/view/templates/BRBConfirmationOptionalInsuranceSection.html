@@ -7,7 +7,11 @@
 			<!-- UAT 38, CP Revitalization -->
 			<!-- SK related "if" condition is removed, since after commenting also it's applying condition. So if condition is removed from here. -->
 			<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_CP'))}></span>
-			<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_CreditProtector_enroll"></span>			
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_CreditProtector_enroll"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_CreditProtector_enroll_OMP_OMR"></span>
+			{{/if}}
 		</div>		
 	</div> 
 	<!-- <div id="personalInfoTable" class="grayTableNoBorder row">	
@@ -24,7 +28,11 @@
 	<div id="personalInfoTable" class="grayTableNoBorder row">	
 		<div class="fieldLabelsCell fieldLabelsTopCell fieldCellWithBoldFontSize14 elementTopBottom10 col-xs-12">
 			<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_IW'))}></span>
-			<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_IdentityWatch"></span>		
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_IdentityWatch"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_IdentityWatch_OMP_OMR"></span>
+			{{/if}}				
 		</div>
 	</div>
 	<!-- <div id="personalInfoTable" class="grayTableNoBorder row">	
@@ -38,7 +46,11 @@
 	<div id="personalInfoTable" class="grayTableNoBorder row">	
 		<div  id="noEnroleMeInPA"class="fieldLabelsCell fieldLabelsTopCell fieldCellWithBoldFontSize14 elementTopBottom10 col-xs-12">
 			<span class="floatLeft" data-translationKey=${activationItems.getCheckBoxValueFriendlyName(activationItems.getModel('additionalInformation').get('optionalInsurance_PA'))}></span>
-			<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_ProtectionAdvantage"></span>		
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_ProtectionAdvantage"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span class="floatLeft" data-translationKey="additionalInformation_OptionalInsurance_ProtectionAdvantage_OMP_OMR"></span>
+			{{/if}}				
 		</div>
 	</div>
 	<!-- <div id="personalInfoTable" class="grayTableNoBorder row">	

@@ -2,15 +2,10 @@ package com.ctfs.WICI.Configuration;
 
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 
 public interface EnvironmentConfiguration {
 
-	public WICIConfiguration getWebServicesEndpoint();
-
 	public WICIConfiguration getSharedServicesEndpoint();
-
-	public AccountAcquisitionPortalProxy getWICIWebServicesProxy();
 
 	public SharedWebServicesSOAPProxy getWICISharedServicesProxy();
 

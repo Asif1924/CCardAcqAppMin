@@ -1,6 +1,5 @@
 package com.ctfs.WICI.TestCase;
 
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +17,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.channel.ctfs.ctc.webicgateway.RequestBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
@@ -456,8 +453,8 @@ public class WICIObjectsHelperTest
 		// accountApplicationRequest.setDateSigned(xmlDateSigned);
 
 		System.out.println("invokeAccountApplication::creating Request");
-		RequestBody requestBody = new RequestBody();
-		ResponseBody responseBody = new ResponseBody();
+//		RequestBody requestBody = new RequestBody();
+//		ResponseBody responseBody = new ResponseBody();
 
 		String expectedString = "";
 		// expectedString+= "<AccountApplicationRequest>\n";

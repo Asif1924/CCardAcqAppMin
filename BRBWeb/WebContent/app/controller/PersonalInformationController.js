@@ -21,6 +21,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	var loyaltyMembershipNumberPrefix = 636574;
 	var _validationResult = [];
 	var isPrevAddressEnable = false;
+	var emptyString ="";
 	
 	//---------------------------------------------------------------------------------------
 	this.syncUserData = syncUserData;
@@ -149,7 +150,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
     		personalInformation_EmployerSince_YearID		:	'#personalInformation_EmployerSince_YearID',
             personalInformation_Horizontal_Line_1  : '#Page_2_HR_line_1',
             personalInformation_Horizontal_Line_2  : '#Page_2_HR_line_2',
-            phone_Type : '#personalInformation_PhoneType_TextField'
+            phone_Type : '#personalInformation_PhoneType_TextField',
+            personalInfoGrossHouseholdIncomeTable		:	"#personalInfoGrossHouseholdIncomeTable"
             
     };
     
@@ -218,12 +220,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
               	{name: 'cardGasCard',  				value: null, validation: null },
               	{name: 'cardSavingsAcct',  			value: null, validation: null },
               	{name: 'isAnyBankingProducts',      value: null, validation: null },
-              	{name: 'cellPhone', value: null, validation: null },
-              
-              	
-              	
-              	
-              	
+              	{name: 'cellPhone', value: null, validation: null }, 	
            ]
     });    
     
@@ -291,10 +288,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		}
 		
 		toggle10XImege();
-		toggleHeader();
-		
+		toggleHeader();		
 	}
-	
 	//---------------------------------------------------------------------------------------
 	function hideSubContainers(){
 		$(refs.prevAddressArea).hide();
@@ -636,7 +631,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         	currentModel.set('birthDate',  	$(refs.dateOfBirth_Year).val() + "-" + $(refs.dateOfBirth_Month).val() + "-" + $(refs.dateOfBirth_Day).val());
         }
         
-        currentModel.set('email',      		$(refs.email).val().toUpperCase());
+        currentModel.set('email',      		$(refs.email).val().toUpperCase().replace(/\s+/g, ''));
         currentModel.set('age', model.calculateAge(model));
         BRB.Log(logPrefix + sMethod + " age :: after sync:: " + model.calculateAge(model));
         
@@ -959,7 +954,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 	function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
-        	"switchLanguageButtonId" : "PersonalInformation_LanguageButton"
+        	"switchLanguageButtonId" : "PersonalInformation_LanguageButton", "isMOA":isMOA , "cardType":cardTypeGlobal
         }).appendTo("#PersonalInformationScreen");
     }
 	
@@ -1517,13 +1512,20 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
         if (!validate() ) {
         	return;
         }
-        if (!OMZIncomeValidationWithResidetionalStatus(model.get('grossIncome'), model.get('grossHouseholdIncome')) ||  !OMZIncomeValidation(model.get('grossIncome'), model.get('grossHouseholdIncome')) ) {
+        $(refs.makeCorrectionSection).hide();
+        if (!OMZIncomeValidation(model.get('grossIncome'), model.get('grossHouseholdIncome')) ) {
         	return;
         }
        
-        $(refs.makeCorrectionSection).hide();
+      
 		// US3961        
         checkGrossAnnualIncome(model.get('grossIncome'), grossAnnualHouseholdIncome, true);
+        
+         /*if( activationItems.getModel('overview').get('cardType') == "OMX"){
+		 checkGrossIncomeOMX(model.get('grossIncome'), grossAnnualHouseholdIncome, true);
+	      }*/
+        
+        
         // checkGrossAnnualIncome(model.get('grossIncome'), flowNext, true); // Old
 	}	
 	
@@ -1599,6 +1601,43 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		return true;
 	}
 	// End
+	
+	//---------------------------------------------------------------------------------------
+/*	
+		
+	function checkGrossIncomeOMX(value, agreeCallback, isDialogToBeShown) {
+		var sMethod = '[checkGrossAnnualIncome()] :: value = ' + value;
+
+		if ((value === null) || (value === '')) {
+			return true;
+		}
+
+		try {
+			var formattedValue = value;
+
+			if ((parseInt(value.replace(' ', '').replace(',', '')) <= 5000) && isDialogToBeShown) {
+
+				var message = translator
+						.translateKey('personalInformation_grossIncomeError1')
+						+ numberWithSeparators(formattedValue)
+						+ translator
+								.translateKey('personalInformation_grossIncomeError2');
+				messageDialog.confirm(message, agreeCallback,  highlightGrossAnnualIncome, emptyString , translator
+						.translateKey('confirmDialog_yes'), translator
+						.translateKey('confirmDialog_no'));
+				
+				return false;
+			}
+		} catch (error) {
+			BRB.Log(sMethod + ' ERROR!!!!:' + error);
+		}
+		agreeCallback();
+		return true;
+	}*/
+	
+	
+	
+	
 	//---------------------------------------------------------------------------------------
 	function highlightGrossAnnualIncome() {
 		var rez = [];
@@ -1804,33 +1843,14 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		}
 	}
 	
-	//US4962
-	
- function OMZIncomeValidationWithResidetionalStatus(grossIncome, houseHoldIncome) {
-	 var sMethod = 'OMZIncomeValidationWithResidetionalStatus()() ';
-     BRB.Log(logPrefix + sMethod + "  "+ grossIncome + "======"+ houseHoldIncome+ "selected Cardtype"+  cardTypeGlobal + " Residentioal Status"  +model.get('house') );
-		if (  grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000 &&  ( model.get('house') == 'M' || model.get('house') == 'P') ) {
-			 dispalyEligibilityRequirement();
-			 return false;
-		}
-		
-		return true;
-	
-   }
- 
-     function OMZIncomeValidation(grossIncome, houseHoldIncome) {
+   function OMZIncomeValidation(grossIncome, houseHoldIncome) {
 	    var sMethod = 'OMZIncomeValidation() ';
 	    BRB.Log(logPrefix + sMethod);
-	   if(activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000  &&  ( model.get('house') == 'M' || model.get('house') == 'P')) {
-		 return true;
-	   }
-	   if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000 &&  ( model.get('house') == 'O' || model.get('house') == 'R') ) {
+	    if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" && houseHoldIncome >= 150000 &&   model.get('house') == 'O' ) {
 		   return true;
-		}
-	    
-		if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" ) {
-			highlightGrossAnnualIncome();
-			$(refs.grossIncome).focus();
+		 }
+		 if (grossIncome < 80000 && activationItems.getModel('overview').get('cardType') == "OMZ" ) {
+			 dispalyEligibilityRequirement();
 			return  false;
 		 }
 		 return true;
@@ -1849,22 +1869,20 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
       
    } 
 	
-	function yesCallback() {
+    function yesCallback() {
 		var sMethod = 'yesCallback() ';
         BRB.Log(logPrefix + sMethod);
         var startButton = translator
 		.translateKey('overview_startApplication_Button_Label');
         var noButton = translator
 		.translateKey('confirmDialog_no');
-        messageDialog.htmlCreditDisclosureInfo(startButton, noButton, translator);
-        activationItems.getModel('overview').set('cardType', "OMX");
-        return false;
+        messageDialog.htmlCreditDisclosureInfo(startButton, redirectOMXCard , translator);
+        
 	}
 	
 	function noCallback() {
 		var sMethod = 'noCallback() ';
         BRB.Log(logPrefix + sMethod);
-        return false;
 	}
 	
 	function hideOMXContent() {		
@@ -1882,4 +1900,29 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 		$("#personalInfo_LegalText20_OMX_ID").hide();
 	}
 	
+	function showOMXContent(){
+		BRB.Log("showOMXContent method");
+		$("#OMX_title").show();
+		$("#OMX_image").show();
+		$("#OMZ_title").hide();
+		$("#OMZ_image").hide();
+		$("#personalInfo_CTM_OMZ").hide();
+		$("#personalInfo_CTM_OMX").show();
+		$("#personalInfo_LegalText2_OMZ_ID").hide();
+		$("#personalInfo_LegalText2_OMX_ID").show();
+		$("#personalInfo_LegalText20_OMZ_ID").hide();
+		$("#personalInfo_LegalText20_OMX_ID").show();
+		
+	  } 
+	
+	
+	function redirectOMXCard() {
+		var sMethod = 'redirectOMXCard() ';
+        BRB.Log(logPrefix + sMethod);
+        activationItems.getModel('overview').set('cardType', "OMX");
+        showOMXContent();
+	}
+	
+	
+
   };

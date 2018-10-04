@@ -81,6 +81,8 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
     		horizontalLineTwo               :   '#Page_5_HR_line_2',
     		IdentityVerification_PageContents	:	'#IdentityVerification_PageContents',
     		DeclinedContent                 :   '#DeclinedContent',
+    		OMP_card                        :   '#omp_card',
+    		OMR_card                        :   '#omr_card',
     		examFinalStepPendingVerification : '#examFinalStepPendingVerification'
     };
     var model = new BRB.BaseModel({
@@ -207,6 +209,8 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
         	"switchLanguageButtonId" : "IdentityVerification_LanguageButton",
+        	"isMOA" : isMOA, 
+        	"cardType": cardTypeGlobal
             /*"previousButtonId" : "IdentityVerification_PrevButton",*/
         }).appendTo("#IdentityVerificationScreen");
     }
@@ -277,7 +281,13 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		
 		$(refs.languageButton).on("mouseup", function() {
 			updateNumericValuesFormat();
-        });        		
+			if(cardTypeGlobal === "OMP"){
+				toggleOMPCardIMage();
+			}
+			if(cardTypeGlobal === "OMR"){
+				toggleOMRCardIMage();
+			}
+        });
 		
 		disableButtons();
 		
@@ -287,6 +297,12 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		
 		$('#BreadcrumbTrailArea1').bind('translationStop', function() {
             toggleHeader();
+            if(cardTypeGlobal === "OMP"){
+				toggleOMPCardIMage();
+			}
+			if(cardTypeGlobal === "OMR"){
+				toggleOMRCardIMage();
+			}
         });
 	}	
     //---------------------------------------------------------------------------------------
@@ -431,6 +447,10 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         BRB.Log(logPrefix + sMethod);
         BRB.Log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
         updateAdjudicationModel(argResponse, true);
+        
+        var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
+		if(!isMOA){
         if (argResponse.error == true) {
     		BRB.Log(sMethod + '::Response Error: testing called pending screen:' + argResponse.msg);
     		//showErrorPendingScreen();
@@ -467,6 +487,46 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
         	showErrorDelinedScreen();
         	return;
         }
+		}else{
+			
+			if (argResponse.error == true) {
+	    		BRB.Log(sMethod + '::Response Error: testing called pending screen:' + argResponse.msg);
+	    		//showErrorPendingScreen();
+	    		showPendingScreen();
+	    		return;
+	        }
+	        var response = getAAResponse();
+	        if (response && response.appStatus && response.appStatus == "APPROVED"){
+	        	 cardTypeGlobal = response.respCardType;
+	             BRB.Log(sMethod + '::resCardType:' + cardTypeGlobal); 
+	        	 BRB.Log(sMethod + '::Response APPROVED::' + argResponse.msg);
+	        	 showPendingScreen();
+	        	 return;
+	        }
+	        if (response && response.appStatus && response.appStatus == "PENDING"){
+	        	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+	     		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);   
+	        	BRB.Log(sMethod + '::Response PENDING::' + argResponse.msg); 
+	        	BRB.Log(sMethod + '::Response queueName::' + response.queueName); 
+	        	
+	        	if( response.queueName == "STOREID" ){
+	        		BRB.Log(sMethod + '::showPendingVerificationScreen::'); 
+	        		showPendingScreen();
+	            	return;	
+	        	}
+	        	
+	        	showPendingScreen();
+	        	return;
+	        }
+	        if (response && response.appStatus && response.appStatus == "DECLINED"){
+	        	cardTypeGlobal = activationItems.getModel('overview').get('cardType');
+	     		BRB.Log(logPrefix + sMethod +"cardType :: "+ cardTypeGlobal);  
+	        	BRB.Log(sMethod + '::Response DECLINED::' + argResponse.msg);       	
+	        	showPendingScreen();
+	        	return;
+	        }
+			
+		}
  	}
 
 	//---------------------------------------------------------------------------------------
@@ -474,12 +534,18 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		var sMethod = "adjudicationFailed(argResponse)";
 		BRB.Log(logPrefix + sMethod);
         BRB.Log(logPrefix + sMethod + "\n" + JSON.stringify(argResponse));
+ 
+        var isMOA =  app.getIsMOARequest();
+		BRB.Log("isMOA :: " + isMOA);
         updateAdjudicationModel(argResponse, false);
         new BRB.LoadingIndicatorController().hide();
-       // showPendingScreen();
-        showErrorDelinedScreen(); 
-       
-      
+        //showCongratulationScreen();
+        //showPendingScreen();
+        if(!isMOA){
+        	showErrorDelinedScreen();
+        }else{
+        	showPendingScreen();
+        }
 	}
 	//---------------------------------------------------------------------------------------
 	function updateAdjudicationModel(argResponse, isSuccessful){
@@ -680,6 +746,30 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		$(refs.titleBlock).hide();
 	}
 	
+	//---------------------------------------------------------------------------------------
+	function toggleOMPCardIMage(){
+    	var sMethod = "toggleOMPCardIMage() : ";
+    	BRB.Log(logPrefix + sMethod + translator.getCurrentLanguage());
+		if(translator.getCurrentLanguage() == 'en'){
+			$(refs.OMP_card).removeClass('customerCard_OMP_fr');
+			$(refs.OMP_card).addClass('customerCard_OMP');
+		}else {
+			$(refs.OMP_card).removeClass('customerCard_OMP');
+			$(refs.OMP_card).addClass('customerCard_OMP_fr');
+		}
+	}
+	//---------------------------------------------------------------------------------------
+	function toggleOMRCardIMage(){
+    	var sMethod = "toggleOMRCardIMage() : ";
+    	BRB.Log(logPrefix + sMethod + translator.getCurrentLanguage());
+		if(translator.getCurrentLanguage() == 'en'){
+			$(refs.OMR_card).removeClass('customerCard_OMR_fr');
+			$(refs.OMR_card).addClass('customerCard_OMR');
+		}else {
+			$(refs.OMR_card).removeClass('customerCard_OMR');
+			$(refs.OMR_card).addClass('customerCard_OMR_fr');
+		}
+	}
 	//---------------------------------------------------------------------------------------
     function toggleHeader(){
     	var sMethod = "toggleHeader() : ";

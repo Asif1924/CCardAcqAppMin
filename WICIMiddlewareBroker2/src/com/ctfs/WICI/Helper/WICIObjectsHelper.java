@@ -17,22 +17,13 @@ import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.Holder;
 
-import com.channel.ctfs.ctc.webicgateway.MessageHeader;
-import com.channel.ctfs.ctc.webicgateway.MessageHeaderType;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
-import com.channel.ctfs.ctc.webicgateway.ResponseModeType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationResponse;
-import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.WebIcMQRespVO;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
-import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
-import com.ctfs.WICI.Servlet.Model.WICIMessageType;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
@@ -52,77 +43,6 @@ public class WICIObjectsHelper
 		String json = libraryJSONHelper.toJson(argObject);
 
 		return json;
-	}
-
-	public Holder<MessageHeader> createMessageHeader(WICIMessageType messageType)
-	{
-		String sMethod = this.getClass().getName() + "[CreateMessageHeader] ";
-		log.info(sMethod + "MessageType: " + messageType.name());
-
-		Holder<MessageHeader> messageHolder = new Holder<MessageHeader>();
-		MessageHeader messageHeader = new MessageHeader();
-		MessageHeaderType messageHeaderType = new MessageHeaderType();
-
-		messageHeaderType.setMessageId("1");
-		messageHeaderType.setMessageType(messageType.name());
-		messageHeaderType.setSecureContentFlag(true);
-		messageHeaderType.setResponseMode(ResponseModeType.SYNCHRONOUS);
-		messageHeaderType.setCorrelationId("1234");
-		messageHeader.setMessageHeader(messageHeaderType);
-
-		messageHolder.value = messageHeader;
-		return messageHolder;
-	}	
-
-	public String formatOutputForTablet(ResponseBody responseBody, Exception requestException)
-	{
-		String sMethod = this.getClass().getName() + "[formatOutputForTablet] ";
-		log.info(sMethod);
-
-		ResponseBodyType rawResponseBody = responseBody.getResponseBody();
-		String tabletResponse = "{}";
-		WICIResponse appResponse = new WICIResponse();
-
-		if (requestException != null)
-		{
-			appResponse.setError(true);
-			appResponse.setMsg(requestException.getMessage());
-		}
-		else if (rawResponseBody != null)
-		{
-			String resultDocument = responseBody.getResponseBody().getResultDocument();
-
-			if (resultDocument != null)
-			{
-				System.out.println(resultDocument + "       " + responseBody.getClass());
-
-				try
-				{
-					WICIObjectsHelper conversionHelper = new WICIObjectsHelper();
-					AccountApplicationResponseType respObj = conversionHelper.deserializeXMLToAccountApplicationResponseObject(resultDocument);
-
-					appResponse.setData(respObj);
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-					appResponse.setError(true);
-					appResponse.setMsg(e.getMessage());
-				}
-			}
-		}
-		else
-		{
-			appResponse.setError(true);
-			appResponse.setMsg("Unknown error!");
-		}
-
-		Gson gson = new Gson();
-		tabletResponse = gson.toJson(appResponse, WICIResponse.class);
-
-		log.log(Level.FINE, sMethod + "Response: " + tabletResponse);
-
-		return tabletResponse;
 	}
 
 	public WebICCheckLocationResponse deserializeXMLToWebICCheckLocationResponseObject(String xmlStr)

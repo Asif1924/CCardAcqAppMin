@@ -205,7 +205,9 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
-        	"switchLanguageButtonId" : "Confirmation_LanguageButton"
+        	"switchLanguageButtonId" : "Confirmation_LanguageButton",
+        	"isMOA":isMOA,
+        	"cardType":cardTypeGlobal
             /*"previousButtonId" : "Confirmation_PrevButton",
             "nextButtonId" : "Confirmation_NextButton",*/
         }).appendTo("#ConfirmationScreen");
@@ -413,7 +415,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	function populateAboutYourselfArea () {	
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_AboutYourselfArea").empty();
-		$("#BRBConfirmationAboutYourSelfSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_AboutYourselfArea");
+		$("#BRBConfirmationAboutYourSelfSection-template").tmpl({activationItems:activationItems,"isMOA":isMOA, "cardType":cardTypeGlobal}).appendTo("#confirmation_AboutYourselfArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
 		//US4219					  
@@ -445,7 +447,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	function populateEmploymentInformationfArea () {
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_EmploymentInformationArea").empty();
-		$("#BRBConfirmationEmploymentSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_EmploymentInformationArea");
+		$("#BRBConfirmationEmploymentSection-template").tmpl({activationItems:activationItems,"isMOA":isMOA, "cardType":cardTypeGlobal}).appendTo("#confirmation_EmploymentInformationArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
 		$(refs.editEmploymentButton).on("mouseup", function(){
@@ -458,7 +460,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		var sMethod = "populateFinancialInformationfArea() :: ";
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_FinancialInformationArea").empty();
-		$("#BRBConfirmationFinancialSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_FinancialInformationArea");
+		$("#BRBConfirmationFinancialSection-template").tmpl({activationItems:activationItems,"isMOA":isMOA, "cardType":cardTypeGlobal}).appendTo("#confirmation_FinancialInformationArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
 		
@@ -486,7 +488,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	function populateGetSuplementaryCardfArea () {
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_GetSuplementaryCardArea").empty();
-		$("#BRBConfirmationSuplementaryCardSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_GetSuplementaryCardArea");
+		$("#BRBConfirmationSuplementaryCardSection-template").tmpl({activationItems:activationItems,"isMOA":isMOA, "cardType":cardTypeGlobal}).appendTo("#confirmation_GetSuplementaryCardArea");
 		bindMonthToggle();
 		// US4500
 		showHideSuplementaryAddress();
@@ -500,7 +502,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 	function populateInsurancefArea () {
 		BRB.AppConfig.TrackingScreenID = 5;
 		$("#confirmation_OptionalInsuranceArea").empty();
-		$("#BRBConfirmationOptionalInsuranceSection-template").tmpl({activationItems:activationItems}).appendTo("#confirmation_OptionalInsuranceArea");
+		$("#BRBConfirmationOptionalInsuranceSection-template").tmpl({activationItems:activationItems,"isMOA":isMOA, "cardType":cardTypeGlobal}).appendTo("#confirmation_OptionalInsuranceArea");
 		bindMonthToggle();
 		translator.run("ConfirmationScreen");
 		//US4219					  

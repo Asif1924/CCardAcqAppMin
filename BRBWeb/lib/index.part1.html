@@ -9,21 +9,7 @@
         <style id="antiClickjack">body{display:none !important;}</style>
         
         <!-- Google Tag Manager -->
-		<script>
-		    (function(w, d, s, l, i) {
-		        w[l] = w[l] || [];
-		        w[l].push({
-		            'gtm.start': new Date().getTime(),
-		            event: 'gtm.js'
-		        });
-		        var f = d.getElementsByTagName(s)[0],
-		            j = d.createElement(s),
-		            dl = l != 'dataLayer' ? '&l=' + l : '';
-		        j.async = true;
-		        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-		        f.parentNode.insertBefore(j, f);
-		    })(window, document, 'script', 'dataLayer', 'GTM-MWFQ9F');
-		</script>
+		
 		<!-- End Google Tag Manager -->
         
 		<script type="text/javascript">
@@ -38,7 +24,7 @@
 		<!-- US4980 BRB/OIC - Enable Moxie live chat -->	
 		
 		<script data-concierge="1" data-concierge-host="gomoxie.solutions" data-displayconfig='{"positionMethod":"javascript"}'
-		src="https://asset.gomoxie.solutions/concierge/ctfstest/client/concierge-client.js"
+		src="https://asset.gomoxie.solutions/concierge/ctfs/client/concierge-client.js"
 		defer="defer"></script>
 			
 		<script>
@@ -46,14 +32,14 @@
 			(function(config) {
 				var conTag = document.createElement('script');
 				var host = config.isUK ? 'uk.gomoxie.solutions' : 'gomoxie.solutions';
-				conTag.src = 'https://asset.gomoxie.solutions/concierge/ctfstest/client/concierge-client.js';
+				conTag.src = 'https://asset.gomoxie.solutions/concierge/ctfs/client/concierge-client.js';
 				conTag.setAttribute('data-concierge', '1');
 				conTag.setAttribute('defer', 'true');
 				conTag.setAttribute('data-concierge-host', host);
 				document.body.appendChild(conTag);
 				}({
-				tenantName: 'ctfstest',
+				tenantName: 'ctfs',
 				isUK: false
 			}));
 		</script>
-		
+	

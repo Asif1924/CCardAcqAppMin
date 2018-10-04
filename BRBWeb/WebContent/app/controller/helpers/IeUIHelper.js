@@ -9,6 +9,7 @@ BRB.IeUIHelper = function() {
 	this.toggleNSImege = toggleNSImege;
 	this.wrapSelectsOnDecoration = wrapSelectsOnDecoration;
 	this.needToAddValueToInput = needToAddValueToInput;
+	this.isIE = isIE;
 	// ---------------------------------------------------------------------------------------
 	function addStylesForIE8 (){
 		if(!document.createStyleSheet)return;
@@ -45,6 +46,15 @@ BRB.IeUIHelper = function() {
 		var version = parseFloat(navigator.appVersion) == 4;
 		return name && version;
 	}
+	
+	 function isIE() {
+		  ua = navigator.userAgent;
+		  /* MSIE used to detect old browsers and Trident used to newer ones*/
+		  var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+		  BRB.Log(" isIE() "+is_ie );
+		  return is_ie; 
+	 }
+	
 	// ---------------------------------------------------------------------------------------
 	function fixHeaderLayout(sheet){
 		// shifts logo and language toggle button

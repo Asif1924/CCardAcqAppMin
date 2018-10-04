@@ -101,6 +101,7 @@
 		</tr>
 		</table>
 		{{else}}
+		
 		<!-- OMX starts-->
 		{{if cardType === "OMX"}}
 		    <table class="stretchThisTable grayTableNoBorderCompareCards">
@@ -169,13 +170,78 @@
 				   </tr>
 		   </table>
 		<!-- OMZ ends-->
+		
+		<!-- OMP starts-->
+		{{else cardType === "OMP"}}
+		    <table class="stretchThisTable grayTableNoBorderCompareCards">
+				   <tr>
+				      <td>
+				      <br>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_TopTableLeftColTitle_OMP_CARD"></p>	
+					          <ul class="paddingTOP10 cardList margin_left oicEligible_listItemFont">
+					             <li data-translationKey="overview_OMP_CARD_TopTableLeftCol1"></li>
+					             <li data-translationKey="overview_OMP_CARD_TopTableLeftCol2"></li>
+					             <li data-translationKey="overview_OMP_CARD_TopTableLeftCol3"></li>
+					          </ul>			
+				     </td>
+				   </tr>
+				    <tr>
+				      <td>
+				      <br>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_OMP_CARD_TopTableRightColTitle"></p>
+					          <ul class="paddingTOP10 margin_left cardList oicEligible_listItemFont">
+							      <li data-translationKey="overview_OMP_CARD_TopTableRightCol1"></li>
+							      <li data-translationKey="overview_OMP_CARD_TopTableRightCol2"></li>
+							      <li data-translationKey="overview_OMP_CARD_TopTableRightCol3"></li>
+		                      </ul>
+				     </td>
+				   </tr>
+				   <tr>
+				   </tr>
+		   </table>
+		<!-- OMP ends-->
+		
+		<!-- OMR starts-->
+		{{else cardType === "OMR"}}
+		    <table class="stretchThisTable grayTableNoBorderCompareCards">
+				   <tr>
+				      <td>
+				      <br>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_TopTableLeftColTitle_DEC"></p>	
+					          <ul class="paddingTOP10 cardList margin_left oicEligible_listItemFont">
+					             <li data-translationKey="overview_OMR_CARD_TopTableLeftCol1"></li>
+					             <li data-translationKey="overview_OMR_CARD_TopTableLeftCol2"></li>
+					             <li data-translationKey="overview_OMR_CARD_TopTableLeftCol3"></li>
+					          </ul>			
+				     </td>
+				   </tr>
+				    <tr>
+				      <td>
+				      <br>
+					      <p class="margin_left decoupledEligibleCardFont" data-translationKey="overview_OMP_CARD_TopTableRightColTitle"></p>
+					          <ul class="paddingTOP10 margin_left cardList oicEligible_listItemFont">
+							      <li data-translationKey="overview_OMR_CARD_TopTableRightCol1"></li>
+							      <li data-translationKey="overview_OMR_CARD_TopTableRightCol2"></li>
+							      <li data-translationKey="overview_OMR_CARD_TopTableRightCol3"></li>
+		                      </ul>
+				     </td>
+				   </tr>
+				   <tr>
+				   </tr>
+		   </table>
+		<!-- OMR ends-->
+		
 		    {{/if}}
 		{{/if}}
 		<div class="row">
 		{{if !isMOA }}
 		   <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_Ecomm"></p></br></center>
 		{{else}}
-		   <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_DEC"></p><br></center>
+		  {{if cardType === "OMX" || cardType === "OMZ"}}
+		      <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_DEC"></p><br></center>
+		  {{else cardType === "OMP" || cardType === "OMR"}}
+		       <center><br><p class="oicEligible_PleaseReadFont" data-translationKey="overview_Title_DEC_OMP_OMR"></p><br></center>
+		  {{/if}}     
 		{{/if}}
 	   <!--	<p><strong><span class="overviewNSBigText" data-translationKey="overview_NS_Attention"></span></strong></p>  -->
 		<!-- <div>
@@ -202,6 +268,10 @@
 								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMX"></p>
 								      {{else cardType === "OMZ"}}
 								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMZ"></p>
+								      {{else cardType === "OMP"}}
+								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMP"></p>    
+								      {{else cardType === "OMR"}}
+								         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight1_DEC_OMR"></p>   
 					   				  {{/if}}
 								{{/if}}
 								 
@@ -210,19 +280,35 @@
 						<tr>
 							<td class="overviewCenterTableTitle" data-translationKey="overview_NS_DisclosureLeft2"></td>
 							<td class="overviewCenterTableData">
-								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight2"></p>
+							  {{if cardType === "OMP"}}
+								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight2_OMP_CARD"></p>
+							  {{else}}	
+							    <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight2"></p>
+							  {{/if}}
 							</td>
 						</tr>
 						<tr>
 							<td class="overviewCenterTableTitle" data-translationKey="overview_NS_DisclosureLeft3"></td>
 							<td class="overviewCenterTableData">
-								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight3"></p>
+							    {{if cardType === "OMP"}}
+								    <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight3_OMP"></p>
+							    {{else cardType === "OMR"}}
+							        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight3_OMR"></p>
+							    {{else}}	
+							         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight3"></p>
+							  {{/if}}
 							</td>
 						</tr>
 						<tr>
 							<td class="overviewCenterTableTitle" data-translationKey="overview_NS_DisclosureLeft4"></td>
 							<td class="overviewCenterTableData">
-								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight4"></p>
+							   {{if cardType === "OMP"}}
+									<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight4_OMP"></p>
+							  {{else cardType === "OMR"}}
+							        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight4_OMR"></p>
+							  {{else}}	
+							        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight4"></p>
+							  {{/if}}
 							</td>
 						</tr>
 						<tr>
@@ -234,7 +320,11 @@
 						<tr>
 							<td class="overviewCenterTableTitle" data-translationKey="overview_NS_DisclosureLeft6"></td>
 							<td class="overviewCenterTableData">
-								<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight6"></p>
+							   {{if cardType === "OMP" || cardType === "OMR"}}
+									<p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight6_OMP"></p>
+							  {{else}}	
+							        <p id="overviewCenterTableTextWithoutMargin" data-translationKey="Overview_NS_DisclosureRight4"></p>
+							  {{/if}}
 							</td>
 						</tr> 
 					</table>
@@ -246,13 +336,22 @@
 <!-- US3382 -->
 		      <table class="tableNoBorder stretchThisTable">
 				  <tr class="tableNoBorder">
-				      <td class="Width_TD_34"> 
-				         <div class="overviewCenterTableContainer makeCorrectionSection" data-translationKey="Overview_NS_EffectiveDate"></div>
+				      <td class="Width_TD_42">
+				         {{if cardType === "OMP" || cardType === "OMR"}}
+			                          <div class="overviewCenterTableContainer makeCorrectionSection" data-translationKey="Overview_NS_EffectiveDate_OMP"></div>
+			             {{else}}	
+				                     <div class="overviewCenterTableContainer makeCorrectionSection" data-translationKey="Overview_NS_EffectiveDate"></div>
+				         {{/if}}   
+				         
 				      </td>
 					  <td>
 					        <div>
 			                    <div class="overviewPrintDisclosureImage">
+			                    {{if cardType === "OMP" || cardType === "OMR"}}
+			                          <div class="overviewPrintDownloadLink" data-translationKey="overview_PrintDownload_LinkText_OMP"/>
+			                    {{else}}	
 				                     <div class="overviewPrintDownloadLink" data-translationKey="overview_PrintDownload_LinkText"/>
+				                {{/if}}     
 			                    </div>
 		                    </div>
 					  </td>
@@ -323,16 +422,34 @@
 					<p class="overviewCenterTableRightBlockData" data-translationKey="overview_LostOrStolenCards_Text"></p> -->
 					<br>
 						<p class="overviewCenterTableRightBlockTitle latoFont" data-translationKey="overview_CustomerServiceDepartment_Title"></p>
-						<p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
-						<p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
 						{{if !isMOA }}
+						  <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
+						  <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
 					      <p class="overviewCenterTableRightBlockData latoFont" data-translationKey="overview_CustomerServiceDepartment_Text3"></p>
 					    {{else}}
 								{{if cardType === "OMX"}}
+								    <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
 								    <p class="overviewCenterTableRightBlockData latoFont" data-translationKey="overview_CustomerServiceDepartment_Text3_DEC_OMX"></p>
 							    {{else cardType === "OMZ"}}
+							        <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text1"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_Text2"></p>
 									<p class="overviewCenterTableRightBlockData latoFont" data-translationKey="overview_CustomerServiceDepartment_Text3_DEC_OMZ"></p>
+								{{else cardType === "OMP"}}
+									<p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text1"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text2"></p>
+						            
+						            <p class="overviewCenterTableRightBlockData latoFont" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text3"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text3_address"></p>
+						            <br>
+						        {{else cardType === "OMR"}}
+									<p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text1"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin latoFont" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text2"></p>
+						            <p class="overviewCenterTableRightBlockData latoFont" data-translationKey="overview_CustomerServiceDepartment_OMR_CARD_Text3"></p>
+						            <p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_OMP_CARD_Text3_address"></p>
+						            <br>    
 							    {{/if}}
+							    
 						{{/if}}
 						<b><p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text4"></p>
 						<p class="overviewCenterTableRightBlockData customMargin" data-translationKey="overview_CustomerServiceDepartment_Text5"></p>
@@ -404,14 +521,32 @@
 							<div id="overviewRequiredFieldLableText">
 								<sup class="redSpanForInputsGroup">*</sup>
 								<span> </span>
-								<span class="cssForShowTextInOneLine" data-translationKey="requiredFieldIndicatorLabel"></span>
+								{{if cardType === "OMP" || cardType === "OMR"}}	
+								    <span class="cssForShowTextInOneLine" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+								 {{else}}
+								       <span class="cssForShowTextInOneLine" data-translationKey="requiredFieldIndicatorLabel"></span>
+								 {{/if}}	
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-5">
 							<td rowspan=3>
 								<div class="overviewStartApplicationInfo">
+								{{if cardType === "OMP" || cardType === "OMR"}}	
 										<div class="overviewSecurityMessagingImage">
+											<b class="overviewStartApplicationInfoTitle" data-translationKey="overview_SecurityMessaging_Title_OMP"></b>
+										</div>
+										<p class="overviewStartApplicationInfoText latoFont" data-translationKey="overview_SecurityMessaging_Content_OMP"></p>
+										<p class="overviewStartApplicationInfoText latoFont">
+											<span data-translationKey="overview_SecurityMessaging_MoreInfo_OMP"></span>
+											<span id="privacyCharter" class="overviewLink" data-translationKey="overview_SecurityMessaging_PrivacyCharter_OMP"/>
+										</p>																
+										<div class="overviewAutoTimeoutImage latoFont">
+											<b class="overviewStartApplicationInfoTitle latoFont" data-translationKey="overview_AutoTimeout_Title_OMP"/>
+										</div>
+										<p class="overviewStartApplicationInfoText latoFont" data-translationKey="overview_AutoTimeout_Content_OMP"></p>
+							    {{else}}
+							            <div class="overviewSecurityMessagingImage">
 											<b class="overviewStartApplicationInfoTitle" data-translationKey="overview_SecurityMessaging_Title"></b>
 										</div>
 										<p class="overviewStartApplicationInfoText latoFont" data-translationKey="overview_SecurityMessaging_Content"></p>
@@ -423,6 +558,7 @@
 											<b class="overviewStartApplicationInfoTitle latoFont" data-translationKey="overview_AutoTimeout_Title"/>
 										</div>
 										<p class="overviewStartApplicationInfoText latoFont" data-translationKey="overview_AutoTimeout_Content"></p>
+								{{/if}}						
 								</div>
 							</td>
 						</tr>
@@ -448,7 +584,9 @@
 											       <p data-translationKey="Overview_ctm_LegalTextEComm2_DEC_OMZ"></p>
 											   {{/if}}
 									{{/if}}
+									{{if cardType !== "OMP" && cardType !== "OMR" }}
 									<p data-translationKey="Overview_ctm_LegalTextEComm3"></p>
+									 {{/if}}
 									{{if !isMOA }}
 				 					           <p data-translationKey="Overview_ctm_LegalTextEComm4"></p>
 				 					{{else}}
@@ -456,9 +594,19 @@
 											      <p data-translationKey="Overview_ctm_LegalTextEComm4_DEC_OMX"></p>
 											   {{else cardType === "OMZ"}}
 											       <p data-translationKey="Overview_ctm_LegalTextEComm4_DEC_OMZ"></p>
+											   {{else cardType === "OMP"}}
+											        <p data-translationKey="Overview_ctm_LegalText_OIC_OMP_Card_Text2"></p> 
+											        <p data-translationKey="Overview_ctm_LegalText_OIC_OMP_Card_Text3"></p>  
+											   {{else cardType === "OMR"}}
+											        <p data-translationKey="Overview_ctm_LegalText_OIC_OMR_Card_Text2"></p> 
+											        <p data-translationKey="Overview_ctm_LegalText_OIC_OMR_Card_Text3"></p>     
+											        <p data-translationKey="Overview_ctm_LegalText_OIC_OMR_Card_Text4"></p>        
 											   {{/if}}
 				 					{{/if}}
-									<p data-translationKey="Overview_ctm_LegalTextEComm5"></p>
+				 					
+				 					{{if cardType === "OMX" || cardType === "OMZ"}}
+									   <p data-translationKey="Overview_ctm_LegalTextEComm5"></p>
+									{{/if}}
 									
 									{{if !isMOA }}
 				 					           <p data-translationKey="Overview_ctm_LegalTextEComm6"></p>
@@ -466,9 +614,16 @@
 				 					           {{if cardType === "OMX"}}
 											     <p data-translationKey="Overview_ctm_LegalTextEComm6_DEC_OMX"></p>
 											   {{else cardType === "OMZ"}}
-											      <p data-translationKey="Overview_ctm_LegalTextEComm6_DEC_OMZ"></p>
+											     <p data-translationKey="Overview_ctm_LegalTextEComm6_DEC_OMZ"></p>
+											   {{else cardType === "OMP"}}
+											     <p data-translationKey="Overview_ctm_LegalText_OIC_OMP_Card_Text5"></p>
+											     <p data-translationKey="Overview_ctm_LegalText_OIC_OMP_Card_Text6"></p>   
+											   {{else cardType === "OMR"}}
+											     <p data-translationKey="Overview_ctm_LegalText_OIC_OMR_Card_Text5"></p>
+											     <p data-translationKey="Overview_ctm_LegalText_OIC_OMR_Card_Text6"></p>     
 											   {{/if}}
 				 					{{/if}}
+				 					
 				
 										<table class="overviewContentTableContainer">
 											<tr>
@@ -499,14 +654,29 @@
 											   {{/if}}
 											   
 				 					{{/if}}
-
-									<span data-translationKey="Overview_ctm_LegalTextEComm7"></span><br>
-									<span data-translationKey="Overview_ctm_LegalTextEComm8"></span><br>
-									<span data-translationKey="Overview_ctm_LegalTextEComm9"></span><br>
+                                    {{if cardType === "OMP" || cardType === "OMR"}}
+										<span data-translationKey="Overview_ctm_LegalTextEComm7_OMP"></span><br>
+										<span data-translationKey="Overview_ctm_LegalTextEComm8_OMP"></span><br>
+									{{else}} 
+									    <span data-translationKey="Overview_ctm_LegalTextEComm7"></span><br>
+										<span data-translationKey="Overview_ctm_LegalTextEComm8"></span><br>
+									{{/if}}
+									{{if cardType === "OMP"}}
+									   <span data-translationKey="Overview_ctm_LegalTextEComm9_OMP"></span><br>
+									{{else cardType === "OMR"}}
+									    <span data-translationKey="Overview_ctm_LegalTextEComm9_OMR"></span><br>
+									{{else cardType === "OMX" || cardType === "OMZ"}} 
+									     <span data-translationKey="Overview_ctm_LegalTextEComm9"></span><br>   
+									{{/if}}
 									{{if !isMOA }}
 									   <p data-translationKey="Overview_ctm_LegalTextEComm10"></p>
 									{{else}}
-									   <p data-translationKey="Overview_ctm_LegalTextEComm10_DEC"></p>
+									     
+									   {{if cardType === "OMP" || cardType === "OMR"}}
+									     <p data-translationKey="Overview_ctm_LegalTextEComm10_OIC_OMP_CARD"></p>
+									   {{else}} 
+									     <p data-translationKey="Overview_ctm_LegalTextEComm10_DEC"></p>
+									   {{/if}}
 									{{/if}}
 									</span>	
 						</div> 

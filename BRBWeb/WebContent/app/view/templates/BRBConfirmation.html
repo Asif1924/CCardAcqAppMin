@@ -50,7 +50,11 @@
 						   {{if !isMOA }}
 							   <span class="PageTitle" data-translationKey="confirmation_steps4_OUT_5_Ecomm"></span>	
 					       {{else}}
-					           <span class="PageTitle" data-translationKey="confirmation_steps4_OUT_5_Decoupled"></span>	
+					       		{{if cardType === "OMX" || cardType === "OMZ" }}
+									<span class="PageTitle" data-translationKey="confirmation_steps4_OUT_5_Decoupled"></span>
+								{{else cardType === "OMP" || cardType === "OMR" }}
+									<span class="PageTitle" data-translationKey="confirmation_steps4_OUT_5_Decoupled_OMP_OMR"></span>
+								{{/if}}
 		                   {{/if}}
 					  </td>
 					  <td id="Page_4_HR_line_2" class="Width_TD_15 hrAttributes"></td>
@@ -65,7 +69,11 @@
 				<table class="stretchThisTable grayTable">
 					<tr class="fieldRow">
 						<td class="fieldLabelsCell fieldLabelsBottomCell" style="padding-right: 15px;">
-							<span class="floatLeft" data-translationKey="confirmation_Information_Accurate_Text"></span>
+							{{if cardType === "OMX" || cardType === "OMZ" }}
+								<span class="floatLeft" data-translationKey="confirmation_Information_Accurate_Text"></span>
+							{{else cardType === "OMP" || cardType === "OMR" }}
+								<span class="floatLeft" data-translationKey="confirmation_Information_Accurate_Text_OMP_OMR"></span>
+							{{/if}}
 						</td>
 					</tr>
 				</table>	
@@ -74,7 +82,11 @@
 		
 		<div class="confirmationTitle row">
 			<div class="pageSubTitle col-xs-7 col-sm-9">
-				<span class="leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+				{{if cardType === "OMX" || cardType === "OMZ" }}
+					<span class="leftalign" data-translationKey="personalInformation_AboutYourself"></span>
+				{{else cardType === "OMP" || cardType === "OMR" }}
+					<span class="leftalign" data-translationKey="personalInformation_AboutYourself_OMP_OMR"></span>
+				{{/if}}
 			</div>
 			<div class="floatToRight col-xs-5 col-sm-3" style="text-align: right; padding-right: 0px; padding-left: 0px; padding-top: 4px;">
 				<a href="#" id="print" class="print_button floatToRight">
@@ -98,7 +110,11 @@
 		</center>		
 				
 		<div class="personalTitle row">
-			<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
+			{{/if}}			
 		</div>		
 		<center>
 			<div id="confirmation_EmploymentInformationArea" >
@@ -182,12 +198,25 @@
 								<p/>
 								<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_SubTitle"></span>
 								<ul class="privacylist">
-									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item1"></span></li>
+									{{if cardType === "OMX" || cardType === "OMZ" }}
+										<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item1"></span></li>
+									{{else cardType === "OMP" || cardType === "OMR" }}
+										<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item1_OMP_OMR"></span></li>
+									{{/if}}
 									<br>
+									{{if cardType === "OMP" || cardType === "OMR" }}
+									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization__OMP_CARD_Item2"></span></li>
+									{{/if}}
 								   <!-- {{if !app.isNSSelected() }}
 									<li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2old"></span></li>
 									<br>
-									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3old"></span></li>
+									{{if isMOA }}
+									{{if cardType === "OMP" || cardType === "OMR" }}
+									         <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3_OMP"></span></li>
+									{{else}}
+									        <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									{{/if}}
+									{{/if}}
 									<br>
 									<li>
 										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1old"></span>
@@ -205,8 +234,14 @@
 									    <li id="confirmation_Application_Authorization_Item2_OMX_01_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
 									{{/if}}
 									
-									<br>
-									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									<br> 
+									{{if isMOA }}
+									{{if cardType === "OMP" || cardType === "OMR"}}
+									         <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3_OMP"></span></li>
+									{{else cardType === "OMX" || cardType === "OMZ"}}
+									        <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									{{/if}}
+									{{/if}}
 									<br>
 									<li>
 										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1"></span>
@@ -225,7 +260,13 @@
 									{{/if}}
 									
 									<br>
-									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									{{if isMOA }}
+									{{if cardType === "OMP" || cardType === "OMR"}}
+									         <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3_OMP"></span></li>
+									{{else}}
+									        <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
+									{{/if}}
+									{{/if}}
 									<br>
 									<li>
 										<span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item4_1"></span>
@@ -243,10 +284,12 @@
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7"></span></li>
 									<br>
+									{{if cardType === "OMX" || cardType === "OMZ" }}
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7a"></span></li>
 									<br>
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7b"></span></li>
 									<br>
+									{{/if}}	
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item8"></span></li>
 									<br>
 									{{if !isMOA }}
@@ -266,12 +309,20 @@
 									<td class="fieldLabelsCell fieldLabelsBottomCell" colspan="2">
 										<div class="row">
 											<div class="col-xs-6 col-sm-9">
-												<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter"/>
+												{{if cardType === "OMX" || cardType === "OMZ" }}
+													<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter"/>
+												{{else cardType === "OMP" || cardType === "OMR" }}
+													<span class="privacylistItemText" data-translationKey="confirmation_Privacy_Charter_OMP_OMR"/>
+												{{/if}}												
 											</div>
 											<div class="col-xs-6 col-sm-3">
 												<div class="floatToRight elementWithRightMargin15 alignRightAtEdgeofTitleBar">
 													<span class="requiredField redSpan">*</span>
-													<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+													{{if cardType === "OMX" || cardType === "OMZ" }}
+														<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+													{{else cardType === "OMP" || cardType === "OMR" }}
+														<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+													{{/if}}													
 												</div>
 											</div>
 										</div>
@@ -305,9 +356,8 @@
 				</table>	
 			</div>
 		</center>	
-		<br>
-		<br>
-		
+		<br><br><br>
+		<br><br><br>
         <div class="continueButtonContainer row" id="confirmation_continueButtonContainer">
         	<div class="floatToRight continueButtonRightPositionReview elementBottom10 col-xs-12 col-sm-3" id="confirmation_continueButton">
 				{{if !isMOA }}
@@ -380,12 +430,20 @@
 									<br>
 									<span data-translationKey="confirmation_footnoteContentText03"></span> 
 									<br>
-									<span data-translationKey="confirmation_footnoteContentText04"></span>
+									{{if cardType === "OMP" || cardType === "OMR"}}
+									    <p data-translationKey="confirmation_footnoteContentText04_OMP"></p>
+									{{else cardType === "OMZ" || cardType === "OMX"}} 	
+									    <p data-translationKey="confirmation_footnoteContentText04"></p>	
+									{{/if}}			
 									<br>			
 									<span data-translationKey="confirmation_footnoteContentText05"></span> 
 							 		{{/if}}	-->
 					             <!-- US3011 -->
-									<p data-translationKey="confirmation_footnoteContentText1_1"></p>
+					             	{{if cardType === "OMX" || cardType === "OMZ"}}
+									    <p data-translationKey="confirmation_footnoteContentText1_1"></p>
+									{{else cardType === "OMP" || cardType === "OMR"}} 	
+									    <p data-translationKey="confirmation_footnoteContentText1_1_OMP_OMR"></p>	
+									{{/if}}										
 									<!-- US4591 OMX -->
 									{{if cardType === "OMX"}}						
 									<p data-translationKey="confirmation_footnoteContentText01_OMX"></p>
@@ -397,11 +455,21 @@
 								<!--	<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>
 									<span data-translationKey="confirmation_footnoteContentText02"></span>
 									<br> -->
-									<p data-translationKey="confirmation_footnoteContentText02a"></p>
+									{{if cardType === "OMX" || cardType === "OMZ"}}
+									    <p data-translationKey="confirmation_footnoteContentText02a"></p>
+									{{else cardType === "OMP" || cardType === "OMR"}} 	
+									    <p data-translationKey="confirmation_footnoteContentText02a_OMP_OMR"></p>	
+									{{/if}}									
 								<!--	<span data-translationKey="confirmation_footnoteContentText03"></span> 
 									<br>	-->
-									<p data-translationKey="confirmation_footnoteContentText04"></p>
-									<p data-translationKey="confirmation_footnoteContentText05"></p> 
+									{{if cardType === "OMP" || cardType === "OMR"}}
+									    <p data-translationKey="confirmation_footnoteContentText04_OMP"></p>
+									    <p data-translationKey="confirmation_footnoteContentText05_OMP_OMR"></p>
+									{{else cardType === "OMZ" || cardType === "OMX"}} 	
+									    <p data-translationKey="confirmation_footnoteContentText04"></p>
+									    <p data-translationKey="confirmation_footnoteContentText05"></p>
+									{{/if}}			
+									
 							<span>
 						</div>
 						</div>	

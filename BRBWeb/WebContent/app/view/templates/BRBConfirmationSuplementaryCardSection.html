@@ -5,7 +5,11 @@
 			{{if activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}
 			    <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_Yes"></span>
 			{{else !activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}
-			    <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No"></span>
+			   {{if cardType === "OMX" || cardType === "OMZ"}}
+			       <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No"></span>
+			    {{else cardType === "OMP" || cardType === "OMR"}}
+			       <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No_OMP_OMR"></span>
+			    {{/if}} 
 			{{/if}}			
 		</div>		
 	</div> 
@@ -47,7 +51,7 @@
 				<span data-translationKey="additionalInformation_PrimaryPhone"></span>			
 			</div>
 			<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
-				${activationItems.getFormattedPhoneNumber(activationItems.getModel('additionalInformation').get('homePhone'))}
+				${activationItems.getFormattedPhoneNumber(activationItems.getModel('additionalInformation').get('primaryPhone'))}
 			</div>
 		</div>
 		<div id="personalInfoTable" class="grayTableNoBorder row">	

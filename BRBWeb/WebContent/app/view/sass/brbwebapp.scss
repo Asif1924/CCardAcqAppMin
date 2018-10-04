@@ -74,6 +74,15 @@ body {
     /*2016-02-29 chrch: removing padding for responsive */
     padding-left: 10px;
 }
+
+.paddingLeft_Top_10px{
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.paddingTOP10{
+  padding-top: 10px;
+}
 .summaryPageSubTitle {
     font-family: Lato;
     font-weight: bold;
@@ -3457,6 +3466,73 @@ height: 25px
     height: 194px;
     width: 280px;
 }
+/* custom radio button for Optional products */
+/* The container */
+.container {
+    width: 100%;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: normal;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 6px;
+    left: 6px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* custom radio button for Optional products */
 
 .customerCard_OMX {
     background: #{inline_image("brb_omx_choose.png")};
@@ -3473,6 +3549,40 @@ height: 25px
     height: 250px;
     width: 350px;
 }
+
+.customerCard_OMP {
+    background: #{inline_image("OMP_EN_confirmation.jpg")};
+    background-repeat: no-repeat;
+    background-position:0 5px;
+    height: 250px;
+    width: 350px;
+}
+
+.customerCard_OMP_fr {
+    background: #{inline_image("OMP_FR_confirmation.jpg")};
+    background-repeat: no-repeat;
+    background-position:0 5px;
+    height: 250px;
+    width: 350px;
+}
+
+
+.customerCard_OMR {
+    background: #{inline_image("OMR_EN_Confirmation.jpg")};
+    background-repeat: no-repeat;
+    background-position:0 5px;
+    height: 250px;
+    width: 350px;
+}
+
+.customerCard_OMR_fr {
+    background: #{inline_image("OMR_FR_Confirmation.jpg")};
+    background-repeat: no-repeat;
+    background-position:0 5px;
+    height: 250px;
+    width: 350px;
+}
+
 .custormerCardName {
     position: relative;
     display: block;
@@ -4407,7 +4517,7 @@ input:-moz-placeholder {
  .scrollbar_identityPage
 {
     height: 200px;
-    width: 90%;
+    width: 95%;
     background: #ffffff;
     overflow-y: scroll;
     padding: 15px;
@@ -4619,6 +4729,46 @@ input:-moz-placeholder {
     backgroud-position:center;
     background-size: 100%;
 }
+
+.OMPCard4percentage{
+    background-image: #{inline-image("OMP_EN_chooseProduct.jpg")};
+    height: 180px;
+    width: 100%;
+    margin-top: 35px;
+    background-repeat: no-repeat;
+    backgroud-position: center;
+    background-size: 90%;
+}
+
+.OMPCard4percentage_fr{
+    background-image: #{inline-image("OMP_FR_chooseProduct.jpg")};
+    height: 180px;
+    width: 100%;
+    margin-top: 35px;
+    background-repeat: no-repeat;
+    backgroud-position: center;
+    background-size: 90%;
+}
+
+.OMRCard4percentage{
+    background-image: #{inline-image("OMR_EN_chooseProduct.jpg")};
+    height: 180px;
+    width: 100%;
+    background-repeat: no-repeat;
+    backgroud-position: center;
+    background-size: 90%;
+}
+
+
+.OMRCard4percentage_fr{
+    background-image: #{inline-image("OMR_FR_chooseProduct.jpg")};
+    height: 180px;
+    width: 100%;
+    background-repeat: no-repeat;
+    backgroud-position: center;
+    background-size: 90%;
+}
+
 .stretchThisTable_overview {
     width: 94%;
     margin-left: 20px;
@@ -4667,6 +4817,14 @@ input:-moz-placeholder {
     font-size: 18pt;
     float: right;
 }
+
+.personalInfoPageTextSub_subTitle_OMP_CARD{
+    font-family: Lato;
+    font-size: 18pt;
+    display: block;
+    margin-left: 60px;
+    margin-right: auto;
+}
 .MarginLeft25{
       margin-left: 25px;
 }
@@ -4690,6 +4848,30 @@ input:-moz-placeholder {
     height: 70px;
     margin-left: auto;
     width: 200px;
+    margin-right: auto;
+    background-size: 100%;
+    background-position: center;
+    /* background-position-x: center; */
+    background-repeat: no-repeat;
+}
+
+.logoBankOrTriangle_OMP_OMR{
+    background-image: #{inline-image("CTB_Logo_Horizontal_Colour_EN.png")};
+    height: 70px;
+    margin-left: auto;
+    width: 100px;
+    margin-right: auto;
+    background-size: 100%;
+    background-position: center;
+    /* background-position-x: center; */
+    background-repeat: no-repeat;
+}
+
+.logoBankOrTriangle_OMP_OMR_fr{
+    background-image: #{inline-image("CTB_Logo_Horizontal_Colour_FR.png")};
+    height: 70px;
+    margin-left: auto;
+    width: 100px;
     margin-right: auto;
     background-size: 100%;
     background-position: center;
@@ -5043,6 +5225,137 @@ input:-moz-placeholder {
     outline-style: none;
     /*2016-03-14 chrch: adding padding bottom for responsive */
 }
+
+/*  --------- US4997  starts -------- */
+
+#topBannerOMPImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.topBannerOMPImageBlock {
+    background: #{inline_image("OMP_EN_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 195px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMPImageBlock_fr {
+    background: #{inline_image("OMP_FR_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 195px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+}
+
+
+.topBannerOMPImageBlockChooseProduct {
+    background: #{inline_image("OMP_EN_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMPImageBlockChooseProduct_fr {
+    background: #{inline_image("OMP_FR_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+}
+/* ---------- US4997  ends ---------- */
+
+/* --------- US4998 starts ---------- */
+
+#topBannerOMRImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.topBannerOMRImageBlock {
+    background: #{inline_image("OMR_EN_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 195px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMRImageBlock_fr {
+    background: #{inline_image("OMR_FR_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 195px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+  }  
+  
+  
+  .topBannerOMRImageBlockChooseProduct {
+    background: #{inline_image("OMR_EN_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-02-29 chrch: adding padding bottom for responsive */
+}
+
+.topBannerOMRImageBlockChooseProduct_fr {
+    background: #{inline_image("OMR_FR_chooseProduct.jpg")};
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 5px;
+    /*width: 180px;*/
+    
+    height: 160px;
+    margin: 0px auto;
+    outline-style: none;
+    /*2016-03-14 chrch: adding padding bottom for responsive */
+  }  
+  
+/* ---------- US4998 ends ----------- */
 
 /* ------------------------- US4591 ends--------------------------------- */
 

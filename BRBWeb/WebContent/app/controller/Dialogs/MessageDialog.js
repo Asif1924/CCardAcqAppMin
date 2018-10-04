@@ -63,10 +63,10 @@ BRB.MessageDialog = function(translate){
 				buildButton(noButton, "confirmDialog_no"));
 		dialogQueue.enqueue(dialog);
 	}
-	function htmlCreditDisclosureInfo( startButton, noButton,  translate ) {
+	function htmlCreditDisclosureInfo( startButton, yesCallback, translate ) {
 		var dialog = new BRB.HTMLCreditDisclosureInfo(
 				buildButton(startButton, "overview_startApplication_Button_Label"),
-				buildButton(noButton, "overview_startApplication_Button_Label"),
+				buildCallback(yesCallback),
 				translate);
 		dialogQueue.enqueue(dialog);
 	}

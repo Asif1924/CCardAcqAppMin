@@ -495,8 +495,8 @@
 						</div>
 						<center>
 						
-							{{if !isMOA }}	
-							
+						<!-- Pending -->	
+												
 							<div id="examFinalStepPendingDeclined" class="hideElement">
 							 <div class="declined_pageTitle"><br>
 			                        		<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
@@ -509,10 +509,14 @@
 								
 									<!-- <div class="customerCard"/> -->
 									  {{if cardType === "OMX"}}
-								           <div class="customerCard_OMX"/>
+								           <div id="omx_card" class="customerCard_OMX"/>
 								      {{else cardType === "OMZ"}}
-								           <div class="customerCard_OMZ"/>  
-								         {{/if}} 
+								           <div id="omz_card" class="customerCard_OMZ"/>
+								      {{else cardType === "OMP"}}
+								           <div id="omp_card" class="customerCard_OMP"/>
+								      {{else cardType === "OMR"}}
+								           <div id="omr_card" class="customerCard_OMR"/>  
+								      {{/if}} 
 								  </div>
 									       <div class="font_forCardInfo">
 													     <span class="fontPendDeclain" data-translationKey="pending_page_statusName">Approval Status: </span>
@@ -520,15 +524,19 @@
 														 <br>
 														 <span class="fontPendDeclain" data-translationKey="pending_page_card_type">Card Type:</span>
 														 {{if cardType === "OMX"}}
-					                   							<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_Mastercard" >Triangle Mastercard</span><br>
-					                   							 <p class="text_under_review_pending_p" data-translationKey="declined_message_one"></p>
-										                   <br>
+					                   							<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_Mastercard" >Triangle Mastercard</span>
+					                   							<br>										                   
 					                 					 {{else cardType === "OMZ"}}  
 					                    						<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_World_elite_card" >World Elite Triangle Mastercard</span>
 					                    						<br>
-					                   							 <p class="text_under_review_pending_p" data-translationKey="declined_message_one"></p><br>
+					                    				 {{else cardType === "OMP"}}  
+					                    						<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_OMP_CARD" >Gas Advantage Mastercard</span>
+					                    						<br>
+					                    			     {{else cardType === "OMR"}}  
+					                    						<span id="pendingPageCardType" class="cardTypeTextStyle" data-translationKey="overview_AmIEligibleTable_OMR_CARD" >Cash Advantage Mastercard</span>
+					                    						<br>					                   							 
 					                 				     {{/if}}
-																		
+														 <p class="text_under_review_pending_p" data-translationKey="declined_message_one"></p>		
 											   </div>  
 										         
 										               			    
@@ -538,17 +546,30 @@
 								
 										     <table class="tableNoBorder stretchThisTable">	
 										     <br><br>
-										      <tr  class="tableNoBorder">  <td>       
-											                   <br><br><span class="text_what_next" data-translationKey="declined_message_two" ></span><br>
-						                              		    
+										      <tr  class="tableNoBorder">  <td>    
+										                       {{if cardType === "OMX" || cardType === "OMZ"}}
+											                   			<br><br><span class="text_what_next" data-translationKey="declined_message_two" ></span><br>
+						                              		   {{else cardType === "OMP" || cardType === "OMR"}}
+						                              		            <br><br><span class="text_what_next" data-translationKey="declined_message_two_OMP_OMR" ></span><br>
+						                              		   {{/if}}
 						                              		    {{if cardType === "OMX"}}
 					                   								<p class="text_under_review_p_before_space"  data-translationKey="pendingDeclined_page_li_two_OMX"></p><br>
+					                   								<p class="text_under_review_p" data-translationKey="pendingDeclined_page_li_one"></p><br><br>
 					                 					        {{else cardType === "OMZ"}}  
 					                    						    <p class="text_under_review_p_before_space" data-translationKey="pendingDeclined_page_li_two_OMZ"></p><br>
+					                    						    <p class="text_under_review_p" data-translationKey="pendingDeclined_page_li_one"></p><br><br>
+					                    						{{else cardType === "OMP"}}  
+					                    						    <p class="text_under_review_p_before_space" data-translationKey="pendingDeclined_page_li_two_OMP"></p><br>
+					                    						{{else cardType === "OMR"}}  
+					                    						    <p class="text_under_review_p_before_space" data-translationKey="pendingDeclined_page_li_two_OMP"></p><br>
 					                 				            {{/if}}
-					                 				            <p class="text_under_review_p" data-translationKey="pendingDeclined_page_li_one"></p><br><br>
-					                 				            
-					                 				            <span class="text_with_redColor_Note" data-translationKey="pending_page_note"></span>
+					                 				            {{if cardType === "OMX" || cardType === "OMZ"}}
+					                 				            	<span class="text_with_redColor_Note" data-translationKey="pending_page_note"></span>
+					                 				            {{else cardType === "OMP"}}
+						                              		        <span class="text_with_redColor_Note" data-translationKey="pending_page_note_OMP"></span>
+						                              		    {{else cardType === "OMR"}}   
+						                              		        <span class="text_with_redColor_Note" data-translationKey="pending_page_note_OMR"></span> 
+						                              		    {{/if}}
 					                 				             </td>          
 					                 			</tr>	            
 											 </table>      
@@ -566,7 +587,7 @@
 							  
 							  
 							  
-							  <!-- Pending -->
+							  <!-- Pending ID Verification -->
 							  
 							  <div id="examFinalStepPendingVerification" class="hideElement">
 							 <div class="declined_pageTitle">
@@ -641,10 +662,6 @@
 							  </div>
 							  
 							  
-							  
-							  
-							  
-					   
 					   <!-- declined -->
 					   
 					     <div id="DeclinedContent" class="hideElement alignToTop ">
@@ -683,47 +700,7 @@
 		        	          		 </a>	
 		        	          		 			
                                  </div>
-					    
-					    
-					    
-					    
-					 {{else}} 
-					
-					           <div id="examFinalStepDeclined" >
-							   <div class="declined_pageTitle">
-							       <br>
-			                        		<span class="congratulationsLabel" data-translationKey="identityVerification_PendingTitle"></span>
-											</div><br>
-										<table align="left"  class="approvedTable">
-							 <tr> 
-							 <td>
-							    <div class="customerCard_HeaderImage"></div>
-								<div class="dicliend_content_box"><br>
-								<span class="text_with_redColor" data-translationKey="decline_chapter_one_text"></span><br>
-								<span class="text_with_redColor" data-translationKey="decline_chapter_two_text"></span><br><br>
-								<p class="text_under_review" data-translationKey="identityVerification_PendingText1"></p><br>
-								<span class="text_under_review" data-translationKey="decline_chapter_three_text"></span><br><br>
-								</div>
-								
-							</td>
-								</tr>
-							
-								</table>
-								<table class="tableNoBorder stretchThisTable">	<br>
-										      <tr  class="tableNoBorder">   
-					                 			</tr>	            
-											 </table>  
-								
-								
-								
-								<div id="div_note"><br><span class="text_with_redColor_Note upperCaseField" data-translationKey="decline_chapter_note"></span> <br><br></div>
-								<br><br><br><br><br><br>
-								<a href="#" class="continueButton_approve submitApplicationButton" id="identityVerification_ContinueButton" >
-			        	             	<span class="buttonText upperCaseField" data-translationKey="pending_page_close_button_text"></span>
-		        	          		 </a>	
-		        	          		 			
-                                 </div>
-					  {{/if}}	
+					    					    					    					    				
 							  <!-- <span class="noteTextFont textAlignLeft" data-translationKey="pending_page_note"></span> -->
 							</div>
 					  </center>
@@ -755,6 +732,17 @@
 	      <div  id="OMX_legal_footer_id" class ="OMX_legal_footer_Image_EN"> </div>
 	      {{else cardType === "OMZ"}} 
 	      <div  id="OMZ_legal_footer_id" class ="OMZ_legal_footer_Image_EN"> </div>
+	      {{else cardType === "OMP" || cardType === "OMR"}} 
+	           <div class="scrollbar_identityPage" id="style-1">
+                   <div class="force-overflow">
+								<ul class="simpleFootList">
+								    <li data-translationKey="pendingDeclined_page_li_two_OMP_footerText1"></li>
+									<li data-translationKey="pendingDeclined_page_li_two_OMP_footerText2"></li>
+									<li data-translationKey="pendingDeclined_page_li_two_OMP_footerText3"></li>
+								</ul>
+			     </div>
+		   </div>
+		   <br><br>
 	      {{/if}}
 	    </div>
 	      <br><br><br><br><br><br><br><br><br>

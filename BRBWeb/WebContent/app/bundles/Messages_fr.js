@@ -92,11 +92,16 @@ BRB.dictionary_fr = {
 		initiate_BRB_Web_App_ErrorMsg                       :   "Impossible de récupérer les renseignements du client, veuillez essayer de nouveau",
 		tm							                        :   "<span class=\"superscripts\">MC</span>",
 		r							                        :   "<span class=\"superscripts\">MD</span>",
-		requiredFieldIndicatorLabel							:	" Indique un champ obligatoire", 		
+		requiredFieldIndicatorLabel							:	"Champ obligatoire", 		
+		requiredFieldIndicatorLabel_OMP_OMR					:	"Champ obligatoire",
 		
 		PageHeader_CanadianTireTabLogo						:	'<div class="PageHeader_CanadianTireTabLogo_fr"></div>',
 		PageHeader_CanadianTireNeedHelp                     :   '<div class="needHelpImage_fr"></div>',
 		pageHeader_CantireBankOrTriangle                    :   '<div class="logoBankOrTriangle_fr"></div>',
+		pageHeader_CantireBankOrTriangle_OMP_OMR            :   '<div class="logoBankOrTriangle_OMP_OMR_fr"></div>',
+		
+		pageHeader_ompCard                                  :   '<div class="OMPCard4percentage_fr"></div>',
+		pageHeader_omrCard                                  :   '<div class="OMRCard4percentage_fr"></div>',
 				
 		session_Expired_ErrorTitle							: 	"Demande timed out",
 		session_Expired_ErrorMsg							:	"En raison d'une période d’inactivité prolongée, votre demande a expiré. <br>Veuillez représenter une demande afin qu’elle nous soit acheminée avec succès. <br>Remarque : votre session expirera au bout de 30 minutes ou après 10 minutes d'inactivité.",
@@ -136,8 +141,10 @@ BRB.dictionary_fr = {
 		
 		chooseProduct_Title1_OMX							:	"<span class=\"overviewNSTableRedText\"> Faites une demande de carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup></span>",
 		chooseProduct_Title1_OMZ							:	"<span class=\"overviewNSTableRedText\"> Faites une demande de carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup></span>",
-		
+		chooseProduct_Title1_OMP							:	"<span class=\"overviewNSTableRedText\">Remplissez un formulaire de demande de carte Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup>&#46;</span>",
+		chooseProduct_Title1_OMR							:	"<span class=\"overviewNSTableRedText\">Faites une demande de carte Mastercard<sup>MD</sup> Avantage Remise<sup>MD</sup>&#46;</span>",
 		chooseProduct_Title2								:	"Il vous faudra de trois à cinq minutes pour remplir le formulaire de demande de carte. Si votre demande est approuvée, vous en serez avisé par courrier dans les sept à dix jours ouvrables suivants.",
+		chooseProduct_Title2_OMP_OMR						:	"Il vous faudra de trois à cinq minutes pour remplir la présente demande de carte. Si votre demande est approuvée, vous en serez avisé par courrier dans les sept à dix jours ouvrables suivants.",
 		chooseProduct_Title3								:	"Faites une demande<sup>ƒ</sup> et utilisez votre carte dès aujourd'hui!",
 		chooseProduct_Title4								:	"<b>Obtenez une prime de 4 %,  soit 10x le taux régulier<sup>&dagger;</sup> en « Argent » Canadian Tire</b>,<br>sur vos achats admissibles effectués en magasin ou en ligne chez Canadian Tire, Sport Chek, Mark’s/l’Équipeur et PartSource.",
 		chooseProduct_Title5								:	"<b>Obtenez de l'« Argent » Canadian Tire</b> dans les postes d'essence Canadian Tire<sup>2</sup>",
@@ -178,9 +185,17 @@ BRB.dictionary_fr = {
 		
 		overview_page_Title_lets_get_started                :   "Commençons !",   
 		overview_page_Title_it_will_take_few_min            :   "Remplir cette demande ne prendra que quelques minutes.",
+		
+		overview_page_Title_lets_get_started_OMP_CARD       :   "Ça commence ici!",   
+		overview_page_Title_it_will_take_few_min_OMP_CARD   :   "Cette demande ne prend que quelques minutes à remplir.",
+		
 		overview_Title_Ecomm								:	"Veuillez prendre connaissance des renseignements ci-dessous, choisissez la carte qui correspond le mieux à vos besoins puis cliquez sur Commencer pour remplir la demande de carte.",
 		overview_Title_DEC									:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.",
-		overview_PrintDownload_LinkText						:	"<a href='https://customer.ctfs.com/SharedContent/documents/f_online_disclosure.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
+		overview_Title_DEC_OMP_OMR							:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur << Commencer >> pour remplir la demande de carte.",
+		overview_PrintDownload_LinkText						:	"<a href='https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/documents/Cost_of_Borrowing_Disclosure_FRC.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
+		
+		overview_PrintDownload_LinkText						:	"<a href='https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/documents/Cost_of_Borrowing_Disclosure_FRC.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
+		overview_PrintDownload_LinkText_OMP					:	"<a href='https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/documents/Cost_of_Borrowing_Disclosure_FRC.pdf' target='_blank'>Imprimer ou télécharger la version PDF de cette déclaration.</a>",
 		
 		overview_AmIEligibleTable_Mastercard			  	:	"<b>Mastercard<sup>MD</sup> Triangle<sup>MC</sup><b>",
 		overview_AmIEligibleTable_World_elite_card          :   "<b>World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup><b>",
@@ -196,11 +211,12 @@ BRB.dictionary_fr = {
 		overview_TopTableLeftCol1							:	"Vous devez résider au Canada",
 		overview_TopTableLeftCol2							:	"Vous devez avoir atteint l'âge de la majorité dans votre province de résidence",
 		overview_TopTableLeftCol3							:	"Vous devez occuper un emploi ou être à la retraite ",
-		overview_TopTableLeftCol4							:	"Votre revenu personnel s'élève à au moins 80 000 $ par an ou le revenu annuel de votre ménage s'établit à 150 000 $",
+		overview_TopTableLeftCol4							:	"Votre revenu personnel s'élève à au moins 80 000 $ par an",
 		overview_TopTableLeftCol5							:	"Vous devez avoir une excellente cote de crédit",
 
 		overview_TopTableRightColTitle						:	"De quoi ai-je besoin?",
 		overview_TopTableLeftColTitle_DEC                   :   "Suis-je admissible?",
+		overview_TopTableLeftColTitle_OMP_CARD              :   "Suis-je admissible?  ",
 		overview_TopTableRightCol1							:	"Adresse précédente (si moins de deux ans à l'adresse actuelle)",
 		overview_TopTableRightCol2							:	"Revenu annuel",
 		overview_TopTableRightCol3							:	"Nom et adresse de l'employeur actuel",	
@@ -260,6 +276,14 @@ BRB.dictionary_fr = {
 		overview_CustomerServiceDepartment_Text3_DEC_OMZ 			:	"World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> est émise par la Banque Canadian Tire en vertu d'une licence accordée par Mastercard International. Si votre demande est approuvée, votre carte sera expédiée dans les six (6) semaines suivant la demande. L'adresse de la Banque Canadian Tire et des SFCT est la suivante :",
 		
 		overview_CustomerServiceDepartment_PleaseNoteOMX_only       :  "Veuillez noter que la carte World Elite Mastercard Triangle peut imposer aux commerçants des frais de transaction plus élevés.",
+		// US4997
+		// OMP card 
+		overview_CustomerServiceDepartment_OMP_CARD_Text1 			:	"Au Canada : <b>1-800-459-6415</b>",
+		overview_CustomerServiceDepartment_OMP_CARD_Text2 			:	"ailleurs qu’au Canada (à frais virés) au 905 735-7256 ",
+		overview_CustomerServiceDepartment_OMP_CARD_Text3 			:	"La carte Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup> est émise par la Banque Canadian Tire (la « BCT ») en vertu d’une licence accordée par Mastercard International. Si votre demande est approuvée, votre carte sera expédiée dans les 10 jours suivant la demande.",
+		overview_CustomerServiceDepartment_OMR_CARD_Text3 			:	"La carte Mastercard<sup>MD</sup> Avantage Remise<sup>MD</sup> est émise par la Banque Canadian Tire (la « BCT ») en vertu d’une licence accordée par Mastercard International. Si votre demande est approuvée, votre carte sera expédiée dans les 10 jours suivant la demande.",
+		overview_CustomerServiceDepartment_OMP_CARD_Text3_address 	:	"Adresse des Services financiers Canadian Tire :",
+		
 		
 		overview_CustomerServiceDepartment_Text4 			:	"C.P. 2000",
 		overview_CustomerServiceDepartment_Text5 			:	"Welland (Ontario)  L3B 5S3",
@@ -269,12 +293,18 @@ BRB.dictionary_fr = {
 		overview_Province									:	"Province",
 		
 		overview_SecurityMessaging_Title					:	"Message concernant la sécurité",
+		overview_SecurityMessaging_Title_OMP				:	"Message sur la sécurité",
 		overview_SecurityMessaging_Content					:	"Chez Canadian Tire, nous attachons une grande importance à la sécurité de vos renseignements personnels. Prenez connaissance des mesures mises en œuvre pour protéger les renseignements personnels de nos clients.",
+		overview_SecurityMessaging_Content_OMP				:	"Canadian Tire accorde la plus grande importance à la sécurité de vos renseignements personnels. Prenez connaissance des mesures mises en œuvre pour protéger les renseignements personnels de nos clients.",
 		overview_SecurityMessaging_MoreInfo					:	"Pour obtenir de plus amples renseignements, consultez notre",
-		overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://customer.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>politique en matière de protection des renseignements personnels.</a>",
+		overview_SecurityMessaging_MoreInfo_OMP				:	"Pour plus d’informations, consultez notre",
+		overview_SecurityMessaging_PrivacyCharter			:	"<a href='https://www.ctfs.com/content/ctfs/fr/legal_privacy/privacy_charter.html' target='_blank'>politique en matière de protection des renseignements personnels.</a>",
+		overview_SecurityMessaging_PrivacyCharter_OMP		:	"<a href='https://www.ctfs.com/content/ctfs/fr/legal_privacy/privacy_charter.html' target='_blank'>politique en matière de protection des renseignements personnels.</a>",
 		
 		overview_AutoTimeout_Title							:	"Fin de session automatique",
+		overview_AutoTimeout_Title_OMP						:	"Fin de session automatique",
 		overview_AutoTimeout_Content						:	"Pour votre protection, votre session expirera automatiquement au bout de 30 minutes d’activité ou 10 minutes d’inactivité.",
+		overview_AutoTimeout_Content_OMP					:	"Pour votre protection, la session sera fermée automatiquement après 30 minutes ou 10 minutes d’inactivité.",
 		
 		overview_startApplication_Button_Label				:	"Commencer",
 		overview_RequiredField_Lable						:	"Indique un champ obligatoire",
@@ -440,6 +470,7 @@ BRB.dictionary_fr = {
 		personalInformation_EmailAddressNote				:	"Fournissez-nous votre adresse de courriel et vous obtiendrez un coupon pour une prime d’« Argent » Canadian Tire<sup>&dagger;</sup>.",
 		
 		personalInformation_SINHint							:	"Votre NAS nous permet de traiter vos informations financières plus efficacement.",
+		personalInformation_SINHint_OMP_OMR					:	"Le fait de fournir votre NAS nous permet de traiter plus efficacement vos renseignements financiers.",
 		personalInformation_GrossAnnualIncomeHint			:	"Comprend votre revenu avant impôts. Cela comprend vos rentes de régimes de retraite, vos rentes des régimes publics et tout autre revenu. Arrondissez le montant au dollar près. N’utilisez pas d’espace, de point ni de virgule <nobr>(p. ex. : 35 000).</nobr>",
 		// US3961
 		personalInformation_GrossAnnualHouseholdIncomeHint	:	"Comprend votre revenu avant impôts. Cela comprend vos rentes de régimes de retraite, vos rentes des régimes publics et tout autre revenu. Arrondissez le montant au dollar près. N’utilisez pas d’espace, de point ni de virgule <nobr>(p. ex. : 35 000).</nobr>",
@@ -463,10 +494,13 @@ BRB.dictionary_fr = {
 		personalInformation_cardmemberBenefits5				:	"Avance de fonds",
 		
 		personalInformation_AboutYourself					:	"<b>Renseignements personnels</b>",
+		personalInformation_AboutYourself_OMP_OMR			:	"<b>Mes renseignements personnels</b>",
+		personalInformation_AboutYourself_OMP				:	"<b>Renseignements personnels</b>",
 		personalInformation_Asterix							:	"*",
 		personalInformation_requiredField					:	"Indique un champ obligatoire",
 		
 		personalInformation_TitleField							:	"Titre de civilité",
+		personalInformation_TitleField_OMP_OMR					:	"Titre",
 		personalInformation_MoneyAdvantageField					:	"Numéro <br>de carte Advantage <br>« Argent »<span class=\"superscripts\"><sup>MC</sup></span> Canadian Tire",
 		personalInformation_MoneyAdvantage_MessageField	    	:	"Veuillez entrer votre numéro de compte Avantage « Argent »<span class=\"superscripts\"><sup>MC</sup></span> Canadian Tire si vous êtes déjà membre du programme. Les points Avantage « Argent » Canadian Tire que vous obtiendrez avec la carte de crédit pour laquelle vous remplissez une demande seront crédités au compte de cette carte, si votre demande est approuvée. Un compte Avantage « Argent » Canadian Tire sera ouvert à votre nom si vous laissez ce champ vide",
 		personalInformation_NameField							:	"Nom",
@@ -491,6 +525,7 @@ BRB.dictionary_fr = {
 		personalInformation_StreetName							:	"Rue",
 		personalInformation_StreetNumber						:	"Numéro",
 		personalInformation_Suite								:	"Numéro d'app. / bureau",
+		personalInformation_Suite_OMP_OMR						:	"Numéro d'app/bureau",
 		personalInformation_City								:	"Ville",
 		personalInformation_Province							:	"Province",
 		personalInformation_PostalCode							:	"Code postal",
@@ -501,6 +536,7 @@ BRB.dictionary_fr = {
 		personalInformation_AddressSince						:	"À cette adresse depuis", // <br> tag is for proper locating in the table cell
 		
 		personalInformation_EmploymentInformation				:	"<b>Renseignements sur l'emploi</b>",
+		personalInformation_EmploymentInformation_OMP_OMR		:	"<b>Renseignements professionnels</b>",
 		personalInformation_EmploymentType						:	"Situation d'emploi",
 		personalInformation_Employer							:	"Employeur",
 		personalInformation_JobTitle							:	"Catégorie d'emploi",
@@ -508,12 +544,15 @@ BRB.dictionary_fr = {
 		// US3622
 		personalInformation_JobDescription_Other				:	"Titre du poste (Autre)",
 		personalInformation_EmployerSince						:	"Avec cet employeur depuis",
+		personalInformation_EmployerSince_OMP_OMR				:	"Avec cet employeur depuis le",
 		
 		personalInformation_FinancialInformation				:	"<b>Renseignements financiers</b>",
 		// US3961
 		// personalInformation_GrossAnnualIncome					:	"Revenu annuel brut", // Old
 		personalInformation_GrossAnnualIncome					:	"Revenu Annuel Personnel Brut",
 		personalInformation_GrossAnnualHouseholdIncome			:	"Revenu Annuel Brut Du Ménage",
+		personalInformation_GrossAnnualIncome_OMP_OMR			:	"Revenu personnel annuel brut",
+		personalInformation_GrossAnnualHouseholdIncome_OMP_OMR	:	"Revenu du ménage annuel brut",
 		
 		personalInformation_BankingProducts						:	"Mes produits bancaires (cochez toutes les cases appropriées)",
 		personalInformation_BankLoan							:	"Prêt bancaire",
@@ -537,8 +576,39 @@ BRB.dictionary_fr = {
 		personalInformation_provide_email_to_get_bonus         :   "Indiquez votre adresse courriel et cochez la case ci-bas pour obtenir une prime de <span class=\"overviewNSTableRedText\">5 &#36; en Argent CT &#33;<sup>&#8224;</sup></span>",
 		
 		//--------------- US4591 ENDS  ---------------------
+		
+		// --------------US4997 STARTS --------------------
+		personalInformation_ApplyFor_OMP_CARD_OIC			:	"Vous présentez une demande pour une carte Mastercard<span class=\"superscriptsHeader\"><sup>MD</sup></span>  Avantage Essence<span class=\"superscriptsHeader\"><sup>MD</sup></span>",
+		// --------------US4997 ENDS   --------------------
+		
+		// --------------US4997 ENDS   --------------------
+		personalInformation_ApplyFor_OMR_CARD_OIC			:	"Vous présentez une demande pour une carte Mastercard<span class=\"superscriptsHeader\"><sup>MD</sup></span> Avantage Remise<span class=\"superscriptsHeader\"><sup>MD</sup></span>",
+		personalInformation_ApplyFor_OMR_CARD_OIC_personalInfo	:	"Vous demandez la carte Mastercard<span class=\"superscriptsHeader\"><sup>MD</sup></span> Avantage Remise<span class=\"superscriptsHeader\"><sup>MD</sup></span>",
 		overview_AmIEligibleTable_Masterdard			  	    :	"Mastercard<sup>MD</sup> Triangle<sup>MC</sup> ",
 		overview_AmIEligibleTable_World_elite_card          	:   "World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> ",
+		
+		overview_AmIEligibleTable_OMP_CARD                  :  "<b>Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup></b>",
+		overview_AmIEligibleTable_OMR_CARD                  :  "<b>Carte Mastercard<sup>MD</sup> Avantage Remise<sup>MD</sup></b>",
+		
+		overview_OMP_CARD_TopTableLeftCol1					:	"Vous devez être résident canadien",
+		overview_OMP_CARD_TopTableLeftCol2					:	"Vous devez avoir atteint l’âge de la majorité dans votre province de résidence",
+		overview_OMP_CARD_TopTableLeftCol3					:	"Vous exercez une activité professionnelle ou être à la retraite",
+		
+		overview_OMP_CARD_TopTableRightColTitle			    :	"Que dois-je faire?",
+		overview_OMP_CARD_TopTableRightCol1                 :   "Adresse précédente (si moins de deux ans à l’adresse actuelle)",
+		overview_OMP_CARD_TopTableRightCol2                 :   "Revenu annuel brut",
+		overview_OMP_CARD_TopTableRightCol3                 :   "Nom et adresse de l’employeur actuel",
+		
+		
+		overview_OMR_CARD_TopTableLeftCol1					:	"Vous devez résider au Canada",
+		overview_OMR_CARD_TopTableLeftCol2					:	"Vous devez avoir atteint l’âge de la majorité dans votre province de résidence",
+		overview_OMR_CARD_TopTableLeftCol3					:	"Vous devez occuper un emploi ou être à la retraite",
+		
+		overview_OMR_CARD_TopTableRightCol1                 :   "Adresse précédente (si moins de deux ans à l’adresse actuelle)",
+		overview_OMR_CARD_TopTableRightCol2                 :   "Revenu annuel",
+		overview_OMR_CARD_TopTableRightCol3                 :   "Nom et adresse de l’employeur actuel",
+		
+		
 		
 		employmentType_FullTime									:	"Temps plein",
 		employmentType_Seasonal									:	"Saisonnier",
@@ -920,11 +990,11 @@ BRB.dictionary_fr = {
 		additionalInformation_AgreeToTermsError					:   "Si vous aimeriez adhérer à ce produit, vous devez accepter les modalités avant de continuer.",
 		
 		additionalInformation_Title								:   "Produits facultatifs",
-		additionalInformation_GetSuplementaryCard				:	"<b>Obtenez une carte supplémentaire</b>",
+		additionalInformation_GetSuplementaryCard				:	"<b>Obtenez une carte additionnelle</b>",
 		additionalInformation_Asterix							:	"*",
 		additionalInformation_requiredField						:	"Indique un champ obligatoire",
 		
-		additionalInformation_TitleField						:	"Titre de civilite",
+		additionalInformation_TitleField						:	"Titre",
 		additionalInformation_NameField							:	"Nom",
 		additionalInformation_FirstName							:	"Prenom",
 		additionalInformation_Initial							:	"Initiale",
@@ -944,9 +1014,10 @@ BRB.dictionary_fr = {
 		additionalInformation_SameAddresNo						:	"Non",
 		additionalInformation_OptionalInsurance					:	"Assurance facultative",
 		additionalInformation_OptionalProducts					:	"<b>ADHÉSION À DES PRODUITS FACULTATIFS<sup>&#8224;&#8224;</sup></b>",
-		additionalInformation_AuthorizeSupplementaryCardmember	:	"&#44; je désire obtenir une carte additionnelle sur ce compte, sans frais &#33;",
+		additionalInformation_AuthorizeSupplementaryCardmember	:	"&#44; je désire obtenir une carte additionnelle sur ce compte, sans frais&#33;",
 		additionalInformation_AuthorizeSupplementaryCardmember_Yes	:	"&nbsp;&#33; Je désire autoriser une personne à détenir une carte supplémentaire sur ce compte et vous demande d’émettre une carte supplémentaire à son nom, SANS FRAIS.",
 		additionalInformation_AuthorizeSupplementaryCardmember_No	:	"&nbsp;- Je désire autoriser une personne à détenir une carte supplémentaire sur ce compte et vous demande d’émettre une carte supplémentaire à son nom, SANS FRAIS.",
+		additionalInformation_AuthorizeSupplementaryCardmember_No_OMP_OMR	:"&#44; je ne veux pas ajouter gratuitement un titulaire supplémentaire à ce compte.",
 		
 		// Old code
 		// additionalInformation_OptionalInsurance_CreditProtector_enroll 	:	"- Je désire adhérer à Couverture-crédit<span class=\"superscripts\"><sup>MD</sup></span><sup>**</sup>/Couverture-crédit – Âge d’or<span class=\"superscripts\"><sup>MD</sup></span> <sup>***</sup>",
@@ -954,6 +1025,10 @@ BRB.dictionary_fr = {
 		additionalInformation_OptionalInsurance_IdentityWatch   		:   "- Je veux adhérer au programme Surveillance d’identité Classique<span class=\"superscripts\"><sup>MD</sup></span>",
 		additionalInformation_OptionalInsurance_ProtectionAdvantage   	:   "- Je désire adhérer à Avantage Protection de Canadian Tire<span class=\"superscripts\"><sup>MD</sup>",
 		additionalInformation_OptionalInsurance_DoNotEnrolMe 			:   "- Je ne veux pas adhérer à l’assurance facultative.",
+		
+		additionalInformation_OptionalInsurance_CreditProtector_enroll_OMP_OMR 	:	"&#44; je désire adhérer à Couverture-crédit<span class=\"superscripts\"><sup>MD</sup></span>",
+		additionalInformation_OptionalInsurance_IdentityWatch_OMP_OMR   		:   "&#44; je désire adhérer à Surveillance d’identité Classique<span class=\"superscripts\"><sup>MD</sup></span>",
+		additionalInformation_OptionalInsurance_ProtectionAdvantage_OMP_OMR   	:   "&#44; je désire adhérer à Avantage Protection<span class=\"superscripts\"><sup>MD</sup></span> de Canadian Tire",
 		
 		
 		//additionalInformation_OptionalInsurance_Details			:	"<i>(non disponible pour les résidents de la Saskatchewan)</i><br><ul><li>La prime est de 1,10 $ par tranche de 100 $ du solde mensuel courant, moins toute prime d’assurance impayée, chaque mois où le solde de votre compte est de 10 $ ou plus et est portée à votre compte MasterCard<span class=\"superscripts\"><sup>MD</sup></span> de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span></li><li>Par exemple, si votre solde était de 200 $ au moment de l’impression de votre relevé, vous ne paieriez que 2,20 $, taxe en sus.</li></ul>",
@@ -1023,39 +1098,60 @@ BRB.dictionary_fr = {
 		additionalInformation_OptionalInsurance_Details14_Bullet5	:	"&#45; <b>Remboursement des frais de mise au point d’ordinateur</b>",
 		additionalInformation_OptionalInsurance_Details14_Bullet6	:	"&#45; <b>Service de Retour d’articles perdus<sup>MD</sup></b>",
 		additionalInformation_OptionalInsurance_Details14_Bullet7	:	"&#45; <b>Frais d’adhésion de 4,99 $**, payable à l’avance tous les mois après votre première transaction effectuée avec votre carte de crédit émise par la Banque Canadian Tire.</b>",
+		additionalInformation_OptionalInsurance_Details14_OMP_OMR		:   "Vous aide à protéger vos renseignements privés et importants, ainsi que ceux de votre famille.",
+		additionalInformation_OptionalInsurance_Details14_Bullet1_OMP_OMR	:	"&#45; <b>Assistance en cas de perte ou de vol de cartes</b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet2_OMP_OMR	:	"&#45; <b>Sauvegarde des données en ligne</b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet3_OMP_OMR	:	"&#45; <b>Service de récompense contre le vol de carte de crédit</b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet4_OMP_OMR	:	"&#45; <b>Protection contre la fraude d’identité/Service de surveillance en ligne</b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet5_OMP_OMR	:	"&#45; <b>Remboursement d’entretien informatique</b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet6_OMP_OMR	:	"&#45; <b>Service de retour de biens Retour<sup>MD</sup></b>",
+		additionalInformation_OptionalInsurance_Details14_Bullet7_OMP_OMR	:	"&#45; <b>Frais d’adhésion de 4,99 $**, payable à l’avance tous les mois après votre première transaction effectuée avec votre carte de crédit émise par la Banque Canadian Tire</b>",
 		additionalInformation_OptionalInsurance_Details14_1		:	"Si vous adhérez à Surveillance d’identité Classique, l’adhésion entrera en vigueur à compter de la date d’inscription indiquée sur votre lettre de bienvenue. Celle-ci figure dans la trousse de bienvenue que vous devriez recevoir dans un délai de 15 jours suivant l’adhésion.",
 		additionalInformation_OptionalInsurance_Details14_2		:   "L’adhésion à Surveillance d’identité Classique est facultative et peut être annulée en tout temps. Si vous annulez dans les 30 premiers jours suivant votre date d’adhésion, la Banque Canadian Tire vous remboursera les frais d’adhésion payés, après votre première transaction effectuée à l’aide de votre carte. Si vous annulez après les 30 premiers jours, l’annulation prendra effet à compter du dernier jour du cycle de facturation en cours ou 30 jours après la réception de l’avis d’annulation, selon la première éventualité. Si vous annulez votre adhésion, vous serez responsable de tous les frais engagés et changements en raison des services offerts par l’intermédiaire d’un fournisseur d’accès Internet ou de leur tiers fournisseur de services.",
 		
 		additionalInformation_OptionalInsurance_Details15		:   "OUI, JE DÉSIRE ADHÉRER AU(X) PRODUIT(S) FACULTATIF(S) SUIVANT(S) :",
+		additionalInformation_OptionalInsurance_Details15_OMP_OMR		:   "OUI, JE DÉSIRE SOUSCRIRE AUX PRODUITS FACULTATIFS SUIVANTS ",
+		
+		// US4997
+		additionalInformation_OptionalInsurance_Details15_NewLine1		:   "Avant de vous inscrire, il est important que vous lisiez et que vous compreniez le Sommaire de la protection ci-dessus, qui décrit les modalités, les avantages, les limitations et les exclusions. ",
+		additionalInformation_OptionalInsurance_Details15_NewLine2		:   "En cliquant sur l’une des deux premières cases ci-dessous, je consens et accepte de m’inscrire à l’assurance facultative Couverture-crédit et j’accepte les conditions et les coûts divulgués.",
 		
 		// US3382
-		additionalInformation_OptionalInsurance_Details16		:	"Assurance Couverture-crédit<sup>MD</sup> (offerte aux titulaires de carte âgés d’au moins 18 et de moins de 76 ans) ",
-		additionalInformation_OptionalInsurance_Details16_Bullet1		:	"Cette assurance de solde de carte de crédit offerte pour votre carte de crédit émise par la Banque Canadian Tire peut aider à payer le solde impayé de votre carte de crédit ou peut effectuer les paiements mensuels, jusqu’à concurrence de la prestation maximale de la police, 20 000 $, lorsque vous et votre famille en avez le plus besoin.",
-		additionalInformation_OptionalInsurance_Details16_Bullet2		:	"Couverture-crédit pourrait :",
+		additionalInformation_OptionalInsurance_Details16		:	"Assurance Couverture-crédit<sup>MD</sup>  (offerte aux titulaires de carte âgés de 18 à 75 ans)",
+		additionalInformation_OptionalInsurance_Details16_Bullet1		:	"Cette assurance collective facultative du solde de votre compte de carte de crédit émise par la Banque Canadian Tire peut vous aider à régler votre solde impayé de carte de crédit ou à effectuer des paiements mensuels (jusqu’à concurrence de 20 000 $), au moment où vous et votre famille en avez le plus besoin.",
+		additionalInformation_OptionalInsurance_Details16_Bullet2		:	"Avantages de Couverture-crédit :",
 		additionalInformation_OptionalInsurance_Details16_Bullet3		:	"&#45; payer une prestation mensuelle correspondant à 5 % du solde impayé d’une carte de crédit émise par la Banque Canadian Tire (excluant les programmes de modalités spéciales de paiement), tel que déterminé à la date du relevé coïncidant avec, ou précédant immédiatement, la date du sinistre, jusqu’à concurrence de 1 000 $ par mois et sous réserve d’une prestation maximale totale de 20 000 $ si vous perdiez involontairement votre emploi ou deveniez totalement invalide*;",
+		additionalInformation_OptionalInsurance_Details16_Bullet3_OMP_OMR	:	"&#45; Payer une prestation mensuelle correspondant à 5 % du solde impayé d'une carte de crédit émise par la Banque Canadian Tire (à l’exception des programmes de modalités spéciales de paiement)  à la date du relevé coïncidant avec ou immédiatement avant la date du sinistre, jusqu’à concurrence de 1 000 $ par mois et une prestation totale maximale de 20 000 $, en cas de perte involontaire de votre emploi ou d’invalidité*; et",
 		additionalInformation_OptionalInsurance_Details16_Bullet4		:	"&#45; payer le solde impayé de votre carte de crédit émise par la Banque Canadian Tire, sous réserve d’une prestation maximale totale de 20 000 $, si vous ou votre conjoint décédiez, subissiez une mutilation, ou étiez diagnostiqué pour une maladie terminale*.",
+		additionalInformation_OptionalInsurance_Details16_Bullet4_OMP_OMR	:	"&#45; Payer le solde impayé de votre carte de crédit émise par la Banque Canadian Tire si vous ou votre conjoint décédez, souffrez d’une mutilation ou d’une maladie en phase terminale*, jusqu’à concurrence de 20 000 $.",
 		additionalInformation_OptionalInsurance_Details16_Bullet5		:	"L’Assurance Couverture-crédit coûte 1,10 $ par tranche de 100 $ de votre solde quotidien moyen (moins le montant impayé de tout programme de modalités spéciales de paiement) pour tout mois où le solde quotidien moyen s’établit à 10 $ ou plus. Par exemple, si votre solde quotidien moyen s’établissait à 350 $, vous payeriez seulement 3,85, plus les taxes applicables. À l’âge de 80 ans, le taux de prime est réduit à 0,59 $ par tranche de 100 $ du solde quotidien moyen (moins le montant impayé de tout programme de modalités spéciales de paiement).",
+		additionalInformation_OptionalInsurance_Details16_Bullet5_OMP_OMR	:	"La prime de Couverture-crédit est de 1,10 $ par tranche de 100 $‡ de votre solde quotidien moyen, moins le montant de tout programme de modalités spéciales de paiement, chaque mois où le solde quotidien moyen est de 10 $ ou plus. À titre d’exemple, si votre solde quotidien moyen est de 350 $, vous ne payerez que 3,85 $, plus les taxes applicables. À 80 ans, le taux de la prime est réduit à 0,59 $ par tranche de 100 $‡ de votre solde quotidien moyen, moins tout montant impayé au titre d’un programme spécial de paiement.",
 		additionalInformation_OptionalInsurance_Details16_Bullet6		:	"L’adhésion à l’Assurance Couverture-crédit n’est pas obligatoire et vous pouvez l’annuler en tout temps. Si vous annulez dans les 45 premiers jours de l’émission du certificat d’assurance, vous recevrez un remboursement intégral de toute prime payée. Si vous adhérez à l’Assurance Couverture-crédit, votre assurance entre en vigueur au moment de votre adhésion. Vous recevrez une trousse de bienvenue pour confirmer votre adhésion. Elle contiendra un certificat d’assurance (les résidents du Québec recevront aussi un guide de distribution) qui renfermera tous les détails de la couverture, comme les définitions, les prestations, les restrictions, les limites et les exclusions, ainsi que les démarches à suivre pour demander une annulation ou pour présenter une demande de règlement.",
-		additionalInformation_OptionalInsurance_Details16_Bullet7		:	"Il existe d’autres produits d’assurance sur le marché qui peuvent offrir des couvertures semblables à celles que procure l’Assurance Couverture-crédit. Vous devriez vérifier si vous bénéficiez déjà d’une assurance qui offre des couvertures semblables.",
+		additionalInformation_OptionalInsurance_Details16_Bullet6_OMP_OMR	:	"La souscription à l’assurance Couverture-crédit est facultative et peut être annulée en tout temps. Si vous annulez votre adhésion dans les 45 jours suivant l’émission du certificat d’assurance, nous vous rembourserons intégralement les primes que vous avez payées. Si vous souscrivez à l’assurance Couverture-crédit, votre protection entre en vigueur au moment de votre souscription. Vous recevrez une trousse de bienvenue pour confirmer votre souscription. Celle-ci renferme un certificat d’assurance (ainsi qu’un guide de distribution si vous habitez au Québec) et tous les détails de la couverture, notamment les définitions, les prestations, les limitations, les restrictions, les exclusions ainsi que les renseignements portant sur l’annulation et la demande de règlement.",
+		additionalInformation_OptionalInsurance_Details16_Bullet7		:	"Il existe d’autres produits d’assurance sur le marché qui peuvent offrir une protection semblable à celle que procure Couverture-crédit. Vous devriez peut-être vérifier si vous avez déjà une assurance qui offre une couverture similaire.",															
 		additionalInformation_OptionalInsurance_Details16_Bullet8		:	"La Banque Canadian Tire a un intérêt financier dans la vente de cette assurance.",
-		additionalInformation_OptionalInsurance_Details16_Bullet9		:	"<sup>*</sup> Consultez votre certificat d’assurance pour connaître les modalités, restrictions, exclusions et limitations. Lorsque vous atteignez l’âge de 80 ans, la protection en cas de décès ou de mutilation devient une protection en cas de décès par accident ou de mutilation par accident avec une réduction de la prime mensuelle.",
+		additionalInformation_OptionalInsurance_Details16_Bullet8_OMP_OMR	:	"La Banque Canadian Tire possède un intérêt financier dans la vente de la présente assurance.",
+		additionalInformation_OptionalInsurance_Details16_Bullet9		:	"<sup>*</sup> Consultez votre certificat d’assurance pour connaître les modalités, restrictions, exclusions et limitations. Lorsque vous atteignez l’âge de 80 ans, la protection en cas de décès ou de mutilation devient une protection en cas de décès par accident ou de mutilation par accident avec une réduction de la prime mensuelle.",		
 		additionalInformation_OptionalInsurance_Details16_Bullet91		:	"<sup>&Dagger;</sup> Taxes applicables en sus, payable mensuellement.",
 		additionalInformation_OptionalInsurance_Details16_Bullet10		:	"Couverture-crédit est une assurance collective souscrite auprès de American Bankers Compagnie d’Assurance Vie de la Floride et de American Bankers Compagnie d’Assurance générale de la Floride. American Bankers Compagnie d’Assurance Vie de la Floride et American Bankers Compagnie d’Assurance générale de la Floride exercent des activités au Canada sous le nom d’Assurant<span class=\"superscripts\"><sup>MD</sup></span>.",
+		additionalInformation_OptionalInsurance_Details16_Bullet91_OMP_OMR	:	"<sup>&Dagger;</sup> Plus taxes applicables. Payable mensuellement.",
+		additionalInformation_OptionalInsurance_Details16_Bullet10_OMP_OMR	:	"Couverture‐crédit est un produit d’assurance crédit collective offert par la Banque Canadian Tire, et dans lequel elle possède un intérêt financier, pour les cartes de crédit qu’elle émet. Couverture‐crédit est prise en charge par American Bankers Compagnie d’Assurance Vie de la Floride (ABLAC) et American Bankers Compagnie d’Assurance Générale de la Floride (ABIC) en vertu des polices collectives numéros 960913L‐1 et 960913‐1. ABLAC et ABIC ainsi queleurs sociétés affiliées et filiales exercent des activités commerciales au Canada sous le nom de Assurant<span class=\"superscripts\"><sup>&reg;</sup></span>.",
 /*		additionalInformation_OptionalInsurance_Details16_Bullet11		:	"<sup>&reg;</sup> Assurant Solutions est une marque de commerce déposée de Assurant, Inc.",
 		additionalInformation_OptionalInsurance_Details16_Bullet12		:	"<sup>MD</sup>/<sup>MC</sup> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.",
 		additionalInformation_OptionalInsurance_Details16_Bullet13		:	"<sup>MD</sup>/<sup>MC</sup> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées.",
 */
-		additionalInformation_OptionalProducts_Title1			:	"Avantage Protection de Canadian Tire<sup>MD</sup>",
+		additionalInformation_OptionalProducts_Title1			:	"Avantage protection<sup>MD</sup> Canadian Tire",
 		additionalInformation_OptionalProducts_Title1_1			:	"<i>(non disponible pour les résidents de la Saskatchewan)</i>",
 		
 		// Old line
 		// 	additionalInformation_OptionalProducts_Title1_2			:	"(Adhésion à la fois à Couverture-crédit<sup>MD</sup>** / Couverture-crédit – <i>Âge d’or</i><sup>MD</sup>** et Surveillance d’identité ClassiqueTM. Comprend la couverture et les avantages des deux produits facultatifs, comme indiqué précédemment. ",
 		//	additionalInformation_OptionalProducts_Title2			:	"Couverture-crédit<sup>MD**</sup> / Couverture-crédit – <i>Âge d’or</i><sup>MD***</sup>",
-		additionalInformation_OptionalProducts_Title1_2			:	"Adhésion à l’Assurance Couverture-crédit<sup>MD</sup>  et au programme Surveillance d’identité Classique<sup>MD</sup>&#46; Comprend toute la couverture et les avantages des deux produits facultatifs énoncés ci-dessus&#46;",
+		additionalInformation_OptionalProducts_Title1_2			:	"Souscription à Couverture crédit<sup>MD</sup> et Surveillance d’identité Classique<sup>MD</sup>. Comprends les avantages qui sont offerts par les deux produits facultatifs, tel que mentionné ci-dessus.",
 		additionalInformation_OptionalProducts_Title2			:	"Assurance Couverture-crédit<sup>MD</sup>",
 		additionalInformation_OptionalProducts_Title2_1			:	"<i>(non disponible pour les résidents de la Saskatchewan)</i>",
 		additionalInformation_OptionalProducts_Title3			:	"Surveillance d’identité Classique<sup>MD</sup>",
 		additionalInformation_OptionalProducts_Title4			:	"Pas pour l’instant",
+		additionalInformation_OptionalProducts_Title4_OMP_OMR	:	"Pas pour le moment",
 				
 		// US4133
 		additionalInformation_OptionalInsurance_PostalDistImpact_Title		:	"L’IMPACT DE L’INTERRUPTION POTENTIELLE DES SERVICES POSTAUX SUR LA LIVRAISON DU COURRIER",
@@ -1108,12 +1204,13 @@ BRB.dictionary_fr = {
 		
 		// Old code
 		// additionalInformation_Credit_Protector_Text             :   "J’ai lu et j’accepte les <a href='https://customer.ctfs.com/lang/fr/Products/Insurance/CreditProtector/CreditProtectorTandC/' target='_blank'>modalités</a> de Couverture-crédit / Couverture-crédit – Âge d’or.",
-		additionalInformation_Credit_Protector_Text             :   "<span class=\"overviewNSTableRedText\">&#42;</span>Je reconnais avoir lu, compris et accepté le <U><b><a href='https://customer.ctfs.com/lang/fr/Products/Insurance/CreditProtector/CreditProtectorTandC/' target='_blank'>sommaire des protections et les déclarations</a></b></U> de l'assurance Couverture-crédit.",
-		additionalInformation_Identity_Watch_Text               :   "<span class=\"overviewNSTableRedText\">&#42;</span>Je reconnais avoir lu, compris et accepté <U><b><a href='https://customer.ctfs.com/lang/fr/Products/TermsandConditions/IDWatch/' target='_blank'>les modalités</a></b></U>  du programme Surveillance d’identité Classique.",
-		additionalInformation_ProtectionAdvantage_Text          :   "<span class=\"overviewNSTableRedText\">&#42;</span>Je reconnais avoir lu, compris et accepté <U><b><a href='https://customer.ctfs.com/lang/fr/Products/TermsandConditions/ProtectionAdvantage/' target='_blank'>  les modalités et le sommaire des protections et les déclarations</a></b></U> du programme Avantage Protection de Canadian Tire.",
+		additionalInformation_Credit_Protector_Text             :   "<span class=\"overviewNSTableRedText\">&#42;</span> J’ai lu, compris et j’accepte entièrement le <U><b><a href='https://www.ctfs.com/content/ctfs/fr/optional-products/credit_protector_terms.html' target='_blank'>Sommaire de la couverture et des déclarations</a></b></U> de l’assurance Couverture-crédit.",
+		additionalInformation_Credit_Protector_Text_OMP_OMR     :   "<span class=\"overviewNSTableRedText\">&#42;</span> J’ai lu, compris et j’accepte entièrement le <U><b><a href='https://www.ctfs.com/content/ctfs/fr/optional-products/credit_protector_terms.html' target='_blank'>Sommaire de la couverture et des déclarations</a></b></U> de l’assurance Couverture-crédit.",
+		additionalInformation_Identity_Watch_Text               :   "<span class=\"overviewNSTableRedText\">&#42;</span> J’ai lu, compris et j’accepte entièrement le <U><b><a href='https://www.ctfs.com/content/ctfs/fr/optional-products/identity_watch_terms.html' target='_blank'>Sommaire de la couverture et des déclarations de</a></b></U> Surveillance d’identité Classique",
+		additionalInformation_ProtectionAdvantage_Text          :   "<span class=\"overviewNSTableRedText\">&#42;</span> J’ai lu, compris et j’accepte entièrement le <U><b><a href='https://www.ctfs.com/content/ctfs/fr/optional-products/protection_advantage_terms.html' target='_blank'>Sommaire de la couverture et des déclarations ainsi que des modalités</a></b></U> de Avantage Protection de Canadian Tire.",
 		
 		// US4591 Newline for Quebec
-		additionalInformation_Quebec_new_lineProtectionAdvantage :  "Pour les résidents du Québec, je reconnais avoir lu et compris l'Assurance Couverture-crédit <U><a href= 'https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/optional_products_documents/K022_DG_MCC894125F_FINAL.pdf' target='_blank'>Guide de distribution</a></U>",
+		additionalInformation_Quebec_new_lineProtectionAdvantage :  "Pour les résidents du Québec, j’ai lu et compris le <U><a href= 'https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/optional_products_documents/K022_DG_MCC894125F_FINAL.pdf' target='_blank'>Guide de distribution</a></U> de Couverture-crédit<sup>MD</sup>.",
 		
 		additionalInformation_IdentityWatch_Terms				: " ",//we need this empty string because french and english templates have different structure
 		additionalInformation_ProtectionAdvantage_Terms			: " ",//we need this empty string because french and english templates have different structure
@@ -1125,6 +1222,17 @@ BRB.dictionary_fr = {
 		additionalInformation_Relationship_TextField			: '<select class="fieldValuesSelectField addressProvinceField" id="additionalInformation_Relationship_TextField"/>',
 		additionalInformation_Province_TextField				: '<select class="fieldValuesSelectField addressProvinceField" id="additionalInformation_Province_TextField"/>',
 		
+		// US4997 OMP CARD -------------------
+		
+		additionalInformation_footnoteContent_OMP_Text1				:	"<sup>&#8224;&#8224;</sup> Ce sont des produits facultatifs offerts à tous les nouveaux titulaires de carte MasterCard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte MasterCard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs, lesquels sont offerts à tous les titulaires de carte Canadian Tire.",
+		additionalInformation_footnoteContent_OMP_Text2				:	"<span class=\"superscripts\"><sup>MD/MC</sup></span>Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.",
+		additionalInformation_footnoteContent_OMP_Text3				:	"Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Fidélisation propriétaire Aimia Canada Inc.",
+		additionalInformation_footnoteContent_OMP_Text4				:	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Suivi des informations personnelles sur Internet<span class=\"superscripts\"><sup>MD</sup></span> iPiP<span class=\"superscripts\"><sup>MD</sup></span>, et Retour<span class=\"superscripts\"><sup>MD</sup></span> sont des marques de commerce déposées de Fidélisation propriétaire Aimia Canada , Inc.",
+		additionalInformation_footnoteContent_OMP_Text5				:	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",
+		additionalInformation_footnoteContent_OMP_Text6				:	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard est une marque de commerce déposée et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+		
+		// US4997 OMP CARD -------------------
+		
 		//--------------- END --------------------- OPTIONAL PRODUCTS section -------------- END -----------
 		
 		//----------------------------------------- Confirmation section ------------------------------
@@ -1133,6 +1241,7 @@ BRB.dictionary_fr = {
 		
 		confirmation_steps4_OUT_5_Ecomm                            :  "<span class=\"overviewNSTableRedText\">Étape 4 de 5 :</span> Revue et Soumettre",
 		confirmation_steps4_OUT_5_Decoupled                        :  "<span class=\"overviewNSTableRedText\">Étape 4 de 4 :</span> Revue et Soumettre",
+		confirmation_steps4_OUT_5_Decoupled_OMP_OMR                :  "<span class=\"overviewNSTableRedText\">Étape 4 de 4 :</span> Vérifier et envoyer",
 		
 		//-------------- US4591 ENDS   ----------------------------------------------------------------
 		
@@ -1141,17 +1250,23 @@ BRB.dictionary_fr = {
 		confirmation_Title									:   "Confirmation",
 		confirmation_Edit_Button_Label                      :   "Modifier",
 		confirmation_Terms_Conditions                       :   "<b>Modalités et autorisation aux fins de la demande de carte</b>",
-		confirmation_Privacy_Charter                        :	"<a href='https://customer.ctfs.com/lang/fr/SecurityCentre/PrivacyAndSecurity/PrivacyCharter/' target='_blank'>Consultez notre politique en matiere de protection des renseignements personnels.</a>",  
+		confirmation_Privacy_Charter                        :	"<a href='https://www.ctfs.com/content/ctfs/fr/legal_privacy/privacy_charter.html' target='_blank'>Consultez notre politique en matiere de protection des renseignements personnels.</a>",  
+		confirmation_Privacy_Charter_OMP_OMR                :	"<a href='https://www.ctfs.com/content/ctfs/fr/legal_privacy/privacy_charter.html' target='_blank'>Voir notre politique sur la protection des renseignements personnels.</a>",
 		confirmation_Privacy_Charter_Text                   :   "En cochant cette case, j'accepte les modalités décrites dans l'autorisation aux fins de la demande de carte.",
 		confirmation_Application_Authorization_Title        :   "Autorisation aux fins de la demande de carte",
 		confirmation_Application_Authorization_SubTitle     :   "En cochant la case ci-dessous, j'accepte ce qui suit :",
 		
 		// Old line
 		// confirmation_Application_Authorization_Item1        :   "Veuillez ouvrir un compte à mon nom pour le type de carte de crédit MasterCard<span class=\"superscriptsFootnote\"><sup>MD</sup></span> Options<span class=\"superscriptsFootnote\"><sup>MD</sup></span> de Canadian Tire indiqué ci-dessus (la « carte ») à un taux d’intérêt annuel de 19,99 % pour toutes les transactions (à l’exception des avances de fonds et des frais afférents) et de 21,99 % pour les avances de fonds et les frais afférents.",
-		confirmation_Application_Authorization_Item1        :   "Veuillez ouvrir un compte à mon nom pour le type de carte de crédit émise par la Banque Canadian Tire indiqué ci-dessus (la « carte ») à un taux d’intérêt annuel de 19,99 % pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et de 22,99 % pour les transactions au comptant et les frais afférents.",		
+		confirmation_Application_Authorization_Item1        :   "Veuillez ouvrir un compte à mon nom pour le type de carte de crédit émise par la Banque Canadian Tire indiqué ci-dessus (la « carte ») à un taux d’intérêt annuel de 19,99 % pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et de 22,99 % pour les transactions au comptant et les frais afférents.",
+		confirmation_Application_Authorization_Item1_OMP_OMR    :   "Veuillez ouvrir un compte à mon nom pour la carte de crédit de la Banque Canadian Tire indiquée ci-dessus (la « carte ») à un taux d’intérêt annuel de 19,99 % pour toutes les transactions (à l’exception des avances de fonds et des frais afférents) et de 22,99 % pour les avances de fonds et les frais afférents.",
+		
+		// US4997 - OMP CARD
+		confirmation_Application_Authorization__OMP_CARD_Item2        :   "<b>S’il ne vous est pas possible d’approuver ma demande de carte prévoyant un taux d’intérêt annuel de 22,99 &#37; pour les avances de fonds et les frais afférents et un taux d’intérêt annuel de 19,99 &#37; pour tous les autres types de débit, j’accepte que vous traitiez la présente demande comme s’il s’agissait d’une demande de carte à un taux d’intérêt annuel de 25,99 &#37; pour tous les types de débit, et à l'exclusion des transactions au comptant et des frais afferents sans que vous n'ayez à m'en aviser spécifiquement.</b>",
+		
 		confirmation_Application_Authorization_Item5        :   "Je serai lié par les modalités du contrat du titulaire de carte de la Banque Canadian Tire que je recevrai avec la carte, lequel peut être modifié de temps à autre. Je serai la seule personne responsable de tous les débits imputés à ce compte, y compris ceux portés au compte par toute personne pour laquelle je vous ai demandé d’émettre une carte additionnelle. Je serai la seule personne qui recevra un relevé de compte.",
 		confirmation_Application_Authorization_Item6        :   "<u>Vous pouvez obtenir des renseignements sur mes antécédents de crédit et d’autres renseignements personnels me concernant auprès d’agences d’évaluation du crédit et communiquer de tels renseignements à ces agences.</u>",
-		confirmation_Application_Authorization_Item6a       :  "Je consens à ce que la Banque Canadian Tire procède à une vérification de mes   renseignements personnels, comme mon nom, mon adresse, ma date de naissance, mon numéro de téléphone mobile auprès de mon fournisseur de services mobiles et j’autorise mon fournisseur de services mobiles à fournir ces renseignements (Tenue de compte, type de compte, etc.) à la Banque Canadian Tire. Les renseignements concernant mon compte de téléphonie mobile seront utilisés pour vérifier mon identité et d’effectuer des analyses et des enquêtes contre la fraude.",
+		confirmation_Application_Authorization_Item6a       :  "Je consens à ce que la Banque Canadian Tire procède à une vérification de mes renseignements personnels, comme mon nom, mon adresse, ma date de naissance, mon numéro de téléphone mobile auprès de mon fournisseur de services mobiles et j’autorise mon fournisseur de services mobiles à fournir ces renseignements (Tenue de compte, type de compte, etc.) à la Banque Canadian Tire. Les renseignements concernant mon compte de téléphonie mobile seront utilisés pour vérifier mon identité et d’effectuer des analyses et des enquêtes contre la fraude.",
 		confirmation_Application_Authorization_Item7        :   "Chaque personne pour laquelle je vous ai demandé d’émettre une carte additionnelle m’a autorisé à vous fournir les renseignements ci-dessus la concernant.",
 		confirmation_Application_Authorization_Item8        :   "Si je vous fournis mon numéro d’assurance sociale, vous pouvez l’utiliser à des fins d’identification, notamment auprès d’agences d’évaluation du crédit.",
 		confirmation_Application_Authorization_Item9		:	"J’accepte que, si vous approuvez ma demande, vous me transmettiez un document d’information initial et un contrat du titulaire de carte par voie électronique à l’adresse électronique fournie dans cette demande.",
@@ -1160,6 +1275,7 @@ BRB.dictionary_fr = {
 		confirmation_Suite		                            :   "Numero d'app. / bureau ",
 		confirmation_prevAddressTitle                       :   "Adresse précédente",
 		confirmation_Information_Accurate_Text              :   "Veuillez vous assurer que les renseignements transmis sont exacts pour nous aider à traiter votre demande aujourd'hui !",
+		confirmation_Information_Accurate_Text_OMP_OMR      :   "Veuillez vous assurer que l’information soumise est exacte, car cela nous permettra de traiter votre demande dès aujourd’hui!",
 		// US4579 Removal of CT
 		confirmation_Update_CT_Profile_Text					:   "Mettre à jour l’adresse du profil mon fournie lors de la demande.",
 		confirmation_ReceiveEmail                           :    ', Je veux recevoir les communications par courriel sur les offres, les promotions et les concours ainsi que des renseignements sur les produits et services.',
@@ -1212,6 +1328,7 @@ BRB.dictionary_fr = {
 		identityVerification_PendingTitle					:   "<strong>Merci - Nous avons reçu votre demande</strong>",
 
 		identityVerification_PendingText1					:	"Votre demande est maintenant à l'étude par notre équipe. Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à quelques semaines, selon les renseignements fournis.",
+		identityVerification_PendingText1_OMP_OMR			:	"Si votre demande est approuvée, vous recevrez une Trousse de bienvenue par courrier dans les dix jours ouvrables.",
 
                                                               
 		identityVerification_PendingText2					:	"Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.",
@@ -1249,6 +1366,10 @@ BRB.dictionary_fr = {
 		approve_you_have_been_approve_label                 :   "VOTRE DEMANDE DE CARTE DE CRÉDIT A ÉTÉ APPROUVÉE!",
 		approved_title_one_OMX                              :   "Votre demande de carte Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été <span class=\"overviewNSTableRedText\">approuvée</span>.",
 		approved_title_one_OMZ                              :   "Votre demande de carte World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> a été <span class=\"overviewNSTableRedText\">approuvée</span>.",
+		approved_title_one_OMR                              :   "You have been <span class=\"overviewNSTableRedText\">approved</span> for your Cash Advantage<sup>&trade;</sup> Mastercard<sup>&trade;</sup>",
+		approved_title_one_OMP                              :   "You have been <span class=\"overviewNSTableRedText\">approved<sup>&trade;</sup>  for your Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+		approved_title_one_listItem1_OMR                    :   "Over the next 7-10 business days, you will receive your Cash Advantage Mastercard &amp; Welcome Package.",
+		approved_title_one_listItem1_OMP                    :   "Over the next 7-10 business days, you will receive your Gas Advantage Mastercard &amp; Welcome Package.",
 		approved_title_two                                  :   "Au cours des 7 aux 10 prochains jours ouvrables, vous recevrez :",
 		approved_title_one_listItem1                        :   "Vous recevrez votre Déclaration initiale et votre Contrat du titulaire de carte par courriel.",
 		approved_title_one_listItem2                        :   "Votre carte est dors et déjà ajoutée à votre profil d'achat en ligne, de sorte que vous pouvez commencer à l'utiliser en ligne dès aujourd'hui.",
@@ -1268,15 +1389,24 @@ BRB.dictionary_fr = {
 		pending_page_li_one                                 :   "Your Canadian Tire Options® Mastercard® & Welcome package.",
 		pending_page_li_two                                 :   "Your My Canadian Tire 'Money' card & Welcome package",
 		pending_page_note                                   :   "<b>IMPORTANT: NE PRÉSENTEZ PAS UNE NOUVELLE DEMANDE.</b>",
+		pending_page_note_OMR                           :   "<b>IMPORTANT : NE PRÉSENTEZ PAS UNE NOUVELLE DEMANDE.<b>",
+		pending_page_note_OMP                           :   "<b>REMARQUE : NE PRÉSENTEZ PAS UNE NOUVELLE DEMANDE.<b>",
 		pending_page_close_button_text                      :   "FERMER",
 		declined_message_one                                :   "Malheureusement, nous ne sommes pas en mesure de traiter instantanément votre demande aujourd'hui. Notre équipe passe actuellement votre demande de carte en revue. Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.",
 		declined_message_two                                :   "<strong>Que se passe-t-il ensuite?</strong>",
+		declined_message_two_OMP_OMR                                :   "<strong>Que se passe-t-il-maintenant?</strong>",
 		declined_message_three                              :   "Questions? Please call 1-800-459-6415.",
 		pendinDeclinedPageOMX_OMZ                           :   "<span class=\"overviewNSTableRedText\"> &#91; Mastercard<sup>MD</sup> Triangle<sup>MC</sup> OR  World Elite Mastercard<sup>MD</sup> Triangle<sup>MC</sup> &#93;</span>",
 		
 		pendingDeclined_page_li_one                         :   "Vous recevrez également une carte Récompenses Triangle<sup>MC</sup> et une trousse de bienvenue au programme Récompenses Triangle séparément dans un délai de 7 à 10 jours ouvrables.",
 		pendingDeclined_page_li_two_OMX                     :   "Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte Mastercard Triangle vous parviendra par la poste dans un délai de 7 à 10 jours ouvrables.",
 		pendingDeclined_page_li_two_OMZ                     :   "Si votre demande est approuvée, votre trousse de bienvenue contenant votre carte World Elite Mastercard Triangle vous parviendra par la poste dans un délai de 7 à 10 jours ouvrables.",
+		pendingDeclined_page_li_two_OMP                     :   "Si votre demande est approuvée, vous recevrez une Trousse de bienvenue par courrier dans les dix jours ouvrables.",
+		
+		pendingDeclined_page_li_two_OMP_footerText1                     :   "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.",
+		pendingDeclined_page_li_two_OMP_footerText2                     :   "<span class=\"superscripts\"><sup>MD/MC</sup></span>  Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire et sont utilisées sous licence.",
+		pendingDeclined_page_li_two_OMP_footerText3                     :   "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard est une marque de commerce déposée et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+
 		
 		// -- US4675 ends --//
 		
@@ -1302,22 +1432,42 @@ BRB.dictionary_fr = {
 		Overview_NS_DisclosureRight1                               :   "<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte : <br>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) : <strong>19,99%</strong></p> <p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et frais afférents : <strong>22,99%</strong></p><p>Pour la carte Mastercard Triangle uniquement : Si votre demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom portant un taux d’intérêt annuel de 25,99% pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et de 27,99% pour les transactions au comptant et les frais afférents.</p>",
 		Overview_NS_DisclosureRight1_DEC_OMX                       :  "<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte : <br>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) : <strong>19,99%</strong></p> <p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et frais afférents : <strong>22,99%</strong></p><p>Pour la carte Mastercard Triangle uniquement : Si votre demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom portant un taux d’intérêt annuel de 25,99% pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et de 27,99% pour les transactions au comptant et les frais afférents.</p>",
 		Overview_NS_DisclosureRight1_DEC_OMZ                       :  "<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte : <br>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) : <strong>19,99%</strong></p> <p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et frais afférents : <strong>22,99%</strong></p>",
+		Overview_NS_DisclosureRight1_DEC_OMR                       :  "<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte. Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) : <b>19,99 %.</b></p><p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et frais afférents : <b>22,99 %.</b></p><p>Si votre demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom portant un taux d’intérêt annuel de 25,99 % pour toutes les transactions, à l’exception des transactions au comptant et des frais afférents, pour lesquels le taux d’intérêt annuel sera de 27,99 %.</p>",
+		Overview_NS_DisclosureRight1_DEC_OMP                       :  "<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.<br> Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) : <b>19,99 %.</b></p><p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et frais afférents : <b>22,99 %.</b></p><p>Si votre demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom portant un taux d’intérêt annuel de 25,99 % pour toutes les transactions, à l’exception des transactions au comptant et des frais afférents, pour lesquels le taux d’intérêt annuel sera de 27,99 %.</p>",
 		
 		overview_NS_DisclosureLeft2                                :   "Délai de grâce sans intérêt",
-		Overview_NS_DisclosureRight2                               :   "<p>Au moins <strong>26</strong> jours ou, si vous résidez ailleurs qu’au Québec, au moins <strong>21</strong> jours.</p><p> Vous bénéficiez d’un délai de grâce d’au moins <strong>26</strong> jours sur les nouveaux achats (d’au moins <strong>21</strong> jours si vous résidez ailleurs qu’au Québec) si nous recevons le paiement intégral du solde dû figurant sur votre relevé courant au plus tard à la date d’échéance de ce paiement.</p><p> Il n’y a aucun délai de grâce sur les transactions au comptant, comme les chèques de commodité, les transferts de solde et les avances de fonds, ni sur les frais liés à ces transactions.</p>",	
+		Overview_NS_DisclosureRight2                               :   "<p>Au moins <strong>26</strong> jours ou, si vous résidez ailleurs qu’au Québec, au moins <strong>21</strong> jours.</p><p> Vous bénéficiez d’un délai de grâce d’au moins <strong>26</strong> jours sur les nouveaux achats (d’au moins <strong>21</strong> jours si vous résidez ailleurs qu’au Québec) si nous recevons le paiement intégral du solde dû figurant sur votre relevé courant au plus tard à la date d’échéance de ce paiement.</p><p> Il n’y a aucun délai de grâce sur les transactions au comptant, comme les chèques de commodité, les transferts de solde et les avances de fonds, ni sur les frais liés à ces transactions.</p>",
+		
+		Overview_NS_DisclosureRight2_OMP_CARD                      :   "<p>Au moins <strong>26</strong> jours ou, si vous résidez ailleurs qu’au Québec, au moins <strong>21</strong> jours.</p><p>Le client bénéficie d’un délai de grâce d’au moins <strong>26</strong> jours sur les nouveaux achats (au moins <strong>21</strong> jours s’il réside ailleurs qu’au Québec) si nous recevons le paiement intégral du solde dû figurant sur son relevé courant au plus tard à la date d’échéance de ce paiement.</p><p> Il n’y a aucun délai de grâce sur les transactions au comptant, comme les chèques de commodité, les transferts de soldes et les avances de fonds, ni sur les frais liés à ces transactions.</p>",
+		
 		overview_NS_DisclosureLeft3                                :   "Paiement minimum",
-		Overview_NS_DisclosureRight3                               :   "<p>La somme : </p><p>(A) des intérêts et des frais figurant sur votre relevé; plus </p><p>(B) tout montant en souffrance ou, s’il est plus élevé, tout montant qui excède votre limite de crédit; plus </p><p>(C) le montant de tous les versements échelonnés en vertu de programmes de paiements égaux alors dus; plus </p><p>(D) <strong>10 $</strong> </p><p> Un solde inférieur à <strong>10 $</strong> doit être réglé intégralement.</p> ",	
+		Overview_NS_DisclosureRight3                               :   "<p>La somme : </p><p>(A) des intérêts et des frais figurant sur votre relevé; plus </p><p>(B) tout montant en souffrance ou, s’il est plus élevé, tout montant qui excède votre limite de crédit; plus </p><p>(C) le montant de tous les versements échelonnés en vertu de programmes de paiements égaux alors dus; plus </p><p>(D) <strong>10 $</strong> </p><p> Un solde inférieur à <strong>10 $</strong> doit être réglé intégralement.</p> ",
+		
+		Overview_NS_DisclosureRight3_OMP                           :   "<p>La somme :</p><p>(A) de l’intérêt et des frais indiqués sur le relevé; plus</p><p>(B) de tout montant impayé ou, s’il est plus élevé, de tout solde dépassant la limite de crédit; plus </p><p>(C) du montant de tout versement alors dû en vertu d’un programme de paiements égaux; ou  </p><p>(D) de <strong> 10 $</strong> </p><p> Un solde inférieur à <strong> 10 $</strong> doit être réglé intégralement. </p>",
+		Overview_NS_DisclosureRight3_OMR                           :   "<p>La somme :p><p>(A) de l’intérêt et des frais indiqués sur le relevé; plus </p><p>(B) de tout montant impayé ou, s’il est plus élevé, de tout solde dépassant la limite de crédit; plus </p><p>(C) du montant de tout versement alors dû en vertu d’un programme de paiements égaux; ou  </p><p>(D) de <strong> 10 $</strong> </p><p> Un solde inférieur à <strong> 10 $</strong> doit être réglé intégralement.</p>",
+		
+		
+		
+		
 		overview_NS_DisclosureLeft4                                :   "Frais pour conversion de devises",
 		Overview_NS_DisclosureRight4                               :   "Toutes les transactions effectuées dans une monnaie étrangère seront converties en dollars canadiens au taux de conversion MasterCard courant majoré de <strong>2,5%</strong> (dans le cas de débits portés à votre compte) ou réduit de <strong>2,5%</strong> (dans le cas de crédits inscrits à votre compte) à la date à laquelle la transaction est inscrite à votre compte.",
+		
+		Overview_NS_DisclosureRight4_OMP                           :   "Toutes les transactions effectuées dans une devise étrangère seront converties en dollars canadiens au taux de conversion Mastercard courant majoré de <strong>2,5%</strong> (dans le cas de débits portés à votre compte) ou réduit de <strong>2,5%</strong> (dans le cas de crédits inscrits à votre compte) à la date à laquelle la transaction est inscrite à votre compte.",
+		
+		Overview_NS_DisclosureRight4_OMR                           :   "Toutes les transactions effectuées dans une devise étrangère seront converties en dollars canadiens au taux de conversion Mastercard courant majoré de <strong>2,5%</strong> (dans le cas de débits portés à votre compte) ou réduit de <strong>2,5%</strong> (dans le cas de crédits inscrits à votre compte) à la date à laquelle la transaction est inscrite à votre compte.",
+		
 		overview_NS_DisclosureLeft5                                :   "Frais annuels",
 		Overview_NS_DisclosureRight5                                :   "Aucuns",
 		overview_NS_DisclosureLeft6                               :   "Frais divers",
 		
 		// old code
 		// Overview_NS_DisclosureRight6                            :   "<p><strong>Avances de fonds : 4 $ – </strong> Facturés à la date à laquelle la transaction est inscrite à votre compte.</p> <p><strong> Frais de dépassement de limite de crédit : 29 $ –</strong> Sauf si vous habitez au Québec, nous vous facturerons des frais de dépassement de limite de crédit de <strong>29 $</strong> si à la date d’un relevé votre solde excède votre limite de crédit et qu’il atteint ou excède <strong>2000 $.</strong>Cependant, pour déterminer si vous devez payer des frais de dépassement de limite de crédit, nous n’inclurons pas dans ce solde tout montant imputé sur cette facture pour des frais d’intérêts, ou pour une assurance crédit offerte par nous ou une de nos filiales. </p> <p><strong> Frais pour chèque sans provision ou refusé : 25 $ – </strong> Imputés si un paiement que vous effectuez est refusé.</p><p><strong> Copie de remplacement : 2 $ –</strong> Imputés lorsque vous demandez une copie d’un relevé ou d’une facture de vente.<p></p><strong>Administration du solde créditeur :</strong> Le moindre de <strong>10 $</strong>ou du solde du compte. – Imputés le dernier jour d’une période de facturation lorsque le compte comporte un solde créditeur et qu’il a été inactif au cours des <strong>12</strong> périodes de facturation.</p>",
-		Overview_NS_DisclosureRight6                            :   "<p><strong>Avances de fonds : 4 $ – </strong> Facturés à la date à laquelle la transaction est inscrite à votre compte.</p>  <p><strong> Frais pour chèque sans provision ou refusé : 25 $ – </strong> Imputés si un paiement que vous effectuez est refusé.</p><p><strong> Copie de remplacement : 2 $ –</strong> Imputés lorsque vous demandez une copie d’un relevé ou d’une facture de vente.<p></p><strong>Administration du solde créditeur :</strong> Le moindre de <strong>10 $</strong> ou du solde du compte. – Imputés le dernier jour d’une période de facturation lorsque le compte comporte un solde créditeur et qu’il a été inactif au cours des <strong>12</strong> périodes de facturation.</p>",		
+		Overview_NS_DisclosureRight6                            :   "<p><strong>Avances de fonds : 4 $ – </strong> Facturés à la date à laquelle la transaction est inscrite à votre compte.</p>  <p><strong> Frais pour chèque sans provision ou refusé : 25 $ – </strong> Imputés si un paiement que vous effectuez est refusé.</p><p><strong> Copie de remplacement : 2 $ –</strong> Imputés lorsque vous demandez une copie d’un relevé ou d’une facture de vente.<p></p><strong>Administration du solde créditeur :</strong> Le moindre de <strong>10 $</strong> ou du solde du compte. – Imputés le dernier jour d’une période de facturation lorsque le compte comporte un solde créditeur et qu’il a été inactif au cours des <strong>12</strong> périodes de facturation.</p>",
+		
+		Overview_NS_DisclosureRight6_OMP                        :   "<p><strong>Frais d’avances de fonds : 4 $</strong> — Facturés à la date à laquelle la transaction est inscrite à votre compte.</p> <p><strong>Frais pour chèque sans provision ou refusé : 25 $</strong> — Imputés si un paiement que vous effectuez est refusé. </p><p><strong>Frais pour copie de remplacement : 2 $</strong> – Imputés lorsque vous demandez une copie d’un relevé ou d’une facture de vente.<p></p><strong>Administration du solde créditeur : </strong> Le moindre de 10 $ ou du montant de votre solde créditeur. Imputés le dernier jour d’une période de facturation lorsque le compte comporte un solde créditeur et qu’il a été inactif au cours des 12 périodes de facturation précédentes.</p>",
 		// US3382
-		Overview_NS_EffectiveDate								: "<b>Renseignements en vigueur le 23 juillet 2015.</b>",		
+		Overview_NS_EffectiveDate								: "<b>Renseignements en vigueur le 23 juillet 2015.</b>",
+		Overview_NS_EffectiveDate_OMP							: "<b>Les renseignements sont en vigueur à compter du 23 juillet 2015.</b>",
 		
 		// 2016-03-17 chrch: Adding hyperlinks as per business request US3964
 		Overview_NS_LegalText1 									: "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l’adresse <a href='http://www.canadiantire.ca/fr/my-canadian-tire-money.html'>www.canadiantire.ca</a> ou <a href='http://www.ctfs.com/act'>www.ctfs.com/act</a> pour en savoir plus.",
@@ -1347,11 +1497,26 @@ BRB.dictionary_fr = {
 		personalInfo_Loyalty_Bullet14							: "Taux d'intérêt <b>- 19.99&#37;<sup>3</sup></b>",
 		personalInfo_Loyalty_Bullet15							: "Avances de fonds et frais afférents <b>- 22.99&#37;<sup>3</sup></b>",
 		// US3979
+		// US4997 starts here
+		personalInfo_OMP_CARD_Bullet1							: "<b>Économisez</b> jusqu’à 10 &cent; le litre dans les postes d’essence Canadian Tire&#8225;",
+		personalInfo_OMP_CARD_Bullet2							: "Utilisez la carte pour vos achats de tous les jours et <b>économisez directement au distributeur&#8225;</b>",	
+		personalInfo_OMP_CARD_Bullet3							: "<b>Bénéficiez du programme de financement<sup>&#42;</sup> en magasin et en ligne<sup>&#42;</sup></b> chez Canadian Tire, Sport Check et dans les magasins Mark’s, l’Équipeur et Atmosphere participants",
+		// US4997  ends here 
+		
+		// US4998 Starts here
+		personalInfo_OMR_CARD_Bullet1							: "<b>Obtenez jusqu’à 1,5 &#37;</b> de remise en argent sur tous vos achats admissibles<sup>&#8224;</sup>",
+		personalInfo_OMR_CARD_Bullet2							: "<b>Obtenez jusqu’à 2x plus</b> (3 &#37;) de remises en argent sur les achats effectués dans les magasins et les postes d’essence Canadian Tire et dans les magasins L’Équipeur et Mark’s&#8225;",	
+		personalInfo_OMR_CARD_Bullet3							: "<b>La remise en argent</b> est créditée automatiquement à votre compte chaque année et il n’y a aucune limite sur le montant de la remise.",
+		personalInfo_OMR_CARD_Bullet4							: "<b>Programme de financement<sup>&#42;</sup></b> en magasin et en ligne chez Canadian Tire, Sport Check et dans les magasins Mark’s, l’Équipeur et Atmosphere participants.",
+		// US4998 ends here 
+		
 		personalInfo_Loyalty_PersonalInf_Bullet1				: "Obtenez 10X l’« Argent »<span class=\"superscripts\"><sup>MD</sup></span> Canadian Tire tous les jours aux magasins Canadian Tire (y compris aux centres-autos) et aux magasins PartSource<span class=\"superscripts\"><sup>MD</sup></span>, Mark’s / L’Équipeur<span class=\"superscripts\"><sup>MD</sup></span> et Sport Chek<span class=\"superscripts\"><sup>MD1</sup></span>",		
 		personalInfo_CTM_label   								:"Numéro de compte Triangle Rewards<span class=\"superscripts\"><sup>MC</sup></span>",
 		personalInfo_CTM_Text_OMX   							:"Veuillez entrer votre numéro de compte Triangle Rewards si vous êtes déjà membre du programme. Si votre demande de carte de crédit est approuvée, votre compte Triangle Rewards sera associé à votre nouvelle carte Mastercard Triangle. Un numéro de compte Triangle Rewards vous sera attribué si vous laissez ce champ vide.",
 		personalInfo_CTM_Text_OMZ   							:"Veuillez entrer votre numéro de compte Triangle Rewards si vous êtes déjà membre du programme. Si votre demande de carte de crédit est approuvée, votre compte Triangle Rewards sera associé à votre nouvelle carte World Elite Mastercard Triangle. Un numéro de compte Triangle Rewards vous sera attribué si vous laissez ce champ vide.",
 		personalInfo_Email_Text   								:"J’aimerais recevoir des offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standard de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Canadian Tire Limitée (les « SCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées par les marques Canadian Tire, Récompenses TriangleMC, de l’Académie des conducteurs de Canadian Tire, des Services résidentiels de Canadian Tire et de l’Assistance routière Canadian Tire, ainsi que de leurs partenaires de marketing et sociétés affiliés. Vous pouvez communiquer avec la Société Canadian Tire, les SCT ou la BCT, à la C.P. 2000, Welland (Ontario) L3B 5S3 ou à l’adresse <U><a hrer=\" \">serviceclientele@canadiantire.ca.</a></U> Vous pouvez retirer votre consentement en tout temps.",
+		
+		personalInfo_Email_Text_OMP   							:"J’aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standard de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), de la Banque Canadian Tire (la « BCT »), des Services Canadian Tire Limitée (les « SCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme Récompenses Triangle<span class=\"superscripts\"><sup>MC</sup></span>, de l’Académie des conducteurs de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, des Services résidentiels Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span> et de l’Assistance routière Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, ainsi que d’autres membres du groupe de la Société Canadian Tire, de la BCT et des SCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, la BCT et les SCT à la C.P. 2000, Welland (Ontario) L3B 5S3 ou à l’adresse <U><a hrer=\" \">serviceclientele@canadiantire.ca. </a></U> Je comprends que je peux retirer mon consentement en tout temps.",
 		
 		// 2016-03-17 chrch: Adding hyperlinks as per business request US3964
 /*		personalInfo_LegalText1 								: "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l’adresse <a href='http://www.canadiantire.ca/fr/my-canadian-tire-money.html' target='_blank'>www.canadiantire.ca</a> ou <a href='http://www.ctfs.com/act' target='_blank'>www.ctfs.com/act</a> pour en savoir plus.",
@@ -1369,6 +1534,12 @@ BRB.dictionary_fr = {
 		personalInfo_LegalText3 								: "<sup>2</sup> Un achat minimum d’essence peut être requis. Le taux peut varier selon la région. Voir les postes d’essence régionaux pour plus de détails.",
 		personalInfo_LegalText4 								: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée, utilisée sous licence.",			
 		personalInfo_LegalText5									: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard et World Elite Mastercard sont des marques de commerce déposées et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+		
+		//------------------------------ US4997 STARTS------------------
+		personalInfo_Legal_OIC_OMP_CARD_Text1 								: "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.",
+		personalInfo_Legal_OIC_OMP_CARD_Text4 								: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",
+		personalInfo_Legal_OIC_OMP_CARD_Text5								: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard est une marque de commerce déposée et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+		//------------------------------ US4997 ENDS  ------------------
 		
  		//additionalInformation_OptionalProducts					:	"Adhésion à des produits facultatifs<span class=\"superscripts\"><sup>&#8224;</sup></span>",
 		//additionalInformation_OptionalInsurance_CreditProtector :	"– Je veux adhérer à Couverture-crédit<span class=\"superscripts\"><sup>MD**</sup></span> / Couverture-crédit – Âge d’or<span class=\"superscripts\"><sup>MD**</sup></span>.",
@@ -1401,6 +1572,7 @@ BRB.dictionary_fr = {
 		confirmation_Application_Authorization_Item2_OMX           :   "S’il ne vous est pas possible d’approuver ma demande de carte prévoyant un taux d’intérêt annuel de 22,99 % pour les transactions au comptant et les frais afférents et un taux d’intérêt annuel de 19,99 % (à l’exception des transactions au comptant et des frais afférents) pour tous les autres types de débit, j’accepte que vous traitiez la présente demande, sans que vous ayez à m’en aviser spécifiquement, comme s’il s’agissait d’une demande de carte à un taux d’intérêt annuel de 25,99 % pour tous les types de débit, à l’exclusion des transactions au comptant et des frais afférents pour lesquels le taux d’intérêt annuel sera de 27,99 %.",
 		confirmation_Application_Authorization_Item2_OMZ           :   "Si ma demande de carte à ce taux n'est pas approuvée, il se peut que la Banque Canadian Tire accepte d'émettre une carte Mastercard Triangle<sup>MC</sup> à mon nom portant un taux d’intérêt annuel de 19,99 % pour toutes les transactions, à l’exception des transactions au comptant et des frais afférents et 22,99 % pour des transactions au comptant et des frais afférents.",
 		confirmation_Application_Authorization_Item3           :   "La carte est émise par la Banque Canadian Tire (les « SFCT »). Le programme Triangle Rewards est fourni et administré par La Société Canadian Tire Limitée.",
+		confirmation_Application_Authorization_Item3_OMP           :   "La carte est émise par la Banque Canadian Tire (les « SFCT »).",
 		confirmation_Application_Authorization_Item4_1         :   "Les SFCT peuvent procéder à la collecte, à l’utilisation et au partage de renseignements personnels me concernant aux fins décrites dans la politique en matière de protection des renseignements personnels de Canadian Tire, notamment à des fins de commercialisation et de vente par courriel, téléphone, dispositif de composition et d’annonce automatique ou toute autre forme de télécommunication.",
 		confirmation_Application_Authorization_Item4_2         :	" ",//we need this empty string because french and english templates have different structure
 		confirmation_Application_Authorization_Item4_3         :   " ",//we need this empty string because french and english templates have different structure
@@ -1426,16 +1598,24 @@ BRB.dictionary_fr = {
 		// US3979
 		confirmation_footnoteContentText1_1					   :   "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.<br><br>" + 
 																	"<sup>&dagger;&dagger;</sup> Ces produits facultatifs sont offerts à tous les nouveaux titulaires de carte Mastercard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte Mastercard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs.La Banque Canadian Tire a un intérêt financier dans la vente de cette assurance.",
+		confirmation_footnoteContentText1_1_OMP_OMR			   :   "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.<br><br>" + 
+																	"<sup>&dagger;&dagger;</sup> Ce sont des produits facultatifs offerts à tous les nouveaux titulaires de carte Mastercard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte Mastercard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs. La Banque Canadian Tire possède un intérêt financier dans la vente de ces produits d’assurance.",
 		confirmation_footnoteContentText01_OMX 				   :   "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’Argent électronique Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>  &#40;Argent CT<span class=\"superscripts\"><sup>MD</sup></span>&#41;.  Sous réserve de certaines modalités visant l’obtention et l’échange des primes. Rendez-vous à l’adresse triangle.com/act pour en savoir plus. Les titulaires de carte qui règlent leurs achats avec leur carte Mastercard<span class=\"superscripts\"><sup>MD</sup></span> Triangle<span class=\"superscripts\"><sup>MC</sup></span> obtiennent 10x le taux d’Argent Canadian Tire, soit 4 % auquel les autres membres du programme Triangle Rewards ont le droit en effectuant un achat dans les magasins Canadian Tire en argent comptant ou avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation. Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange. L’Argent CT est calculé sur le montant de l’achat avant taxes dans les magasins Canadian Tire et PartSource.",
 		confirmation_footnoteContentText01_OMZ 				   :   "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’Argent électronique Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>  &#40;Argent CT<span class=\"superscripts\"><sup>MD</sup></span>&#41;.  Sous réserve de certaines modalités visant l’obtention et l’échange des primes. Rendez-vous à l’adresse triangle.com/act pour en savoir plus. Les titulaires de carte qui règlent leurs achats avec leur carte World Elite Mastercard<span class=\"superscripts\"><sup>MD</sup></span> Triangle<span class=\"superscripts\"><sup>MC</sup></span> obtiennent 10x le taux d’Argent Canadian Tire, soit 4 % auquel les autres membres du programme Triangle Rewards ont le droit en effectuant un achat dans les magasins Canadian Tire en argent comptant ou avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation. Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange. L’Argent CT est calculé sur le montant de l’achat avant taxes dans les magasins Canadian Tire et PartSource.",
 		confirmation_footnoteContentText02 					   :   "Si vous êtes âgé de moins de 66 ans, vous adhérerez à Couverture-crédit. Si je suis âgé de 66 à 75 ans, j’adhérerai à Couverture-crédit – Âge d’or. Couverture-crédit est souscrite par American Bankers Compagnie d’Assurance Vie de la Floride et d’American Bankers Compagnie d’Assurance Générale de la Floride. Couverture-crédit – Âge d’or est souscrite par American Bankers Compagnie d’Assurance Vie de la Floride. American Bankers, Compagnie d’Assurance-Vie de la Floride et American Bankers, Compagnie d’Assurances Générales de la Floride et leurs filiales et sociétés affiliées exercent des activités au Canada sous le nom d’Assurant Solutions<span class=\"superscripts\"><sup>MD</sup></span>.",
 		confirmation_footnoteContentText02a 				   :   "<span class=\"superscripts\"><sup>MD/MC</sup></span>  Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée, utilisée sous licence.",
+		confirmation_footnoteContentText02a_OMP_OMR			   :   "<span class=\"superscripts\"><sup>MD/MC</sup></span>  Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",
 		confirmation_footnoteContentText03 					   :   "<sup>1</sup> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l’adresse www.ctfs.com/act pour en savoir plus.",
 		confirmation_footnoteContentText04					   :   	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard et World Elite Mastercard sont des marques de commerce déposées et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
-		confirmation_footnoteContentText05					   :   	"<span class=\"superscripts\"><sup>MD</sup></span> Assurant est une marque de commerce déposée d’Assurant Inc.<br><br>" +
+		confirmation_footnoteContentText04_OMP					   :   	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard est une marque de commerce déposée et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+		confirmation_footnoteContentText05					   :   	"<span class=\"superscripts\"><sup>MD</sup></span>  Assurant est une marque de commerce déposée de Assurant, Inc.<br><br>" +
 																	"<span class=\"superscripts\"><sup>MD/MC</sup></span> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.<br><br>" +
 																	"L’Assurance Couverture-crédit est une assurance-crédit collective prise en charge par American Bankers Compagnie d’Assurance Vie de la Floride (ABLAC) et American Bankers Compagnie d’Assurance Générale de la Floride (ABIC). ABLAC et ABIC ainsi que leurs sociétés affiliées et filiales exercent des activités commerciales au Canada sous la dénomination sociale Assurant<sup>&reg;</sup>.<br><br>" +	
 																	"Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et offert par Sigma Loyalty Group Inc.",
+	    confirmation_footnoteContentText05_OMP_OMR			   :   	"<span class=\"superscripts\"><sup>MD</sup></span>  Assurant est une marque de commerce déposée de Assurant, Inc.<br><br>" +
+																	"<span class=\"superscripts\"><sup>MD</sup></span> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.<br><br>" +
+																	"Couverture‐crédit est prise en charge par American Bankers Compagnie d’Assurance Vie de la Floride (ABLAC) et American Bankers Compagnie d’Assurance Générale de la Floride (ABIC). ABLAC et ABIC ainsi que leurs sociétés affiliées et filiales exercent des activités commerciales au Canada sous le nom de Assurant<sup>&reg;</sup>.<br><br>" +	
+																	"Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Sigma Loyalty Group Inc.",
  		
 		identityVerification_FinalText2						   :	"Vous recevrez également votre carte MasterCard Options, que vous pourrez utiliser partout, par la poste dans les sept à dix jours ouvrables. Veuillez prendre note que vous recevrez votre carte Mon « Argent » Canadian Tire <u>séparément de votre carte MasterCard Options.</u>",
 	
@@ -1491,6 +1671,10 @@ BRB.dictionary_fr = {
 		chooseProduct_DescriptionA1_OMZ   : "Taux d'intérêt &#45; <b>19&#44;99 &#37;",
 		chooseProduct_DescriptionA2_OMZ   : "Avances de fonds et frais afférents &#45; <br><b>22&#44;99 &#37;",
 		
+		// US4997 OMP card
+		chooseProduct_DescriptionA0_OMP	  : "Frais annuels &#45; <b>Aucuns</b>",
+		chooseProduct_DescriptionA1_OMP   : "Taux d’intérêt &#45; <b>19&#44;99 &#37;</b><sup>1</sup>",
+		chooseProduct_DescriptionA2_OMP   : "Avances de fonds et frais afférents &#45; <br><b>22&#44;99 &#37;</b><sup>1</sup>",
 		
 		// 2016-03-17 chrch: Adding hyperlinks as per business request US3964
 /*		Overview_ctm_LegalText1 							: "<span class=\"superscripts\"><sup>1</sup></span> Primes octroyées sous forme d’« Argent » Canadian Tire. Sous réserve de certaines modalités, conditions et restrictions. Consultez les modalités du programme à l’adresse <a href='http://www.canadiantire.ca/fr/my-canadian-tire-money.html' target='_blank'>www.canadiantire.ca</a> ou <a href='http://www.ctfs.com/act' target='_blank'>www.ctfs.com/act</a> pour en savoir plus.",
@@ -1509,7 +1693,7 @@ BRB.dictionary_fr = {
 		Overview_ctm_LegalText5 									: "<sup>&reg;</sup>/&trade; MasterCard and the MasterCard Brand Mark are registered trademarks of MasterCard International Incorporated, and are used under licence.",	
 		
 		//US4541
-		Overview_ctm_LegalTextEComm1							: "Les Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.", 
+		Overview_ctm_LegalTextEComm1							: "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.", 
 		Overview_ctm_LegalTextEComm2 							: "<sup>1</sup> Primes octroyées sous forme d’Argent électronique Canadian Tire<sup>MD</sup> (Argent CT<sup>MD</sup>). Sous réserve de certaines modalités visant l’obtention et l’échange des primes. Rendez-vous à l’adresse triangle.com/act pour en savoir plus. Les titulaires de carte qui règlent leurs achats avec leur carte Mastercard Options de Canadian Tire obtiennent 10x le taux d’Argent Canadian Tire, soit 4 % auquel les autres membres du programme Triangle Rewards ont le droit en effectuant un achat dans les magasins Canadian Tire en argent comptant ou avec une carte de débit ou une carte de crédit qui n’est pas liée à ce programme de fidélisation. Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d’échange. L’Argent CT est calculé sur le montant de l’achat avant taxes dans les magasins Canadian Tire et PartSource.",
 		Overview_ctm_LegalTextEComm3 							: "<span class=\"superscripts\"><sup>2</sup></span> Un achat minimum d’essence peut être requis. Le taux peut varier selon la région. Voir les postes d’essence régionaux pour plus de détails.",
 		Overview_ctm_LegalTextEComm4 							: "<span class=\"superscripts\"><sup>3</sup></span>  Le taux de 3 s’applique à la première tranche de 12 000 $ sur les dépenses d’épicerie annuelles. Après cela, votre taux revient au taux courant. S’applique aux achats effectués dans les magasins ayant un code de commerçant Mastercard 5411. Pour des exemples des marchands admissibles, visitez le site triangle.com/commercants. La prime de 3 % est calculée à partir du montant après les taxes. Exclut les achats chez Walmart et Costco."+
@@ -1530,11 +1714,16 @@ BRB.dictionary_fr = {
 		
 		Overview_ctm_LegalTextEComm7_newLine_2				    : "<span class=\"superscripts\"><sup>MD</sup></span> Assurant est une marque de commerce déposée d'Assurant Inc.",
 		Overview_ctm_LegalTextEComm7							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée, utilisée sous licence.",			
+		Overview_ctm_LegalTextEComm7_OMP						: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",			
 		Overview_ctm_LegalTextEComm8							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sport Chek et Atmosphere sont des marques de commerce déposée de FGL Sport ltée, utilisée sous licence.",
+		Overview_ctm_LegalTextEComm8_OMP						: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Sport Chek et Atmosphere sont des marques de commerce déposées de FGL Sport ltée, utilisées sous licence.",
 		Overview_ctm_LegalTextEComm9							: "<span class=\"superscripts\"><sup>MD/MC</sup></span> L’Équipeur et L'Equipeur sont des marques de commerce déposée  de Mark’s Work Warehouse Ltd., utilisée sous licence.",
+		Overview_ctm_LegalTextEComm9_OMP						: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mark’s et L’Équipeur sont des marque de commerce déposées de Mark’s Work Warehouse Ltd., utilisées sous licence.",
+		Overview_ctm_LegalTextEComm9_OMR						: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mark’s et L’Équipeur sont des marques de commerce déposées de Mark’s Work Warehouse Ltd., utilisées sous licence.",
 		Overview_ctm_LegalTextEComm10						    : "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard et World Elite Mastercard sont des marques de commerce déposées et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
 		
 		Overview_ctm_LegalTextEComm10_DEC						: "<span class=\"superscripts\"><sup>MD/MC</sup></span> Mastercard et World Elite Mastercard sont des marques de commerce déposées et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
+		Overview_ctm_LegalTextEComm10_OIC_OMP_CARD              : "<span class=\"superscripts\"><sup>MD/MC</sup></span>  Mastercard est une marque de commerce déposée et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
 		overview_AverageEComm									:  "Si votre solde moyen est de : ",
 		overview_Average0EComm									:  "100 &#36;",
 		overview_Average1EComm									:	"500 &#36;",
@@ -1545,8 +1734,22 @@ BRB.dictionary_fr = {
 		overview_MonthlyCreditCharges1EComm						:	"8&#44;22 &#36;",
 		overview_MonthlyCreditCharges2EComm						:	"16&#44;43 &#36;",
 		overview_MonthlyCreditCharges3EComm						:	"32&#44;86 &#36;",
+		
+		// US4997
+		Overview_ctm_LegalText_OIC_OMP_Card_Text2                       :   "<sup>&#42;</sup> Selon le montant net des nouveaux achats (achats moins crédits) portés à votre compte Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup> au cours de toute période de facturation mensuelle, vous serez admissible à un rabais sur chaque litre d’essence ou de carburant diesel acheté pour un véhicule automobile dans un poste d’essence Canadian Tire au cours de la période de facturation mensuelle suivante et payé avec la carte Mastercard Avantage Essence. <sup>&#42;</sup>Le rabais que vous obtenez au cours d’une période de facturation donnée sera ramené à 2 &cent; le litre dès que le total des achats d’essence, de carburant et d’articles divers effectués dans les postes d’essence Canadian Tire et réglés avec votre carte Mastercard Avantage Essence dépassera la somme de 700 &#36; au cours de cette période de facturation. En date du 2 mai 2016, le rabais est ramené à 2 &cent; le litre dès que le total des achats effectués dans les postes d’essence Canadian Tire dépasse 500 &#36;. Pour obtenir de plus amples renseignements, veuillez lire le texte des modalités du programme Mastercard Avantage Essence. Précédent",
+		Overview_ctm_LegalText_OIC_OMP_Card_Text3                       :   "<sup>1</sup> Si votre demande de carte à ce taux n’est pas approuvée, il se peut que nous acceptions d’émettre une carte à votre nom portant un taux d’intérêt annuel de 27,99 &#37; pour toutes les transactions au comptant et frais afférents et de 25,99 &#37; pour tous les autres types de débit.",
+		Overview_ctm_LegalText_OIC_OMP_Card_Text5                       :   "L’offre de financement « Paiements égaux, aucun intérêt » pendant 12 mois (à moins d’indications contraires) n’est accordée que sur demande sous réserve d’une approbation de crédit préalable pour des achats de 200 &#36; ou plus (à l’exception des cartes-cadeaux) réglés avec une carte de crédit émise par la Banque Canadian Tire dans un magasin Canadian Tire. Aucun intérêt ne court pendant la période du programme. Si nous ne recevons pas le montant intégral du paiement minimum dû indiqué sur un relevé dans les 59 jours qui suivent la date de ce relevé ou s’il se produit une situation de manquement (autre que celle de ne pas avoir effectué un paiement) en vertu de votre contrat du titulaire de carte, tous les programmes de modalités spéciales de paiement prendront fin et i) l’intérêt sur le solde impayé de chacun des programmes vous sera facturé au taux annuel courant applicable à compter du jour qui suit la date de votre prochain relevé, et ii) le solde impayé de chaque programme sera ajouté au solde dû pour ce relevé. Les programmes de modalités spéciales de paiement ne comportent aucuns frais d’administration. Chaque mois pendant la durée d’un programme de paiements égaux, vous devez payer intégralement, avant la date d’échéance, le montant de la mensualité due pour le programme de paiements égaux en question. Tout montant non reçu avant la date d’échéance ne fera plus partie du programme de paiements égaux, et l’intérêt vous sera facturé sur ce montant à compter du jour qui suit la date de votre prochain relevé au taux annuel courant applicable.",
+		Overview_ctm_LegalText_OIC_OMP_Card_Text6                       :   "<b>Renseignements additionnels à l’intention des résidents du Québec seulement :</b> Le taux annuel courant applicable aux personnes demandant la carte Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup> est de 22,99 &#37; pour les transactions au comptant et les frais afférents et de 19,99 &#37; pour tous les autres types de débit. Certaines personnes peuvent se voir accorder un taux annuel courant supérieur ou inférieur, selon les résultats de leur évaluation de crédit. Le paiement minimum correspond à la somme (a) de l’intérêt et des frais indiqués sur le relevé (b) de tout montant impayé ou, s’il est plus élevé, de tout solde dépassant la limite de crédit (c) du montant de tout versement alors dû en vertu d’un programme de paiements égaux, et (d) de 10 $. Un solde inférieur à 10 $ doit être réglé intégralement. Pour les résidents du Québec, le délai de grâce entre la date du relevé et la date d’échéance du paiement est de 26 jours. La période de facturation couverte par chaque relevé peut aller de 28 à 33 jours. La carte Mastercard<sup>MD</sup> Avantage Essence<sup>MD</sup> ne comporte pas de frais annuels. Exemples de coûts d’emprunt (arrondis au cent le plus proche) en supposant que tous les débits portent intérêt au taux annuel courant de 19,99 &#37;, que le mois comporte 30 jours, qu’aucun achat ne fait l’objet d’un programme de modalités spéciales de paiement et qu’aucuns autres frais, paiements additionnels ou changements ne s’appliquent :",
+		
+		Overview_ctm_LegalText_OIC_OMR_Card_Text2                       :   "<sup>&#8224;</sup> Certaines conditions s’appliquent. Consultez les modalités du programme de récompenses pour de plus amples détails.",
+		Overview_ctm_LegalText_OIC_OMR_Card_Text3                       :   "&#8225; Les primes annuelles seront utilisées pour réduire le solde servant au calcul du paiement minimum, mais elles ne réduiront pas le solde utilisé pour le calcul des frais d’intérêts ni des primes d’assurance basées sur le solde. D’autres conditions s’appliquent. Pour obtenir de plus amples renseignements, consultez les modalités du programme de primes.",
+		Overview_ctm_LegalText_OIC_OMR_Card_Text4                       :   "<sup>1</sup> Si votre demande de carte à ce taux n’est pas approuvée, il se peut que nous acceptions d’émettre une carte à votre nom portant un taux d’intérêt annuel de 27,99 &#37; pour toutes les transactions au comptant et frais afférents et de 25,99 &#37; pour tous les autres types de débit.",
+		Overview_ctm_LegalText_OIC_OMR_Card_Text5                       :   "<sup>&#42;</sup> L’offre de financement « Paiements égaux, aucun intérêt » pendant 12 mois (à moins d’indications contraires) n’est accordée que sur demande sous réserve d’une approbation de crédit préalable pour des achats de 200 &#36; ou plus (à l’exception des cartes-cadeaux) réglés avec une carte de crédit émise par la Banque Canadian Tire dans un magasin Canadian Tire. Aucun intérêt ne court pendant la période du programme. Si nous ne recevons pas le montant intégral du paiement minimum dû indiqué sur un relevé dans les 59 jours qui suivent la date de ce relevé ou s’il se produit une situation de manquement (autre que celle de ne pas avoir effectué un paiement) en vertu de votre contrat du titulaire de carte, tous les programmes de modalités spéciales de paiement prendront fin et i) l’intérêt sur le solde impayé de chacun des programmes vous sera facturé au taux annuel courant applicable à compter du jour qui suit la date de votre prochain relevé, et ii) le solde impayé de chaque programme sera ajouté au solde dû pour ce relevé. Les programmes de modalités spéciales de paiement ne comportent aucuns frais d’administration. Chaque mois pendant la durée d’un programme de paiements égaux, vous devez payer intégralement, avant la date d’échéance, le montant de la mensualité due pour le programme de paiements égaux en question. Tout montant non reçu avant la date d’échéance ne fera plus partie du programme de paiements égaux, et l’intérêt vous sera facturé sur ce montant à compter du jour qui suit la date de votre prochain relevé au taux annuel courant applicable.",
+		Overview_ctm_LegalText_OIC_OMR_Card_Text6                       :   "<b>Renseignements additionnels à l’intention des résidents du Québec seulement :</b> Le taux annuel courant applicable aux personnes demandant la carte Mastercard<sup>MD</sup> Avantage Remise<sup>MD</sup> est de 22,99 &#37; pour les transactions au comptant et les frais afférents et de 19,99 &#37; pour tous les autres types de débit. Certaines personnes peuvent se voir accorder un taux annuel courant supérieur ou inférieur, selon les résultats de leur évaluation de crédit. Le paiement minimum correspond à la somme (a) de l’intérêt et des frais indiqués sur le relevé (b) de tout montant impayé ou, s’il est plus élevé, de tout solde dépassant la limite de crédit (c) du montant de tout versement alors dû en vertu d’un programme de paiements égaux, et (d) de 10 &#36;. Un solde inférieur à 10 &#36; doit être réglé intégralement. Pour les résidents du Québec, le délai de grâce entre la date du relevé et la date d’échéance du paiement est de 26 jours. La période de facturation couverte par chaque relevé peut aller de 28 à 33 jours. La carte Mastercard<sup>MD</sup> Avantage Remise<sup>MD</sup> ne comporte pas de frais annuels. Exemples de coûts d’emprunt (arrondis au cent le plus proche) en supposant que tous les débits portent intérêt au taux annuel courant de 19,99 &#37;, que le mois comporte 30 jours, qu’aucun achat ne fait l’objet d’un programme de modalités spéciales de paiement et qu’aucuns autres frais, paiements additionnels ou changements ne s’appliquent :",
+		
 		sdfsfasff 												: ""	,
 		decline_chapter_one_text                               :  "<b>Malheureusement, nos services de crédit instantané sont temporairement</b>",
+		decline_chapter_one_text_OMP_OMR                       :  "<b>Malheureusement, nous ne sommes pas en mesure de traiter instantanément votre demande aujourd’hui. Notre équipe passe actuellement votre demande de carte en revue. Le processus d’évaluation dure généralement quelques jours, mais prend parfois jusqu’à deux semaines, selon les renseignements fournis.</b>",
 		decline_chapter_two_text                               : "<b>indisponibles, mais votre demande sera quand même traitée dès que possible.<b>",
 		decline_chapter_three_text                             :  "<strong>Vous avez des questions? Composez le 1 800 459-6415.   ",
 

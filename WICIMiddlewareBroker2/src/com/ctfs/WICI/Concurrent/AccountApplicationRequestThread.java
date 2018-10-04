@@ -21,9 +21,6 @@ public class AccountApplicationRequestThread implements Work
 	private final String transactionID;
 	private final CreditCardApplicationData creditCardApplicationData;
 	private final AccountApplicationRequestType aaRequestType;
-	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_CHECK_ENABLED";
-	
-	boolean enable_webic_auth = false;
 	
 	public AccountApplicationRequestThread(String argTransactionID, CreditCardApplicationData argCreditCardApplicationData, final AccountApplicationRequestType aaRequestObject)
 	{
@@ -37,14 +34,13 @@ public class AccountApplicationRequestThread implements Work
 	{
 		String sMethod = this.getClass().getName() + "[AccountApplicationRequestThread].[run] ";
 		log.info(sMethod);
-
-		WICIDBHelper wicidbhelper = new WICIDBHelper();
-		enable_webic_auth = wicidbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
+		
+		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		
 		WICIResponse accountApplicationResponse = new WICIResponse();
 		WICIAccountApplicationResponse submissionResponse = new WICIAccountApplicationResponse();
 		String tabletResponse = "";
-
+		
 		//updateTable(transactionID, tabletResponse, AppConstants.QUEUE_REQUEST_PENDING,submissionResponse.getAppStatus());
 
 		try
@@ -61,11 +57,7 @@ public class AccountApplicationRequestThread implements Work
 			accountApplicationResponse.setError(true);
 			accountApplicationResponse.setMsg(e.getMessage());
 		}
-		if(enable_webic_auth){
-			simulateDelayIfNecessary();
-		}else{
 			simulateDelayIfNecessaryforSS();
-		}
 
 		Gson gson = new Gson();
 		tabletResponse = gson.toJson(accountApplicationResponse, WICIResponse.class);
@@ -78,29 +70,15 @@ public class AccountApplicationRequestThread implements Work
 			
 		updateTable(transactionID, tabletResponse, transactionState,submissionResponse.getAppStatus());
 		
+		if(aaRequestType.getSin().equalsIgnoreCase("123498765")){
+			try {
+				wicidbHelper.updateAccountApplicationData(transactionID, tabletResponse, AppConstants.QUEUE_REQUEST_COMPLETE,submissionResponse.getAppStatus());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
 	}
 
-	private void simulateDelayIfNecessary()
-	{
-		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
-		WICIConfiguration conf = wiciConfigurationFactory.createWebServicesConfiguration();
-		Integer accountApplicationDelay = conf.getAccountApplicationDelay();
-		if (accountApplicationDelay != null && accountApplicationDelay > 0)
-		{
-			try
-			{
-				Thread.sleep(accountApplicationDelay);
-			}
-			catch (NumberFormatException e)
-			{
-				e.printStackTrace();
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	private void simulateDelayIfNecessaryforSS()
 	{
