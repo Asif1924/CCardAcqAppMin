@@ -70,7 +70,27 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			        } else {
 			            model = currentModel;
 			        }
+			        
+			        if(activationItems.getModel('personalData').get('primaryLandline_CheckField') === 'Y' && 
+							activationItems.getModel('personalData').get('secondaryLandline_CheckField') === 'Y') {
+			        	var mobilePaymentsModel = new WICI.BaseModel({
+					    	name: 'mobilePaymentsScreen',
+					        data: [
+								{ notField: true, name: 'mobilePhone',     value: false },
+								{ notField: true, name: 'androidPayCheckField',     value: false },
+								{ notField: true, name: 'applePaycheckField',     value: false },
+								{ notField: true, name: 'noThanksCheckField',     value: 'N' }
+			                ]
+					    });
+						var currentModel = activationItems.getModel(mobilePaymentsModel.name);
+				        if (!currentModel) {
+				            activationItems.addModel(mobilePaymentsModel);
+				        } else {
+				        	mobilePaymentsModel = currentModel;
+				        }
 
+						return 'Page8';
+			        }
 					return 'Page7';
 				}
 				return 'Page6';
@@ -79,7 +99,28 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 		'Page6' : {
 			'screenConstructor' : WICI.OptionalProductsScreenController,
 			'transitionOut' : function() {
-				return 'Page7';
+				if (activationItems.getModel('personalData').get('primaryLandline_CheckField') === 'Y' && 
+						activationItems.getModel('personalData').get('secondaryLandline_CheckField') === 'Y') {
+					var model = new WICI.BaseModel({
+				    	name: 'mobilePaymentsScreen',
+				        data: [
+							{ notField: true, name: 'mobilePhone',     value: false },
+							{ notField: true, name: 'androidPayCheckField',     value: false },
+							{ notField: true, name: 'applePaycheckField',     value: false },
+							{ notField: true, name: 'noThanksCheckField',     value: 'N' }
+		                ]
+				    });
+					var currentModel = activationItems.getModel(model.name);
+			        if (!currentModel) {
+			            activationItems.addModel(model);
+			        } else {
+			            model = currentModel;
+			        }
+
+					return 'Page8';
+				}
+				return 'Page7';	
+				//return 'Page7';
 			},
 		},
 		'Page7' : {

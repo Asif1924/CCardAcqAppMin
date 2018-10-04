@@ -455,8 +455,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 			//US4992
 			else if ((activationItems.getModel('financialData').get('grossIncome') < 80000)
 					&& (activationItems.getModel('financialData').get('grossHouseholdIncome') >= 150000)
-					&& ((activationItems.getModel('personalData2_Address').get('house') == 'O') 
-							|| (activationItems.getModel('personalData2_Address').get('house') == 'R'))) {
+					&& ((activationItems.getModel('personalData2_Address').get('house') == 'O'))) {
 				return true;
 			} else {
 				return false;

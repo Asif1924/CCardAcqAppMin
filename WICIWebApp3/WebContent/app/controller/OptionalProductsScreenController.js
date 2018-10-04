@@ -629,20 +629,34 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
               var chooseProductDataModel = activationItems.getModel('chooseProductModel');
               console.log("---------"+"chooseProductDataModel: "+chooseProductDataModel.get('province')+"--------");
               console.log("---------"+"loginModel: "+loginModel.get('employerID')+"--------"); 
-        
-		//US5000
-		if((loginModel.get('employerID') !== "K") && ((chooseProductDataModel.get('province') === 'SK') || (chooseProductDataModel.get('province') === 'MB'))) {
-			hidePAandCP();
+		
+		 if (chooseProductDataModel.get('province') === 'SK' || chooseProductDataModel.get('province') === 'MB') {
+			if (loginModel.get('employerID') === 'K') {
+				// showPAandCP by default
+			} else {
+				hidePAandCP();
+			}
 		}
-		if(loginModel.get('employerID') !== "J" && chooseProductDataModel.get('province') === 'AB'){
-			hidePAandCP();
+
+		if (chooseProductDataModel.get('province') === 'AB') {
+			if (loginModel.get('employerID') === 'J') {
+				// showPAandCP by default
+			} else {
+				hidePAandCP();
+			}
 		}
-		if(loginModel.get('employerID') !== "C" && chooseProductDataModel.get('province') === 'QC'){
-			hidePAandCP();
+
+		if (chooseProductDataModel.get('province') === 'QC') {
+			if (loginModel.get('employerID') === 'C' || loginModel.get('employerID') === 'K') {
+				// showPAandCP by default
+			} else {
+				hidePAandCP();
+			}
 		}
-//		if(chooseProductDataModel.get('province') === 'MB') {
-//			hidePAandCP();
-//		}
+		
+		// if(chooseProductDataModel.get('province') === 'MB') {
+		//			hidePAandCP();
+		//		}
     }
     // ---------------------------------------------------------------------------------------
     // US4168

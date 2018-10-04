@@ -48,7 +48,7 @@ WICI.LoginScreenController = function(app) {
         data: [
             { name: 'employerID', value: null,  validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1}$/, group: [1] } }, 
             { name : 'retailNetWork', value : null, validation : { type : 'presence', message : 'RetailNetWork is not selected', group: [1], canBeEmpty : true } },
-            { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,8}/, canBeEmpty : true } },
+            { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,9}/, canBeEmpty : true } },
          	{ name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
         	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'password', value: null, validation: null },
@@ -150,7 +150,7 @@ WICI.LoginScreenController = function(app) {
         $(refs.employeeNumberId).autoNumeric('init', {
             aSep: '', 
             aDec: ',',
-            vMax: '99999999',
+            vMax: '999999999',
             vMin: '0',
             lZero: 'keep' 
         });
@@ -202,6 +202,11 @@ WICI.LoginScreenController = function(app) {
  					 item.validation.canBeEmpty = false;
  					 $(refs.employeeNumberId).val(model.get('tempEmpNumberID'));
  				}
+ 				// US5054 WICI - Expand employee number field to 9 characters
+ 				// Expand Employee Number field to 9 characters for Marks + FGL employee apps
+ 				if(item.name == "agentID") {
+					 item.validation.matcher = /^[a-zA-Z0-9]{1,9}$/;
+				}
  			});
       	}else{
       		 $(refs.employeeNumberId).val('');
