@@ -5,10 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
-import com.channel.ctfs.ctc.webicgateway.RequestBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
 import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
 import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
@@ -20,7 +16,6 @@ import com.ctc.ctfs.channel.webicidentityexamination.WebICScoreIdentityExamRespo
 import com.ctfs.BRB.Helper.Factory.AccountApplicationProxyBuilder;
 import com.ctfs.BRB.Helper.Factory.ValidatorException;
 import com.ctfs.BRB.Model.BRBIdentityExamBridge;
-import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -31,8 +26,6 @@ public class ScoreIdentityExamHelper
 	static final String EMPTY_STRING = "";
 	static final String QUESTION_REFERENCE = "<question reference=\"../question\"/>";
 
-	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
-	
 	protected String brbTransactionId;
 
 	/**
@@ -51,73 +44,6 @@ public class ScoreIdentityExamHelper
 		String sMethod = "[doRequest()]";
 		log.info(sMethod);
 		
-		boolean enable_webic_auth = false;
-		BRBDBHelper brbdbhelper = new BRBDBHelper();	
-		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
-		
-		if(enable_webic_auth)
-		{
-		// Define body objects
-		RequestBody requestBody = new RequestBody();
-		ResponseBody responseBody = new ResponseBody();
-
-		WebICScoreIdentityExamResponse response = null;
-		BRBIdentityExamBridge brbIdentityExam = null;
-
-		// Create Score WS proxy
-		AccountAcquisitionPortalProxy accountApplicationProxy = (AccountAcquisitionPortalProxy) new AccountApplicationProxyBuilder().createWebServicesPortalProxy();
-
-		try
-		{
-			// Save internal transaction id
-			brbTransactionId = requestMediator.getBrbTransactionId();
-
-			// Form request body
-			String requestBodyString = getFormedScoreIdentityExamRequest(requestMediator);
-
-			// Set up request body
-			requestBody.setRequestBody(requestBodyString);
-
-			// Sent request and get response
-			responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.TU_AUTHENTICATION_EXAM_IDENTITY, getBrbTransactionId()), requestBody);
-
-			// Process response
-			response = deserializeResponse(responseBody);
-
-			// Create proxy class
-			brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), response.getResult(), getBrbTransactionId());
-
-			// Save BRBIdentityExamBridge object internal state
-			new ScoreIdentityExamMemento().saveState(brbIdentityExam, getResponseBody(responseBody));
-
-			if (!brbIdentityExam.doesFourthQuestionExist())
-			{
-				try
-				{
-					// Call AccountAppication flow
-					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-				}
-				catch (Exception ex)
-				{
-					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
-					ex.printStackTrace();
-					
-					brbIdentityExam = null;
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			e.printStackTrace();
-			// Call AccountAppication flow
-			brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-		}
-
-		return brbIdentityExam;
-		}
-		else
-		{
 			ServiceRequest serviceRequest = new ServiceRequest();
 			ServiceResponse serviceResponse = new ServiceResponse();
 
@@ -179,7 +105,6 @@ public class ScoreIdentityExamHelper
 
 			return brbIdentityExam;
 		}
-	}
 
 	private String getFormedScoreIdentityExamRequest(BRBServletMediator requestMediator) throws Exception
 	{
@@ -216,38 +141,6 @@ public class ScoreIdentityExamHelper
 		manager.validate(requestCopy);
 	}
 
-	private WebICScoreIdentityExamResponse deserializeResponse(ResponseBody responseBody) throws Exception
-	{
-		String sMethod = "[deserializeResponse()] ";
-		log.info(sMethod);
-
-		ResponseBodyType rawResponseBody = responseBody.getResponseBody();
-		WebICScoreIdentityExamResponse result = null;
-
-		if (rawResponseBody == null)
-		{
-			return result;
-		}
-		String xmlStr = responseBody.getResponseBody().getResultDocument();
-		if (xmlStr == null)
-		{
-			return result;
-		}
-		log.info(sMethod + " xmlStr: \n" + xmlStr);
-
-		try
-		{
-			String replacedXmlStr = xmlStr.replace(QUESTION_REFERENCE, EMPTY_STRING);
-			result = deserializeWebICScoreIdentityExamResponse(replacedXmlStr);
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			throw e;
-		}
-
-		return result;
-	}
 	
 	
 	private WebICScoreIdentityExamResponse deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
@@ -276,12 +169,6 @@ public class ScoreIdentityExamHelper
 		}
 
 		return result;
-	}
-
-
-	private String getResponseBody(ResponseBody responseBody)
-	{
-		return responseBody != null ? responseBody.getResponseBody().getResultDocument() : EMPTY_STRING;
 	}
 
 	private String serializeWebICScoreIdentityExamRequest(WebICScoreIdentityExamRequest webICScoreIdentityExamRequest) throws Exception

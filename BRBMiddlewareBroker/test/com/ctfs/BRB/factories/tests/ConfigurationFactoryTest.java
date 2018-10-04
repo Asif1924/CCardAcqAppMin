@@ -47,8 +47,8 @@ public class ConfigurationFactoryTest
 			when(pathDataCreator.getDataPathStream()).thenReturn(fileStream);
 			//need to Mock InputStream to take data from test.properties
 			factory.setResourcePath(pathDataCreator);
-			IConfiguration endPoint = factory.createWebServicesEndpoint();
-			assertTrue(endPoint.getWebservicesEndpoint().contains(value.getValue()));
+			IConfiguration endPoint = factory.createWebServicesEndpointforSS();
+			assertTrue(endPoint.getWebservicesEndpointforSS().contains(value.getValue()));
 		}
 		
 	}
@@ -60,8 +60,8 @@ public class ConfigurationFactoryTest
 		when(pathDataCreator.getDataPathStream()).thenReturn(fileStream);
 		factory.setResourcePath(pathDataCreator);
 		
-		IConfiguration endPoint = factory.createWebServicesEndpoint();
-		QName serviceName = endPoint.getServiceName();
+		IConfiguration endPoint = factory.createWebServicesEndpointforSS();
+		QName serviceName = endPoint.getServiceNameforSS();
 		assertTrue(serviceName.getLocalPart().equals("ResponseService"));
 		assertTrue(serviceName.getNamespaceURI().equals("http://tempuri.org/"));
 	}

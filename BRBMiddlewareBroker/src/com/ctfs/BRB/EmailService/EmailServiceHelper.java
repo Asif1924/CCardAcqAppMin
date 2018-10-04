@@ -30,7 +30,7 @@ public class EmailServiceHelper
 
 	public EmailServiceHelper(EmailAuthorizationModel emailAuthorizationModel, CustomerEmailModel customerEmailModel) throws Exception
 	{
-		PartnerAPI service = (PartnerAPI) new EmailServiceProxyBuilder().createWebServicesPortalProxy();
+		PartnerAPI service = (PartnerAPI) new EmailServiceProxyBuilder().createSharedWebServicesPortalProxy();
 
 		emailWSClient = service.getSoap();
 

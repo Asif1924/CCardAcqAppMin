@@ -11,22 +11,6 @@ public class ServerConfigurationFactory extends ConfigurationFactory
 	protected final static String IGNORE_EMAIL_SERVICE = "ignoreEmailService";
 
 	@Override
-	public QName getEndpointServiceName()
-	{
-		return null;
-	}
-
-	@Override
-	public String getPropertyName()
-	{
-		String sMethod = "[getPropertyName]";
-		log.info(sMethod + "::PROPERTY_NAME::" + PROPERTY_NAME);
-
-		return PROPERTY_NAME;
-	}
-
-	
-	@Override
 	public QName getEndpointServiceNameforSS()
 	{
 		return null;
@@ -35,7 +19,7 @@ public class ServerConfigurationFactory extends ConfigurationFactory
 	@Override
 	public String getPropertyNameforSS()
 	{
-		String sMethod = "[getPropertyName]";
+		String sMethod = "[getPropertyNameforSS]";
 		log.info(sMethod + "::PROPERTY_NAME::" + PROPERTY_NAME);
 
 		return PROPERTY_NAME;

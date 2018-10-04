@@ -37,7 +37,7 @@ public class TokenizationHelper
 		String sMethod = "[TokenizationHelper] ";
 		log.info(sMethod + "called...");
 		
-		tokenizationWSClient = (EsocketTransactSOAPProxy) new TokenizationServiceProxyBuilder().createWebServicesPortalProxy();
+		tokenizationWSClient = (EsocketTransactSOAPProxy) new TokenizationServiceProxyBuilder().createSharedWebServicesPortalProxy();
 	}
 
 	public TokenizationHelper(EsocketTransactSOAPProxy transactSOAPProxy)

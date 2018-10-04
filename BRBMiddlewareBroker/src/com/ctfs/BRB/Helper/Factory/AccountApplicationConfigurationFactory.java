@@ -14,24 +14,6 @@ public class AccountApplicationConfigurationFactory extends ConfigurationFactory
 	protected final static String SERVICE_NAMESPACE_SS = "http://web.sharedservices.ctfs.com/SharedWebServices/";
 	protected final static String SERVICE_NAME_SS = "SharedWebServices";
 
-	@Override
-	public QName getEndpointServiceName()
-	{
-		String sMethod = "[getEndpointServiceName]";
-		log.info(sMethod + "::SERVICE-NAMESPACE::" + SERVICE_NAMESPACE + "::SERVICE-NAME::" + SERVICE_NAME);
-
-		return new QName(SERVICE_NAMESPACE, SERVICE_NAME);
-	}
-
-	@Override
-	public String getPropertyName()
-	{
-		String sMethod = "[getPropertyName]";
-		log.info(sMethod + "::ENDPOINT-PROPERTY-NAME::" + ENDPOINT_PROPERTY_NAME);
-
-		return ENDPOINT_PROPERTY_NAME;
-	}
-	
 	
 	@Override
 	public QName getEndpointServiceNameforSS()

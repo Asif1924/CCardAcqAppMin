@@ -12,30 +12,6 @@ public class EmailServiceProxyBuilder implements IPortalProxyBuilder
 	static Logger log = Logger.getLogger(EmailServiceProxyBuilder.class.getName());
 
 	@Override
-	public Object createWebServicesPortalProxy() throws Exception
-	{
-		String sMethod = "[createWebServicesPortalProxy]";
-		log.info(sMethod + "::Called.");
-
-		PartnerAPI createdProxy = null;
-
-		try
-		{
-			IConfiguration conf = new EmailServiceConfigurationFactory().createWebServicesEndpoint();
-			createdProxy = new PartnerAPI(new URL(conf.getWebservicesEndpoint()), conf.getServiceName());
-		}
-		catch (Exception e)
-		{
-			log.info(sMethod + "::Exception::" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}
-
-		return createdProxy;
-	}
-	
-	
-	@Override
 	public Object createSharedWebServicesPortalProxy() throws Exception
 	{
 		String sMethod = "[createSharedWebServicesPortalProxy]";
@@ -45,8 +21,8 @@ public class EmailServiceProxyBuilder implements IPortalProxyBuilder
 
 		try
 		{
-			IConfiguration conf = new EmailServiceConfigurationFactory().createWebServicesEndpoint();
-			createdProxy = new PartnerAPI(new URL(conf.getWebservicesEndpoint()), conf.getServiceName());
+			IConfiguration conf = new EmailServiceConfigurationFactory().createWebServicesEndpointforSS();
+			createdProxy = new PartnerAPI(new URL(conf.getWebservicesEndpointforSS()), conf.getServiceNameforSS());
 		}
 		catch (Exception e)
 		{

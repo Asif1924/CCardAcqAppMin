@@ -7,10 +7,6 @@ import java.util.logging.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
-import com.channel.ctfs.ctc.webicgateway.RequestBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
@@ -29,7 +25,6 @@ import com.ctfs.BRB.Helper.ecommcarddata.AbstractECommCardDataFacade;
 import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.AccountApplicationResponse;
 import com.ctfs.BRB.Model.BRBIdentityExamBridge;
-import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Model.WebIcMQRespVO;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.ctfs.BRB.dblayer.interfaces.IAppTransactionTableEntity;
@@ -43,115 +38,11 @@ public class AccountApplicationHelper
 	static final String APPROVED_STATUS = "APPROVED";
 	static final int ECOMCARDDATA_ATTEMPTS_NUMBER = 3;
 	
-	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
-
 	public BRBIdentityExamBridge doRequest(String brbTransactionId) throws Exception
 	{
 		String sMethod = "[doRequest] ";
 		log.info(sMethod + "::Called.");
 		
-		boolean enable_webic_auth = false;
-		BRBDBHelper brbdbhelper = new BRBDBHelper();	
-		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
-		
-		if(enable_webic_auth)
-		{
-			log.info(sMethod + "::Called from webicgateway.");
-		RequestBody requestBody = new RequestBody();
-		ResponseBody responseBody = new ResponseBody();
-		AccountApplicationResponseType accountResponse = null;
-		AccountApplicationRequestWrapper accountAppRequestWrapper = null;
-		AccountApplicationResponse accountAppResponse = null;	
-		BRBIdentityExamBridge brbIdentityExamBridge = null;
-
-		try
-		{
-			IAppTransactionTableEntity appTransactionTableEntity = new BRBDBHelper().getFromApplicationTransactionTable(brbTransactionId);
-
-			// Deserialize AccountApplication request wrapper
-			accountAppRequestWrapper = new BRBGsonDecorator().getWrappedGson().fromJson(appTransactionTableEntity.getAccountAppData(), AccountApplicationRequestWrapper.class);
-
-			// Set TU session id value
-			accountAppRequestWrapper.getAccountApplicationRequest().setTUSessionID(appTransactionTableEntity.getSessionId());
-			
-			// Restore and set tuExamResult value
-			String tuExamRes = getTUScoreResult(appTransactionTableEntity.getScoreIdentityExamResponse());
-
-			// Set tuExamResult
-			accountAppRequestWrapper.getAccountApplicationRequest().setTUExamResult(tuExamRes);
-				
-			AccountAcquisitionPortalProxy accountApplicationProxy = (AccountAcquisitionPortalProxy) new AccountApplicationProxyBuilder().createWebServicesPortalProxy();
-
-			String requestBodyString = serializeRequest(accountAppRequestWrapper.getAccountApplicationRequest());
-			log.info(sMethod + requestBodyString);
-
-			validateUserRequest(requestBodyString, ResourceHelper.getInstance().getValidationAccountApplicationPath());
-
-			requestBody.setRequestBody(requestBodyString);
-			responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.ACCOUNT_APPLICATION, brbTransactionId), requestBody);
-			accountResponse = deserializeResponse(responseBody);
-
-			// Map Account Application Response
-			accountAppResponse = (new AccountApplicationResponse()).entityToModel(accountResponse, brbTransactionId);
-
-			brbIdentityExamBridge = new BRBIdentityExamBridge(accountAppResponse, brbTransactionId);
-			
-			// Report application state
-			reportAppState(accountResponse, brbTransactionId);
-
-			// Check response
-			//if(accountAppResponse.getAppStatus()!=null)
-			if (accountAppResponse.isModelValid())
-			{
-				// Check result
-					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
-						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse,accountResponse.getQueueName())) {
-							throw new BrbFlowException("Send Email to the Customer operation failed");
-						}
-					}
-				// Check result
-				if (!callECommCardDataService(accountAppRequestWrapper, accountAppResponse))
-				{
-					throw new BrbFlowException("Comunicate with ECommCardData Web Service operation failed");
-				}
-			}
-			
-		}
-		catch (BrbFlowException ex)
-		{
-			log.warning(sMethod + " BrbFlow Exception: " + ex.getMessage());
-
-			// According CTCOFSMB-1363
-			new AppStateReporter().reportState(brbTransactionId, AccountApplicationStatus.PENDING, null, null, null);
-			throw ex;
-		}
-		catch (ValidatorException ex)
-		{
-			log.warning(sMethod + " Validator Exception: " + ex.getMessage());
-
-			new AppStateReporter().reportState(brbTransactionId, null, null, null, ErrorState.XSDError);
-			throw ex;
-		}
-		catch (Exception ex)
-		{
-			log.warning(sMethod + " General Exception: " + ex.getMessage());
-
-			new AppStateReporter().reportState(brbTransactionId, null, null, null, ErrorState.OtherError);
-			throw ex;
-		}
-		finally
-		{			 
-			// According to CTCOFSMB-1343
-			new BRBDBHelper().deleteFromCustomerTransactionTable(brbTransactionId);
-			
-		}
-
-		return brbIdentityExamBridge;
-		}
-		else
-		{
-			
-			//Sharedservice call
 			log.info(sMethod + "::Called from Sharedservice.");
 			ServiceRequest serviceRequest = new ServiceRequest();
 			ServiceResponse serviceResponse = new ServiceResponse();
@@ -202,14 +93,14 @@ public class AccountApplicationHelper
 				reportAppStateforSS(response, brbTransactionId);
 
 				// Check response
-				if(accountAppResponse.getAppStatus()!=null)
+				/*if(accountAppResponse.getAppStatus()!=null)
 				{
 					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
 						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse, response.getQueueName())) {
 							throw new BrbFlowException("Send Email to the Customer operation failed");
 						}
 					}
-				}
+				}*/
 				if (accountAppResponse.isModelValid())
 					{
 					// Check result
@@ -250,35 +141,7 @@ public class AccountApplicationHelper
 
 			return brbIdentityExamBridge;
 		}
-	}
 
-	private void reportAppState(AccountApplicationResponseType accountResponse, String transactionId)
-	{
-		String sMethod = "[reportAppState] ";
-		log.info(sMethod + "::Called.");
-
-		try
-		{
-			if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.APPROVED.toString()))
-			{
-				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.APPROVED, null, null, null);
-			}
-			else if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.PENDING.toString()))
-			{
-				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.PENDING, null, null, null);
-			}
-			else if (accountResponse.getAppStatus().equalsIgnoreCase(AccountApplicationStatus.DECLINED.toString()))
-			{
-				new AppStateReporter().reportState(transactionId, AccountApplicationStatus.DECLINED, null, null, null);
-			}
-
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-		}
-	}
-	
 	private void reportAppStateforSS(WebIcMQRespVO accountResponse, String transactionId)
 	{
 		String sMethod = "[reportAppStateforSS] ";
@@ -321,37 +184,6 @@ public class AccountApplicationHelper
 		manager.validate(requestCopy);
 	}
 
-	public AccountApplicationResponseType deserializeResponse(ResponseBody responseBody) throws Exception
-	{
-		String sMethod = "[deserializeResponse] ";
-		log.info(sMethod + "::Called.");
-
-		ResponseBodyType rawResponseBody = responseBody.getResponseBody();
-		AccountApplicationResponseType result = null;
-
-		if (rawResponseBody == null)
-		{
-			return result;
-		}
-		String xmlStr = responseBody.getResponseBody().getResultDocument();
-		if (xmlStr == null)
-		{
-			return result;
-		}
-
-		try
-		{
-			result = (new GenericObjectsHelper()).deserializeXMLToAccountApplicationResponseObject(xmlStr);
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			throw e;
-		}
-
-		return result;
-	}
-	
 	public WebIcMQRespVO deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
 	{
 		String sMethod = "[deserializeResponseforSS] ";

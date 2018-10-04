@@ -4,10 +4,6 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
-import com.channel.ctfs.ctc.webicgateway.RequestBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
 import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
 import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
@@ -18,7 +14,6 @@ import com.ctfs.BRB.Helper.Factory.ValidatorException;
 import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.BRBIdentityExamBridge;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
-import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.ctfs.BRB.Util.Utility;
 import com.ctfs.BRB.dblayer.ApplicationTransactionTableEntity;
@@ -29,9 +24,6 @@ import com.google.gson.Gson;
 public class IdentityExamHelper
 {
 	static Logger log = Logger.getLogger(IdentityExamHelper.class.getName());
-	
-	String CONFIG_NAME_ENABLE_WEBICGATEWAY = "WEBICGATEWAY_BRB_CHECK_ENABLED";
-
 	protected String brbTransactionId;	
 
 	public String getBrbTransactionId()
@@ -44,106 +36,6 @@ public class IdentityExamHelper
 		String sMethod = "[doRequest]";
 		log.info(sMethod + " Called...");
 		
-		boolean enable_webic_auth = false;
-		BRBDBHelper brbdbhelper = new BRBDBHelper();	
-		enable_webic_auth = brbdbhelper.isAuthfieldCheckEnabledforWebicGateway(CONFIG_NAME_ENABLE_WEBICGATEWAY);
-		
-		if(enable_webic_auth)
-		{
-		RequestBody requestBody = new RequestBody();
-		ResponseBody responseBody = new ResponseBody();
-
-		WebICIdentityExamResponse response = null;
-		BRBIdentityExamBridge brbIdentityExam = null;
-
-		AccountAcquisitionPortalProxy accountApplicationProxy = (AccountAcquisitionPortalProxy) new AccountApplicationProxyBuilder().createWebServicesPortalProxy();
-
-		try
-		{
-			brbTransactionId = argMediator.getBrbTransactionId();
-			
-			// Save AA request
-			SaveAccountAppRequestData(argMediator);
-			
-			WebICIdentityExamRequest identityExamRequest = getWebICIdentityExamRequest(argMediator);
-			String requestBodyString = serializeRequest(identityExamRequest);
-			
-			validateUserRequest(requestBodyString, ResourceHelper.getInstance().getValidationWebICIdentityExaminationPath());
-			requestBody.setRequestBody(requestBodyString);
-			
-			// US3627
-			if(brbTransactionId.toLowerCase().contains("moa")) {
-				try
-				{
-					// Call AccountAppication flow
-					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-				}
-				catch (Exception ex)
-				{
-					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
-					ex.printStackTrace();
-					
-					brbIdentityExam = null;
-				}
-			}
-			else {
-			responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.TU_AUTHENTICATION_EXAM_IDENTITY, brbTransactionId), requestBody);
-			
-			response = deserializeResponse(responseBody);
-
-			// Create proxy class
-			brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), brbTransactionId);			
-			
-			if (!brbIdentityExam.isIdentityExamModelValid()) {
-				try
-				{
-					// Call AccountAppication flow
-					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-				}
-				catch (Exception ex)
-				{
-					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
-					ex.printStackTrace();
-					
-					brbIdentityExam = null;
-				}
-			  }
-			}
-			
-			// Old Code
-			/*responseBody = accountApplicationProxy.processRequest((new GenericObjectsHelper()).createMessageHeader(MessageType.TU_AUTHENTICATION_EXAM_IDENTITY, brbTransactionId), requestBody);
-			response = deserializeResponse(responseBody);
-
-			// Create proxy class
-			brbIdentityExam = new BRBIdentityExamBridge(response.getIdentityExam(), brbTransactionId);			
-			
-			if (!brbIdentityExam.isIdentityExamModelValid()) {
-				try
-				{
-					// Call AccountAppication flow
-					brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-				}
-				catch (Exception ex)
-				{
-					log.warning(sMethod + " Exception during calling AccountAppication flow: " + ex.getMessage());
-					ex.printStackTrace();
-					
-					brbIdentityExam = null;
-				}
-			}*/
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-						
-			// Call AccountAppication flow
-			brbIdentityExam = new AccountApplicationHelper().doRequest(getBrbTransactionId());
-		}
-		
-		return brbIdentityExam;
-		}
-		else
-		{
 			ServiceRequest serviceRequest = new ServiceRequest();
 			ServiceResponse serviceResponse = new ServiceResponse();
 
@@ -155,6 +47,9 @@ public class IdentityExamHelper
 			try
 			{
 				brbTransactionId = argMediator.getBrbTransactionId();
+				
+				String ipaddress = getClientIPAddress(argMediator);
+				log.info(sMethod + " ipaddress.from httpRequest.."+ipaddress);
 				
 				// Save AA request
 				SaveAccountAppRequestData(argMediator);
@@ -222,7 +117,6 @@ public class IdentityExamHelper
 			
 			return brbIdentityExam;
 		}
-	}
 	
 	private void SaveAccountAppRequestData(BRBServletMediator mediator) throws Exception
 	{
@@ -303,38 +197,6 @@ public class IdentityExamHelper
 		return populatedIdentityExamRequest;
 	}
 
-	public WebICIdentityExamResponse deserializeResponse(ResponseBody responseBody) throws Exception
-	{
-		String sMethod = "[deserializeResponse] ";
-		log.info(sMethod + " Called...");
-
-		ResponseBodyType rawResponseBody = responseBody.getResponseBody();
-		WebICIdentityExamResponse result = null;
-
-		if (rawResponseBody == null)
-		{
-			return result;
-		}
-		String xmlStr = responseBody.getResponseBody().getResultDocument();
-		if (xmlStr == null)
-		{
-			return result;
-		}
-		log.info(sMethod + " xmlStr: \n" + xmlStr);
-
-		try
-		{
-			result = (new GenericObjectsHelper()).deserializeXMLToWebICIdentityExamResponseObject(xmlStr);
-		}
-		catch (Exception e)
-		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
-			throw e;
-		}
-		return result;
-	}
-	
-	
 	public WebICIdentityExamResponse deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
 	{
 		String sMethod = "[deserializeResponseforSS] ";
@@ -368,4 +230,14 @@ public class IdentityExamHelper
 		
 		return (new GenericObjectsHelper().identityExamSerialize(obj));
 	}
+	
+	
+	public String getClientIPAddress(BRBServletMediator request) {
+		String ipAddress = request.getRequest().getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+			ipAddress = request.getRequest().getRemoteAddr();
+		}
+		return ipAddress;
+	}
+
 }

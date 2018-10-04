@@ -46,7 +46,7 @@ public class ECommCardDataFacade extends AbstractECommCardDataFacade
 			log.info(sMethod + "\ntransactionId = " + transactionId + "\ntrackingScreenID = " + trackingScreenID);
 			
 			// Create proxy client
-			PersistServiceDelegate eCommCardDataProxy = (PersistServiceDelegate) new ECommCardDataProxyBuilder(requestingSystem).createWebServicesPortalProxy();
+			PersistServiceDelegate eCommCardDataProxy = (PersistServiceDelegate) new ECommCardDataProxyBuilder(requestingSystem).createSharedWebServicesPortalProxy();
 
 			cardRequest = (CardRequestType) getCardRequest(accountRequestWrapper, accountAppResponse);
 			

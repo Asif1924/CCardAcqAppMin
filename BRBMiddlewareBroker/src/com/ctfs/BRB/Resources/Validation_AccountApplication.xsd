@@ -155,6 +155,8 @@
 						<xsd:enumeration value="OMX"></xsd:enumeration>
 <!-- 						<xsd:maxLength value="3" /> -->
 						<xsd:enumeration value="OMZ"></xsd:enumeration>
+						<xsd:enumeration value="OMP"></xsd:enumeration>
+						<xsd:enumeration value="OMR"></xsd:enumeration>
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
@@ -1081,6 +1083,12 @@
 					Describes whether the customer has consented to email marketing</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<xsd:element name="clientIPAddress" type="tns:IpAddress" maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Optional field since it depends on the local IP address from request</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
 		</xsd:sequence>
 	</xsd:complexType>
 	
@@ -1430,7 +1438,14 @@
 			<xsd:pattern value="([A-Z0-9,_'-.~@\[\]\}\{\)\(/\\\\ ]*)" />
 		</xsd:restriction>
 	</xsd:simpleType>
-	
+
+	<xsd:simpleType name="IpAddress">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern
+				value="([0-9]*\.){3}[0-9]*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+    
 	<xsd:simpleType name="dateType">
 		<xsd:restriction base="xsd:token">
 			<xsd:pattern value="((19|20)[0-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])" />

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.channel.ctfs.ctc.webicgateway.AccountAcquisitionPortalProxy;
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.BRB.Configuration.EnvironmentConfiguration;
 import com.ctfs.BRB.Helper.BRBServletMediator;
@@ -148,14 +147,6 @@ public abstract class BaseServlet extends HttpServlet implements EnvironmentConf
 		log.info(sMethod + "---Headers: " + requestHeadersString.toString());
 	}
 
-	public IConfiguration getWebServicesEndpoint() throws Exception
-	{
-		String sMethod = "[getWebServicesEndpoint]";
-		log.info(sMethod + "---getting web services endpoint");
-
-		return new AccountApplicationConfigurationFactory().createWebServicesEndpoint();
-	}
-	
 	public IConfiguration getWebServicesEndpointforSS() throws Exception
 	{
 		String sMethod = "[getWebServicesEndpointforSS]";
@@ -164,14 +155,6 @@ public abstract class BaseServlet extends HttpServlet implements EnvironmentConf
 		return new AccountApplicationConfigurationFactory().createWebServicesEndpointforSS();
 	}
 
-	public AccountAcquisitionPortalProxy getWebServicesProxy() throws Exception
-	{
-		String sMethod = "[getWebServicesProxy]";
-		log.info(sMethod + "---getting web services portal proxy");
-
-		return (AccountAcquisitionPortalProxy) new AccountApplicationProxyBuilder().createWebServicesPortalProxy();
-	}
-	
 	public SharedWebServicesSOAPProxy getSharedWebServicesProxy() throws Exception
 	{
 		String sMethod = "[getSharedWebServicesProxy]";

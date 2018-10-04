@@ -32,39 +32,10 @@ public abstract class ConfigurationFactory
 	protected final static String ENDPOINT_SUFFIX = "";
 	static final String EMPTY_STRING = "";
 
-	public abstract QName getEndpointServiceName();
-
-	public abstract String getPropertyName();
-	
 	public abstract QName getEndpointServiceNameforSS();
 
 	public abstract String getPropertyNameforSS();
 
-	public IConfiguration createWebServicesEndpoint() throws Exception
-	{
-		String sMethod = "[createWebServicesEndpoint]";
-		log.info(sMethod + "::Called!");
-
-		IConfiguration conf = null;
-		try
-		{
-			conf = new Configuration();
-			String webservicesEndPoint = getPropertyFromConfigurationFile();
-			conf.setWebservicesEndpoint(webservicesEndPoint);
-			conf.setServiceName(getEndpointServiceName());
-		}
-		catch (Exception e)
-		{
-			log.info(sMethod + "::Exception::" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}
-
-		log.info(sMethod + "::New Endpoint Address::" + conf.getWebservicesEndpoint());
-
-		return conf;
-	}
-	
 	public IConfiguration createWebServicesEndpointforSS() throws Exception
 	{
 		String sMethod = "[createWebServicesEndpointforSS]";
@@ -91,94 +62,6 @@ public abstract class ConfigurationFactory
 	}
 	
 		
-	//US3538 BRB – Externalize BRBMiddlewareBroker configuration - back out
-	/*
-	protected String getPropertyFromConfigurationFile(String argPropertyName) throws Exception
-	{
-		String sMethod = "[getEndpointAddressFromConfigurationFile( " + argPropertyName + ")]";
-		String propertyValue = null;
-		InputStream configurationFile = null;
-		try
-		{
-			// Define hash table for properties
-			Properties properties = new Properties();
-
-			// Get configuration file
-			configurationFile = resourcePath.getDataPathStream();
-
-			// Load properties list
-			properties.load(configurationFile);
-
-			// Get needed property
-			propertyValue = properties.getProperty(argPropertyName, EMPTY_STRING);
-
-			// Validate endpointProperty value
-			validateEndpointPropertyValue(propertyValue);
-
-			propertyValue += getEndpointSuffix();
-		}
-		catch (Exception e)
-		{
-			log.info(sMethod + "::Exception::" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}
-		finally
-		{
-			if (configurationFile != null)
-			{
-				configurationFile.close();
-			}
-		}
-
-		return propertyValue;		
-	}
-	*/
-	/*
-	protected String getPropertyFromConfigurationFile() throws Exception
-	{
-		String sMethod = "[getEndpointAddressFromConfigurationFile]";
-		String propertyValue = null;
-		InputStream configurationFile = null;
-		try
-		{
-			// Define hash table for properties
-			Properties properties = new Properties();
-
-			// Get configuration file
-			configurationFile = resourcePath.getDataPathStream();
-
-			// Load properties list
-			properties.load(configurationFile);
-
-			// Get needed property
-			propertyValue = properties.getProperty(getPropertyName(), EMPTY_STRING);
-
-			// Validate endpointProperty value
-			validateEndpointPropertyValue(propertyValue);
-
-			propertyValue += getEndpointSuffix();
-		}
-		catch (Exception e)
-		{
-			log.info(sMethod + "::Exception::" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}
-		finally
-		{
-			if (configurationFile != null)
-			{
-				configurationFile.close();
-			}
-		}
-
-		return propertyValue;
-	}
-
-	
-	*/
-	
 	protected String getPropertyFromConfigurationFile(String argPropertyName) throws Exception
 	{
 		String sMethod = "[getEndpointAddressFromConfigurationFile( " + argPropertyName + ")]";
@@ -208,35 +91,6 @@ public abstract class ConfigurationFactory
 		return propertyValue;		
 	}
 		 
-	protected String getPropertyFromConfigurationFile() throws Exception
-	{
-		String sMethod = "[getEndpointAddressFromConfigurationFile]";
-		String propertyValue = null;
-		
-		
-		try
-		{			
-			ApplicationConfiguration.readApplicationConfiguration();
-			Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
-			log.info("getPropertyFromConfigurationFile( " + getPropertyName() + ") : "+ enviroinmentMap.get(getPropertyName()));
-				
-			propertyValue = enviroinmentMap.get(getPropertyName()).toString();// getEndpointFromConfigurationFile();
-		  	
-			// Validate endpointProperty value
-			validateEndpointPropertyValue(propertyValue);
-
-			propertyValue += getEndpointSuffix();
-		}
-		catch (Exception e)
-		{
-			log.info(sMethod + "::Exception::" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}		 
-
-		return propertyValue;  
-		 
-	} 
 	
 	protected String getPropertyFromConfigurationFileforSS() throws Exception
 	{

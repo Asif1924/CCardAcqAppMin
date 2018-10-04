@@ -16,13 +16,7 @@ import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.Holder;
 
-import com.channel.ctfs.ctc.webicgateway.MessageHeader;
-import com.channel.ctfs.ctc.webicgateway.MessageHeaderType;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBodyType;
-import com.channel.ctfs.ctc.webicgateway.ResponseModeType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.accountacquisition.PlaceOfIssueType;
@@ -34,7 +28,6 @@ import com.ctc.ctfs.channel.webicidentityexamination.WebICIdentityExamResponse;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationResponse;
 import com.ctfs.BRB.Model.BaseModel;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
-import com.ctfs.BRB.Model.MessageType;
 import com.ctfs.BRB.Model.Response;
 import com.ctfs.BRB.Model.WebIcMQRespVO;
 import com.google.gson.Gson;
@@ -43,7 +36,6 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class GenericObjectsHelper
 {
-
 	static Logger log = Logger.getLogger(GenericObjectsHelper.class.getName());
 
 	public String convertObjectToJSON(Object argObject)
@@ -56,27 +48,6 @@ public class GenericObjectsHelper
 		return json;
 	}
 
-	public Holder<MessageHeader> createMessageHeader(MessageType messageType, String correlationId)
-	{
-		String sMethod = "[CreateMessageHeader] ";
-		log.info(sMethod + "::MessageType::" + messageType.name());
-		log.info(sMethod + "::Message CorrelationId::" + correlationId);
-
-		Holder<MessageHeader> messageHolder = new Holder<MessageHeader>();
-
-		MessageHeader messageHeader = new MessageHeader();
-		MessageHeaderType messageHeaderType = new MessageHeaderType();
-		messageHeaderType.setMessageId("1");
-		messageHeaderType.setMessageType(messageType.name());
-		messageHeaderType.setSecureContentFlag(true);
-		messageHeaderType.setResponseMode(ResponseModeType.SYNCHRONOUS);
-		messageHeaderType.setCorrelationId(correlationId);
-		messageHeader.setMessageHeader(messageHeaderType);
-
-		messageHolder.value = messageHeader;
-		
-		return messageHolder;
-	}
 
 	public String formatLoginResponseForTablet(String argMessage, Object argStatusCode)
 	{
@@ -92,58 +63,6 @@ public class GenericObjectsHelper
 
 		Gson gson = new Gson();
 		tabletResponse = gson.toJson(appResponse, Response.class);
-
-		return tabletResponse;
-	}
-
-	public String formatOutputForTablet(ResponseBody responseBody, Exception requestException)
-	{
-		String sMethod = "[formatOutputForTablet]";
-		log.info(sMethod);
-
-		ResponseBodyType rawResponseBody = responseBody.getResponseBody();
-		String tabletResponse = "{}";
-
-		Response appResponse = new Response();
-
-		if (requestException != null)
-		{
-			appResponse.setError(true);
-			appResponse.setMsg(requestException.getMessage());
-		}
-		else if (rawResponseBody != null)
-		{
-			String resultDocument = responseBody.getResponseBody().getResultDocument();
-
-			if (resultDocument != null)
-			{
-				System.out.println(resultDocument + "       " + responseBody.getClass());
-
-				try
-				{
-					GenericObjectsHelper conversionHelper = new GenericObjectsHelper();
-					AccountApplicationResponseType respObj = conversionHelper.deserializeXMLToAccountApplicationResponseObject(resultDocument);
-
-					appResponse.setData(respObj);
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-					appResponse.setError(true);
-					appResponse.setMsg(e.getMessage());
-				}
-			}
-		}
-		else
-		{
-			appResponse.setError(true);
-			appResponse.setMsg("Unknown error!");
-		}
-
-		Gson gson = new Gson();
-		tabletResponse = gson.toJson(appResponse, Response.class);
-
-		log.info(sMethod + "Response: " + tabletResponse);
 
 		return tabletResponse;
 	}

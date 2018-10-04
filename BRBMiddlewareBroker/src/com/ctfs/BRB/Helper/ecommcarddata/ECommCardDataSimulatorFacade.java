@@ -51,7 +51,7 @@ public class ECommCardDataSimulatorFacade extends AbstractECommCardDataFacade
 			
 			// Create proxy client
 			BasicHttpBinding_IResponseServiceProxy eCommCardDataProxy = (BasicHttpBinding_IResponseServiceProxy) new ECommCardDataSimulatorProxyBuilder(requestingSystem)
-					.createWebServicesPortalProxy();
+					.createSharedWebServicesPortalProxy();
 
 			cardRequest = (CardRequestType) getCardRequest(accountRequestWrapper, accountAppResponse);
 

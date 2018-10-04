@@ -27,7 +27,7 @@ public class ServerConfigurationHelper
 		
 		try
 		{	
-			serverTimeout = configurationFactory.getPropertyFromConfigurationFile();
+			serverTimeout = configurationFactory.getPropertyFromConfigurationFileforSS();
 		}
 		catch (Exception e)
 		{

@@ -1060,7 +1060,13 @@
 					Describes whether the customer has consented to email marketing</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<xsd:element name="clientIPAddress" type="tns:IpAddress" maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Optional field since it depends on the local IP address from request</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 		</xsd:sequence>
+		
 	</xsd:complexType>
 	
 	<xsd:simpleType name="CountryType">
@@ -1409,7 +1415,12 @@
 			<xsd:pattern value="((19|20)[0-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])" />
 		</xsd:restriction>
 	</xsd:simpleType>
-
+    <xsd:simpleType name="IpAddress">
+	<xsd:restriction base="xsd:string">
+		<xsd:pattern
+			value="([0-9]*\.){3}[0-9]*" />
+	</xsd:restriction>
+</xsd:simpleType>
 
 	<xsd:complexType name="AccountApplicationResponseType">
 		<xsd:sequence>

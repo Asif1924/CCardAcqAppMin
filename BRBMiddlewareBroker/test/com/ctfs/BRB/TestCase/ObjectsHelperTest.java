@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -13,16 +12,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.channel.ctfs.ctc.webicgateway.RequestBody;
-import com.channel.ctfs.ctc.webicgateway.ResponseBody;
-import com.ctc.ctfs.channel.AddressStatus;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
-import com.ctc.ctfs.channel.accountacquisition.PlaceOfIssueType;
-import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
+import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
 import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupResponse;
 import com.ctfs.BRB.Helper.GenericObjectsHelper;
-
-import com.ctc.ctfs.channel.accountacquisition.*;
 
 public class ObjectsHelperTest
 {
@@ -156,8 +149,8 @@ public class ObjectsHelperTest
 		// accountApplicationRequest.setDateSigned(xmlDateSigned);
 
 		System.out.println("invokeAccountApplication::creating Request");
-		RequestBody requestBody = new RequestBody();
-		ResponseBody responseBody = new ResponseBody();
+//		RequestBody requestBody = new RequestBody();
+//		ResponseBody responseBody = new ResponseBody();
 
 		String expectedString = "";
 		// expectedString+= "<AccountApplicationRequest>\n";

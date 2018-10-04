@@ -1197,8 +1197,6 @@
 				</xsd:simpleType>
 			</xsd:element>
 
-
-
 			<xsd:element name="emailConsentFlag" maxOccurs="1"
 				minOccurs="0">
 				<xsd:annotation>
@@ -1212,6 +1210,23 @@
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:element>
+			<xsd:element name="clientIPAddress" maxOccurs="1"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element represents the clientIPAddress each account application
+						account application
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="tns:UpperCaseStringType">
+						<xsd:maxLength value="40" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			
+			
 		</xsd:sequence>
 	</xsd:complexType>
 

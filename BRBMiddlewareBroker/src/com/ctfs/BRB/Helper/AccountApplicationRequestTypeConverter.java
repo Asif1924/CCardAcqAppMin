@@ -123,6 +123,7 @@ public class AccountApplicationRequestTypeConverter
 			if (model != null)
 			{
 				ar.setRequestedProductType(model.get("cardType"));
+				ar.setClientIPAddress(model.get("clientIPAddress")); 
 				// US4580
 				if( ar.getChannelIndicator() == "WP"){
 			   		String requestingSystemID = model.get("requestingSystem");
@@ -388,7 +389,7 @@ public class AccountApplicationRequestTypeConverter
 				ar.setPreferedLanguage(model.get("correspondence"));
 				ar.setEmailConsentFlag(model.get("receiveEmail"));
 				ar.setCurrentAddressType(model.get("house"));
-
+				    
 				Date date = getDate(model.getInt("sinceYears") + "-" + model.getInt("sinceMonths"));
 				ar.setYearsAtCurrentAddress(getYearCount(date));
 				ar.setMonthsAtCurrentAddress(getMonthCount(date));

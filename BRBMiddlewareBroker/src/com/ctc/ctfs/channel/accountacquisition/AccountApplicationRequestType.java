@@ -560,7 +560,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "acquirerCode",
     "tuSessionID",
     "tuExamResult",
-    "emailConsentFlag"
+    "emailConsentFlag",
+    "clientIPAddress"
 })
 public class AccountApplicationRequestType
     implements Serializable
@@ -729,6 +730,8 @@ public class AccountApplicationRequestType
     protected String tuExamResult;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String emailConsentFlag;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String clientIPAddress;
 
     /**
      * Gets the value of the externalReferenceId property.
@@ -2712,5 +2715,27 @@ public class AccountApplicationRequestType
     public void setEmailConsentFlag(String value) {
         this.emailConsentFlag = value;
     }
+    /**
+     * Sets the value of the clientIPAddress property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+	public String getClientIPAddress() {
+		return clientIPAddress;
+	}
+	/**
+     * Gets the value of the clientIPAddress property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+	public void setClientIPAddress(String clientIPAddress) {
+		this.clientIPAddress = clientIPAddress;
+	}
 
 }

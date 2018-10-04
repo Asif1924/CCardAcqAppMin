@@ -18,24 +18,6 @@ public class ECommCardDataConfigurationFactory extends ConfigurationFactory
 	}
 
 	@Override
-	public QName getEndpointServiceName()
-	{
-		String sMethod = "[getEndpointServiceName]";
-		log.info(sMethod + "::SERVICE-NAMESPACE::" + SERVICE_NAMESPACE + "::SERVICE-NAME::" + SERVICE_NAME);
-
-		return new QName(SERVICE_NAMESPACE, SERVICE_NAME);
-	}
-
-	@Override
-	public String getPropertyName()
-	{
-		String sMethod = "[getPropertyName]";
-		log.info(sMethod + "::ENDPOINT-PROPERTY-NAME::" + ENDPOINT_PROPERTY_NAME + ", ::REQUESTINGSYSTEM::" + requestingSystem);
-
-		return ENDPOINT_PROPERTY_NAME + requestingSystem;
-	}
-	
-	@Override
 	public QName getEndpointServiceNameforSS()
 	{
 		String sMethod = "[getEndpointServiceNameforSS]";
