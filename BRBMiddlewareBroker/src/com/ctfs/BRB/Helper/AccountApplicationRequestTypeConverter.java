@@ -455,14 +455,14 @@ public class AccountApplicationRequestTypeConverter
 				ar.setBankLoanFlag(model.get("cardBankLoan"));
 				ar.setStoreCardFlag(model.get("cardStoreCard"));
 				String title = model.get("title");
-				if (title == null)
-				{
-					title = "MR";
-				}
-				String gender = "M";
-				if (!title.equals("MR"))
-				{
-					gender = "F";
+				// US5073 WICI/BRB/OIC - Update Gender Mapping
+				String gender = null;
+				if(title != null) {
+					if (title.equals("MR")) {
+						gender = "M";
+					} else if (title.equals("MRS") || title.equals("MISS") || title.equals("MS")) {
+						gender = "F";
+					}
 				}
 				ar.setApplicantGender(gender);
 				ar.setChequingAccountFlag(model.get("cardChequingAcct"));

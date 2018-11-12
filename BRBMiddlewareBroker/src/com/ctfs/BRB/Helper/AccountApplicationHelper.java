@@ -93,14 +93,14 @@ public class AccountApplicationHelper
 				reportAppStateforSS(response, brbTransactionId);
 
 				// Check response
-				/*if(accountAppResponse.getAppStatus()!=null)
+				if(accountAppResponse.getAppStatus()!=null)
 				{
 					if (accountAppRequestWrapper.getAccountApplicationRequest().getChannelIndicator().equalsIgnoreCase("WP")) {
 						if (!sendEmailToCustomer(accountAppRequestWrapper,accountAppResponse, response.getQueueName())) {
 							throw new BrbFlowException("Send Email to the Customer operation failed");
 						}
 					}
-				}*/
+				}
 				if (accountAppResponse.isModelValid())
 					{
 					// Check result
