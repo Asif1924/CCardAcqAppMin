@@ -191,7 +191,7 @@ BRB.dictionary_fr = {
 		
 		overview_Title_Ecomm								:	"Veuillez prendre connaissance des renseignements ci-dessous, choisissez la carte qui correspond le mieux à vos besoins puis cliquez sur Commencer pour remplir la demande de carte.",
 		overview_Title_DEC									:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.",
-		overview_Title_DEC_OMP_OMR							:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur << Commencer >> pour remplir la demande de carte.",
+		overview_Title_DEC_OMP_OMR							:	"Veuillez prendre connaissance des renseignements ci-dessous, puis cliquez sur Commencer pour remplir la demande de carte.",
 		overview_PrintDownload_LinkText						:	"<a href='https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/documents/Cost_of_Borrowing_Disclosure_FRC.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
 		
 		overview_PrintDownload_LinkText						:	"<a href='https://canadiantire.scene7.com/is/content/CanadianTire/ctfs/documents/Cost_of_Borrowing_Disclosure_FRC.pdf' target='_blank'>Imprimez ou téléchargez la version PDF de la déclaration.</a>",
@@ -508,7 +508,7 @@ BRB.dictionary_fr = {
 		personalInformation_Initial								:	"Initiale",
 		personalInformation_LastName							:	"Nom de famille",
 		personalInformation_DateOfBirth							:	"Date de naissance",
-		personalInformation_EmailAddress						:	"Adresse électronique",
+		personalInformation_EmailAddress						:	"Adresse de courriel",
 	//	personalInformation_ReceiveEmail						:	"Je veux recevoir les communications par courriel sur les offres, les promotions et les concours ainsi que des renseignements sur les produits et services de la famille d'entreprises Canadian Tire, y compris des Services Financiers Canadian Tire et des produits d'assurance Canadian Tire. L'adresse postale de la famille d'entreprises Canadian Tire et des Services Financiers Canadian Tire est: 3475, Superior Court, Oakville (Ontario)  L6L 0C6 Ils peuvent également être joints au 1 800 459-6415. Je comprends que je peux retirer mon consentement en tout temps.",
 		personalInformation_ReceiveEmail						:	"J’aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standards de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (les « SFCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme de primes en « Argent » Canadian Tire (ou du programme Avantage « Argent » Canadian Tire si vous résidez en Nouvelle-Écosse), de l’Académie des conducteurs de Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, des Services résidentiels de Canadian Tire<span class=\"superscripts\"><sup>MC</sup></span> et de l’Assistance routière Canadian Tire<span class=\"superscripts\"><sup>MD</sup></span>, ainsi que d’autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT et la BCT à la C.P. 2000, Welland (Ontario)  L3B 5S3 ou à l’adresse customerservice@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
 		personalInformation_PreferredLanguage					:	"Langue de correspondance",
@@ -535,7 +535,7 @@ BRB.dictionary_fr = {
 		personalInformation_MonthlyHousingPayment1				:	",00 $ / mois",
 		personalInformation_AddressSince						:	"À cette adresse depuis", // <br> tag is for proper locating in the table cell
 		
-		personalInformation_EmploymentInformation				:	"<b>Renseignements sur l'emploi</b>",
+		personalInformation_EmploymentInformation				:	"<b>Renseignements professionnels</b>",
 		personalInformation_EmploymentInformation_OMP_OMR		:	"<b>Renseignements professionnels</b>",
 		personalInformation_EmploymentType						:	"Situation d'emploi",
 		personalInformation_Employer							:	"Employeur",

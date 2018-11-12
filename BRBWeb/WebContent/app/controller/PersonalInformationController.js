@@ -175,7 +175,8 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {name: 'email',         			value: null, validation: { type: 'email',       message: 'personalInformation_EmailAddressError',group:[1]} },
                 {name: 'receiveEmail',				value: false, validation: null },
                 {name: 'correspondence',			value: null, validation: { type: 'presence',    message: 'personalInformation_PreferredLanguageError',group:[1]} },
-                {name: 'homePhone',     			value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', group:[1] } },
+                //US5080
+                {name: 'homePhone',     			value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', matcher: /^[0-9]{10}$/, group:[1] } },
                 {name: 'phone_Type',         		value: null, validation: { type: 'presence',   message: ' ', group:[1]} },
                 {name: 'sin',         				value: null, validation: { type: 'sin', message: 'personalInformation_SINError', canBeEmpty: true, group: [1] } },
                 {name: 'streetnumber',          	value: null, validation: {type: 'streetNumber',     message: 'personalInformation_StreetError', group:[1]} },
@@ -198,7 +199,7 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
                 {name: 'province_prev',         	value: null, validation: {type: 'presence',   message: 'personalInformation_ProvinceError', group:[2]} },
                 /*{notField:true, name: 'postalcode1_prev',     	  	value: null, validation: {type: 'postalCodeFirstPart',     message: '', group:[2]} },
                 {notField:true, name: 'postalcode2_prev',     	  	value: null, validation: {type: 'postalCodeSecondPart',     message: '', group:[2]} },*/
-                {name: 'postalcode_prev',     	  	value: null, validation: {type: 'postal',     message: 'personalInformation_PostalCodeError', group:[2]} },
+                {name: 'postalcode_prev',     	  	value: null, validation: {type: 'postal',     message: 'personalInformation_PostalCodeError', group:[2]}},
                 {name: 'employmentType',  			value: null, validation: { type: 'presence',    message: 'personalInformation_EmploymentTypeError', group:[3]}},
                 {name: 'employerName',     			value: null, validation: {type: 'employerName', message: 'personalInformation_EmployerError', group:[4]}},
                 {name: 'employerCity',         		value: null, validation: { type: 'city', message: 'personalInformation_EmployerCityError', group:[4]} },
@@ -1039,6 +1040,10 @@ BRB.PersonalInformationController = function(activationItems, argTranslator, arg
 				model.set('cellPhone' , model.get('homePhone'));
 				
 			  }
+			if(model.get('phone_Type') != 'Mobile' ){
+				model.set('cellPhone' , null);
+				
+			 }
 		});
 		
 		if(!argPopup) {

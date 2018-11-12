@@ -162,8 +162,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
               { notField: true, name: 'dateOfBirth_Day',        value: null, validation: { type: 'day',    message: 'personalInformation_DateofBirthDateError', group:[1] } },
               { notField: true, name: 'dateOfBirth_Year',       value: null, validation: { type: 'year',    message: 'personalInformation_DateofBirthYearError', group:[1] } },
               { name: 'birthDate',                 value: null, validation: null },
-              
-              {name: 'primaryPhone',               value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', group:[1] } },
+              //US5080
+              {name: 'primaryPhone',               value: null, validation: { type: 'phone',       message: 'personalInformation_PrimaryPhoneError', matcher: /^[0-9]{10}$/, group:[1] } },
                             
               { name: 'relationship',              value: null, validation: { type: 'presence',    message: 'additionalInformation_RelationshipError', group:[1] } },
               
