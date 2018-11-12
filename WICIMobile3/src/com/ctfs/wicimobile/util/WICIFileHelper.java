@@ -24,6 +24,7 @@ public class WICIFileHelper {
     public final static String PrintOutMockupPendDecSuffix = "_PENDING_DECLINE";
     //public final static String PrintOutMockupProvinceSuffix = "_555";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
+    public final static String PrintOutMockupCTGonlyCouponSuffix = "_CTRonly_coupon";
     public final static String PrintOutMockupMarkssuffix = "_MARKS";
     public final static String PrintOutMockupFGLsuffix = "_FGL";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
@@ -237,13 +238,24 @@ public class WICIFileHelper {
 	        			templateName = "PrintOutMockup_" + cardType + PrintOutMockupFGLsuffix;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	} else {
+	        	}
+	        	// WICI - Print out an CTP(Gas store) coupon
+	        	else if(storeNo >= 1000 && storeNo <= 1999){
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
 	        		} else {
 	        			templateName = "PrintOutMockup_" + cardType;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
+	        	}
+	        	// WICI - Print out an CTR(Retail store) coupon
+	        	else {
+	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
+	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
+	        		} else {
+	        			templateName = "PrintOutMockup_" + cardType;
+	        		}
+	        		templateName += "_{lang}" + PrintOutMockupCTGonlyCouponSuffix;
 	        	}
         	}        
 	        	
