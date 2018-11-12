@@ -475,19 +475,17 @@ public class AccountApplicationRequestTypeConverter
 						e.printStackTrace();
 					}
 				}
-				
 				String title = model.get("title");
-				if (title == null)
-				{
-					title = "MR";
-				}
-				String gender = "M";
-				if (!title.equals("MR"))
-				{
-					gender = "F";
+				// US5073 WICI - Update Gender Mapping
+				String gender = null;
+				if(title != null) {
+					if (title.equals("MR")) {
+						gender = "M";
+					} else if (title.equals("MRS") || title.equals("MISS") || title.equals("MS")) {
+						gender = "F";
+					}
 				}
 				argAccAppRequest.setApplicantGender(gender);
-
 				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
 				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 			    //argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
@@ -498,8 +496,6 @@ public class AccountApplicationRequestTypeConverter
 				// argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 				
 				argAccAppRequest.setRequestedCreditLimit(model.getInt("requestedCreditLimit")); //US3270 Feb 17th, 2015
-				
-				
 			}
 		}
 		catch (Exception e)

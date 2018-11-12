@@ -125,6 +125,11 @@ public class InitAccountApplicationServlet extends WICIServlet
 		DatabaseResponse databaseResponse = null;
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
 		String employerId = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employerID");
+		String firstName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("firstName");
+		String lastName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastName");
+		String retailNetWork = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("retailNetWork");
+		
+		
 		String unitNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("suiteunit");
 		String streetNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("streetnumber");
 		String streetName= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("addressline1");
@@ -143,9 +148,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 			if (employerId != null && employerId.equalsIgnoreCase("E")
 					|| !authfieldCheckEnable) {
 				wicidbHelper.insertAccountApplicationData(transactionID,
-						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId);
+						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, firstName,lastName,retailNetWork);
 			} else {
-				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId);
+				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, null, null, null);
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}

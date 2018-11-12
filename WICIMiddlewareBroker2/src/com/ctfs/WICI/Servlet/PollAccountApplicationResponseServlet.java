@@ -72,13 +72,14 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 		try
 		{
 			String transID = new WICIDBHelper().getTransactionIDForApprovedApp(argRetrievalToken, argPhone);
-
+						
 			//Attempt to update the retrieval count if this transaction is approved already
 			//We want to do this first, because we want to return the updated count to the front-end
 			new WICIDBHelper().updateRetrievalCountForApprovedApp(transID);
 			 
 			// Get account application response
 			accountApplicationSubmissionResponse = new WICIDBHelper().retrievePendingApplicationData(argRetrievalToken,argPhone);
+			accountApplicationSubmissionResponse.setExternalReferencId(transID);			
 			 
 			pendRetrieveResponse = new WICIResponse(false, accountApplicationSubmissionResponse.getTransactionState(), accountApplicationSubmissionResponse);
 			 

@@ -741,16 +741,16 @@ public class WICIDBHelper
 		}
 		return agentIdExistsFlag;
 	}
-
-	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId) throws Exception
+	
+	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork) throws Exception
 	{
 		String sMethod = "[insertAccountApplicationData] ";
 		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
 
 		// Create sql statement
 		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
-				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID)"
-				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?)";
+				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		log.info(sMethod + "::SQL::" + sql);
 	
@@ -782,6 +782,9 @@ public class WICIDBHelper
 			preparedStatement.setString(14, employerId);
 			preparedStatement.setString(15, accountApplicationRequestType.getAgencyPromoCode());
 			preparedStatement.setInt(16, accountApplicationRequestType.getStoreNumber());
+			preparedStatement.setString(17, firstName);
+			preparedStatement.setString(18, lastName);
+			preparedStatement.setString(19, retailNetWork);
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}

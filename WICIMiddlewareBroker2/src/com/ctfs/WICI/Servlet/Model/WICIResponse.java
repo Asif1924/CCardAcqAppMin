@@ -31,7 +31,7 @@ public class WICIResponse implements IResponse
 		this.consentGranted=consentGranted;
 		this.admAppId=admAppId;
 	}
-	
+			
 	/**
 	 * @return the error
 	 */
