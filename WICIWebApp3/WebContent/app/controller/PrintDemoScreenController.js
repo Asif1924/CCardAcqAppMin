@@ -118,9 +118,9 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         if(argConsentGranted == null) {
         	argConsentGranted = 'N';
         }
-        // For pending to approved, there is no Enstream flow for now. 
+        // For pending retrieval, there is no Enstream flow for now. 
         // So checking app from pend screen and making it to N for consent Granted
-        if(argPendScreenInfo && argPendScreenInfo.isPendToApproved){
+        if(argPendScreenInfo && argPendScreenInfo.fromPendScreen){
        		argConsentGranted = 'N';
         }
         
@@ -156,7 +156,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         } 
         
         if(argPendScreenInfo){
-            console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);
+            console.log(logPrefix + sMethod + " activationItemsFromServer=" + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
             
             appStatus = respAn.getAppStatus(respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse));
             console.log(logPrefix + sMethod + " appStatus=" + appStatus);

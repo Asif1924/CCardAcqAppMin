@@ -88,21 +88,8 @@ html,body {
 }
 
 /* US4637 Email page starts */
-#emailInfo_omc_card{
-    background-image: inline-image("emailInfo_for_OMC.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
 
-#emailInfo_omp_omr_card{
-   background-image: inline-image("emailInfo_for_OMP_OMR.png");
-   background-size: 100%;
-   background-repeat: no-repeat;
-}
 
-#emailInfo_omp_omr_card.fr{
-  background-image: #{inline_image("emailInfo_for_OMP_OMR_fr.png")} !important;
-}
 
 #omcCard.fr {
   background-image: #{inline_image("omx_fr.png")} !important;
@@ -1481,15 +1468,6 @@ tr {
 
 /* END - Common Styles */
 
-
-#loginScreenImage_ctfs_image_titleblock{
-  padding-top: 118px;
-  background-color: #e6e6e6;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-image: #{inline_image("ctfs_titleblock.png")};
-}
-
 /* START - Login Screen */
 
 /* END - Login Screen */
@@ -1812,19 +1790,6 @@ text-align: center;
   background-image: #{inline_image("omx_fr.png")} !important;
 }
 
-#omcCardBottom {
-  background-image: #{inline_image("myctm-logo_en.png")};
-  height: 40px;
-  width: 270px;
-  background-size: 245px;
-  background-repeat: no-repeat;
-  margin: 0 auto 0 auto;
-}
-
-#omcCardBottom.fr {
-  background-image: #{inline_image("myctm-logo_fr.png")} !important;
-}
-
 #creditCardProductList ul {
   height:235px;
   list-style: none;
@@ -2078,15 +2043,6 @@ text-align: center;
   font-weight: bold;
   font-size: 12px;
   color: #000000;
-}
-
-.dropDownButton {
-  display: block;
-  float: right;
-  height: 25px;
-  width:27px;
-  background: no-repeat #{inline_image("dropdownarrow.png")};
-  background-position: center;
 }
 
 .makeRoomForDropDownButton{
@@ -3057,26 +3013,8 @@ div.ui-slider-switch
 }
 
 /*US3012 Start*/
-.ctmLogo_eng {
-  background: #{inline_image("ctm_logo_eng.png")};
-  background-repeat: no-repeat;
-  /*background-position: 180px 0px;*/
-  display: block;
-  text-decoration: none;
-  position: relative;
-  width: 450px;
-  height: 250px;
-}
-.ctmLogo_fr {
-  background: #{inline_image("ctm_logo_fr.png")};
-  background-repeat: no-repeat;
-  /*background-position: 180px 0px;*/
-  display: block;
-  text-decoration: none;
-  position: relative;
-  width: 450px;
-  height: 250px;
-}
+
+
 #creditCardProductList #ctmLogo .ctmLogo_eng .ctmLogo_fr {
   border-radius: 5px;
   width: 400px;

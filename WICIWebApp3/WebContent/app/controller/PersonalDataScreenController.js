@@ -9,7 +9,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var messageDialog = null;
     var connectivityController = null;
 
-    var	userPostalCode;
+    var userPostalCode;
     var userStreetNumber;
     this.show = show;
     this.init = init;
@@ -18,7 +18,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var flow = null;
     var addressLookupButton1Enabled = false;
     var addressLookupButton2Enabled = false;
-
+    var showQCHealthCard = false;
+    
+    var expirydateForQC = "";
+    var month;
+    var expiryDate;
+    var year ,formatedMonth;
     var $addressLookupButtonClicked = null;
     this.syncUserData = syncUserData;
     var refs = {
@@ -106,7 +111,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         primaryLandline_CheckField		:	'#primaryLandline_CheckField',
         secondaryLandline_CheckField	:	'#secondaryLandline_CheckField',
         secondaryMobile_CheckField		:	'#secondaryMobile_CheckField',
-        mobilePayments					:	'#mobilePayments'
+        mobilePayments					:	'#mobilePayments',
+        month_expirydate_QC_healthCard  :   '#personalData_month_of_expirydate',
+        year_expirydate_QC_healthCard   :   '#personalData_year_of_expirydate',
     };
     var validationGrroupsCol = 5;
     var prevAdressValidationIndex = 4;
@@ -364,7 +371,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         populateIdTypesProvinces();
         populateProvinces();
         populateIdTypesList();
-
+        showHideQCHealthCard();
+         // US4782 
+        populateMonthOfExpiryDate();
+        populateYearOfExpiryDate();
         // Set masks for UI elements
         setUIElementsMasks();
 
@@ -503,7 +513,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('birthDate', $(refs.birthDate).val());
         
         // US4365
-        currModel.set('idExpiryDate', $(refs.idExpiryDate).val());
+      
+        if(showQCHealthCard){
+        if(currModel.get('placeofissue') != null && currModel.get('idtype') != null  && currModel.get('placeofissue') == 'QC' && currModel.get('idtype') == 'HE'){
+              
+              expiryDateQC_HE = getExpiryDateQC_HE(formatedMonth, year);
+              console.log(logPrefix + sMethod + "expirydateForQC :: "  + expiryDateQC_HE );
+              currModel.set('idExpiryDate', expiryDateQC_HE);
+         }
+        } 
+        else{
+               currModel.set('idExpiryDate', $(refs.idExpiryDate).val());
+        }
         
         // US4168
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
@@ -798,17 +819,34 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.placeofissue).change(function(event) {
             console.log(refs.placeofissue + '::change');
             populateIdTypesList();
+            showHideQCHealthCard();
         });
 
 		// US4364        
         $(refs.idtype).change(function(event) {
             console.log(refs.idtype + '::change');
             populateIdTypesList();
+            showHideQCHealthCard();
+        });
+    
+        $(refs.month_expirydate_QC_healthCard).change(function(event) {
+            console.log(refs.month_expirydate_QC_healthCard + '::change');
+           month =  $("#personalData_month_of_expirydate :selected").text();
+           formatedMonth = ("0" + month).slice(-2);
+           console.log(refs.month_expirydate_QC_healthCard + '::change' + "month :: " + formatedMonth + typeof parseInt(formatedMonth)  );
+        });
+        
+        $(refs.year_expirydate_QC_healthCard).change(function(event) {
+            console.log(refs.year_expirydate_QC_healthCard + '::change');
+            year =  $("#personalData_year_of_expirydate :selected").text();
+            console.log(refs.year_expirydate_QC_healthCard + '::change' + "year :: " + year);
+            
         });
 
         $.subscribe('translatorFinished', function(event) {
             console.log(refs.placeofissue + '::change');
             populateIdTypesList();
+            showHideQCHealthCard();
             ///********************///
             //According to user story with number 829
             checkForMsButton();
@@ -896,7 +934,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             populateProvinces();
             // US4078
             populateIdTypesProvinces();
-            
+            showHideQCHealthCard();
             $(refs.province).val(models.addressModel.get("province"));
 
         });
@@ -1185,6 +1223,26 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.title_MS).addClass('ui-btn-active');
         }
     }
+    
+    // US4782 :  WICI - QC Health Card Expiry
+    function showHideQCHealthCard() {
+       var sMethod = "showHideQCHealthCard :: ";
+        console.log(logPrefix + sMethod);
+
+        var currModel = models.personalDataModel;
+        var province =  currModel.get('placeofissue');
+        var idType = currModel.get('idtype');
+        console.log(logPrefix + sMethod +"province :: " + province + "idType :: " + idType);
+        if(province != null && idType!= null && province=='QC' && idType =='HE'){
+                showQCHealthCard = true;
+               $("#personalData_ExpiryDate_Area").hide();
+               $("#personalData_ExpiryDate_for_QC_healthCard").show();
+        }else{
+               showQCHealthCard = false;
+               $("#personalData_ExpiryDate_for_QC_healthCard").hide();
+        }
+        
+    }
     // ---------------------------------------------------------------------------------------
     function clearRadios(radioGroup) {
         var currModel = models.personalDataModel;
@@ -1293,6 +1351,65 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             });
         });
     }
+    
+ // ---------------------------------------------------------------------------------------
+    function populateMonthOfExpiryDate() {
+        var sMethod = 'populateMonthOfExpiryDate() ',
+            //listOfMonth = monthList(),
+            optTempl = '';
+        
+        var arrMonth = [];
+        arrMonth.push("MM");
+        for (var i = 1; i <= 12; i++) {
+              arrMonth.push(i);
+        }
+        console.log(logPrefix + sMethod + " monthList ::" + arrMonth);
+
+        for(var j= 0; j<arrMonth.length; j++){
+              optTempl += '<option value="' +j+
+                              '">'+arrMonth[j] +'</option>';        
+        }
+        
+        console.log(logPrefix + sMethod + " monthList ::" + optTempl);
+        
+        var controlRef;
+
+        controlRef = $("#personalData_month_of_expirydate");
+        controlRef.empty();
+        controlRef.append(optTempl);
+        
+    }
+    
+ // ---------------------------------------------------------------------------------------
+    function populateYearOfExpiryDate() {
+        var sMethod = 'populateYearOfExpiryDate() ',
+            optTempl = '';
+            
+        var sMethod = "yearList :: "; 
+        var date = new Date();
+        var year = date.getFullYear();
+        var yearStart = year;
+        var yearEnd = year + 50;
+        var arrYear = [];
+        arrYear.push("YYYY");
+        for (var i = yearStart; i <= yearEnd; i++) {
+              arrYear.push(i);
+        }
+        
+        console.log(logPrefix + sMethod + " yearList ::" + arrYear);
+
+        for(var j= 0; j<arrYear.length; j++){
+              optTempl += '<option value="' +j+
+                              '">'+ arrYear[j] +'</option>';
+        }
+        console.log(logPrefix + sMethod + " year list ::" + optTempl);
+        
+        var controlRef;
+
+        controlRef = $("#personalData_year_of_expirydate");
+        controlRef.empty();
+        controlRef.append(optTempl);
+        }
 
     // ---------------------------------------------------------------------------------------
     function populateIdTypesList(takeIdTypeByProvince) {
@@ -1599,7 +1716,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             app.validationDecorator.clearErrArrtibute();
             var validationGroupsRez = [];
             var rez = [];
+            var rezQC_HE = [];
             var c1;
+            var personalModel = models.personalDataModel;
             var currModel = models.addressModel;
             var enteredYears = models.addressModel.get('years');
             var enteredMonthes = models.addressModel.get('months');
@@ -1640,6 +1759,45 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null and homephone radio and cellphone radio are checked");
             	setFlag(false, false);
             }
+            
+            if(showQCHealthCard){
+            	var currentDate = new Date();
+            	var currentMonth = currentDate.getMonth();
+            
+            	var expiryDateQC_HE = getExpiryDateQC_HE(formatedMonth, year);
+            	var expiryDateYear = expiryDateQC_HE.slice(0,4);
+            	var expiryDateMonth = expiryDateQC_HE.slice(5,7);
+            	console.log(logPrefix + sMethod + "month :: " + expiryDateMonth + " year :: " + expiryDateYear);
+                if(personalModel.get('placeofissue') != null && personalModel.get('idtype') != null  && personalModel.get('placeofissue') == 'QC' && personalModel.get('idtype') == 'HE'){
+                	if((parseInt(expiryDateYear)==currentDate.getFullYear()) && (parseInt(expiryDateMonth)) >= (currentMonth+1)){
+                		// Don't do anything 
+                	}else if((parseInt(expiryDateMonth)) <= (currentMonth+1) && (parseInt(expiryDateYear)==currentDate.getFullYear())){
+                		rezQC_HE.push($(refs.month_expirydate_QC_healthCard));
+                    	$("#personalData_month_of_expirydate").addClass('errorField');
+                    	app.validationDecorator.focusControl("#personalData_month_of_expirydate"); 
+                	}else
+                	{
+                		// If nothing is selected (Month or Year)
+                		if($("#personalData_month_of_expirydate :selected").text() == "MM" && $("#personalData_year_of_expirydate :selected").text() == "YYYY"){
+                      	  rezQC_HE.push($(refs.month_expirydate_QC_healthCard));
+                      	  rezQC_HE.push($(refs.year_expirydate_QC_healthCard));
+                      	  $("#personalData_month_of_expirydate").addClass('errorField');
+                      	  $("#personalData_year_of_expirydate").addClass('errorField');
+                        }else if($("#personalData_year_of_expirydate :selected").text() == "YYYY"){
+                      	  rezQC_HE.push($(refs.year_expirydate_QC_healthCard));
+                      	  $("#personalData_year_of_expirydate").addClass('errorField');
+                        }else if($("#personalData_month_of_expirydate :selected").text() == "MM"){
+                      	  rezQC_HE.push($(refs.month_expirydate_QC_healthCard));
+                      	  $("#personalData_month_of_expirydate").addClass('errorField');
+                        }
+                        if(rezQC_HE.length>0){
+                      	  app.validationDecorator.applyErrAttribute(rezQC_HE);
+                           return;
+                        }
+                	}
+                 }
+               
+             } 
             
             var temprez;
        		// validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
@@ -2028,5 +2186,32 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         }
 
         return false;
+    }
+  // US4782 - ExpiryDate for QC Health card  
+ // ---------------------------------------------------------------------------------------
+    function getExpiryDateQC_HE(formatedMonth , year) {
+    	var sMethod = "getExpiryDateQC_HE(month , year)";
+    	
+    	var intYear = parseInt(year);
+        var intMonth = parseInt(formatedMonth);
+        expiryDate = new Date(intYear,intMonth-1,1);
+        console.log(logPrefix + sMethod + "expiryDate ::" + expiryDate);
+        var currentDate = new Date();
+  
+        var y = expiryDate.getFullYear();
+        var m = expiryDate.getMonth();
+        console.log(logPrefix + sMethod + "year ::" + y + " Month  :: " +  m);
+        // expirydate should be grater then current date 
+        if(y >= currentDate.getFullYear()){
+                	 expiryDate = new Date(y,m+1,0);
+        }
+        var yearfn = expiryDate.getFullYear();
+        var intMonth = expiryDate.getMonth() + 1;
+        var monthfn = ("0" + intMonth).slice(-2);
+        console.log(logPrefix + sMethod + " yearfn :: " + yearfn + " monthfn  :: " +  monthfn + "dayfn ::" + expiryDate.getDate());
+        expirydateForQC = expiryDate.getFullYear() + "-"+ monthfn + "-" + expiryDate.getDate();
+        console.log(logPrefix + sMethod + "expirydateForQC :: "  + expirydateForQC );
+        return expirydateForQC;
+         
     }
 };

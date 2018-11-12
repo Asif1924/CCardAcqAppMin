@@ -253,6 +253,10 @@ WICI.PollingResponseAnalyzer =  function () {
         if(typeof argResponse === 'undefined' || argResponse===null ){
               return false;
         }
+        //force pending  
+        if(argResponse && !argResponse.error && argResponse.msg==="COMPLETE"  && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="PENDING" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="COMPLETE" ){
+        	return true;
+        }
         
         //{"error":false,"msg":"PENDING","data":{"ResponseData":{"error":false,"msg":"","data":{"appStatus":"PENDING"}},"RetrievalToken":"AF9AFE63F734","TransactionState":"PENDING"}}
         return ( argResponse && !argResponse.error && argResponse.msg==="PENDING" && argResponse.data && argResponse.data.ResponseData && argResponse.data.ResponseData.data.appStatus==="PENDING" && argResponse.data.RetrievalToken && argResponse.data.RetrievalToken!=="" && argResponse.data.TransactionState && argResponse.data.TransactionState==="PENDING" ) ;

@@ -517,8 +517,10 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
 
         // gender finishing - get desirted value from object map
         pModel.gender = genderLookupMap[pModel.gender];
+        console.log("pModel.dateOfBirth : " + pModel.dateOfBirth);
         pModel.dateOfBirth = transformDate(pModel.dateOfBirth, '-');
         // US4365
+        console.log("pModel.expiryDate : " + pModel.expiryDate);
         pModel.expiryDate = transformDate(pModel.expiryDate, '-');
     }
     // US4451
@@ -536,7 +538,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
             var stateCity = trackOneArr[0];
             var province = stateCity.substr(1,2);
             var city = stateCity.substr(3,stateCity.lastIndexOf(''));
-            //console.log("Province : " + province + "\n" + "City : " + city);
+            console.log("Province : " + province + "\n" + "City : " + city);
             
             var middleName = "";
             var names = trackOneArr[1];
@@ -550,7 +552,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
               if(lastName.substr(lastName.lastIndexOf('')-1, lastName.lastIndexOf('')).includes(",")) {
                 lastName = lastName.substr(0, lastName.lastIndexOf('')-1);
               }
-              //console.log("LastName : " + lastName + "\n" + "FirstName : " + firstName + "\n" + "MiddleName : " + middleName);
+              console.log("LastName : " + lastName + "\n" + "FirstName : " + firstName + "\n" + "MiddleName : " + middleName);
             }    
             
             var address = trackOneArr[2];            
@@ -571,7 +573,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
 					unitNumber = unitNumberArray[0];
 					houseNumber = unitNumberArray[1];
 			  }
-              //console.log("Unit Number : " + unitNumber + "\n" + "Street Number : " + houseNumber + "\n" + "Street Name : " + streetName + "\n" + "Postal Code : " + postalCode.replace(' ', ''));
+              console.log("Unit Number : " + unitNumber + "\n" + "Street Number : " + houseNumber + "\n" + "Street Name : " + streetName + "\n" + "Postal Code : " + postalCode.replace(' ', ''));
             }   
           }
           
@@ -585,12 +587,12 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
             }
             var provinceCode = idNumber.substr(0,6);
             var idNumberVal = idNumber.substr(6, idNumber.lastIndexOf('')); 
-            //console.log("ID Number : " + idNumberVal + "\n" + "Province Code : " + provinceCode);    
+            console.log("ID Number : " + idNumberVal + "\n" + "Province Code : " + provinceCode);    
           }
           var year = new Date().getFullYear().toString().substr(0,2);            
           var expiryDate = year+expiryDOB.substr(0,4)+expiryDOB.substr(expiryDOB.lastIndexOf('')-2,expiryDOB.lastIndexOf(''));
           var DOB = expiryDOB.substr(4,12);
-          //console.log("Expiry Date : " + expiryDate + "\n" + "DOB : " + DOB);
+          console.log("Expiry Date : " + expiryDate + "\n" + "DOB : " + DOB);
         }                       
         
         // Last name
@@ -649,12 +651,24 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         return s.replace(/[^\w\s\-\']/gi, '').trim();
     }
 
-    function transformDate(date, separator) {
-        //from YYYYMMDD to YYYY-MM-DD
-        if (date) {
-            return date.substring(0, 4) + separator + date.substring(4, 6) + separator + date.substring(6, 8);
-        }
+   function transformDate(date, separator) {
+        	var result = '';
+            //from YYYYMMDD to YYYY-MM-DD    
+            if (date) {
+                
+            	result = date.substring(0, 4) + separator + date.substring(4, 6) + separator + date.substring(6, 8);
+            	
+            	if((moment(result, 'YYYY-MM-DD',true).isValid())){
+            		console.log("YYYY-MM-DD");
+            		return result;
+            	}
+            	else{
+            		result = date.substring(4, 8)+ separator  + date.substring(0, 2) + separator + date.substring(2,4) ;
+            		
+            	}
+                
+            }
 
-        return '';
-    }
+            return result;
+        }
 };

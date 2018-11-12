@@ -574,7 +574,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
 		    	activationItems.setNewAccountApplicationResponse(argResponse);		    	
 		    	
-		    	var pendScreenInfo = { isPendToApproved:false,fromPendScreen:true,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
+		    	var pendScreenInfo = { isPendToApproved:false,fromPendScreen:false,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
 		    	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
 		    	app.navigationController.adhocPrintDemoScreen.init(flow);
 		    	// app.navigationController.adhocPrintDemoScreen.show();
@@ -674,6 +674,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 
     // US4364
     function showExpiryDatePersonalData(){
+    	var sMethod = "showExpiryDatePersonalData :: ";
     	console.log(logPrefix + " showExpiryDatePersonalData() ");
     	if(typeof activationItems.getModel('personalData') != 'undefined'  && activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('idExpiryDate')) {
     		console.log(logPrefix + " showExpiryDatePersonalData() " + moment(activationItems.getFormatedDate(activationItems.getModel('personalData').get('idExpiryDate')), 'MMMM DD, YYYY').format('DD MMMM YYYY'));
