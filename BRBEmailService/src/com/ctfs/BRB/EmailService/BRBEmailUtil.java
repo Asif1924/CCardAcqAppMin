@@ -270,7 +270,17 @@ public class BRBEmailUtil
 	    EmailAddress address = new EmailAddress(info.getTo());
 	    log.info("To = " + address.getAddress());
 	    message.getToRecipients().add(address);
-	    message.sendAndSaveCopy();
+	    //Added for US5071: If there is an Unauthorized Exception while connecting to the mailbox, retry the connection to send the mail again
+	    for(int i=0;i<3;)
+	    {
+				try {
+					message.sendAndSaveCopy();
+				} catch (microsoft.exchange.webservices.data.HttpErrorException ex) {
+					i++;
+					continue;
+				}
+			break;	
+	    }
 	    log.info(" Message sent to " + address.getAddress() + " and copy saved into sent items.");
 	    return true;
 
