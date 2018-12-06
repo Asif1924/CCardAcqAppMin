@@ -27,7 +27,7 @@ public class InitBRBWebServlet extends BaseServlet
 	{
 		String sMethod = "[InitBRBWebServlet:handleRequest] ";
 		log.info(sMethod);
-
+		
 		String transactionId = requestMediator.getBrbTransactionId();
 
 		Response appResponse = new Response();
@@ -92,4 +92,5 @@ public class InitBRBWebServlet extends BaseServlet
 	{
 		this.dbHelper = dbHelper;
 	}
+	
 }

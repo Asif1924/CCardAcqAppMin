@@ -2,6 +2,7 @@ package com.ctfs.BRB.Helper;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
@@ -13,6 +14,7 @@ import com.ctfs.BRB.Helper.Factory.AccountApplicationProxyBuilder;
 import com.ctfs.BRB.Helper.Factory.ValidatorException;
 import com.ctfs.BRB.Model.AccountApplicationRequestWrapper;
 import com.ctfs.BRB.Model.BRBIdentityExamBridge;
+import com.ctfs.BRB.Model.BaseModel;
 import com.ctfs.BRB.Model.CreditCardApplicationData;
 import com.ctfs.BRB.Resources.ResourceHelper;
 import com.ctfs.BRB.Util.Utility;
@@ -49,7 +51,7 @@ public class IdentityExamHelper
 				brbTransactionId = argMediator.getBrbTransactionId();
 				
 				String ipaddress = getClientIPAddress(argMediator);
-				log.info(sMethod + " ipaddress.from httpRequest.."+ipaddress);
+				log.info(sMethod + " IP Address from Broker :: " + ipaddress);
 				
 				// Save AA request
 				SaveAccountAppRequestData(argMediator);
@@ -125,6 +127,11 @@ public class IdentityExamHelper
 		
 		// Extract accountApplicationData
 		CreditCardApplicationData ccData = new IdentityExamRequestHelper(mediator).getCreditCardApplicationData();  
+				
+		if( ccData != null ){
+			BaseModel model  = ccData.getModel(CreditCardApplicationData.MODEL_OVERVIEW);			
+			log.info(sMethod + " BRBWeb IP address :: " + model.get("clientIPAddress"));
+		}
 		 		
 		
 	    // insert CUSTOMERTRANSACTION table data for MOA - BRB decouple
@@ -232,12 +239,22 @@ public class IdentityExamHelper
 	}
 	
 	
-	public String getClientIPAddress(BRBServletMediator request) {
-		String ipAddress = request.getRequest().getHeader("X-FORWARDED-FOR");
-		if (ipAddress == null) {
-			ipAddress = request.getRequest().getRemoteAddr();
+	private String getClientIPAddress(BRBServletMediator request) {
+		String sMethod = "[getClientIPAddress] ";
+		String xForwardedForHeader = request.getRequest().getHeader("X-FORWARDED-FOR");
+		log.info(sMethod + "X-FORWARDED-FOR IP Address :: " + xForwardedForHeader);
+
+		 if (xForwardedForHeader == null) {
+			String remoteIPAddress = request.getRequest().getRemoteAddr();
+			log.info(sMethod + "getRemoteAddr IP Address :: " + remoteIPAddress);
+			return remoteIPAddress;
+		 } else {
+			// The general format of the field is: X-Forwarded-For: client,
+			// proxy1, proxy2 ...
+			// we only want the client
+			return new StringTokenizer(xForwardedForHeader, ",").nextToken().trim();
 		}
-		return ipAddress;
+
 	}
 
 }

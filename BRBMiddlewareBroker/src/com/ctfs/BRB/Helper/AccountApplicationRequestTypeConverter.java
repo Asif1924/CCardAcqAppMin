@@ -123,7 +123,8 @@ public class AccountApplicationRequestTypeConverter
 			if (model != null)
 			{
 				ar.setRequestedProductType(model.get("cardType"));
-				ar.setClientIPAddress(model.get("clientIPAddress")); 
+				// US5113 BRB/OIC - Stop capture of IP address
+				//ar.setClientIPAddress(model.get("clientIPAddress")); 
 				// US4580
 				if( ar.getChannelIndicator() == "WP"){
 			   		String requestingSystemID = model.get("requestingSystem");
@@ -221,6 +222,8 @@ public class AccountApplicationRequestTypeConverter
 					// ar.setSupp1AddrSameAsPrimary(Boolean.parseBoolean(model.get("sameAddressArea"))?"N":"Y");
 					// should be
 					ar.setSupp1AddrSameAsPrimary(model.get("sameAddressArea"));
+					ar.setSupp1TelephoneNumber(model.get("primaryPhone"));
+					
 					if (ar.getSupp1AddrSameAsPrimary().equals("N"))
 					{
 						String addressLine1 = "";
@@ -235,7 +238,6 @@ public class AccountApplicationRequestTypeConverter
 						ar.setSupp1City(model.get("city"));
 						ar.setSupp1Province(ProvinceStateType.valueOf(model.get("province")));
 						ar.setSupp1PostalCode(model.get("postalCode"));
-						ar.setSupp1TelephoneNumber(model.get("primaryPhone"));
 					}
 				}
 				else
