@@ -112,10 +112,10 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         } else {
             model = currentModel;
         }
-         if (!app.ieUIHelper.isIE()){
-        	 BRB.Log(logPrefix + sMethod + " is IE ");
-             getClientIPAddress();
-         }
+        // US5113
+        if (!app.ieUIHelper.isIE()){
+            getClientIPAddress();
+        }
 		//createView();
 		
 		// US4580
@@ -549,8 +549,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 	
 	// US5022-------------------------------------------------------------------------------------------	
 	function getClientIPAddress() {
-		var sMethod = 'getClientIPAddress() ';
-		BRB.Log(logPrefix + sMethod);
+		//var sMethod = 'getClientIPAddress() ';
+		//BRB.Log(logPrefix + sMethod);
 		window.RTCPeerConnection = window.RTCPeerConnection
 				|| window.mozRTCPeerConnection
 				|| window.webkitRTCPeerConnection;
@@ -566,7 +566,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 						.exec(ice.candidate.candidate)[1];
 				pc.onicecandidate = noop;
 				model.set('clientIPAddress', myIP);
-				BRB.Log("clientIdAddress from model " + myIP);
+				//BRB.Log("clientIdAddress from model " + myIP);
 			}
 		};
 		

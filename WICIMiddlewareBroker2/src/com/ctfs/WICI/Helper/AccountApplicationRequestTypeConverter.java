@@ -280,7 +280,8 @@ public class AccountApplicationRequestTypeConverter
 				}
 
 				argAccAppRequest.setSupp1AddrSameAsPrimary(model.get("sameAddressYesNo"));
-
+				argAccAppRequest.setSupp1TelephoneNumber(model.get("phone"));
+				
 				if (model.get("sameAddressYesNo").equals("N"))
 				{
 
@@ -294,8 +295,7 @@ public class AccountApplicationRequestTypeConverter
 					argAccAppRequest.setSupp1AddressLine2(model.get("addressLine2"));
 					argAccAppRequest.setSupp1City(model.get("city"));
 					argAccAppRequest.setSupp1Province(ProvinceStateType.valueOf(model.get("province")));
-					argAccAppRequest.setSupp1PostalCode(model.get("postalCode"));
-					argAccAppRequest.setSupp1TelephoneNumber(model.get("phone"));
+					argAccAppRequest.setSupp1PostalCode(model.get("postalCode"));					
 				}
 
 			}
