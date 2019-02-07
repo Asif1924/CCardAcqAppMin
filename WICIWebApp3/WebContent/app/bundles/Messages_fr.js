@@ -127,6 +127,12 @@ WICI.dictionary_fr =  {
 
 	chooseProduct_ReadTandC                           :                         "Lire les modalités",
 	
+	chooseProduct_DialogContent						  :							"Vous êtes sur le point de demander une Mastercard de la Banque Canadian Tire",
+	chooseProduct_DialogContent1					  :							"Si vous avez déjà une carte Mastercard de la Banque Canadian Tire et vous êtes approuvé pour cette carte de crédit, ce sera un nouveau compte.",
+	chooseProduct_DialogContent2					  :							"Cette demande donnera lieu à une vérification de crédit.",
+	chooseProduct_DialogCancel						  :							"ANNULER",
+	chooseProduct_DialogProceed						  :							"CONTINUER",
+	
 	// US3981
 	chooseProductScreen_Handoutprompts_Title			:	"Document juridique",
 	chooseProductScreen_Handoutprompts_YesNo_Message	:	"Avez-vous fourni au demandeur le document de renseignements juridiques?",
@@ -227,6 +233,8 @@ WICI.dictionary_fr =  {
 	personalData_Address_Own                         :                         "Propriétaire",
 	personalData_Address_Rent                        :                         "Locataire",
 	personalData_Address_Parents                     :                         "Maison des parents",
+	//  US5131 WICI - Add Student Housing label to Residence Type list
+	personalData_Address_Student                     :                         "Logement étudiant",
 	personalData_Address_Other                       :                         "Autres",
 
 	personalData_Address_MonthlyPayment              :                         "Loyer / hypothèque (montant mensuel)",
@@ -1595,7 +1603,13 @@ WICI.dictionary_fr =  {
 	signature_CashAdvantageMasterCard					: "Mastercard Avantage Remise",
 	omc_first_chapter_ectm                              : "UNE FAÇON PLUS RAPIDE D'OBTENIR DE L'Argent  CANADIAN TIRE<sup style='font-size: .5em;'>MD</sup>",
     omc_second_chapter_ectm								: "Demandez la carte Mastercard<sup style='font-size: .5em;'>MD</sup>  Triangle<sup style='font-size: .5em;'>MC</sup> dès aujourd'hui. C'est une façon plus rapide d'obtenir de l'Argent  Canadian Tire<sup style='font-size: .5em;'>MD</sup>.</br> Utilisez tout simplement la carte partout où vous magasinez – elle est acceptée dans le monde entier par des millions de commerçants.",
-
+    
+   	// US5147 WICI - Updated Signature Box    
+    // new key 
+    signature_OptionsMasterCard_CreditCard 				: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
+    signature_World_ELiteMasterCard_CreditCard 			: "Carte de crédit World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
+    signature_GasAdvantageMasterCard_CreditCard 		: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
+    signature_CashAdvantageMasterCard_CreditCard		: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Remise<sup style='font-size: .5em;'>MD</sup>",
 
     legal_omc_first_chapter_ectm                        : "<sup>1</sup> Primes octroyées sous forme d'Argent électronique Canadian Tire (Argent CT<span class=\"MC\"><sup></sup></span>). Sous réserve de certaines modalités visant l'obtention et l'échange des primes. Rendez-vous à triangle.com pour plus de détails. Le taux offert est exclusif de toute prime, offre promotionnelle ou transaction d'échange. L’Argent CT est calculé à partir du montant de l’achat avant taxes dans les magasins Canadian Tire et PartSource.",
     legal_omc_seventh_chapter_ectm                      : "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.",

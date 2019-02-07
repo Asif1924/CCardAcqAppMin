@@ -49,10 +49,7 @@ public class IdentityExamHelper
 			try
 			{
 				brbTransactionId = argMediator.getBrbTransactionId();
-				
-				String ipaddress = getClientIPAddress(argMediator);
-				log.info(sMethod + " IP Address from Broker :: " + ipaddress);
-				
+								
 				// Save AA request
 				SaveAccountAppRequestData(argMediator);
 				
@@ -127,10 +124,14 @@ public class IdentityExamHelper
 		
 		// Extract accountApplicationData
 		CreditCardApplicationData ccData = new IdentityExamRequestHelper(mediator).getCreditCardApplicationData();  
+		
+		
+		ccData.setIpAddress(getClientIPAddress(mediator));
 				
 		if( ccData != null ){
-			BaseModel model  = ccData.getModel(CreditCardApplicationData.MODEL_OVERVIEW);			
-			log.info(sMethod + " BRBWeb IP address :: " + model.get("clientIPAddress"));
+			BaseModel model  = ccData.getModel(CreditCardApplicationData.MODEL_OVERVIEW);	
+				
+			
 		}
 		 		
 		
@@ -238,17 +239,17 @@ public class IdentityExamHelper
 		return (new GenericObjectsHelper().identityExamSerialize(obj));
 	}
 	
-	
-	private String getClientIPAddress(BRBServletMediator request) {
+	private String getClientIPAddress(BRBServletMediator mediator) {
 		String sMethod = "[getClientIPAddress] ";
-		String xForwardedForHeader = request.getRequest().getHeader("X-FORWARDED-FOR");
+		
+		String xForwardedForHeader = mediator.getRequest().getHeader("X-FORWARDED-FOR");
 		log.info(sMethod + "X-FORWARDED-FOR IP Address :: " + xForwardedForHeader);
 
-		 if (xForwardedForHeader == null) {
-			String remoteIPAddress = request.getRequest().getRemoteAddr();
+		if (xForwardedForHeader == null) {
+			String remoteIPAddress = mediator.getRequest().getRemoteAddr();
 			log.info(sMethod + "getRemoteAddr IP Address :: " + remoteIPAddress);
 			return remoteIPAddress;
-		 } else {
+		} else {
 			// The general format of the field is: X-Forwarded-For: client,
 			// proxy1, proxy2 ...
 			// we only want the client
@@ -256,5 +257,6 @@ public class IdentityExamHelper
 		}
 
 	}
+
 
 }

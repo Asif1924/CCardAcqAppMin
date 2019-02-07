@@ -6,6 +6,20 @@
 		{{else}}
 			<div class="printerNotConnected" data-translationKey="chooseProduct_PrinterNotConnected"></div>			
 		{{/if}}
+
+		<div class="overlay" id="dialog-container">
+  			<div class="popup">
+    			<p class="text-left" data-translationKey="chooseProduct_DialogContent"></p>
+				<ul class="text-left">
+					<li data-translationKey="chooseProduct_DialogContent1"></li>
+					<li data-translationKey="chooseProduct_DialogContent2"></li>
+				</ul>
+    			<div>      				
+      				<button class="dialog-btn-proceed" id="proceed" data-translationKey="chooseProduct_DialogProceed"></button>
+					<button class="dialog-btn-cancel" id="cancel" data-translationKey="chooseProduct_DialogCancel"></button>
+    			</div>
+  			</div>
+		</div>	
 		
 		<br />
 		<div id="chooseProductScreen_PageHeader">

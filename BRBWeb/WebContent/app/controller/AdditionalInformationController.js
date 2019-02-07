@@ -35,6 +35,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     		firstName                       :   '#additionalInformation_FirstName_TextField',
             initial                         :   '#additionalInformation_Initial_TextField',
             lastName                        :   '#additionalInformation_LastName_TextField',
+            birthDate						:	'#additionalInformation_DateOfBirth_Control',
     		
             dateOfBirth_Month               :   '#additionalInformation_DateOfBirth_Month',                                 
             dateOfBirth_Day                 :   '#additionalInformation_DateOfBirth_Day',
@@ -55,6 +56,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
             addressLine2                    :   "#additionalInformation_AddressLine2",
             streetNumber					:	"#additionalInformation_StreetNumber_TextField",
             streetName				      	:	"#additionalInformation_StreetName_TextField",
+            suppStreetType_Dropdown			:	"#additionalInformation_SuppStreetType_DropDown",
             suiteUnit                       :   "#additionalInformation_Suite_TextField",
             province                        :   '#additionalInformation_Province_TextField',
             city                            :   '#additionalInformation_City_TextField',
@@ -171,6 +173,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
               
               { name: 'streetNumber',              value: null, validation: {type: 'streetNumber', message: 'personalInformation_StreetError', group:[2]} },
               { name: 'streetName',                value: null, validation: {type: 'addressLine',  message: 'personalInformation_StreetNameError', group:[2]} },
+              { name: 'suppStreetType_Dropdown',   value: null, validation: null },
+              { name: 'suppStreetType',			   value: null, validation: null },
               { name: 'suiteUnit',                 value: null, validation: {type: 'suiteUnit',    message: 'personalInformation_AptError', canBeEmpty: true, group:[2]}  },
               { name: 'city',                      value: null, validation: {type: 'city',         message: 'personalInformation_CityError', group:[2]}},
               { name: 'province',                  value: null, validation: {type: 'presence',     message: 'personalInformation_ProvinceError', group:[2]}},              
@@ -293,11 +297,10 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	    // currentModel.set('sameAddressRadio', $(refs.sameAddressRadio + ":checked").val());
 	     if (currentModel.get('sameAddressArea') == 'N') {		
 	    	 currentModel.set('streetNumber',       $(refs.streetNumber).val().toUpperCase());
-	    	 currentModel.set('streetName',         $(refs.streetName).val().toUpperCase());
+	    	 currentModel.set('streetName',         removeDuplicateStreetType(refs.suppStreetType_Dropdown, refs.streetName));
 	    	 currentModel.set('suiteUnit',          $(refs.suiteUnit).val().toUpperCase());
 	    	 currentModel.set('city',               $(refs.city).val().toUpperCase());
-	    	 currentModel.set('province',           $(refs.province).val());
-	    	 
+	    	 currentModel.set('province',           $(refs.province).val());	    	 	    	
 	    	 currentModel.set('postalCode',        $(refs.postalCode_1).val().toUpperCase() + $(refs.postalCode_2).val().toUpperCase());
 	     }		     
 	      
@@ -574,6 +577,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			showHideAddressContainer();
 		});
 		
+		$(refs.suppStreetType_Dropdown).change(function() {
+			if($(refs.suppStreetType_Dropdown).val() != 'null') {
+				model.set('suppStreetType', translator.translateKey(getStreetTypeByValue($(refs.suppStreetType_Dropdown).val())).toUpperCase());
+			} else {
+				model.set('suppStreetType', $(refs.suppStreetType_Dropdown).val());
+			}
+			model.set('suppStreetType_Dropdown', $(refs.suppStreetType_Dropdown).val());
+		});
+		
 		$(refs.continueButtonContainer).on("mousedown mouseup", function(e){
 		    $(refs.continueButton).toggleClass( "active", e.type === "mousedown" );
 		});
@@ -753,6 +765,9 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		monthsList.fillSelectControl(refs.addressSince_Month);
 		monthsList.fillSelectControl(refs.employerSince_Month);
 		
+		var streetTypeList = new BRB.StreetTypeList(translator);
+		streetTypeList.fillSelectControl(refs.suppStreetType_Dropdown);
+		
 		var employmentTypeList = new BRB.EmploymentTypeList(translator);
 		employmentTypeList.fillSelectControl(refs.employmentType);
 		
@@ -815,6 +830,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         	// US4500
 			$(refs.streetNumber).val("");
 			$(refs.streetName).val("");
+			$(refs.suppStreetType_Dropdown).val("");
 			$(refs.suiteUnit).val("");
 			$(refs.city).val("");
 			$(refs.province).val("");
@@ -993,6 +1009,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$(refs.sameAddressArea).val( model.get('sameAddressArea') == 'Y' ? true : false);
 		$(refs.streetNumber).val(model.get('streetNumber'));
 		$(refs.streetName).val(model.get('streetName'));
+		$(refs.suppStreetType_Dropdown).val(app.ie9SelectHelper.getRightSelectValue(model.get('suppStreetType_Dropdown')));
 		$(refs.suiteUnit).val( model.get('suiteUnit'));
 		$(refs.city).val(model.get('city'));
 		$(refs.relationship).val( model.get('relationship'));
@@ -1084,6 +1101,15 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	                rez1.push({name: 'birthdate', err: 'personalInformation_FutureDateError', uiid: refs.dateOfBirth_Day});
 	                rez1.push({name: 'birthdate', err: 'personalInformation_FutureDateError', uiid: refs.dateOfBirth_Year});
 	            }
+	            
+	            var dateParts = currentModel.get('birthDate').split("-");
+                var date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                var fullYears = currentModel.getFullYears(date);
+                
+                  if(fullYears < 17){
+                      rez1.push({name : 'birthDate',err : 'personalInformation_DOB_16YearsError',uiid: refs.birthDate  });
+                      }    
+	            
             }
             
             // Validate additional part of the page                                       
@@ -1182,5 +1208,51 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 			$(refs.optionalProduct_horizontal_Line_2).addClass('Width_TD_15');
 		}
 	}
+    // --------------------------------------------------------------------------------------
+	function getStreetTypeByValue(value) {
+		var sMethod = '[getStreetTypeByValue()] ';
+		BRB.Log(sMethod + ' getStreetTypeByValue:' + value);
+
+		if (value == 'null' ) {
+			return null;
+		}
+
+		var streetNameByValue = null;
+		var streetTypeList = new BRB.StreetTypeList();
+		$.each(streetTypeList.data, function(index, item) {
+			if (item.value == value) {
+				streetNameByValue = item;
+				return;
+			}
+		});
+
+		return streetNameByValue.text;
+	}
+	// --------------------------------------------------------------------------------------
+	function removeDuplicateStreetType(streetTypeDropDown, addressline) {
+		var sMethod = 'removeDuplicateStreetType() ';
+		BRB.Log(logPrefix + sMethod);
+				
+		if($(streetTypeDropDown).val() != 'null') {
+			var streetType = translator.translateKey(getStreetTypeByValue($(streetTypeDropDown).val())).toUpperCase();
+			var streetName = $(addressline).val().toUpperCase();
+			BRB.Log(logPrefix + sMethod + " streetType : " + streetType + " streetName : " + streetName);
+			
+			if (!String.prototype.includes) {
+				  String.prototype.includes = function (str) {
+				    return this.indexOf(str) !== -1;
+				  }
+			}
+			
+			if (streetName.includes(streetType)) {
+				streetName = streetName.replace(streetType, "");
+				return streetName;
+			}
+			return streetName;
+		} else {
+			return $(addressline).val().toUpperCase();
+		}		
+	}
+   
  
 };

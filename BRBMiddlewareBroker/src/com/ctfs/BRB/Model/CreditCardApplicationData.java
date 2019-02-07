@@ -3,6 +3,7 @@ package com.ctfs.BRB.Model;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import com.ctfs.BRB.Helper.AccountApplicationRequestTypeConverter;
@@ -24,6 +25,16 @@ public class CreditCardApplicationData
 	public List<BaseModel> models;
 	String brbTransactionId;
 	String trackingScreenID;
+	
+	String ipAddress;
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
 
 	public String getBrbTransactionId()
 	{
@@ -49,6 +60,8 @@ public class CreditCardApplicationData
 
 		brbTransactionId = requestMediator.getBrbTransactionId();
 		trackingScreenID = requestMediator.getTrackingScreenID();
+		
+		
 
 		models = deserializeRequestBody(requestMediator.getPostRequestBody());
 	}
@@ -125,4 +138,7 @@ public class CreditCardApplicationData
 
 		return null;
 	}
+	
+
+	
 }

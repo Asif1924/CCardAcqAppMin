@@ -358,6 +358,10 @@ WICI.PersonalDataScreen2Controller = function(activationItems, argTranslator, ar
         case 'P':
             $(refs.house_Parents).addClass('ui-btn-active');
             break;
+        // US5131 WICI - Add Student Housing label to Residence Type list    
+        case 'S':
+        	$(refs.house_student).addClass('ui-btn-active');
+        	break;     
         case 'M':
             $(refs.house_Other).addClass('ui-btn-active');
             break;

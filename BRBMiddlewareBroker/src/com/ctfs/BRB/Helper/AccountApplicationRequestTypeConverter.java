@@ -67,6 +67,10 @@ public class AccountApplicationRequestTypeConverter
 
 		populatedAccountApplicationRequest.setExternalReferenceId(new GUIDGenerator().getGUIDAsString());
 
+		populatedAccountApplicationRequest.setClientIPAddress(argCreditCardApplicationData.getIpAddress());
+		
+		log.info(sMethod + " argCreditCardApplicationData getClientIPAddress() : " + argCreditCardApplicationData.getIpAddress());
+		
 		// US4280
 		log.info(sMethod + " argCreditCardApplicationData getBrbTransactionId() : " + argCreditCardApplicationData.getBrbTransactionId());
 		if(argCreditCardApplicationData.getBrbTransactionId() != null && argCreditCardApplicationData.getBrbTransactionId().toLowerCase().contains("moa")) {
@@ -231,7 +235,12 @@ public class AccountApplicationRequestTypeConverter
 						{
 							addressLine1 += model.get("suiteUnit") + "-";
 						}
-						addressLine1 += model.get("streetNumber") + " " + model.get("streetName");
+						
+						if(model.get("suppStreetType") != null) {
+							addressLine1 += model.get("streetNumber") + " " + model.get("streetName") + " " + model.get("suppStreetType");
+						} else {
+							addressLine1 += model.get("streetNumber") + " " + model.get("streetName");
+						}
 						ar.setSupp1AddressLine1(addressLine1);
 
 						ar.setSupp1AddressLine2(model.get("addressLine2"));
@@ -326,12 +335,20 @@ public class AccountApplicationRequestTypeConverter
 				}
 				if (matcher.find())
 				{
-					ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine.substring(0, addressLine.indexOf(", ")));
+					if(model.get("streetType") != null) {
+						ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine.substring(0, addressLine.indexOf(", ")) + " " + model.get("streetType"));
+					} else {
+						ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine.substring(0, addressLine.indexOf(", ")));
+					}					
 					ar.setCurrentAddressLine2(matcher.group(0).replace(", ", ""));
 				}
 				else if (!model.get("streetnumber").isEmpty() && !addressLine.isEmpty())
 				{
-					ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine);
+					if(model.get("streetType") != null) {
+						ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine + " " + model.get("streetType"));
+					} else {
+						ar.setCurrentAddressLine1(addressLine1 + model.get("streetnumber") + " " + addressLine);
+					}
 				}
 
 				ar.setCurrentCity(model.get("city"));
@@ -403,7 +420,11 @@ public class AccountApplicationRequestTypeConverter
 					{
 						addressLine1Prev += model.get("suiteunit_prev") + "-";
 					}
-					addressLine1Prev += model.get("streetnumber_prev") + " " + model.get("addressline1_prev");
+					if(model.get("prevstreetType") != null) {
+						addressLine1Prev += model.get("streetnumber_prev") + " " + model.get("addressline1_prev") + " " + model.get("prevstreetType");
+					} else {
+						addressLine1Prev += model.get("streetnumber_prev") + " " + model.get("addressline1_prev");
+					}
 					ar.setPreviousAddressLine1(addressLine1Prev);
 					ar.setPreviousCity(model.get("city_prev"));
 					try
@@ -552,5 +573,7 @@ public class AccountApplicationRequestTypeConverter
 		// DE1549
 		return ((((minuendYear - subtrahendYear) * (cal.getMaximum(Calendar.MONTH) + 1))) + (minuendMonth - subtrahendMonth));
 	}
+	
+	
 
 }

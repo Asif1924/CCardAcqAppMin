@@ -24,9 +24,9 @@ public class WICIFileHelper {
     public final static String PrintOutMockupPendDecSuffix = "_PENDING_DECLINE";
     //public final static String PrintOutMockupProvinceSuffix = "_555";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
-    public final static String PrintOutMockupCTGonlyCouponSuffix = "_CTRonly_coupon";
-    public final static String PrintOutMockupMarkssuffix = "_MARKS";
-    public final static String PrintOutMockupFGLsuffix = "_FGL";
+    //public final static String PrintOutMockupCTGonlyCouponSuffix = "_CTRonly_coupon";
+    //public final static String PrintOutMockupMarkssuffix = "_MARKS";
+    //public final static String PrintOutMockupFGLsuffix = "_FGL";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
     public final static String PrintOutMockupCardTypeForOMXandOMZsuffix = "OMX_OMZ";
     String templateName, templateFileName;
@@ -219,44 +219,53 @@ public class WICIFileHelper {
         	double storeNo = Double.parseDouble(_storeNumber);
         	Log.i(getClass().getSimpleName(), "----- storeNo -------" + storeNo);
         	if(storeNo > 0){
+        		
+        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
+        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
+        		} else {
+        			templateName = "PrintOutMockup_" + cardType;
+        		}
+        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
+        		
+        		// All below coupons are removed and added single coupon for all stores
         		// US3452 
         		// Check Store Number. If Marks store, print Marks coupon, else print CT coupon
-	        	if(storeNo >= 6000 && storeNo <= 6999 ){
+	        	/*if(storeNo >= 6000 && storeNo <= 6999 ){
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupMarkssuffix;
 	        		} else {
 	        			templateName = "PrintOutMockup_" + cardType + PrintOutMockupMarkssuffix;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}
+	        	}*/
 	        	// US4644
 	        	// WICI - Print out an FGL coupon
-	        	else if(storeNo >= 4000 && storeNo <= 5999){
+	        	/*else if(storeNo >= 4000 && storeNo <= 5999){
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupFGLsuffix;
 	        		} else {
 	        			templateName = "PrintOutMockup_" + cardType + PrintOutMockupFGLsuffix;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}
+	        	}*/
 	        	// WICI - Print out an CTP(Gas store) coupon
-	        	else if(storeNo >= 1000 && storeNo <= 1999){
+	        	/*else if(storeNo >= 1000 && storeNo <= 1999){
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
 	        		} else {
 	        			templateName = "PrintOutMockup_" + cardType;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}
+	        	}*/
 	        	// WICI - Print out an CTR(Retail store) coupon
-	        	else {
+	        	/*else {
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
 	        		} else {
 	        			templateName = "PrintOutMockup_" + cardType;
 	        		}
 	        		templateName += "_{lang}" + PrintOutMockupCTGonlyCouponSuffix;
-	        	}
+	        	}*/
         	}        
 	        	
 	       Log.i(getClass().getSimpleName(), "----- templateName -------" + templateName);

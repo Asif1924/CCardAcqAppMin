@@ -891,6 +891,15 @@ tr td {
     0.1);
     -moz-appearance: button;
 }
+
+.streetType{
+    margin-left: -152px;
+}
+
+.streetType2{
+ margin-left: -30px;
+}
+
 .fieldValuesText {
     font-family: Lato;
     font-size: 14px;
@@ -3141,6 +3150,46 @@ height: 25px
     font-size: 11px;
     color: #333333;
 }
+
+.streetType1{
+    margin-left: -175px;
+}
+
+.SpanForInputsGroup1{
+	font-family: Lato;
+    font-size: 8pt;
+    color: #333333;
+    margin-left: -43px;
+}
+
+.SpanForInputsGroup2{
+font-family: Lato;
+    font-size: 8pt;
+    color: #333333;
+    margin-left: -14px;
+}
+
+.SpanForInputsGroup3{
+	font-family: Lato;
+    font-size: 7pt;
+    color: #333333;
+    margin-left: -103px;
+}
+
+.SpanForInputsGroup4{
+font-family: Lato;
+    font-size: 11px;
+    color: #333333;
+    margin-left: -56px;
+}
+
+.SpanForInputsGroup5{
+font-family: Lato;
+    font-size: 11px;
+    color: #333333;
+    margin-left: -20px;
+}
+
 @media (max-width: 767px) {
     .whiteTableForInputsGroup {
         border: 0px;
@@ -3319,13 +3368,52 @@ height: 25px
 }
 .addressShortField {
 	/*2016-03-14 chrch: changing width for responsive */
-    width: 60%; /* 90px;*/
+    width: 40%; /* 90px;*/
     text-transform: uppercase;
 }
+
+.addressSuite{
+   width: 70px;
+   margin-left: -20px;
+}
+
+.addressSuite1{
+   width: 70px;
+       margin-left: -43px;
+}
+
 .addressLongField {
     /* 2016-02-09 chrch: Personal Information Page - removing width for responsive */
     /*width: 300px;*/
     text-transform: uppercase;
+}
+
+.addressShortField1{
+    width: 49%;
+    text-transform: uppercase;
+}
+
+.addressLongField1{
+ width: 175px;
+ text-transform: uppercase;
+ margin-left: -56px;
+}
+
+.addressLongField2{
+width: 184px;
+    text-transform: uppercase;
+    margin-left: -15px;
+}
+
+.addressLongField3{
+ width: 194px;
+ text-transform: uppercase;
+ margin-left: -105px;
+}
+
+.addressShortField2{
+	width: 74%;
+	text-transform: uppercase;
 }
 
 /*2016-04-06 chrch: New class for Loyalty number field */
@@ -5641,5 +5729,14 @@ font-family: Lato;
  font-size: 15pt;
 
 }
+
+#additionalInformation_DateOfBirth_Control{
+width: 60%;
+
+}
+
+
+
+
 
 

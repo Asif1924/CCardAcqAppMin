@@ -827,7 +827,25 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				canBeEmptyFlag = item.validation.canBeEmpty = true;
 			}
 		});
-
+        // US5123 WICI - Restrict Supp Card applicants to 16 and older
+        var age = model.calculateAge(model);
+        var rezAge =[];
+        console.log(logPrefix + sMethod + "Age :: " + age);
+        
+        if(age <= 16){
+           var item = model.getItemByName('birthDate');
+           var itemName =  item === null ? '' : item.name;
+           var itemuiid = model.refs == null ? '' : model.refs[item.name];
+           var tempRez  = {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
+           rezAge.push(tempRez);
+           app.validationDecorator.focusControl(refs.birthDate);
+           if (rezAge.length > 0) {
+                app.validationDecorator.applyErrAttribute(rezAge);
+                return;
+           }
+        	
+        }
+        
 		var isValidationError = false;
 		if (app.validationsOn) {
 			app.validationDecorator.clearErrArrtibute();

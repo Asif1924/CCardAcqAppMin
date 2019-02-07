@@ -81,6 +81,9 @@
 						<span class="col-xs-12">
 						${ activationItems.getModel('additionalInformation').get('streetNumber')}
 						${ activationItems.getModel('additionalInformation').get('streetName')}
+						{{if activationItems.getModel('additionalInformation').get('suppStreetType') }}
+							${ activationItems.getModel('additionalInformation').get('suppStreetType')}
+						{{/if}}
 						{{if activationItems.getModel('additionalInformation').get('suiteUnit') }}
 							<span data-translationKey="confirmation_Suite"></span>${ activationItems.getModel('additionalInformation').get('suiteUnit')}
 						{{/if}}
