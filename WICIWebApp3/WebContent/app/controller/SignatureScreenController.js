@@ -226,7 +226,11 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
             	OMXCardContentDislay();
             }
         });
-        
+      
+      /*$(refs.acceptAgreement).on("change", function() {  
+        	onAcceptAgrementFontChange();
+      });*/
+       
       $(refs.signatureScreenOmzCard).click(function() {
 			OMZCardContentDisplay();
 
@@ -359,13 +363,13 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		 if ($("#signatureScreen_AcceptAgreement").is(":checked"))
 	   {
 	   		$("#warningDIVSig").removeClass("warningDIV").addClass("warningDIVCleared");
-	   		$("#warningHeaderSig").removeClass("warningHeader").addClass("warningHeaderCleared");
+	   		$("#warningHeaderSig").removeClass("warningHeader_signaturePage").addClass("warningHeaderCleared_SignaturePage");
 	   		$("#warningTableSig").removeClass("warningTable").addClass("warningTableCleared");
 	   }
 	   else
 	   {
 	   		$("#warningDIVSig").removeClass("warningDIVCleared").addClass("warningDIV");
-	   		$("#warningHeaderSig").removeClass("warningHeaderCleared").addClass("warningHeader");
+	   		$("#warningHeaderSig").removeClass("warningHeaderCleared_SignaturePage").addClass("warningHeader_signaturePage");
 	   		$("#warningTableSig").removeClass("warningTableCleared").addClass("warningTable");
 	   }
 	}
@@ -501,5 +505,20 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         model.set('sigcardSelection',   true);
         activationItems.getModel('chooseProductModel').set('productCard', 'OMX');
 	}
-
+	
+   function onAcceptAgrementFontChange(){
+     if($(refs.acceptAgreement).is(':checked')) {
+         $("#warningText_SignaturePage").removeClass("signaturePageFont");
+	     $("#CashAdvantageMasterCard_CreditCard").removeClass("signaturePageCardFont");	
+         $("#GasAdvantageMasterCard_CreditCard").removeClass("signaturePageCardFont");
+	     $("#triangelMasterCard").removeClass("signaturePageCardFont");
+	     $("#worldElite_MasterCard").removeClass("signaturePageCardFont");
+    }else{ 
+         $("#warningText_SignaturePage").addClass("signaturePageFont");
+	     $("#CashAdvantageMasterCard_CreditCard").addClass("signaturePageCardFont");	
+         $("#GasAdvantageMasterCard_CreditCard").addClass("signaturePageCardFont");
+	     $("#triangelMasterCard").addClass("signaturePageCardFont");
+	     $("#worldElite_MasterCard").addClass("signaturePageCardFont");
+    }
+   }
 };

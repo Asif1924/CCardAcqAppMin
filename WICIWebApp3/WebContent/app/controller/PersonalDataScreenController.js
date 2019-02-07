@@ -79,6 +79,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         house_Rent:         '#personalData_Address_Rent_RadioButton',
         house_Parents:      '#personalData_Address_Parents_RadioButton',
         house_Other:        '#personalData_Address_Other_RadioButton',
+        // US5131 WICI - Add Student Housing label to Residence Type list
+        house_student:      '#personalData_Address_Student_RadioButton',
 
         durationRegion:		'#personalData_Duration',
         years:              '#personalData_Address_Duration_years_TextField',
@@ -100,6 +102,14 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         city_prev:          '#personalData_PreviousAddress_City_TextField',
         suiteunit_prev:     '#personalData_PreviousAddress_SuiteUnit_TextField',
         province_prev:      '#personalData_PreviousAddress_Province_TextField',
+        
+        // US5131
+        
+        recidance_own       : '#residance_Own',
+        residance_Rent      : '#residance_Rent',
+        residance_Parents   : '#residance_Parents',
+        residance_Student   : '#residance_Student',
+        residance_Other     : '#residance_Other',
         
         // US4709
         homePhoneRadioGroup     	    :   '#primaryPhoneRadioGroup',
@@ -366,6 +376,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         });
 
         createView();
+        // Hiding US5131
+        $("#personalData_Address_Student_RadioButton").hide();
         bindEvents();
 
         populateIdTypesProvinces();
@@ -409,6 +421,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             case 'P':
                 $(refs.house_Parents).addClass('ui-btn-active');
                 break;
+            // US5131 WICI - Add Student Housing label to Residence Type list    
+            case 'S':
+            	$(refs.house_student).addClass('ui-btn-active');
+            	break;     
             case 'M':
                 $(refs.house_Other).addClass('ui-btn-active');
                 break;
@@ -847,6 +863,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             console.log(refs.placeofissue + '::change');
             populateIdTypesList();
             showHideQCHealthCard();
+            // US5131
+           	// Hiding US5131
+            //applyPaddingForResidanceType();
             ///********************///
             //According to user story with number 829
             checkForMsButton();
@@ -935,6 +954,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // US4078
             populateIdTypesProvinces();
             showHideQCHealthCard();
+            // US5131
+            // Hiding US5131	
+            //applyPaddingForResidanceType();
             $(refs.province).val(models.addressModel.get("province"));
 
         });
@@ -1044,6 +1066,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             clearRadios('residence');
             $(refs.house_Parents).addClass('ui-btn-active');
             models.addressModel.set('house', 'P');
+        });
+        // US5131 WICI - Add Student Housing label to Residence Type list
+        $(refs.house_student).click(function(){
+        	clearRadios('residence');
+        	$(refs.house_student).addClass('ui-btn-active');
+        	models.addressModel.set('house', 'S');
         });
         $(refs.house_Other).click(function(){
             clearRadios('residence');
@@ -1243,6 +1271,25 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         }
         
     }
+    
+    // US5131 WICI - Add Student Housing label to Residence Type list
+    function applyPaddingForResidanceType(){
+    	if(!translator.currentLanguageEnglish()){
+    		 $(refs.recidance_own).addClass('paddingForResidancytype');
+    		 $(refs.residance_Rent).addClass('paddingForResidancytype')
+    		 $(refs.residance_Parents).addClass('paddingForResidancytype')
+    		 $(refs.residance_Student).addClass('paddingForResidancytype')
+    		 $(refs.residance_Other).addClass('paddingForResidancytype')
+    	}else{
+    		$(refs.recidance_own).removeClass('paddingForResidancytype');
+   		 	$(refs.residance_Rent).removeClass('paddingForResidancytype')
+   		 	$(refs.residance_Parents).removeClass('paddingForResidancytype')
+   		 	$(refs.residance_Student).removeClass('paddingForResidancytype')
+   		 	$(refs.residance_Other).removeClass('paddingForResidancytype')
+    	}
+    	
+    }
+    
     // ---------------------------------------------------------------------------------------
     function clearRadios(radioGroup) {
         var currModel = models.personalDataModel;
@@ -1265,6 +1312,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.house_Rent).removeClass('ui-btn-active');
             $(refs.house_Parents).removeClass('ui-btn-active');
             $(refs.house_Other).removeClass('ui-btn-active');
+            // US5131 WICI - Add Student Housing label to Residence Type list
+            $(refs.house_student).removeClass('ui-btn-active');
         }
     }
 

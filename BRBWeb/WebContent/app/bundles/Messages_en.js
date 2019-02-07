@@ -124,6 +124,20 @@ BRB.dictionary_en = {
 	SASKATCHEWAN										: 'SASKATCHEWAN',
 	YUKON												: 'YUKON',
 	
+	
+	personalInfo_street									:	'Street',
+	personalInfo_court									:	'Court',
+	personalInfo_Alley									:	'Alley',
+	personalInfo_Boulevard								:	'Boulevard',
+	personalInfo_Drive									:	'Drive',
+	personalInfo_Crescent								:	'Crescent',
+	personalInfo_Avenue									:	'Avenue',
+	personalInfo_Way									:	'Way',
+	personalInfo_Line									:	'Line',
+	personalInfo_Terrace								:	'Terrace',
+	personalInfo_Blank									:	' ',
+	
+	
 	header_Phone										: '<a href="tel:18004596415" style="color: #000;" target="_blank">1-800-459-6415</a>',
 	//-----------------------------------------End-Common----------------------------------------------
 	//----------------------------------------- Overview section ------------------------------	
@@ -520,6 +534,7 @@ BRB.dictionary_en = {
 	personalInformation_Address								:	"Address",
 	personalInformation_StreetName							:	"Street Name",
 	personalInformation_StreetNumber						:	"Street Number",
+	personalInformation_StreetType							:	"Street Type",
 	personalInformation_Suite								:	"Apt / Suite #",
 	personalInformation_Suite_OMP_OMR						:	"Apt / Suite #",
 	personalInformation_City								:	"City",
@@ -559,7 +574,7 @@ BRB.dictionary_en = {
 	personalInformation_CreditCard							:	"Credit Card",
 	personalInformation_Dollar								:	"$",
 	personalInformation_prevAddressTitle					:	"Previous address only required if less than 2 years at current address.",
-	
+	personalInformation_DOB_16YearsError                    :   "Must be 17 years of age or older to apply",
 	personalInformation_DOB_18YearsError					:	"Must be 18 years of age or older to apply",
 	personalInformation_DOB_19YearsError					:	"Must be 19 years of age or older to apply",
 	
@@ -588,7 +603,7 @@ BRB.dictionary_en = {
 	residentialStatus_Rent									:	"Rent",
 	residentialStatus_Parents								:	"With Parents",
 	residentialStatus_Other									:	"Other",
-	
+	 residentialStatus_Student_Houseing                      :   "Student Housing",
 	
 	//--------------- US3622 START ---------------------
 	
@@ -926,6 +941,9 @@ BRB.dictionary_en = {
 	personalInformation_Day										:	'<select class=\"fieldValuesSelectField dateOfBirthDayField\" id=\"personalData_DateOfBirth_Day\" placeholder=\"Day\" />',
 	personalInformation_Year									:	'Year',
 	personalInformation_Province_TextField						:	'<select class="fieldValuesSelectField addressProvinceField" id="personalInformation_Province_TextField"/>',
+	personalInformation_StreetType_DropDown						:	'<select class="fieldValuesSelectField addressStreetTypeField" id="personalInformation_StreetType_DropDown"/>',
+	personalInformation_PreviousStreetType_DropDown				:	'<select class="fieldValuesSelectField addressPreviousStreetTypeField" id="personalInformation_PreviousStreetType_DropDown"/>',
+	additionalInformation_SuppStreetType_DropDown				:	'<select class="fieldValuesSelectField addressSuppStreetTypeField" id="additionalInformation_SuppStreetType_DropDown"/>',
 	personalInformation_ResidentialStatus_TextField				:	'<select class="fieldValuesSelectField residentialStatusField" id="personalInformation_ResidentialStatus_TextField"/>',
 	personalInformation_AddressSince_Month						:	'<select class="fieldValuesSelectField dateOfBirthMonthField" id="personalInformation_AddressSince_Month" placeholder="Month" />',
 	personalInformation_AddressSince_Year						:	'Year',

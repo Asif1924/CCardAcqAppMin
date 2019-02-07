@@ -409,9 +409,15 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
         		// US3462 
         		// Print Coupon after submit app if cardtype is OMC
+        		console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('locationFieldID'));
         		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
         			activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
-        			printCoupon();
+        			if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
+             				activationItems.getModel('loginScreen').get('locationFieldID') <= 1999) {
+        				// No coupons for gas store
+        			} else {
+        				printCoupon();
+        			}
         		}             
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
         	}else{

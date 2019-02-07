@@ -431,11 +431,25 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             //
             //$(refs.optionalProducts_PA_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalProducts_PA).is(':checked'))));
             updateOptionalProductsVisibility();
+            
+            //  US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
+           if(loginModel.get('employerID').toUpperCase() !== 'E'
+                    && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
+                    messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
+                    handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
+                  }
         });
 
         $(refs.optionalProducts_CP).change(function() {
             //$(refs.optionalProductsYesNoLable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalProducts_CP).is(':checked'))));
             updateOptionalProductsVisibility();
+            
+          //  US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
+          if(loginModel.get('employerID').toUpperCase() !== 'E'
+                    && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
+                    messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
+                     handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
+                 }
         });
 
         $(refs.optionalProducts_IW).change(function() {
@@ -814,9 +828,11 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
                 return;
             }
         }
-
+        
+        flow.next();
+        
         // US3981 - Start
-        if(loginModel.get('employerID').toUpperCase() !== 'E' 
+        /*if(loginModel.get('employerID').toUpperCase() !== 'E' 
         	&& chooseProductModel.get('province').toUpperCase() === 'QC') {        	
         	if( model.get('optionalProducts_PA') == 'Y' &&  QcEnrollAgree &&  paAgree ) {
         		paAgree = false;
@@ -834,7 +850,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             }       	
         } else {
             flow.next();
-        }
+        }*/
         // Old code
         // flow.next();
     }   

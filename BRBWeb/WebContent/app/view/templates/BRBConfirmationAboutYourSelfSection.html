@@ -91,7 +91,10 @@
 			<div class="row">
 				<span class="col-xs-12">
 				${activationItems.getModel('personalInformation').get('streetnumber')}
-				${ activationItems.getModel('personalInformation').get('addressline1')}
+				${activationItems.getModel('personalInformation').get('addressline1')}
+				{{if activationItems.getModel('personalInformation').get('streetType') }}
+					${ activationItems.getModel('personalInformation').get('streetType')}
+				{{/if}}
 				{{if activationItems.getModel('personalInformation').get('suiteunit') }}
 					<span data-translationKey="confirmation_UnitNumber"></span>${ activationItems.getModel('personalInformation').get('suiteunit')}
 				{{/if}}
@@ -120,7 +123,10 @@
 			<div class="row">
 				<span class="col-xs-12">
 				${activationItems.getModel('personalInformation').get('streetnumber_prev')}
-				${ activationItems.getModel('personalInformation').get('addressline1_prev')}
+				${activationItems.getModel('personalInformation').get('addressline1_prev')}
+				{{if activationItems.getModel('personalInformation').get('prevstreetType') }}
+					${ activationItems.getModel('personalInformation').get('prevstreetType')}
+				{{/if}}
 				{{if activationItems.getModel('personalInformation').get('suiteunit_prev') }}
 					<span data-translationKey="confirmation_UnitNumber"></span>${ activationItems.getModel('personalInformation').get('suiteunit_prev')}
 				{{/if}}

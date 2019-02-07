@@ -125,6 +125,18 @@ BRB.dictionary_fr = {
 		SASKATCHEWAN										: 'SASKATCHEWAN',
 		YUKON												: 'YUKON ',
 		
+		personalInfo_street									:	'Rue',
+		personalInfo_court									:	'Ruelle',
+		personalInfo_Alley									:	'Allée',
+		personalInfo_Boulevard								:	'Boulevard',
+		personalInfo_Drive									:	'Promenade',
+		personalInfo_Crescent								:	'Croissant',
+		personalInfo_Avenue									:	'Avenue',
+		personalInfo_Way									:	'Voie',
+		personalInfo_Line									:	'Rang',
+		personalInfo_Terrace								:	'Terrasse',
+		personalInfo_Blank									:	' ',
+		
 		header_Phone										: '<a href="tel:18004596415" style="color: #000;" target="_blank">1 800 459-6415</a>',
 		//-----------------------------------------End-Common----------------------------------------------
 		//----------------------------------------- Overview section ------------------------------	
@@ -524,6 +536,7 @@ BRB.dictionary_fr = {
 		personalInformation_Address								:	"Adresse",
 		personalInformation_StreetName							:	"Rue",
 		personalInformation_StreetNumber						:	"Numéro",
+		personalInformation_StreetType							:	'Type de rue',
 		personalInformation_Suite								:	"Numéro d'app. / bureau",
 		personalInformation_Suite_OMP_OMR						:	"Numéro d'app/bureau",
 		personalInformation_City								:	"Ville",
@@ -553,6 +566,7 @@ BRB.dictionary_fr = {
 		personalInformation_GrossAnnualHouseholdIncome			:	"Revenu Annuel Brut Du Ménage",
 		personalInformation_GrossAnnualIncome_OMP_OMR			:	"Revenu personnel annuel brut",
 		personalInformation_GrossAnnualHouseholdIncome_OMP_OMR	:	"Revenu du ménage annuel brut",
+		personalInformation_DOB_16YearsError                    :   "Vous devez être âgé de 17 ans ou plus pour faire une demande",
 		
 		personalInformation_BankingProducts						:	"Mes produits bancaires (cochez toutes les cases appropriées)",
 		personalInformation_BankLoan							:	"Prêt bancaire",
@@ -606,6 +620,7 @@ BRB.dictionary_fr = {
 		
 		overview_OMR_CARD_TopTableRightCol1                 :   "Adresse précédente (si moins de deux ans à l’adresse actuelle)",
 		overview_OMR_CARD_TopTableRightCol2                 :   "Revenu annuel",
+		residentialStatus_Student_Houseing                  :   "Logement étudiant",
 		overview_OMR_CARD_TopTableRightCol3                 :   "Nom et adresse de l’employeur actuel",
 		
 		
@@ -954,6 +969,9 @@ BRB.dictionary_fr = {
 		personalInformation_Day										:	'<select class=\"fieldValuesSelectField dateOfBirthDayField\" id=\"personalData_DateOfBirth_Day\" placeholder=\"Day\" />',
 		personalInformation_Year									:	'Année',
 		personalInformation_Province_TextField						:	'<select class="fieldValuesSelectField addressProvinceField" id="personalInformation_Province_TextField"/>',
+		personalInformation_StreetType_DropDown						:	'<select class="fieldValuesSelectField addressStreetTypeField" id="personalInformation_StreetType_DropDown"/>',
+		personalInformation_PreviousStreetType_DropDown				:	'<select class="fieldValuesSelectField addressPreviousStreetTypeField" id="personalInformation_PreviousStreetType_DropDown"/>',
+		additionalInformation_SuppStreetType_DropDown				:	'<select class="fieldValuesSelectField addressSuppStreetTypeField" id="additionalInformation_SuppStreetType_DropDown"/>',
 		personalInformation_ResidentialStatus_TextField				:	'<select class="fieldValuesSelectField residentialStatusField" id="personalInformation_ResidentialStatus_TextField"/>',
 		personalInformation_AddressSince_Month						:	'<select class="fieldValuesSelectField dateOfBirthMonthField" id="personalInformation_AddressSince_Month" placeholder="Month" />',
 		personalInformation_AddressSince_Year						:	'<input class="fieldValuesTextField dateOfBirthYearField" id="personalInformation_AddressSince_Year" placeholder="Année" type="text" maxlength="4"/>',

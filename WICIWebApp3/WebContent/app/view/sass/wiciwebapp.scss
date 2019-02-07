@@ -525,6 +525,83 @@ html,body {
   height:80%;
 }
 //US4282
+
+// US5146 WICI - New Disclaimer Pop up START
+.popup {
+  width: 100%;
+  padding: 15px;
+  left: 0;
+  margin-left: 5%;
+  border: 1px solid rgb(1,82,73);
+  border-radius: 10px;
+  color: rgb(1,82,73);
+  background: white;
+  position: absolute;
+  top: 15%;
+  box-shadow: 5px 5px 5px #000;
+  z-index: 10001;
+  font-weight: 700;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(113, 112, 112, 0.85);
+  z-index: 10000;
+  display :none;
+}
+
+@media (min-width: 768px) {
+  .popup {
+    width: 66.66666666%;
+    margin-left: 16.666666%;
+  }
+}
+@media (min-width: 992px) {
+  .popup {
+    width: 80%;
+    margin-left: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  .popup {
+    width: 50%;
+    margin-left: 25%;
+  }
+}
+
+.dialog-btn-proceed {
+  background-color:#44B78B;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #44B78B;
+  border-radius: 10px;
+  height: 30px;
+  width: 130px;
+  margin-right: 20%;
+}
+
+.dialog-btn-cancel {
+  background-color:#ED2524;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #ED2524;
+  border-radius: 10px;
+  height: 30px;
+  width: 130px;
+}
+
+.text-left {
+  text-align: left;	
+}
+// US5146 WICI - New Disclaimer Pop up END
+
+
 /*-------END: Dialog Stuff ------*/
 
 /*------------BEGIN Table-Related-Stuff------------*/
@@ -1160,17 +1237,17 @@ tr {
   }
   
   /* US4989 starts */
-  
+  // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
    #omxCardChooseProduct {
-    background-image: #{inline_image("chooseProductOMX_EN.png")};
+    background-image: #{inline_image("chooseProduct_OMX_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardChooseProduct.en_card {
-    background-image: #{inline_image("chooseProductOMX_EN.png")};
+    background-image: #{inline_image("chooseProduct_OMX_EN.png")};
   }
 
   #omxCardChooseProduct.fr_card {
@@ -2887,6 +2964,7 @@ div.ui-slider-switch
   -webkit-appearance: none;
   padding-bottom:15px;
 }
+
 .warningHeader {
   color: white;
   background-color: $red;
@@ -2898,13 +2976,40 @@ div.ui-slider-switch
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
+
+.warningHeader_signaturePage {
+  color: white;
+  background-color: $red;
+  font-size: 36pt;
+  margin:0;
+  //margin-bottom:15px;
+  border-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.paddingForResidancytype{
+  padding: .6em 11px; 
+}
+
+.margin_Signature {
+  margin: 10px 0 15px 0;	
+}	
+
+// US5147 WICI - Updated Signature Box
+.signaturePageFont{	
+ font-size: 20pt;
+}
+.signaturePageCardFont{
+ font-size: 24pt;
+}
 .warningTable{
   color: #d81e05;
   text-align: left;
   width: 95%;
   border: 0;
   margin-left: auto;
-  font-size: 10pt;
+  font-size: 12pt;
   
 }
 .warningTable tr td{
@@ -2990,11 +3095,19 @@ div.ui-slider-switch
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
+.warningHeaderCleared_SignaturePage {
+  color: white;
+  background-color: #1e940a;
+  font-size: 36pt;
+  margin:0;
+  border-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 .warningTableCleared{
   color: black;
   text-align:left;
   width:95%;
-  padding:5px;
   border: 0;
   font-size: 12pt;
   margin-left: auto;

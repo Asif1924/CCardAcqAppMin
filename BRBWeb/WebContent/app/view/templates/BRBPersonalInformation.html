@@ -410,18 +410,29 @@
 							<p><input class="fieldValuesTextField addressShortField" id="personalInformation_StreetNumber_TextField" type="text" maxlength="6"/></p>
 	                    </div>
 						<div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-6 col-md-5">
-							<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
+							<span class="SpanForInputsGroup4" data-translationKey="personalInformation_StreetName"></span>
 							<span> </span>
 							<sup class="redSpanForInputsGroup">*</sup>
-							<p><input class="fieldValuesTextField addressLongField" id="personalInformation_StreetName_TextField" type="text" maxlength="28" /></p>
+							<p><input class="fieldValuesTextField addressLongField1" id="personalInformation_StreetName_TextField" type="text" maxlength="28" /></p>
 	                    </div>
-	                    <div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-2 col-md-3">
+
+						<div class="streetType elementBottom10 col-xs-12 col-sm-4">
+							<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetType"></span>
+							<span> </span>
+							<p>
+								<span data-translationKey="personalInformation_StreetType_DropDown">
+									<select class="fieldValuesSelectField addressStreetTypeField" id="personalInformation_StreetType_DropDown"/>
+								</span>
+							</p>
+						</div>
+
+	                    <div class="fieldLabelsSubCell elementBottom10 col-xs-12 col-sm-2 col-md-2">
 		                    {{if cardType === "OMX" || cardType === "OMZ" }}
-								<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
+								<span class="SpanForInputsGroup1" data-translationKey="personalInformation_Suite"></span>
 							{{else cardType === "OMP" || cardType === "OMR" }}
-								<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite_OMP_OMR"></span>
+								<span class="SpanForInputsGroup1" data-translationKey="personalInformation_Suite_OMP_OMR"></span>
 							{{/if}}    		                     		
-							<p><input class="fieldValuesTextField addressShortField" id="personalInformation_Suite_TextField" type="text" maxlength="5"/></p>
+							<p><input class="fieldValuesTextField addressSuite1" id="personalInformation_Suite_TextField" type="text" maxlength="5"/></p>
 							<div class="errorCell hideElement" id="personalInformation_City_TextField_error"></div> 
 	                    </div>
 	                </div>
@@ -526,14 +537,25 @@
 								<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetNumber"></span>
 								<span> </span>
 								<sup class="redSpanForInputsGroup">*</sup>
-								<p><input class="fieldValuesTextField addressShortField" id="personalInformation_PrevStreetNumber_TextField" type="text" maxlength="6"/></p>
+								<p><input class="fieldValuesTextField addressShortField1" id="personalInformation_PrevStreetNumber_TextField" type="text" maxlength="6"/></p>
 							</div>
 							<div class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell elementBottom10 col-xs-12 col-sm-6 col-md-5">
-								<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetName"></span>
+								<span class="SpanForInputsGroup3" data-translationKey="personalInformation_StreetName"></span>
 								<span> </span>
 								<sup class="redSpanForInputsGroup">*</sup>
-								<p><input class="fieldValuesTextField addressLongField" id="personalInformation_PrevStreetName_TextField" type="text" maxlength="28" /></p>
+								<p><input class="fieldValuesTextField addressLongField3" id="personalInformation_PrevStreetName_TextField" type="text" maxlength="28" /></p>
 							</div>
+
+						<div class="streetType1 elementBottom10 col-xs-12 col-sm-4">
+							<span class="SpanForInputsGroup" data-translationKey="personalInformation_StreetType"></span>
+							<span> </span>
+							<p>
+								<span data-translationKey="personalInformation_PreviousStreetType_DropDown">
+									<select class="fieldValuesSelectField addressStreetTypeField" id="personalInformation_PreviousStreetType_DropDown"/>
+								</span>
+							</p>
+						</div>
+
 							<div class="fieldLabelsSubCell fieldLabelsAdditionalInfoCell elementBottom10 col-xs-12 col-sm-2 col-md-3">    		
 								<span class="SpanForInputsGroup" data-translationKey="personalInformation_Suite"></span>
 								<p><input class="fieldValuesTextField addressShortField" id="personalInformation_PrevSuite_TextField" type="text" maxlength="5"/></p> 

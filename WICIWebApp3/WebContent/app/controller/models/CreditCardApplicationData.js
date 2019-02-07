@@ -43,6 +43,8 @@ WICI.CreditCardApplicationData = function() {
 		'O' : 'personalData_Address_Own',
 		'R' : 'personalData_Address_Rent',
 		'P' : 'personalData_Address_Parents',
+		// US5131 WICI - Add Student Housing label to Residence Type list
+		'S' : 'personalData_Address_Student',
 		'M' : 'personalData_Address_Other'
 	};
 

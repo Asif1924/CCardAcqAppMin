@@ -537,7 +537,21 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	showOMX(); 
         	updateOmxCardLanguage();
         });
+        // US5146
+        $("#proceed").click(function(){ 
+        	$("#dialog-container").hide();        	
+        	messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
+              		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));
+        });
+   
+        $("#cancel").click(function(){ 
+        	$("#dialog-container").hide();
+        });
     }
+    // US5146
+    function show_dialog() {
+    	$("#dialog-container").show();
+   	}
     // US4989
     //----------------------------------------------------------------------------------------
     function updateOmxCardLanguage() {
@@ -812,9 +826,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 return;
             }
         }
+        // US5146
+        show_dialog();
         // US3981       
-       	messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
-           		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));               
+       	/*messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
+           		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));*/               
         /*
         saveState();
         flow.next();

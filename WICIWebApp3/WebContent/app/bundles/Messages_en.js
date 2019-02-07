@@ -124,6 +124,12 @@ WICI.dictionary_en =  {
 	
 	chooseProduct_ReadTandC								:	"Read Terms and Conditions",
 	
+	chooseProduct_DialogContent							:	"You are about to apply for a Canadian Tire Mastercard",
+	chooseProduct_DialogContent1						:	"If you already have a Canadian Tire Bank Mastercard and are approved for this credit card, this will be a new account. ",
+	chooseProduct_DialogContent2						:	"Submitting this application will lead to a credit check.",
+	chooseProduct_DialogCancel							:	"CANCEL",
+	chooseProduct_DialogProceed							:	"PROCEED",
+	
 	// US3981
 	chooseProductScreen_Handoutprompts_Title			:	"Legal Handout",
 	chooseProductScreen_Handoutprompts_YesNo_Message	:	"Have you given the applicant the Legal Information Handout?",
@@ -230,6 +236,8 @@ WICI.dictionary_en =  {
 	personalData_Address_Own							:	"Own",
 	personalData_Address_Rent							:	"Rent",
 	personalData_Address_Parents						:	"With Parents",
+	// US5131 WICI - Add Student Housing label to Residence Type list
+	personalData_Address_Student                        :   "Student Housing",
 	personalData_Address_Other							:	"Other",
 
 	personalData_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
@@ -1364,6 +1372,13 @@ WICI.dictionary_en =  {
 	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage Mastercard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",
+	// US5147  WICI - Updated Signature Box
+    signature_OptionsMasterCard_CreditCard 				: "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> credit card",
+	signature_OptionsMasterCard_Dupconvence_text        : "Thanks for applying for a Triangle Mastercard!",
+	signature_World_ELiteMasterCard_CreditCard 			: "Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> credit card",
+	signature_GasAdvantageMasterCard_CreditCard 		: "Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup> credit card",
+	signature_CashAdvantageMasterCard_CreditCard		: "Cash Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup> credit card",
+	
 	//omc_first_chapter_ectm                              : "A FASTER WAY TO COLLECT YOUR CANADIAN TIRE Money<sup>&reg</sup>",
     omc_second_chapter_ectm                             : "Apply for Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> today. It's a faster way to collect your Canadian Tire Money<sup>&reg;</sup>.<br> Simply use your card everywhere you shop - It's accepted worldwide at millions of merchants.",
 

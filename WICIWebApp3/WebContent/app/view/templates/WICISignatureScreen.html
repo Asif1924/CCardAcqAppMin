@@ -184,7 +184,7 @@
 		<br>
 		<div class="warningDIV" id="warningDIVSig" name="warningDIVSig">
 		<center>
-		<p class="warningHeader" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
+		<p class="warningHeader_signaturePage" id="warningHeaderSig" name="warningHeaderSig"><span data-translationKey="signatureScreen_WarningHeader"/></p>
         <center>
 	    <table class="warningTable" id="warningTableSig" name="warningTableSig" >
         <tr>
@@ -201,39 +201,34 @@
 							{{/if}}
 							<br/>
            </td>
-            <td style="width: 80%; padding:25px;">
-                <span data-translationKey="signatureScreen_WarningText1" ></span><br/><br/><b>
-							{{if CardType === 'OMR' }}
-								<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
-							{{else CardType === 'OMP' }}
-								<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
-							{{else}}
-								<span id="triangelMasterCard" data-translationKey="signature_OptionsMasterCard" ></span>
-							    <span id="worldElite_MasterCard" data-translationKey="signature_World_ELiteMasterCard" ></span>		
-							{{/if}}
-
+           <!-- US5147 WICI - Updated Signature Box -->
+            <td style="width: 80%; padding: 13px 5px 16px 25px;">
+                <span class="signaturePageFont" id="warningText_SignaturePage" data-translationKey="signatureScreen_WarningText1" ></span><br/><br/><b>
+					{{if CardType === 'OMR' }}
+						<span class="signaturePageCardFont" id="CashAdvantageMasterCard_CreditCard" data-translationKey="signature_CashAdvantageMasterCard_CreditCard" ></span>
+					{{else CardType === 'OMP' }}
+						<span class="signaturePageCardFont" id="GasAdvantageMasterCard_CreditCard" data-translationKey="signature_GasAdvantageMasterCard_CreditCard" ></span>
+					{{else}}
+						<span class="signaturePageCardFont" id="triangelMasterCard" data-translationKey="signature_OptionsMasterCard_CreditCard" ></span>
+					    <span class="signaturePageCardFont" id="worldElite_MasterCard" data-translationKey="signature_World_ELiteMasterCard_CreditCard" ></span>		
+					{{/if}}
 				</b>
             </td>
         </tr>
         </table>
         </center>
-        <br />
+        </center>
 
-			<div class="signatureContainer sugnatureFixes" >
+			<!-- <div class="signatureContainer sugnatureFixes" >
 				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
 					<div class="signature" id="signature"/>
 				</div>
-			</div>
-			<br>
-			<span id="signature_Reset_Button" class="button grayflat sigResetButton proceedButtonWidth">
-        		<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
-			</span>
+			</div> -->
 		</center>
-			<br/>
 			<div class="signatureCredentialsContainer signatureTopPadding">
 				<label id="signatureScreen_UserName">${ClientName}</label>
 
-				<p><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
+				<p class="margin_Signature"><span data-translationKey="sigScreen_Date"/><label id="signatureScreen_SignDate"></p>
 
 				<div id="signatureScreen_AgreementBoxContainer" class="agreementBoxContainer align-vertical-middle-container">
 					<div class="rightContaier align-vertical-middle-item">
@@ -259,6 +254,20 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- US5147 WICI - Updated Signature Box -->
+            <br/>
+            <center>
+            	<div class="signatureContainer sugnatureFixes" >
+                	<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
+                    	<div class="signature" id="signature"/>
+                    </div>
+                </div>
+                
+                <span id="signature_Reset_Button" class="button grayflat sigResetButton proceedButtonWidth">
+                <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+                </span>
+             </center>
 		</div>
 		<!--<center>
             <span id="signatureScreen_ProceedButton" class="button greenflat proceedToConfirmationButtonWidth">
