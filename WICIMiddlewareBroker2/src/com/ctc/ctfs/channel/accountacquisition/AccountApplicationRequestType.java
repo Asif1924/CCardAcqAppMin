@@ -585,7 +585,7 @@ public class AccountApplicationRequestType
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String externalReferenceId;
-    protected int storeNumber;
+    protected String storeNumber;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String agentId;
@@ -827,7 +827,7 @@ public class AccountApplicationRequestType
      * Gets the value of the storeNumber property.
      * 
      */
-    public int getStoreNumber() {
+    public String getStoreNumber() {
         return storeNumber;
     }
 
@@ -835,7 +835,7 @@ public class AccountApplicationRequestType
      * Sets the value of the storeNumber property.
      * 
      */
-    public void setStoreNumber(int value) {
+    public void setStoreNumber(String value) {
         this.storeNumber = value;
     }
 

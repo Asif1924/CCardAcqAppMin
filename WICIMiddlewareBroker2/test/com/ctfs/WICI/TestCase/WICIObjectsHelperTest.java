@@ -122,7 +122,7 @@ public class WICIObjectsHelperTest
 		String preferredLanguage = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getPreferedLanguage();
 		
 		String insuranceCode = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getInsuranceCode();
-		int storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
+		String storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
 		
 		Assert.assertEquals("OMC", requestedProductType);	
 		Assert.assertEquals("DEO", firstName);
@@ -138,7 +138,7 @@ public class WICIObjectsHelperTest
 		Assert.assertEquals("E", preferredLanguage);
 		Assert.assertEquals("N", insuranceCode);
 		
-		Assert.assertEquals(1, storeNumber);
+		Assert.assertEquals("1", storeNumber);
 		/*
         [activationItems.getModel('chooseProductModel').get('productCard'),
          activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
@@ -200,7 +200,7 @@ public class WICIObjectsHelperTest
 		String preferredLanguage = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getPreferedLanguage();
 		
 		String insuranceCode = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getInsuranceCode();
-		int storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
+		String storeNumber = ((AccountApplicationRequestType) sut.deserializeXMLToAccountApplicationRequestType(accountApplicationRequestXML)).getStoreNumber();		
 		
 		Assert.assertEquals("OMC", requestedProductType);	
 		Assert.assertEquals("DEO", firstName);
@@ -216,7 +216,7 @@ public class WICIObjectsHelperTest
 		Assert.assertEquals("E", preferredLanguage);
 		Assert.assertEquals("N", insuranceCode);
 		
-		Assert.assertEquals(1, storeNumber);
+		Assert.assertEquals("1", storeNumber);
 		/*
         [activationItems.getModel('chooseProductModel').get('productCard'),
          activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
@@ -367,7 +367,7 @@ public class WICIObjectsHelperTest
 		 * accountApplicationRequest.setExternalReferenceId(
 		 * "3788B296-68EE-4242-B12A-F1B37EA64DA2");
 		 */
-		accountApplicationRequest.setStoreNumber(424);
+		accountApplicationRequest.setStoreNumber("424");
 		/*
 		 * accountApplicationRequest.setAgentId("0256");
 		 * accountApplicationRequest.setChannelIndicator("IP");

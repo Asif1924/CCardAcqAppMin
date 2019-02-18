@@ -92,13 +92,35 @@ public class WICIFileHelper {
 	        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
 	        	
 		        String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
-	        	double storeNo = Double.parseDouble(_storeNumber);
 	        	boolean isMarksStore = false;
 	        	boolean isGasBar = false;
 	        	int offset = 0;
-	        	// US3692
-	        	// Print token for CTR store only, not Marks/Gas store
-	        	if(storeNo > 0){
+	        	
+	        	// Husky Gas Store Specific Logic for printing Approved card
+	        	if(_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
+	        		templateFileName = templateFileName;
+        			isGasBar = true;
+        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
+        					+ " accountNumber : " + accountNumber);
+        			
+			        if(cardType.equals("OMP") && "4111111111111111".equals(accountNumber) ) {
+			        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+			        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+			        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+			        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+			        	templateFileName = templateFileName + PrintOutMockupTokensuffix + PrintOutMockupCouponSuffix;
+			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+			        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+			        	templateFileName = templateFileName;
+			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+			        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+			        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
+			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+			        }
+	        	} else if(Double.parseDouble(_storeNumber) > 0){
+	        		double storeNo = Double.parseDouble(_storeNumber);
 	        		// US4062
 	        		// These conditions are all for printing Approved printouts
 	        		// Gas Store Specific Logic

@@ -717,7 +717,18 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'rePrintFileSuccess() ';
         console.log(logPrefix + sMethod);
         
-        printCoupon();
+        if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
+ 				activationItems.getModel('loginScreen').get('locationFieldID') <= 1999) {
+        	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
+            	// No reprint OMX/Z coupon for gas store
+        		new WICI.LoadingIndicatorController().hide();
+        	} else {
+        		printCoupon();
+        	}
+        } else {
+        	printCoupon();
+        }
+        
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileFailure() {

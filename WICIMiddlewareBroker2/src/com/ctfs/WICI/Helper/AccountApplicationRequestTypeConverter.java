@@ -73,27 +73,33 @@ public class AccountApplicationRequestTypeConverter
                 
                     //US4194
                     String  storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
-                    double storeNo = Double.parseDouble(storeNumber);
-                    log.info(sMethod + " storeNo: " + storeNo);
-                    // US4432
-                    if( storeNo >= 4000 && storeNo <= 5999 ) {
-                    	populatedAccountApplicationRequest.setChannelIndicator("FG");
+                    
+                    if(storeNumber.matches(".*[A-Za-z].*")){
+                    	populatedAccountApplicationRequest.setChannelIndicator("HB");
+                    }else{
+                    	double storeNo = Double.parseDouble(storeNumber);
+                        log.info(sMethod + " storeNo: " + storeNo);
+                        // US4432
+                        if( storeNo >= 4000 && storeNo <= 5999 ) {
+                        	populatedAccountApplicationRequest.setChannelIndicator("FG");
+                        }
+                        else if( storeNo >= 6000 && storeNo <= 6999 ) {
+        			        populatedAccountApplicationRequest.setChannelIndicator("IC");	
+        			    } 
+                        else if( storeNo >= 1000 && storeNo <= 1999 && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
+        			        populatedAccountApplicationRequest.setChannelIndicator("GB");
+        			    }
+                        else if( storeNo == 500 &&  !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
+        			        populatedAccountApplicationRequest.setChannelIndicator("OS");
+        			    }
+        			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"))) {
+        			    	populatedAccountApplicationRequest.setChannelIndicator("DP");
+                        }
+                        else {
+                            populatedAccountApplicationRequest.setChannelIndicator("IP");
+                        } 
                     }
-                    else if( storeNo >= 6000 && storeNo <= 6999 ) {
-    			        populatedAccountApplicationRequest.setChannelIndicator("IC");	
-    			    } 
-                    else if( storeNo >= 1000 && storeNo <= 1999 && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
-    			        populatedAccountApplicationRequest.setChannelIndicator("GB");
-    			    }
-                    else if( storeNo == 500 &&  !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
-    			        populatedAccountApplicationRequest.setChannelIndicator("OS");
-    			    }
-    			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"))) {
-    			    	populatedAccountApplicationRequest.setChannelIndicator("DP");
-                    }
-                    else {
-                        populatedAccountApplicationRequest.setChannelIndicator("IP");
-                    } 
+                    
                     
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
     
@@ -516,7 +522,7 @@ public class AccountApplicationRequestTypeConverter
 			if (model != null)
 			{
 				agency = model.get("employerID");
-				argAccAppRequest.setStoreNumber(model.getInt("locationFieldID"));
+				argAccAppRequest.setStoreNumber(model.get("locationFieldID"));
 				/*WICIDBHelper wicidbHelper = new WICIDBHelper();
 				String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
 				boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);*/

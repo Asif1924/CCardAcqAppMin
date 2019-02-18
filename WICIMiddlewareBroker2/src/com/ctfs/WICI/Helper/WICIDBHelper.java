@@ -83,6 +83,24 @@ public class WICIDBHelper
 		return connection;
 	}
 	
+	protected Connection connectToTCTSalesDB(boolean enableAutoCommit) throws SQLException, NamingException
+	{
+		if (mockedConnection != null)
+		{
+			return mockedConnection;
+		}
+		String sMethod = "[] ";
+		log.info(sMethod + "::Called::");
+
+		log.info("Start connectToTCTSalesDB process...");
+
+		// Get connection
+		Connection connection = new DatabaseConnectionFactory().getOracleTCTSalesDatabaseConnection();
+		connection.setAutoCommit(enableAutoCommit);
+
+		return connection;
+	}
+	
 	protected void closeDBConnection(Connection connection)
 	{
 		String sMethod = "[closeDBConnection] ";
@@ -781,7 +799,7 @@ public class WICIDBHelper
 			preparedStatement.setString(13, accountApplicationRequestType.getRequestedProductType());
 			preparedStatement.setString(14, employerId);
 			preparedStatement.setString(15, accountApplicationRequestType.getAgencyPromoCode());
-			preparedStatement.setInt(16, accountApplicationRequestType.getStoreNumber());
+			preparedStatement.setString(16, accountApplicationRequestType.getStoreNumber());
 			preparedStatement.setString(17, firstName);
 			preparedStatement.setString(18, lastName);
 			preparedStatement.setString(19, retailNetWork);
@@ -1804,6 +1822,54 @@ public class WICIDBHelper
 		}
 
 		return accountApplicationRequest;
+	}
+	
+	public WICICheckLocationResponse retrieveUserLocationByHusky(
+			WebICCheckLocationRequest locationRequest) throws Exception {
+		String sMethod = "[retrieveUserLocationByHusky] ";
+
+		// Create sql statement
+		String sql = "SELECT * FROM TCT_PARTNER_STORE_LOC WHERE PARTNER_STORE_NUMBER = ?";
+		WICICheckLocationResponse checkLocationResponse = null;
+		log.info(sMethod + "::SQL::" + sql);
+		String locationId = null;
+//		String sale_otlt_nbr = null;
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement preparedStatement = null;
+		String message = "SUCCESSFUL Authentication and authorization for user..";
+		try {
+			connection = connectToTCTSalesDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			if (locationRequest.getLocationID() != null)
+				//locationId = Integer.parseInt(locationRequest.getLocationID());
+			locationId = locationRequest.getLocationID();
+				
+			preparedStatement.setString(1, locationId);
+			rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				checkLocationResponse = new WICICheckLocationResponse();
+
+//				sale_otlt_nbr = rs.getString("PARTNER_STORE_NUMBER");
+
+				checkLocationResponse.setMessage(message);
+				checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
+//				checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+				checkLocationResponse.setOutletNumber(rs.getString("PARTNER_STORE_NUMBER"));
+				checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
+				checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
+				checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+			}
+		} catch (Exception ex) {
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+		return checkLocationResponse;
 	}
 	
 }

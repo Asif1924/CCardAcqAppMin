@@ -35,7 +35,7 @@ public class ReceiptCustomerInfoHelper
 		String preferredLanguage = aaRequest.getPreferedLanguage();
 
 		String insuranceCode = aaRequest.getInsuranceCode();
-		int storeNumber = aaRequest.getStoreNumber();
+		String storeNumber = aaRequest.getStoreNumber();
 
 		populatedCustomerInformationOfReceipt.setRequestedProductType(validateNotNullString(requestedProductType));
 		populatedCustomerInformationOfReceipt.setFirstName(validateNotNullString(firstName));

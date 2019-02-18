@@ -156,7 +156,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 			accountRequest.setStreetName(accountSubmissionRequest.getStreetName());
 			accountRequest.setAdmAppId(accountSubmissionRequest.getAdmAppId());
 			accountRequest.setTransactionState(accountSubmissionRequest.getTransactionState());
-			accountRequest.setStoreNumber(0);
+			accountRequest.setStoreNumber("0");
 		}
 	} catch (Exception e) {
 		e.printStackTrace();

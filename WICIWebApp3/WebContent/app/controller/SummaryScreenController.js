@@ -415,6 +415,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         			if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
              				activationItems.getModel('loginScreen').get('locationFieldID') <= 1999) {
         				// No coupons for gas store
+        			} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
+        				// No coupons for Husky gas store
         			} else {
         				printCoupon();
         			}

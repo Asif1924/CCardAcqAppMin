@@ -101,9 +101,12 @@ public class LoginInvocationHelper
 			resp = checkLocationHelper.doRequest(requestMediator, argDerivedUserID, userLocation, userLocationProxy);*/
 			
 			//Direct DB Call to retrieve UserLocation
-			
-			resp = helper.retrieveUserLocation(locationRequest);
-			
+			if (locationRequest.getLocationID() != null
+					&& locationRequest.getLocationID().matches(".*[A-Za-z].*")) {
+				resp = helper.retrieveUserLocationByHusky(locationRequest);
+			} else {
+				resp = helper.retrieveUserLocation(locationRequest);
+			}
 		}
 		catch (Exception e)
 		{

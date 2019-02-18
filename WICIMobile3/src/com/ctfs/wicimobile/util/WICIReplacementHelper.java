@@ -26,11 +26,17 @@ public class WICIReplacementHelper {
         _replacementStrategies.add(new WICIAccountShopingReplacementStrategy(carmemberModel.getCardType()));
                 
         String _storeNumber =  "Test".equalsIgnoreCase(carmemberModel.getStoreNumber())? "0" : carmemberModel.getStoreNumber() ;
-    	double storeNo = Double.parseDouble(_storeNumber);
+        double storeNo = 0.0;
+        if(!_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
+        	storeNo = Double.parseDouble(_storeNumber);
+        }
+    	
     	boolean isMarksStore = false;
     	// US4062
     	boolean isGasBar = false;
-    	if(storeNo > 0){
+    	if(_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
+    		isGasBar = true;
+    	} else if(storeNo > 0){
     		if(storeNo >= 1000 && storeNo <= 1999 ) {
     			isGasBar = true;
 	        } else if(storeNo >= 6000 && storeNo <= 6999 ) {

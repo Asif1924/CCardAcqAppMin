@@ -375,9 +375,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             }
         });
 
-        createView();
-        // Hiding US5131
-        $("#personalData_Address_Student_RadioButton").hide();
+        createView();        
         bindEvents();
 
         populateIdTypesProvinces();
@@ -864,8 +862,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             populateIdTypesList();
             showHideQCHealthCard();
             // US5131
-           	// Hiding US5131
-            //applyPaddingForResidanceType();
+            applyPaddingForResidanceType();
             ///********************///
             //According to user story with number 829
             checkForMsButton();
@@ -955,8 +952,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             populateIdTypesProvinces();
             showHideQCHealthCard();
             // US5131
-            // Hiding US5131	
-            //applyPaddingForResidanceType();
+            applyPaddingForResidanceType();
             $(refs.province).val(models.addressModel.get("province"));
 
         });

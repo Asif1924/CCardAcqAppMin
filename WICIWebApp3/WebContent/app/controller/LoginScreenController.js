@@ -52,7 +52,7 @@ WICI.LoginScreenController = function(app) {
          	{ name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
         	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'password', value: null, validation: null },
-            { name: 'locationFieldID', value: null, validation: { type: 'presence', message: '', group: [1] } },
+            { name: 'locationFieldID', value: null, validation: { type: 'presence', message: '', matcher: /^[a-zA-Z0-9]{1,5}$/, group: [1] } },
             { name: 'agentID', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1,8}$/, group: [1] } },
             { notField: true, name: 'userLocationResponse', value: null, validation: null },
             { notField: true, name: 'rollId', value: null, validation: null },
@@ -107,7 +107,7 @@ WICI.LoginScreenController = function(app) {
         //model.set('userID', $(refs.userID).val());
         model.set('agentID', $(refs.agentID).val().toLowerCase());
         //model.set('passwordFieldID', $(refs.passwordFieldID).val());
-        model.set('locationFieldID', $(refs.locationFieldID).val().toLowerCase());
+        model.set('locationFieldID', $(refs.locationFieldID).val().toUpperCase());
         model.set('retailNetWork', $(refs.retailNetWork).val());
         model.set('employeeNumberId', $(refs.employeeNumberId).val());
         model.set('password', $(refs.password).val().toUpperCase());
@@ -139,13 +139,13 @@ WICI.LoginScreenController = function(app) {
        
         assembleTitleHTML($screenContainer, "#WICILoginScreen-template");
 
-        $(refs.locationFieldID).autoNumeric('init', {
-            aSign: '',
-            vMin: '0',
-            vMax: '9999',
-            mDec: '0',
-            aSep: ''
-        });
+//        $(refs.locationFieldID).autoNumeric('init', {
+//            aSign: '',
+//            vMin: '0',
+//            vMax: '9999',
+//            mDec: '0',
+//            aSep: ''
+//        });
         
         $(refs.employeeNumberId).autoNumeric('init', {
             aSep: '', 
@@ -179,7 +179,7 @@ WICI.LoginScreenController = function(app) {
         $(refs.loginButtonID).click(function() {
         	generateAgentId();
         	testPrint();
-            //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
+            //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -580,7 +580,7 @@ WICI.LoginScreenController = function(app) {
 				// Web print
 				 model.set('printerMacAddress', false);
 				 model.set('printerInRange', false);
-  		         invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);				 
+  		         invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);				 
 				 return;
 			}
 		} catch (error) {
@@ -594,7 +594,7 @@ WICI.LoginScreenController = function(app) {
 	    console.log(logPrefix + sMethod);
 	    
 	    model.set('printerInRange', true);
-        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);	    
+        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);	    
 	}
 	//---------------------------------------------------------------------------------------
 	function printTestFileFailure() {
@@ -602,7 +602,7 @@ WICI.LoginScreenController = function(app) {
 	    console.log(logPrefix + sMethod);
 	    
 	    model.set('printerInRange', false);
-        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
 	}
     // ---------------------------------------------------------------------------------------
 	function populateNetworkRetailList() {
