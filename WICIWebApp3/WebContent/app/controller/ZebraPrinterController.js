@@ -104,11 +104,75 @@ WICI.ZebraPrinterController = function () {
                  prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
                  activationItems.getModel('loginScreen').get('locationFieldID'),
                  "",
-                 activationItems.getModel('loginScreen').get('employerID')]);
+                 activationItems.getModel('loginScreen').get('employerID'),
+                 activationItems.getModel('personalData2_Address').get('suiteunit') ? activationItems.getModel('personalData2_Address').get('suiteunit') : "",
+                 activationItems.getModel('personalData2_Address').get('streetnumber') ? activationItems.getModel('personalData2_Address').get('streetnumber') : "",
+                 activationItems.getModel('personalData2_Address').get('addressline1') ? activationItems.getModel('personalData2_Address').get('addressline1') : "",
+                 activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
+                 activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
+                 activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : ""]);
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
         }
       };
+      // US5240
+      //---------------------------------------------------------------------------------------
+      this.printFileBottom = function (activationItems, applicationResponse, successCallback, failureCallback) {
+          var sMethod = 'printFileBottom() ';
+          console.log(logPrefix + sMethod);
+          console.log('---------- printFileBottom ----------');
+          console.log(activationItems.getModel('personalData').get('correspondence'));
+          console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
+          console.log('--------------------');
+          var respCardType;
+          if(app.getDemoMode()) {
+          	respCardType = activationItems.getModel('chooseProductModel').get('productCard');            	
+          } else {
+          // DE1735
+          	if(applicationResponse.appStatus === 'APPROVED'){
+          		respCardType = applicationResponse.respCardType;
+          	}else{
+          		respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+          	}
+          }        
+          console.log(logPrefix + sMethod + " respCardType :: " + respCardType);
+          
+          try {
+              // Send response to mobile side
+              cordova.exec(successCallback,
+                  failureCallback,
+                  "ZebraPrinterPlugin",
+                  "printOutMockupBottom",
+                  [respCardType ? respCardType : "",
+                   activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+                   activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+                   activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+                   applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+                   applicationResponse.maskedPAN ? applicationResponse.maskedPAN : "",
+                   applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+                   applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+                   applicationResponse.apr ? applicationResponse.apr : "",
+                   applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+                   activationItems.getModel('signatureModel').get('userSingnature'),
+                   applicationResponse.appStatus,
+                   activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+                   activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+                   prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                   prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                   activationItems.getModel('loginScreen').get('locationFieldID'),
+                   "",
+                   activationItems.getModel('loginScreen').get('employerID'),
+                   activationItems.getModel('personalData2_Address').get('suiteunit') ? activationItems.getModel('personalData2_Address').get('suiteunit') : "",
+            	   activationItems.getModel('personalData2_Address').get('streetnumber') ? activationItems.getModel('personalData2_Address').get('streetnumber') : "",
+               	   activationItems.getModel('personalData2_Address').get('addressline1') ? activationItems.getModel('personalData2_Address').get('addressline1') : "",
+                   activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
+                   activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
+                   activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
+                   ]);
+          } catch (err) {
+              console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
+          }
+        };
       // US3462
       //---------------------------------------------------------------------------------------
       this.printCoupon = function (activationItems, successCallback, failureCallback) {

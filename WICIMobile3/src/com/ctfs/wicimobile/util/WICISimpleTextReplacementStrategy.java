@@ -20,7 +20,13 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
 			String apr, 
 			String cashAPR,
 			String creditProtectorYesNo, 
-			String identityWatchYesNo) {
+			String identityWatchYesNo,
+			String aptNumber,
+			String streetNumber,
+			String streetName,
+			String city,
+			String province,
+			String postalCode) {
 		
 		// Initialize MappingTable
 		_mappingTable = new Hashtable<String, String>();
@@ -44,6 +50,13 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
         _mappingTable.put("#[CouponNextTwoWeeksDate]", getCouponNextTwoWeeksDateTimeStamp());
         _mappingTable.put("#[CPYesNo]", creditProtectorYesNo);
         _mappingTable.put("#[IWYesNo]", identityWatchYesNo);
+        // US5240
+        _mappingTable.put("#[AptNumber]", aptNumber);
+        _mappingTable.put("#[StreetNum]", streetNumber);
+        _mappingTable.put("#[StreetName]", streetName);
+        _mappingTable.put("#[City]", city);
+        _mappingTable.put("#[Province]", province);
+        _mappingTable.put("#[PostalCode]", postalCode);
     }
 
     @Override

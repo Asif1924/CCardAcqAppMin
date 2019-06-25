@@ -186,64 +186,78 @@ public class BRBEmailUtil
 
     private static String format(String key, BRBEmail emailParams, Language lang)
     {
-    	if (emailParams.getLang().equals(BRBEmail.Language.FRC))
-    	{
-    		if(emailParams.getCreditProtector().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_CreditProtector%%", "d'adh&#233;rer"));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_CreditProtector%%", "de NE PAS adh&#233;rer"));
-    		}
-    		if(emailParams.getIdentityWatch().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "d'adh&#233;rer"));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "de NE PAS adh&#233;rer"));
-    		}
-    		if(emailParams.getProtectionAdvantage().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "d'adh&#233;rer"));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "de NE PAS adh&#233;rer"));
-    		}	
-    	} else {
-    		if(emailParams.getCreditProtector().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_CreditProtector%%", ""));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_CreditProtector%%", "NOT"));
-    		}
-    		if(emailParams.getIdentityWatch().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", ""));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "NOT"));
-    		}
-    		if(emailParams.getProtectionAdvantage().equals("1")){
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", ""));
-    		} else {
-    			emailformats.put(key,emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "NOT"));
-    		}
-    	}
+		if (emailParams.getLang().equals(BRBEmail.Language.FRC)) {
+			if (emailParams.getCreditProtector().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CreditProtector%%", "avez"));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentStart%%", ""));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentEnd%%", ""));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CreditProtector%%", "n'avez pas"));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentStart%%", "<!--"));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentEnd%%", "-->"));
+			}
+			if (emailParams.getIdentityWatch().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "d'adh&#233;rer"));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "de NE PAS adh&#233;rer"));
+			}
+			if (emailParams.getProtectionAdvantage().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "d'adh&#233;rer"));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "de NE PAS adh&#233;rer"));
+			}
+		} else {
+			if (emailParams.getCreditProtector().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CreditProtector%%", ""));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentStart%%", ""));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentEnd%%", ""));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CreditProtector%%", "NOT"));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentStart%%", "<!--"));
+				emailformats.put(key, emailformats.get(key).replace("%%OP_CPDocumentEnd%%", "-->"));
+			}
+			if (emailParams.getIdentityWatch().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", ""));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_IdentityWatchClassic%%", "NOT"));
+			}
+			if (emailParams.getProtectionAdvantage().equals("1")) {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", ""));
+			} else {
+				emailformats.put(key, emailformats.get(key).replace("%%OP_ProtectionAdvantage%%", "NOT"));
+			}
+		}
     	return format(key, emailParams);
     } 
-    
-    private static String format(String key, BRBEmail emailParams)
-    {
-    	System.out.println("key :"+key+"emailParams:"+emailParams);
-    	if(emailParams.getCreditLimit()!=null){
-    	emailformats.put(key,emailformats.get(key).replace("%%CreditLimit%%", emailParams.getCreditLimit()));
-    	}
-    	if(emailParams.getApr()!=null){
-        emailformats.put(key,emailformats.get(key).replace("%%apr%%", emailParams.getApr()));	
-    	}
-    	if(emailParams.getCashApr()!=null){
-        emailformats.put(key,emailformats.get(key).replace("%%CashAPR%%", emailParams.getCashApr()));
-    	}
-    	if(emailParams.getTo()!=null){
-    		emailformats.put(key,emailformats.get(key).replace("%%emailaddress%%", emailParams.getTo()));	
-    	}
-    	
-    	//emailformats.put(key,emailformats.get(key).replace("%%LoyaltyNumber%%", emailParams.getLoyaltyMembershipNumber()));
-    	
-    	return emailformats.get(key).replace("%%CustomerName%%", emailParams.getCustomerName());
 
-    }
+	private static String format(String key, BRBEmail emailParams) {
+
+		System.out.println("key :" + key + "emailParams:" + emailParams);
+		if (emailParams.getCreditLimit() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%CreditLimit%%", emailParams.getCreditLimit()));
+		}
+		if (emailParams.getApr() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%apr%%", emailParams.getApr()));
+		}
+		if (emailParams.getCashApr() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%CashAPR%%", emailParams.getCashApr()));
+		}
+		if (emailParams.getTo() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%emailaddress%%", emailParams.getTo()));
+		}
+		if (emailParams.getAddressline12() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%CustAddressPart1%%", emailParams.getAddressline12()));
+		}
+		if (emailParams.getCityProvincePostalCode() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%CustAddressPart2%%", emailParams.getCityProvincePostalCode()));
+		}
+		if (emailParams.getApplicationDate() != null) {
+			emailformats.put(key, emailformats.get(key).replace("%%AcctOpenDate%%", emailParams.getApplicationDate()));
+		}
+		// emailformats.put(key,emailformats.get(key).replace("%%LoyaltyNumber%%", emailParams.getLoyaltyMembershipNumber()));
+
+		return emailformats.get(key).replace("%%CustomerName%%", emailParams.getCustomerName());
+	}
 
     /*public static synchronized BRBEmailUtil getInstance()
     {

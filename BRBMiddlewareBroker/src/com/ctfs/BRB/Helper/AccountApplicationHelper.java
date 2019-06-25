@@ -263,9 +263,11 @@ public class AccountApplicationHelper
 			log.info("queueName : "+queueName + "appStatus :"+appStatus);
 			
 			CustomerEmailModel customerEmailModel = new CustomerEmailModel();
+			// US5242	Bill 134 - BRB - Updated emails
 			customerEmailModel.initializeModel(accountAppResponse.getCreditLimit(), accountAppResponse.getApr(), accountAppResponse.getCashAPR(), accountRequest.getFirstName(),
 					accountRequest.getLastName(), accountRequest.getInsuranceCode(), clientId, accountRequest.getPreferedLanguage(), emails, accountRequest.getRequestedProductType(),
-					accountAppResponse.getLoyaltyMembershipNumber(),appStatus);
+					accountAppResponse.getLoyaltyMembershipNumber(),appStatus, accountRequest.getCurrentAddressLine1(),accountRequest.getCurrentAddressLine2(), accountRequest.getCurrentCity(), accountRequest.getCurrentProvince(),
+					accountRequest.getCurrentPostalCode());
 
 			String username = ApplicationSettingsManager.getInstance().getEmailServiceUserName();
 			String password = ApplicationSettingsManager.getInstance().getEmailServiceUserPwd();

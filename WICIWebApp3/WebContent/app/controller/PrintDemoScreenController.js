@@ -502,6 +502,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 // Get application server response                
                 //var applicationResponse = activationItems.getAccountApplicationResponse().data;
                 var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+                console.log(logPrefix + sMethod + "activationItems getAccountApplicationResponse() = " + JSON.stringify(activationItems.getAccountApplicationResponse()));
                 console.log(logPrefix + sMethod + "app response = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
                 //messageDialog.info(applicationResponse.data, "Print Info");
                 console.log(logPrefix + sMethod + " fromPendScreen :: " + fromPendScreen);
@@ -511,11 +512,15 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems(argPendScreenInfo.activationItemsFromServer);
                 }
                 
-                app.zebraPrinterWrapper.printFile(
+                console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
+                console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
+                console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
+                
+                app.zebraPrinterWrapper.printFileBottom(
                     activationItems,
                     applicationResponseData,
-                    printFileSuccess,
-                    printFileFailure);
+                    printFileBottomSuccess,
+                    printFileBottomFailure);
             }
             catch (error){
                 console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
@@ -549,23 +554,45 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
             {
                 new WICI.LoadingIndicatorController().show();
 
-                // Get application server response                
-                //var applicationResponse = activationItems.getAccountApplicationResponse().data;
-                var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
-                console.log(logPrefix + sMethod + "app response = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
-                //messageDialog.info(applicationResponse.data, "Print Info");
-                console.log(logPrefix + sMethod + " fromPendScreen :: " + fromPendScreen);
+                if( fromPendScreen ) {
+                	console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
+                    console.log(logPrefix + sMethod + "argPendScreenInfo activationItemsFromServer :: " + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
+                    console.log(logPrefix + sMethod + "argPendScreenInfo accountApplicationResponse :: " + JSON.stringify(argPendScreenInfo.accountApplicationResponse));
+                	
+	                if(argPendScreenInfo) {
+	                    if(argPendScreenInfo.activationItemsFromServer){
+	                    	activationItemsFromServer = argPendScreenInfo.activationItemsFromServer;
+	                    }	
+	                    
+	                    if( fromPendScreen ) {
+	                    	var currentAccountApplicationResponse =  respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse);
+	                    	var newAccountApplicationResponse = argPendScreenInfo.accountApplicationResponse;
+	                    	
+	                    	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems( activationItemsFromServer );
+	                    	activationItems.setAccountApplicationResponse(currentAccountApplicationResponse);
+	                    	activationItems.setNewAccountApplicationResponse(newAccountApplicationResponse);
+	                    }
+	                }
+	                console.log(logPrefix + sMethod + "activationItems getAccountApplicationResponse() = " + JSON.stringify(activationItems.getAccountApplicationResponse()));
+                }
                 
+                console.log(logPrefix + sMethod + "app status = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
+                var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+                
+                console.log(logPrefix + sMethod + " fromPendScreen :: " + fromPendScreen);
                 if(fromPendScreen){
-                	//activationItems = argPendScreenInfo.activationItemsFromServer;
                 	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems(argPendScreenInfo.activationItemsFromServer);
                 }
                 
-                app.zebraPrinterWrapper.printFile(
+                console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
+                console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
+                
+                // US5240
+                app.zebraPrinterWrapper.printFileBottom(
                     activationItems,
                     applicationResponseData,
-                    rePrintFileSuccess,
-                    rePrintFileFailure);
+                    rePrintFileBottomSuccess,
+                    rePrintFileBottomFailure);
             }
             catch (error){
                 console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
@@ -685,9 +712,81 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         }
     }
     //---------------------------------------------------------------------------------------
+    function printFileBottomSuccess(result) {
+        var sMethod = 'printFileBottomSuccess() ';
+        console.log(logPrefix + sMethod);
+        
+        if( fromPendScreen ) {
+	        console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
+	        console.log(logPrefix + sMethod + "argPendScreenInfo activationItemsFromServer :: " + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
+	        console.log(logPrefix + sMethod + "argPendScreenInfo accountApplicationResponse :: " + JSON.stringify(argPendScreenInfo.accountApplicationResponse));
+	        
+	        if(argPendScreenInfo) {
+	            if(argPendScreenInfo.activationItemsFromServer){
+	            	activationItemsFromServer = argPendScreenInfo.activationItemsFromServer;
+	            }	
+	            
+	            if( fromPendScreen ) {
+	            	var currentAccountApplicationResponse =  respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse);
+	            	var newAccountApplicationResponse = argPendScreenInfo.accountApplicationResponse;
+	            	
+	            	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems( activationItemsFromServer );
+	            	activationItems.setAccountApplicationResponse(currentAccountApplicationResponse);
+	            	activationItems.setNewAccountApplicationResponse(newAccountApplicationResponse);
+	            }
+	        }
+	        console.log(logPrefix + sMethod + "activationItems getAccountApplicationResponse() = " + JSON.stringify(activationItems.getAccountApplicationResponse()));
+	        console.log(logPrefix + sMethod + "app status = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
+        }
+        
+        var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+        console.log(logPrefix + sMethod + " appStatus from model :: " + model.get('appStatus'));
+        console.log(logPrefix + sMethod + " fromPendScreen :: " + fromPendScreen);
+        
+        if(fromPendScreen){
+        	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems(argPendScreenInfo.activationItemsFromServer);
+        }
+        
+        console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
+        console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
+        
+        // US5240
+        if(model.get('appStatus') == "APPROVED") {
+        	app.zebraPrinterWrapper.printFile(
+                    activationItems,
+                    applicationResponseData,
+                    printFileSuccess,
+                    printFileFailure);
+        } else {
+        	new WICI.LoadingIndicatorController().hide();
+        	
+        	if(employerID != "E") {
+            	rePrintAttemptCheck();
+            } else {
+            	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+            }
+        }
+
+    }
+    //---------------------------------------------------------------------------------------
+    function printFileBottomFailure() {
+        var sMethod = 'printFileBottomFailure() ';
+        console.log(logPrefix + sMethod);
+        
+        new WICI.LoadingIndicatorController().hide();
+        
+        if(employerID != "E") {
+        	rePrintAttemptCheck();
+        } else {
+        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        }
+    }
+    //---------------------------------------------------------------------------------------
     function printFileSuccess(result) {
         var sMethod = 'printFileSuccess() ';
-        console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod);                
+        
+        new WICI.LoadingIndicatorController().hide();
         
         // US4414 & US4282
         console.log(logPrefix + sMethod + " employerID :: " + employerID);
@@ -712,8 +811,61 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
         }
     }
+    // US5240
     //---------------------------------------------------------------------------------------
-    function rePrintFileSuccess(result) {
+    function rePrintFileBottomSuccess(result) {
+        var sMethod = 'rePrintFileBottomSuccess() ';
+        console.log(logPrefix + sMethod);
+        
+        if( fromPendScreen ) {
+	        console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
+	        console.log(logPrefix + sMethod + "argPendScreenInfo activationItemsFromServer :: " + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
+	        console.log(logPrefix + sMethod + "argPendScreenInfo accountApplicationResponse :: " + JSON.stringify(argPendScreenInfo.accountApplicationResponse));
+	        
+	        if(argPendScreenInfo) {
+	            if(argPendScreenInfo.activationItemsFromServer){
+	            	activationItemsFromServer = argPendScreenInfo.activationItemsFromServer;
+	            }	
+	            
+	            if( fromPendScreen ) {
+	            	var currentAccountApplicationResponse =  respAn.getWICIResponse(argPendScreenInfo.accountApplicationResponse);
+	            	var newAccountApplicationResponse = argPendScreenInfo.accountApplicationResponse;
+	            	
+	            	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems( activationItemsFromServer );
+	            	activationItems.setAccountApplicationResponse(currentAccountApplicationResponse);
+	            	activationItems.setNewAccountApplicationResponse(newAccountApplicationResponse);
+	            }
+	        }
+	        console.log(logPrefix + sMethod + "activationItems getAccountApplicationResponse() = " + JSON.stringify(activationItems.getAccountApplicationResponse()));
+	        console.log(logPrefix + sMethod + "app status = " + respAn.getAppStatus(activationItems.getAccountApplicationResponse()) );
+        }
+        
+        var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
+        console.log(logPrefix + sMethod + " appStatus from model :: " + model.get('appStatus'));
+
+        console.log(logPrefix + sMethod + " fromPendScreen :: " + fromPendScreen);
+        if(fromPendScreen){
+        	activationItems = new WICI.ServerActivationItemsMapper().mapToActivationItems(argPendScreenInfo.activationItemsFromServer);
+        }
+        
+        console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
+        console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
+        
+        app.zebraPrinterWrapper.printFile(
+                activationItems,
+                applicationResponseData,
+                rePrintFileSuccess,
+                rePrintFileFailure);
+    }
+    //---------------------------------------------------------------------------------------
+    function rePrintFileBottomFailure() {
+        var sMethod = 'rePrintFileBottomFailure() ';
+        console.log(logPrefix + sMethod);
+        
+        new WICI.LoadingIndicatorController().hide();
+    }
+    //---------------------------------------------------------------------------------------
+    function rePrintFileSuccess() {
         var sMethod = 'rePrintFileSuccess() ';
         console.log(logPrefix + sMethod);
         
@@ -728,7 +880,6 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         } else {
         	printCoupon();
         }
-        
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileFailure() {

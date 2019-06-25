@@ -141,13 +141,34 @@ WICI.dictionary_en =  {
     
     // Old line
     // overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash advances and related fees) - <strong>19.99%</strong></p> <p>Cash advances and related fees - <strong>21.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash advances and related fees) and <strong>27.99%</strong> for cash advances and related fees.</p>",
-    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p> For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only, if you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of  <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
-    overview_CostOfCreditDisclosure_ChooseProduct_Right1     :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p> For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>, if you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of  <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p>" +
+    												"<p><b>For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only:  If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:</b>" +
+    												"<br><br>(i) If you are a resident of Quebec, <strong>22.99%</strong> for all charges; or" +
+    												"<br><br>(ii) if you reside outside of Quebec, <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_ChooseProduct_Right1     :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> " +
+    															 "<p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:" +
+    															 "<br><br>(i) If you are a resident of Quebec, <strong>22.99%</strong> for all charges or" +
+    															 "<br><br>(ii) if you reside outside of Quebec, <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
+    overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> " +
+    																"<b>For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only:  If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:</b>" +
+    																"<br><br>(i) If you are a resident of Quebec, <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22.99%</strong></span> for all charges; or" +
+    																"<br><br>(ii) if you reside outside of Quebec, <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27.99%</strong></span> for cash transactions and related fees.",
     overview_CostOfCreditDisclosure_OMZ_Right1  :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p>",
     overview_CostOfCreditDisclosure_Left2       :   "Interest-Free Grace Period",
     overview_CostOfCreditDisclosure_Right2      :   "<p>At least <strong>21</strong> days or, if you are a resident of Quebec, at least <strong>26</strong> days.</p><p> You will benefit from an interest-free grace period of at least <strong>21</strong> days (at least <strong>26</strong> days if you are a resident of Quebec) on new purchases if we receive payment in full of the balance due on your current statement by the payment due date.</p><p> There is no grace period for cash transactions, such as convenience cheques, balance transfers or cash advances, or for fees for such transactions.</p>",
     overview_CostOfCreditDisclosure_Left3       :   "Minimum Payment",
-    overview_CostOfCreditDisclosure_Right3      :   "<p>The sum of: </p><p>(A) interest and fees shown on your statement, plus </p><p>(B) the greater of any amount past due or any balance over your credit limit, plus </p><p>(C) the amount of any equal payments plan installments then due, plus </p><p>(D) <strong>$10.00</strong> </p><p> Balances under <strong>$10.00</strong> are due in full.</p> ",
+    overview_CostOfCreditDisclosure_Right3      :   "If you reside in a Province other than Quebec, the Minimum Payment will be the sum of:" +
+													"<br><br>(A) interest and fees shown on your statement; plus" +
+													"<br>(B) the greater of any amount past due or any balance over your credit limit; plus" +
+													"<br>(C) the amount of any equal payments plan installments then due; plus" +
+													 "<br>(D) <strong>$10.</strong>" +
+													"<br>Balances under <strong>$10</strong> are due in full." +
+													"<br><br>If you reside in the Province of Quebec, the Minimum Payment will be the sum of:" +
+													"<br><br>(A) the greater of (i) interest and fees shown on your statement + <span style=\"font-size: 12pt; font-weight: bold;\";><strong>$10</strong></span> or (ii) <span style=\"font-size: 12pt; font-weight: bold;\";><strong>5%</strong></span> of the New Balance, excluding amounts on special payment plans; plus" +
+													"<br>(B) any balance over your credit limit; plus" +
+													"<br>(C) any amounts past due not included in (B) above, plus;" +
+													"<br>(D) the amount of any equal payments plan installments then due." +
+													"<br>Balances under <strong>$10</strong> are due in full.",
     overview_CostOfCreditDisclosure_Left4       :   "Foreign Exchange Conversion",
     overview_CostOfCreditDisclosure_Right4      :   "All transactions made in a foreign currency will be converted to Canadian currency at the then current Mastercard conversion rate plus <strong>2.5%</strong> (for charges to your account) or minus <strong>2.5%</strong> (for credits to your account) when the transaction is posted to your account.",
     overview_CostOfCreditDisclosure_Left5       :   "Annual Fees",
@@ -156,9 +177,12 @@ WICI.dictionary_en =  {
 
 	// Old line
 	// overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> Overlimit Fee: $29</strong> - Unless you reside in Quebec, we will charge you an overlimit fee of <strong>$29.00</strong> if on a statement date your balance exceeds your credit limit and your balance is equal to or more than <strong>$2,000.00</strong>.  However, for determining whether you must pay an overlimit fee, we will not include in that balance any amounts that have been billed on that statement for interest charges, or for credit insurance on your account that is offered by us or one of our affiliates.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
-    overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement or sales slip. <p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
+    overview_CostOfCreditDisclosure_Right6      :   "<p><strong>Cash Advance Fee:  $4</strong> - Charged when the transaction is posted to your account.</p> <p><strong> NSF/Dishounoured Payment Fee: $25</strong> - Charged if a payment you make is dishonoured.</p><p><strong> Charges for Copies: $2</strong> - Charged when you request a copy of a statement.</p>" +
+    												"<p></p><strong>Credit Balance Fee:</strong> The lesser of <strong>$10</strong> or the amount of your credit balance. - Charged on the last day of a billing period when there is a credit balance on the account and the account has been inactive for the previous <strong>12</strong> billing periods. </p>",
+    overview_AccrualInterest					:	"<b>Accrual of Interest:</b> Interest accrues daily on each charge from the date of the transaction giving rise to the particular charge.",    												
+    overview_InterestRates						:	"<p>For residents of Quebec: The credit rates are the annual interest rates specified in the chart above.</p>",
     // US3381
-    overview_EffectiveDate						:	"<b>Information effective as of July 23, 2015</b>",
+    overview_EffectiveDate						:	"Information effective as of <b>June 13, 2019</b>",
     
     overview_Triangle_world_ELite_MasterCardNote :	"<b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> can impose higher card acceptance costs on merchants.</b>",
     
@@ -265,7 +289,7 @@ WICI.dictionary_en =  {
 	// US3623
 	personalData_PreviousAddress_NotInCanada			:	"Previous address is not in Canada:",
 
-	personalData_Note									:	"<sup>*</sup> Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
+	personalData_Note									:	"Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
 	
 	// US4637
 	EmailInfo_PageTitle									:	"E-MAIL INFORMATION",
@@ -987,7 +1011,7 @@ WICI.dictionary_en =  {
     // Old code
     // signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees.",
 	// signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
-    signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees.",
+    signatureScreen_License1_2                          :   " with an annual interest rate of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>22.99%</strong></span> for cash transactions and related fees.",
 	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash transactions and related fees.",
 	signatureScreen_License2_OMZ						:	"<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may still issue me a Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99& for cash transactions and related fees.</b>",
 	// signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
@@ -1370,7 +1394,8 @@ WICI.dictionary_en =  {
 	signature_OptionsMasterCard 					    : "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
 	signature_OptionsMasterCard_Dupconvence_text         : "Thanks for applying for a Triangle Mastercard!",
 	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
-	signature_GasAdvantageMasterCard 					: 	"Gas Advantage Mastercard",
+	signature_GasAdvantageMasterCard 					: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+	signature_GasAdvantageMasterCard1					:	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",
 	// US5147  WICI - Updated Signature Box
     signature_OptionsMasterCard_CreditCard 				: "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> credit card",
@@ -1401,7 +1426,9 @@ WICI.dictionary_en =  {
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
     // signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.</b>",
-    signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash transactions and related fees) and 27.99% for cash transactions and related fees.</b>",
+    signatureScreen_License2                            :   "<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may, without further notice to me, treat this as a separate application for the same Card at the following annual interest rates:" +
+															"<br><br>(i) if I am a resident of Quebec, 22.99% for all charges; or" +
+															"<br><br>(ii) if I reside outside of Quebec, 25.99% for all charges (excluding cash transactions and related fees) and 27.99% for cash transactions and related fees.</b>",
     signatureScreen_License3                            : "The Card is issued by Canadian Tire Bank. The Triangle Rewards<sup>&trade;</sup> Program is provided and administered by Canadian Tire Corporation, Limited.",
 
     signatureScreen_License3_OMP                        : "The Card is issued by Canadian Tire Bank.",
@@ -1409,6 +1436,8 @@ WICI.dictionary_en =  {
     signatureScreen_License7a                           : "If I am not already a member, I will also be automatically enrolled in the Triangle Rewards<sup>&trade;</sup> Program, even if I am not approved for the Card.",
 
     signatureScreen_License7b                           : "I will be bound by the Triangle Rewards<sup>&trade;</sup> Program rules, a copy of which are available at triangle.com.",
+    
+    signatureScreen_License7b_OMX						:	"I will be bound by the Triangle Rewards<sup>&trade;</sup> Program rules.",
 
     optionalProducts_ProtectionAdvantage_Title          :   "Canadian Tire Protection Advantage<sup>&reg;</sup>",
     // Old line

@@ -347,6 +347,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			toggle10XImege();
 			//US4541
 			toggle4PercentImage();
+			// US5241
+			toogleInformationEffective();
 		});
 	}    
     //---------------------------------------------------------------------------------------
@@ -544,6 +546,17 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
 			'topBanner4PercentImageBlock_fr') : $('#choseProduct a#topBanner4PercentImage')
 			.addClass('topBanner4PercentImageBlock_fr').removeClass(
 					'topBanner4PercentImageBlock');  
+		}
+	}
+	
+	// US5241
+	function toogleInformationEffective(){
+		if(translator.getCurrentLanguage() == 'en'){
+			$('#informationEffective').removeClass('Width_TD_40');
+			$('#informationEffective').addClass('Width_TD_35');
+		}else{
+			$('#informationEffective').removeClass('Width_TD_35');
+			$('#informationEffective').addClass('Width_TD_40');
 		}
 	}
 	

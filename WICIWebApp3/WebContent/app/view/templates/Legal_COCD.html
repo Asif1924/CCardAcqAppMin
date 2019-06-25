@@ -11,7 +11,11 @@
                     <tr>
                     <td class="overviewCenterTableTitle" data-translationKey="overview_CostOfCreditDisclosure_Left1"></td>
                     <td class="overviewCenterTableData">
+						{{if activationItems.getModel('chooseProductModel').get('productCard') == "OMX"}}
+						<p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX"></p>
+						{{else}}
                         <p id="overviewCenterTableTextWithoutMargin" data-translationKey="overview_CostOfCreditDisclosure_ChooseProduct_Right1"></p>
+						{{/if}}
                     </td>
                     </tr>
                     <tr>
@@ -48,6 +52,16 @@
         </td>
     </tr>
 </table>
+
+<div class="overViewInterest">
+<span data-translationKey="overview_AccrualInterest"></span>
+<br><br>
+</div>
+
+
+<div class="overViewInterest">
+<span data-translationKey="overview_InterestRates"></span>
+</div>
 
 <!-- US3381 -->
 <div class="overviewCenterTableContainer elementWithLeft10 bottomSpacing elementWithFontSize10" data-translationKey="overview_EffectiveDate"></div>

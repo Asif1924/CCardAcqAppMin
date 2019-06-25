@@ -24,9 +24,10 @@ import com.google.gson.Gson;
 
 public class AccountApplicationRequestTypeConverter
 {
-	private static final String ASC_CTMA="004477";
-	private static final String ASC_ECTM="001177"; //New Asc for US4941 - Instant Issuance - BRB+OIC - Flow changes 
-	private static final String ASC_DEFAULT="005577";
+	private static final String ASC_CTMA="004477"; // This is not valid as per clarification, so not changed for US5244
+	private static final String ASC_ECTM="009977"; //New Asc for US4941 - Instant Issuance - BRB+OIC - Flow changes
+												   // US5244 - Bill 134 - New ASCs
+	private static final String ASC_DEFAULT="009977"; // US5244 - Bill 134 - New ASCs
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
 	
@@ -77,7 +78,7 @@ public class AccountApplicationRequestTypeConverter
 			populatedAccountApplicationRequest.setChannelIndicator("IN");
 		} else {
 			populatedAccountApplicationRequest.setChannelIndicator("WP");
-		}
+     	}
 		// populatedAccountApplicationRequest.setChannelIndicator("WP");
 		
 		populatedAccountApplicationRequest.setCurrentCountry("CA");

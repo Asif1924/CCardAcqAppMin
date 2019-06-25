@@ -36,6 +36,12 @@ public class ReceiptCustomerInfoHelper
 
 		String insuranceCode = aaRequest.getInsuranceCode();
 		String storeNumber = aaRequest.getStoreNumber();
+		
+		// US5240
+		// CurrentAddressLine1 contains Street Number, Street Name and Suite/Apt unit formatted
+		String addressLine1 = aaRequest.getCurrentAddressLine1();
+		String city = aaRequest.getCurrentCity();
+		String postalCode = aaRequest.getCurrentPostalCode();
 
 		populatedCustomerInformationOfReceipt.setRequestedProductType(validateNotNullString(requestedProductType));
 		populatedCustomerInformationOfReceipt.setFirstName(validateNotNullString(firstName));
@@ -52,7 +58,27 @@ public class ReceiptCustomerInfoHelper
 
 		populatedCustomerInformationOfReceipt.setStoreNumber( validateNotNullString(""+storeNumber) );
 	
+		populatedCustomerInformationOfReceipt.setAddressStreetNumber(seperateStreetNumber(addressLine1));
+		populatedCustomerInformationOfReceipt.setAddressStreetName(seperateStreetName(addressLine1));
+		populatedCustomerInformationOfReceipt.setAddressSuiteUnitNumber(seperateSuiteUnit(addressLine1));
+		
+		populatedCustomerInformationOfReceipt.setAddressCity(validateNotNullString(city));
+		populatedCustomerInformationOfReceipt.setAddressProvince( (currentProvince!=null) ? validateNotNullString(currentProvince.toString()) : "" );
+		populatedCustomerInformationOfReceipt.setAddressPostalCode(validateNotNullString(postalCode));
+
 		return populatedCustomerInformationOfReceipt;
+	}
+	
+	private String seperateStreetNumber(String addressLine1) {
+		return addressLine1.substring(addressLine1.indexOf('-')+1,addressLine1.indexOf(' '));
+	}
+
+	private String seperateSuiteUnit(String addressLine1) {
+		return addressLine1.substring(0,addressLine1.indexOf('-'));
+	}
+
+	private String seperateStreetName(String addressLine1) {
+		return addressLine1.substring(addressLine1.indexOf(' ')+1);
 	}
 
 	private String validateNotNullString( String argValue ){
@@ -127,11 +153,52 @@ public class ReceiptCustomerInfoHelper
 		
 		buildChooseProductModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildPersonalDataModel(customerInformationPortionOfReceipt, populatedCCAData);
+		// US5240
+		buildPersonalAddressDataModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildSignatureModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildOptionalProductsModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildLoginScreenModel(customerInformationPortionOfReceipt, populatedCCAData);
 		return populatedCCAData;
 	}
+	private void buildPersonalAddressDataModel(
+			ReceiptCustomerInfo customerInformationPortionOfReceipt,
+			CreditCardApplicationData populatedCCAData) {
+		BaseModel personalDataAddressModel = new BaseModel();
+		personalDataAddressModel.model = "personalData2_Address";
+		
+		NameValue nvPair = new NameValue();
+		nvPair.name = "suiteunit";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressSuiteUnitNumber();
+		personalDataAddressModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "streetnumber";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressStreetNumber();
+		personalDataAddressModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "addressline1";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressStreetName();
+		personalDataAddressModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "city";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressCity();
+		personalDataAddressModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "province";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressProvince();
+		personalDataAddressModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "postalcode";
+		nvPair.value = customerInformationPortionOfReceipt.getAddressPostalCode();
+		personalDataAddressModel.data.add(nvPair);
+		
+		populatedCCAData.models.add(personalDataAddressModel);
+	}
+
 	private void buildLoginScreenModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
 	{
 		BaseModel loginScreen = new BaseModel();

@@ -586,6 +586,19 @@ body {
         border: 0px;
     }
 }
+
+.printOrDownloadTable{
+   border:0px;
+   width: 100%;
+   margin-top: 10px;
+   tr td {
+        padding: 0px;
+        border: 0px;
+        height: 25px;
+        border-spacing: 0px;
+    }
+}
+
 table {
     /*
 	-webkit-border-radius: 11px;
@@ -2759,6 +2772,13 @@ height: 25px
     width: 170px;
     height: 26px;
     padding-top: 3px;
+}
+
+.makeCorrectionSectionTD {
+    height: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .makeCorrectionSection {
     height: 20px;

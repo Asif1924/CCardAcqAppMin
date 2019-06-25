@@ -1,11 +1,14 @@
 package com.ctfs.BRB.EmailService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
 import com.ctfs.BRB.Helper.AccountApplicationRequestTypeConverter;
 import com.ctfs.BRB.Model.BaseModel;
 import com.exacttarget.wsdl.partnerapi.Attribute;
+import java.util.Date;
 
 public class CustomerEmailModel extends BaseModel
 {
@@ -25,8 +28,11 @@ public class CustomerEmailModel extends BaseModel
 	protected final static String ProductTypeValue = "respCardType";
 	protected final static String AppStatusValue = "appStatus";
 	
-	
-	
+	// US5242	Bill 134 - BRB - Updated emails
+	protected final static String ApplicationDate = "applicationDate";
+	protected final static String CustAddressPart1 = "CustAddressPart1";
+	protected final static String CustAddressPart2  = "CustAddressPart2";
+
 	protected String creditLimit;
 	protected String apr;
 	protected String cashAPR;
@@ -41,6 +47,14 @@ public class CustomerEmailModel extends BaseModel
 	protected String loyaltyMembershipNumber;
 	protected String appStatus;
 	
+	// US5242	Bill 134 - BRB - Updated emails
+	protected String addressLine1;
+	protected String addressLine2;
+	protected String city;
+	protected ProvinceType province;
+	protected String postalCode;
+	protected String applicationDate;
+
 	public void initializeModel (			
 			String creditLimit,
 			String apr,
@@ -53,22 +67,41 @@ public class CustomerEmailModel extends BaseModel
 			List <String> emails,
 			String respCardType,
 			String loyaltyMembershipNumber,
-			String appStatus
+			String appStatus,
+			String addressLine1,
+			String addressLine2,
+			String city,
+			ProvinceType province,
+			String postalCode
 			){		
 		this.creditLimit = creditLimit;
 		this.apr = apr;
 		this.cashAPR = cashAPR;
-		this.customerName = String.format("%s %s", firstName, lastName);			
+		this.customerName = String.format("%s %s", firstName, lastName);
 		this.clientId = clientId;		
 		this.emails = emails;
 		this.respCardType = respCardType;
 		this.loyaltyMembershipNumber = loyaltyMembershipNumber;
 		this.appStatus = appStatus; 
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.province = province;
+		this.postalCode = postalCode;
 		
 		processPreferedLanguage (preferedLanguage);
-		processInsuranceData (insuranceCode);	
+		processInsuranceData (insuranceCode);
+		processApplicationDate ();
 	}
-	
+
+	// US5242	Bill 134 - BRB - Updated emails
+	private void processApplicationDate() {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Date date = new Date();
+		this.setApplicationDate(simpleDateFormat.format(date));
+	}
+
 	private void processPreferedLanguage(String preferedLanguage)
 	{
 		if (preferedLanguage.toUpperCase().equals("E")){
@@ -319,8 +352,28 @@ public class CustomerEmailModel extends BaseModel
 		Attribute identityWatchClassic = new Attribute();
 		identityWatchClassic.setName(IdentityWatchClassicAttribute);
 		identityWatchClassic.setValue(getIdentityWatchClassic());
-		attributes.add(identityWatchClassic);		
-		
+		attributes.add(identityWatchClassic);
+
+		StringBuilder address = new StringBuilder(addressLine1);
+		if (addressLine2 != null) {
+			address.append(" ");
+			address.append(addressLine2);
+		}
+		Attribute addressPart1 = new Attribute();
+		addressPart1.setName(CustAddressPart1);
+		addressPart1.setValue(address.toString());
+		attributes.add(addressPart1);
+
+		Attribute addressPart2 = new Attribute();
+		addressPart2.setName(CustAddressPart2);
+		addressPart2.setValue(city + ", " + province + ", " + postalCode);
+		attributes.add(addressPart2);
+
+		Attribute applicationDate = new Attribute();
+		applicationDate.setName(ApplicationDate);
+		applicationDate.setValue(getApplicationDate());
+		attributes.add(applicationDate);
+
 		return attributes;
 	}
 
@@ -338,5 +391,38 @@ public class CustomerEmailModel extends BaseModel
 
 	public void setAppStatus(String appStatus) {
 		this.appStatus = appStatus;
+	}
+
+	// US5242	Bill 134 - BRB - Updated emails
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public ProvinceType getProvince() {
+		return province;
+	}
+
+	public void setProvince(ProvinceType province) {
+		this.province = province;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getApplicationDate() {
+		return applicationDate;
+	}
+
+	public void setApplicationDate(String applicationDate) {
+		this.applicationDate = applicationDate;
 	}
 }

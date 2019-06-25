@@ -395,6 +395,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         // US3623
          createFlips();
+         applyPaddingForResidanceType();
     }
     // ---------------------------------------------------------------------------------------
     function show() {

@@ -10,7 +10,9 @@ WICI.IdNumberValidation = function() {
 	             { prov : 'BC', idTypes : ['BC', 'BI','SC'],idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{8,}$/},
 	             { prov : 'CA', idTypes : ['CI'],           idPostion :null,    regExp: /^[0-9\-\s]{8}$/},
 	             { prov : 'CA', idTypes : ['IN'],  		    idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{6,12}$/},
-	             { prov : 'CA', idTypes : ['PR','PA'],      idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{8,10}$/},
+	             { prov : 'CA', idTypes : ['PR'],      		idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{8,10}$/},
+	             // US5276
+	             { prov : 'CA', idTypes : ['PA'],		    idPostion :null,    regExp: /^[a-zA-Z]{2}[a-zA-Z0-9\-\s]{6,8}$/},
 	             { prov : 'CA', idTypes : ['RE'],           idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{8,}$/},
 	             { prov : 'MB', idTypes : ['MB'],           idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{5,10}$/}, 
 	             { prov : 'MB', idTypes : ['BI'],           idPostion :null,    regExp: /^[a-zA-Z0-9\-\s]{6,}$/}, 

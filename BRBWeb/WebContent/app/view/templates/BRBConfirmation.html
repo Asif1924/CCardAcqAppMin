@@ -229,9 +229,6 @@
 									{{if app.isNSSelected() }}
 									{{if cardType === "OMX"}}
 									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
-									{{else cardType === "OMZ"}} 
-									    <li id="confirmation_Application_Authorization_Item2_OMZ_01_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li> 
-									    <li id="confirmation_Application_Authorization_Item2_OMX_01_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
 									{{/if}}
 									
 									<br> 
@@ -254,18 +251,19 @@
 									<!-- US3011-->
 									{{if cardType === "OMX"}}
 									    <li><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li>
-									{{else cardType === "OMZ"}} 
-									    <li id="confirmation_Application_Authorization_Item2_OMZ_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMZ"></span></li>
-									    <li id="confirmation_Application_Authorization_Item2_OMX_ID"><span class="privacylistItemText boldSpan" data-translationKey="confirmation_Application_Authorization_Item2_OMX"></span></li> 
+										<br>
 									{{/if}}
 									
-									<br>
+									
 									{{if isMOA }}
 									{{if cardType === "OMP" || cardType === "OMR"}}
 									         <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3_OMP"></span></li>
 									{{else}}
 									        <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
 									{{/if}}
+									{{/if}}
+                                    {{if !isMOA }}
+                                            <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item3"></span></li>
 									{{/if}}
 									<br>
 									<li>
@@ -280,8 +278,13 @@
 									<br>
 									<li><p class="privacylistItemLargeText boldSpan" data-translationKey="confirmation_Application_Authorization_Item6"/></li>
 									<br>
-									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item6a"></span></li>
-									<br>
+                                    {{if cardType === "OMP"}}
+								         <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item6a_OMP"></span></li>
+								          <br>
+                                     {{else cardType === "OMR" }}
+									     <li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item6a_OMR"></span></li>
+								         <br>
+                                    {{/if}}	
 									<li><span class="privacylistItemText" data-translationKey="confirmation_Application_Authorization_Item7"></span></li>
 									<br>
 									{{if cardType === "OMX" || cardType === "OMZ" }}
@@ -365,9 +368,15 @@
 			        	<span class="buttonTextReview" data-translationKey="confirmation_Button_Label"></span>
 		        	</a>
 	        	{{else}}
-		        	<a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
-			        	<span class="buttonTextReview" data-translationKey="confirmation_Ctfs_Button_Label"></span>
-		        	</a>
+		        	{{if cardType === "OMP"}}
+		        	     <a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
+			        	   <span class="buttonTextReview" data-translationKey="confirmation_Button_Label"></span>
+		        	     </a>
+                     {{else}}
+                           <a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
+			        	     <span class="buttonTextReview" data-translationKey="confirmation_Ctfs_Button_Label"></span>
+		        	       </a>
+                     {{/if}}	
 	        	{{/if}}
 	        	<!-- <span class="continueButtonTriangle"></span> -->
         	</div>
@@ -450,6 +459,7 @@
 									<!-- US4591 OMZ -->
 									{{else cardType === "OMZ"}} 					
 								      <p id="confirmation_footnoteContentText01_OMZ_ID" data-translationKey="confirmation_footnoteContentText01_OMZ"></p>
+                                    {{else cardType === "OMX"}} 
 								      <p id="confirmation_footnoteContentText01_OMX_ID"  data-translationKey="confirmation_footnoteContentText01_OMX"></p>
 								      {{/if}}
 								<!--	<sup class="additionalInformationFootnoteAsterixFontSize">**</sup>

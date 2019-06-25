@@ -523,13 +523,13 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 		*/
         });
         // US3766                   
-        $("#omrCard").click(function(){ 
-        	console.log('omr');
-        	model.set('productCard', 'OMR'); 
-        	showOMR(); 
-        	// Update selected card style 
-        	updateSelectedCardStyle ($(this)); 
-        });
+//        $("#omrCard").click(function(){ 
+//        	console.log('omr');
+//        	model.set('productCard', 'OMR'); 
+//        	showOMR(); 
+//        	// Update selected card style 
+//        	updateSelectedCardStyle ($(this)); 
+//        });
         // US4989
         $("#omcCard").click(function(){ 
         	console.log('omc');
@@ -737,8 +737,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     }
     // ---------------------------------------------------------------------------------------
     function showCOCD() {
-        $("#CC_Legal_COCD-template").tmpl().appendTo(
-            "#cardDescriptionArea");
+        $("#CC_Legal_COCD-template").tmpl({
+        		activationItems: activationItems,
+        }).appendTo("#cardDescriptionArea");
         updatePageTranslation();
     }
     // ---------------------------------------------------------------------------------------

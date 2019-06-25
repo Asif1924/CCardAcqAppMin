@@ -91,6 +91,42 @@ public class ReceiptCustomerInfo
 	{
 		this.storeNumber = storeNumber;
 	}
+	public String getAddressStreetName() {
+		return addressStreetName;
+	}
+	public void setAddressStreetName(String addressStreetName) {
+		this.addressStreetName = addressStreetName;
+	}
+	public String getAddressStreetNumber() {
+		return addressStreetNumber;
+	}
+	public void setAddressStreetNumber(String addressStreetNumber) {
+		this.addressStreetNumber = addressStreetNumber;
+	}
+	public String getAddressSuiteUnitNumber() {
+		return addressSuiteUnitNumber;
+	}
+	public void setAddressSuiteUnitNumber(String addressSuiteUnitNumber) {
+		this.addressSuiteUnitNumber = addressSuiteUnitNumber;
+	}
+	public String getAddressCity() {
+		return addressCity;
+	}
+	public void setAddressCity(String addressCity) {
+		this.addressCity = addressCity;
+	}
+	public String getAddressProvince() {
+		return addressProvince;
+	}
+	public void setAddressProvince(String addressProvince) {
+		this.addressProvince = addressProvince;
+	}
+	public String getAddressPostalCode() {
+		return addressPostalCode;
+	}
+	public void setAddressPostalCode(String addressPostalCode) {
+		this.addressPostalCode = addressPostalCode;
+	}
 	String requestedProductType;
 	String firstName;
 	String middleInitial;
@@ -104,5 +140,15 @@ public class ReceiptCustomerInfo
 	String creditProtector;
 	String identityWatch;
 	String storeNumber;
+	
+	// US5240
+	String addressStreetName;
+	String addressStreetNumber;
+	String addressSuiteUnitNumber;
+	String addressCity;
+	String addressProvince;
+	String addressPostalCode;
+	
+
 	
 }

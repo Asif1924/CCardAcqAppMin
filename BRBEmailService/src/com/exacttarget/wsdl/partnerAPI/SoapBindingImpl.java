@@ -28,61 +28,68 @@ public class SoapBindingImpl implements com.exacttarget.wsdl.partnerAPI.Soap{
 	        	TriggeredSendDefinition triggeredSendDefinition = triggeredSend.getTriggeredSendDefinition();//  object.getOwner().getUser().getDefaultBusinessUnitObject().getDefaultSendClassification().getSenderProfile().getAutoForwardTriggeredSend();
 	        	//TriggeredSendDefinition triggeredSendDefinition = triggeredSend.getTriggeredSendDefinition(); 
 	        	Subscriber[] subscribers = triggeredSend.getSubscribers(); //triggeredSendDefinition.getList().getSubscribers();
-	        	for(Subscriber subscriber : subscribers){
-	        		BRBEmail emailInfo = new BRBEmail();
-	        		emailInfo.setTo(subscriber.getEmailAddress());
-	        		Attribute[] subscriberAttributes = subscriber.getAttributes();
-	        		for(Attribute attribute : subscriberAttributes){
-	        			if(attribute.getName().equalsIgnoreCase("creditlimit")){
-	        				emailInfo.setCreditLimit(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("apr")){
-	        				emailInfo.setApr(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("cashApr")){
-	        				emailInfo.setCashApr(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("CustomerName")){
-	        				emailInfo.setCustomerName(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("OP_CreditProtector")){
-	        				emailInfo.setCreditProtector(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("OP_IdentityWatchClassic")){
-	        				emailInfo.setIdentityWatch(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("OP_ProtectionAdvantage")){
-	        				emailInfo.setProtectionAdvantage(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("productType")){
-	        				emailInfo.setProductType(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("loyaltyMembershipNumber")){
-	        				emailInfo.setLoyaltyMembershipNumber(attribute.getValue());
-	        			}
-	        			if(attribute.getName().equalsIgnoreCase("AppStatus")){
-	        				emailInfo.setAppStatus(attribute.getValue());
-	        			}
-	        			
-	        		}
-	        		if(triggeredSendDefinition.getCustomerKey().equals("BRB_English")){
-	        			emailInfo.setLang(BRBEmail.Language.ENU);
-	        		}
-	        		if(triggeredSendDefinition.getCustomerKey().equals("BRB_French")){
-	        			emailInfo.setLang(BRBEmail.Language.FRC);
-	        		}
-	        		BRBEmailUtil emailUtil = new BRBEmailUtil(emailInfo.getProductType(),emailInfo.getAppStatus());
-	        		if(emailUtil.sendEmail(emailInfo)){
-	        			response.setOverallStatus("OK");	        			
-	        		} else{
-	        			response.setOverallStatus("Failed");
-	        		}
-	        	}        	
-	        }
-        }
-        catch (final Exception e){
+				for (Subscriber subscriber : subscribers) {
+					BRBEmail emailInfo = new BRBEmail();
+					emailInfo.setTo(subscriber.getEmailAddress());
+					Attribute[] subscriberAttributes = subscriber.getAttributes();
+					for (Attribute attribute : subscriberAttributes) {
+						if (attribute.getName().equalsIgnoreCase("creditlimit")) {
+							emailInfo.setCreditLimit(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("apr")) {
+							emailInfo.setApr(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("cashApr")) {
+							emailInfo.setCashApr(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("CustomerName")) {
+							emailInfo.setCustomerName(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("OP_CreditProtector")) {
+							emailInfo.setCreditProtector(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("OP_IdentityWatchClassic")) {
+							emailInfo.setIdentityWatch(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("OP_ProtectionAdvantage")) {
+							emailInfo.setProtectionAdvantage(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("productType")) {
+							emailInfo.setProductType(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("loyaltyMembershipNumber")) {
+							emailInfo.setLoyaltyMembershipNumber(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("AppStatus")) {
+							emailInfo.setAppStatus(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("CustAddressPart1")) {
+							emailInfo.setAddressline12(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("CustAddressPart2")) {
+							emailInfo.setCityProvincePostalCode(attribute.getValue());
+						}
+						if (attribute.getName().equalsIgnoreCase("applicationDate")) {
+							emailInfo.setApplicationDate(attribute.getValue());
+						}
+					}
+					if (triggeredSendDefinition.getCustomerKey().equals("BRB_English")) {
+						emailInfo.setLang(BRBEmail.Language.ENU);
+					}
+					if (triggeredSendDefinition.getCustomerKey().equals("BRB_French")) {
+						emailInfo.setLang(BRBEmail.Language.FRC);
+					}
+					BRBEmailUtil emailUtil = new BRBEmailUtil(emailInfo.getProductType(), emailInfo.getAppStatus());
+					if (emailUtil.sendEmail(emailInfo)) {
+						response.setOverallStatus("OK");
+					} else {
+						response.setOverallStatus("Failed");
+					}
+				}
+			}
+		}        catch (final Exception e){
         	log.warning(sMethod + "Failed to send email via Exchange!" + e.getMessage());
-        	e.printStackTrace();        	
+        	e.printStackTrace();
         }
     	
     	return response;

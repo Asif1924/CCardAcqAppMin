@@ -7,8 +7,10 @@
 			{{else !activationItems.getModel('additionalInformation').get('suplementaryYesNo')}}
 			   {{if cardType === "OMX" || cardType === "OMZ"}}
 			       <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No"></span>
-			    {{else cardType === "OMP" || cardType === "OMR"}}
-			       <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No_OMP_OMR"></span>
+			    {{else cardType === "OMP"}}
+			       <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No_OMP"></span>
+                {{else cardType === "OMR"}}
+                    <span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_AuthorizeSupplementaryCardmember_No_OMR"></span>
 			    {{/if}} 
 			{{/if}}			
 		</div>		

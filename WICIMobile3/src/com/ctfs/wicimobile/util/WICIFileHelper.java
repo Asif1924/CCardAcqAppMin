@@ -29,6 +29,9 @@ public class WICIFileHelper {
     //public final static String PrintOutMockupFGLsuffix = "_FGL";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
     public final static String PrintOutMockupCardTypeForOMXandOMZsuffix = "OMX_OMZ";
+    // US5240 -  Printout updates
+    public final static String PrintOutMockupTopsuffix = "_top";
+    public final static String PrintOutMockupBottomsuffix = "_bottom";
     String templateName, templateFileName;
     // DE1724 printout language
     static String preferedLang;
@@ -45,7 +48,14 @@ public class WICIFileHelper {
             String province,
             String storeNumber,
             String employeeId,
-            String correspondenceLanguage) throws ConnectionException, IOException {
+            String correspondenceLanguage,
+            boolean isBottomFile,
+            String apartmentNumber,
+            String streetNumber,
+            String streetName,
+            String city,
+            String adrProvince,
+            String postalCode) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
@@ -65,7 +75,12 @@ public class WICIFileHelper {
         		}
 	        	// templateFileName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupPendDecSuffix;
 	        } else {
-	        	templateFileName = "PrintOutMockup_" + cardType;
+	        	// US5240
+	        	if(isBottomFile && (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ"))) {
+	        		templateFileName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
+	        	} else {
+	        		templateFileName = "PrintOutMockup_" + cardType;
+	        	}
 	        }
 	                
 	        // Set suffix for correspondence language
@@ -103,19 +118,13 @@ public class WICIFileHelper {
         			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
         					+ " accountNumber : " + accountNumber);
         			
-			        if(cardType.equals("OMP") && "4111111111111111".equals(accountNumber) ) {
-			        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
-			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-			        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
-			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-			        	templateFileName = templateFileName + PrintOutMockupTokensuffix + PrintOutMockupCouponSuffix;
+			        if("4111111111111111".equals(accountNumber) ) {
+			        	templateFileName = templateFileName;
 			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 			        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
 			        	templateFileName = templateFileName;
 			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+			        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
 			        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
 			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 			        }
@@ -131,14 +140,14 @@ public class WICIFileHelper {
 	        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
 	        					+ " accountNumber : " + accountNumber);
 	        			// US4341
-				        if(cardType.equals("OMP") && "4111111111111111".equals(accountNumber) ) {
-				        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+				        if("4111111111111111".equals(accountNumber) ) {
+				        	templateFileName = templateFileName;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupCouponSuffix;
+				        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if(cardType.equals("OMP") && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupTokensuffix + PrintOutMockupCouponSuffix;
+				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 				        }
 	        		} 
@@ -158,7 +167,7 @@ public class WICIFileHelper {
 				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
 				        	templateFileName = templateFileName;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
 				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 				        }
@@ -168,22 +177,36 @@ public class WICIFileHelper {
 	        		// But CT stores are between 1 to 999 store numbers
 	        		else {
 				        // E && !Marks && Demo than tokrn prn			        	
-			        	if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
+	        			if(!isGasBar && !isMarksStore && isBottomFile && "4111111111111111".equals(accountNumber) ) {
+			        		 templateFileName = templateFileName;
+				        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
 			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
 				        } else if(isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
 				        	templateFileName = templateFileName;
 				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
 				        	templateFileName = templateFileName;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
 				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
 				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 				        }
 			        }
 	        	}
+	        	
+	        	// US5240 -  Printout updates
+	        	if(isBottomFile && isGasBar && cardType.equals("OMP")) {
+		        	templateFileName = templateFileName + PrintOutMockupCouponSuffix + PrintOutMockupBottomsuffix;
+		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+		        } else if(isBottomFile) {
+		        	templateFileName = templateFileName + PrintOutMockupBottomsuffix;
+		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+		        } else {
+		        	templateFileName = templateFileName + PrintOutMockupTopsuffix;
+		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+		        }
+	        	
 	        }
-	              	        	       
-	        	       	                
+	             
         	InputStream inputStream = readTemplate(context, templateFileName);
             
             if ( inputStream != null ) {

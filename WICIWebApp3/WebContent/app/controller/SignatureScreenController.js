@@ -70,6 +70,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         // US3766
         parseCardNameAndType();
         toggleWarningDIV();
+        showOMXContent();
 	}
 	//---------------------------------------------------------------------------------------
     function initModel() {
@@ -404,7 +405,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
 	           $("#overviewCostOfCreditDisclosure").hide();
 	           $("#overviewCostOfCreditDisclosureOMZ").show();
-	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_EN.png");
+	           $("#omzChartImage").attr('src',"app/images/OMZ_Qualifier.png");
 	       } else {
 	           $("#signatureScreenOmcCard").removeClass("en_card");
 	           $("#signatureScreenOmcCard").addClass("fr_card");
@@ -413,7 +414,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
 	           $("#overviewCostOfCreditDisclosure").show();
 	           $("#overviewCostOfCreditDisclosureOMZ").hide();
-	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_FR.png");
+	           $("#omzChartImage").attr('src',"app/images/OMZ_Qualifier_FR.png");
 	       }
 	   }
 	   
@@ -426,7 +427,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle_fr").addClass("sigScreen_WorldEliteCardTitle");
 	           $("#overviewCostOfCreditDisclosure").hide();
 	           $("#overviewCostOfCreditDisclosureOMZ").show();
-	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_EN.png");
+	           $("#omzChartImage").attr('src',"app/images/OMZ_Qualifier.png");
 	       } else {
 	           $("#signatureScreenOmzCard").removeClass("en_card");
 	           $("#signatureScreenOmzCard").addClass("fr_card");
@@ -435,7 +436,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	           $("#sigScreen_WorldEliteCardTitle_3").removeClass("sigScreen_WorldEliteCardTitle").addClass("sigScreen_WorldEliteCardTitle_fr");
 	           $("#overviewCostOfCreditDisclosure").show();
 	           $("#overviewCostOfCreditDisclosureOMZ").hide();
-	           $("#omzChartImage").attr('src',"app/images/omz_qualifier_FR.png");
+	           $("#omzChartImage").attr('src',"app/images/OMZ_Qualifier_FR.png");
 	       }
 	   }
 	   
@@ -481,6 +482,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		$('#triangelMasterCard').hide();
 		$('#sigworldElite_MasterCardNote').show();
 		$('#sigtriangelMasterCardNote').hide();
+		$('#signature_Text_OMX').hide();
+		$('#signature_Text_OMZ').show();
 		updateSelectedCardStyle($('#signatureScreen_WorldEliteCardContent'));
 		$(refs.image).attr('src', "app/images/omz_en.png");
 		activationItems.getModel('chooseProductModel').set('productCard', 'OMZ');
@@ -500,10 +503,24 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		$('#triangelMasterCard').show();
 		$('#sigworldElite_MasterCardNote').hide();
 		$('#sigtriangelMasterCardNote').show();
+		$('#signature_Text_OMX').show();
+		$('#signature_Text_OMZ').hide();
 		updateSelectedCardStyle($('#signatureScreen_TriangleCardContent'));
 		$(refs.image).attr('src', "app/images/omx_en.png");
         model.set('sigcardSelection',   true);
         activationItems.getModel('chooseProductModel').set('productCard', 'OMX');
+	}
+	
+	function showOMXContent(){
+		if (activationItems.getModel('chooseProductModel').get('productCard') == 'OMX'){
+			$('#signature_Text_OMX').show();
+			$('#signature_Text_OMZ').hide();
+		}
+		if( verifyCardValidation()){
+			$('#omx_signatureScreen_Licence_Content').show();
+		}
+			
+		
 	}
 	
    function onAcceptAgrementFontChange(){

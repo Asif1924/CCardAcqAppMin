@@ -137,6 +137,8 @@
 						<!-- Old code <xsd:enumeration value="003377"></xsd:enumeration> -->
 						<!-- Old code <xsd:enumeration value="002277"></xsd:enumeration> -->
 						<xsd:enumeration value="001177"></xsd:enumeration>
+						<!-- US5244	Bill 134 - New ASCs -->
+						<xsd:enumeration value="009977"></xsd:enumeration>
 <!-- 						<xsd:maxLength value="6" /> -->
 					</xsd:restriction>
 				</xsd:simpleType>

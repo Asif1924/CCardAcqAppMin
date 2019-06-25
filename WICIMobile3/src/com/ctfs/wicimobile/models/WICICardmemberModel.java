@@ -29,7 +29,14 @@ public class WICICardmemberModel {
 	private String _todayDate;
 	private String _storeNumber;
 	private String _employeeId;
-	
+	// US5240 -  Printout updates
+	private String _adrsuiteunit;
+	private String _adrstreetnumber;
+	private String _adraddressline1;
+	private String _adrcity;
+	private String _adrprovince;
+	private String _adrpostalcode;
+		
 	public WICICardmemberModel(){
         _cardType = "";
         _firstName = "";
@@ -51,6 +58,13 @@ public class WICICardmemberModel {
         _todayDate = "";
     	_storeNumber = "";
     	_employeeId = "";
+    	
+    	_adrsuiteunit = "";
+    	_adrstreetnumber = "";
+    	_adraddressline1 = "";
+    	_adrcity = "";
+    	_adrprovince = "";
+    	_adrpostalcode = "";
     }   
     
     public void initializeModel(JSONArray source) {
@@ -76,7 +90,12 @@ public class WICICardmemberModel {
             _storeNumber = source.getString(16);
             _todayDate = source.getString(17);
             _employeeId = source.getString(18);
-                 
+            _adrsuiteunit = source.getString(19);
+            _adrstreetnumber = source.getString(20);
+            _adraddressline1 = source.getString(21);
+            _adrcity = source.getString(22);
+            _adrprovince = source.getString(23);
+            _adrpostalcode = source.getString(24);
         } catch (JSONException e) {            
             e.printStackTrace();
         }
@@ -338,5 +357,53 @@ public class WICICardmemberModel {
 	 */
 	public void setEmployeeId(String _employeeId) {
 		this._employeeId = _employeeId;
+	}
+
+	public String getAdrsuiteunit() {
+		return _adrsuiteunit;
+	}
+
+	public void setAdrsuiteunit(String _adrsuiteunit) {
+		this._adrsuiteunit = _adrsuiteunit;
+	}
+
+	public String getAdrstreetnumber() {
+		return _adrstreetnumber;
+	}
+
+	public void setAdrstreetnumber(String _adrstreetnumber) {
+		this._adrstreetnumber = _adrstreetnumber;
+	}
+
+	public String getAdraddressline1() {
+		return _adraddressline1;
+	}
+
+	public void setAdraddressline1(String _adraddressline1) {
+		this._adraddressline1 = _adraddressline1;
+	}
+
+	public String getAdrcity() {
+		return _adrcity;
+	}
+
+	public void setAdrcity(String _adrcity) {
+		this._adrcity = _adrcity;
+	}
+
+	public String getAdrprovince() {
+		return _adrprovince;
+	}
+
+	public void setAdrprovince(String _adrprovince) {
+		this._adrprovince = _adrprovince;
+	}
+
+	public String getAdrpostalcode() {
+		return _adrpostalcode;
+	}
+
+	public void setAdrpostalcode(String _adrpostalcode) {
+		this._adrpostalcode = _adrpostalcode;
 	} 
 }

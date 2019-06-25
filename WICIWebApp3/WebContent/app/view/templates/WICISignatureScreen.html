@@ -5,7 +5,7 @@
 		<div id="SignatureScreen_OMZContents"
 		</br>
 	  				<div>
-					 <center>  <img id="omzChartImage" src="app/images/omz_qualifier_EN.png" data-lang-class/> </center>
+					 <center>  <img id="omzChartImage" src="app/images/OMZ_Qualifier.png" data-lang-class/> </center>
 	 				</div>
 		 </br>
 		
@@ -104,6 +104,15 @@
     </tr>
 </table>
 </div>
+
+<div class="overViewInterest">
+<span data-translationKey="overview_AccrualInterest"></span>
+<br><br>
+</div>
+
+<div class="overViewInterest">
+<span data-translationKey="overview_InterestRates"></span>
+</div>
 <div class="overviewCenterTableContainer elementWithLeft10 bottomSpacing elementWithFontSize10" data-translationKey="overview_EffectiveDate"></div>
 <div id="triangle_world_ELite_MasterCardNote" class="overviewCenterTableContainer elementWithLeft15  elementWithFontSize10" data-translationKey="overview_Triangle_world_ELite_MasterCardNote"></div>
 </div>
@@ -125,7 +134,7 @@
 				{{if CardType === 'OMR' }}
 					<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
 				{{else CardType === 'OMP' }}
-					<span data-translationKey="signature_GasAdvantageMasterCard" ></span>
+					<span data-translationKey="signature_GasAdvantageMasterCard1" ></span>
 				{{else}}
 					<span id="triangle_MasterCard_License1" data-translationKey="signature_OptionsMasterCard" ></span>
 					<span id="worldElite_MasterCard_License1" data-translationKey="signature_World_ELiteMasterCard" ></span>	
@@ -135,7 +144,7 @@
 			</li>
 			<br>
 			<li id ="omx_signatureScreen_Licence_Content"> <span  data-translationKey="signatureScreen_License2"/></li>
-			<li id ="omz_signatureScreen_Licence_Content"> <span  data-translationKey="signatureScreen_License2_OMZ"/></li>
+			<!--<li id ="omz_signatureScreen_Licence_Content"> <span  data-translationKey="signatureScreen_License2_OMZ"/></li>-->
 			<br>
 				{{if CardType === 'OMR' }}
 					<li><span data-translationKey="signatureScreen_License3_OMR"/></li>
@@ -163,13 +172,16 @@
 			</li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License7"/></li>
-			<br>
-			{{if CardType === 'OMX' }}
-				<li><span data-translationKey="signatureScreen_License7a"/></li>
-				<br>
-				<li><span data-translationKey="signatureScreen_License7b"/></li>
-				<br>
-			{{/if}}
+			<br>		
+			{{if CardType === 'OMP' }}
+	{{else}} 	
+		<li><span data-translationKey="signatureScreen_License7a"/></li>
+		<br>
+		<li id = "signature_Text_OMX"><span data-translationKey="signatureScreen_License7b_OMX"/></li>			
+		<li id = "signature_Text_OMZ"><span data-translationKey="signatureScreen_License7b"/></li>
+		<br>
+{{/if}}
+
 			<li><span data-translationKey="signatureScreen_License8"/></li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License9"/></li>

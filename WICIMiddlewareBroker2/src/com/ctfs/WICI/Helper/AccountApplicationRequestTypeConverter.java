@@ -33,8 +33,9 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_MOBILEPAYMENTS_SCREEN = "mobilePaymentsScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
-	private static final String ASC_ECTM="1177"; //New Asc added for US4926 - Instant Issuance WICI - TSYS Enstream Integration //ASC_ECTM="2277"; //ASC_ECTM="3377";  
-	private static final String ASC_DEFAULT="5577";
+	private static final String ASC_ECTM="9977"; //New Asc added for US4926 - Instant Issuance WICI - TSYS Enstream Integration //ASC_ECTM="2277"; //ASC_ECTM="3377";  
+												 // US5244 - Bill 134 - New ASCs
+	private static final String ASC_DEFAULT="9977"; // US5244 - Bill 134 - New ASCs
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
 	
