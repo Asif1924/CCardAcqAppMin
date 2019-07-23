@@ -996,7 +996,7 @@ WICI.dictionary_en =  {
 	Canadian_Tire                                       :   'Canadian Tire'    ,
 	Gas                                                 :   'Gas+',
 	Marks                                               :   'Mark\'\s',
-	SportsCheck_OR_Atmosphere                           :   'Sport Chek/Atmosphere',
+	SportsCheck_OR_Atmosphere                           :   'FGL Sports',
 	
 	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
 	

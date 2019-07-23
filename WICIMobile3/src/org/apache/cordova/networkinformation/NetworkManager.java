@@ -34,6 +34,8 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 
 import java.util.Locale;
 
@@ -102,6 +104,7 @@ public class NetworkManager extends CordovaPlugin {
             this.receiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
+                    Log.d("CordovaNetworkManager", "onReceive...");
                     // (The null check is for the ARM Emulator, please use Intel Emulator for better results)
                     if(NetworkManager.this.webView != null)
                         updateConnectionInfo(sockMan.getActiveNetworkInfo());
@@ -166,13 +169,48 @@ public class NetworkManager extends CordovaPlugin {
         // send update to javascript "navigator.network.connection"
         // Jellybean sends its own info
         JSONObject thisInfo = this.getConnectionInfo(info);
+
+        String connectionType = "";
+        try {
+            connectionType = thisInfo.get("type").toString();
+        } catch (JSONException e) { }
+
+        Log.d("CordovaNetworkManager", "Connection Type from getActiveNetworkInfo: " + connectionType);
+
+        boolean activeNetworkIsVPN = false;
+
+        //getActiveNetwork (available in Android M and above) is more reliable than getActiveNetworkInfo when using per-app VPN. 
+        //if (connectionType.equals(TYPE_NONE) && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            Network network;
+            network = sockMan.getActiveNetwork();
+
+            NetworkCapabilities capabilities = sockMan.getNetworkCapabilities(network);
+            activeNetworkIsVPN = (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN));
+            Log.d("CordovaNetworkManager", "ActiveNetwork exists: " + (network != null));
+            Log.d("CordovaNetworkManager", "Can access ActiveNetwork capabilities: " + (capabilities != null));
+            Log.d("CordovaNetworkManager", "ActiveNetwork is VPN: " + activeNetworkIsVPN);
+
+            //If we have the VPN Connection available, assume the tablet can reach server.
+            if(activeNetworkIsVPN){
+                Log.d("CordovaNetworkManager", "Resetting ConnectionType to unknown.");
+                connectionType = TYPE_UNKNOWN;
+                try {
+                    thisInfo.put("type", connectionType);
+                } catch (JSONException e) { }
+            }
+
+            //TEMP DEBUG - START
+            NetworkInfo infoFromActiveNetwork = sockMan.getNetworkInfo(network);
+            if(infoFromActiveNetwork != null){
+                String secondConnectionType = infoFromActiveNetwork.getTypeName().toLowerCase(Locale.US);
+                Log.d("CordovaNetworkManager", "Connection Type from getActiveNetwork: " + secondConnectionType);
+            }
+            //TEMP DEBUG - END
+        }
+
         if(!thisInfo.equals(lastInfo))
         {
-            String connectionType = "";
-            try {
-                connectionType = thisInfo.get("type").toString();
-            } catch (JSONException e) { }
-
             sendUpdate(connectionType);
             lastInfo = thisInfo;
         }
@@ -187,18 +225,18 @@ public class NetworkManager extends CordovaPlugin {
     private JSONObject getConnectionInfo(NetworkInfo info) {
         String type = TYPE_NONE;
         String extraInfo = "";
+        
         if (info != null) {
+            type = getType(info);
+
             // If we are not connected to any network set type to none
             if (!info.isConnected()) {
                 type = TYPE_NONE;
             }
-            else {
-                type = getType(info);
-            }
             extraInfo = info.getExtraInfo();
         }
 
-        Log.d("CordovaNetworkManager", "Connection Type: " + type);
+        //Log.d("CordovaNetworkManager", "Connection Type: " + type);
         Log.d("CordovaNetworkManager", "Connection Extra Info: " + extraInfo);
 
         JSONObject connectionInfo = new JSONObject();
@@ -235,8 +273,9 @@ public class NetworkManager extends CordovaPlugin {
         if (info != null) {
             String type = info.getTypeName().toLowerCase(Locale.US);
 
-            Log.d("CordovaNetworkManager", "toLower : " + type.toLowerCase());
-            Log.d("CordovaNetworkManager", "wifi : " + WIFI);
+            Log.d("CordovaNetworkManager", "TYPE from NetworkInfo : " + type);
+            //Log.d("CordovaNetworkManager", "toLower : " + type.toLowerCase());
+            //Log.d("CordovaNetworkManager", "wifi : " + WIFI);
             if (type.equals(WIFI)) {
                 return TYPE_WIFI;
             }

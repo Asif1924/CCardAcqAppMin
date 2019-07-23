@@ -160,7 +160,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                 name : 'employerName',
                 value : null,
                 validation : {
-                    type : 'personName',
+                    type : 'employerName',
                     message : 'financialData_validation_employerName',
                     group : [ 1 ]
                 }

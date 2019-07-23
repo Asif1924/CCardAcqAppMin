@@ -139,6 +139,9 @@ WICI.BaseModel = function(config) {
             case 'personName':
                 isError=!validator.personName(value);
                 break;
+            case 'employerName':
+                isError=!validator.employerName(value);
+                break;
             case 'jobTitle':
                 isError=!validator.jobTitle(value);
                 break;

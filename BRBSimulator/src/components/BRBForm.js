@@ -169,15 +169,14 @@ class TextFields extends React.Component {
     var sr =
         '<?xml version="1.0" encoding="utf-8"?>' +
         '<soapenv:Envelope ' + 
-            'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
-            'xmlns:per="http://persistservice.BRB.ctfs.com/" ' +
-            '<soapenv:Header />' +            
+            'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+            'xmlns:per="http://persistservice.BRB.ctfs.com/">' +         
             '<soapenv:Body>' +
                 '<per:request>' +
                     '<per:requestingSystem>'+this.state.requestingSystem+'</per:requestingSystem>' +
                     '<per:customerInfo>' +
                       '<per:ecommCustomerId>'+this.state.ecommId+'</per:ecommCustomerId>' +
-                      '<per:email>'+this.state.ecommId+'</per:email>' +
+                      '<per:email>'+this.state.email+'</per:email>' +
                       '<per:firstName>'+this.state.firstName+'</per:firstName>' +
                       '<per:lastName>'+this.state.lastName+'</per:lastName>' +
                       '<per:phone>'+this.state.phone+'</per:phone>' + 
@@ -190,9 +189,9 @@ class TextFields extends React.Component {
                       '</per:addressDetails>' +
                       '<per:loyaltyDetails>' + 
                         '<per:loyaltyProgram>'+this.state.loyaltyProgram+'</per:loyaltyProgram>' +
-                        '<per:loyaltyNumber>'+this.state.loyaltyProgram+'</per:loyaltyNumber>'
-                      '</per:loyaltyDetails>'                              
-                    '</per:customerInfo>'                    
+                        '<per:loyaltyNumber>'+this.state.loyaltyNumber+'</per:loyaltyNumber>' +
+                      '</per:loyaltyDetails>' +                              
+                    '</per:customerInfo>' +                   
                 '</per:request>' +
             '</soapenv:Body>' +
         '</soapenv:Envelope>';

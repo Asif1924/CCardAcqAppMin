@@ -1,7 +1,11 @@
 <script id="BRBConfirmationEmploymentSection-template" type="text/x-jquery-tmpl">
 	<div id="personalInfoTable" class="grayTableTopBorder row">	
 		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
-			<span data-translationKey="personalInformation_EmploymentType"></span>			
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+					<span data-translationKey="personalInformation_EmploymentType"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+					<span data-translationKey="personalInformation_EmploymentType_OMP_OMR"></span>
+			{{/if}} 
 		</div>
 		<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
 			<span data-translationKey=${ activationItems.getEmploymentTypeFriendlyName(activationItems.getModel('personalInformation').get('employmentType'))}></span>

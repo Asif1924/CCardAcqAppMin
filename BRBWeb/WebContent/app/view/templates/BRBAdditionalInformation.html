@@ -62,10 +62,20 @@
 <div class="ScreenLayout" id="AdditionalInformation_PageContents">
     <div id="additionalSuplementaryCardArea">
         <div class="confirmationTitle row">
-            <span class="pageSubTitle leftalign" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
+             {{if cardType === "OMP" || cardType === "OMR"}}
+                  <span class="pageSubTitle leftalign" data-translationKey="additionalInformation_GetSuplementaryCard_OMP_OMR"></span>
+             {{else}}
+                  <span class="pageSubTitle leftalign" data-translationKey="additionalInformation_GetSuplementaryCard"></span> 
+             {{/if}}
+            
+             
             <div id="getSuplementaryCard_requiredFieldIndicatorBlock" class="floatToRight">
 					<span class="requiredField redSpan">*</span>
-                	<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+                    {{if cardType === "OMP" || cardType === "OMR"}}
+                	  <span class="requiredField" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+                    {{else}}
+                       <span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+                    {{/if}}
             </div>
         </div>
         <div>

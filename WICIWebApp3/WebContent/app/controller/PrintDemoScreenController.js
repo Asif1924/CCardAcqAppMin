@@ -877,6 +877,13 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         	} else {
         		printCoupon();
         	}
+        } else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500 ) {
+        	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
+            	// No reprint OMX/Z coupon for OOS store
+        		new WICI.LoadingIndicatorController().hide();
+        	} else {
+        		printCoupon();
+        	}
         } else {
         	printCoupon();
         }

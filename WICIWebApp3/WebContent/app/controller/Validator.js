@@ -100,6 +100,19 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
+        return regexMatch(/^[A-Z0-9\-\' ]{2,50}$/, value.trim());
+    };
+    //---------------------------------------------------------------------------------------
+    this.employerName = function(value) {
+        // length:50
+        // value:
+        // "A-Z 0-9 -'
+        // Alpha Numeric (Upper Case)
+        // Hyphen
+        // Single Quote"
+        if(value===null){
+            return false;
+        }
         return regexMatch(/^[A-Z0-9\-\' ]{1,50}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------

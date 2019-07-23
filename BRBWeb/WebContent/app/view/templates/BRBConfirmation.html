@@ -113,7 +113,7 @@
 			{{if cardType === "OMX" || cardType === "OMZ" }}
 				<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
 			{{else cardType === "OMP" || cardType === "OMR" }}
-				<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation"></span>
+				<span class="pageSubTitle" data-translationKey="personalInformation_EmploymentInformation_OMP_OMR"></span>
 			{{/if}}			
 		</div>		
 		<center>
@@ -130,7 +130,11 @@
 		</center>		
 		
 		<div class="personalTitle row">
-			<span class="pageSubTitle" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+					<span class="pageSubTitle" data-translationKey="additionalInformation_GetSuplementaryCard"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+					<span class="pageSubTitle" data-translationKey="additionalInformation_GetSuplementaryCard_OMP_OMR"></span>
+			{{/if}}
 		</div>
 		<center>
 			<div id="confirmation_GetSuplementaryCardArea" >
@@ -181,10 +185,10 @@
 		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="additionalInformation_OptionalProducts"></span>
 		</div>
-		<center>
+		
 			<div id="confirmation_OptionalInsuranceArea" >	            								
 			</div>
-		</center>		
+				
 		
 		<div class="personalTitle row">
 			<span class="pageSubTitle" data-translationKey="confirmation_Terms_Conditions"></span>
@@ -365,18 +369,12 @@
         	<div class="floatToRight continueButtonRightPositionReview elementBottom10 col-xs-12 col-sm-3" id="confirmation_continueButton">
 				{{if !isMOA }}
 		        	<a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
-			        	<span class="buttonTextReview" data-translationKey="confirmation_Button_Label"></span>
+			        	<span class="buttonTextReview" data-translationKey="confirmation_Ctfs_Button_Label"></span>
 		        	</a>
 	        	{{else}}
-		        	{{if cardType === "OMP"}}
 		        	     <a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
 			        	   <span class="buttonTextReview" data-translationKey="confirmation_Button_Label"></span>
 		        	     </a>
-                     {{else}}
-                           <a href="#" class="continueButton submitApplicationButton" id="confirmation_ContinueButtonHref">
-			        	     <span class="buttonTextReview" data-translationKey="confirmation_Ctfs_Button_Label"></span>
-		        	       </a>
-                     {{/if}}	
 	        	{{/if}}
 	        	<!-- <span class="continueButtonTriangle"></span> -->
         	</div>

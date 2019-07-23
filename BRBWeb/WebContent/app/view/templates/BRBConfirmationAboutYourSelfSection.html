@@ -58,7 +58,11 @@
 	{{if activationItems.getModel('personalInformation').get('email') }}
 	<div id="personalInfoTable" class="grayTableNoBorder row">
 		<div class="fieldLabelsCell fieldLabelsTopCell elementTopBottom10 col-xs-4 col-sm-3">
-			<span data-translationKey="personalInformation_EmailAddress"></span>			
+			{{if cardType === "OMX" || cardType === "OMZ" }}
+				<span data-translationKey="personalInformation_EmailAddress"></span>
+			{{else cardType === "OMP" || cardType === "OMR" }}
+				<span data-translationKey="personalInformation_EmailAddress_OMP_OMR"></span>
+			{{/if}}
 		</div>
 		<div class="fieldLabelsCell fieldCellWithBoldFontSize14 fieldValuesTopCell elementTopBottom10 col-xs-8 col-sm-9">
 			${ activationItems.getModel('personalInformation').get('email')}			

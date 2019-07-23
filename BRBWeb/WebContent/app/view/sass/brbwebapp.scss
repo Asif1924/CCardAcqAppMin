@@ -3120,6 +3120,10 @@ height: 25px
     }
 }
 
+.grayTableTopBottomBorder{
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
 
 .grayTableBorderGray {
     background-color: #F7F7F7;
@@ -3145,6 +3149,17 @@ height: 25px
     border: 0px;
     tr td {
         border: 0px;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+    }
+    border-radius: 5px;
+}
+
+.whiteTablewithBorder{
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    tr td {
+        border: 1px solid #000000;
         background-color: #FFFFFF;
         border-radius: 5px;
     }
@@ -3737,6 +3752,17 @@ width: 184px;
     min-width: 96.7%; /* 97.1%;*/
     max-width: 100%;
 }
+
+#termsandconditionAgrrement{
+    /*2016-03-14 chrch: updated min-width for responsive error */
+    min-width: 95%; 
+    max-width: 97%;
+}
+.termsandconditionAgrrementTable{
+  margin-top: 15px;
+  width: 97%;
+}
+
 .fieldCellWithFontSize12 {
     font-family: Lato;
     font-size: 12px;
@@ -4621,7 +4647,22 @@ input:-moz-placeholder {
     border-color: #CCCCCC;
     border-width: 1px;
 }
-
+ .scrollbarReviewPage
+{
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 200px;
+    width: 99%;
+    background: #ffffff;
+    overflow-y: scroll;
+    padding: 15px;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 1px;
+}
+.scrollbarHight{
+  height: 100px;
+}
  .scrollbar_identityPage
 {
     height: 200px;
@@ -5121,6 +5162,10 @@ input:-moz-placeholder {
 
 .textCapitalise{
      text-transform: capitalize;
+}
+.borderTopBottom{
+    border-bottom: 0px;
+    border-top: 0px;
 }
 
 .borderBottomWhite{

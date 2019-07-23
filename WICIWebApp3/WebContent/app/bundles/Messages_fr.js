@@ -165,7 +165,7 @@ WICI.dictionary_fr =  {
 													"<br><br>Si vous résidez dans la province de Québec, le paiement minimum correspondra à la somme :" +
 													"<br><br>(A) du plus élevé des montants suivants, à savoir (i) les intérêts et les frais figurant sur votre relevé plus <span style=\"font-size: 12pt;\";><strong>10 $</strong></span>, ou <br>(ii) <span style=\"font-size: 12pt;\";><strong>5 %</strong></span> du nouveau solde, à l’exclusion des montants dus aux termes de programmes de modalités spéciales de paiement; plus" +
 													"<br>(B) tout montant qui excède votre limite de crédit; plus" +
-													"<br>(C) tout montant en souffrance qui n’est pas inclus dans le montant (B) ci dessus; plus" +
+													"<br>(C) tout montant en souffrance qui n’est pas inclus dans le montant (B) ci-dessus; plus" +
 													"<br>(D) le montant de tous les versements échelonnés en vertu de programmes de paiements   égaux alors dus." +
 													"<br>Un solde inférieur à <strong>10 $</strong> doit être réglé intégralement.</p>",
 	overview_CostOfCreditDisclosure_Left4    	:   "Opérations de change",
@@ -385,7 +385,7 @@ WICI.dictionary_fr =  {
 	Canadian_Tire 									: 'Canadian Tire',
 	Gas 									        :'Essence+',
 	Marks 											: 'Mark\'\s/L\'\équipeur',
-	SportsCheck_OR_Atmosphere 						: 'Sport Chek/Atmosphere',
+	SportsCheck_OR_Atmosphere 						: 'FGL Sports',
 	
 	
 	IdTypesList_DR                                    :" PERMIS DE CONDUIRE",
@@ -1464,7 +1464,7 @@ WICI.dictionary_fr =  {
 	print_Done_Button									:	"C’EST FINI!",
 	printScreen_SetUpIns								:	"Instructions pour la configuration",
 	printScreen_SetUpInsPara1							:	"Assurez vous d’avoir reçu un message texte avec un code de sécurité à 3 chiffres",
-	printScreen_SetUpInsPara2							:	"Ouvrir l’appli Google Pay sur tout appareil fonctionnant sur <br>Android Kit Kat 4.4 ou une version plus récente.</span>",
+	printScreen_SetUpInsPara2							:	"Ouvrir l’appli Google Pay sur tout appareil fonctionnant sur Android Kit Kat 4.4 ou une version plus récente.</span>",
 	printScreen_SetUpInsApplePara2						:	"<span style=\"margin-left: -40px;\">Ouvrir l’appli </span> <a href=\"#\" id=\"applePayIns_fr\" class=\"androidApplePay bgCenter\" data-lang-class></a> <span style=\"margin-left: 30px;\">sur tout iPhone 6 ou modèle plus <br>récent</span>",
 	printScreen_SetUpInsPara3							:	"<span style=\"margin-left: -38px;\">Suivez les instructions à l’écran à l’aide</span><br><span style=\"margin-left: -38px;\">des renseignements suivants :</span>",
 	printScreen_SetUpInsCardNo							:	"Numéro de la carte : ",

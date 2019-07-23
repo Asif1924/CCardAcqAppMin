@@ -417,8 +417,22 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         				// No coupons for gas store
         			} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
         				// No coupons for Husky gas store
-        			} else {
+        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500) {
+        				// No coupons for OOS store
+        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 &&
+             				activationItems.getModel('loginScreen').get('locationFieldID') <= 5999) {
+        				// Coupons print for FGL store
         				printCoupon();
+        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1 &&
+             				activationItems.getModel('loginScreen').get('locationFieldID') <= 999) {
+        				// Coupons print for CT store
+        				printCoupon();
+        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 &&
+             				activationItems.getModel('loginScreen').get('locationFieldID') <= 6999) {
+        				// Coupons print for Marks store
+        				printCoupon();
+        			} else {
+        				// No coupons for any other channels
         			}
         		}             
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);

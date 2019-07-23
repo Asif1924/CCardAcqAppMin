@@ -44,6 +44,8 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     		editInsuranceButton				:	"#confirmation_Insurance_EditButton",
     		confirmation_date_of_birth		:	"#confirmation_date_of_birth",
     		confirmation_at_this_addres		:	"#confirmation_at_this_addres",
+    		confirmation_ReadedNewTermsANDCondition : "#termsandconditionAgrrement",
+    		checkBox_forAgreeterms_condition   : "#additionalInformation_rewardProgramAgreement_CheckBox_Field",
     		step4                           :   "#steps4",
     		birth_day_sup_card_section		:	"#birth_day_sup_card_section",
     		howLongMonthes_conf_employment_section	:	"#howLongMonthes_conf_employment_section",
@@ -60,6 +62,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
         data:[
                  { notField: true, name: 'privacyArea',   value: null, validation: {type: 'presence',     message: 'additionalInformation_AgreeToTermsError'}},
                  { name: 'applicationAuthorizationYesNo', value: null, validation: null },
+                 { notField: true, name: 'confirmation_ReadedNewTermsANDCondition', value: null, validation: {type: 'presence',     message: 'additionalInformation_AgreeToTermsError'}},
                  { name: 'updateCTProfileYesNo', value: false, validation: null }
        ]
     });
@@ -92,6 +95,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
     //---------------------------------------------------------------------------------------
 	function init( argFlow ) {
         var sMethod = 'init() ';
+        termsNcondition = false;
         BRB.Log(logPrefix + sMethod);
         BRB.AppConfig.TrackingScreenID = 5;
         flow = argFlow;        
@@ -139,6 +143,8 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		$(refs.applicationAuthorizationYesNo).attr('checked',authYN);
 		var updateCTP = model.get('updateCTProfileYesNo');
 		$(refs.updateCTProfileYesNo).attr('checked',updateCTP);
+		var optionalProductAuthYN = model.get('checkBox_forAgreeterms_condition');
+		$(refs.checkBox_forAgreeterms_condition).attr('checked',optionalProductAuthYN);
 	}
 	//---------------------------------------------------------------------------------------
     function syncUserData(){
@@ -146,6 +152,7 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
         BRB.Log(logPrefix + sMethod);        
         
         model.set('applicationAuthorizationYesNo', $(refs.applicationAuthorizationYesNo).is(':checked'));
+        model.set('confirmation_ReadedNewTermsANDCondition', $(refs.checkBox_forAgreeterms_condition).is(':checked'));
         model.set('updateCTProfileYesNo', $(refs.updateCTProfileYesNo).is(':checked'));
         
         var isPrivacyApplied = model.get('applicationAuthorizationYesNo');
@@ -261,6 +268,17 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 		$('#BreadcrumbTrailArea1').bind('translationStop', function() {
             toggleHeader();
         });
+		$(refs.checkBox_forAgreeterms_condition).change(function() {
+			!$(refs.checkBox_forAgreeterms_condition).is(':checked')
+			if($(refs.checkBox_forAgreeterms_condition).is(':checked')) {
+				model.set('confirmation_ReadedNewTermsANDCondition', true);
+				termsNcondition = true;
+			} else {
+			    model.set('confirmation_ReadedNewTermsANDCondition', false);
+				termsNcondition = false;
+			}			
+			
+		});
 	}	
     //---------------------------------------------------------------------------------------
     function formatGrossIncometValues() {
@@ -340,8 +358,14 @@ BRB.ConfirmationController = function(activationItems, argTranslator, argMessage
 
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
-
-            var rez = model.validate();
+            var rezTnC = $(refs.confirmation_ReadedNewTermsANDCondition);
+            BRB.Log(logPrefix + sMethod + "rezTnC :: " +rezTnC);
+           var rez = model.validate();
+            if(!termsNcondition){
+            	rez.concat(rezTnC);
+            	BRB.Log(logPrefix + sMethod + "checked : rez :: " +rez.length);
+            }
+            BRB.Log(logPrefix + sMethod + "rez :: " +rez);
             if (rez.length > 0) {
                 app.validationDecorator.applyErrAttribute(rez, false, translator);    
                 return false; 

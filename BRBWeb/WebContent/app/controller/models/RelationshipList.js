@@ -5,7 +5,7 @@ BRB.RelationshipList = function(argTranslator) {
 	this.translator = argTranslator;
 	
 	this.data= [
-          { value: null, text: 'pleaseSelect_Text'},
+          { value: null, text: 'pleaseSelect_Text1'},
           { value: 'SPOU', 	text: 'additionalInformation_Spouse'},
           { value: 'SON',	text: 'additionalInformation_Son'},
           { value: 'DAUG', 	text: 'additionalInformation_Daughter'},

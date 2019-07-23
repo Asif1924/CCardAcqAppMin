@@ -139,6 +139,8 @@
 						<xsd:enumeration value="001177"></xsd:enumeration>
 						<!-- US5244	Bill 134 - New ASCs -->
 						<xsd:enumeration value="009977"></xsd:enumeration>
+						<!-- US5260	Bill 134 - BRB/OIC - New ASCs for Loyalty Terms -->
+						<xsd:enumeration value="006405"></xsd:enumeration>
 <!-- 						<xsd:maxLength value="6" /> -->
 					</xsd:restriction>
 				</xsd:simpleType>

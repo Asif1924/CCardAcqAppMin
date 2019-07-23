@@ -60,7 +60,8 @@
 				data-translationKey="additionalInformation_ProtectionAdvantage_Terms"></span>		
 		</div>
 	</div> -->
-	<div id="personalInfoTable" class="grayTableBottomBorder row">
+    
+      	<div id="personalInfoTable" class="grayTableBottomBorder row">
 		<div class="fieldLabelsCell fieldLabelsBottomCell elementBottom10 col-xs-12">
 			<div class="floatToRight fieldValueWithMargins" id="confirmation_OptionalInsurance_EditButton">
 	        	<a href="#" class="button lightgrayflat editButtonSize" id="confirmation_Insurance_EditButton">
@@ -69,5 +70,157 @@
         	</div>	
 		</div>
 	</div>	
+    <br>
+    <!-- US5272 -->
+    <!-- scrollbar -->
+
+       <div class="personalTitle row">
+            {{if cardType === "OMX" || cardType === "OMZ" }}
+               		<b><span class="pageSubTitle" data-translationKey="additionalInformation_scrollbar_tiitle_OMX_OMZ"></span></b>
+            {{else cardType === "OMP"}}
+                    <b><span class="pageSubTitle" data-translationKey="additionalInformation_scrollbar_tiitle_OMP"></span></b>
+            {{else cardType === "OMR" }}
+                    <b><span class="pageSubTitle" data-translationKey="additionalInformation_scrollbar_tiitle_OMR"></span></b>
+            {{/if}}
+       </div>
+
+      <div id="personalInfoTable" class="grayTableTopBottomBorder grayTableBottomBorder row">
+          <br>	
+           <div class="scrollbarReviewPage" id="style-1">
+                   <div class="force-overflow">
+								 <div class="simpleFootList span10">
+                                  {{if cardType === "OMX" || cardType === "OMZ" }}
+								    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text1"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text2"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text3"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text4"></span>
+
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text5"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text6"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text7"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text8"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text9"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text10"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text11"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text12"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text13"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text14"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text15"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text16"></span>
+                                    <span data-translationKey="additionalInformation_scrollbar_OMX_OMZ_Text17"></span>
+                                 {{else cardType === "OMP"}}
+                                    <span data-translationKey="additionalInformation_scrollbar_OMP_Text1"></span>
+									<span data-translationKey="additionalInformation_scrollbar_OMP_Text2"></span>
+                                     <center>
+                                      <table class="Width_TD_50 whiteTablewithBorder">
+                                            <tr class="fieldRow">
+                                               <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_th_td1"></span></center></td>
+                                               <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_th_td2"></span></center></td>
+                                            </tr>
+                                           <tr class="fieldRow">
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr1_td1"></span></center></td>
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr1_td2"></span></center></td>
+										   </tr>
+                                           <tr class="fieldRow">
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr2_td1"></span></center></td>
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr2_td2"></span></center></td>
+										   </tr>
+										   <tr class="fieldRow">
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr3_td1"></span></center></td>
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr3_td2"></span></center></td>
+										   </tr>
+                                           <tr class="fieldRow">
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr4_td1"></span></center></td>
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr4_td2"></span></center></td>
+										   </tr>
+                                           <tr class="fieldRow">
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr5_td1"></span></center></td>
+                                             <td><center><span data-translationKey="additionalInformation_scrollbar_OMP_table_tr5_td2"></span></center></td>
+										   </tr>
+                                      </table>
+                                  </center>
+                                     <br>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMP_Text3"></span>
+                                     <br><br>
+									 <span data-translationKey="additionalInformation_scrollbar_OMP_Text4"></span>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMP_Text5"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMP_Text6"></span>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMP_Text7"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMP_Text8"></span>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMP_Text9"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMP_Text10"></span>
+                                 {{else cardType === "OMR" }}
+                                     <span data-translationKey="additionalInformation_scrollbar_OMR_Text1"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMR_Text2"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMR_Text3"></span>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMR_Text4"></span>
+
+									 <span data-translationKey="additionalInformation_scrollbar_OMR_Text5"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMR_Text6"></span>
+									 <span data-translationKey="additionalInformation_scrollbar_OMR_Text7"></span>
+                                     <span data-translationKey="additionalInformation_scrollbar_OMR_Text8"></span>
+                                 {{/if}}
+
+								</div>
+			     </div>
+		   </div>
+           
+          <!-- checkbox -->
+       
+        <div id="personalInfoTable" class="grayTableNoBorder" id="termsandconditionAgrrement">
+          <div class="fieldLabelsCell fieldValuesOneCell tableWithPaddingBottom15">
+            <table class="stretchThisTable whiteTable termsandconditionAgrrementTable" id="termsandconditionAgrrement">
+								<tr class="fieldRow">
+									<td class="fieldLabelsCell fieldLabelsBottomCell" colspan="2">
+										<div class="row">
+											<div class="col-xs-6 col-sm-9">
+												{{if cardType === "OMX" || cardType === "OMZ" }}
+													<span class="privacylistItemText" data-translationKey="additionalInformation_PDFDownload_OMX_OMZ"/>
+												{{else cardType === "OMP" }}
+													<span class="privacylistItemText" data-translationKey="additionalInformation_PDFDownload_OMP"/>
+                                                {{else cardType === "OMR" }}
+                                                     <span class="privacylistItemText" data-translationKey="additionalInformation_PDFDownload_OMR"/>
+												{{/if}}												
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												<div class="floatToRight elementWithRightMargin15 alignRightAtEdgeofTitleBar">
+													<span class="requiredField redSpan">*</span>
+													{{if cardType === "OMX" || cardType === "OMZ" }}
+														<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel"></span>
+													{{else cardType === "OMP" || cardType === "OMR" }}
+														<span class="requiredField" data-translationKey="requiredFieldIndicatorLabel_OMP_OMR"></span>
+													{{/if}}													
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+	                			<tr class="fieldRow">									
+	                				<td class="fieldLabelsCell fieldCellSize5">
+	                					<input class="fieldValuesCheckBoxField" id="additionalInformation_rewardProgramAgreement_CheckBox_Field" type="checkbox" />
+	                				</td>
+	                    			<td class="fieldRow fieldLabelsCellWithCheckBox elementTopBottom10">
+										<sup>
+											<b class="redSpanForInputsGroup">*</b>
+										</sup>
+                                           {{if cardType === "OMX" || cardType === "OMZ" }}
+ 												<span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_rewardProgramagreement_OMX_OMZ" id="additionalInformation_rewardProgram_TextField"></span>
+ 										   {{else cardType === "OMP" }}
+ 												<span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_rewardProgramagreement_OMP" id="additionalInformation_rewardProgram_TextField"></span>
+                                           {{else cardType === "OMR" }}
+												<span class="fieldCellWithLeftShift" data-translationKey="additionalInformation_rewardProgramagreement_OMR" id="additionalInformation_rewardProgram_TextField"></span>
+                                           {{/if}}	
+	                    			</td>									                    
+	                			</tr>
+	                			
+			</table>
+           </div>
+      </div>
+</div>
+   <!-- US5272 -->
+
+    
+
+
 
 </script>
