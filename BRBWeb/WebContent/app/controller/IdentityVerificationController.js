@@ -15,6 +15,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 	var flow = null;
 	var  identityExamQuestionTimer = null;
 	var tuFailed = false;
+	var initPromoBannerFlag= false;
 
 	//---------------------------------------------------------------------------------------
 	this.syncUserData = syncUserData; 
@@ -83,7 +84,10 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
     		DeclinedContent                 :   '#DeclinedContent',
     		OMP_card                        :   '#omp_card',
     		OMR_card                        :   '#omr_card',
-    		examFinalStepPendingVerification : '#examFinalStepPendingVerification'
+    		examFinalStepPendingVerification : '#examFinalStepPendingVerification',
+
+    		promoBanner_en					:	'promoBanner_en',
+    		promoBanner_fr					:	'promoBanner_fr'
     };
     var model = new BRB.BaseModel({
         name: 'identityVerification',
@@ -131,6 +135,8 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 		bindEvents();
 		fillControlsWithData();	
 		toggleHeader();
+		isSportsCheck();
+
 		// Hide language button
 		//$(refs.languageButton).hide();
 	}    
@@ -287,6 +293,7 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 			if(cardTypeGlobal === "OMR"){
 				toggleOMRCardIMage();
 			}
+			isSportsCheck();
         });
 		
 		disableButtons();
@@ -304,7 +311,56 @@ BRB.IdentityVerificationController = function(activationItems, argTranslator, ar
 				toggleOMRCardIMage();
 			}
         });
-	}	
+	}
+    //---------------------------------------------------------------------------------------
+    function initPromotionalBannerImg() {
+    	var sMethod = "updatePromotionalBannerImg() : ";
+    	BRB.Log(logPrefix + sMethod + translator.isCurrentLanguageEnglish());
+    	
+    	initPromoBannerFlag = true;
+    	BRB.Log(logPrefix + sMethod + "initPromoBannerFlag : " + initPromoBannerFlag);
+    	
+		if(translator.getCurrentLanguage() == 'en'){
+			document.getElementById("promoBanner_en").style.display = "block";
+			document.getElementById("promoBanner_fr").style.display = "none";
+		}else {
+			document.getElementById("promoBanner_en").style.display = "none";
+			document.getElementById("promoBanner_fr").style.display = "block";
+		}
+    }
+    //---------------------------------------------------------------------------------------
+    function updatePromotionalBannerImg() {
+    	var sMethod = "updatePromotionalBannerImg() : ";
+    	BRB.Log(logPrefix + sMethod + translator.isCurrentLanguageEnglish());
+    	BRB.Log(logPrefix + sMethod + "initPromoBannerFlag : " + initPromoBannerFlag);
+    	
+		if(translator.getCurrentLanguage() == 'en'){
+			document.getElementById("promoBanner_en").style.display = "none";
+			document.getElementById("promoBanner_fr").style.display = "block";
+		}else {
+			document.getElementById("promoBanner_en").style.display = "block";
+			document.getElementById("promoBanner_fr").style.display = "none";
+		}
+    }
+    //---------------------------------------------------------------------------------------
+    function isSportsCheck() {
+    	var sMethod = "isSportsCheck() : ";
+    	
+    	var utm_source = activationItems.getModel('overview').get('utm_source');
+    	BRB.Log(logPrefix + sMethod + utm_source);
+    	BRB.Log(logPrefix + sMethod + "initPromoBannerFlag : " + initPromoBannerFlag);
+    	
+    	if(utm_source != 0 && utm_source == "sportchek.ca") {
+    		if(!initPromoBannerFlag) {
+    			initPromotionalBannerImg();
+    		} else {
+    			updatePromotionalBannerImg();
+    		}
+    	} else {
+    		document.getElementById("promoBanner_en").style.display = "none";
+			document.getElementById("promoBanner_fr").style.display = "none";
+    	}
+    }
     //---------------------------------------------------------------------------------------
     function updateNumericValuesFormat() {
 		var cardLimitText = $(refs.cardLimit).text();

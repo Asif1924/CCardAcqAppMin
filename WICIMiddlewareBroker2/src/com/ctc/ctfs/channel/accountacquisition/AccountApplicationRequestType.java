@@ -471,6 +471,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
+ *         &lt;element name="estmt_consent" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.channel.ctfs.ctc.com/accountAcquisition/}UpperCaseStringType">
+ *               &lt;maxLength value="1"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="businessStoreNumber" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.channel.ctfs.ctc.com/accountAcquisition/}UpperCaseStringType">
+ *               &lt;maxLength value="1"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -575,7 +589,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "streetNumber",
     "transactionState",
     "deviceType",
-    "requestedCreditLimit" //US3270 Feb 17th, 2015
+    "requestedCreditLimit", //US3270 Feb 17th, 2015
+    "estmt_consent",
+    "businessStoreNo"
 })
 @XmlRootElement(name="AccountApplicationRequest") 
 public class AccountApplicationRequestType
@@ -769,7 +785,20 @@ public class AccountApplicationRequestType
     protected String transactionState;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String deviceType;
-    /**
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String estmt_consent;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String businessStoreNo;
+    
+    public String getEstmt_consent() {
+		return estmt_consent;
+	}
+
+	public void setEstmt_consent(String estmt_consent) {
+		this.estmt_consent = estmt_consent;
+	}
+
+	/**
 	 * @return the msisdn
 	 */
 	public String getMsisdn() {
@@ -788,6 +817,14 @@ public class AccountApplicationRequestType
 	 */
 	public String getEnstreamConsent() {
 		return enstreamConsent;
+	}
+
+	public String getBusinessStoreNo() {
+		return businessStoreNo;
+	}
+
+	public void setBusinessStoreNo(String businessStoreNo) {
+		this.businessStoreNo = businessStoreNo;
 	}
 
 	/**
@@ -2954,7 +2991,7 @@ public class AccountApplicationRequestType
 	 */
 	public void setDeviceType(String deviceType) {
 		this.deviceType = deviceType;
-	}
+	}	
     
 
 }

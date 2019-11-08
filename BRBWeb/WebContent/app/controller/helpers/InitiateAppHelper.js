@@ -6,10 +6,12 @@ BRB.InitiateAppHelper = function() {
 	var languageParamName = "lang";
 	var cardTypeParamName = "cardType";
 	var pcidParamName = "pcid";
+	var utmSourceParamName = "utm_source";
 	var transactionId = null;
 	var language = null;
 	var cardType = null;
 	var pcid = null;
+	var utm_source = null;
 	this.isDeleteCustomerDataRequestSent = false;
 	
 	function getUrlParam (paramName) {
@@ -134,4 +136,15 @@ BRB.InitiateAppHelper = function() {
 		BRB.Log(logPrefix + sMethod + "PCID is: " + pcid);
 		return pcid;		
 	};
+	
+	
+	this.getUTMSourceParam = function () {
+		var sMethod = 'getUTMSourceParam()::';			
+		if (!utm_source && _.isEmpty(utm_source)) {
+			utm_source = getUrlParam(utmSourceParamName);
+		}
+		BRB.Log(logPrefix + sMethod + "utm_source is: " + utm_source);
+		return utm_source;		
+	};
+
 };

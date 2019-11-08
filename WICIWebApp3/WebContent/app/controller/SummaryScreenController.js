@@ -413,7 +413,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
         			activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
         			if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
-             				activationItems.getModel('loginScreen').get('locationFieldID') <= 1999) {
+             				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
         				// No coupons for gas store
         			} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
         				// No coupons for Husky gas store

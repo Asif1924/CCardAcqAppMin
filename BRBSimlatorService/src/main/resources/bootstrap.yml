@@ -1,0 +1,13 @@
+spring:
+  application:
+    version: v1
+    name: BRBSimlatorService_${spring.application.version}
+  cloud:
+    config:
+      enabled: false
+      fail-fast: false      
+      uri: http://localhost:8888
+      username: dssdev
+      #password: '{cipher}919fdc4ee44add3cefca917a67d4bcc3a33b7a88d7f2b0f8dc94e23e7ad25ffe'
+      password: dssdev
+

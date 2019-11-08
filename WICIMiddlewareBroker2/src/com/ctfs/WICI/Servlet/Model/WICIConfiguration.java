@@ -38,4 +38,14 @@ public class WICIConfiguration
 	{
 		this.serviceName = serviceName;
 	}
+	
+	String outletTypeId;
+
+	public String getOutletTypeId() {
+		return outletTypeId;
+	}
+
+	public void setOutletTypeId(String outletTypeId) {
+		this.outletTypeId = outletTypeId;
+	}
 }

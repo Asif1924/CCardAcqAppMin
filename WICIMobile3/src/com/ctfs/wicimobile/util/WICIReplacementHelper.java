@@ -37,7 +37,7 @@ public class WICIReplacementHelper {
     	if(_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
     		isGasBar = true;
     	} else if(storeNo > 0){
-    		if(storeNo >= 1000 && storeNo <= 1999 ) {
+    		if(storeNo >= 1000 && storeNo <= 2010 ) {
     			isGasBar = true;
 	        } else if(storeNo >= 6000 && storeNo <= 6999 ) {
 	        	isMarksStore = true;

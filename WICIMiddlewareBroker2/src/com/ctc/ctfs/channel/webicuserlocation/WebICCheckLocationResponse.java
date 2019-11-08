@@ -31,6 +31,8 @@ import com.ctc.ctfs.channel.MessageTextType;
  *         &lt;element name="OutletCity" type="{http://www.channel.ctfs.ctc.com}addressMunicipalityType"/>
  *         &lt;element name="OutletProvince" type="{http://www.channel.ctfs.ctc.com}addressProvinceType"/>
  *         &lt;element name="OutletPostal" type="{http://www.channel.ctfs.ctc.com}addressPostalCodeType"/>
+ *         &lt;element name="CTFSStoreNo" type="{http://www.channel.ctfs.ctc.com}CTFSStoreNo"/>
+ *         &lt;element name="businessStoreNumber" type="{http://www.channel.ctfs.ctc.com}isBusinessStoreNumber"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -47,7 +49,9 @@ import com.ctc.ctfs.channel.MessageTextType;
     "outletStreet",
     "outletCity",
     "outletProvince",
-    "outletPostal"
+    "outletPostal",
+    "CTFSStoreNo",
+    "businessStoreNumber"
 })
 public class WebICCheckLocationResponse
     implements Serializable
@@ -67,6 +71,10 @@ public class WebICCheckLocationResponse
     protected AddressProvinceType outletProvince;
     @XmlElement(name = "OutletPostal", required = true)
     protected String outletPostal;
+    @XmlElement(name = "CTFSStoreNo", required = true)
+    protected String cTFSStoreNo;
+    @XmlElement(name = "businessStoreNumber", required = true)
+    protected String businessStoreNumber;
 
     /**
      * Gets the value of the message property.
@@ -235,5 +243,21 @@ public class WebICCheckLocationResponse
     public void setOutletPostal(String value) {
         this.outletPostal = value;
     }
+
+	public String getcTFSStoreNo() {
+		return cTFSStoreNo;
+	}
+
+	public void setcTFSStoreNo(String cTFSStoreNo) {
+		this.cTFSStoreNo = cTFSStoreNo;
+	}
+
+	public String getBusinessStoreNumber() {
+		return businessStoreNumber;
+	}
+
+	public void setBusinessStoreNumber(String businessStoreNumber) {
+		this.businessStoreNumber = businessStoreNumber;
+	}
 
 }

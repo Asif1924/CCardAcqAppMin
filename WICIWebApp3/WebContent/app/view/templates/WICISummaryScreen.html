@@ -9,26 +9,35 @@
 	 	<br>
 	 	<br>
 		<br>
+		{{if activationItems.getModel('loginScreen').get('retailNetWork') != "PRTNR" && activationItems.getModel('loginScreen').get('retailNetWork') != "OS" }}
 		<div class="highlighterDIV" id="highlighterDIVPA" name="highlighterDIVPA">
 				<center>
 						<p class="highlighterHeader" id="highlighterHeaderPA" name="highlighterHeaderPA"><span data-translationKey="summary_highlighterHeader"/></p>
 				</center>
          	<center> 
- 		    <!-- Before - US3556 Mark's	<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span> -->
-			<!-- US3556 Mark's -->
-			{{if activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 && activationItems.getModel('loginScreen').get('locationFieldID') <= 6999}}			
-				<span class="pageSubTitle" data-translationKey="summary_marks_highlighter_SubTitle"></span>
-			<!-- US4432 FGL -->
-			{{else activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 && activationItems.getModel('loginScreen').get('locationFieldID') <= 5999}}
-				<span class="pageSubTitle" data-translationKey="summary_FGL_highlighter_SubTitle"></span>
-			{{else}}
-				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span>
+			{{if activationItems.getModel('loginScreen').get('retailNetWork') == "CT" }}			
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Canadian_Tire"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "MARKS" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Marks"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "SPORTS" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="SportsCheck_OR_Atmosphere"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "GAS" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Gas"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "FGLFRN" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Sports_Expert"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "PHL" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Pro_Hockey_Life"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "NS" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="National_Life"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "MRKFRN" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Marks_Franchise"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
 			{{/if}}
 			</center>
 		</div>
         <br>
 		<br>
 		<br>
+		{{/if}}
 		<center>
 			<span class="pageTitle" data-translationKey="summary_PageTitle"></span>
 		</center>

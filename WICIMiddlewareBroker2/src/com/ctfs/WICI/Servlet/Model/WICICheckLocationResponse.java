@@ -88,6 +88,26 @@ public class WICICheckLocationResponse
 		this.outletPostal = outletPostal;
 	}
 
+	protected String CTFSStoreNo;
+	
+	public String getCTFSStoreNo() {
+		return CTFSStoreNo;
+	}
+
+	public void setCTFSStoreNo(String cTFSStoreNo) {
+		CTFSStoreNo = cTFSStoreNo;
+	}
+	
+	protected String businessStoreNumber;
+
+	public String getBusinessStoreNumber() {
+		return businessStoreNumber;
+	}
+
+	public void setBusinessStoreNumber(String businessStoreNumber) {
+		this.businessStoreNumber = businessStoreNumber;
+	}
+
 	public WICICheckLocationResponse()
 	{
 
@@ -103,6 +123,8 @@ public class WICICheckLocationResponse
 		result.outletPostal = entity.getOutletPostal();
 		result.outletProvince = entity.getOutletProvince().toString();
 		result.outletStreet = entity.getOutletStreet();
+		result.CTFSStoreNo = entity.getcTFSStoreNo();
+		result.businessStoreNumber = entity.getBusinessStoreNumber();
 		return result;
 	}
 }

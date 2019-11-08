@@ -18,7 +18,8 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
     var isEmailNotEntered = false;
     var refs = {
         emaill : '#personalData_EmailAddress_TextField',
-        receiveEmail : '#personalData_ReceiveEmail_Group',
+        receiveEmail	: '#receiveEmail_CheckBox',
+        estmt_consent	:	"#receiveEstmtConsent_CheckBox",
         receiveemail_optin : '#personalData_Optin_RadioButton',
         receiveemail_optout : '#personalData_Optout_RadioButton',
         receiveemailArea:  '#personalData_ReceiveEmailArea',
@@ -46,7 +47,16 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
                 message : 'personalData1_validation_ReceiveEmail',
                 group: [ 2 ]
             }
-        }
+        },
+        {
+            name : 'estmt_consent',
+            value : null,
+            validation : {
+                type : 'presence',
+                message : 'personalData1_validation_ReceiveEmail',
+                group: [ 2 ]
+            }
+        },
         ]
     });
     this.innerModel = model;
@@ -73,6 +83,12 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         	showRedNextButton();
         	nextButtonEnabled = true;
         }
+        if (app.translator.getCurrentLanguage() === "fr") {
+            $('#personalData_EmailAddress_TextField').attr("placeholder", "Entrez votre adresse de courriel ici...");
+            }
+            else{
+             $('#personalData_EmailAddress_TextField').attr("placeholder", "Enter your email here…");
+            }
     }
     // ---------------------------------------------------------------------------------------
     function syncUserData() {
@@ -82,17 +98,17 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         var receiveEmailYesNo = $(refs.receiveEmail).val();
         console.log(logPrefix + sMethod + " emailValue : " + emailValue);
         
-        model.set('email',emailValue);
-        if(emailValue !== null || model.get('email') !== null){
-        	 if(model.isEmail_valid($(refs.emaill).val().trim())){
-            	 if(model.get('receiveEmail') === 'Y'){
-            		 $(refs.receiveemail_optin).addClass('ui-btn-active');
-            	 }else if(model.get('receiveEmail') === 'N'){
-            		 $(refs.receiveemail_optout).addClass('ui-btn-active');
-            	 }
-             }
+        model.set('email',emailValue);        
+        if($(refs.receiveEmail).is(':checked')){
+        	model.set('receiveEmail', 'Y');
+        } else{
+        	model.set('receiveEmail', 'N');
         }
-       
+        if($(refs.estmt_consent).is(':checked')){
+        	model.set('estmt_consent', 'Y');
+        } else{
+        	model.set('estmt_consent', 'N');
+        }
         console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
     }
    // ---------------------------------------------------------------------------------------
@@ -165,24 +181,33 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
              console.log(logPrefix + sMethod + "Email :: " + $(refs.emaill).val());
         $('.EmailInfoScreen_PrevButton').click(function() {
         		 showPrevScreen();
+        });                              
+        
+        $(refs.receiveEmail).click(function() {
+        	console.log(logPrefix + sMethod + "receiveEmail_CheckBox :: " + $(refs.receiveEmail).is(':checked'));
+        	if($(refs.receiveEmail).is(':checked'))
+        		model.set('receiveEmail', 'Y');
+        	else
+        		model.set('receiveEmail', 'N');
         });
-           
-        $(refs.receiveemail_optin).click(function() {
-        	console.log(logPrefix + sMethod + "receiveemail_optin :: ");
-            clearRadios('receiveEmail');
-            $(refs.receiveemail_optin).addClass('ui-btn-active');
-            model.set('receiveEmail', 'Y');
-        });
-        $(refs.receiveemail_optout).click(function() {
-        	console.log(logPrefix + sMethod + "receiveemail_optout :: ");
-            clearRadios('receiveEmail');
-            $(refs.receiveemail_optout).addClass('ui-btn-active');
-            model.set('receiveEmail', 'N');
+        
+        $(refs.estmt_consent).click(function() {
+        	console.log(logPrefix + sMethod + "estmt_consent_CheckBox :: " + $(refs.estmt_consent).is(':checked'));
+        	if($(refs.estmt_consent).is(':checked'))
+        		model.set('estmt_consent', 'Y');
+        	else
+        		model.set('estmt_consent', 'N');
         });
 
         $.subscribe('translatorFinished',function(){
         	console.log('Language :: change');
             toggleImage();
+            if (app.translator.getCurrentLanguage() === "fr") {
+            $('#personalData_EmailAddress_TextField').attr("placeholder", "Entrez votre adresse de courriel ici...");
+            }
+            else{
+             $('#personalData_EmailAddress_TextField').attr("placeholder", "Enter your email here…");
+            }
         });
         
         if($(refs.emaill).val() === null || $(refs.emaill).val()  === ''){
@@ -201,7 +226,6 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
                              showRedNextButton();
                              if(model.isEmail_valid($(refs.emaill).val().trim())!= true){
                                  $(refs.receiveemailArea).hide();
-                                 clearRadios('receiveEmail');
                              }
                              else{
                             	 $(refs.receiveemailArea).show();
@@ -336,7 +360,7 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
     	
         console.log("Email :" + logPrefix + sMethod + model.get('email'));
         $(refs.receiveemailArea).show();
-        clearRadios('receiveEmail');
+        //clearRadios('receiveEmail');
         if(model.isEmail_valid($(refs.emaill).val().trim())!= true){
             $(refs.receiveemailArea).hide();
         }

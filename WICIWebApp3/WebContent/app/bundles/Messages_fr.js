@@ -11,7 +11,7 @@ WICI.dictionary_fr =  {
 
 
 	connectionError_unableToConnect                   :                         "Impossible de se connecter au serveur du système principal. Veuillez réessayer dans quelques minutes.",
-	connectionError_networkDown                       :                         "Connexion au réseau WIFI perdue. Veuillez essayer l’option « Rétablir la connexion WIFI » du menu des paramètres en ouvrant une session en mode démo.",
+	connectionError_networkDown                       :                         "Connexion au réseau perdue. Veuillez essayer l’option « Rétablir la connexion WIFI » si vous connectez par WIFI. Si vous connectez par réseau mobile, assurez-vous qu’une connexion sans fil appropriée existe.",
 
 	confirmDialog_defaultTitle                        :                         "Confirmer",
 	confirmDialog_yes                                 :                         "Oui",
@@ -81,6 +81,8 @@ WICI.dictionary_fr =  {
 	dictionary_loading_error 						  : 						"Le contenu de la demande ne peut pas être affiché. Veuillez attendre 15 minutes à portée acceptable du réseau WIFI avant de lancer la demande, puis réessayez. Si le problème persiste, veuillez appeler votre administrateur.",
 	// US4744
 	loginScreen_IncorrectUserNamaAndPassword          :                         "SVP vérifier votre nom d’utilisateur et votre mot de passe.",
+	loginScreen_signatureBox_title     	              :    "Veuillez signer pour confirmer que vous avez terminé la formation requise",
+	loginscreen_toggleTitle                           :    "Est-ce qu'un autre membre du personnel vous a référé le client?",
 	
 	// US4231
 	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage:							"La connexion a échoué. Veuillez contacter votre administrateur.",
@@ -107,7 +109,7 @@ WICI.dictionary_fr =  {
 	
 
 	// US3920
-	program_PromoCode								  : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Ouverture officielle\":\"4023\"},{\"Autre\":\"\"}],\"Événements en magasin\":[{\"Journées Triangle\":\"OMCDY\"},{\"Autre\":\"\"}],\"Événements DPCT\":[{\"Programme d’événement de l’Est\":\"5200\"},{\"Programme d’événement de l’Ouest\":\"4024\"}],\"Régional DCTP\":[{\"Programme régional de l’Est\":\"4022\"},{\"Programme régional de l’Ouest\":\"4029\"}]}]}",
+	program_PromoCode								  : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Ouverture officielle\":\"4023\"},{\"Autre\":\"\"}],\"Événements en magasin\":[{\"Journées Triangle\":\"OMCDY\"},{\"Autre\":\"\"}],\"Événements DPCT\":[{\"Programme d’événement de l’Est\":\"5200\"},{\"Programme d’événement de l’Ouest\":\"4024\"}],\"Régional DCTP\":[{\"Programme régional de l’Est\":\"4022\"},{\"Programme régional de l’Ouest\":\"4029\"}],\"Campus\":[{\"Autre\":\"\"}]}]}",
 	
 	// US4194
 	program_Marks_PromoCode 						  : "{\"FMR\":[{\"Magasin Marks\":[{\"MWW80\":\"MWW80\"}]}]}",
@@ -295,6 +297,10 @@ WICI.dictionary_fr =  {
 	personalData_PreviousAddress_NotInCanada		  :							"Adresse précédente est pas au Canada:",
 	
 	personalData_Note								  :							"Remarque : il se peut que nous vous envoyions des avis sur votre compte par message texte. Ces messages n’entraîneront aucuns frais.",
+	receiveEmail_Text									:						"<i>Oui, j’aimerais recevoir des détails sur les offres et les événements exclusifs.</i>",
+	receiveEmail_TextAreaText							:	"Je veux recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m’intéresser, par courriel, messagerie texte (sous réserve des frais standard de données et de messagerie texte) et autre messagerie électronique de la Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (« SFCT ») et de la Banque Canadian Tire (« BCT »), y compris de leurs unités commerciales respectives exploitées en vertu des marques Canadian Tire, du programme Mon « Argent » Canadian Tire, de l’Académie des conducteurs Canadian TireMD, des Services résidentiels de Canadian TireMD et de l’Assistance routière Canadian TireMD, ainsi que d’autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT ou la BCT, à la C.P. 2000, Welland (Ontario) L3B 5S3 ou à l’adresse serviceclientele@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
+	receiveEstmt_Text									:	"Oui, j’aimerais recevoir des relevés électroniques.",
+	receiveEstmt_TextAreaText							:	"<p><b>Modalités du service des relevés électroniques</b></p>"+"<p>1. Vous pouvez continuer d’accéder aux renseignements sur votre compte à partir du site ctfs.com et du service bancaire téléphonique.</p>"+"<p>2. Le traitement de votre demande prend habituellement une journée ouvrable. Par conséquent, selon la date de votre relevé, vous pourriez recevoir un dernier relevé imprimé par la poste avant de recevoir vos relevés en ligne.</p>"+"<p>3. Si vous recevez actuellement un relevé imprimé par la poste, celui-ci ne vous sera plus envoyé. De plus, la plupart des avis de modifications aux renseignements contenus dans le document d’information que vous avez reçu à l’ouverture de votre compte ainsi que les avis de changements à votre contrat du titulaire de carte seront envoyés par voie électronique plutôt que par la poste. Ces avis figureront sous forme de messages sur votre relevé mensuel ou vous recevrez un avis par courriel vous indiquant que vous avez reçu de tels avis et que vous pouvez les consulter en ouvrant une session Mon compte en ligne.</p>"+"<p>4. Nous vous ferons parvenir un courriel vous avisant que votre relevé est accessible. Nous vous enverrons un courriel lorsque votre compte contiendra un message distinct de votre relevé mensuel. Vous devrez alors ouvrir une session Mon compte en ligne pour pouvoir visionner votre relevé électronique ou tout message envoyé séparément. Les courriels seront envoyés à l’adresse que vous nous aurez fournie. Il vous incombe de nous fournir une adresse courriel valide et de nous aviser de toute modification à cette adresse. Pour modifier votre adresse, ouvrez une session Mon compte en ligne, puis sélectionnez l’option Gérer mes préférences de courriel dans Paramètres.</p>"+"<p>5. Les documents fournis par voie électronique seront conservés et disponibles dans Mon compte en ligne pendant sept ans. Il vous incombe de conserver une copie de ces documents. Vous pouvez en tout temps annuler votre inscription et recommencer à recevoir des avis de changements et des relevés par la poste. Vous n’avez qu’à ouvrir Mon compte en ligne et à sélectionner Changer l’option de relevé dans le menu principal de la page d’accueil, ou encore qu’à nous téléphoner sans frais au 1 800 459-6415. Toutefois, il est important que vous enregistriez ou imprimiez tous les documents électroniques contenus dans Mon compte en ligne avant de faire le changement, car vous n’aurez alors plus accès à ceux-ci en ligne.</p>"+"<p>6. La Banque Canadian Tire n’est pas responsable de quelque problème technique que ce soit relatif à votre ordinateur qui vous empêcherait d’accéder à votre relevé électronique ou à tout avis ou autre document versé dans Mon compte en ligne ou de recevoir quelque avis par courriel que ce soit provenant de nous.</p>"+"<p>7. Vous comprenez que tous les titulaires de carte additionnelle à qui vous avez accordé l’accès au présent compte pourront accéder aux renseignements antérieurs de votre compte, y compris à ceux sur le titulaire de carte principal et les autres titulaires de carte additionnelle.</p>"+"<p>8. Vous devez composer le 1 800 459-6415 dans les 90 jours de la date d’inscription d’une transaction si celle-ci a été portée à votre compte par erreur.</p>"+"<p>9. Nous fournissons les relevés, les avis et les autres documents électroniques en format PDF pour que vous puissiez les imprimer ou les sauvegarder en toute facilité. Vous devez utiliser le logiciel Adobe Reader pour visionner vos relevés électroniques. La plupart des versions de ce logiciel sont gratuites.</p>"+"<p>10. Vos relevés, avis et autres documents vous seront de nouveau envoyés par la poste si votre compte est en souffrance pendant trois périodes de facturation ou plus. Vous pourrez vous inscrire de nouveau au service de relevés électroniques dès que votre compte redeviendra en règle. En cochant la case correspondante, vous acceptez les modalités ci-dessus et confirmez que vous désirez maintenant recevoir par voie électronique les relevés mensuels de votre compte de carte de crédit, tout avis de modifications au document d’information reçu à l’ouverture de votre compte et tout avis de changements à votre contrat du titulaire de carte. Dans le cas contraire, cliquez sur Annuler.</p>"+"<p>Pour en savoir plus sur notre politique relative à la collecte, à l’utilisation, à la communication et à la protection de vos renseignements personnels, consultez le Document relatif à la <a href='https://ctfs.com/content/ctfs/fr/legal_privacy.html' target='_blank'>protection des renseignements personnels.</a></p>"+"<p>En vigueur à compter du 17 Novembre 2017</p>",
 	
 	// US4637
 	//EmailInfo_PageTitle								  :							"Renseignements sur le courrier électronique",
@@ -380,19 +386,24 @@ WICI.dictionary_fr =  {
 
 	ProvincesList_null                                :"Veuillez sélectionner...",
 	IdTypesList_null                                  :"Veuillez sélectionner...",
-	RetailNetWorkList_null                             :"Veuillez sélectionner...",
 
-	Canadian_Tire 									: 'Canadian Tire',
-	Gas 									        :'Essence+',
-	Marks 											: 'Mark\'\s/L\'\équipeur',
-	SportsCheck_OR_Atmosphere 						: 'FGL Sports',
-	
+	RetailNetWorkList_null                              :	"Veuillez sélectionner...",
+	Canadian_Tire                                       :   'Canadian Tire',
+	Marks                                               :   'L\'\Equipeur',
+	SportsCheck_OR_Atmosphere                           :   'Sport Chek',
+	Gas                                                 :   'Essence+',
+	Sports_Expert                                       :   'Sports Experts',
+	Pro_Hockey_Life                                     :   'Pro Hockey Life',
+	National_Life                                       :   'National Sports',
+	Marks_Franchise			                            :   'La franchise  L\'\Equipeur',
+	Out_of_Store			                            :   'Hors Magasin',
+	Partner_Locations		                            :   'Sites partenaires',
 	
 	IdTypesList_DR                                    :" PERMIS DE CONDUIRE",
 	IdTypesList_HE                                    :" CARTE D'ASSURANCE-MALADIE",
 	IdTypesList_PR                                    :" CARTE DE RÉSIDENT PERMANENT",
 	IdTypesList_BI                                    :" CERTIFICAT DE NAISSANCE",
-	IdTypesList_CI                                    :"CARTE DE CITOYENNETÉ CANADIENNE",
+	IdTypesList_CI                                    :"CERTIFICAT DE CITOYENNETÉ CANADIENNE",
 	IdTypesList_PA                                    :"PASSEPORT",
 	IdTypesList_IN                                    :"CERTIFICAT DU STATUT D'INDIEN",
 	//IdTypesList_RE                                    :"FICHE RELATIVE AU DROIT D'ÉTABLISSEMENT",
@@ -1370,13 +1381,9 @@ WICI.dictionary_fr =  {
 	summary_dataIntegrity_Error						  :						    "Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème interne. S'il vous plaît essayer à nouveau.",
 
     summary_TellAboutYourself_ApplicantInfo			  :                         "Renseignement sur le demandeur",
-    summary_highlighter_SubTitle                      :                         "Votre demande doit être vérifiée par un représentant du magasin Canadian Tire.",
+    summary_highlighter_SubTitle                      :                         "Votre demande doit être vérifiée par un représentant du magasin ",
+    summary_highlighter_Representative				  :							".",
 	summary_highlighterHeader                         : 				        "IMPORTANT",
-	//US3556
-    summary_marks_highlighter_SubTitle				  :							"Votre demande doit être vérifiée par un représentant du magasin L'Équipeur.",
-    
-    // US4432
-    summary_FGL_highlighter_SubTitle		          : 						"Votre demande doit être vérifiée par un représentant du magasin.",
     
 		// Summary screen END ................................................................
 
@@ -1512,7 +1519,7 @@ WICI.dictionary_fr =  {
 	pendingScreen_PollingInProgress_Text				:	"sondage en cours",
 	pendingScreen_PollingCompleted_Text					:	"sondage complété",
 
-	pendingScreen_RetrieveFailed						:	"La demande ne peut être repérée. Veuillez réessayer.",
+	pendingScreen_RetrieveFailed						:	"La réponse à votre demande n’a pu être traitée. Une réponse vous sera envoyée par la poste dans un délai de 5 à 7 jours ouvrables.",
 	// US3436
 	pendingScreen_ApplicationPending				  	:	"Nous vous remercions de votre patience. Votre demande est encore à l’étude par notre équipe du service à la clientèle. Veuillez revenir dans 30 minutes.",
 	

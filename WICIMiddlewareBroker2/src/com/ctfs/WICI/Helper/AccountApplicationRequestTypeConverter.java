@@ -72,6 +72,7 @@ public class AccountApplicationRequestTypeConverter
                     
                     */ 
                 
+                    /*
                     //US4194
                     String  storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
                     
@@ -100,7 +101,53 @@ public class AccountApplicationRequestTypeConverter
                             populatedAccountApplicationRequest.setChannelIndicator("IP");
                         } 
                     }
+                    */
                     
+                    String retailNetwork = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") : null;
+                    String program = (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") != null ? (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") : null;
+                    String storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
+                    
+                    if(retailNetwork != null) {
+                    	if(retailNetwork.equals("GAS") && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))) {
+                    		 populatedAccountApplicationRequest.setChannelIndicator("GB");
+                    	} 
+                    	else if((retailNetwork.equals("GAS") || retailNetwork.equals("CT")) && ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))) {
+                    		 populatedAccountApplicationRequest.setChannelIndicator("DP");
+                    	}
+                    	else if(retailNetwork.equals("CT")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("IP");
+	                   	}
+                    	else if(retailNetwork.equals("SPORTS")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("FG");
+	                   	}
+                    	else if(retailNetwork.equals("FGLFRN")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("SE");
+	                   	}
+                    	else if(retailNetwork.equals("PHL")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("HL");
+	                   	}
+                    	else if(retailNetwork.equals("NS")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("NS");
+	                   	}
+                    	else if(retailNetwork.equals("MARKS")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("IC");
+	                   	}
+                    	else if(retailNetwork.equals("MRKFRN")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("MF");
+	                   	}
+                    	else if(retailNetwork.equals("OS") && program.equalsIgnoreCase("Campus")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("SC");
+	                   	}
+                    	else if(retailNetwork.equals("OS")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("OS");
+	                   	}
+                    	else if(retailNetwork.equals("PRTNR") && (storeNumber != null && storeNumber.substring(0,1).equals("H"))) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("HB");
+	                   	}
+                    	else {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("UK");
+	                   	}
+                    }
                     
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
     
@@ -524,6 +571,8 @@ public class AccountApplicationRequestTypeConverter
 			{
 				agency = model.get("employerID");
 				argAccAppRequest.setStoreNumber(model.get("locationFieldID"));
+				argAccAppRequest.setBusinessStoreNo(model.get("businessStoreNumber"));
+				
 				/*WICIDBHelper wicidbHelper = new WICIDBHelper();
 				String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
 				boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);*/
@@ -608,6 +657,7 @@ public class AccountApplicationRequestTypeConverter
 			{
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
+				argAccAppRequest.setEstmt_consent((model.get("estmt_consent")));
 			}
 		}
 		catch (Exception e)

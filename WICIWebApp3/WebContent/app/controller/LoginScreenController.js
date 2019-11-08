@@ -11,7 +11,9 @@ WICI.LoginScreenController = function(app) {
     var testPrintFailedAttempts = null;
 
     var validateNameFields = false;
-
+    var validateOtherStaff = false;
+    var signatureControl;
+    
     var latestDictionary = null; //dictionaryInfo
 
     this.show = show;
@@ -27,7 +29,7 @@ WICI.LoginScreenController = function(app) {
         // US4454
         password: '#passwordTextField',
         //passwordFieldID : '#passwordTextField',
-        locationFieldID: '#locationNumberTextField',
+        businessStoreNo: '#locationNumberTextField',
         firstName: '#firstNameTextField',
         lastName: '#lastNameTextField',
 
@@ -39,7 +41,25 @@ WICI.LoginScreenController = function(app) {
         retailNetWork : '#retailNetWorkId',	
         employeeNumberId : '#employeeNumberIDTextField',
         employeeNumberRowId:'#employeeNumberID_Row',
-        retailNetworkSelectionId:'#retail_DropDown_Row'
+        retailNetworkSelectionId:'#retail_DropDown_Row',
+        longitude: '',
+        latitude: '',
+        // US5415
+        flipStaffMemberYesNo : '#flipStaffMember',
+        flipStaffMember_no : '#flipStaffMember_no',
+        flipStaffMember_yes : '#flipStaffMember_yes',
+        otherStaffMemberTable: '#loginFieldsTable_OtherstaffMember',
+        employeeNumberIdOtherStaffMember : '#employeeNumberIDOtherStaffMemnerTextField',
+        employeeNumberRowIdOtherStaffMember : '#employeeNumberID_OtherStaffMember_Row',
+        firstNameOtherStaffMember: '#firstNameOtherStaffMemberTextField',
+        lastNameOtherStaffMember: '#lastNameOtherStaffMemberTextField',
+        otheraStaffMemberToggleArea : '#OtherStaff_TitleAreaYesNO',
+        // US5413
+        signatureArea : '#signature_training_completion',
+        signature     : '#signatureOfStaffMember',
+        signature_trainee : '#loginScreen_SingnatureContainer',
+        resetSignature : '#signature_Reset_Button_login_Screen',
+        
     };
 
     var model = new WICI.BaseModel({
@@ -52,13 +72,24 @@ WICI.LoginScreenController = function(app) {
          	{ name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
         	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'password', value: null, validation: null },
-            { name: 'locationFieldID', value: null, validation: { type: 'presence', message: '', matcher: /^[a-zA-Z0-9]{1,5}$/, group: [1] } },
+            { name: 'locationFieldID', value: null, validation: null },
+            { name: 'businessStoreNo', value: null, validation: { type: 'presence', message: '', matcher: /^[a-zA-Z0-9]{1,5}$/, group: [1] } },
             { name: 'agentID', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1,8}$/, group: [1] } },
+            { name: 'longitude', value: null, validation: null },
+            { name: 'latitude', value: null, validation: null },
+            { name: 'firstNameOtherStaffMember', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2],canBeEmpty : true  } },
+        	{ name: 'lastNameOtherStaffMember', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2], canBeEmpty : true } },
+        	{ name: 'employeeNumberIdOtherStaffMember', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,9}/, canBeEmpty : true } },
+        	
+        	{ name: 'signature_trainee', value: null, validation: {type: 'presence', message: '', group: [2]}},
             { notField: true, name: 'userLocationResponse', value: null, validation: null },
             { notField: true, name: 'rollId', value: null, validation: null },
     		{ notField: true, name: 'enableEnstreamAuth', value: null, validation: null },
             { notField: true, name: 'printerMacAddress', value: null, validation: null },
             { notField: true, name: 'printerInRange', value: null, validation: null },
+            { notField: true, name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
+            { notField: true, name: 'userSingnatureNative', value: null, validation: null},
+            { name: 'businessStoreNumber', value: null, validation: null },
         ]
     });
     this.innerModel = model;
@@ -86,11 +117,107 @@ WICI.LoginScreenController = function(app) {
         connectivityController.init();
         createView();
         createSlider();
+        getLocation();
         bindEvents();
         setToggleLanguageSlider(translator.getCurrentLanguageFSDPFormat());
         setFrenchlogo();
         populateNetworkRetailList();
-   	    hideRetailNetWorkData();
+        createFlips();
+        $(refs.otherStaffMemberTable).hide();
+        $(refs.otheraStaffMemberToggleArea).hide();
+        $(refs.signatureArea).hide();
+   	    //hideRetailNetWorkData();
+    }
+    function createFlips() {
+    	var sMethod = 'createFlips() ';
+    	console.log(logPrefix + sMethod);
+		$(refs.flipStaffMember_no).text(translator.translateKey("no"));
+		$(refs.flipStaffMember_yes).text(translator.translateKey("yes"));
+		$(refs.flipStaffMemberYesNo).slider();
+	}
+    
+    function showAndHideOtherStaffMember() {
+    	var sMethod = 'showAndHideOtherStaffMember() ';
+        console.log(logPrefix + sMethod);
+    	var employerId = $(refs.employerID).val().toUpperCase();
+    	console.log(logPrefix + sMethod + "employerId :: " +employerId);
+        
+		$(refs.flipStaffMemberYesNo).change(function() {
+			if ("Y" == $(this).val()) {
+				$(refs.otherStaffMemberTable).show();
+			} else {
+				$(refs.otherStaffMemberTable).hide();
+			}
+		});
+    }
+
+    
+    function bindRadioHandlingControls() {
+    	 var sMethod = 'bindRadioHandlingControls() ';
+    	 console.log(logPrefix + sMethod);
+    	// console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
+    	 //var flipValue = $(refs.flipStaffMemberYesNo + ' ' + 'option:selected').val();
+    	 var employerId = $(refs.employerID).val().toUpperCase();
+    		 $(refs.flipStaffMemberYesNo).change(function() {
+    			 
+    			 var flipValue = $(refs.flipStaffMemberYesNo + ' ' + 'option:selected').val();
+    				if ("Y" == flipValue) {
+    					model.set('flipStaffYesNo', flipValue);
+    					validateOtherStaff = true;
+    					console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
+    					console.log(logPrefix + sMethod + "flipValue ::  YES ::" + flipValue);
+    					$(refs.otherStaffMemberTable).show();
+    					
+    					if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
+    						$.each(model.data, function(index, item) {
+    							if(item.name == "employeeNumberIdOtherStaffMember") {
+    	    						 item.validation.canBeEmpty = false;
+    	    						 $(refs.employeeNumberIdOtherStaffMember).val(model.get('tempEmpNumberID'));
+    	    					}
+        		 			});
+    					}
+    					$.each(model.data, function(index, item) {
+    		 				console.log( " for all retailNetWork :: Flipstaff is enable and showing :: " );
+    		 					if(item.name == "firstNameOtherStaffMember") {
+    		 						 item.validation.canBeEmpty = false;
+    		 						 $(refs.firstNameOtherStaffMember).val('');
+    		 					}
+    		 					if(item.name == "lastNameOtherStaffMember") {
+    								 item.validation.canBeEmpty = false;
+    								$(refs.lastNameOtherStaffMember).val('');
+    							}
+    		 			});
+    					
+    				} else {
+    					model.set('flipStaffYesNo', flipValue);
+    					validateOtherStaff = false;
+    					console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
+    					console.log(logPrefix + sMethod + "flipValue :: NO :: " + flipValue);
+    					$(refs.otherStaffMemberTable).hide();
+    					
+    					if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
+    						$.each(model.data, function(index, item) {
+    							if(item.name == "employeeNumberIdOtherStaffMember") {
+    	    						 item.validation.canBeEmpty = true;
+    	    						// $(refs.employeeNumberIdOtherStaffMember).val(model.get('tempEmpNumberID'));
+    	    					}
+        		 			});
+    					}
+    					$.each(model.data, function(index, item) {
+    		 				console.log( " for all retailNetWork :: Flipstaff is enable and showing :: " );
+    		 					if(item.name == "firstNameOtherStaffMember") {
+    		 						 item.validation.canBeEmpty = true;
+    		 						 $(refs.firstNameOtherStaffMember).val('');
+    		 					}
+    		 					if(item.name == "lastNameOtherStaffMember") {
+    								 item.validation.canBeEmpty = true;
+    								$(refs.lastNameOtherStaffMember).val('');
+    							}
+    		 					
+    		 				
+    		 			});
+    				}
+    			});
     }
 
     function setFrenchlogo() {
@@ -98,6 +225,50 @@ WICI.LoginScreenController = function(app) {
             //translator.changeLogoToFrench();
             app.translationExtender.changeLogoToFrench();
         }
+    }
+    //US5413
+  //---------------------------------------------------------------------------------------
+    function createSignatureControl() {
+        if (!signatureControl) {
+            // Restore signature
+//        	fixSignatureWidth();
+            if (model.get('userSingnatureNative')) {
+                // Create signature object
+                signatureControl = $(refs.signature).jSignature({'signatureLine': true});
+                // Restore signature content
+                $(refs.signature).jSignature("setData", model.get('userSingnatureNative'), 'native');
+                // Apply some dependencies
+                onSignatureChaged();
+            } else {
+                signatureControl = $(refs.signature).jSignature();
+            }
+
+            $(refs.signature).bind('change', onSignatureChaged);
+        }
+    }
+  //---------------------------------------------------------------------------------------
+    function onSignatureChaged (e) {
+        var sMethod = 'onSignatureChaged() ';
+        console.log(logPrefix + sMethod);
+
+        if ($(refs.signature).jSignature('getData', 'native').length > 0) {
+            $(refs.resetSignature).removeClass('grayflat');
+            $(refs.resetSignature).addClass('blackflat');
+            $(refs.resetSignature).bind('click', onResetSignature1Clicked);
+
+        }
+        model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+    }
+    //---------------------------------------------------------------------------------------
+    function onResetSignature1Clicked () {
+        var sMethod = 'onResetSignatureClicked() ';
+        console.log(logPrefix + sMethod);
+
+        // Clear canvas
+        $(refs.signature).jSignature('reset');
+        $(refs.resetSignature).removeClass('darkgrayflat');
+        $(refs.resetSignature).addClass('grayflat');
+        $(refs.resetSignature).unbind('click', onResetSignature1Clicked);
     }
     // ---------------------------------------------------------------------------------------
     function syncUserData() {
@@ -107,16 +278,27 @@ WICI.LoginScreenController = function(app) {
         //model.set('userID', $(refs.userID).val());
         model.set('agentID', $(refs.agentID).val().toLowerCase());
         //model.set('passwordFieldID', $(refs.passwordFieldID).val());
-        model.set('locationFieldID', $(refs.locationFieldID).val().toUpperCase());
+        model.set('locationFieldID', $(refs.businessStoreNo).val().toUpperCase());
+        model.set('businessStoreNo', $(refs.businessStoreNo).val().toUpperCase());
         model.set('retailNetWork', $(refs.retailNetWork).val());
         model.set('employeeNumberId', $(refs.employeeNumberId).val());
         model.set('password', $(refs.password).val().toUpperCase());
+        model.set('flipStaffYesNo', $(refs.flipStaffMemberYesNo + ' ' + 'option:selected').val());
+        model.set('employeeNumberIdOtherStaffMember', $(refs.employeeNumberIdOtherStaffMember).val().toLowerCase());
         
         if (validateNameFields) {
             model.set('firstName', $(refs.firstName).val().toLowerCase());
             model.set('lastName', $(refs.lastName).val().toLowerCase());
-           }
-
+            
+            model.set('signature_trainee',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+            model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+            model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+        }
+        console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
+        if(validateOtherStaff) {
+        	model.set('firstNameOtherStaffMember', $(refs.firstNameOtherStaffMember).val().toLowerCase());
+            model.set('lastNameOtherStaffMember', $(refs.lastNameOtherStaffMember).val().toLowerCase());
+        }
         console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
     }
 
@@ -139,7 +321,7 @@ WICI.LoginScreenController = function(app) {
        
         assembleTitleHTML($screenContainer, "#WICILoginScreen-template");
 
-//        $(refs.locationFieldID).autoNumeric('init', {
+//        $(refs.businessStoreNo).autoNumeric('init', {
 //            aSign: '',
 //            vMin: '0',
 //            vMax: '9999',
@@ -164,7 +346,11 @@ WICI.LoginScreenController = function(app) {
     function setToggleLanguageSlider(language) {
         console.log('setToggleLanguageSlider : ' + language);
         $(refs.language_choser).val(language);
+        createFlips();
         $(refs.language_choser).slider("refresh");
+        if(validateOtherStaff) {
+        	$(refs.flipStaffMemberYesNo).slider("refresh");
+        }
     }
 
     function assembleTitleHTML($element, templateName) {
@@ -175,11 +361,13 @@ WICI.LoginScreenController = function(app) {
     function bindEvents() {
         var sMethod = 'bindEvents() ';
         console.log(logPrefix + sMethod);
-
+        bindRadioHandlingControls();
+        createFlips();
+       // showAndHideOtherStaffMember();
         $(refs.loginButtonID).click(function() {
         	generateAgentId();
         	testPrint();
-            //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
+            //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -190,33 +378,19 @@ WICI.LoginScreenController = function(app) {
         $(refs.language_choser).on("change", function() {
             translator.toggleLanguage(true);
             app.language.setLanguage(translator.getCurrentLanguageFSDPFormat());
+            createFlips();
+            if(validateOtherStaff) {
+            	$(refs.flipStaffMemberYesNo).slider("refresh");
+            }
             populateNetworkRetailList();
         });
         /****************************/
         $(refs.retailNetWork).change(function () {
       	  console.log( "Handler for .change() called."+$(refs.retailNetWork ).val() );
-      	if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
-      		 $(refs.employeeNumberRowId).show();
-      		 $.each(model.data, function(index, item) {
- 				if(item.name == "employeeNumberId") {
- 					 item.validation.canBeEmpty = false;
- 					 $(refs.employeeNumberId).val(model.get('tempEmpNumberID'));
- 				}
- 				// US5054 WICI - Expand employee number field to 9 characters
- 				// Expand Employee Number field to 9 characters for Marks + FGL employee apps
- 				if(item.name == "agentID") {
-					 item.validation.matcher = /^[a-zA-Z0-9]{1,9}$/;
-				}
- 			});
-      	}else{
-      		 $(refs.employeeNumberId).val('');
-      		 $(refs.employeeNumberRowId).hide();
-      		employeeNumberIdValidation();
-      		 
-      	}
       	
-      	 retailNetWorkSelectionValidation();
-      	
+      	  if($(refs.employerID).val().toUpperCase() == 'E') {
+      		employeeNumberFieldHandler();
+      	  }
       	
       	});
       
@@ -226,6 +400,71 @@ WICI.LoginScreenController = function(app) {
         $(refs.employerID).on('input', employerIdChanged);
         // listen to the AgentId change       
         $(refs.agentID).on('input', hidePasswordForDEMOMODE);
+    }
+    
+    function employeeNumberFieldHandler() {
+    	
+    	if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
+    		 $(refs.employeeNumberRowId).show();
+    		 $(refs.employeeNumberRowIdOtherStaffMember).show();
+    		 $.each(model.data, function(index, item) {
+				if(item.name == "employeeNumberId") {
+					 item.validation.canBeEmpty = false;
+					 $(refs.employeeNumberId).val(model.get('tempEmpNumberID'));
+				}
+				if(validateOtherStaff) {
+					console.log( "[ \"MARKS\", \"SPORTS\"] for all retailNetWork :: Flipstaff is enable and showing :: " );
+					if(item.name == "employeeNumberIdOtherStaffMember") {
+						 item.validation.canBeEmpty = false;
+						 $(refs.employeeNumberIdOtherStaffMember).val(model.get('tempEmpNumberID'));
+					}
+					if(item.name == "firstNameOtherStaffMember") {
+						 item.validation.canBeEmpty = false;
+						 $(refs.firstNameOtherStaffMember).val('');
+					}
+					if(item.name == "lastNameOtherStaffMember") {
+						 item.validation.canBeEmpty = false;
+						 $(refs.lastNameOtherStaffMember).val('');
+					}
+				}else {
+					if(item.name == "employeeNumberIdOtherStaffMember") {
+						 item.validation.canBeEmpty = true;
+					}
+				}
+				// US5054 WICI - Expand employee number field to 9 characters
+				// Expand Employee Number field to 9 characters for Marks + FGL employee apps
+				if(item.name == "agentID") {
+					 item.validation.matcher = /^[a-zA-Z0-9]{1,9}$/;
+				}
+			});
+    	}else{
+    		 $.each(model.data, function(index, item) {
+ 				if(validateOtherStaff) {
+ 					console.log( "[ \"MARKS\", \"SPORTS\"] for all retailNetWork :: Flipstaff is enable and showing :: " );
+ 					if(item.name == "employeeNumberIdOtherStaffMember") {
+ 						 item.validation.canBeEmpty = true;
+ 						 $(refs.employeeNumberIdOtherStaffMember).val(model.get('tempEmpNumberID'));
+ 					}
+ 					
+ 				}else {
+ 					if(item.name == "employeeNumberIdOtherStaffMember") {
+ 						 item.validation.canBeEmpty = true;
+ 					}
+ 				}
+ 				// US5054 WICI - Expand employee number field to 9 characters
+ 				// Expand Employee Number field to 9 characters for Marks + FGL employee apps
+ 				if(item.name == "agentID") {
+ 					 item.validation.matcher = /^[a-zA-Z0-9]{1,9}$/;
+ 				}
+ 			});
+    		 $(refs.employeeNumberId).val('');
+    		 $(refs.employeeNumberIdOtherStaffMember).val('');
+    		 $(refs.employeeNumberRowId).hide();
+    		 $(refs.employeeNumberRowIdOtherStaffMember).hide();
+    		 employeeNumberIdValidation();
+    		 
+    	}
+    	 retailNetWorkSelectionValidation();
     }
 
     function generateAgentId() {
@@ -256,19 +495,33 @@ WICI.LoginScreenController = function(app) {
     function employerIdChanged(e) {
         switch (e.target.value.toUpperCase()) {
             case 'E':
+            	$(refs.employeeNumberRowId).show();
+            	$(refs.employeeNumberId).val('');            	
+            	$(refs.otheraStaffMemberToggleArea).show();
+            	model.set('flipStaffYesNo', 'N');
+            	$(refs.flipStaffMemberYesNo).val('N');
+            	$(refs.signatureArea).show();
                 changeFormForEmployer();
                 validateNameFields = true;
+                createSignatureControl();
+                employeeNumberFieldHandler();
                 break;
             default:
+            	$(refs.employeeNumberId).val('');
+            	$(refs.employeeNumberRowId).hide();
+            	employeeNumberIdValidation();
+            	$(refs.otheraStaffMemberToggleArea).hide();
+            	$(refs.otherStaffMemberTable).hide();
+            	$(refs.signatureArea).hide();
+            	$(refs.flipStaffMemberYesNo).val('N');
+            	model.set('flipStaffYesNo', 'N');
                 resetForm();
                 validateNameFields = false;
         }
     }
 
     function resetForm() {
-    	
-
-		     hideRetailNetWorkData();
+		//hideRetailNetWorkData();
 		employeeNumberIdValidation();
 		$(refs.retailNetWork).val(null);
 		retailNetWorkSelectionValidation();
@@ -305,6 +558,11 @@ WICI.LoginScreenController = function(app) {
         console.log(logPrefix + sMethod);
 
         if($(refs.agentID).val().toUpperCase() === "DEMO"){
+        	$.each(model.data, function(index, item) {
+  				if(item.name == "employeeNumberId") {
+  					 item.validation.canBeEmpty = true;
+  				}
+  			});
         	$(refs.password).closest('tr').addClass('hidden');
         	$(refs.employeeNumberRowId).hide();
         } else {
@@ -340,7 +598,7 @@ WICI.LoginScreenController = function(app) {
     }
 
     // ---------------------------------------------------------------------------------------
-    function invokeLogin(argEmployerID, argAgentID, user, password, locationID, argFirstName, argLastName, apkVersion, argSuccessCB, argFailureCB) {
+    function invokeLogin(argRetailNetwork, argEmployerID, argAgentID, user, password, locationID, argFirstName, argLastName, apkVersion, argSuccessCB, argFailureCB) {
         var sMethod = 'invokeLogin() ';
         console.log(logPrefix + sMethod);
 
@@ -438,7 +696,7 @@ WICI.LoginScreenController = function(app) {
             messageDialog.error( translator.translateKey("incorrect_Apk_Version_Dialog"), translator.translateKey("errorDialog_defaultTitle"), navigator.app.exitApp);
         }
 
-        connectivityController.Login(argEmployerID, argAgentID, user, password, locationID, apkVersion, argSuccessCB, argFailureCB);
+        connectivityController.Login(argRetailNetwork, argEmployerID, argAgentID, user, password, locationID, apkVersion, argSuccessCB, argFailureCB);
 
         if (WICI.AppConfig.BluetoothConfig.TOGGLEBT_AT_LOGIN === true) {
             WICI.BluetothHelper.toggle();
@@ -464,6 +722,16 @@ WICI.LoginScreenController = function(app) {
         	if(argResponse.data.enableEnstreamAuth != null) {
         		model.set('enableEnstreamAuth', argResponse.data.enableEnstreamAuth);
         	}
+        	if(app.getDemoMode()) {
+        		model.set('locationFieldID', $(refs.businessStoreNo).val().toUpperCase());
+        	} else {
+        		console.log("WICI Login Response CTFSStoreNo ::"+ model.get('CTFSStoreNo'));
+            	if(argResponse.data.checkLocation) {
+            		model.set('locationFieldID', argResponse.data.checkLocation.CTFSStoreNo);
+            		model.set('businessStoreNumber', argResponse.data.checkLocation.businessStoreNumber);
+            	}
+        	}
+        	
         	console.log("WICI Login Response enableEnstreamAuth ::"+ model.get('enableEnstreamAuth'));
             app.accountProfileHelper.initialize(argResponse.data.roles,argResponse.data.roleId);
         }
@@ -551,26 +819,32 @@ WICI.LoginScreenController = function(app) {
     function testPrint() {
 		var sMethod = 'testPrint() ';
 		console.log(logPrefix + sMethod);
-		
+		var rez3 = [];
 		syncUserData();
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
-
+        	
             var rez = model.validate(1);
             app.validationDecorator.applyErrAttribute(rez);
-            
+            console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
             if (validateNameFields) {
                 var rez2 = model.validate(2);
                 app.validationDecorator.applyErrAttribute(rez2);
-
+                
                 if (rez.length > 0 || rez2.length > 0) {
                     return;
                 }
+            }else if(validateOtherStaff) {
+            	rez3 = model.validate(2);
+            	console.log(logPrefix + sMethod + "rez3 : " + rez3.length);
+            	console.log(logPrefix + sMethod + "rez3 : " + rez3[0] + " rez3 [1]" +  rez3[1] );
+            	if(rez.length > 0 || rez2.length > 0 || rez3.length > 0) {
+           		 return;
+           	 }
             } else if (rez.length > 0) {
                 return;
             }
         }
-		
 		new WICI.LoadingIndicatorController().show();
 		try {
 			var isDevice = new WICI.DeviceDetectionHelper().any();
@@ -580,7 +854,7 @@ WICI.LoginScreenController = function(app) {
 				// Web print
 				 model.set('printerMacAddress', false);
 				 model.set('printerInRange', false);
-  		         invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);				 
+  		         invokeLogin($(refs.retailNetWork).val(), $(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);				 
 				 return;
 			}
 		} catch (error) {
@@ -594,7 +868,7 @@ WICI.LoginScreenController = function(app) {
 	    console.log(logPrefix + sMethod);
 	    
 	    model.set('printerInRange', true);
-        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);	    
+        invokeLogin($(refs.retailNetWork).val(), $(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);	    
 	}
 	//---------------------------------------------------------------------------------------
 	function printTestFileFailure() {
@@ -602,7 +876,7 @@ WICI.LoginScreenController = function(app) {
 	    console.log(logPrefix + sMethod);
 	    
 	    model.set('printerInRange', false);
-        invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.locationFieldID).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+        invokeLogin($(refs.retailNetWork).val(), $(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
 	}
     // ---------------------------------------------------------------------------------------
 	function populateNetworkRetailList() {
@@ -645,7 +919,7 @@ WICI.LoginScreenController = function(app) {
         $(refs.userID).attr('disabled', 'disabled');
         $(refs.agentID).attr('disabled', 'disabled');
         $(refs.passwordFieldID).attr('disabled', 'disabled');
-        $(refs.locationFieldID).focus();
+        $(refs.businessStoreNo).focus();
     }
     // ---------------------------------------------------------------------------------------
     function enableLoginCredentialsFieldsAndFocusAgentIDField() {
@@ -727,20 +1001,20 @@ WICI.LoginScreenController = function(app) {
     }
     // -------------------------------------------------------------------------------------   
     function  retailNetWorkSelectionValidation(){
-	 	if($(refs.retailNetWork ).val() === 'null' &&  $(refs.employerID).val().toUpperCase() == 'E') {
+	 	//if($(refs.retailNetWork ).val() === 'null' &&  $(refs.employerID).val().toUpperCase() == 'E') {
       		$.each(model.data, function(index, item) {
  				if(item.name == "retailNetWork") { 
  				item.validation.canBeEmpty = false;
  				}
       		});
-	 	}
-   		else {
+	 	//}
+   		/*else {
       		$.each(model.data, function(index, item) {
      			if(item.name == "retailNetWork") { 
      			item.validation.canBeEmpty = true;
      			}
           	});
-      	}
+      	}*/
    	}
     // -------------------------------------------------------------------------------------
 	function employeeNumberIdValidation(){
@@ -750,5 +1024,24 @@ WICI.LoginScreenController = function(app) {
 			}
 		});
 	}
+	
+    // -------------------------------------------------------------------------------------
+	
+	function getLocation() {
+		  if (navigator.geolocation) {
+		   navigator.geolocation.getCurrentPosition(showPosition);
+		  } else { 
+		   console.log("Geolocation is not supported by this browser.");
+		  }
+		}
+
+	function showPosition(position) {
+		  var longitude = position.coords.longitude.toFixed(5);
+		  model.set('longitude', longitude);
+		  console.log("longitude:" +longitude);
+		  var latitude = position.coords.latitude.toFixed(5);;
+		  model.set('latitude', latitude);
+		  console.log("latitude", latitude);
+		}
    
 };

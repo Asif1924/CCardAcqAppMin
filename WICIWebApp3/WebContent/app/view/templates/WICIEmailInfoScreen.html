@@ -1,35 +1,29 @@
 <script id="WICIEmailInfoScreen-template" type="text/x-jquery-tmpl">
 <!--  US4637 Start //-->
     <div class="ScreenLayout" id="EmailInfoSCreen_PageContents">
-		<br/>
-		<br/>
 		<!--<center>
 		<span id="FEClickHere" class="pageTitle" data-translationKey="EmailInfo_PageTitle"></span>
 		</center>-->
-		
-		<center>
-	        {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMX" || activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"}}
+		  {{if activationItems.getModel('chooseProductModel').get('productCard') == "OMX" || activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"}}
 		           <a href="#" id="omxCardEmailInfo" class="emailInfoCard"></a>
 		    {{else activationItems.getModel('chooseProductModel').get('productCard') === "OMP" || 
 	                    	               activationItems.getModel('chooseProductModel').get('productCard') === "OMR"}} 
 	              <a href="#" id="emailInfo_OMR_OMP_image" class="emailInfo_OMR_OMP_cardImage"></a>   
 		    {{/if}} 
-	     </center>
-	    
 	    <div >
-	            <table class="stretchThisTable">
+	            <table class="stretchThisTableEmailInfoPage">
 	                <tr class="fieldRow">
-	                    <td class="fieldEmailInfoCell fieldCellSize33">
+	                    <!--<td class="fieldEmailInfoCell fieldCellSize33">
 	                        <span data-translationKey="personalData_EmailAddress"></span>
-	                    </td>
+	                    </td>-->
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" type='email' maxlength="60" />
+	                        <input class="fieldValuesTextField" id="personalData_EmailAddress_TextField" placeholder = "Enter your email here..." type='email' maxlength="60" />
 	                    </td>
 	                </tr>
 	            </table>
 			</div>
 		<br/>
-		<div id='personalData_ReceiveEmailArea'>
+		<!--<div id='personalData_ReceiveEmailArea'>
 		
 		<center>
 			<table class="stretchThisTable tableNoCellsBorder" id="personalData_ReceiveEmail_Group">
@@ -60,7 +54,37 @@
 				</tr>
 			</table>
 		</center>
+	</div>-->
+		
+	<center>
+	<div class = "receiveEmailArea" id='personalData_ReceiveEmailArea'>
+		<table class="stretchThisTable borderZero" >
+	    <div class="rightContaier align-vertical-middle-item">
+			<div class="receiveEmail_CheckBox">
+				<label class="containerEmailPage" >
+                           <span data-translationKey= "receiveEmail_Text" class="bold"></span>
+                              <input type="checkbox" name="receiveEmail_CheckBox1" id="receiveEmail_CheckBox">
+                               <span class="checkmarkEmailPage"></span>
+                </label>
+				<p class = "receiveEmail_TextArea" data-translationKey = "receiveEmail_TextAreaText"></p>
+			</div>
+		</div>
+		</table>
+	
+		<table class="stretchThisTable borderZero" >
+ 	  	<div class="rightContaier align-vertical-middle-item">
+			<div class="receiveEstmt_CheckBox">
+				<label class="containerEmailPage" >
+                           <span data-translationKey= "receiveEstmt_Text" class="bold"></span>
+                              <input type="checkbox" name="receiveEstmtConsent_CheckBox" id="receiveEstmtConsent_CheckBox">
+                           <span class="checkmarkEmailPage"></span>
+                </label>
+				<p class = "receiveEmail_TextArea" data-translationKey = "receiveEstmt_TextAreaText"></p>
+			</div>
+	    </div>
+		</table>
 	</div>
+	</center>
 		<br/>
 		<br/>
 	</center>

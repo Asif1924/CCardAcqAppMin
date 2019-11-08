@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://persistservice.cantire.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://persistservice.cantire.com/">
+  
+  <!-- 
+  We need a SOAP web service has a single operation for the time being "saveCustomerCardData",
+  this operation's only parameter is a cardRequest, and it will respond with a cardResponse
+  
+  See XSD for object definitions
+  
+  NOTE: All these namespaces are just placeholders, use whatever you need here.
+  -->
+
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://persistservice.cantire.com/" schemaLocation="eCommPersistCustomerCardData_v8.xsd"/>
+    </xsd:schema>
+  </types>
+
+  <message name="SaveCustomerCardData">
+    <part element="tns:request" name="SaveCardRequest"/>
+  </message>
+
+  <message name="SaveCustomerCardDataResponse">
+    <part element="tns:response" name="SaveCardResponse"/>
+  </message>
+
+  <portType name="PersistServiceDelegate">
+    <operation name="SaveCustomerCardData">
+      <input message="tns:SaveCustomerCardData"/>
+      <output message="tns:SaveCustomerCardDataResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="PersistServicePortBinding" type="tns:PersistServiceDelegate">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="SaveCustomerCardData">
+      <soap:operation soapAction="http://persistservice.cantire.com/"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PersistService">
+    <port binding="tns:PersistServicePortBinding" name="PersistService">
+      <soap:address location="http://dev8.ctal.ctc"/>
+    </port>
+  </service>
+</definitions>

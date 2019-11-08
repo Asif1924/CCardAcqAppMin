@@ -224,7 +224,7 @@ BRB.dictionary_fr = {
 		overview_TopTableLeftCol1							:	"Vous devez résider au Canada",
 		overview_TopTableLeftCol2							:	"Vous devez avoir atteint l'âge de la majorité dans votre province de résidence",
 		overview_TopTableLeftCol3							:	"Vous devez occuper un emploi ou être à la retraite ",
-		overview_TopTableLeftCol4							:	"Votre revenu personnel s'élève à au moins 80 000 $ par an ou le revenu annuel de votre ménage s'établit à 150 000 $",
+		overview_TopTableLeftCol4							:	"Votre revenu personnel s'élève à au moins 80 000 $",
 		overview_TopTableLeftCol5							:	"Vous devez avoir une excellente cote de crédit",
 
 		overview_TopTableRightColTitle						:	"De quoi ai-je besoin?",

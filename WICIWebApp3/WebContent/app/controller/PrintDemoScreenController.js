@@ -870,7 +870,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod);
         
         if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
- 				activationItems.getModel('loginScreen').get('locationFieldID') <= 1999) {
+ 				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
         	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
             	// No reprint OMX/Z coupon for gas store
         		new WICI.LoadingIndicatorController().hide();

@@ -13,6 +13,7 @@ public class WICIConfigurationFactory
 	private static final String CONFIGURATION_PROPERTIES="WICI_ENVIROINMENT_CONFIGURATION";
 	private static final String WEBSERVICES_ENDPOINT_SHAREDSERVICES="WEBSERVICES_ENDPOINT_SHAREDSERVICES";
 	private static final String ACCOUNTAPPLICATION_DELAY="WEBSERVICES_ACCOUNTAPPLICATION_DELAY";
+	private static final String CONFIGURATION_CATEGORY="OUTLET_TYPE_ID";
 	
 	static Logger log = Logger.getLogger(WICIConfigurationFactory.class.getName());
 
@@ -48,6 +49,25 @@ public class WICIConfigurationFactory
 		log.info(sMethod + "---WebServices endpoint set to " + conf.getWebservicesEndpoint());
 		log.info(sMethod + "---ServiceName set to " + conf.getServiceName());
 		log.info(sMethod + "---AccountApplication delay set to " + conf.getAccountApplicationDelay());
+		return conf;
+	}
+	
+	public WICIConfiguration readOutletTypeIdConfiguration(String retailNetwork)
+	{
+		String sMethod = this.getClass().getName() + "[readOutletTypeIdConfiguration] ";
+		log.info(sMethod + " ::::::: " + retailNetwork);
+		
+		WICIConfiguration conf = new WICIConfiguration();
+		   	    
+		ApplicationConfiguration.readApplicationConfiguration();
+		Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_CATEGORY);
+		log.info("Outlet type id CT :: "+ enviroinmentMap.get(retailNetwork));
+						
+		String outletTypeId = enviroinmentMap.get(retailNetwork).toString();// getOUTLET_TYPE_ID();
+		
+		conf.setOutletTypeId(outletTypeId);
+
+		log.info(sMethod + "--- Outlet type id " + conf.getOutletTypeId());
 		return conf;
 	}
 }

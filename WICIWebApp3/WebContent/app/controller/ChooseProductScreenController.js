@@ -61,7 +61,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 message : 'Enter valid Promo Code',
                 matcher : /^[a-zA-Z0-9\'\-||S.O.]{1,5}$/,
                 // US4433   Other then FGl store PromoCode field should not allow blank (Empty)
-                canBeEmpty : (loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999) ? true : false
+                canBeEmpty : (loginModel.get('retailNetWork') == "SPORTS") ? true : false
             }
         }, {
             name : 'province',
@@ -84,6 +84,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         messageDialog = argMessageDialog; // (AA)Dependency Injection
         // Principle: Allows for proper unit
         // testing
+        
+        var retailNetwork = loginModel.get('retailNetWork');
+        var employerID = loginModel.get('employerID').toUpperCase();
 
         updateOmpCardLanguage();
         // US3766
@@ -96,18 +99,17 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         createView();
        
         // US4194
-        if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
-        	if(loginModel.get('employerID').toUpperCase() !== 'E') {
+        if(retailNetwork == "MARKS") {
+        	if(employerID !== 'E') {
         		showPromoCodeTextField();
-        		loadCSRWorkflowOMC();
         	}
         }
         // US4433 For FGL store hide program  drop down and set the value 
-        else if(loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999){
+        else if(retailNetwork == "SPORTS"){
            	   hidePromoCodeDropDown();
         }else {
         	// US3767
-        	if(loginModel.get('employerID').toUpperCase() !== 'E') {
+        	if(employerID !== 'E') {
         		hidePromoCodeTextField();
         	}        	
         }
@@ -119,14 +121,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         //restoreCreditCardData();
         //showCOCD();
 
-        if(loginModel.get('employerID').toUpperCase() === 'E' && loginModel.get('agentID').toLowerCase() !== 'demo') {
+        if(employerID === 'E' && retailNetwork == "CT") {
             loadCSRWorkflowOMC();
-        }
-        
-        // US4432
-        if(loginModel.get('employerID').toUpperCase() !== 'E' && (loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999)) {
-        	loadCSRWorkflowOMC();
-        }
+        } else if($.inArray(retailNetwork, ['MARKS', 'SPORTS', 'FGLFRN', 'PHL', 'NS', 'MRKFRN', 'OS', 'PRTNR']) != -1) {
+            loadCSRWorkflowOMC();
+        }        
 
         app.idleTimeService.start();
 
@@ -296,6 +295,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 $("#ompCard").show();
                 bindOmpCardHandler();
             } else {
+            	loadCSRWorkflowOMC();
                 $("#ompCard").hide();
                 if($("#ompCard").hasClass('creditCardSelectedBgColor')){
                     $("#ompCard").removeClass('creditCardSelectedBgColor');
@@ -310,65 +310,31 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
             selectedProvince = $(refs.province).val();
             
-            // US3499 
-            // Auto populate program desc
-            /*var employerID = loginModel.get('employerID');       
-            var storeNumber = loginModel.get('locationFieldID');
-            if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){        	
-            	if (employerID.toUpperCase() === "E") {
-                    model.set('agencyProgram', 'MW999');
-                    model.set('agencyPromoCode', 'MW999');
-                    $(refs.agencyPromoCode).val('MW999');
-                    hideProgram();
-                    // US3767 
-                    hidePromoCodeDropDown();
-                } else {
-                    model.set('agencyProgram', 'MW999');
-                    model.set('agencyPromoCode', 'MW999');
-                    }                        	
-            } else if (employerID.toUpperCase() === "E") {
-                    model.set('agencyProgram', 'other');
-                    model.set('agencyPromoCode', 'CTR1');
-                    $(refs.agencyPromoCode).val('CTR1');
-                    hideProgram();
-                    // US3767 
-                    hidePromoCodeDropDown();
-            }*/        
-            
             // US4194
             var controlRef = $(refs.agencyProgram);
             controlRef.empty();
-    		// US3920
-            /*var list = new WICI.ProgramsList();
-            populateDropDown(controlRef, list.data);*/
             
             var employerID = loginModel.get('employerID');       
             var storeNumber = loginModel.get('locationFieldID');
+            var retailNetwork = loginModel.get('retailNetWork');
             var programObj;
             
-            if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999) {
+            if(retailNetwork == "MARKS") {
             	if (employerID.toUpperCase() != "E") {
             		if(translator.getCurrentLanguage() == 'en') {
             			
             			if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
                 	    {	 
             				programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode_QC);
-                    		// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
                 	    }else if (employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
                 	    	programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode);
-                	    	// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
                 	    }
-            			
-            			// programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode);
-                    	// $("<option value='' >Please select ...</option>").prependTo(controlRef);
                     } else {            	
                     	if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
                 	    {	 
                     		programObj = JSON.parse(WICI.dictionary_fr.program_Marks_PromoCode_QC);
-                    		// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
                 	    }else if (employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
                 	    	programObj = JSON.parse(WICI.dictionary_fr.program_Marks_PromoCode);
-                	    	// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
                 	    }
                     }
                                     
@@ -380,7 +346,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                                   controlRef.append(optTempl);                                                               
                          }
                     }
-                    $(refs.agencyProgram).prop("disabled", true);
+                    //$(refs.agencyProgram).prop("disabled", true);
                     hidePromoCodeDropDown();
                     showPromoCodeTextField();
                     var promo = model.get('agencyPromoCode');
@@ -407,7 +373,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     updateOmxCardLanguage();
                 }
             	//US4433 For FGl store hide and set value for  Program and show PromoCode as Empty 
-            } else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999) {
+            } else if(retailNetwork == "SPORTS") {
             	
             	    if(translator.getCurrentLanguage() == 'en') {
             	    	programObj = JSON.parse(WICI.dictionary_en.program_FGL_ProgramCode_intercept);
@@ -475,52 +441,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         $(refs.agencyProgram).on("change", function(obj){
 			// US3767 
-        	hidePromoCodeTextField();
-        	model.set('agencyProgram', $(refs.agencyProgram).val());
-        	populatePromoCode();
-        	
-            /*
-			var val = this.value;
-            var promoValue = $(refs.agencyPromoCode).val();
-            if (val==="other" && promoValue && promoValue == model.get('agencyPromoCode')){
-                $(refs.agencyPromoCode).val(promoValue)
-                    .removeAttr('disabled');
-                $(refs.agencyPromoCode).removeClass('promoCodeDisabled');
-            }else if (val==="other") {
-                $(refs.agencyPromoCode).val("")
-                    .removeAttr('disabled');
-                $(refs.agencyPromoCode).removeClass('promoCodeDisabled');
-            } else if (val==="null") {
-                $(refs.agencyPromoCode).val("")
-                    .attr('disabled', true);
-                $(refs.agencyPromoCode).addClass('promoCodeDisabled');;
-            } else if (val ==="BLANK"|| val ==="S.O."){
-                $(refs.agencyPromoCode).val(translator.translateKey("BLANK"))
-                    .attr('disabled', true);
-                $(refs.agencyPromoCode).addClass('promoCodeDisabled');
-            } 
-            // US3499 Promo code editable - start
-            else if (val==="MW999" && promoValue && promoValue == model.get('agencyPromoCode')){
-            	// IP channel promo code editable and DP channel promo code non-editable
-            	var employerID = loginModel.get('employerID');
-            	if(employerID.toUpperCase() == "E"){
-            		$(refs.agencyPromoCode).val(promoValue)
-            		.removeAttr('disabled');
-            		$(refs.agencyPromoCode).removeClass('promoCodeDisabled');
-            	} else {
-            		$(refs.agencyPromoCode).val(promoValue)
-                    .attr('disabled', true);
-            		$(refs.agencyPromoCode).addClass('promoCodeDisabled');
-            	}
-            } 
-            // end
-            else {
-                $(refs.agencyPromoCode).val(val)
-                    .attr('disabled', true);
-                $(refs.agencyPromoCode).addClass('promoCodeDisabled');
-            }
-            model.set('agencyPromoCode', null);
-		*/
+       		hidePromoCodeTextField();
+       		model.set('agencyProgram', $(refs.agencyProgram).val());
+       		populatePromoCode();
         });
         // US3766                   
 //        $("#omrCard").click(function(){ 
@@ -616,7 +539,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         clearCardsSelection();
         card.addClass('creditCardSelectedBgColor');
         
-        if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
+        if(loginModel.get('retailNetWork') == "MARKS") {
         if ($("#omcCard").hasClass('creditCardSelectedBgColor')) {
 			$("#omcCard").removeClass('creditCardSelectedBgColor');
 		}}
@@ -861,7 +784,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
         model.set('province', $(refs.province).val());
         // US4194
-        if(loginModel.get('locationFieldID') >= 6000 && loginModel.get('locationFieldID') <= 6999) {
+        if(loginModel.get('retailNetWork') == "MARKS") {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
         		model.set('agencyProgram', $(refs.agencyProgram).val());
         		model.set('agencyPromoCodeDropDown', 'OTHER');
@@ -872,7 +795,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
             }
         } // US4433 For FGL store hide and set Program value for next page
-        else if(loginModel.get('locationFieldID') >= 4000 && loginModel.get('locationFieldID') <= 5999){
+        else if(loginModel.get('retailNetWork') == "SPORTS"){
         	model.set('agencyProgram', "Intercept");
         	$(refs.agencyProgram).prop("disabled", true);
         	model.set('agencyPromoCodeDropDown', 'OTHER');
@@ -975,7 +898,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var storeNumber = loginModel.get('locationFieldID');
         
         console.log(logPrefix + sMethod + " promo :: " + promo);
-        if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999) {
+        if(loginModel.get('retailNetWork') == "SPORTS") {
         	if(promo === "BLANK") {
             	$(refs.agencyPromoCode).val('');
             } else if(promo !== "BLANK") {
@@ -1001,7 +924,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var storeNumber = loginModel.get('locationFieldID');
         var programObj;
         
-        if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999) {
+        if(loginModel.get('retailNetWork') == "MARKS") {
         	if (employerID.toUpperCase() != "E") {
         		if(translator.getCurrentLanguage() == 'en') {
         			
@@ -1035,9 +958,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                               controlRef.append(optTempl);                                                               
                      }
                 }
-                $(refs.agencyProgram).prop("disabled", true);
-                hidePromoCodeDropDown();
-                showPromoCodeTextField(); 
                 var promo = model.get('agencyPromoCode');
                 console.log(logPrefix + sMethod + " promo :: " + promo);
                 if(promo) {
@@ -1059,7 +979,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 hidePromoCodeDropDown();
             }
         } // US4433 For FGl store  hide Program list and set the value  as OTHER 
-        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        else if(loginModel.get('retailNetWork') == "SPORTS"){
         	
         	if(translator.getCurrentLanguage() == 'en') {
         		programObj = JSON.parse(WICI.dictionary_en.program_FGL_ProgramCode_intercept);
@@ -1128,10 +1048,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         }
         
         // US3920
-        if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){
+        if(loginModel.get('retailNetWork') == "MARKS"){
         	// Todo Nothing to add here now
         } //US4433
-        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        else if(loginModel.get('retailNetWork') == "SPORTS"){
         	// Todo Nothing ,show empty PromoCode field
         } else {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
@@ -1172,13 +1092,13 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var employerID = loginModel.get('employerID');       
         var storeNumber = loginModel.get('locationFieldID');
         
-        if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999){
+        if(loginModel.get('retailNetWork') == "MARKS"){
         	
         	console.log(logPrefix + sMethod + "Marks Store populate Promocode list");
         	
         	// To be added logic for dynamic promocode populating
         } // US4433
-        else if(parseInt(storeNumber) >= 4000 && parseInt(storeNumber) <= 5999){
+        else if(loginModel.get('retailNetWork') == "SPORTS"){
         	// PromoCode should be empty
         }else {
         	if(translator.getCurrentLanguage() == 'en') {

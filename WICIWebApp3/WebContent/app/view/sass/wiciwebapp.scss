@@ -33,6 +33,79 @@ html,body {
   background-image: none;
 }
 
+/* The container */
+.containerEmailPage {
+  margin-left: 25px;
+  margin-top: 10px;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.containerEmailPage input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  
+}
+
+/* Create a custom checkbox */
+.checkmarkEmailPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border : 3px solid black;
+}
+
+/* On mouse-over, add a grey background color */
+.containerEmailPage:hover input ~ .checkmarkEmailPage {
+  background-color: #fff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerEmailPage input:checked ~ .checkmarkEmailPage {
+  background-color: #fff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarkEmailPage:after {
+  content: "";
+  position: absolute;
+  display: none;
+  
+}
+
+/* Show the checkmark when checked */
+.containerEmailPage input:checked ~ .checkmarkEmailPage:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerEmailPage .checkmarkEmailPage:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 .ui-page {
   outline: none;
   min-height:100%;
@@ -59,7 +132,20 @@ html,body {
 .wiciLoginPage {
   background-color: #E6E6E6;
   min-height:100%;
-  height:100%;
+ /* height:100%; */
+}
+.signatureTitle{
+  max-width: 80%;
+}
+.signatureTitleFont{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+}
+.sugnatureFixesLogine{
+  height: 200px;
+  width:600px;
+  max-width: 90%;
 }
 
 .wiciChooseProductPage {
@@ -89,7 +175,9 @@ html,body {
 
 /* US4637 Email page starts */
 
-
+.borderZero{
+border: 0px;
+}
 
 #omcCard.fr {
   background-image: #{inline_image("omx_fr.png")} !important;
@@ -1150,6 +1238,18 @@ tr {
   padding-left: 15px;
 }
 
+.fieldLabelsSingleCellYesNo{
+  moz-border-radius: 11px 0 0 11px;
+    border-radius: 11px 0 0 11px;
+    font-color: #5E5D5D;
+    background-color: #F7F7F7;
+    width: 80%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12pt;
+    padding: 10px;
+}
+
 .fieldLabelsCell{
   @include border-radius(0);
 
@@ -1208,6 +1308,13 @@ tr {
   text-align: center;
 }
 
+.fieldValuesCellFlipYesNo{
+    padding: 10px;
+    padding-right: 10px;
+    background-color: #F7F7F7;
+    width: 20%;
+    text-align: center;
+}
 .fieldValuesTopCell{
   padding-left: 15px;
   padding-right: 15px;
@@ -1230,18 +1337,38 @@ tr {
   #omxCardEmailInfo.fr_card {
     background-image: #{inline_image("EmailCollection_Loyalty_FR.png")};
   }
-  .emailInfoCard{
-      background-size: 675px 580px;
-      display: block;
-      text-decoration: none;
-      position: relative;
-      border-radius: 0px;
-      margin: 0px auto;
-      outline-style: none;
-      height: 570px;
-      margin-bottom: 15px;
-  }
   
+
+.emailInfoCard{
+	background-size: 100%;
+	display: block;
+	text-decoration: none;
+	position: relative;
+	border-radius: 0px;
+	margin: 0px auto;
+	outline-style: none;
+	height: 400px;
+	@media(max-width: 500px){
+	 height: 220px;
+	}
+	@media(min-width: 534px){
+	 height: 260px;
+	} 
+	@media(min-width: 545px){
+	 height: 270px;
+	} 
+	@media(min-width: 645px){
+	 height: 300px;
+	}
+	@media(min-width: 700px){
+	 height: 400px;
+	}
+	@media(min-width: 1000px){
+	 height: 600px;
+	}
+    margin-bottom: 15px;
+}
+
   /* US4989 starts */
   // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
@@ -1382,8 +1509,8 @@ tr {
   }
   
   .emailInfo_OMR_OMP_cardImage{
-    background-image: #{inline_image("EmailCollection_NonLoyalty.png")};
-    background-size: 675px 500px;
+    background-image: #{inline_image("emailCollection_OMP_OMR_NonLoyalty_EN.png")};
+    background-size: 100%;
     display: block;
     text-decoration: none;
     position: relative;
@@ -1398,7 +1525,7 @@ tr {
   
   .emailInfo_OMR_OMP_cardImage_fr {
     background-image: #{inline_image("emailCollection_OMP_OMR_NonLoyalty_FR.png")};
-    background-size: 800px 500px;
+    background-size: 100%;
     display: block;
     text-decoration: none;
     position: relative;
@@ -1446,7 +1573,11 @@ tr {
   -webkit-border-bottom-right-radius: 11px;
   -webkit-border-top-right-radius: 11px;
 }
-
+.fieldValuesOneCellFlipYesNo
+{
+    -webkit-border-bottom-right-radius: 11px;
+    -webkit-border-top-right-radius: 11px;
+}
 .fieldCellSize40 {
   max-width:40%;
 }
@@ -1489,6 +1620,16 @@ tr {
 
 .stretchThisTable{
   width:100%;
+}
+
+.stretchThisTableEmailInfoPage{
+  width:100%;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+    border-radius: 0px;
+    border: 2px solid #000000;
+    background-color: #FFFFFF;
+    border-spacing: 0;
 }
 
 .fieldValuesTextField{
@@ -1904,11 +2045,11 @@ text-align: center;
   margin: 0;
   padding: 0;
 }
-
+// US5391 : Remove OMR from card selection page
 #creditCardProductList li {
   list-style-type: none;
   float: left;
-  width: 33.33%; /* 100% / productsNumber */
+  width: 50%; /* 100% / productsNumber */
   height: 220px;
   margin-bottom: 25px;
 }
@@ -2160,7 +2301,11 @@ text-align: center;
 .loginButtonWidth{
   width: 640px;
 }
-
+.loginFlipButton{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 9pt;
+}
 .login_TestPrintButton{
   width: 210px;
   margin-right: 18px;
@@ -2634,6 +2779,85 @@ body.ui-mobile-viewport { overflow-x: visible; }
   height: 45px;
   position: relative;
   margin-bottom: 0;
+}
+
+::placeholder {
+	font-family: Arial, Helvetica, sans-serif;
+  	font-color: #000;
+ 	font-style: italic;
+ 	text-align:center;
+}
+
+.optInEmail{
+  width: 30px;
+  height: 30px;
+  position: relative;
+  margin-top: 11px;
+ /* outline: 2px solid black;*/
+  margin-left: 25px;
+}
+
+.receiveEmail_CheckBox{
+	text-align: left;
+	border: 2px solid black;
+	font-family: Arial, Helvetica, sans-serif;
+  	height: 150px;
+  	overflow-x:hidden;
+    width: 100%;
+	margin-bottom: 10px;
+}
+
+.receiveEmail_CheckBox::-webkit-scrollbar {
+    width: 14px;
+}
+
+.receiveEmail_CheckBox::-webkit-scrollbar-track {
+    background: rgb(0,0,0);
+    border: 6.5px solid transparent;
+    background-clip: content-box;  
+}
+
+.receiveEmail_CheckBox::-webkit-scrollbar-thumb {
+    background: rgb(200,200,200);
+}
+
+.receiveEstmt_CheckBox{
+	text-align: left;
+	border: 2px solid black;
+	font-family: Arial, Helvetica, sans-serif;
+  	height: 200px;
+    width: 100%;
+	overflow-x:hidden;
+	margin-bottom: 10px;
+}
+
+.receiveEstmt_CheckBox::-webkit-scrollbar {
+    width: 14px;
+}
+
+.receiveEstmt_CheckBox::-webkit-scrollbar-track {
+    background: rgb(0,0,0);
+    border: 6.5px solid transparent;
+    background-clip: content-box;  
+}
+
+.receiveEstmt_CheckBox::-webkit-scrollbar-thumb {
+    background: rgb(200,200,200);
+}
+
+.receiveEmail_Text{
+	font-family: Arial, Helvetica, sans-serif;
+  	font-size: 12pt;
+  	font-color: #000;
+  	font-weight: bold;
+  	margin-left: 7px;
+}
+
+.receiveEmail_TextArea{
+	font-family: Arial, Helvetica, sans-serif;
+  	font-size: 11pt;
+  	font-color: #000;
+  	margin-left: 27px;
 }
 
 .wiciCheckBox label {

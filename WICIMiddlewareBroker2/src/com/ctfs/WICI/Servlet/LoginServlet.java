@@ -51,6 +51,7 @@ public class LoginServlet extends WICIServlet
 		String userLocation = requestMediator.searchElementInsidePostRequestBody("userLocation") != null ? requestMediator.searchElementInsidePostRequestBody("userLocation") : EMPTY_STRING;
 		String apkVersion = requestMediator.searchElementInsidePostRequestBody("apkVersion") != null ? requestMediator.searchElementInsidePostRequestBody("apkVersion") : EMPTY_STRING;
 		String password = requestMediator.searchElementInsidePostRequestBody("password") != null ? requestMediator.searchElementInsidePostRequestBody("password") : EMPTY_STRING;
+		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
 		//String serialNumber = requestMediator.searchElementInsidePostRequestBody("serialNumber") != null ? requestMediator.searchElementInsidePostRequestBody("serialNumber") : EMPTY_STRING;
 		//String userOperation=requestMediator.searchElementInsidePostRequestBody("userOperation") != null ? requestMediator.searchElementInsidePostRequestBody("userOperation") : EMPTY_STRING;
 		
@@ -61,6 +62,7 @@ public class LoginServlet extends WICIServlet
 		log.info(sMethod + "::userLocation: " + userLocation);
 		log.info(sMethod + "::apkVersion: " + apkVersion);
 		log.info(sMethod + "::password: " + password);
+		log.info(sMethod + "::retailNetwork: " + retailNetwork);
 		//log.info(sMethod + "::serialNumber: " + serialNumber);
 		
 		WICIResponse appResponse = new WICIResponse();
@@ -141,7 +143,7 @@ public class LoginServlet extends WICIServlet
 				{
 				String derivedUserID = employerID + agentID;
 				LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
-				loginResponse = loginInvocationHelper.checkLocation(userLocation, derivedUserID);
+				loginResponse = loginInvocationHelper.checkLocation(retailNetwork, userLocation, derivedUserID);
 				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
 				WICIDBHelper wicidbhelper = new WICIDBHelper();	
 				enableEnstreamAuth = wicidbhelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_ENSTREAM_AUTH);

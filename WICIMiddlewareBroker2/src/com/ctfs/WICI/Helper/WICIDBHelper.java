@@ -35,6 +35,7 @@ import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
 import com.ctfs.WICI.Servlet.Model.WICICheckLocationResponse;
+import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ctfs.WICI.dblayer.ConfigurationTableEntity;
@@ -760,15 +761,15 @@ public class WICIDBHelper
 		return agentIdExistsFlag;
 	}
 	
-	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork) throws Exception
+	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork, String longitude, String latitude, String sec_firstName, String sec_lastName, String sec_employee_number) throws Exception
 	{
 		String sMethod = "[insertAccountApplicationData] ";
 		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
 
 		// Create sql statement
 		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
-				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK)"
-				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK,LONGITUDE,LATITUDE,SEC_EMP_FIRST_NAME,SEC_EMP_LAST_NAME,SEC_EMP_NUMBER)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		log.info(sMethod + "::SQL::" + sql);
 	
@@ -803,6 +804,11 @@ public class WICIDBHelper
 			preparedStatement.setString(17, firstName);
 			preparedStatement.setString(18, lastName);
 			preparedStatement.setString(19, retailNetWork);
+			preparedStatement.setString(20, longitude);
+			preparedStatement.setString(21, latitude);
+			preparedStatement.setString(22, sec_firstName);
+			preparedStatement.setString(23, sec_lastName);
+			preparedStatement.setString(24, sec_employee_number);
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1306,40 +1312,148 @@ public class WICIDBHelper
 			WebICCheckLocationRequest locationRequest) throws Exception {
 		String sMethod = "[retrieveUserLocation] ";
 
+		String retailNetwork = null;
+		if (locationRequest.getRetailNetwork() != null)
+			retailNetwork = locationRequest.getRetailNetwork();
+		
+		log.info(sMethod + ":: retailNetwork :: " + retailNetwork);
+		
+		WICIConfiguration conf = new WICIConfigurationFactory().readOutletTypeIdConfiguration(retailNetwork);
+
+		String outletTypeId = conf.getOutletTypeId();
+		
 		// Create sql statement
 		String sql = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ?";
+		String sqlNonPartnerStore;
+		String sqlPartnerStore;
+		
+		/*if(retailNetwork.equals("GAS")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (1,19)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (1,19)";
+		} 
+		else if(retailNetwork.equals("CT")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (4)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (4)";
+      	}
+		else if(retailNetwork.equals("SPORTS")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (12,22)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (12,22)";
+      	}
+		else if(retailNetwork.equals("FGLFRN")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (3,24,26,27,28)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (3,24,26,27,28)";
+      	}
+		else if(retailNetwork.equals("PHL")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (30)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (30)";
+      	}
+		else if(retailNetwork.equals("NS")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (31)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (131)";
+      	}
+		else if(retailNetwork.equals("MARKS")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (14)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (14)";
+      	}
+		else if(retailNetwork.equals("MRKFRN")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (15)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (15)";
+      	}
+		else if(retailNetwork.equals("OS")) {
+			sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN (8)";
+			sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN (8)";
+      	}*/
+
+		sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN ("+outletTypeId+")";
+		sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN ("+outletTypeId+")";
 		WICICheckLocationResponse checkLocationResponse = null;
 		log.info(sMethod + "::SQL::" + sql);
+		log.info(sMethod + "::SQL::" + outletTypeId);
 		int locationId = 0;
 		int sale_otlt_nbr = 0;
+		
 		Connection connection = null;
 		ResultSet rs = null;
 		PreparedStatement preparedStatement = null;
 		String message = "SUCCESSFUL Authentication and authorization for user..";
 		try {
-			connection = connectToDB(false);
-
-			preparedStatement = connection.prepareStatement(sql);
+			connection = connectToTCTSalesDB(false);
 
 			if (locationRequest.getLocationID() != null)
 				locationId = Integer.parseInt(locationRequest.getLocationID());
+			
+			if(retailNetwork != null && retailNetwork != "PRTNR" ) {
+				if( locationId > 0 ) {
+					//preparedStatement = connection.prepareStatement(sql);
+					preparedStatement = connection.prepareStatement(sqlNonPartnerStore);
+					
+					preparedStatement.setInt(1, locationId);
+					/*String[] outletTypeIds =  outletTypeId.split(",");
+					for(int i=2;i<outletTypeIds.length;i++)
+					{
+						preparedStatement.setString(i, outletTypeIds[i]);
+					}
+					preparedStatement.setString(2, outletTypeId);*/
+					log.info(sMethod + "::SQL::" + sqlNonPartnerStore);
+					rs = preparedStatement.executeQuery();
+					if (rs.next()) {
+						checkLocationResponse = new WICICheckLocationResponse();
+						sale_otlt_nbr = rs.getInt("CT_SALE_OTLT_NBR");
+						
+						checkLocationResponse.setMessage(message);
+						checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
+						//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+						checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
+						checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
+						checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
+						checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+						checkLocationResponse.setCTFSStoreNo(rs.getString("CT_SALE_OTLT_NBR"));
+						checkLocationResponse.setBusinessStoreNumber(locationRequest.getLocationID());
+					} else {
+						preparedStatement = connection.prepareStatement(sqlPartnerStore);
 
-			preparedStatement.setInt(1, locationId);
-			rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-				checkLocationResponse = new WICICheckLocationResponse();
-
-				sale_otlt_nbr = rs.getInt("CT_SALE_OTLT_NBR");
-
-				checkLocationResponse.setMessage(message);
-				checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
-//				checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
-				checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
-				checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
-				checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
-				checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+						preparedStatement.setInt(1, locationId);
+						//preparedStatement.setString(2, outletTypeId);
+						log.info(sMethod + "::SQL::" + sqlPartnerStore);
+						rs = preparedStatement.executeQuery();
+						if (rs.next()) {
+							checkLocationResponse = new WICICheckLocationResponse();
+							sale_otlt_nbr = rs.getInt("CT_SALE_OTLT_NBR");
+							
+							checkLocationResponse.setMessage(message);
+							checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
+							//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+							checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
+							checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
+							checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
+							checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+							checkLocationResponse.setCTFSStoreNo(rs.getString("CT_SALE_OTLT_NBR"));
+							checkLocationResponse.setBusinessStoreNumber(EMPTY_STRING);
+						}
+					}
+				} else{
+					 return checkLocationResponse;
+				}
+			} else {
+				preparedStatement = connection.prepareStatement(sql);
+				
+				preparedStatement.setInt(1, locationId);
+				rs = preparedStatement.executeQuery();
+				if (rs.next()) {
+					checkLocationResponse = new WICICheckLocationResponse();
+					sale_otlt_nbr = rs.getInt("CT_SALE_OTLT_NBR");
+					
+					checkLocationResponse.setMessage(message);
+					checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
+					//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+					checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
+					checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
+					checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
+					checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
+					checkLocationResponse.setCTFSStoreNo(rs.getString("CT_SALE_OTLT_NBR"));
+				}
 			}
+			
 		} catch (Exception ex) {
 			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
 			throw ex;

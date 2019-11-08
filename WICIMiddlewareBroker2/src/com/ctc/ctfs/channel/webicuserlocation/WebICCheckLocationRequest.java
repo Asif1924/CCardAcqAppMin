@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="UserID" type="{http://www.channel.ctfs.ctc.com}userIDType"/>
  *         &lt;element name="LocationID" type="{http://www.channel.ctfs.ctc.com}userLocationIDType"/>
+ *         &lt;element name="RetailNetwork" type="{http://www.channel.ctfs.ctc.com}userRetailNetwork"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WebICCheckLocationRequest", namespace = "http://www.channel.ctfs.ctc.com/WebICUserLocation", propOrder = {
     "userID",
-    "locationID"
+    "locationID",
+    "retailNetwork"
 })
 public class WebICCheckLocationRequest
     implements Serializable
@@ -45,8 +47,18 @@ public class WebICCheckLocationRequest
     protected String userID;
     @XmlElement(name = "LocationID", required = true)
     protected String locationID;
+    @XmlElement(name = "retailNetwork", required = true)
+    protected String retailNetwork;
 
-    /**
+    public String getRetailNetwork() {
+		return retailNetwork;
+	}
+
+	public void setRetailNetwork(String retailNetwork) {
+		this.retailNetwork = retailNetwork;
+	}
+
+	/**
      * Gets the value of the userID property.
      * 
      * @return

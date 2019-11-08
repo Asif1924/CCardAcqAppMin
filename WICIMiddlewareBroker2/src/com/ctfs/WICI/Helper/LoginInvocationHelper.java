@@ -117,12 +117,13 @@ public class LoginInvocationHelper
 		return resp;
 	}
 
-	public WICILoginResponse checkLocation(String userLocation, String argDerivedUserID)
+	public WICILoginResponse checkLocation(String retailNetwork,String userLocation, String argDerivedUserID)
 	{
 		WICILoginResponse loginResponse = new WICILoginResponse();
 		WICICheckLocationResponse userLocationResponse = new WICICheckLocationResponse();
 		WebICCheckLocationRequest checkLocationRequest = new WebICCheckLocationRequest();
 		checkLocationRequest.setLocationID(userLocation);
+		checkLocationRequest.setRetailNetwork(retailNetwork);
 		
 		userLocationResponse = attemptUserLocationCheck(checkLocationRequest);
 		

@@ -905,8 +905,59 @@ tr td {
     -moz-appearance: button;
 }
 
+.streetTypex{
+   /* margin-left: -152px; */
+  /* margin-left: -37px;*/
+        
+}
 .streetType{
-    margin-left: -152px;
+   @media(max-width: 500px){
+		margin-right: -5%;
+		margin-left: 0%;
+	}
+    @media(min-width: 500px) and (max-width: 599px){
+		margin-right: -5%;
+		margin-left: 0%;
+	}
+    @media(min-width: 600px) and (max-width: 768px){
+		margin-right: -5%;
+		margin-left: 1%;
+	}
+	@media(min-width: 768px) and (max-width: 850px){
+		margin-right: 5%;
+	}
+	@media(min-width: 851px){
+		margin-right: -10%;
+	}
+	@media(min-width: 1000px){
+		/* margin-left: -152px; */
+        margin-left: -37px;
+	}
+}
+
+ .aptNumber{
+     @media(max-width: 270px){
+		margin-left: 25%;
+	}
+     @media(min-width: 270px) and (max-width: 450px){
+		
+		margin-left: 18%;
+	}
+     @media(min-width: 450px) and (max-width: 500px){
+		
+		margin-left: 10%;
+	}
+    @media(min-width: 500px) and (max-width: 599px){
+		
+		margin-left: 10%;
+	}
+    @media(min-width: 600px) and (max-width: 768px){
+		margin-left: 8%;
+	}
+	@media(min-width: 1000px){
+		margin-left: 10%;
+	}
+	
 }
 
 .streetType2{
@@ -2775,7 +2826,24 @@ height: 25px
 }
 
 .makeCorrectionSectionTD {
-    height: 30px;
+	@media(max-width: 300px){
+		height: 60px;
+	}
+	@media(min-width: 400px) and (max-width: 599px){
+		height: 50px;
+	}    
+    @media(min-width: 600px) and (max-width: 768px){
+		height: 40px;
+	}
+	@media(min-width: 768px) and (max-width: 850px){
+		height: 30px;
+	}
+	@media(min-width: 851px){
+		height: 30px;
+	}
+	@media(min-width: 1000px){
+		height: 30px;
+	}
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -2932,6 +3000,47 @@ height: 25px
 
 /*2016-03-01 chrch: New class with conditional formatting for responsive */
 .streetNumberField{
+    @media(max-width: 500px){
+		margin-right: -5%;
+		margin-left: 2%;
+	}
+    @media(min-width: 500px) and (max-width: 599px){
+		margin-right: -5%;
+		margin-left: 0%;
+	}
+    @media(min-width: 600px) and (max-width: 768px){
+		margin-right: -5%;
+		margin-left: 0%;
+	}
+	@media(min-width: 768px) and (max-width: 850px){
+		margin-right: -5%;
+	}
+	@media(min-width: 851px){
+		margin-right: -10%;
+	}
+	
+}
+
+.streetNameField{
+     @media(max-width: 270px){
+		margin-left: 25%;
+	}
+     @media(min-width: 270px) and (max-width: 450px){
+		
+		margin-left: 22%;
+	}
+	 @media(min-width: 400px) and (max-width: 500px){
+		margin-right: -5%;
+		margin-left: 15%;
+	}
+    @media(min-width: 500px) and (max-width: 599px){
+		margin-right: -5%;
+		margin-left: 11%;
+	}
+    @media(min-width: 600px) and (max-width: 768px){
+		margin-right: -5%;
+		margin-left: 10%;
+	}
 	@media(min-width: 768px) and (max-width: 850px){
 		margin-right: -5%;
 	}
@@ -3189,6 +3298,12 @@ height: 25px
 .streetType1{
     margin-left: -175px;
 }
+.SpanForInputsGroup1AddressIssue{
+	font-family: Lato;
+    font-size: 8pt;
+    color: #333333;
+   /* margin-left: -43px;*/
+}
 
 .SpanForInputsGroup1{
 	font-family: Lato;
@@ -3208,9 +3323,15 @@ font-family: Lato;
 	font-family: Lato;
     font-size: 7pt;
     color: #333333;
-    margin-left: -103px;
+   /* margin-left: -103px;*/
 }
 
+.SpanForInputsGroup4AddressIssue{
+font-family: Lato;
+    font-size: 11px;
+    color: #333333;
+    /*margin-left: -56px;*/
+}
 .SpanForInputsGroup4{
 font-family: Lato;
     font-size: 11px;
@@ -3401,9 +3522,17 @@ font-family: Lato;
     width: 70px;
     text-transform: uppercase;
 }
+.addressShortFieldAddressIssue {
+	/*2016-03-14 chrch: changing width for responsive */
+   /* width: 40%; *//* 90px;*/
+  /*  text-transform: uppercase;*/
+    width: 84%;
+    text-transform: uppercase;
+}
+
 .addressShortField {
 	/*2016-03-14 chrch: changing width for responsive */
-    width: 40%; /* 90px;*/
+    width: 55%; /* 90px;*/
     text-transform: uppercase;
 }
 
@@ -3411,10 +3540,16 @@ font-family: Lato;
    width: 70px;
    margin-left: -20px;
 }
+.streetTypeWith{
+  width : 92%;
 
+}
+.addressSuite1AddressIssue{
+        width: 84%;
+}
 .addressSuite1{
    width: 70px;
-       margin-left: -43px;
+   margin-left: -43px;
 }
 
 .addressLongField {
@@ -3422,11 +3557,23 @@ font-family: Lato;
     /*width: 300px;*/
     text-transform: uppercase;
 }
-
+.addressShortField1AddressIssue{
+    width: 65%;
+    text-transform: uppercase;
+}
 .addressShortField1{
     width: 49%;
     text-transform: uppercase;
 }
+
+.addressLongField1AddressIssue{
+ /*width: 175px; */
+ /*text-transform: uppercase;*/
+ /*margin-left: -56px;*/
+    width: 84%;
+    text-transform: uppercase;
+    /* margin-left: -56px; */
+} 
 
 .addressLongField1{
  width: 175px;
@@ -3439,7 +3586,10 @@ width: 184px;
     text-transform: uppercase;
     margin-left: -15px;
 }
-
+.addressLongField3addressIssue{
+    width: 84%;
+    text-transform: uppercase;
+}
 .addressLongField3{
  width: 194px;
  text-transform: uppercase;
@@ -5097,7 +5247,22 @@ input:-moz-placeholder {
     width: 30%;	
 }
 .Width_TD_35{
-    width: 35%;	
+    @media(min-width: 305px) and (max-width: 358px){
+		width: 60%;	
+	}
+    @media(min-width: 358px) and (max-width: 440px){
+		width: 50%;	
+	} 
+    @media(min-width: 440px) and (max-width: 500px){
+		width: 40%;	
+	}
+    @media(min-width: 500px) and (max-width: 599px){
+		width: 40%;	
+	}
+	@media(min-width: 600px){
+		 width: 35%;	
+	}
+   
 }
 
 .Width_TD_34{
@@ -5800,6 +5965,9 @@ width: 60%;
 
 }
 
+.paddingTop35{
+  padding-top: 35px;
+}
 
 
 

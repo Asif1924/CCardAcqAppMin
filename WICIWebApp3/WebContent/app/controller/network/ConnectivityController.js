@@ -143,7 +143,7 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 	};
 
     //---------------------------------------------------------------------------------------
-    this.Login = function(argEmployerID, argAgentID, argUserID, argPassword, argUserLocation, argAPKVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
+    this.Login = function(argRetailNetwork, argEmployerID, argAgentID, argUserID, argPassword, argUserLocation, argAPKVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'Login() ';
         console.log(logPrefix + sMethod);
         
@@ -161,7 +161,8 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			"agentID": argAgentID,
 	      	"userLocation": argUserLocation,
 	      	"apkVersion": argAPKVersion,
-	      	"password" : argPassword
+	      	"password" : argPassword,
+	      	"retailNetwork" : argRetailNetwork
 		};
 		connRequestBuilder.setHttpType( "POST" );
 		connRequestBuilder.setParams(requestParams);

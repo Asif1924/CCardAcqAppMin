@@ -113,7 +113,8 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\-\' ]{1,50}$/, value.trim());
+        // US5400 WICI allow & symbole in Employer filed
+        return regexMatch(/^[A-Z0-9\-\'& ]{1,50}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     this.jobTitle = function(value) {

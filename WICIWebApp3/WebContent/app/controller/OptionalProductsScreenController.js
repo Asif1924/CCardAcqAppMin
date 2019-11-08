@@ -651,7 +651,15 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 				hidePAandCP();
 			}
 		}
-
+		 // US5451
+		 if (chooseProductDataModel.get('province') === 'YT'
+				|| activationItems.getModel("personalData").get('placeofissue') === 'YT'
+				|| activationItems.getModel("personalData2_Address").get('province') === 'YT') {
+			 if (loginModel.get('employerID') !== 'E') {
+				hidePAandCP();
+			 }
+		 }
+		 
 		if (chooseProductDataModel.get('province') === 'AB') {
 			if (loginModel.get('employerID') === 'J') {
 				// showPAandCP by default

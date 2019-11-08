@@ -133,8 +133,8 @@ public class WICIFileHelper {
 	        		// US4062
 	        		// These conditions are all for printing Approved printouts
 	        		// Gas Store Specific Logic
-	        		// Gas stores are between 1000 to 1999 store numbers
-	        		if(storeNo >= 1000 && storeNo <= 1999 ) {
+	        		// Gas stores are between 1000 to 2010 store numbers
+	        		if(storeNo >= 1000 && storeNo <= 2010 ) {
 	        			templateFileName = templateFileName;
 	        			isGasBar = true;
 	        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
@@ -294,7 +294,7 @@ public class WICIFileHelper {
 	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
 	        	}*/
 	        	// WICI - Print out an CTP(Gas store) coupon
-	        	/*else if(storeNo >= 1000 && storeNo <= 1999){
+	        	/*else if(storeNo >= 1000 && storeNo <= 2010){
 	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
 	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
 	        		} else {

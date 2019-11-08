@@ -50,6 +50,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
               {name: 'cardType',   value: null, validation: null },
               {name: 'requestingSystem', value: null, validation: null },
               {name: 'clientIPAddress', value: null, validation: null },
+              {name: 'utm_source', value: null, validation: null },
               { notField: true, 
             	name: 'chooseCard_CheckArea',    
             	value: null, 
@@ -93,6 +94,7 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         
         BRB.Log(logPrefix + this.initiateAppHelper.getPCIDParam());
         pcid = this.initiateAppHelper.getPCIDParam();
+        utm_source = this.initiateAppHelper.getUTMSourceParam();
         
         BRB.AppConfig.TrackingScreenID = 1;
         flow = argFlow;        
@@ -146,7 +148,8 @@ BRB.OverviewController = function(activationItems, argTranslator, argMessageDial
         var sMethod = 'syncUserData() ';
         BRB.Log(logPrefix + sMethod);
         
-        model.set('provinces', $(refs.provinces).val());        
+        model.set('provinces', $(refs.provinces).val());
+        model.set('utm_source', utm_source);
         if(app.getIsMOARequest()) {
         	if($(refs.promoCode).val() == null || $(refs.promoCode).val() == "") {
         		if(pcid != 0) {

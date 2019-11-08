@@ -40,11 +40,12 @@
                     </a>
                 </li>
                 <!-- US3766 //-->
-				<li class="OMRPortrait" >
+                <!-- US5391 Remove OMR from card Selection page -->
+				<!--<li class="OMRPortrait" >
                     <a href="#" id="omrCard" class="creditCardProductClickableProduct" data-lang-class>
                         <span class="CC_Labels" data-translationKey="chooseProduct_CashAdvantageMasterCard"></span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
 
@@ -77,16 +78,14 @@
                                 
                 <tr class="fieldRow"> 
                 <!-- US4194 - Start //-->
-                    {{if activationItems.getModel('loginScreen').get('locationFieldID') >= "6000" && 
-                    	activationItems.getModel('loginScreen').get('locationFieldID') <= "6999"}}			
+                    {{if activationItems.getModel('loginScreen').get('retailNetWork') == "MARKS"}}			
 							<td class="fieldLabelsCell fieldCellSize33">
 		                        <span data-translationKey="chooseProduct_PromoCode"></span>
 		                    </td>
 					{{else}}
 					<!-- US4433 - Start //-->
 						{{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
-									{{if activationItems.getModel('loginScreen').get('locationFieldID') >= "4000" && 
-                    	               activationItems.getModel('loginScreen').get('locationFieldID') <= "5999"}}
+									{{if activationItems.getModel('loginScreen').get('retailNetWork') == "SPORTS"}}
                     	               <td class="fieldLabelsCell fieldCellSize33">
 		                                    <span data-translationKey="chooseProduct_PromoCode"></span>
 		                                </td>

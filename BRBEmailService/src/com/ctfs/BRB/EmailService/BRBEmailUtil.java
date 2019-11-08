@@ -7,13 +7,13 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import microsoft.exchange.webservices.data.EmailAddress;
-import microsoft.exchange.webservices.data.EmailMessage;
-import microsoft.exchange.webservices.data.ExchangeCredentials;
-import microsoft.exchange.webservices.data.ExchangeService;
-import microsoft.exchange.webservices.data.ExchangeVersion;
-import microsoft.exchange.webservices.data.MessageBody;
-import microsoft.exchange.webservices.data.WebCredentials;
+import microsoft.exchange.webservices.data.core.ExchangeService;
+import microsoft.exchange.webservices.data.core.enumeration.misc.ExchangeVersion;
+import microsoft.exchange.webservices.data.core.service.item.EmailMessage;
+import microsoft.exchange.webservices.data.credential.ExchangeCredentials;
+import microsoft.exchange.webservices.data.credential.WebCredentials;
+import microsoft.exchange.webservices.data.property.complex.EmailAddress;
+import microsoft.exchange.webservices.data.property.complex.MessageBody;
 
 import org.apache.tools.ant.util.FileUtils;
 
@@ -34,23 +34,21 @@ public class BRBEmailUtil
 
 	// hardcode the credentials for now
 	// userid for canadapost is "canadapost.dropbox", password "Password1"
+	log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangeURL")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeURL"));
 	log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangeUser")); //getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeUser"));
 	log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangePassword")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangePassword"));
-	log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangeURL")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeURL"));
-	log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangeDomain")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeDomain"));
-	// CTC uses exchange version 2010
-	_service = new ExchangeService(ExchangeVersion.Exchange2010);
-	ExchangeCredentials credentials = new WebCredentials(EmailConfigReader.getInstance().prop.getProperty("ExchangeUser"), //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeUser"),
-		EmailConfigReader.getInstance().prop.getProperty("ExchangePassword"), //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangePassword"),
-		EmailConfigReader.getInstance().prop.getProperty("ExchangeDomain")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeDomain"));
+	// log.info("Setting up exchange connection ..." + EmailConfigReader.getInstance().prop.getProperty("ExchangeDomain")); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeDomain"));
+	// CTC uses exchange version 2010 SP2
+	_service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+	ExchangeCredentials credentials = new WebCredentials(EmailConfigReader.getInstance().prop.getProperty("ExchangeUser"), 
+		EmailConfigReader.getInstance().prop.getProperty("ExchangePassword")); 
 	_service.setCredentials(credentials);
 
 	// CTC exchange web services are located at
 	// https://mail.cantire.com/EWS/exchange.asmx
 	try
 	{
-	    // hardcode the URL for the sake of testing
-	    _service.setUrl(new URI(EmailConfigReader.getInstance().prop.getProperty("ExchangeURL"))); //.getCategoryKeyValue("TokenConsumerEmailConfig", "ExchangeURL")));
+	    _service.setUrl(new URI(EmailConfigReader.getInstance().prop.getProperty("ExchangeURL")));
 	}
 	catch (Exception e)
 	{
@@ -289,15 +287,18 @@ public class BRBEmailUtil
 	    {
 				try {
 					message.sendAndSaveCopy();
-				} catch (microsoft.exchange.webservices.data.HttpErrorException ex) {
+				} catch (Exception ex) {
 					i++;
+					if(i == 3) {
+						log.info("Unable to send message to " + address.getAddress());
+					}
 					continue;
 				}
+			log.info("Message sent to " + address.getAddress() + " and copy saved in sent items.");
 			break;	
 	    }
-	    log.info(" Message sent to " + address.getAddress() + " and copy saved into sent items.");
-	    return true;
 
+	    return true;
 	}
 	catch (Throwable e)
 	{

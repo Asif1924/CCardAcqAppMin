@@ -11,7 +11,7 @@ WICI.dictionary_en =  {
 	backButtonPrompt_title 								: 	"Exit Application",
 
 	connectionError_unableToConnect 					: 	"Unable to connect to backend server. Please try again in a few minutes.",
-	connectionError_networkDown 						: 	"The WIFI connection has been lost. Please try the 'Re-establish WIFI Connection' option in the settings menu by logging in to demo mode.",
+	connectionError_networkDown 						: 	"Your data connection has been lost. If you’re connecting by WIFI, please try the \‘Re-establish WIFI Connection\’ option. If you are on a mobile data, please ensure a proper wireless connection exists.",
 
 	confirmDialog_defaultTitle 							: 	"Confirm",
 	confirmDialog_yes 									: 	"Yes",
@@ -80,6 +80,9 @@ WICI.dictionary_en =  {
 	dictionary_loading_error 							:  	"Application content cannot be loaded. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
 	// US4744
 	loginScreen_IncorrectUserNamaAndPassword            :   "Please check your user name and password",
+	// US5413
+	loginScreen_signatureBox_title     	                :    "Please sign to confirm you have completed the necessary training",
+	loginscreen_toggleTitle                             :    "Did another staff member generate the lead for you?",
 	
 	// US4231
 	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage	:	"Login Failed. Please Contact your administrator.",
@@ -104,11 +107,11 @@ WICI.dictionary_en =  {
 	chooseProduct_NoSpecificCard						:	"card",
 
 	// US3920
-	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"Triangle Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}]}]}",
+	program_PromoCode 									:   "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Grand Opening\":\"4023\"},{\"Other\":\"\"}],\"In-Store Events\":[{\"Triangle Days\":\"OMCDY\"},{\"Other\":\"\"}],\"CTP Events\":[{\"Eastern Events Program\":\"5200\"},{\"Western Events Program\":\"4024\"}],\"CTP Local\":[{\"Eastern Local Program\":\"4022\"},{\"Western Local Program\":\"4029\"}],\"Campus\":[{\"Other\":\"\"}]}]}",
 
 	// US4194
 	program_Marks_PromoCode 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
-	program_Marks_PromoCode_QC 							:   "{\"FMR\":[{\"L'Equipeur\":[{\"MWW80\":\"MWW80\"}]}]}",
+	program_Marks_PromoCode_QC 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
 	
 	//US4433
 	program_FGL_ProgramCode_intercept                   :    "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\" \"}]}]}",
@@ -290,7 +293,23 @@ WICI.dictionary_en =  {
 	personalData_PreviousAddress_NotInCanada			:	"Previous address is not in Canada:",
 
 	personalData_Note									:	"Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
-	
+	receiveEmail_Text									:	"<i>Yes, I would like to receive details on exclusive offers and events</i>",
+	receiveEmail_TextAreaText							:	"I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&#147;CTC&#148;). Canadian Tire Financial Services Limited (&#147;CTFS&#148;), and Canadian Tire Bank (&#147;CTB&#148;), including from their respective business units operating under the Canadian Tire, My Canadian Tire &#145;Money&#146; Program, Canadian Tire Drivers Academy®, Canadian Tire Home Services®, and Canadian Tire Roadside Assistance® brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+	receiveEstmt_Text									:	"<i>Yes, I would like to receive eStatements</i>",
+	receiveEstmt_TextAreaText							:	"<p><b>Electronic Statement Terms and Conditions</b></p>"
+	                                                         +"<p>1. You can continue to access your account details through ctfs.com and telephone banking.</p>" 
+			                                                 +"<p>2. It usually takes 1 business day for your request to be processed so, depending on your statement date, you may receive one more paper statement in the mail before your electronic statement is processed.</p>"
+	                                                         +"<p>3. If you currently receive a paper statement in the mail, it will no longer be mailed to you. As well, notices of change to the information provided in your initial disclosure statement and notices of any amendments to your cardmember agreement, will, in most cases, be sent to you electronically rather than by mail. These notices will appear either as a message on your monthly statement or you will receive notification by email that such notice is available if you log in to My Online Account.</p>"
+			                                                 +"<p>4. You will receive email notifications indicating your statement is available. If you are to receive a notice separate from your statement we will send you an email notification that such notice is available. You will be required to log in to My Online Account to view your electronic statement or any separately provided notices. Email notification will be sent to the email address that you have provided to us. If your email address changes (or you have provided an incorrect address) you are responsible for providing us with the updated email address. You may update your email address by logging in to My Online Account and selecting Manage Email Preferences from Settings.</p>"
+	                                                         +"<p>5. Documents that are provided electronically will be retained and made available to you in My Online Account for 7 years. You are responsible for retaining a copy of any such documents. You can cancel your enrolment and switch back to paper statements and notices of change at any time via My Online Account by selecting &#147;Change statement options&#148; from the main landing menu or by calling us toll-free at 1-800-459-6415. However, it's very important that you save or print any electronic documents in your My Online Account prior to cancellation as you will no longer have access to them online once the cancellation has been processed.</p>"
+			                                                 +"<p>6. Canadian Tire Bank is not liable for any technical issues related to your computer that prevent you from accessing your electronic statement or any notice or other document posted to My Online Account or receiving any email notification from us.</p>"
+	                                                         +"<p>7. If there are supplementary cardholders on this account for which you have given access, you understand that all supplementary cardholders will have access to past information on this account, including information on the primary cardholder and other supplementary cardholders.</p>"
+			                                                 +"<p>8. If a transaction has been processed to your account in error, you must call us at 1-800- 459-6415 within 90 days of the date that the transaction was posted to your account.</p>"
+	                                                         +"<p>9. Electronic statements, notices and other documents will be in PDF format allowing you to easily print them or save them to your own computer. Adobe Reader is required to view electronic statements. Most versions of Adobe Reader are available at no cost.</p>"
+			                                                 +"<p>10. If your account falls into arrears by 3 statement periods or more, you will instead receive statements, notices and other documents in paper format. Once your account is brought up-to-date you will then be able to enrol for electronic documents again.</p>"
+			                                                 +"<p>By selecting the tick box you agree to the terms above and confirm that you now wish to receive your monthly credit card statements, notices of any change to the information provided in your initial disclosure statement and notices of any amendments to your cardmember agreement electronically. If you do not wish to proceed, select the cancel button.</p>"
+			                                                 +"<p>For more information regarding our privacy policies and how we collect, use and disclose your personal information, please visit our <a href='https://ctfs.com/content/ctfs/en/legal_privacy.html' target='_blank'>Privacy Communication.</a></p><p>Effective as of 11/07/2017</p>",
+
 	// US4637
 	EmailInfo_PageTitle									:	"E-MAIL INFORMATION",
 	
@@ -383,7 +402,7 @@ WICI.dictionary_en =  {
     IdTypesList_HE										:   'HEALTH CARD',
     IdTypesList_PR										:   'PERMANENT RESIDENT CARD',
     IdTypesList_BI										:   'BIRTH CERTIFICATE',
-    IdTypesList_CI										:   'CANADIAN CITIZENSHIP CARD',
+    IdTypesList_CI										:   'CANADIAN CITIZENSHIP CERTIFICATE',
     IdTypesList_PA										:   'PASSPORT',
     // US4287
     IdTypesList_IN										:   'CERTIFICATE OF INDIAN STATUS CARD',
@@ -992,11 +1011,17 @@ WICI.dictionary_en =  {
 	// For QC specific french change
 	Program_MW999_QC									:	'Marks Store',
 	
-	RetailNetWorkList_null							: 	'Please select...',
-	Canadian_Tire                                       :   'Canadian Tire'    ,
-	Gas                                                 :   'Gas+',
+	RetailNetWorkList_null								: 	'Please select...',
+	Canadian_Tire                                       :   'Canadian Tire',
 	Marks                                               :   'Mark\'\s',
-	SportsCheck_OR_Atmosphere                           :   'FGL Sports',
+	SportsCheck_OR_Atmosphere                           :   'Sport Chek',
+	Gas                                                 :   'Gas+',
+	Sports_Expert                                       :   'Sports Experts',
+	Pro_Hockey_Life                                     :   'Pro Hockey Life',
+	National_Life                                       :   'National Sports',
+	Marks_Franchise			                            :   'Mark’s Franchise',
+	Out_of_Store			                            :   'Out of Store',
+	Partner_Locations		                            :   'Partner Locations',
 	
 	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
 	
@@ -1136,12 +1161,8 @@ WICI.dictionary_en =  {
 	summary_dataIntegrity_Error							:	"Unfortunately, the application could not be submitted due to an internal issue. Please try again.",
 
     summary_highlighterHeader                           :   "IMPORTANT",
-    summary_highlighter_SubTitle                        :   "Your application must be verified by a Canadian Tire store representative",
-    //US3556
-    summary_marks_highlighter_SubTitle					:	"Your application must be verified by a Mark’s store representative.",
-    
-    // US4432
-    summary_FGL_highlighter_SubTitle		            :   "Your application must be verified by a store representative",
+    summary_highlighter_SubTitle                        :   "Your application must be verified by a ",
+    summary_highlighter_Representative					:	" representative",
     
     decline_World_ELiteMasterCard_Note                  :" <b>Note</b>: if a customer is declined for Elite, but approved for Triangle, they will get the Triangle approval screen.",
     
@@ -1280,7 +1301,7 @@ WICI.dictionary_en =  {
 	pendingScreen_PollingInProgress_Text				:	"Polling in Progress",
 	pendingScreen_PollingCompleted_Text					:	"Polling Completed",
 	
-	pendingScreen_RetrieveFailed						:	"Cannot retrieve this application. Please try again.",
+	pendingScreen_RetrieveFailed						:	"We could not process your application at this time. A response will be mailed to you within 5 to 7 business days.",
 	// US3436
 	pendingScreen_ApplicationPending					:	"We appreciate your patience, however your application is still being reviewed by our customer service team. Please check again in 30 minutes.",
 	// Pending screen end

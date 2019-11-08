@@ -128,7 +128,13 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String firstName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("firstName");
 		String lastName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastName");
 		String retailNetWork = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("retailNetWork");
+		String longitude = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("longitude");
+		String latitude = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("latitude");
 		
+		String sec_firstName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("firstNameOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("firstNameOtherStaffMember") : EMPTY_STRING;
+		String sec_lastName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastNameOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastNameOtherStaffMember") : EMPTY_STRING;
+		String sec_employee_number = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") : EMPTY_STRING;;
+
 		
 		String unitNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("suiteunit");
 		String streetNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("streetnumber");
@@ -148,9 +154,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 			if (employerId != null && employerId.equalsIgnoreCase("E")
 					|| !authfieldCheckEnable) {
 				wicidbHelper.insertAccountApplicationData(transactionID,
-						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, firstName,lastName,retailNetWork);
+						userID, requestData, retrievalToken, currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, firstName,lastName,retailNetWork,longitude,latitude,sec_firstName,sec_lastName,sec_employee_number);
 			} else {
-				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, null, null, null);
+				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, null, null, null,longitude,latitude,sec_firstName,sec_lastName,sec_employee_number);
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		}
