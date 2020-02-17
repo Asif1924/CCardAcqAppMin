@@ -96,6 +96,8 @@ WICI.dictionary_en =  {
 	loginScreen_EmployerIDLookup_FailedMessage			:	"Invalid Employer Id. Please correct and try again",
 	chooseProduct_PrinterConnected						:	"Printer is connected",
 	chooseProduct_PrinterNotConnected					:	"Printer is not connected. Please ensure printer is powered on, within<br> range and Bluetooth is connected before proceeding with application.",
+	loginScreen_Login_Details_In_Use					:	"Login failed. Your login details are currently in use. Please contact your supervisor for more information.",
+	
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards 			: 	"CHOOSE ONE OF THE FOLLOWING CREDIT CARDS",
     chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
@@ -134,7 +136,7 @@ WICI.dictionary_en =  {
 	chooseProduct_DialogProceed							:	"PROCEED",
 	
 	// US3981
-	chooseProductScreen_Handoutprompts_Title			:	"Legal Handout",
+	chooseProductScreen_Handoutprompts_Title			:	"Confirmation",
 	chooseProductScreen_Handoutprompts_YesNo_Message	:	"Have you given the applicant the Legal Information Handout?",
 	chooseProductScreen_Handoutprompts_Ok_Message		:	"All applicants must be given a Legal Information Handout before proceeding.",
 
@@ -288,6 +290,9 @@ WICI.dictionary_en =  {
 	personalData_PreviousAddress_SuiteUnit				:	"Apt # / Suite / Unit",
 	personalData_PreviousAddress_City					:	"City",
 	personalData_PreviousAddress_Province				:	"Province",
+	// US5414 
+	chooseProductScreen_LegalHandout_PleaseSign         :   "Please sign",
+	chooseProductScreen_LegalHandout_Message            :   "I verify that I have provided the applicant the Legal Information Handout.",
 	
 	// US3623
 	personalData_PreviousAddress_NotInCanada			:	"Previous address is not in Canada:",
@@ -1494,6 +1499,7 @@ WICI.dictionary_en =  {
     optionalProducts_CP_LI_Terminal                     :   "Terminal illness*",
     optionalProducts_CP_LI_Dismemberment                :   "Dismemberment <span style=\"border-bottom: 1px solid #58595b;\">or</span> loss of sight, hand or foot*<br> (at age 80 becomes Accidental Dismemberment)",
     optionalProducts_CP_LI_Life                         :   "Life* (at age 80 becomes Accidental Death)<br>* Your spouse is also covered by these 3 coverages",
+    optionalProducts_CP_LI_These_coverage               :   "<b>*&nbsp;&nbsp;These coverages provide benefits for your spouse,<br>&nbsp;&nbsp;&nbsp;&nbsp;except if you enroll in the province of Quebec.</b>",
     optionalProducts_CP_text_monthly                    :   "All for a monthly premium of",
     optionalProducts_CP_text_for_every                  :   "<sup>&#36;</sup>1.10 for every <sup>&#36;</sup>100",
     optionalProducts_CP_text_average                    :   "of your Average Daily Balance, plus applicable taxes",

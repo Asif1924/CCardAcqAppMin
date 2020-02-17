@@ -6,6 +6,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     var $screenContainer = $("#ChooseProductScreen");
     var translator = null;
     var messageDialog = null;
+    var isDebugMode;
 
     this.show = show;
     this.init = init;
@@ -84,6 +85,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         messageDialog = argMessageDialog; // (AA)Dependency Injection
         // Principle: Allows for proper unit
         // testing
+        isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
         
         var retailNetwork = loginModel.get('retailNetWork');
         var employerID = loginModel.get('employerID').toUpperCase();
@@ -139,9 +141,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 app.logOutTriggerActionService.stop();
                 app.abandonApplicationTriggerActionService.stop();
             } catch (e) {
-                console.log(logPrefix + sMethod + " Exception: " + e);
+            	if(isDebugMode){
+                    messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+                }
+            	console.log(logPrefix + sMethod + " Exception: " + e);
             }
-
             flow.logOut();
         });
         app.logOutTriggerActionService.start();
@@ -159,7 +163,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     flow.startApplication();
                 });
         } catch (e) {
-            console.log(logPrefix + sMethod + " Exception: " + e);
+        	if(isDebugMode){
+                messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + e);
         }
     }
     //----------------------------------------------------------------------------------------
@@ -463,7 +470,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // US5146
         $("#proceed").click(function(){ 
         	$("#dialog-container").hide();        	
-        	messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
+        	messageDialog.legalHandout(translator.translateKey("chooseProductScreen_LegalHandout_Message"), translator.translateKey("chooseProductScreen_LegalHandout_PleaseSign") , translator.translateKey("signatureScreen_Reset_Button_Label"),
               		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));
         });
    
@@ -597,7 +604,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 				 messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
 			}
 		} catch (error) {
-			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+			if(isDebugMode){
+                messageDialog.error(error,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + error);
 		}
 		return;
 	}

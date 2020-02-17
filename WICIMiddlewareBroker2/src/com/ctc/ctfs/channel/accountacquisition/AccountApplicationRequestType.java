@@ -420,6 +420,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="signatureMatchFlag" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType"/>
  *         &lt;element name="dateSigned" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="insuranceAgreedFlag" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType"/>
+ *         &lt;element name="insuranceAgreedFlag_CP" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType"/>
+ *         &lt;element name="insuranceAgreedFlag_IW" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType"/>
  *         &lt;element name="insuranceCode" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.channel.ctfs.ctc.com/accountAcquisition/}UpperCaseStringType">
@@ -433,8 +435,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="insuranceSignatureFlag" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType" minOccurs="0"/>
+ *         &lt;element name="insuranceSignatureFlag_CP" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType" minOccurs="0"/>
+ *         &lt;element name="insuranceSignatureFlag_IW" type="{http://www.channel.ctfs.ctc.com/accountAcquisition/}FlagType" minOccurs="0"/>
  *         &lt;element name="insuranceDateSigned" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="insuranceSignature" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
+ *         &lt;element name="insuranceSignature_CP" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
+ *         &lt;element name="insuranceSignature_IW" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
  *         &lt;element name="affiliationCode" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.channel.ctfs.ctc.com/accountAcquisition/}UpperCaseStringType">
@@ -571,10 +577,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "signatureMatchFlag",
     "dateSigned",
     "insuranceAgreedFlag",
+    "insuranceAgreedFlag_CP",
+    "insuranceAgreedFlag_IW",
     "insuranceCode",
     "insuranceSignatureFlag",
+    "insuranceSignatureFlag_CP",
+    "insuranceSignatureFlag_IW",
     "insuranceDateSigned",
     "insuranceSignature",
+    "insuranceSignatureCP",
+    "insuranceSignatureIW",
     "affiliationCode",
     "acquirerCode",
     "tuSessionID",
@@ -749,12 +761,20 @@ public class AccountApplicationRequestType
     protected XMLGregorianCalendar dateSigned;
     @XmlElement(required = true)
     protected String insuranceAgreedFlag;
+    @XmlElement(required = true)
+    protected String insuranceAgreedFlag_CP;
+    @XmlElement(required = true)
+    protected String insuranceAgreedFlag_IW;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String insuranceCode;
     protected String insuranceSignatureFlag;
+    protected String insuranceSignatureFlag_CP;
+    protected String insuranceSignatureFlag_IW;
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar insuranceDateSigned;
     protected byte[] insuranceSignature;
+    protected byte[] insuranceSignatureCP;
+    protected byte[] insuranceSignatureIW;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String affiliationCode;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -2708,6 +2728,22 @@ public class AccountApplicationRequestType
     public void setInsuranceAgreedFlag(String value) {
         this.insuranceAgreedFlag = value;
     }
+    
+    public String getInsuranceAgreedFlag_CP() {
+		return insuranceAgreedFlag_CP;
+	}
+
+	public void setInsuranceAgreedFlag_CP(String insuranceAgreedFlag_CP) {
+		this.insuranceAgreedFlag_CP = insuranceAgreedFlag_CP;
+	}
+
+	public String getInsuranceAgreedFlag_IW() {
+		return insuranceAgreedFlag_IW;
+	}
+
+	public void setInsuranceAgreedFlag_IW(String insuranceAgreedFlag_IW) {
+		this.insuranceAgreedFlag_IW = insuranceAgreedFlag_IW;
+	}
 
     /**
      * Gets the value of the insuranceCode property.
@@ -2757,7 +2793,23 @@ public class AccountApplicationRequestType
         this.insuranceSignatureFlag = value;
     }
 
-    /**
+    public String getInsuranceSignatureFlag_CP() {
+		return insuranceSignatureFlag_CP;
+	}
+
+	public void setInsuranceSignatureFlag_CP(String insuranceSignatureFlag_CP) {
+		this.insuranceSignatureFlag_CP = insuranceSignatureFlag_CP;
+	}
+
+	public String getInsuranceSignatureFlag_IW() {
+		return insuranceSignatureFlag_IW;
+	}
+
+	public void setInsuranceSignatureFlag_IW(String insuranceSignatureFlag_IW) {
+		this.insuranceSignatureFlag_IW = insuranceSignatureFlag_IW;
+	}
+
+	/**
      * Gets the value of the insuranceDateSigned property.
      * 
      * @return
@@ -2803,7 +2855,23 @@ public class AccountApplicationRequestType
         this.insuranceSignature = ((byte[]) value);
     }
 
-    /**
+    public byte[] getInsuranceSignatureCP() {
+		return insuranceSignatureCP;
+	}
+
+	public void setInsuranceSignatureCP(byte[] insuranceSignatureCP) {
+		this.insuranceSignatureCP = insuranceSignatureCP;
+	}
+
+	public byte[] getInsuranceSignatureIW() {
+		return insuranceSignatureIW;
+	}
+
+	public void setInsuranceSignatureIW(byte[] insuranceSignatureIW) {
+		this.insuranceSignatureIW = insuranceSignatureIW;
+	}
+
+	/**
      * Gets the value of the affiliationCode property.
      * 
      * @return

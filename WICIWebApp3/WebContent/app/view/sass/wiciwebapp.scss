@@ -235,6 +235,10 @@ border: 0px;
   margin-top: 7px;
 }
 
+.optionalProductQuebecText{
+  padding-left: 30px;
+  padding-bottom: 15px;
+}
 .title {
     width: 100%;
     height: 50px;
@@ -1324,18 +1328,18 @@ tr {
 
 /* US4637 Email page starts */
  #omxCardEmailInfo {
-    background-image: #{inline_image("EmailCollection_Loyalty.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardEmailInfo.en_card {
-    background-image: #{inline_image("EmailCollection_Loyalty.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_EN.png")};
   }
 
   #omxCardEmailInfo.fr_card {
-    background-image: #{inline_image("EmailCollection_Loyalty_FR.png")};
+    background-image: #{inline_image("emailCollection_OMX_OMZ_Loyalty_FR.png")};
   }
   
 
@@ -1368,6 +1372,168 @@ tr {
 	}
     margin-bottom: 15px;
 }
+
+/* -------------- US5487  starts IWD Insurance ---------------- */
+.optionalProductIW{
+	background-size: 100% 100%;
+	display: block;
+	text-decoration: none;
+	position: relative;
+	border-radius: 0px;
+	margin: 0px auto;
+	outline-style: none;
+	height: 1700px;
+	@media(max-width: 500px){
+	 height: 1320px;
+	}
+	@media(min-width: 534px){
+	 height: 1320px;
+	} 
+	@media(min-width: 545px){
+	 height: 1350px;
+	} 
+	@media(min-width: 645px){
+	 height: 1350px;
+	}
+	@media(min-width: 700px){
+	 height: 1650px;
+	}
+	@media(min-width: 1000px){
+	 height: 1700px;
+	}
+}
+
+ #iWOptionalProduct {
+    background-image: #{inline_image("IDW_Disclosure_English.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100% 100%;
+  }
+
+  #iWOptionalProduct.en_card {
+    background-image: #{inline_image("IDW_Disclosure_English.png")};
+    @media(max-width: 500px){
+	 height: 1320px;
+	}
+	@media(min-width: 534px){
+	 height: 1320px;
+	} 
+	@media(min-width: 545px){
+	 height: 850px;
+	} 
+	@media(min-width: 645px){
+	 height: 1350px;
+	}
+	@media(min-width: 700px){
+	 height: 1600px;
+	}
+	@media(min-width: 1000px){
+	 height: 1700px;
+	}
+  }
+
+  #iWOptionalProduct.fr_card {
+    background-image: #{inline_image("IDW_Disclosure_French.png")};
+    @media(max-width: 500px){
+	 height: 1320px;
+	}
+	@media(min-width: 534px){
+	 height: 1320px;
+	} 
+	@media(min-width: 545px){
+	 height: 1150px;
+	} 
+	@media(min-width: 645px){
+	 height: 1350px;
+	}
+	@media(min-width: 700px){
+	 height: 1600px;
+	}
+	@media(min-width: 1000px){
+	 height: 1700px;
+	}
+  }
+  
+  /* -------------- US5487  starts CP Insurance ---------------- */
+  .optionalProductCP{
+	background-size: 100% 100%;
+	display: block;
+	text-decoration: none;
+	position: relative;
+	border-radius: 0px;
+	margin: 0px auto;
+	outline-style: none;
+	height: 2650px;
+	@media(max-width: 500px){
+	 height: 1320px;
+	}
+	@media(min-width: 534px){
+	 height: 1320px;
+	} 
+	@media(min-width: 545px){
+	 height: 1350px;
+	} 
+	@media(min-width: 645px){
+	 height: 1350px;
+	}
+	@media(min-width: 700px){
+	 height: 1750px;
+	}
+	@media(min-width: 1000px){
+	 height: 2700px;
+	}
+}
+
+ #cpOptionalProduct {
+    background-image: #{inline_image("CP_Disclosure_English.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100% 100%;
+  }
+
+  #cpOptionalProduct.en_card {
+    background-image: #{inline_image("CP_Disclosure_English.png")};
+   /* @media(max-width: 500px){
+	 height: 1320px;
+	}
+	@media(min-width: 534px){
+	 height: 1320px;
+	} 
+	@media(min-width: 545px){
+	 height: 1350px;
+	} 
+	@media(min-width: 645px){
+	 height: 1350px;
+	}
+	@media(min-width: 700px){
+	 height: 1350px;
+	}
+	@media(min-width: 1000px){
+	 height: 2700px;
+	}*/
+  }
+
+  #cpOptionalProduct.fr_card {
+    background-image: #{inline_image("CP_Disclosure_French.png")};
+   /* @media(max-width: 500px){
+	 height: 1420px;
+	}
+	@media(min-width: 534px){
+	 height: 1420px;
+	} 
+	@media(min-width: 545px){
+	 height: 1600px;
+	} 
+	@media(min-width: 645px){
+	 height: 1450px;
+	}
+	@media(min-width: 700px){
+	 height: 1850px;
+	}
+	@media(min-width: 1000px){
+	 height: 2700px;
+	}*/
+  }
 
   /* US4989 starts */
   // US5144 WICI - Updated Features & Benefits

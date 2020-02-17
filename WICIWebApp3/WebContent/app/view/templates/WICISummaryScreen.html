@@ -866,9 +866,9 @@
 				<span class="pageSubTitle" data-translationKey="breadCrumbItem_OptionalProducts"></span>
 				<br>
 				<br>
- 				 <table id="summary_SelectedProductTable" class="stretchThisTable">
+ 				<!-- <table id="summary_SelectedProductTable" class="stretchThisTable"> -->
 			<!--  Start Protector Advantage case -->
-	                {{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_PA')==='Y' }}
+	               <!-- {{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_PA')==='Y' }}
 		                <tbody>
 
 			                <tr class="fieldRow">
@@ -908,10 +908,12 @@
 			                    </td>
 			                </tr>
 		                </tbody>
-					{{/if}}
+					 {{/if}} -->
+					<!-- </table> -->
 			<!--  End Protector Advantage case -->
 			<!--  Start Credit Protector case -->
 				{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_CP')==='Y' }}
+				 <table id="summary_SelectedProductTable" class="stretchThisTable">
 		                <tbody>
 
 			                <tr class="fieldRow">
@@ -951,10 +953,14 @@
 			                    </td>
 			                </tr>
 		                </tbody>
-					{{/if}}
+		                </table> 
+					{{/if}}	
 			<!--  End Credit Protector case -->
+			      <br>
 			<!--  Start Identity watch case -->
+			      
 					{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_IW')==='Y' }}
+					 <table id="summary_SelectedProductTable" class="stretchThisTable">
 		                <tbody>
 
 			                <tr class="fieldRow">
@@ -994,10 +1000,14 @@
 			                    </td>
 			                </tr>
 		                </tbody>
+		               </table>
 					{{/if}}
+				
 			<!--  End Identity Watch case -->
+			<br>
 			<!--  Start Not this time  case -->
 					{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_NA')==='Y' }}
+					<table id="summary_SelectedProductTable" class="stretchThisTable">
 		                <tbody>
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsSingleCell fieldCellSize33">

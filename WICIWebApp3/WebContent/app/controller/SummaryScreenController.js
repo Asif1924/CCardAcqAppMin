@@ -10,6 +10,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     var connectivityController = null;
     var pollingController =  null;
     var isAliveInterval = null;
+    var isDebugMode;
     this.syncUserData = syncUserData;
     this.show = show;
     this.init = init;
@@ -410,37 +411,46 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         		// US3462 
         		// Print Coupon after submit app if cardtype is OMC
         		console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('locationFieldID'));
-        		if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
-        			activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
-        			if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
-             				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
-        				// No coupons for gas store
-        			} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
-        				// No coupons for Husky gas store
-        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500) {
-        				// No coupons for OOS store
-        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 &&
-             				activationItems.getModel('loginScreen').get('locationFieldID') <= 5999) {
-        				// Coupons print for FGL store
-        				printCoupon();
-        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1 &&
-             				activationItems.getModel('loginScreen').get('locationFieldID') <= 999) {
-        				// Coupons print for CT store
-        				printCoupon();
-        			} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 &&
-             				activationItems.getModel('loginScreen').get('locationFieldID') <= 6999) {
-        				// Coupons print for Marks store
-        				printCoupon();
-        			} else {
-        				// No coupons for any other channels
-        			}
-        		}             
+        			if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
+                		activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
+        				if(activationItems.getModel('loginScreen').get('employerID') == 'E' && 
+        						$.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), [ "CT", "GAS"]) != '-1') {
+        					// No coupons for DP Channel
+                		}
+                		else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
+                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
+                			// No coupons for gas store
+                		} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
+                			// No coupons for Husky gas store
+                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500) {
+                			// No coupons for OOS store
+                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 &&
+                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 5999) {
+                			// Coupons print for FGL store
+                			printCoupon();
+                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1 &&
+                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 999) {
+                			// Coupons print for CT store
+                			printCoupon();
+                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 &&
+                			activationItems.getModel('loginScreen').get('locationFieldID') <= 6999) {
+                			// Coupons print for Marks store
+                			printCoupon();
+                		} else {
+                			// No coupons for any other channels
+                		}
+                	}
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
         	}else{
         		showMessageForDataValidationIssue();
         	}
         }
         catch(Ex){
+        	// US5294 : WICI - Debug Mode          	
+        	if(isDebugMode){
+                messageDialog.error(Ex,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + Ex);
         	failedInitActivate();
         }
     }
@@ -497,7 +507,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 				// Web print
 			}
 		} catch (error) {
-			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+			// US5294 : WICI - Debug Mode          	
+			if(isDebugMode){
+                messageDialog.error(error,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + error);
 		}
 		return;
     }
@@ -675,7 +689,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     			maxRetries = parseInt(WICI.AppConfig.SubmissionConfig.MAX_SUBMISSION_RETRIES);
     		}
     	} catch(ex) {
-    		console.log(logPrefix + sMethod + "\n" + 'ERROR: ' + ex);
+    		// US5294 : WICI - Debug Mode          	
+    		if(isDebugMode){
+                messageDialog.error(ex,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + ex);
     	}
     	return maxRetries;
     }
@@ -689,7 +707,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     			counter = parseInt(model.get('submitFailed_Counter'));
     		}
     	} catch(ex) {
-    		console.log(logPrefix + sMethod + "\n" + 'ERROR: ' + ex);
+    		// US5294 : WICI - Debug Mode          	
+    		if(isDebugMode){
+                messageDialog.error(ex,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + ex);
     	}
         return counter;
     }

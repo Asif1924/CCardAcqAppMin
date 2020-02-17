@@ -11,6 +11,7 @@ WICI.LoginResponseHelper = function() {
 	this.incorrectApkVersion = incorrectApkVersion;
 	this.getLatestDictionaryInfo = getLatestDictionaryInfo;
 	this.getPendRetrievalConfig = getPendRetrievalConfig;
+	this.getMsg = getMsg;
 	
 	function setLoginResponseObject( argLoginResponseObject ){
 		loginResponseObject = argLoginResponseObject;
@@ -28,6 +29,12 @@ WICI.LoginResponseHelper = function() {
 		return loginResponseObject.data && loginResponseObject.data.statusCode==="203";
 	}
 	
+	function getMsg() {
+		if( loginResponseObject && loginResponseObject.msg ){
+			return loginResponseObject.msg;	
+		}
+	}
+	
 	function getBundleCodeForErrorMessage(){
 		if( loginResponseObject && loginResponseObject.msg === "Invalid Employer Id. Please correct and try again"){
 			return "loginScreen_EmployerIDLookup_FailedMessage";	
@@ -41,9 +48,11 @@ WICI.LoginResponseHelper = function() {
 		}
 		return "loginScreen_FailureMessage";
 	}
+	
 	function getLatestDictionaryInfo(){
 		return loginResponseObject.data.dictionaryInfo;
 	}
+	
 	function getPendRetrievalConfig(){
 		return loginResponseObject.data.pendRetrievalConfig;
 	}

@@ -8,7 +8,7 @@ public class WICILoginResponse
 	public String toString() {
 		return "WICILoginResponse [statusCode=" + statusCode + ", LTPAToken="
 				+ LTPAToken + ", message=" + message + ", roles=" + roles
-				+ ", roleId=" + roleId + ", enableEntreamAuth=" + enableEnstreamAuth +", checkLocation=" + checkLocation
+				+ ", roleId=" + roleId + ", enableEntreamAuth=" + enableEnstreamAuth + ", isDebugMode=" + isDebugMode + ", checkLocation=" + checkLocation
 				+ ", dictionaryInfo=" + dictionaryInfo + "]";
 	}
 
@@ -21,6 +21,7 @@ public class WICILoginResponse
 	String enrollmentDate;
 	String agentId;
 	boolean enableEnstreamAuth;
+	boolean isDebugMode;
 	WICICheckLocationResponse checkLocation;
 	DictionaryInfo dictionaryInfo;
 	
@@ -129,6 +130,14 @@ public class WICILoginResponse
 	 */
 	public void setEnableEnstreamAuth(boolean enableEnstreamAuth) {
 		this.enableEnstreamAuth = enableEnstreamAuth;
+	}
+
+	public boolean isDebugMode() {
+		return isDebugMode;
+	}
+
+	public void setDebugMode(boolean isDebugMode) {
+		this.isDebugMode = isDebugMode;
 	}
 
 

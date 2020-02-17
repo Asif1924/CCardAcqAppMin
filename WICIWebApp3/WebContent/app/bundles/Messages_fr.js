@@ -96,6 +96,7 @@ WICI.dictionary_fr =  {
 	loginScreen_EmployerIDLookup_FailedMessage        :                         "Code d'employeur invalide. Veuillez corriger et essayer de nouveau",
 	chooseProduct_PrinterConnected					  :							"L’imprimante est connectée.",
 	chooseProduct_PrinterNotConnected				  :							"L’imprimante n’est pas connectée. Veuillez vous assurer que l'imprimante est en marche, <br>à portée de main et que Bluetooth est connecté avant de procéder à l'application.",
+	loginScreen_Login_Details_In_Use				  :							"Échec de connexion. Votre nom d'utilisateur est courrament en utilisation. SVP contacter votre superviseur pour plus d'information.",
 
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards           :                         "CHOISISSEZ L'UNE DES CARTES DE CRÉDIT SUIVANTES",
@@ -136,7 +137,7 @@ WICI.dictionary_fr =  {
 	chooseProduct_DialogProceed						  :							"CONTINUER",
 	
 	// US3981
-	chooseProductScreen_Handoutprompts_Title			:	"Document juridique",
+	chooseProductScreen_Handoutprompts_Title			:	"Confirmation",
 	chooseProductScreen_Handoutprompts_YesNo_Message	:	"Avez-vous fourni au demandeur le document de renseignements juridiques?",
 	chooseProductScreen_Handoutprompts_Ok_Message		:	"Avant de continuer, tous les demandeurs doivent recevoir un document de renseignements juridiques.",
 
@@ -292,6 +293,10 @@ WICI.dictionary_fr =  {
 	personalData_PreviousAddress_SuiteUnit           :                         "App. / Bureau / Unité",
 	personalData_PreviousAddress_City                :                         "Ville",
 	personalData_PreviousAddress_Province            :                         "Province",
+	// US5414 
+	chooseProductScreen_LegalHandout_PleaseSign         :   "Veuillez signer ici",
+	chooseProductScreen_LegalHandout_Message            :   "Je confirme que j'ai fourni au demandeur le document d'information juridique.",
+
 
 	// US3623
 	personalData_PreviousAddress_NotInCanada		  :							"Adresse précédente est pas au Canada:",
@@ -499,6 +504,7 @@ WICI.dictionary_fr =  {
     optionalProducts_CP_LI_Terminal                   :   "Maladie en phase terminale*",
     optionalProducts_CP_LI_Dismemberment              :   "Mutilation <span style=\"border-bottom: 1px solid #58595b;\">ou</span> perte de la vue, d’un pied ou d’une main* <br>(à 80 ans l’assurance offre une protection en cas de mutilation<br>par accident).",
     optionalProducts_CP_LI_Life                       :   "Déces* (à 80 ans l’assurance offre une protection en cas de<br> décès par accident)<br> *Votre conjoint ou votre conjointe bénéficie également de ces<br> 3 couvertures.",
+    optionalProducts_CP_LI_These_coverage             :   "<b>*&nbsp;Ces couvertures fournissent des prestations pour votre conjoint, sauf si vous<br> adhérez dans la province de Québec.</b>",
     optionalProducts_CP_text_monthly                  :   "Le tout pour une prime mensuelle de",
     optionalProducts_CP_text_for_every                :   "1,10 <sup>&#36;</sup> par tranche de 100 <sup>&#36;</sup>",
     optionalProducts_CP_text_average                  :   "du solde quotidien moyen, plus les taxes applicables",

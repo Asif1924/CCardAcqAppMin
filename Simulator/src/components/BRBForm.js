@@ -183,7 +183,7 @@ class TextFields extends React.Component {
     
 	   if(environmentFlagValue == 1){
 	      // BRB Development
-	      xmlhttp.open('POST', 'http://t9dssa01:8765/BRBMiddlewareBroker/PersistService', true);
+	      xmlhttp.open('POST', 'https://t9dssa01:8765/BRBMiddlewareBroker/PersistService', true);
 	    }else if(environmentFlagValue == 2){
 	      //BRB Preprod
 	      xmlhttp.open('POST', 'https://Q9DSSA-AVIP.ctal.ctc:8443/BRBMiddlewareBroker/PersistService', true);
@@ -191,7 +191,7 @@ class TextFields extends React.Component {
 	      // BRB PROD
 	      xmlhttp.open('POST', 'https://P9DSSA-AVIP.ctal.ctc:8443/BRBMiddlewareBroker/PersistService', true);
 	    }else{
-	      xmlhttp.open('POST', 'http://t9dssa01:8765/BRBMiddlewareBroker/PersistService', true);
+	      xmlhttp.open('POST', 'https://t9dssa01:8765/BRBMiddlewareBroker/PersistService', true);
 	    }
 	    
 

@@ -15,8 +15,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Logger;
 
 import javax.naming.NamingException;
@@ -39,7 +44,9 @@ import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ctfs.WICI.dblayer.ConfigurationTableEntity;
+import com.ctfs.WICI.dblayer.TabListTableEntity;
 import com.ctfs.WICI.dblayer.interfaces.IConfigurationTableEntity;
+import com.ctfs.WICI.dblayer.interfaces.ITabListTableEntity;
 import com.ctfs.WICI.exception.DuplicateAgentIDException;
 import com.google.gson.Gson;
 
@@ -276,6 +283,52 @@ public class WICIDBHelper
 		return dictInfo;
 	}
 
+	public boolean isDebugMode(String argMfgSerial, String argBuildSerial) throws SQLException
+	{
+		String sMethod = "[isDebugMode] ";
+		log.info(sMethod);
+
+		String sql = "SELECT * FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) IN (?,?) AND AUTHORIZED=1";
+		Integer debugMode = 0;
+		
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, argMfgSerial.toUpperCase());
+			preparedStatement.setString(2, argBuildSerial.toUpperCase());
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+			{
+				log.info(sMethod + ":: Device Manufacturer Serial # " + argMfgSerial + " and Build Serial # " + argBuildSerial);
+				
+				debugMode = resultSet.getInt("DEBUG_MODE");
+				if(debugMode == 1)
+					return true;
+				else 
+					return false;
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			return false;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return false;
+	}
 	
 	public boolean isDeviceWhitelisted(String argMfgSerial, String argBuildSerial) throws SQLException
 	{
@@ -549,9 +602,9 @@ public class WICIDBHelper
 		}
 	}
 	
-	private boolean deviceWithThisMfgSerialNumberExists( String argMfgSerialNumber ) throws SQLException
+	public boolean deviceWithThisMfgSerialNumberExists( String argMfgSerialNumber ) throws SQLException
 	{
-		String sMethod = "[deviceWithThisSerialNumberExists] ";
+		String sMethod = "[deviceWithThisMfgSerialNumberExists] ";
 		log.info(sMethod + "::Called::");
 
 		validateMfgSerialNumber(argMfgSerialNumber);
@@ -591,6 +644,149 @@ public class WICIDBHelper
 		}
 
 		return deviceExists;
+	}
+	
+	public ITabListTableEntity retrieveLastLoggedinMfgserialNo( Timestamp argLastLoggedinDate ) throws SQLException
+	{
+		String sMethod = "[retrieveLastLoggedinMfgserialNo] ";
+		log.info(sMethod + "::Called::");
+
+		ITabListTableEntity tabListTableEntity = null;
+			
+		String sql = "SELECT AGENTID, MFG_SERIALNO FROM "+ WICI_TAB_LST_TABLE + " WHERE LOGINDATE = ? ORDER BY LOGINDATE DESC";
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setTimestamp(1, argLastLoggedinDate);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			tabListTableEntity = new TabListTableEntity();
+			
+			if (resultSet.next())
+			{
+				tabListTableEntity.setAgentID(resultSet.getString("AGENTID"));
+				tabListTableEntity.setMfgSerialNo(resultSet.getString("MFG_SERIALNO"));
+				log.info(sMethod + " ::mfgSerial:: " + resultSet.getString("MFG_SERIALNO")
+						+ " ::agentId:: " + resultSet.getString("AGENTID"));
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return tabListTableEntity;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean checkAgentPreLoggedin(LoginInfo loginInfo) throws SQLException, ParseException {
+		
+		String sMethod = "[checkAgentPreLoggedin] ";
+		log.info(sMethod + "::Called::");
+
+		String newAgentID = loginInfo.getAgentID();
+		String newMfgSerial = loginInfo.getMfgSerial().toUpperCase().trim();
+		String agentID = "", mfgSerial = "";
+		log.info(sMethod + "::newAgentID:: " + newAgentID + " ::newMfgSerial:: " + newMfgSerial);
+
+		Timestamp lastLoggedinTimeStamp = getLoggedinDate(newAgentID);
+		log.info(sMethod + "::lastLoggedInDate:: " + lastLoggedinTimeStamp);
+		
+		ITabListTableEntity tabListTableEntity = retrieveLastLoggedinMfgserialNo(lastLoggedinTimeStamp);
+		
+		if(validateTabListTableEntity(tabListTableEntity)) {
+			agentID = tabListTableEntity.getAgentID();
+			mfgSerial = tabListTableEntity.getMfgSerialNo();
+			log.info(sMethod + " ::lastLoggedInMfgSerial:: " + mfgSerial + " ::lastLoggedInAgentID:: " + agentID);
+		}
+		
+		long millis =  new java.util.Date().getTime();
+		java.sql.Timestamp currentDate = new java.sql.Timestamp(millis);
+		log.info(sMethod + "::currentDate:: " + currentDate);
+		
+		boolean loggedIn = false;
+		
+		if(agentID.equalsIgnoreCase(newAgentID) && !mfgSerial.equalsIgnoreCase(newMfgSerial)) {
+			if(currentDate.getYear() == lastLoggedinTimeStamp.getYear() && currentDate.getMonth() == lastLoggedinTimeStamp.getMonth()
+					&& currentDate.getDate() == lastLoggedinTimeStamp.getDate() && currentDate.getHours() == lastLoggedinTimeStamp.getHours()) {
+				int minutes = currentDate.getMinutes() - lastLoggedinTimeStamp.getMinutes();
+				log.info(sMethod + ":: minutes difference :: " + minutes);
+				if(minutes <= 5) {
+					loggedIn = true;
+				} else {
+					loggedIn = false;
+				}
+			}
+		}
+		
+		return loggedIn;
+	}
+	
+	private boolean validateTabListTableEntity(ITabListTableEntity tabListTableEntity)
+	{
+		String sMethod = this.getClass().getName() + "[validateTabListTableEntity] ";
+		log.info(sMethod);
+
+		return tabListTableEntity != null && validateStringParameter(tabListTableEntity.getAgentID()) && validateStringParameter(tabListTableEntity.getMfgSerialNo());
+	}
+
+	private boolean validateStringParameter(String value)
+	{
+		String sMethod = this.getClass().getName() + "[validateStringParameter] ";
+		log.info(sMethod);
+
+		return value != null && !value.isEmpty();
+	}
+	
+	private Timestamp getLoggedinDate( String argAgentID ) throws SQLException
+	{
+		String sMethod = "[getLoggedinDate] ";
+		log.info(sMethod + "::Called::");
+		
+		String sql = "SELECT MAX(LOGINDATE) FROM " + WICI_TAB_LST_TABLE + " WHERE AGENTID = ? ORDER BY LOGINDATE DESC";
+		log.info(sMethod + ":: SQL :: " + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		Timestamp lastLoggedInDate = null;
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, argAgentID);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+			{
+				lastLoggedInDate = resultSet.getTimestamp("MAX(LOGINDATE)");
+				log.info(sMethod + ":: login date :: " + lastLoggedInDate);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return lastLoggedInDate;
 	}
 	
 	// US4231

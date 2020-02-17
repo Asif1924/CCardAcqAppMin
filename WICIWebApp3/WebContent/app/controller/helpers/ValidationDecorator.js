@@ -54,7 +54,8 @@ WICI.ValidationDecorator = function(config) {
 	this.idNumberValidation = function(currModel, numberId) {
 		var sMethod = 'idNumberValidation()';
 		console.log(logPrefix + sMethod );
-		
+		var inputOntario = $(numberId).val().toUpperCase();
+		console.log("inputOntario: ", inputOntario);
 		var province = currModel.get('placeofissue');
 		var idType = currModel.get('idtype');
 		var lastName = currModel.get('lastName');
@@ -103,6 +104,18 @@ WICI.ValidationDecorator = function(config) {
 				this.applyNumberIdError(numberId);
 			}
 		}
+		
+
+		if (province === "ON" && idType === "ON") {
+			if (!(this.checkOntario(inputOntario.substring(3, 4)))) {
+				this.applyNumberIdError(numberId);
+			}
+
+			if (!(this.isAlpha(inputOntario.substring(4, 5)))) {
+				this.applyNumberIdError(numberId);
+			}
+		}
+		
 	      return valid;
 	 };
 
@@ -198,6 +211,16 @@ WICI.ValidationDecorator = function(config) {
 	    var result = patt.test(str);
 	    return result;
 	};
+	
+	// ----------------------------------------
+	this.checkOntario = function(str) {
+		var reg = new RegExp("^[a-zA-Z]+$");
+		var result = reg.test(str);
 
-
+		if (str === "-" || result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 };

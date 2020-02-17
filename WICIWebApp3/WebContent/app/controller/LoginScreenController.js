@@ -13,6 +13,7 @@ WICI.LoginScreenController = function(app) {
     var validateNameFields = false;
     var validateOtherStaff = false;
     var signatureControl;
+    var isDebugMode;
     
     var latestDictionary = null; //dictionaryInfo
 
@@ -73,6 +74,7 @@ WICI.LoginScreenController = function(app) {
         	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'password', value: null, validation: null },
             { name: 'locationFieldID', value: null, validation: null },
+            { name: 'locationFieldIDADM', value: null, validation: null },
             { name: 'businessStoreNo', value: null, validation: { type: 'presence', message: '', matcher: /^[a-zA-Z0-9]{1,5}$/, group: [1] } },
             { name: 'agentID', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1,8}$/, group: [1] } },
             { name: 'longitude', value: null, validation: null },
@@ -90,6 +92,7 @@ WICI.LoginScreenController = function(app) {
             { notField: true, name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
             { notField: true, name: 'userSingnatureNative', value: null, validation: null},
             { name: 'businessStoreNumber', value: null, validation: null },
+            { name: 'isDebugMode', value: null, validation: null },
         ]
     });
     this.innerModel = model;
@@ -631,30 +634,6 @@ WICI.LoginScreenController = function(app) {
             return false;
         }
 
-
-        /*syncUserData();
-        if (app.validationsOn) {
-            app.validationDecorator.clearErrArrtibute();
-
-            var rez = model.validate(1);
-            app.validationDecorator.applyErrAttribute(rez);
-            
-            if (validateNameFields) {
-                var rez2 = model.validate(2);
-                app.validationDecorator.applyErrAttribute(rez2);
-
-                if (rez.length > 0 || rez2.length > 0) {
-                    return;
-                }
-            } else if (rez.length > 0) {
-                return;
-            }
-        }*/
-        /*
-         var isDemoMode = (user.toLowerCase() === WICI.AppConfig.DemoUserCredentials.login &&
-         password.toLowerCase() === WICI.AppConfig.DemoUserCredentials.password &&
-         locationID === WICI.AppConfig.DemoUserCredentials.locationID);
-         */
         var credentials = {
             employerID: argEmployerID,
             agentID: argAgentID,
@@ -662,18 +641,11 @@ WICI.LoginScreenController = function(app) {
             lastName: argLastName,
             password: password
         };
+        
         var isDemoMode = checkDemoMode(credentials, WICI.AppConfig.DemoCredentials);
-
         app.setDemoMode(isDemoMode);
 
-
-        /*
-         var isBypassMode = (user.toLowerCase() === WICI.AppConfig.AdminBypassCredentials.login &&
-         password.toLowerCase() === WICI.AppConfig.AdminBypassCredentials.password
-         );
-         */
         var isBypassMode = checkDemoCredentials(credentials, WICI.AppConfig.DemoCredentials.admin);
-
         if (isBypassMode) {
             //console.log(logPrefix + sMethod   + " WARNING! BYPASS CODE IS USED!!!");
             model.set('userID', 'epamfmr');
@@ -712,6 +684,9 @@ WICI.LoginScreenController = function(app) {
 
         //var userLocationResponse = null;
         if (argResponse.data) {
+        	if(argResponse.data.isDebugMode != null) {
+        		model.set('isDebugMode', argResponse.data.isDebugMode);
+        	}
             //userLocationResponse = argResponse.data.checkLocation;
             // Save account profile info
         	console.log("WICI Login Response  ::"+ JSON.stringify(argResponse.data));
@@ -725,28 +700,44 @@ WICI.LoginScreenController = function(app) {
         	if(app.getDemoMode()) {
         		model.set('locationFieldID', $(refs.businessStoreNo).val().toUpperCase());
         	} else {
-        		console.log("WICI Login Response CTFSStoreNo ::"+ model.get('CTFSStoreNo'));
-            	if(argResponse.data.checkLocation) {
-            		model.set('locationFieldID', argResponse.data.checkLocation.CTFSStoreNo);
+        		console.log("WICI Login Response CTFSStoreNo ::"+ model.get('CTFSStoreNo'));            	
+            	if(argResponse.data.checkLocation && argResponse.data.checkLocation) {
             		model.set('businessStoreNumber', argResponse.data.checkLocation.businessStoreNumber);
-            	}
+            		if(argResponse.data.checkLocation.CTFSStoreNo) {
+            			model.set('locationFieldIDADM', argResponse.data.checkLocation.CTFSStoreNo);
+            			console.log("WICI Login Response locationFieldIDADM ::"+ model.get('locationFieldIDADM'));
+            		} else {
+            			model.set('locationFieldIDADM', $(refs.businessStoreNo).val().toUpperCase());
+            			console.log("WICI Login Response locationFieldIDADM ::"+ model.get('locationFieldIDADM'));
+            		}
+                } else {
+                	model.set('locationFieldIDADM', $(refs.businessStoreNo).val().toUpperCase());
+                }
         	}
         	
         	console.log("WICI Login Response enableEnstreamAuth ::"+ model.get('enableEnstreamAuth'));
+        	console.log("WICI Login Response isDebugMode ::"+ model.get('isDebugMode'));
             app.accountProfileHelper.initialize(argResponse.data.roles,argResponse.data.roleId);
         }
 
         if (loginHelper.loginSuccessful()) {
             if (!app.getDemoMode()) {
-            	
-            	if( loginHelper.getPendRetrievalConfig() )
-            		WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved = loginHelper.getPendRetrievalConfig().MaxRetrievalsForApproved;
-            	
-            	console.log(logPrefix + sMethod + "-WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved=" + WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved);
-            	
-                $.when.apply(null, retrieveLatestDictionary(argResponse)).always(function() {
-                    respondToUserLocationLookup(argResponse);
-                });
+            	if(loginHelper.getMsg() === "Your login details are currently in use") {
+            		messageDialog.error(
+            	            translator.translateKey("loginScreen_Login_Details_In_Use"),
+            	            translator.translateKey("errorDialog_defaultTitle"),
+            	            null);
+            		new WICI.LoadingIndicatorController().hide();
+            	} else {
+            		if( loginHelper.getPendRetrievalConfig() )
+                		WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved = loginHelper.getPendRetrievalConfig().MaxRetrievalsForApproved;
+                	
+                	console.log(logPrefix + sMethod + "-WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved=" + WICI.AppConfig.PendingFeature.MaxRetrievalsForApproved);
+                	
+                    $.when.apply(null, retrieveLatestDictionary(argResponse)).always(function() {
+                        respondToUserLocationLookup(argResponse);
+                    });
+            	}
             } else {
                 respondToUserLocationLookup(argResponse);
             }

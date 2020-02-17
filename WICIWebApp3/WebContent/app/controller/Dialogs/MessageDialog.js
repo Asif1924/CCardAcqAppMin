@@ -14,6 +14,7 @@ WICI.MessageDialog = function(translate){
 	this.scan = scan;
 	this.scanLoyalty = scanLoyalty;
 	this.homePhone = homePhone;
+	this.legalHandout = legalHandout;
 	//US4892
 	this.qcDistributionGuide = qcDistributionGuide;
 	// US4495
@@ -117,6 +118,20 @@ WICI.MessageDialog = function(translate){
 
 	function htmlConfirm(message, yesCallback, noCallback, title, yesButton, noButton) {
 		var dialog = new WICI.HTMLConfirmMessageDialog(message,
+				buildCallback(yesCallback),
+				buildCallback(noCallback),
+				buildTitle(title, "confirmDialog_defaultTitle"),
+				buildButton(yesButton, "yes"),
+				buildButton(noButton, "no"));
+		dialogQueue.enqueue(dialog);
+	}
+	
+	
+	// US5414 : new dialog for legal handout with signature
+	function legalHandout(message, pleasesign, clearsignature, yesCallback, noCallback, title, yesButton, noButton) {
+		var dialog = new WICI.LegalHandoutAttestationSignatureDialog(message,
+				pleasesign,
+				clearsignature,
 				buildCallback(yesCallback),
 				buildCallback(noCallback),
 				buildTitle(title, "confirmDialog_defaultTitle"),

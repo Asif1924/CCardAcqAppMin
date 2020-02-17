@@ -19,6 +19,7 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
     this.hide = hide;
     this.init = init;
     this.destroy=destroy;
+    var isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
 
     this.syncUserData = syncUserData;
 
@@ -57,7 +58,13 @@ WICI.InstantIssuanceSetupInsScreenController = function(activationItems, argTran
 				// app.zebraPrinterWrapper.getDecryptedAccountNumber(activationItems, decryptPANSuccess, decryptPANFailure);
 			}
 		} catch (error) {
+			if(isDebugMode){
+				messageDialog.info(error, translator
+                        .translateKey('errorDialog_defaultTitle'));
+			}
+			else{
 			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+			}
 		}
         //app.zebraPrinterWrapper.getDecryptedAccountNumber(activationItems, decryptPANSuccess, decryptPANFailure);
         

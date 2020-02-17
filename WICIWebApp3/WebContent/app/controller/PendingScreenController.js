@@ -6,6 +6,9 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     var sMethod = 'constructor() ';
     console.log(logPrefix + sMethod);    
     
+    var isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
+    console.log("isDebugMode financial screene", isDebugMode)
+
     var screenID = "#" + screenName;
     var $screenContainer = $(screenID);
     this.isShown = false;
@@ -417,9 +420,14 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
                 app.zebraPrinterWrapper.printToken( retrievalTokenRefNum || argToken, printTokenSuccess, printTokenFailed);
                 //WICI.TokenPrinterHelper.printToken(token).then(printTokenSuccess()).fail(printTokenFailed());
             }
-            catch( exception ){
-                new WICI.LoadingIndicatorController().hide();
-            }
+             catch (exception) {
+				if (!isDebugMode) {
+					new WICI.LoadingIndicatorController().hide();
+				} else {
+					messageDialog.info(error, translator
+							.translateKey('errorDialog_defaultTitle'));
+				}
+			}
     	}else{
     		messageDialog.info("Token = " + retrievalTokenRefNum || argToken, "Web Printer",printTokenSuccess);
     		printTokenSuccess();    		

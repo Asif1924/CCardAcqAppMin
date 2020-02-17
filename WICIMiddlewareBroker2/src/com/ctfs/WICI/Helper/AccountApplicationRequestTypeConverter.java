@@ -56,53 +56,6 @@ public class AccountApplicationRequestTypeConverter
                     populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
                     populatedAccountApplicationRequest.setTabSerialId(tabSerialNum);
                     
-                    //populatedAccountApplicationRequest.setChannelIndicator("IP");
-                    //log.info("employerID:" + (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"));
-                    //US3162  
-                    
-                    /* Before MARK IC Chenal     
-                      if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))
-                        {
-                                       populatedAccountApplicationRequest.setChannelIndicator("DP");
-                        }
-                        else
-                        {
-                                       populatedAccountApplicationRequest.setChannelIndicator("IP");
-                        } 
-                    
-                    */ 
-                
-                    /*
-                    //US4194
-                    String  storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
-                    
-                    if(storeNumber.matches(".*[A-Za-z].*")){
-                    	populatedAccountApplicationRequest.setChannelIndicator("HB");
-                    }else{
-                    	double storeNo = Double.parseDouble(storeNumber);
-                        log.info(sMethod + " storeNo: " + storeNo);
-                        // US4432
-                        if( storeNo >= 4000 && storeNo <= 5999 ) {
-                        	populatedAccountApplicationRequest.setChannelIndicator("FG");
-                        }
-                        else if( storeNo >= 6000 && storeNo <= 6999 ) {
-        			        populatedAccountApplicationRequest.setChannelIndicator("IC");	
-        			    } 
-                        else if( storeNo >= 1000 && storeNo <= 1999 && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
-        			        populatedAccountApplicationRequest.setChannelIndicator("GB");
-        			    }
-                        else if( storeNo == 500 &&  !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))){
-        			        populatedAccountApplicationRequest.setChannelIndicator("OS");
-        			    }
-        			    else if ("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID"))) {
-        			    	populatedAccountApplicationRequest.setChannelIndicator("DP");
-                        }
-                        else {
-                            populatedAccountApplicationRequest.setChannelIndicator("IP");
-                        } 
-                    }
-                    */
-                    
                     String retailNetwork = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") : null;
                     String program = (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") != null ? (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") : null;
                     String storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
@@ -148,6 +101,7 @@ public class AccountApplicationRequestTypeConverter
 	                   		 populatedAccountApplicationRequest.setChannelIndicator("UK");
 	                   	}
                     }
+                    */
                     
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
     
@@ -227,32 +181,52 @@ public class AccountApplicationRequestTypeConverter
                                                     return;
                                     }
 
-                                    argAccAppRequest.setInsuranceAgreedFlag(model.get("insuranceAgreedFlag"));
+                                    //argAccAppRequest.setInsuranceAgreedFlag(model.get("insuranceAgreedFlag"));
+                                    //argAccAppRequest.setInsuranceAgreedFlag_CP(model.get("optionalProduct_CP_AcceptBox"));
+                                    //argAccAppRequest.setInsuranceAgreedFlag_IW(model.get("optionalProduct_IW_AcceptBox"));
+                                    
                                     argAccAppRequest.setInsuranceCode(model.get("insuranceCode"));
 
-                                    if (("Y").equalsIgnoreCase(argAccAppRequest.getInsuranceAgreedFlag()))
+                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_CP_AcceptBox")) || 
+                                    		("Y").equalsIgnoreCase(model.get("optionalProduct_IW_AcceptBox"))) {
+                                    	argAccAppRequest.setInsuranceAgreedFlag("Y");
+                                    	argAccAppRequest.setInsuranceSignatureFlag("Y");
+                                    	try
+                                        {
+                                                        XMLGregorianCalendar xgc;
+                                                        xgc = model.getGregorianDate("signDate");
+                                                        argAccAppRequest.setInsuranceDateSigned(xgc);
+                                        }
+                                        catch (DatatypeConfigurationException e)
+                                        {
+                                                        log.warning(sMethod + " MODEL_OPTIONAL_PRODUCTS_MODEL::signDate Exception: " + e.getMessage());
+                                                        e.printStackTrace();
+                                        }
+                                    } else {
+                                    	argAccAppRequest.setInsuranceAgreedFlag("N");
+                                    	argAccAppRequest.setInsuranceSignatureFlag("N");
+                                    }
+                                    
+                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_CP_AcceptBox")))
                                     {
-                                                    argAccAppRequest.setInsuranceSignatureFlag("Y");
-
                                                     // (AA): This decoding is necessary before setting the value
                                                     // because
                                                     // apparently, the XSD takes care of BASE64 Encoding
                                                     // argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
-                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature"));
-                                                    argAccAppRequest.setInsuranceSignature(decodedBase64Image);
-
-                                                    try
-                                                    {
-                                                                    XMLGregorianCalendar xgc;
-                                                                    xgc = model.getGregorianDate("signDate");
-                                                                    argAccAppRequest.setInsuranceDateSigned(xgc);
-                                                    }
-                                                    catch (DatatypeConfigurationException e)
-                                                    {
-                                                                    log.warning(sMethod + " MODEL_OPTIONAL_PRODUCTS_MODEL::signDate Exception: " + e.getMessage());
-                                                                    e.printStackTrace();
-                                                    }
+                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature_CP"));
+                                                    argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
                                     }
+                                    
+                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_IW_AcceptBox")))
+                                    {
+                                                    // (AA): This decoding is necessary before setting the value
+                                                    // because
+                                                    // apparently, the XSD takes care of BASE64 Encoding
+                                                    // argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature_IW"));
+                                                    argAccAppRequest.setInsuranceSignatureIW(decodedBase64Image);
+                                    }
+                                    
                     }
                     catch (Exception e)
                     {
@@ -570,7 +544,7 @@ public class AccountApplicationRequestTypeConverter
 			if (model != null)
 			{
 				agency = model.get("employerID");
-				argAccAppRequest.setStoreNumber(model.get("locationFieldID"));
+				argAccAppRequest.setStoreNumber(model.get("locationFieldIDADM"));
 				argAccAppRequest.setBusinessStoreNo(model.get("businessStoreNumber"));
 				
 				/*WICIDBHelper wicidbHelper = new WICIDBHelper();

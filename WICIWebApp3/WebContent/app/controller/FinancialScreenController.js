@@ -5,6 +5,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     var logPrefix = '[WICI.FinancialScreenController]::';
 
     var $screenContainer = $("#FinancialScreen");
+    var isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
 
     var translator;
     var messageDialog;
@@ -1028,9 +1029,16 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                     highlightGrossAnnualIncome);
                 return false;
             }
-        } catch (error) {
-            console.log(sMethod + ' ERROR!!!!:' + err);
-        }
+		        } 
+        catch (error) {
+			if (isDebugMode) {
+				messageDialog.info(error, translator
+                        .translateKey('errorDialog_defaultTitle'));
+				return false;
+			} else {
+				console.log(sMethod + ' ERROR!!!!:' + err);
+			}
+		}
         return true;
     }
 
@@ -1057,7 +1065,14 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                 return false;
             }
         } catch (error) {
+        	if(isDebugMode){
+				messageDialog.info(error, translator
+                        .translateKey('errorDialog_defaultTitle'));
+				return false;
+        	}
+        	else{
             console.log(sMethod + ' ERROR!!!!:' + err);
+        	}
         }
         return true;
     }

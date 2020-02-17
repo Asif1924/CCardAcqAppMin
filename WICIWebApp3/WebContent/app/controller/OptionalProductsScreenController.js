@@ -97,14 +97,15 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             { notField: true, name: 'optionalProducts_NA',     value: null },
 
             { notField: true, name: 'optionalProduct_PA_AcceptBox', value: null, validation: {type: 'termsAndConditions', message: '', group: [2]}},
-            { notField: true, name: 'optionalProduct_CP_AcceptBox', value: null, validation: {type: 'termsAndConditions', message: '', group: [3]}},
-            { notField: true, name: 'optionalProduct_IW_AcceptBox', value: null, validation: {type: 'termsAndConditions', message: '', group: [4]}},
+            { name: 'optionalProduct_CP_AcceptBox', value: null, validation: {type: 'termsAndConditions', message: '', group: [3]}},
+            { name: 'optionalProduct_IW_AcceptBox', value: null, validation: {type: 'termsAndConditions', message: '', group: [4]}},
 
             { name: 'userSingnature_PA', value: null, validation: {type: 'presence', message: '', group: [2]}},
             { name: 'userSingnature_CP', value: null, validation: {type: 'presence', message: '', group: [3]}},
             { name: 'userSingnature_IW', value: null, validation: {type: 'presence', message: '', group: [4]}},
 
-            {name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
+            {notField: true, name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
+            {notField: true, name: 'userSingnature_new', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
 
             { notField: true, name: 'userSingnatureNative_PA', value: null, validation: null},
             { notField: true, name: 'userSingnatureNative_CP', value: null, validation: null},
@@ -182,6 +183,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         model.set('optionalProducts_CP',   $(refs.optionalProducts_CP).is(':checked') ? 'Y' : 'N');
         model.set('optionalProducts_IW',   $(refs.optionalProducts_IW).is(':checked') ? 'Y' : 'N');
         model.set('optionalProducts_NA',   $(refs.optionalProducts_NA).is(':checked') ? 'Y' : 'N');
+        if($(refs.optionalProducts_CP).is(':checked') === 'Y'){
+        	console.log(logPrefix + sMethod + 'creditProtectorYesNo :: ' + $(refs.flipCreditProtector + ' ' + 'option:selected').val());
+        	model.set('creditProtectorYesNo', 'Y');
+        }
 
 
         // Save PA stuff
@@ -189,8 +194,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         if (model.get('optionalProducts_PA') == 'Y') {
             model.set('userSingnature_PA',  $(refs.signature_PA).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_PA).jSignature('getData', 'image').join(',') : null );
             model.set('userSingnatureNative_PA',  $(refs.signature_PA).jSignature('getData', 'native'));
-            model.set('userSingnature',  $(refs.signature_PA).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_PA).jSignature('getData', 'image').join(',') : null );
-            model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+          //  model.set('userSingnature',  $(refs.signature_PA).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_PA).jSignature('getData', 'image').join(',') : null );
+          //  model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
         }
         // Save CP stuff
         model.set('optionalProduct_CP_AcceptBox',   $(refs.optionalProducts_CP_Agreement).is(':checked') ? 'Y' : 'N');
@@ -198,41 +203,40 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         	
             model.set('userSingnature_CP',  $(refs.signature_CP).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CP).jSignature('getData', 'image').join(',') : null );
             model.set('userSingnatureNative_CP',  $(refs.signature_CP).jSignature('getData', 'native'));
-            model.set('userSingnature',  $(refs.signature_CP).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CP).jSignature('getData', 'image').join(',') : null );
-            model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+          //  model.set('userSingnature',  $(refs.signature_CP).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CP).jSignature('getData', 'image').join(',') : null );
+           // model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
         }
         // Save IW stuff
         model.set('optionalProduct_IW_AcceptBox',   $(refs.optionalProducts_IW_Agreement).is(':checked') ? 'Y' : 'N');
         if (model.get('optionalProducts_IW') == 'Y') {
             model.set('userSingnature_IW',  $(refs.signature_IW).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_IW).jSignature('getData', 'image').join(',') : null );
             model.set('userSingnatureNative_IW',  $(refs.signature_IW).jSignature('getData', 'native'));
-            model.set('userSingnature',  $(refs.signature_IW).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_IW).jSignature('getData', 'image').join(',') : null );
-            model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+           // model.set('userSingnature_new',  $(refs.signature_IW).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_IW).jSignature('getData', 'image').join(',') : null );
+           // model.set('userSingnatureNative_new',  $(refs.signature).jSignature('getData', 'native'));
         }
 
         model.set('insuranceCode',  'N');//by default
         model.set('insuranceAgreedFlag',  'N');//by default
 
-        if(model.get('optionalProduct_PA_AcceptBox') == 'Y') {
-            model.set('insuranceCode', 'W4' );
+      //US5487
+        if((model.get('optionalProduct_CP_AcceptBox') == 'Y') && (model.get('optionalProduct_IW_AcceptBox') == 'Y')){
+        	model.set('insuranceCode', 'W4' );
             model.set('insuranceAgreedFlag',  'Y');
-        }
-
-        if(model.get('optionalProduct_CP_AcceptBox') == 'Y') {
+        }else if(model.get('optionalProduct_CP_AcceptBox') == 'Y') {
             model.set('insuranceCode', 'CP' );
             model.set('insuranceAgreedFlag',  'Y');
-        }
-
-        if(model.get('optionalProduct_IW_AcceptBox') == 'Y') {
+        }else if(model.get('optionalProduct_IW_AcceptBox') == 'Y') {
             model.set('insuranceCode', 'IL' );
             model.set('insuranceAgreedFlag',  'Y');
-        }
-
-        if($(refs.optionalProducts_NA).is(':checked')) {
+        }else if($(refs.optionalProducts_NA).is(':checked')) {
             model.set('insuranceCode',  'N');
             model.set('insuranceAgreedFlag',  'N');
         }
 
+        /*if(model.get('optionalProduct_PA_AcceptBox') == 'Y') {
+            model.set('insuranceCode', 'W4' );
+            model.set('insuranceAgreedFlag',  'Y');
+        }*/
         model.set('optionalProducts_CheckArea',  isOptionalInsuranceSelected(model));
 
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
@@ -266,7 +270,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             model.set('userSingnature_PA', null);
             model.set('userSingnature_CP', null);
             model.set('userSingnature_IW', null);
-            model.set('userSingnatureNative', null);
+           // model.set('userSingnatureNative', null);
+           // model.set('userSingnatureNative_new', null);
         }
 
         $(refs.flipCreditProtector).val(model.get('creditProtectorYesNo'));
@@ -442,23 +447,49 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 
         $(refs.optionalProducts_CP).change(function() {
             //$(refs.optionalProductsYesNoLable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalProducts_CP).is(':checked'))));
+        	 // if NA  is checked
+        	 if($(refs.optionalProducts_NA).is(':checked')) {
+        	      $(refs.optionalProducts_NA).attr('checked', false);
+        	 }
             updateOptionalProductsVisibility();
             
-          //  US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
-          if(loginModel.get('employerID').toUpperCase() !== 'E'
-                    && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
-                    messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
-                     handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
-                 }
+            if($(refs.optionalProducts_CP).is(':checked')){
+            //  US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
+                if(loginModel.get('employerID').toUpperCase() !== 'E'
+                          && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
+                          messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
+                           handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
+               }
+            }
+          
         });
 
         $(refs.optionalProducts_IW).change(function() {
             //$(refs.optionalProducts_IW_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalProducts_IW).is(':checked'))));
+        	 // if NA  is checked
+       	     if($(refs.optionalProducts_NA).is(':checked')) {
+       	        $(refs.optionalProducts_NA).attr('checked', false);
+       	     }
             updateOptionalProductsVisibility();
         });
 
 
         $(refs.optionalProducts_NA).change(function() {
+        	 $(refs.optionalProducts_CP_Area).hide();
+        	 $(refs.optionalProducts_IW_Area).hide();
+        	            
+        	 // CP is checked
+        	 if($(refs.optionalProducts_CP).is(':checked')) {
+        	      $(refs.optionalProducts_CP).attr('checked', false);
+        	      $(refs.optionalProducts_CP_Agreement).attr('checked', false);
+        	 }
+        	 // IW is checked
+        	 if($(refs.optionalProducts_IW).is(':checked')) {
+        	      $(refs.optionalProducts_IW).attr('checked', false);
+        	      $(refs.optionalProducts_IW_Agreement).attr('checked', false);
+        	 }
+        	onResetSignature2Clicked();
+        	onResetSignature3Clicked();
             updateOptionalProductsVisibility();
         });
 
@@ -471,7 +502,12 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         $.subscribe('translatorFinished',function(){
             showDateIW();
         });
-
+        $.subscribe('translatorFinished',function(){
+        	console.log('Language :: change');
+        	updateIDWProductImageLanguage();
+            updateCPProductImageLanguage();
+            
+        });
         $(refs.optionalProducts_PA_Agreement).click(function(){
         	QcEnrollAgree = true;
         	
@@ -486,6 +522,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         $(refs.optionalProducts_IW_Agreement).click(function(){
             toggleWarningDIV($(refs.optionalProducts_IW_Agreement), "IW");
         });
+        updateIDWProductImageLanguage();
+        updateCPProductImageLanguage();
 
     }
     //---------------------------------------------------------------------------------------
@@ -495,7 +533,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         showHideOptionalProductsCP();
         showHideOptionalProductsPA();
 
-        // TODO: refactor this code - move to separated methods
+       /* // TODO: refactor this code - move to separated methods
         $(refs.signature_PA).jSignature ('setData', [], 'native');
         $(refs.resetSignature1).removeClass('blackflat');
         $(refs.resetSignature1).addClass('grayflat');
@@ -507,7 +545,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         $(refs.signature_IW).jSignature ('setData', [], 'native');
         $(refs.resetSignature3).removeClass('blackflat');
         $(refs.resetSignature3).addClass('grayflat');
-        $(refs.resetSignature3).unbind('click', onResetSignatureClicked3);
+        $(refs.resetSignature3).unbind('click', onResetSignatureClicked3);*/
 
         toggleAllWarningDIVs();
     }
@@ -690,6 +728,35 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         	hidePAandCP();
         }
     }
+    // US5487 - WICI - Insurance Changes
+       function updateIDWProductImageLanguage() {
+               var sMethod = 'updateIDWProductImageLanguage() ';
+           console.log(logPrefix + sMethod);
+           // Choose what card to display: English or French.
+           if (app.translator.getCurrentLanguage() === "en") {
+               $("#iWOptionalProduct").removeClass("fr_card");
+               $("#iWOptionalProduct").addClass("en_card");
+           } else {
+               $("#iWOptionalProduct").removeClass("en_card");
+               $("#iWOptionalProduct").addClass("fr_card");
+           }
+       }
+       
+     //---------------------------------------------------------------------------------------
+       // US5487 - WICI - Insurance Changes
+       function updateCPProductImageLanguage() {
+               var sMethod = 'updateCPProductImageLanguage() ';
+           console.log(logPrefix + sMethod);
+           // Choose what card to display: English or French.
+           if (app.translator.getCurrentLanguage() === "en") {
+               $("#cpOptionalProduct").removeClass("fr_card");
+               $("#cpOptionalProduct").addClass("en_card");
+           } else {
+               $("#cpOptionalProduct").removeClass("en_card");
+               $("#cpOptionalProduct").addClass("fr_card");
+           }
+       }
+    
     //---------------------------------------------------------------------------------------
     // US4738
     function hidePAandCP(){
@@ -731,7 +798,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             $(refs.resetSignature2).bind('click', onResetSignatureClicked2);
 
         }
-        model.set('userSingnatureNative',  $(refs.signature_CP).jSignature('getData', 'native'));
+        model.set('userSingnatureNative_CP',  $(refs.signature_CP).jSignature('getData', 'native'));
     }
     //---------------------------------------------------------------------------------------
     function onSignatureChaged3 (e) {
@@ -744,7 +811,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             $(refs.resetSignature3).bind('click', onResetSignatureClicked3);
 
         }
-        model.set('userSingnatureNative',  $(refs.signature_IW).jSignature('getData', 'native'));
+        model.set('userSingnatureNative_IW',  $(refs.signature_IW).jSignature('getData', 'native'));
     }
     //---------------------------------------------------------------------------------------
     function onResetSignatureClicked1 () {

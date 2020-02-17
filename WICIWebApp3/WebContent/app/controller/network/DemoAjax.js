@@ -66,6 +66,7 @@ WICI.Demo_Login = {
 		"message" : "SUCCESSFUL Authentication and authorization for user epamfmr",
 		"roles" : "[\"FMR\",\"WICI-ADMIN\"]",
 		"enableEnstreamAuth": true,
+		"isDebugMode": true,
 		"checkLocation" : {
 			"message" : "SUCCESS",
 			"outletName" : "DEMO STORE ",

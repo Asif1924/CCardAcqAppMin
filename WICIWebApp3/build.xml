@@ -396,22 +396,30 @@ load:
 
     <target name="minify.for.production" depends="init,create.dirs">
         <echo message="Minifying css and js for Production..."/>
-        <available file="${lib.dir}/YUIAnt.jar" property="YUIANT_AVAILABLE"/>
+        <!--available file="${lib.dir}/YUIAnt.jar" property="YUIANT_AVAILABLE"/>
         <fail unless="YUIANT_AVAILABLE" message="Run jar target to generate the required task"/>
 
         <taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
             <classpath>
-                <pathelement path="${lib.dir}/yuicompressor-2.4.7.jar"/>
+                <pathelement path="${lib.dir}/yuicompressor-2.4.8.jar"/>
                 <pathelement path="${lib.dir}/YUIAnt.jar"/>
             </classpath>
         </taskdef>
 
-        <yuicompress linebreak="300" warn="false" munge="yes" preserveallsemicolons="true" outputfolder="${production.output.dir}/app">
+        <yuicompress linebreak="300" warn="false" charset="UTF-8" preserveallsemicolons="true" outputfolder="${production.output.dir}/app">
             <fileset dir="${concatenated.dir}">
                 <include name="**/${js.filename}"/>
                 <include name="**/${css.filename}"/>
             </fileset>
-        </yuicompress>
+        </yuicompress-->
+    	
+    	<copy todir="${production.output.dir}/app">
+            <fileset dir="${concatenated.dir}">
+                <include name="**/${js.filename}"/>
+                <include name="**/${css.filename}"/>
+            </fileset>
+    	</copy>
+    	
         <echo message="Production Minification complete."/>
     </target>
 

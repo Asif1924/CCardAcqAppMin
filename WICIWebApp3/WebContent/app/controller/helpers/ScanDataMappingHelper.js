@@ -28,6 +28,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         636017 : 'NB',
         636016 : 'NL',
         990876 : 'AB',
+        604432 : 'AB',
         999999 : 'NT',
         123456 : 'NU',
         604429 : 'YT',
@@ -74,6 +75,8 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
     exports.parse = parse;
     exports.checkSupportedID = checkSupportedID;
     exports.parseNewDL = parseNewDL;
+    exports.parseNewABDL = parseNewABDL;
+    
     return exports;
 
     // Lets go!!!!
@@ -82,6 +85,54 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
 
         try {
             dataModel = returnBaseIDDataModel();
+            //var headerModel = returnBaseHeaderModel();
+            personModel = returnBasePersonModel();
+
+            // HERE IS WHERE WE WOULD START WORKING WITH
+            // RETURNED VALUE FROM pdf417 PhoneGap plugin
+            // hopefully PDF417 plugin returns similar string value
+
+            // **********************************************************
+            // BEFORE We start Line Processing
+            // Check entire string for supported format,
+            // simply check for majority of interested fields for now.
+            // Else Unsupported, this needs to be in ID Scan feature
+            // **********************************************************
+
+            // This will throw an exception...
+            checkSupportedID(data, dataModel.validationArray);
+            // If no exception above, continue on...
+            // Could have returned TRUE and processed on that...
+
+            // Split on newline (hopefully PDF417 plugin returns similar string value)
+            arrLines = data.split('\n');
+
+            for (x = 0; x < arrLines.length; x++) {
+                // Match the line with the data model
+
+                matchDataModels(arrLines[x], dataModel);
+            }
+
+            // now we should have fully populated models, both data and header
+            // lets add the header to the main model we will work with
+            //dataModel.headerModel = headerModel;
+
+            // Mary the ID Data and Header Models to the Cleaner Person Model
+            mergeModels(dataModel, personModel);
+
+            finishPersonModel(personModel);
+        } catch (e) {
+            console.log('could not parse the scan data, got ' + e);
+        }
+
+        return personModel;
+    }
+    
+    function parseNewABDL(data) {
+        var dataModel, personModel, arrLines, x;
+
+        try {
+            dataModel = returnBaseIDDataModelAB();
             //var headerModel = returnBaseHeaderModel();
             personModel = returnBasePersonModel();
 
@@ -180,6 +231,97 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                 {
                     'name': 'idNumber',
                     'searchkey': 'DAQ'
+                },
+                {
+                    'name': 'expiryDate',
+                    'searchkey': 'DBA'
+                },
+                {
+                    'name': 'lastName',
+                    'searchkey': 'DCS'
+                },
+                {
+                    'name': 'firstName',
+                    'searchkey': 'DAC'
+                },
+                {
+                    'name': 'middleName',
+                    'searchkey': 'DAD'
+                },
+                {
+                    'name': 'givenNames',
+                    'searchkey': 'DCT'
+                },
+                {
+                    'name': 'dateOfBirth',
+                    'searchkey': 'DBB'
+                },
+                {
+                    'name': 'gender',
+                    'searchkey': 'DBC'
+                },
+                {
+                    'name': 'addressLine1',
+                    'searchkey': 'DAG'
+                },
+                {
+                    'name': 'addressCity',
+                    'searchkey': 'DAI'
+                },
+                {
+                    'name': 'addressProvince',
+                    'searchkey': 'DAJ'
+                },
+                {
+                    'name': 'addressPostal',
+                    'searchkey': 'DAK'
+                },
+                {
+                    'name': 'doesNotExistTest',
+                    'searchkey': 'XYZ'
+                }
+            ]
+        };
+    }
+    
+    // US5412 
+    
+    function returnBaseIDDataModelAB() {
+        // Define the data Model
+        // Will use object so that we can access via name (JS has no Associative Arrays)
+        return {
+            // Assume if it finds ALL these data elements CDN DL/ID
+            // We will at least attempt parsing. try/catch
+            validationArray : ['ANSI','DCF','DBA','DCS','DBB'],
+            headerModel : {
+                fields : [
+                    // [value] will be added to all fields programatically during parsing
+                    {
+                        'name': 'idProvince',
+                        'start': 0,
+                        'end' : 6
+                    },
+                    {
+                        'name': 'idAAMVAVersion',
+                        'start': 6,
+                        'end' : 2
+                    },
+                    {
+                        'name': 'idType',
+                        'start': 12,
+                        'end' : 2
+                    }
+                ]
+            },
+            fields : [
+                // [value] will be added to all fields programatically during parsing
+                {
+                    'name': 'ansi',
+                    'searchkey': 'ANSI',
+                },
+                {
+                    'name': 'idNumber',
+                    'searchkey': 'DCF'
                 },
                 {
                     'name': 'expiryDate',

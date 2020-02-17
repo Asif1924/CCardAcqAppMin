@@ -68,7 +68,8 @@ public class LoginServlet extends WICIServlet
 		WICIResponse appResponse = new WICIResponse();
 		WICILoginResponse loginResponse = new WICILoginResponse();
 		boolean authfieldCheckEnable=false; 
-	    boolean enableEnstreamAuth = false; 
+	    boolean enableEnstreamAuth = false;
+	    boolean isDebugMode = false;
 		String CONFIG_NAME_ENABLE_ENSTREAM_AUTH = "ENABLE_ENSTREAM_AUTH"; 
 
 		try
@@ -148,6 +149,8 @@ public class LoginServlet extends WICIServlet
 				WICIDBHelper wicidbhelper = new WICIDBHelper();	
 				enableEnstreamAuth = wicidbhelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_ENSTREAM_AUTH);
 				loginResponse.setEnableEnstreamAuth(enableEnstreamAuth);
+				isDebugMode = wicidbhelper.isDebugMode(values.getMfgSerial(), values.getBuildSerial());
+				loginResponse.setDebugMode(isDebugMode);
 				try {
 					WICIDBHelper wicidbHelper = new WICIDBHelper();
 					LoginInfo logonInfo = new LoginInfo();
@@ -158,7 +161,28 @@ public class LoginServlet extends WICIServlet
 					logonInfo.setMfgSerial(values.getMfgSerial());
 					logonInfo.setUserLocation(userLocation);
 					
-					wicidbHelper.logonInfo(logonInfo);
+					if(wicidbHelper.deviceWithThisMfgSerialNumberExists(values.getMfgSerial())) {
+						boolean loggedIn = false;
+						loggedIn = wicidbHelper.checkAgentPreLoggedin(logonInfo);
+						log.info("loggedIn Response :: " + loggedIn);
+						
+						if( loggedIn ) {				
+							String errorMsg = "Your login details are currently in use";
+
+							// Prepare login response
+							loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
+							loginResponse.setMessage(errorMsg);
+
+							// Prepare request response
+							appResponse.setError(false);
+							appResponse.setMsg(errorMsg);
+							appResponse.setData(loginResponse);
+						} else {
+							wicidbHelper.logonInfo(logonInfo);
+						}
+					} else {
+						wicidbHelper.logonInfo(logonInfo);
+					}
 					
 				} catch (Exception e) {
 					log.info("Error :: Update Logon info into DB");

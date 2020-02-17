@@ -8,6 +8,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var translator = null;
     var messageDialog = null;
     var connectivityController = null;
+    var isDebugMode;
 
     var userPostalCode;
     var userStreetNumber;
@@ -357,6 +358,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         messageDialog = argMessageDialog; // (AA)Dependency Injection
         // Principle: Allows for proper unit
         // testing
+        isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
+        
         connectivityController = new WICI.ConnectivityController(new WICI.ConnectionStatus(), messageDialog, translator, WICI.AppConfig.ConnectivityConfig);
         connectivityController.init();
 
@@ -2023,11 +2026,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
              
         } catch (e) {
         	$('#personalData_CTMNumber_TextField').val('');
-            messageDialog.error(
-                 translator.translateKey('scanLoyalty_parsingErrorText'),
-                 translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
-                     $.noop
-            );
+        	if(isDebugMode){
+                messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + e);
         }
     }
     
@@ -2051,10 +2053,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             },
             rez, scanned, prop;
         // US4451
-        if (parser.checkSupportedID(response.data, ['ANSI']) > 0) {
+        if (parser.checkSupportedID(response.data, ['PDF417']) > 0) {
         	try {
                 // DE1667
-                rez = parser.parse(response.data);            
+                rez = parser.parse(response.data);   
                 var idType = JSON.stringify(rez.idType);
                 var idNumber = JSON.stringify(rez.idNumber);
                 var idProvince = JSON.stringify(rez.idProvince);
@@ -2090,45 +2092,129 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 // US4535
                 disableScannedDriversLicenceFields();                       
             } catch (e) {
-                messageDialog.error(
-                    translator.translateKey('scanID_parsingErrorText'),
-                    translator.translateKey('personalData_Scan_Id_Label'),
-                    $.noop
-                );
+            	if(isDebugMode){
+                    messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+                }
+            	console.log(logPrefix + sMethod + " Exception: " + e);
             }
-        } else {
-        	try {
-                rez = parser.parseNewDL(response.data);
-                var idType = JSON.stringify(rez.idType);
-                var idNumber = JSON.stringify(rez.idNumber);
-              
-                var currModel = models.personalDataModel;
-          	    currModel.set("idnumbers", parseInt(idNumber));
-               	currModel.set('idtype', idType.split('"').join(''));
-                
-                if (!containsAny(rez, mapping)) {
-                    throw ('ERROR! Got the empty data.');
-                }
-                
-                for (prop in mapping) {
-                    $(mapping[prop]).val(rez[prop]);
-                }
+        } else if(parser.checkSupportedID(response.data, ['ANSI']) > 0) {
+        	rez = parser.parse(response.data);   
+            const idType = JSON.stringify(rez.idType);
+            const idNumber = JSON.stringify(rez.idNumber);
+            const idProvince = JSON.stringify(rez.idProvince);
+            if(rez.idProvince == 'AB'){
+    			try{
+    				 const  rezNewABDL = parser.parseNewABDL(response.data);
+    	             const idTypeAB = rezNewABDL.idType;                     
+    	             const idNumberAB = JSON.stringify(rezNewABDL.idNumber);
+    	             const idProvinceAB = JSON.stringify(rezNewABDL.idProvince);
+    	             
+    	             var currModel = models.personalDataModel;
+    	             if(idTypeAB != "null") {
+    	             	currModel.set('idtype', idTypeAB);
+    	             }
+    	             if(idProvinceAB != "null") {
+    	              	currModel.set('placeofissue', idProvince);
+    	              }
+    	             if (!containsAny(rezNewABDL, mapping)) {
+    	                 throw ('ERROR! Got the empty data.');
+    	             }
+    	             
+    	             for (prop in mapping) {
+    	                 $(mapping[prop]).val(rezNewABDL[prop]);
+    	             }
 
-                // Populate the id-types dropdown and set the id-type.
-                populateIdTypesList(true);
-                $(refs.idtype + ' [value="' + rez.idType + '"]').attr(
-                    'selected', 'selected'
-                );
-                
-                disableScannedDriversLicenceFields();                       
-            } catch (e) {
-                messageDialog.error(
-                    translator.translateKey('scanID_parsingErrorText'),
-                    translator.translateKey('personalData_Scan_Id_Label'),
-                    $.noop
-                );
-            }
-        }
+    	             // Populate the id-types dropdown and set the id-type.
+    	             populateIdTypesList(true);
+    	             $(refs.idtype + ' [value="' + rezNewABDL.idType + '"]').attr(
+    	                 'selected', 'selected'
+    	             );
+    	             
+    	             // US4535
+    	             disableScannedDriversLicenceFields(); 
+    			
+    			}catch (e) {
+                	if(isDebugMode){
+                        messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+                    }
+                	console.log(logPrefix + sMethod + " Exception: " + e);
+                }
+    		}else {
+    			try {
+                    const rezNew = parser.parse(response.data);   
+                    const idType = JSON.stringify(rezNew.idType);
+                    const idNumber = JSON.stringify(rezNew.idNumber);
+                    const idProvince = JSON.stringify(rezNew.idProvince);
+                    var currModel = models.personalDataModel;
+                    
+                    if(idType != "null" && idProvince != "null" && idNumber != "null" ) {
+                      if( idProvince.split('"').join('') === "MB" && idType.split('"').join('') === "DR" ) {
+                    	  idNumberValue  = idNumber.split('*').join('');
+                    	  currModel.set("idnumbers", idNumberValue.split('"').join(''));
+                    	  rezNew.idNumber = currModel.get('idnumbers');
+                      } 
+                    }
+                    
+                    if(idType != "null") {
+                    	currModel.set('idtype', idType.split('"').join(''));
+                    }
+                    
+                    if (!containsAny(rezNew, mapping)) {
+                        throw ('ERROR! Got the empty data.');
+                    }
+                    
+                    for (prop in mapping) {
+                        $(mapping[prop]).val(rezNew[prop]);
+                    }
+
+                    // Populate the id-types dropdown and set the id-type.
+                    populateIdTypesList(true);
+                    $(refs.idtype + ' [value="' + rezNew.idType + '"]').attr(
+                        'selected', 'selected'
+                    );
+                    
+                    // US4535
+                    disableScannedDriversLicenceFields();                       
+                } catch (e) {
+                	if(isDebugMode){
+                        messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+                    }
+                	console.log(logPrefix + sMethod + " Exception: " + e);
+                }
+    		}
+		}else { 
+			try{
+	        	   const  rezNewDL = parser.parseNewDL(response.data);
+	               const idTypeNewDL = JSON.stringify(rezNewDL.idType);
+	               const idNumberNewDL = JSON.stringify(rezNewDL.idNumber);
+	             
+	               var currModel = models.personalDataModel;
+	         	   currModel.set("idnumbers", parseInt(idNumberNewDL));
+	               currModel.set('idtype', idTypeNewDL.split('"').join(''));
+	               
+	               if (!containsAny(rezNewDL, mapping)) {
+	                   throw ('ERROR! Got the empty data.');
+	               }
+	               
+	               for (prop in mapping) {
+	                   $(mapping[prop]).val(rezNewDL[prop]);
+	               }
+
+	               // Populate the id-types dropdown and set the id-type.
+	               populateIdTypesList(true);
+	               $(refs.idtype + ' [value="' + rezNewDL.idType + '"]').attr(
+	                   'selected', 'selected'
+	               );
+	               
+	               disableScannedDriversLicenceFields();
+	        	 
+	           }catch (e) {
+	           	if(isDebugMode){
+	                messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+	            }
+	        	console.log(logPrefix + sMethod + " Exception: " + e);
+	        }
+		}
 
     }
 

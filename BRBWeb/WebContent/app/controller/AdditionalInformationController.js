@@ -89,11 +89,11 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
             optionalInsurance_IW_Lable      :   '#additionalInformation_OptionalInsurance_IW_TextField',
             optionalInsurance_IW_Agreement  :   '#additionalInformation_optionalInsurance_IW_Agreement',
             
-            optionalInsurance_PA            :   '#additionalInformation_OptionalInsurance_PA_CheckField',
-            optionalInsurance_PA_Title      :   '#additionalInformation_OptionalInsurance_PA_CheckField_Title',
-            optionalInsurance_PA_Area       :   '#additionalInformation_OptionalInsurance_PA_Area', 
-            optionalInsurance_PA_Table      :   '#additionalInformation_OptionalInsurance_PA_Table',
-            optionalInsurance_PA_Agreement  :   '#additionalInformation_optionalInsurance_PA_Agreement',
+           // optionalInsurance_PA            :   '#additionalInformation_OptionalInsurance_PA_CheckField',
+           // optionalInsurance_PA_Title      :   '#additionalInformation_OptionalInsurance_PA_CheckField_Title',
+          //  optionalInsurance_PA_Area       :   '#additionalInformation_OptionalInsurance_PA_Area', 
+           // optionalInsurance_PA_Table      :   '#additionalInformation_OptionalInsurance_PA_Table',
+           // optionalInsurance_PA_Agreement  :   '#additionalInformation_optionalInsurance_PA_Agreement',
                        
             optionalInsurance_NA            :   '#additionalInformation_OptionalInsurance_NA_CheckField',
             
@@ -127,14 +127,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         var personalDataModel = activationItems.getModel('personalInformation');
         if(personalDataModel.get('age') > 76) {
         	$(refs.optionalInsurance).hide();//Protection Advantage hiding
-        	$(refs.optionalInsurance_PA).hide();
+        	//$(refs.optionalInsurance_PA).hide();
         	$(refs.optionalInsurance_row_one).hide();
         	$(refs.optionalInsurance_row_two).hide();
         	$(refs.optionalInsurance_row_three).hide();
         	$(refs.optionalInsurance_row_four).hide();
         	$(refs.optionalInsurance_row_five).hide();
         	$(refs.optionalInsurance_row_six).hide();
-            $(refs.optionalInsurance_PA).attr('checked', false);
+         //   $(refs.optionalInsurance_PA).attr('checked', false);
             $(refs.optionalInsurance_PA_Title).hide();
             $(refs.optionalInsurance_PA_Table).hide();
             $(refs.optionalInsurance_PA_Area).hide();
@@ -185,7 +185,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
               { notField: true, name: 'optionalInsurance_CP_Table',              value: null, validation: {type: 'presence',     message: 'additionalInformation_AgreeToTermsError', group:[3]}},              
               { name: 'optionalInsurance_IW',         value: null, validation: null },
               { notField: true, name: 'optionalInsurance_IW_Table',              value: null, validation: {type: 'presence',     message: 'additionalInformation_AgreeToTermsError', group:[4]}},
-              { name: 'optionalInsurance_PA',         value: null, validation: null },
+             // { name: 'optionalInsurance_PA',         value: null, validation: null },
               { notField: true, name: 'optionalInsurance_PA_Table',              value: null, validation: {type: 'presence',     message: 'additionalInformation_AgreeToTermsError', group:[5]}},
               { notField: true, name: 'optionalInsurance_NA',         value: null, validation: null },
               
@@ -316,7 +316,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	     }
 	     currentModel.set('optionalInsurance_IW', $(refs.optionalInsurance_IW).is(':checked'));
 	     currentModel.set('optionalInsurance_CP', $(refs.optionalInsurance_CP).is(':checked'));
-	     currentModel.set('optionalInsurance_PA', $(refs.optionalInsurance_PA).is(':checked'));
+	     //currentModel.set('optionalInsurance_PA', $(refs.optionalInsurance_PA).is(':checked'));
 	     currentModel.set('optionalInsurance_NA', $(refs.optionalInsurance_NA).is(':checked'));
 	     currentModel.set('optionalInsurance_CP_Table',      $(refs.optionalInsurance_CP_Agreement).is(':checked'));
 	     currentModel.set('optionalInsurance_IW_Table',      $(refs.optionalInsurance_IW_Agreement).is(':checked'));
@@ -607,12 +607,12 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
             $(refs.optionalInsurance_IW_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalInsurance_IW).is(':checked'))));
             updateOptionalInsuranceVisibility(true);
         });
-		
+	/*	
 		$(refs.optionalInsurance_PA).change(function() {
             $(refs.optionalInsurance_PA_Lable).text(translator.translateKey(activationItems.getCheckBoxValueFriendlyName($(refs.optionalInsurance_PA).is(':checked'))));
             updateOptionalInsuranceVisibility(true);
         });
-		
+		*/
 		$(refs.optionalInsurance_NA).change(function() {
 			updateOptionalInsuranceVisibility(true);
         });
@@ -662,7 +662,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$(refs.cancelButtonContainer).unbind();
 		$(refs.optionalInsurance_CP).unbind();
 		$(refs.optionalInsurance_IW).unbind();
-		$(refs.optionalInsurance_PA).unbind();
+		//$(refs.optionalInsurance_PA).unbind();
 		$(refs.optionalInsurance_NA).unbind();
 		$('#choseProduct').unbind();
 	}
@@ -697,7 +697,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
     {
     	showHideOptionalInsuranceIW(isURLOpenFlag);
         showHideOptionalInsuranceCP(isURLOpenFlag);
-        showHideOptionalInsurancePA(isURLOpenFlag);
+        //showHideOptionalInsurancePA(isURLOpenFlag);
         showHideInsuranceFieldIndicatorBlock();
     }
     //---------------------------------------------------------------------------------------
@@ -705,8 +705,8 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
         if ($(refs.optionalInsurance_NA).is(':checked') || 
         		(!$(refs.optionalInsurance_NA).is(':checked') && 
         		 !$(refs.optionalInsurance_IW).is(':checked') && 
-        		 !$(refs.optionalInsurance_CP).is(':checked') && 
-        		 !$(refs.optionalInsurance_PA).is(':checked'))) {
+        		 !$(refs.optionalInsurance_CP).is(':checked'))) {
+        	    //!$(refs.optionalInsurance_PA).is(':checked')
         	$(refs.insurance_fieldIndicatorBlock).hide();
         } else {
         	$(refs.insurance_fieldIndicatorBlock).show();
@@ -1017,14 +1017,14 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		 var personalDataModel = activationItems.getModel('personalInformation');
 	        if(personalDataModel.get('age') > 76) {
 	        	$(refs.optionalInsurance).hide();//Protection Advantage hiding
-	        	$(refs.optionalInsurance_PA).hide();
+	        	//$(refs.optionalInsurance_PA).hide();
 	        	$(refs.optionalInsurance_row_one).hide();
 	        	$(refs.optionalInsurance_row_two).hide();
 	        	$(refs.optionalInsurance_row_three).hide();
 	        	$(refs.optionalInsurance_row_four).hide();
 	        	$(refs.optionalInsurance_row_five).hide();
 	        	$(refs.optionalInsurance_row_six).hide();
-	            $(refs.optionalInsurance_PA).attr('checked', false);
+	           // $(refs.optionalInsurance_PA).attr('checked', false);
 	            $(refs.optionalInsurance_PA_Title).hide();
 	            $(refs.optionalInsurance_PA_Table).hide();
 	            $(refs.optionalInsurance_PA_Area).hide();
@@ -1038,7 +1038,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	        
 	        }else{
 	        	$(refs.optionalInsurance).show();
-	        	$(refs.optionalInsurance_PA).show();
+	        	//$(refs.optionalInsurance_PA).show();
 	        	$(refs.optionalInsurance_row_one).show();
 	        	$(refs.optionalInsurance_row_two).show();
 	        	$(refs.optionalInsurance_row_three).show();
@@ -1054,7 +1054,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 	            $(refs.optionalInsurance_CP_Area).show();
 	       
 	        	$(refs.optionalInsurance_CP).val(model.get('optionalInsurance_CP'));
-	        	$(refs.optionalInsurance_PA).val(model.get('optionalInsurance_PA'));
+	        //	$(refs.optionalInsurance_PA).val(model.get('optionalInsurance_PA'));
 	        	$(refs.optionalInsurance_IW).val(model.get('optionalInsurance_IW'));
 	    		$(refs.optionalInsurance_NA).val(model.get('optionalInsurance_NA'));
 	        }
@@ -1071,7 +1071,7 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
 		$(refs.optionalInsurance_IW).prop('checked', model.get('optionalInsurance_IW'));
 		$(refs.optionalInsurance_IW_Agreement).prop('checked', model.get('optionalInsurance_IW_Table'));
 		
-		$(refs.optionalInsurance_PA).prop('checked', model.get('optionalInsurance_PA'));
+		//$(refs.optionalInsurance_PA).prop('checked', model.get('optionalInsurance_PA'));
 		$(refs.optionalInsurance_PA_Agreement).prop('checked', model.get('optionalInsurance_PA_Table'));
 		
 		$(refs.optionalInsurance_NA).prop('checked', model.get('optionalInsurance_NA'));
@@ -1139,17 +1139,17 @@ BRB.AdditionalInformationController = function(activationItems, argTranslator, a
             rez4 = currentModel.validate(4);    
         }
         
-        var rez5 = [];                       
+        /*var rez5 = [];                       
         if (currentModel.get('optionalInsurance_PA')) {
             rez5 = currentModel.validate(5);    
-        } 
+        } */
         
         var rez6 = [];		
 		if (!currentModel.get('optionalInsurance_CheckArea')){
 			rez6 = currentModel.validate(6);
 		}
-		
-        var rez = rez3.concat(rez4, rez5);
+		// var rez = rez3.concat(rez4, rez5);
+        var rez = rez3.concat(rez4);
         
         return rez.concat(rez6);
 	}
