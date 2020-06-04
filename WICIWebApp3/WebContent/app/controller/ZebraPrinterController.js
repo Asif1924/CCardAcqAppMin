@@ -67,9 +67,10 @@ WICI.ZebraPrinterController = function () {
         console.log(activationItems.getModel('personalData').get('correspondence'));
         console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
         console.log('--------------------');
-        var respCardType;
+        var respCardType, retailNetwork = '';
         if(app.getDemoMode()) {
-        	respCardType = activationItems.getModel('chooseProductModel').get('productCard');            	
+        	respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+        	retailNetwork = activationItems.getModel('loginScreen').get('retailNetWork');
         } else {
         // DE1735
         	if(applicationResponse.appStatus === 'APPROVED'){
@@ -82,35 +83,70 @@ WICI.ZebraPrinterController = function () {
         
         try {
             // Send response to mobile side
-            cordova.exec(successCallback,
-                failureCallback,
-                "ZebraPrinterPlugin",
-                "printOutMockup",
-                [respCardType ? respCardType : "",
-                 activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
-                 activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
-                 activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
-                 applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
-                 applicationResponse.maskedPAN ? applicationResponse.maskedPAN : "",
-                 applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
-                 applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
-                 applicationResponse.apr ? applicationResponse.apr : "",
-                 applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
-                 activationItems.getModel('signatureModel').get('userSingnature'),
-                 applicationResponse.appStatus,
-                 activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
-                 activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
-                 prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                 prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-                 activationItems.getModel('loginScreen').get('locationFieldID'),
-                 "",
-                 activationItems.getModel('loginScreen').get('employerID'),
-                 activationItems.getModel('personalData2_Address').get('suiteunit') ? activationItems.getModel('personalData2_Address').get('suiteunit') : "",
-                 activationItems.getModel('personalData2_Address').get('streetnumber') ? activationItems.getModel('personalData2_Address').get('streetnumber') : "",
-                 activationItems.getModel('personalData2_Address').get('addressline1') ? activationItems.getModel('personalData2_Address').get('addressline1') : "",
-                 activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
-                 activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
-                 activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : ""]);
+        	if(activationItems.getModel('personalData2_Address').get('province') != 'QC') {
+        		cordova.exec(successCallback,
+                        failureCallback,
+                        "ZebraPrinterPlugin",
+                        "printOutMockup",
+                        [respCardType ? respCardType : "",
+                         activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+                         activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+                         activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+                         applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+                         applicationResponse.maskedPAN ? applicationResponse.maskedPAN : "",
+                         applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+                         applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+                         applicationResponse.apr ? applicationResponse.apr : "",
+                         applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+                         activationItems.getModel('signatureModel').get('userSingnature'),
+                         applicationResponse.appStatus,
+                         activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+                         activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+                         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                         activationItems.getModel('loginScreen').get('locationFieldID'),
+                         "",
+                         activationItems.getModel('loginScreen').get('employerID'),
+                         "",
+                         "",
+                         "",
+                         "",
+                         "",
+                         "",
+                         retailNetwork ? retailNetwork : ""]);
+        	} else {
+        		cordova.exec(successCallback,
+                        failureCallback,
+                        "ZebraPrinterPlugin",
+                        "printOutMockup",
+                        [respCardType ? respCardType : "",
+                         activationItems.getModel('personalData').get('firstName') ? activationItems.getModel('personalData').get('firstName') : "",
+                         activationItems.getModel('personalData').get('initial') ? activationItems.getModel('personalData').get('initial') : "",
+                         activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
+                         applicationResponse.accountNumber ? applicationResponse.accountNumber : "",
+                         applicationResponse.maskedPAN ? applicationResponse.maskedPAN : "",
+                         applicationResponse.expiryDate ? applicationResponse.expiryDate : "",
+                         applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
+                         applicationResponse.apr ? applicationResponse.apr : "",
+                         applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
+                         activationItems.getModel('signatureModel').get('userSingnature'),
+                         applicationResponse.appStatus,
+                         activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
+                         activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
+                         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                         activationItems.getModel('loginScreen').get('locationFieldID'),
+                         "",
+                         activationItems.getModel('loginScreen').get('employerID'),
+                         activationItems.getModel('personalData2_Address').get('suiteunit') ? activationItems.getModel('personalData2_Address').get('suiteunit') : "",
+                         activationItems.getModel('personalData2_Address').get('streetnumber') ? activationItems.getModel('personalData2_Address').get('streetnumber') : "",
+                         activationItems.getModel('personalData2_Address').get('addressline1') ? activationItems.getModel('personalData2_Address').get('addressline1') : "",
+                         activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
+                         activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
+                         activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
+                         retailNetwork ? retailNetwork : ""]);
+        	}
+            
         } catch (err) {
             console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
         }
@@ -124,9 +160,10 @@ WICI.ZebraPrinterController = function () {
           console.log(activationItems.getModel('personalData').get('correspondence'));
           console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
           console.log('--------------------');
-          var respCardType;
+          var respCardType, retailNetwork = '';
           if(app.getDemoMode()) {
-          	respCardType = activationItems.getModel('chooseProductModel').get('productCard');            	
+          	respCardType = activationItems.getModel('chooseProductModel').get('productCard');
+          	retailNetwork = activationItems.getModel('loginScreen').get('retailNetWork');
           } else {
           // DE1735
           	if(applicationResponse.appStatus === 'APPROVED'){
@@ -168,7 +205,7 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
                    activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
                    activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
-                   ]);
+                   retailNetwork ? retailNetwork : ""]);
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }

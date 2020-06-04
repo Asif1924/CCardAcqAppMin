@@ -54,8 +54,9 @@ WICI.ValidationDecorator = function(config) {
 	this.idNumberValidation = function(currModel, numberId) {
 		var sMethod = 'idNumberValidation()';
 		console.log(logPrefix + sMethod );
-		var inputOntario = $(numberId).val().toUpperCase();
-		console.log("inputOntario: ", inputOntario);
+		var inputID = $(numberId).val().toUpperCase();
+		inputOntario = inputID.toString().trim();
+		console.log("inputOntario: "+inputOntario +" typeof(inputOntario) : " + typeof(inputOntario));
 		var province = currModel.get('placeofissue');
 		var idType = currModel.get('idtype');
 		var lastName = currModel.get('lastName');
@@ -214,10 +215,8 @@ WICI.ValidationDecorator = function(config) {
 	
 	// ----------------------------------------
 	this.checkOntario = function(str) {
-		var reg = new RegExp("^[a-zA-Z]+$");
-		var result = reg.test(str);
-
-		if (str === "-" || result) {
+		var isAlphabet = this.isAlpha(str);
+		if (str === "-" || isAlphabet) {
 			return true;
 		} else {
 			return false;

@@ -55,7 +55,8 @@ public class WICIFileHelper {
             String streetName,
             String city,
             String adrProvince,
-            String postalCode) throws ConnectionException, IOException {
+            String postalCode,
+            String retailNetwork) throws ConnectionException, IOException {
         
         // Get printer connection
         Connection  connection = printer.getConnection();
@@ -130,11 +131,27 @@ public class WICIFileHelper {
 			        }
 	        	} else if(Double.parseDouble(_storeNumber) > 0){
 	        		double storeNo = Double.parseDouble(_storeNumber);
+	        		
+	        		// Adding PC approved print out logic first since store numbers of the PC are overlapping with CT store number for now. Range is 0815 to 0879.
+	        		if("PC".equalsIgnoreCase(retailNetwork)) {
+	        			if(isBottomFile && "4111111111111111".equals(accountNumber) ) {
+	        				templateFileName = templateFileName;
+	        				Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if(!isBottomFile && "4111111111111111".equals(accountNumber) ) {
+			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
+				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+				        }
+	        		}
 	        		// US4062
 	        		// These conditions are all for printing Approved printouts
 	        		// Gas Store Specific Logic
 	        		// Gas stores are between 1000 to 2010 store numbers
-	        		if(storeNo >= 1000 && storeNo <= 2010 ) {
+	        		else if(storeNo >= 1000 && storeNo <= 2010 ) {
 	        			templateFileName = templateFileName;
 	        			isGasBar = true;
 	        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
@@ -176,8 +193,10 @@ public class WICIFileHelper {
 	        		// Now for CT store, we added in else condition.
 	        		// But CT stores are between 1 to 999 store numbers
 	        		else {
-				        // E && !Marks && Demo than tokrn prn			        	
-	        			if(!isGasBar && !isMarksStore && isBottomFile && "4111111111111111".equals(accountNumber) ) {
+	        			if(("MARKS".equalsIgnoreCase(retailNetwork) || "SPORTS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(accountNumber) ) {
+	        				templateFileName = templateFileName;
+	        				Log.i(LOG_TAG, " MARKS or SPORTS Demo Mode templateFileName : " + templateFileName);
+	        			} else if(!isGasBar && !isMarksStore && isBottomFile && "4111111111111111".equals(accountNumber) ) {
 			        		 templateFileName = templateFileName;
 				        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
 			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;

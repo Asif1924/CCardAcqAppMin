@@ -1485,14 +1485,14 @@ tr {
 }
 
  #cpOptionalProduct {
-    background-image: #{inline_image("CP_Disclosure_English.png")};
+    background-image: #{inline_image("creditProtectorInsuranceDisclosure_EN_v1.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100% 100%;
   }
 
   #cpOptionalProduct.en_card {
-    background-image: #{inline_image("CP_Disclosure_English.png")};
+    background-image: #{inline_image("creditProtectorInsuranceDisclosure_EN_v1.png")};
    /* @media(max-width: 500px){
 	 height: 1320px;
 	}
@@ -1514,7 +1514,7 @@ tr {
   }
 
   #cpOptionalProduct.fr_card {
-    background-image: #{inline_image("CP_Disclosure_French.png")};
+    background-image: #{inline_image("creditProtectorInsuranceDisclosure_FR_v1.png")};
    /* @media(max-width: 500px){
 	 height: 1420px;
 	}
@@ -1539,18 +1539,18 @@ tr {
   // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
    #omxCardChooseProduct {
-    background-image: #{inline_image("OMX_VP+05232019.png")};
+    background-image: #{inline_image("chooseProduct_OMX_VP_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardChooseProduct.en_card {
-    background-image: #{inline_image("OMX_VP+05232019.png")};
+    background-image: #{inline_image("chooseProduct_OMX_VP_EN.png")};
   }
 
   #omxCardChooseProduct.fr_card {
-    background-image: #{inline_image("OMX_VP_FR+05232019.png")};
+    background-image: #{inline_image("chooseProduct_OMX_VP_FR.png")};
   }
   .omxCardChooseProduct {
     background-size: 100% 100%;
@@ -1567,45 +1567,45 @@ tr {
  // SupplementaryCard
  
   #suppCard_OMX {
-    background-image: #{inline_image("SuppCard_OMXOMZ.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #suppCard_OMX.en_card {
-    background-image: #{inline_image("SuppCard_OMXOMZ.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.png")};
   }
 
   #suppCard_OMX.fr_card {
-    background-image: #{inline_image("SuppCard_OMXOMZ_FR.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_FR.png")};
   }
   
   .supplementaryCardImage {
-    background-size: 625px 600px;
+    background-size: 700px 900px;
     display: block;
     text-decoration: none;
     position: relative;
     border-radius: 0px;
     margin: 0px auto;
     outline-style: none;
-    height: 600px;
+    height: 900px;
     margin-bottom: 15px;
 }
  
  #suppCard_OMP_OMR {
-    background-image: #{inline_image("suppCard_OMP_OMR_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #suppCard_OMP_OMR.en_card {
-    background-image: #{inline_image("suppCard_OMP_OMR_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.png")};
   }
 
   #suppCard_OMP_OMR.fr_card {
-    background-image: #{inline_image("suppCard_OMP_OMR_FR.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_FR.png")};
   }
  
  

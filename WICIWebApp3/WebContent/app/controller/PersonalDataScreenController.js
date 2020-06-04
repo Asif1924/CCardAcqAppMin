@@ -836,6 +836,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         $(refs.placeofissue).change(function(event) {
             console.log(refs.placeofissue + '::change');
+            //US5558
+            $(refs.idtype).val(" ")
+            $(refs.idnumbers).val(" ");
+            $(refs.idExpiryDate).val(" ");
+            currModel.set('idtype', $(refs.idtype).val());
             populateIdTypesList();
             showHideQCHealthCard();
         });
@@ -883,6 +888,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         var currModel = models.personalDataModel;
 
         $("#personalData_ScanIdButton").click(function() {
+            // DF-99 fix
+	        app.validationDecorator.clearErrArrtibute();
             messageDialog.scan(null, onScanSuccessCallback, onScanErrorCallback, null, null, translator);
         });
        // US3625 Loyalty Scanner
@@ -1466,15 +1473,17 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             currModel, provinceValue, idType, controlRef, list;
 
         console.log(logPrefix + sMethod);
-
 		// DE1667
         if(takeIdTypeByProvince) {
         	syncUserData(true);
         } else {
         	syncUserData();
         }
-        
+        //US5558
         currModel = models.personalDataModel;
+        currModel.set('idtype', $(refs.idtype).val());
+        console.log(logPrefix + sMethod + " provinceValue : " + provinceValue + " idType : " + currModel.get('idType'));
+        
         provinceValue = currModel.get('placeofissue');
         idType = currModel.get('idtype');
 
@@ -1531,15 +1540,19 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	} else {
         		$("#personalData_IDNumber").removeClass("fieldLabelsCell");
             	$("#personalData_IDNumber").addClass("fieldLabelsBottomCell");
-            	$(refs.idExpiryDate).val("");
             	
             	$.each(models.personalDataModel.data, function(index, item) {
           			if(item.name == "idExpiryDate") {
           				item.validation.canBeEmpty = true;
           			}
           		});
-            	
-            	$(refs.expiryDate_Area).hide();
+            	if ($(refs.idExpiryDate).val()){
+            		// Do nothing to retain the entered value
+            		$(refs.expiryDate_Area).show();
+            	} else {
+            		$(refs.idExpiryDate).val("");
+            		$(refs.expiryDate_Area).hide();
+            	}
         	}
         } else {
         	if ( ($.inArray(idType, ['DR', 'PA', 'PR', 'IN', 'SC', 'BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) || 

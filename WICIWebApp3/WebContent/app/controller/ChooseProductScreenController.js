@@ -62,7 +62,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 message : 'Enter valid Promo Code',
                 matcher : /^[a-zA-Z0-9\'\-||S.O.]{1,5}$/,
                 // US4433   Other then FGl store PromoCode field should not allow blank (Empty)
-                canBeEmpty : (loginModel.get('retailNetWork') == "SPORTS") ? true : false
+                canBeEmpty : (loginModel.get('retailNetWork') == "SPORTS" || loginModel.get('retailNetWork') == "PC") ? true : false
             }
         }, {
             name : 'province',
@@ -125,7 +125,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         if(employerID === 'E' && retailNetwork == "CT") {
             loadCSRWorkflowOMC();
-        } else if($.inArray(retailNetwork, ['MARKS', 'SPORTS', 'FGLFRN', 'PHL', 'NS', 'MRKFRN', 'OS', 'PRTNR']) != -1) {
+        } else if($.inArray(retailNetwork, ['MARKS', 'SPORTS', 'FGLFRN', 'PHL', 'NS', 'MRKFRN', 'OS', 'PRTNR', 'PC']) != -1) {
             loadCSRWorkflowOMC();
         }        
 
@@ -401,8 +401,36 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     model.set('agencyPromoCodeDropDown', 'OTHER');
                     showPromoCodeTextField();
                     hidePromoCodeDropDown();
-            } // US4433 ends
-            else {
+            } else if(retailNetwork == "PC"){
+            	
+            	if(employerID.toUpperCase() === "E") {
+            		if(translator.getCurrentLanguage() == 'en') {
+            	    	programObj = JSON.parse(WICI.dictionary_en.program_PC_ProgramCode_CSR);
+            	    }else{
+            	    	programObj = JSON.parse(WICI.dictionary_fr.program_PC_ProgramCode_CSR);
+            	    }
+            	} else {
+            		if(translator.getCurrentLanguage() == 'en') {
+            	    	programObj = JSON.parse(WICI.dictionary_en.program_PC_ProgramCode_FMR);
+            	    }else{
+            	    	programObj = JSON.parse(WICI.dictionary_fr.program_PC_ProgramCode_FMR);
+            	    }
+            	}
+            	
+        	    for (var key in programObj.FMR[0]) {
+                    if (programObj.FMR[0].hasOwnProperty(key)) {
+                       console.log("key :: " + key);                             
+                       var optTempl = '<option value="' + key + '" ';
+                       optTempl = optTempl + '>' + key + '</option>';
+                       controlRef.append(optTempl);                                                               
+                     }
+              }
+                $(refs.agencyPromoCode).val('');                    
+                $(refs.agencyProgram).prop("disabled", true);
+                model.set('agencyPromoCodeDropDown', 'OTHER');
+                showPromoCodeTextField();
+                hidePromoCodeDropDown();
+            } else {
             	if(employerID.toUpperCase() != "E") {
             		if(translator.getCurrentLanguage() == 'en') {
                     	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
@@ -814,7 +842,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	}else{
         		model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
         	}
-        }else {
+        } else if(loginModel.get('retailNetWork') == "PC") {
+        	model.set('agencyProgram', $(refs.agencyProgram).val());
+    		model.set('agencyPromoCodeDropDown', 'OTHER');
+        	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
+        } else {
         	// US3767
             if(loginModel.get('employerID').toUpperCase() !== 'E') {        
             	// US3920	
@@ -1017,7 +1049,43 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             } else if(promo !== "BLANK") {
             	$(refs.agencyPromoCode).val(model.get('agencyPromoCode'));
             }
-        }else {
+        } else if(loginModel.get('retailNetWork') == "PC"){
+        	
+        	if(loginModel.get('employerID').toUpperCase() !== 'E') {
+        		if(translator.getCurrentLanguage() == 'en') {
+            		programObj = JSON.parse(WICI.dictionary_en.program_PC_ProgramCode_FMR);
+            	}else{
+            		programObj = JSON.parse(WICI.dictionary_fr.program_PC_ProgramCode_FMR);
+            	}
+        	} else {
+        		if(translator.getCurrentLanguage() == 'en') {
+            		programObj = JSON.parse(WICI.dictionary_en.program_PC_ProgramCode_CSR);
+            	}else{
+            		programObj = JSON.parse(WICI.dictionary_fr.program_PC_ProgramCode_CSR);
+            	}
+        	}
+        	
+        	for (var key in programObj.FMR[0]) {
+                if (programObj.FMR[0].hasOwnProperty(key)) {
+                   console.log("key :: " + key);                             
+                   var optTempl = '<option value="' + key + '" ';
+                   optTempl = optTempl + '>' + key + '</option>';
+                   controlRef.append(optTempl);                                                               
+                }
+           }
+            $(refs.agencyProgram).prop("disabled", true);
+        	model.set('agencyPromoCodeDropDown', 'OTHER');
+            // US3767 
+            hidePromoCodeDropDown();
+            // US4433 - retain promocode on change of language
+            var promo = model.get('agencyPromoCode');
+            console.log(logPrefix + sMethod + " promo :: " + promo);
+            if(promo === "BLANK") {
+            	$(refs.agencyPromoCode).val('');
+            } else if(promo !== "BLANK") {
+            	$(refs.agencyPromoCode).val(model.get('agencyPromoCode'));
+            }
+        } else {
         	if(employerID.toUpperCase() != "E") {
         		
         		 var controlRefPromo = $(refs.agencyPromoCodeDropDown);
@@ -1062,6 +1130,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	// Todo Nothing to add here now
         } //US4433
         else if(loginModel.get('retailNetWork') == "SPORTS"){
+        	// Todo Nothing ,show empty PromoCode field
+        } else if(loginModel.get('retailNetWork') == "PC"){
         	// Todo Nothing ,show empty PromoCode field
         } else {
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {

@@ -12,5 +12,6 @@ WICI.RetailNetWorkList = function() {
           {value : 'MRKFRN' , text:'Marks_Franchise'},
           {value : 'OS' , text:'Out_of_Store'},
           {value : 'PRTNR' , text:'Partner_Locations'},
+          {value : 'PC' , text:'Party_City'},
       ];    
 };

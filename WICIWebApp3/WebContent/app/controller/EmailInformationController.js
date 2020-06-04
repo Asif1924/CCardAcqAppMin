@@ -102,7 +102,7 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         if($(refs.receiveEmail).is(':checked')){
         	model.set('receiveEmail', 'Y');
         } else{
-        	model.set('receiveEmail', 'N');
+        	model.set('receiveEmail', 'OPERATIONAL');
         }
         if($(refs.estmt_consent).is(':checked')){
         	model.set('estmt_consent', 'Y');
@@ -188,7 +188,7 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
         	if($(refs.receiveEmail).is(':checked'))
         		model.set('receiveEmail', 'Y');
         	else
-        		model.set('receiveEmail', 'N');
+        		model.set('receiveEmail', 'OPERATIONAL');
         });
         
         $(refs.estmt_consent).click(function() {
@@ -292,7 +292,7 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
                 else{
                 	console.log("Email is valid");
                 	var rez1 = model.validate(2);
-                	if(((model.get("receiveEmail") !== "N") && (model.get("receiveEmail") !== "Y")) ||(model.get("receiveEmail") === null)){
+                	if(((model.get("receiveEmail") !== "OPERATIONAL") && (model.get("receiveEmail") !== "Y")) ||(model.get("receiveEmail") === null)){
                 	
                 		rez1[0].uiid = refs.receiveEmail;
                 		console.log("rez1.length ::"+ rez1.length);
@@ -460,7 +460,7 @@ WICI.EmailInformationController = function(activationItems, argTranslator, argMe
             case 'Y':
                 $(refs.receiveemail_optin).addClass('ui-btn-active');
                 break;
-            case 'N':
+            case 'OPERATIONAL':
                 $(refs.receiveemail_optout).addClass('ui-btn-active');
                 break;
            

@@ -189,7 +189,7 @@ BRB.dictionary_en = {
 	overview_TopTableLeftCol1							:	"You must be a Canadian resident",
 	overview_TopTableLeftCol2							:	"You must be at least the age of majority in the province where you reside",
 	overview_TopTableLeftCol3							:	"You must be currently employed or retired",
-	overview_TopTableLeftCol4							:	"You must have a minimum personal income of $80,000 or a minimum household income of $150,000",
+	overview_TopTableLeftCol4							:	"You must have a minimum personal income of $80,000",
 	overview_TopTableLeftCol5							:	"You must have excellent credit",
 	overview_TopTableRightColTitle						:	"What do I need?",
 	overview_TopTableLeftColTitle_DEC                   :   "Am I eligible for this card? ",

@@ -31,6 +31,8 @@
 				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="National_Life"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
 			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "MRKFRN" }}
 				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Marks_Franchise"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
+			{{else activationItems.getModel('loginScreen').get('retailNetWork') == "PC" }}
+				<span class="pageSubTitle" data-translationKey="summary_highlighter_SubTitle"></span><span class="pageSubTitle" data-translationKey="Party_City"></span><span class="pageSubTitle" data-translationKey="summary_highlighter_Representative"></span>
 			{{/if}}
 			</center>
 		</div>
@@ -260,7 +262,7 @@
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                              {{if activationItems.getModel('emailInfoScreen').get('email') !== null}}
-	                              <span data-translationKey="${ activationItems.getModel('emailInfoScreen').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('emailInfoScreen').get('receiveEmail') == "N"? "no" : "" }"></span>
+	                              <span data-translationKey="${ activationItems.getModel('emailInfoScreen').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('emailInfoScreen').get('receiveEmail') == "OPERATIONAL"? "no" : "" }"></span>
 	                              {{/if}}
 	                    </td>
 	                </tr>

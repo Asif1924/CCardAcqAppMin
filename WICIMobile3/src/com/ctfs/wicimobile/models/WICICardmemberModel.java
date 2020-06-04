@@ -36,6 +36,7 @@ public class WICICardmemberModel {
 	private String _adrcity;
 	private String _adrprovince;
 	private String _adrpostalcode;
+	private String _retailNetwork;
 		
 	public WICICardmemberModel(){
         _cardType = "";
@@ -65,6 +66,7 @@ public class WICICardmemberModel {
     	_adrcity = "";
     	_adrprovince = "";
     	_adrpostalcode = "";
+    	_retailNetwork = "";
     }   
     
     public void initializeModel(JSONArray source) {
@@ -96,6 +98,7 @@ public class WICICardmemberModel {
             _adrcity = source.getString(22);
             _adrprovince = source.getString(23);
             _adrpostalcode = source.getString(24);
+            _retailNetwork = source.getString(25);
         } catch (JSONException e) {            
             e.printStackTrace();
         }
@@ -405,5 +408,13 @@ public class WICICardmemberModel {
 
 	public void setAdrpostalcode(String _adrpostalcode) {
 		this._adrpostalcode = _adrpostalcode;
-	} 
+	}
+	
+	public String getRetailNetwork() {
+		return _retailNetwork;
+	}
+
+	public void setRetailNetwork(String _retailNetwork) {
+		this._retailNetwork = _retailNetwork;
+	}
 }

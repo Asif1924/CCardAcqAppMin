@@ -4,13 +4,16 @@ WICI.IdTypesList = function() {
     this.data= [
 			{ value: null, text: 'IdTypesList_null'},
             { value: 'DR', text: 'IdTypesList_DR'},
-            { value: 'BI', text: 'IdTypesList_BI'},
+            // US5558
+            //{ value: 'BI', text: 'IdTypesList_BI'},
             { value: 'HE', text: 'IdTypesList_HE'},
             { value: 'PA', text: 'IdTypesList_PA'},
             { value: 'PR', text: 'IdTypesList_PR'},
-            { value: 'CI', text: 'IdTypesList_CI'},
+            // US5558
+            // { value: 'CI', text: 'IdTypesList_CI'},
             { value: 'IN', text: 'IdTypesList_IN'},
-            { value: 'RE', text: 'IdTypesList_RE'},
+            // US5558
+            // { value: 'RE', text: 'IdTypesList_RE'},
 
             // US4078
             { value: 'SC', text: 'IdTypesList_SC'},

@@ -760,11 +760,16 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         } else {
         	new WICI.LoadingIndicatorController().hide();
         	
-        	if(employerID != "E") {
-            	rePrintAttemptCheck();
+        	if(activationItems.getModel('personalData2_Address').get('province') == 'QC') {
+            	new WICI.LoadingIndicatorController().hide();
             } else {
-            	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+            	if(employerID != "E") {
+                	rePrintAttemptCheck();
+                } else {
+                	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+                }
             }
+        	
         }
 
     }
@@ -775,11 +780,16 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         new WICI.LoadingIndicatorController().hide();
         
-        if(employerID != "E") {
-        	rePrintAttemptCheck();
+        if(activationItems.getModel('personalData2_Address').get('province') == 'QC') {
+        	new WICI.LoadingIndicatorController().hide();
         } else {
-        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        	if(employerID != "E") {
+            	rePrintAttemptCheck();
+            } else {
+            	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+            }
         }
+        
     }
     //---------------------------------------------------------------------------------------
     function printFileSuccess(result) {
@@ -790,10 +800,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         // US4414 & US4282
         console.log(logPrefix + sMethod + " employerID :: " + employerID);
-        if(employerID != "E") {
-        	rePrintAttemptCheck();
+        if(activationItems.getModel('personalData2_Address').get('province') == 'QC') {
+        	new WICI.LoadingIndicatorController().hide();
         } else {
-        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        	if(employerID != "E") {
+            	rePrintAttemptCheck();
+            } else {
+            	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+            }
         }
     }
     //---------------------------------------------------------------------------------------
@@ -805,10 +819,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         // US4414 & US4282
         console.log(logPrefix + sMethod + " employerID :: " + employerID);
-        if(employerID != "E") {
-        	rePrintAttemptCheck();
+        if(activationItems.getModel('personalData2_Address').get('province') == 'QC') {
+        	new WICI.LoadingIndicatorController().hide();
         } else {
-        	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+        	if(employerID != "E") {
+            	rePrintAttemptCheck();
+            } else {
+            	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
+            }
         }
     }
     // US5240
@@ -869,7 +887,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'rePrintFileSuccess() ';
         console.log(logPrefix + sMethod);
         
-        if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
+        new WICI.LoadingIndicatorController().hide();
+        /*if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
  				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
         	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
             	// No reprint OMX/Z coupon for gas store
@@ -886,7 +905,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         	}
         } else {
         	printCoupon();
-        }
+        }*/
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileFailure() {

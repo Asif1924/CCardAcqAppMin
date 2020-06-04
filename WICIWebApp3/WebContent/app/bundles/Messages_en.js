@@ -117,6 +117,8 @@ WICI.dictionary_en =  {
 	
 	//US4433
 	program_FGL_ProgramCode_intercept                   :    "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\" \"}]}]}",
+	program_PC_ProgramCode_FMR		                    :    "{\"FMR\":[{\"Party City Intercept\":[{\"Party City Intercept\":\" \"}]}]}",
+	program_PC_ProgramCode_CSR		                    :    "{\"FMR\":[{\"Party City Staff\":[{\"Party City Staff\":\" \"}]}]}",
 	// US3767
 	chooseProduct_PromoCode_Other						:	"Promo code (Other)",
 	
@@ -146,19 +148,16 @@ WICI.dictionary_en =  {
     
     // Old line
     // overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash advances and related fees) - <strong>19.99%</strong></p> <p>Cash advances and related fees - <strong>21.99%</strong></p> <p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at an annual interest rate of - <strong>25.99%</strong> for all charges (excluding cash advances and related fees) and <strong>27.99%</strong> for cash advances and related fees.</p>",
-    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p>" +
-    												"<p><b>For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only:  If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:</b>" +
-    												"<br><br>(i) If you are a resident of Quebec, <strong>22.99%</strong> for all charges; or" +
-    												"<br><br>(ii) if you reside outside of Quebec, <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
-    overview_CostOfCreditDisclosure_ChooseProduct_Right1     :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> " +
-    															 "<p>If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:" +
-    															 "<br><br>(i) If you are a resident of Quebec, <strong>22.99%</strong> for all charges or" +
-    															 "<br><br>(ii) if you reside outside of Quebec, <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>",
-    overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> " +
-    																"<b>For Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> only:  If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates:</b>" +
-    																"<br><br>(i) If you are a resident of Quebec, <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22.99%</strong></span> for all charges; or" +
-    																"<br><br>(ii) if you reside outside of Quebec, <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27.99%</strong></span> for cash transactions and related fees.",
-    overview_CostOfCreditDisclosure_OMZ_Right1  :   "<p>These interest rates will be in effect on the day your account is opened: <br><br>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p>",
+    overview_CostOfCreditDisclosure_Right1      :   "<p>These interest rates will be in effect on the day your account is opened:</p>"+ 
+"<p><b>If you reside outside of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p>"+
+"<p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p><b>For the Triangle Mastercard only:</b> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates: <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p>"+
+ "<p><b>If you are a resident of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions and related fees- <strong>21.99%</strong></p>"+ 
+"<p><b>For the Triangle Mastercard only:</b> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rate: <strong>21.99%</strong> for all charges.</p>",
+    overview_CostOfCreditDisclosure_ChooseProduct_Right1     :   "<p>These interest rates will be in effect on the day your account is opened:</p>"+ 
+                                                                 "<p><strong>If you reside outside of Quebec: </strong></p>"+
+                                                                 "<p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p> <p><strong>For the Gas Advantage Mastercard only:</strong> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates: <strong>25.99%</strong> for all charges (excluding cash transactions and related fees) and <strong>27.99%</strong> for cash transactions and related fees.</p><p><strong>If you are a resident of Quebec:</strong></p><p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions and related fees- <strong>21.99%</strong></p><p><strong>For the Gas Advantage Mastercard only:</strong> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rate: <strong>21.99%</strong> for all charges.</p>",
+    overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>These interest rates will be in effect on the day your account is opened:</p> <p><b>If you reside outside of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19.99%</strong></span></p><p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22.99%</strong></span></p><p><b>For the Triangle Mastercard only:</b> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rates: <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27.99%</strong></span> for cash transactions and related fees.</p><p><b>If you are a resident of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19.99%</strong></span></p><p>Cash transactions and related fees- <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21.99%</strong></span></p> <p><b>For the Triangle Mastercard only:</b> If you are not approved for a card at the above rates, Canadian Tire Bank may still issue you a card at the following annual interest rate: <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21.99%</strong></span> for all charges.</p>",
+    overview_CostOfCreditDisclosure_OMZ_Right1  :   "<p>These interest rates will be in effect on the day your account is opened:</p> <p><b>If you reside outside of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p> <p>Cash transactions (for example: cash advances, balance transfers, convenience cheques, money transfers, purchase of travellers cheques and gambling transactions) and related fees - <strong>22.99%</strong></p><p><b>If you are a resident of Quebec:</b></p><p>All charges to your account (excluding cash transactions and related fees) - <strong>19.99%</strong></p><p>Cash transactions and related fees- <strong>21.99%</strong></p>",
     overview_CostOfCreditDisclosure_Left2       :   "Interest-Free Grace Period",
     overview_CostOfCreditDisclosure_Right2      :   "<p>At least <strong>21</strong> days or, if you are a resident of Quebec, at least <strong>26</strong> days.</p><p> You will benefit from an interest-free grace period of at least <strong>21</strong> days (at least <strong>26</strong> days if you are a resident of Quebec) on new purchases if we receive payment in full of the balance due on your current statement by the payment due date.</p><p> There is no grace period for cash transactions, such as convenience cheques, balance transfers or cash advances, or for fees for such transactions.</p>",
     overview_CostOfCreditDisclosure_Left3       :   "Minimum Payment",
@@ -187,7 +186,7 @@ WICI.dictionary_en =  {
     overview_AccrualInterest					:	"<b>Accrual of Interest:</b> Interest accrues daily on each charge from the date of the transaction giving rise to the particular charge.",    												
     overview_InterestRates						:	"<p>For residents of Quebec: The credit rates are the annual interest rates specified in the chart above.</p>",
     // US3381
-    overview_EffectiveDate						:	"Information effective as of <b>June 13, 2019</b>",
+    overview_EffectiveDate						:	"Information effective as of <b>May 26, 2020</b>",
     
     overview_Triangle_world_ELite_MasterCardNote :	"<b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> can impose higher card acceptance costs on merchants.</b>",
     
@@ -299,7 +298,8 @@ WICI.dictionary_en =  {
 
 	personalData_Note									:	"Please note, we may send you text messages to your mobile phone number for  account notices, these messages will be at no cost to you.",
 	receiveEmail_Text									:	"<i>Yes, I would like to receive details on exclusive offers and events</i>",
-	receiveEmail_TextAreaText							:	"I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (&#147;CTC&#148;). Canadian Tire Financial Services Limited (&#147;CTFS&#148;), and Canadian Tire Bank (&#147;CTB&#148;), including from their respective business units operating under the Canadian Tire, My Canadian Tire &#145;Money&#146; Program, Canadian Tire Drivers Academy®, Canadian Tire Home Services®, and Canadian Tire Roadside Assistance® brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
+	receiveEmail_TextAreaText_1							:	"I consent to receiving commercial electronic messages from Canadian Tire Corporation, Limited, and its affiliates and/or marketing partners, including Canadian Tire Bank and Canadian Tire Services Limited.  You may contact us at  customerservice@cantire.ca and may unsubscribe at any time.  Standard text and data rates may apply.",
+	receiveEmail_TextAreaText_2							:	"If you already receive emails from Canadian Tire or its affiliates, you can ignore this box.  Your preferences won't change.",
 	receiveEstmt_Text									:	"<i>Yes, I would like to receive eStatements</i>",
 	receiveEstmt_TextAreaText							:	"<p><b>Electronic Statement Terms and Conditions</b></p>"
 	                                                         +"<p>1. You can continue to access your account details through ctfs.com and telephone banking.</p>" 
@@ -364,7 +364,7 @@ WICI.dictionary_en =  {
 
 	supCardRequest_PageTitle							:	"SUPPLEMENTARY CARD REQUEST",
 
-	supCardRequest_WouldYouLikeACard					:	"Would you like a supplementary card?",
+	supCardRequest_WouldYouLikeACard					:	"I agree, please add a supplementary card.",
 	supCardAttention_Text								:	"Attention! When adding a supplementary card holder,<br> complete and accurate information must be included.",
 
 	supCardRequest_ForWhom								:	"Supplementary card request for:",
@@ -1027,6 +1027,7 @@ WICI.dictionary_en =  {
 	Marks_Franchise			                            :   'Mark’s Franchise',
 	Out_of_Store			                            :   'Out of Store',
 	Partner_Locations		                            :   'Partner Locations',
+	Party_City				                            :   'Party City',
 	
 	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
 	
@@ -1036,12 +1037,12 @@ WICI.dictionary_en =  {
 
 	signatureScreen_Header								:	"By signing below, I agree as follows:",
 	signatureScreen_License1							:	"Please open an account in my name for the ",
-    signatureScreen_License1_1                          :   " (the \"Card\") ",
+    signatureScreen_License1_1                          :   " (the \“Card\”) ",
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
     // signatureScreen_License1_2                          :   " with an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees.",
 	// signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
-    signatureScreen_License1_2                          :   " with an annual interest rate of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>22.99%</strong></span> for cash transactions and related fees.",
+    signatureScreen_License1_2                          :   "with annual interest rates of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>22.99%</strong></span> for cash transactions and related fees,  if I reside outside of Quebec, or annual interest rates of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>21.99%</strong></span> for cash transactions and related fees if I reside in Quebec.",
 	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash transactions and related fees.",
 	signatureScreen_License2_OMZ						:	"<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may still issue me a Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99& for cash transactions and related fees.</b>",
 	// signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
@@ -1418,10 +1419,16 @@ WICI.dictionary_en =  {
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',
 	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?",
 	signature_OptionsMasterCard 					    : "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
-	signature_OptionsMasterCard_Dupconvence_text         : "Thanks for applying for a Triangle Mastercard!",
+	// VZE-3 WICI Bank Rates changes
+	signature_OptionsMasterCard_withoutSuperScript 		: "Triangle Mastercard",
+	signature_OptionsMasterCard_Dupconvence_text        : "Thanks for applying for a Triangle Mastercard!",
 	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
+	// VZE-3 WICI Bank Rate changes
+	signature_World_ELiteMasterCard_withoutSuperScript 	: 	"Triangle World Elite Mastercard",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	signature_GasAdvantageMasterCard1					:	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+	// VZE-3 WICI Bank Rate changes
+	signature_GasAdvantageMasterCard1_withoutSuperScript					:	"Gas Advantage Mastercard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",
 	// US5147  WICI - Updated Signature Box
     signature_OptionsMasterCard_CreditCard 				: "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> credit card",
@@ -1452,9 +1459,8 @@ WICI.dictionary_en =  {
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
     // signatureScreen_License2                            : "<b>If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all charges (excluding cash advances and related fees) and 27.99% for cash advances and related fees.</b>",
-    signatureScreen_License2                            :   "<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may, without further notice to me, treat this as a separate application for the same Card at the following annual interest rates:" +
-															"<br><br>(i) if I am a resident of Quebec, 22.99% for all charges; or" +
-															"<br><br>(ii) if I reside outside of Quebec, 25.99% for all charges (excluding cash transactions and related fees) and 27.99% for cash transactions and related fees.</b>",
+    signatureScreen_License2                            :   "If I am not approved for the Card at the above rates, Canadian Tire Bank may, without further notice to me, treat this as a separate application for the same Card at the following annual interest rates:"+
+                                                            "<br><br>(i) if you are a resident of Quebec, <b>21.99%</b> for all charges; or"+"<br><br>(ii) if you reside outside of Quebec, <b>25.99%</b> for all charges (excluding cash transactions and related fees) and <b>27.99%</b> for cash transactions and related fees.",
     signatureScreen_License3                            : "The Card is issued by Canadian Tire Bank. The Triangle Rewards<sup>&trade;</sup> Program is provided and administered by Canadian Tire Corporation, Limited.",
 
     signatureScreen_License3_OMP                        : "The Card is issued by Canadian Tire Bank.",

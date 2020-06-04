@@ -48,6 +48,8 @@ public class WICIReplacementHelper {
         String maskedPAN = carmemberModel.getMaskedPAN();
         String accountNumber = "";
         int offset = 0;
+        String retailNetwork = carmemberModel.getRetailNetwork();
+
         if (cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
         	// UAT204
         	if("4111111111111111".equals(cryptedAccountNumber))
@@ -62,6 +64,13 @@ public class WICIReplacementHelper {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
+	        } else if("PC".equalsIgnoreCase(retailNetwork) && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	Log.i(" WICIReplacementHelper ", " Party City Demo Mode");
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
+	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
+	        } else if(("MARKS".equalsIgnoreCase(retailNetwork) || "SPORTS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	Log.i(" WICIReplacementHelper ", " MARKS or SPORTS ");
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("4111111111111111", context));
 	        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
 	         	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));

@@ -410,7 +410,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
         		// US3462 
         		// Print Coupon after submit app if cardtype is OMC
-        		console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('locationFieldID'));
+        		// VZE 24
+        		/*console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('locationFieldID'));
         			if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
                 		activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
         				if(activationItems.getModel('loginScreen').get('employerID') == 'E' && 
@@ -439,7 +440,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
                 		} else {
                 			// No coupons for any other channels
                 		}
-                	}
+                	}*/
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
         	}else{
         		showMessageForDataValidationIssue();

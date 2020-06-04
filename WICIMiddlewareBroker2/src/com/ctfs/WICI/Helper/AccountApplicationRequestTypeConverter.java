@@ -97,11 +97,13 @@ public class AccountApplicationRequestTypeConverter
                     	else if(retailNetwork.equals("PRTNR") && (storeNumber != null && storeNumber.substring(0,1).equals("H"))) {
 	                   		 populatedAccountApplicationRequest.setChannelIndicator("HB");
 	                   	}
+                    	else if(retailNetwork.equals("PC")) {
+	                   		 populatedAccountApplicationRequest.setChannelIndicator("PC");
+	                   	}
                     	else {
 	                   		 populatedAccountApplicationRequest.setChannelIndicator("UK");
 	                   	}
                     }
-                    */
                     
                     //log.info("cIndicator:" + populatedAccountApplicationRequest.getChannelIndicator());
     

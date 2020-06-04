@@ -93,45 +93,48 @@
 	</feature>
     
     <feature name="ZebraPrinterPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterPlugin"/>
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterPlugin"/>
 	</feature>
 	
-     <feature name="ZebraPrinterDiscoveryPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterDiscoveryPlugin"/>
+    <feature name="ZebraPrinterDiscoveryPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.ZebraPrinterDiscoveryPlugin"/>
 	</feature>
 	
-      <feature name="AppLanguagePlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.AppLanguagePlugin"/>
+    <feature name="AppLanguagePlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.AppLanguagePlugin"/>
 	</feature>
 	
-       <feature name="AppVersionPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.AppVersionPlugin"/>
+    <feature name="AppVersionPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.AppVersionPlugin"/>
 	</feature>
 	
-        <feature name="DeviceInfoPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.DeviceInfoPlugin"/>
-	</feature>
-	
+    <feature name="DeviceInfoPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.DeviceInfoPlugin"/>
+	</feature>	
         
-         <feature name="BluetoothPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.BluetoothPlugin"/>
+    <feature name="BluetoothPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.BluetoothPlugin"/>
 	</feature>
 	
-          <feature name="Pdf417Scanner" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.Pdf417Scanner"/>
+<!--    <feature name="Pdf417Scanner" >-->
+<!--      	<param name="android-package" value="com.ctfs.wicimobile.plugins.Pdf417Scanner"/>-->
+<!--	</feature>-->
+	
+    <feature name="BarcodeScanner" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.BarcodeScanner"/>
 	</feature>
 	
-      <feature name="WifiPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.WifiPlugin"/>
+    <feature name="WifiPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.WifiPlugin"/>
 	</feature>
          
      <feature name="TokenPrinterPlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.TokenPrinterPlugin"/>
-	</feature>
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.TokenPrinterPlugin"/>
+	 </feature>
 	
      <feature name="InstantIssuancePlugin" >
-      <param name="android-package" value="com.ctfs.wicimobile.plugins.InstantIssuancePlugin"/>
-	</feature>
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.InstantIssuancePlugin"/>
+	 </feature>
         
     
     <allow-intent href="market:*" />

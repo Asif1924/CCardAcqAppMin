@@ -197,20 +197,25 @@ WICI.Validator = function() {
          {
              return false;
          } else {
-    	     var inputDate = new Date(value);
+        	 var inputDate = new Date(value);
     	     console.log("idExpiryDate :: expiryDate ::" + inputDate);
   	         //Today
              var todaysDate = new Date();
+             // VZE-26 COVID-19 lockdown date : March 1st 2020
+             var covid19LockDownDate = new Date("03-01-2020");
              // Yesterday 
              todaysDate.setDate(todaysDate.getDate() - 1);
              console.log(" idExpiryDate :: Yesterday's Date ::"+todaysDate);
-            if(inputDate <= todaysDate) {
-                 // Expiry date is less then yesterday 
-                 // DL is expired 
-                 return false;
-            } else {
+             console.log(" idExpiryDate :: COVID19 LockDown Date ::"+covid19LockDownDate);
+             if(inputDate < covid19LockDownDate){
+            	 return false;
+             }else if((inputDate =>covid19LockDownDate) && (inputDate <= todaysDate)) { 
+                 return true;
+            }else if(inputDate <= todaysDate) {
+            	 return false;
+            }else{
             	 return true;
-            }
+            } 
          }
     };
 

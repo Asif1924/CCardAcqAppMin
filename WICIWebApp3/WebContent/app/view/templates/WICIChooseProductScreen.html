@@ -82,6 +82,10 @@
 							<td class="fieldLabelsCell fieldCellSize33">
 		                        <span data-translationKey="chooseProduct_PromoCode"></span>
 		                    </td>
+					{{else activationItems.getModel('loginScreen').get('retailNetWork') == "PC"}}
+							<td class="fieldLabelsCell fieldCellSize33">
+		                        <span data-translationKey="chooseProduct_PromoCode"></span>
+		                    </td>	
 					{{else}}
 					<!-- US4433 - Start //-->
 						{{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
