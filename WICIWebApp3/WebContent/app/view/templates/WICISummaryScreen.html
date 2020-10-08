@@ -186,6 +186,59 @@
 	                
 	            </table>
 			</div>
+
+<!--
+	personalData_EmailAddress                           :   "Email Address",
+	summary_TellAboutYourself_Email_Consent             :   "E-mail Marketing Consent?",
+	summary_TellAboutYourself_HomePhone					:	"Home Phone",
+	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",
+		//-->
+
+	<div id="summary_TellUsAboutYourself_Area1">
+				<br>
+				<br>
+				<span class="pageSubTitle" data-translationKey="summary_ContactInfo_SubTitle"></span>
+				<br>
+				<br>
+	            <table id="summary_TellUsAboutYourself_Table" class="stretchThisTable">
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsTopCell fieldCellSize33">
+	                        <span data-translationKey="personalData_PrimaryPhone"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell fieldValuesTopCell">
+							${activationItems.getFormatedPhone(activationItems.getModel('contactInfoScreen').get('homePhone'))}
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_SecondaryPhone"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell">
+	                    	${activationItems.getFormatedPhone(activationItems.getModel('contactInfoScreen').get('cellPhone'))}
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td id="personalData_IDNumber_Label" class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="personalData_EmailAddress"></span>
+	                    </td>
+	                    <td id="personalData_IDNumber_Value" class="fieldLabelsCell">
+	                         ${activationItems.getModel('contactInfoScreen').get('email')}
+	                    </td>
+	                </tr>
+	                <tr id="summary_TellUsAboutYourself_ExpiryDate_Area" class="fieldRow">
+	                    <td id="personalData_ExpiryDate" class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="summary_TellAboutYourself_Email_Consent"></span>
+	                    </td>
+	                    <td id="expiryDate_id" class="fieldValuesBottomCell fieldLabelsCell">
+                              {{if activationItems.getModel('contactInfoScreen').get('email') !== null}}
+	                              <span data-translationKey="${ activationItems.getModel('contactInfoScreen').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('contactInfoScreen').get('receiveEmail') == "OPERATIONAL"? "no" : "" }"></span>
+	                              {{/if}}
+	                    </td>
+	                </tr>
+	                
+	            </table>
+			</div>
+
 <!--
 	summary_TellAboutYourself_ApplicantInfo             :   "Applicant Information",
     personalData_Title                                  : 	"Title",
@@ -193,10 +246,6 @@
 	summary_TellAboutYourself_Initial					:	"Initial",
 	summary_TellAboutYourself_LastName					:	"Last Name",
 	summary_TellAboutYourself_DateOfBirth				:	"Date of Birth",
-	personalData_EmailAddress                           :   "Email Address",
-	summary_TellAboutYourself_Email_Consent             :   "E-mail Marketing Consent?",
-	summary_TellAboutYourself_HomePhone					:	"Home Phone",
-	summary_TellAboutYourself_CellPhone					:	"Cellular Phone",
 	summary_TellAboutYourself_Correspondence			:	"Correspondence",
 //-->
             <br>
@@ -246,42 +295,6 @@
 	                    <td id="birthDate_id_1" class="fieldLabelsCell">
 	                    	 ${activationItems.getFormatedDate(activationItems.getModel('personalData').get('birthDate'))}
 	                         <!--${activationItems.getModel('personalData').get('birthDate')} -->
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData_EmailAddress"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                         ${activationItems.getModel('emailInfoScreen').get('email')}
-	                    </td>
-	                </tr>
- 					<tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_Email_Consent"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                              {{if activationItems.getModel('emailInfoScreen').get('email') !== null}}
-	                              <span data-translationKey="${ activationItems.getModel('emailInfoScreen').get('receiveEmail') == "Y" ? "yes" : activationItems.getModel('emailInfoScreen').get('receiveEmail') == "OPERATIONAL"? "no" : "" }"></span>
-	                              {{/if}}
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_HomePhone"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                         ${activationItems.getFormatedPhone(activationItems.getModel('personalData').get('homePhone'))}
-	                         <!--${activationItems.getModel('personalData').get('homePhone')}-->
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_TellAboutYourself_CellPhone"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                        ${activationItems.getFormatedPhone(activationItems.getModel('personalData').get('cellPhone'))}
-	                         <!--${activationItems.getModel('personalData').get('cellPhone')} -->
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">

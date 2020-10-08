@@ -1145,7 +1145,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var cardType = activationItems.getModel('chooseProductModel').get('productCard');
         console.log(logPrefix + sMethod + " cardType : " + cardType);
             
-         // homePhonePersonalInfo = activationItems.getModel('personalData').get('homePhone');
+         // homePhonePersonalInfo = activationItems.getModel('contactInfoScreen').get('homePhone');
 		console.log(logPrefix + sMethod + " homePhonePersonalInfo : " + homePhonePersonalInfo ); 
 	   
 	        if(homePhone !== null && homePhonePersonalInfo !== null){	      

@@ -158,8 +158,13 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		assemblePageHTML($screenContainer, "#WICISignatureScreen-template");
 		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");
-		updateOmxCardLanguage();
-		updateOmzCardLanguage();
+		// VZE-88
+		var allowUpSellOMZ = translator.translateKey("signatureScreen_AllowUpSellOMZCard");  
+    	if(allowUpSellOMZ == "true"){
+    		updateOmxCardLanguage();
+    		updateOmzCardLanguage();
+    	}
+		
 	}
 	//---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop(){
@@ -215,32 +220,43 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         	showSignatureDate();
         });
         $.subscribe('translatorFinished',function(e){
-            parseCardNameAndType();
-            displayProductTitle();
-            toggleChartImage () ;
-            updateOmzCardLanguage();
-            updateOmxCardLanguage();
-            if(  activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' && model.get('sigcardSelection') && verifyCardValidation() ){
-            	OMZCardContentDisplay();
-            }
-            if(activationItems.getModel('chooseProductModel').get('productCard') === 'OMX' && model.get('sigcardSelection') ){
-            	OMXCardContentDislay();
-            }
+            // VZE-88
+        	var allowUpSellOMZ = translator.translateKey("signatureScreen_AllowUpSellOMZCard");  
+        	console.log("bindEvents :: allowUpSellOMZ ::  " + allowUpSellOMZ +" type of allowUpSellOMZ " + (typeof allowUpSellOMZ));
+        	if(allowUpSellOMZ == "true"){
+        		parseCardNameAndType();
+                displayProductTitle();
+                toggleChartImage () ;
+                updateOmzCardLanguage();
+                updateOmxCardLanguage();
+                if(  activationItems.getModel('chooseProductModel').get('productCard') === 'OMZ' && model.get('sigcardSelection') && verifyCardValidation() ){
+                	OMZCardContentDisplay();
+                }
+                if(activationItems.getModel('chooseProductModel').get('productCard') === 'OMX' && model.get('sigcardSelection') ){
+                	OMXCardContentDislay();
+                }
+        	}
+            
         });
       
       /*$(refs.acceptAgreement).on("change", function() {  
         	onAcceptAgrementFontChange();
       });*/
-       
-      $(refs.signatureScreenOmzCard).click(function() {
-			OMZCardContentDisplay();
+        // VZE-88
+        var allowUpSellOMZ = translator.translateKey("signatureScreen_AllowUpSellOMZCard");  
+    	console.log("bindEvents :: allowUpSellOMZ ::  " + allowUpSellOMZ +" type of allowUpSellOMZ " + (typeof allowUpSellOMZ));
+    	if(allowUpSellOMZ == "true"){
+    		 $(refs.signatureScreenOmzCard).click(function() {
+    				OMZCardContentDisplay();
 
-		});
+    			});
 
-		$(refs.signatureScreenOmcCard).click(function() {
-			OMXCardContentDislay();
+    			$(refs.signatureScreenOmcCard).click(function() {
+    				OMXCardContentDislay();
 
-		});
+    			});
+    	}
+     
         
         // Bind to the checkbox
         $('#signatureScreen_AcceptAgreement').click(function() {
@@ -451,21 +467,26 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	function verifyCardValidation() {
 		var sMethod = "verifyCardValidation()";
         console.log(logPrefix + sMethod);
-        
-		if (activationItems.getModel('chooseProductModel').get('productCard') == 'OMX'
-				|| activationItems.getModel('chooseProductModel').get('productCard') == 'OMZ') {
-			if (activationItems.getModel('financialData').get('grossIncome') >= 80000) {
-				return true;
+        var allowUpSellOMZ = translator.translateKey("signatureScreen_AllowUpSellOMZCard");  
+    	console.log("bindEvents :: allowUpSellOMZ ::  " + allowUpSellOMZ +" type of allowUpSellOMZ " + (typeof allowUpSellOMZ));
+    	if(allowUpSellOMZ == "true"){
+			if (activationItems.getModel('chooseProductModel').get('productCard') == 'OMX'
+					|| activationItems.getModel('chooseProductModel').get('productCard') == 'OMZ') {
+				if (activationItems.getModel('financialData').get('grossIncome') >= 80000) {
+					return true;
+				}
+				//US4992
+				else if ((activationItems.getModel('financialData').get('grossIncome') < 80000)
+						&& (activationItems.getModel('financialData').get('grossHouseholdIncome') >= 150000)
+						&& ((activationItems.getModel('personalData2_Address').get('house') == 'O') || (activationItems.getModel('personalData2_Address').get('house') == 'R'))) {
+					return true;
+				} else {
+					return false;
+				}
 			}
-			//US4992
-			else if ((activationItems.getModel('financialData').get('grossIncome') < 80000)
-					&& (activationItems.getModel('financialData').get('grossHouseholdIncome') >= 150000)
-					&& ((activationItems.getModel('personalData2_Address').get('house') == 'O') || (activationItems.getModel('personalData2_Address').get('house') == 'R'))) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+    	}else{
+    		return false;
+    	}
 	}
 	
 

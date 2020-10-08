@@ -14,6 +14,13 @@ public class WICIConfigurationFactory
 	private static final String WEBSERVICES_ENDPOINT_SHAREDSERVICES="WEBSERVICES_ENDPOINT_SHAREDSERVICES";
 	private static final String ACCOUNTAPPLICATION_DELAY="WEBSERVICES_ACCOUNTAPPLICATION_DELAY";
 	private static final String CONFIGURATION_CATEGORY="OUTLET_TYPE_ID";
+	private static final String DSS_ADDRESS_ENDPOINT="DSS_ADDRESS_ENDPOINT";
+	
+	private static final String JKSConfig ="JKSConfig";
+	private static final String JKSFileName ="JKSFileName";
+	private static final String JKSPassword ="JKSPassword";
+	private static final String TLSVersion ="TLSVersion";
+	
 	
 	static Logger log = Logger.getLogger(WICIConfigurationFactory.class.getName());
 
@@ -70,4 +77,42 @@ public class WICIConfigurationFactory
 		log.info(sMethod + "--- Outlet type id " + conf.getOutletTypeId());
 		return conf;
 	}
+	
+	public WICIConfiguration createDASSEndPointConfiguration()
+	{
+		String sMethod = this.getClass().getName() + "[createDASSEndPointConfiguration] ";
+		log.info(sMethod);
+
+		WICIConfiguration conf = new WICIConfiguration();
+		ApplicationConfiguration.readApplicationConfiguration();
+		Map enviroinmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
+		Map jksconfigurationMap = ApplicationConfiguration.getCategoryKeys(JKSConfig);
+		
+		log.info("Back end pointed to "+ enviroinmentMap.get(DSS_ADDRESS_ENDPOINT));
+		
+		String dssEndPoint = enviroinmentMap.get(DSS_ADDRESS_ENDPOINT).toString();
+		
+		conf.setDssEndPoint(dssEndPoint);
+
+		log.info(sMethod + "---dssEndPoint endpoint set to " + conf.getWebservicesEndpoint());
+		
+		String jksPath = jksconfigurationMap.get(JKSFileName).toString();
+		String jksPassword = jksconfigurationMap.get(JKSPassword).toString();
+		String jksTlsVersion = jksconfigurationMap.get(TLSVersion).toString();
+		
+		conf.setDssEndPoint(dssEndPoint);
+		conf.setJksPath(jksPath);
+		conf.setJksPassword(jksPassword);
+		conf.setJksTlsVersion(jksTlsVersion);
+
+		log.info(sMethod + "---Jks Details  " + conf.getJksPath()   +"======"+conf.getJksPassword()+ "===="+conf.getJksTlsVersion());
+		
+		
+		
+		
+		return conf;
+	}
+	
+	
+	
 }

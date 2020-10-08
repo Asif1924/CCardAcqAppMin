@@ -83,4 +83,6 @@ public class BaseModel
 
 		return new ImageUtils().convertPNGDataURLToJPGByteArray(strDataUrl);
 	}
+	
+	
 }

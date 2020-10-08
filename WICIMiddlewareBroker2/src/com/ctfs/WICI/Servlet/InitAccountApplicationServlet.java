@@ -13,7 +13,6 @@ import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
 import com.ctfs.WICI.Helper.AccountApplicationRequestTypeConverter;
 import com.ctfs.WICI.Helper.AuthorizationHelper;
 import com.ctfs.WICI.Helper.ExternalReferenceIdHelper;
-import com.ctfs.WICI.Helper.UniqueIDGenerator;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.AuthfieldValue;
@@ -121,6 +120,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 	{
 		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
 		log.info(sMethod);
+		
+		WICIDBHelper wicidbHelper = new WICIDBHelper();
+		String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
 
 		DatabaseResponse databaseResponse = null;
 		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
@@ -136,14 +138,19 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String sec_employee_number = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") : EMPTY_STRING;;
 
 		
+		
+		
+		
 		String unitNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("suiteunit");
 		String streetNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("streetnumber");
 		String streetName= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("addressline1");
-		WICIDBHelper wicidbHelper = new WICIDBHelper();
-		String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
+		
+		
 		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
 		
 		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData,tabSerialNum,authfieldCheckEnable);
+		
+		
 		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString(aaObject);
 		String transactionID = aaObject.getExternalReferenceId();
 		String consentGranted = aaObject.getEnstreamConsent();

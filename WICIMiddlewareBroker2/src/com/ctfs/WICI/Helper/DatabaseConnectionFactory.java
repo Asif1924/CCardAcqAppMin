@@ -33,4 +33,17 @@ public class DatabaseConnectionFactory
 
 		return dataSource.getConnection();
 	}
+	
+	public Connection getOracleINetDatabaseConnection() throws SQLException, NamingException
+	{
+		String sMethod = this.getClass().getName() + "[getOracleINetDatabaseConnection] ";
+		log.info(sMethod);
+
+		// Set up DB connection
+		javax.naming.Context ctx = new javax.naming.InitialContext();
+		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/instcrds");
+		
+		return dataSource.getConnection();
+	}
+	
 }

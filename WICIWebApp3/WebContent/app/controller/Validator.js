@@ -59,7 +59,7 @@ WICI.Validator = function() {
     }
 
     this.emailAddress = function(value) {
-        return empty(value) || regexMatch(/^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i, value.trim());
+        return empty(value) || regexMatch(/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/, value.trim());
 
     };
 
@@ -197,25 +197,7 @@ WICI.Validator = function() {
          {
              return false;
          } else {
-        	 var inputDate = new Date(value);
-    	     console.log("idExpiryDate :: expiryDate ::" + inputDate);
-  	         //Today
-             var todaysDate = new Date();
-             // VZE-26 COVID-19 lockdown date : March 1st 2020
-             var covid19LockDownDate = new Date("03-01-2020");
-             // Yesterday 
-             todaysDate.setDate(todaysDate.getDate() - 1);
-             console.log(" idExpiryDate :: Yesterday's Date ::"+todaysDate);
-             console.log(" idExpiryDate :: COVID19 LockDown Date ::"+covid19LockDownDate);
-             if(inputDate < covid19LockDownDate){
-            	 return false;
-             }else if((inputDate =>covid19LockDownDate) && (inputDate <= todaysDate)) { 
-                 return true;
-            }else if(inputDate <= todaysDate) {
-            	 return false;
-            }else{
-            	 return true;
-            } 
+        	   return true;
          }
     };
 

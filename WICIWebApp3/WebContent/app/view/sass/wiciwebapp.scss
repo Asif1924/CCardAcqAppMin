@@ -291,8 +291,168 @@ border: 0px;
 	text-align: center;
 }
 
+.paragraphAlignment {
+	margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
+.paragraphAlignmentStartPoint5 {
+	margin-block-start: 0.5em;
+}
+
+.paragraphAlignmentStartZero {
+	margin-block-start: 0em;
+}
+
+.paragraphAlignmentHeading4 {
+	margin-block-start: 1em;
+	margin-block-end: 0.25em;
+}
+
+.paragraphAlignmentHeading6 {
+	margin-block-start: 1em;
+	margin-block-end: 0.25em;
+}
+
+.padding5centBlock {
+	padding: 10px 0 20px 0;
+}
+
 .small {
     font-size: 12px;
+}
+
+.fontSize50 {
+	font-size: 50px;
+}
+
+.fontSize40 {
+	font-size: 40px;
+}
+
+.fontSize35 {
+	font-size: 35px;
+}
+
+.fontSize30 {
+	font-size: 30px;
+}
+
+.fontSize28 {
+	font-size: 28px;
+}
+
+.fontSize25 {
+	font-size: 25px;
+}
+
+.fontSize20 {
+	font-size: 20px;
+}
+
+.fontSize19 {
+	font-size: 19px;
+}
+
+.contactInfoBottomLayout {
+	min-height: auto;	
+}
+
+.contactInfoFieldValues {
+  background-color:transparent;
+  border: 0 solid;
+  height:30px;
+  width:100%;
+  color:#5E5D5D;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16pt;
+  font-color:#5E5D5D;
+}
+
+.contactInfo5CentMoney {
+	background: #585858;
+    padding: 15px;
+    color: white;
+}
+
+.contactInfoCheckboxAlignment {
+	margin-top: 55px;
+    padding: 20px;
+}
+
+.contactInfoCheckBoxOuterBox {
+	background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.contactInfoLeftTriangleImage {
+	padding: 0 25px 0 30px;
+}
+
+.contactInfoCheckBox {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  margin-bottom: 0;
+  padding-right: 20px;
+}
+
+.contactInfoCheckBox label {
+  cursor: pointer;
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  left: 0;
+  background: #d4d2d2;
+  border:1px solid #ddd;
+}
+
+.contactInfoCheckBox label:after {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 19px;
+  background: transparent;
+  top: 6px;
+  left: 7px;
+  border: 3px solid #2CA216;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.contactInfoCheckBox label:hover::after {
+  opacity: 0;
+}
+
+.contactInfoCheckBox input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+.contactInfoCheckBox input[type=radio]:checked + label:after {
+  opacity: 1;
+}
+
+.colorGray {
+	color: gray;
+}
+
+.marginBlockStart25 {
+	margin-block-start: 0.25em;	
+}
+
+.marginBlockEnd0 {
+	margin-block-end: 0em;	
+}
+
+.marginStartEnd {
+	margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
 }
 
 .bold {
@@ -2964,13 +3124,13 @@ body.ui-mobile-viewport { overflow-x: visible; }
 }
 
 .receiveEmail_CheckBox{
-	text-align: left;
-	border: 2px solid black;
-	font-family: Arial, Helvetica, sans-serif;
-  	height: 150px;
-  	overflow-x:hidden;
+    text-align: left;
+    border: 2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 150px;
+    overflow-x:hidden;
     width: 100%;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .receiveEmail_CheckBox::-webkit-scrollbar {
@@ -2988,31 +3148,36 @@ body.ui-mobile-viewport { overflow-x: visible; }
 }
 
 .receiveEstmt_CheckBox{
-	text-align: left;
-	border: 2px solid black;
-	font-family: Arial, Helvetica, sans-serif;
-  	height: 200px;
+    text-align: left;
+    border: 2px solid #dcd9d9;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 150px;
     width: 100%;
-	overflow-x:hidden;
-	margin-bottom: 10px;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    min-height: 150px;
 }
 
 .receiveEstmt_CheckBox::-webkit-scrollbar {
-    width: 14px;
+    width: 10px;
 }
 
 .receiveEstmt_CheckBox::-webkit-scrollbar-track {
-    background: rgb(0,0,0);
-    border: 6.5px solid transparent;
+    background: transparent;
+    border: 7px solid transparent;
     background-clip: content-box;  
 }
 
 .receiveEstmt_CheckBox::-webkit-scrollbar-thumb {
-    background: rgb(200,200,200);
+    background: #9e9c9c;
+    border-radius: 10px;
+    width: 14px;
+    height: 70px;
 }
 
 .receiveEmail_Text{
-	font-family: Arial, Helvetica, sans-serif;
+	  	font-family: Arial, Helvetica, sans-serif;
   	font-size: 12pt;
   	font-color: #000;
   	font-weight: bold;
@@ -3020,10 +3185,12 @@ body.ui-mobile-viewport { overflow-x: visible; }
 }
 
 .receiveEmail_TextArea{
-	font-family: Arial, Helvetica, sans-serif;
-  	font-size: 11pt;
+  	font-family: Arial, Helvetica, sans-serif;
+  	font-size: 12pt;
   	font-color: #000;
   	margin-left: 27px;
+  	margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
 }
 
 .wiciCheckBox label {

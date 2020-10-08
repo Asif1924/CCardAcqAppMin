@@ -21,7 +21,7 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			},
 		},
 		'Page1' : {
-			'screenConstructor' : WICI.PersonalDataScreenController,
+			'screenConstructor' : WICI.ContactInformationController,
 			'transitionOut' : function() {
 				return 'Page2';
 			},
@@ -30,7 +30,7 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			},
 		},
 		'Page2' : {
-			'screenConstructor' : WICI.EmailInformationController,
+			'screenConstructor' : WICI.PersonalDataScreenController,
 			'transitionOut' : function() {
 				return 'Page3';
 			},
@@ -71,8 +71,8 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			            model = currentModel;
 			        }
 			        
-			        if(activationItems.getModel('personalData').get('primaryLandline_CheckField') === 'Y' && 
-							activationItems.getModel('personalData').get('secondaryLandline_CheckField') === 'Y') {
+			        if(activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === 'Y' && 
+							activationItems.getModel('contactInfoScreen').get('secondaryLandline_CheckField') === 'Y') {
 			        	var mobilePaymentsModel = new WICI.BaseModel({
 					    	name: 'mobilePaymentsScreen',
 					        data: [
@@ -99,8 +99,8 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 		'Page6' : {
 			'screenConstructor' : WICI.OptionalProductsScreenController,
 			'transitionOut' : function() {
-				if (activationItems.getModel('personalData').get('primaryLandline_CheckField') === 'Y' && 
-						activationItems.getModel('personalData').get('secondaryLandline_CheckField') === 'Y') {
+				if (activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === 'Y' && 
+						activationItems.getModel('contactInfoScreen').get('secondaryLandline_CheckField') === 'Y') {
 					var model = new WICI.BaseModel({
 				    	name: 'mobilePaymentsScreen',
 				        data: [

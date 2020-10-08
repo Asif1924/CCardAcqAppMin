@@ -1,18 +1,14 @@
 package com.ctfs.WICI.Servlet;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
-import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
-import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
-import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
-import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupRequest;
-import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupResponse;
 import com.ctfs.WICI.Helper.AddressLookupHelper;
+import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
+import com.ctfs.WICI.Model.WICIDSSAddressResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 
 public class AddressLookupServlet extends WICIServlet
@@ -37,13 +33,18 @@ public class AddressLookupServlet extends WICIServlet
 	private void invokeAddressLookup(WICIServletMediator requestMediator)
 	{
 		String sMethod = this.getClass().getName() + "[invokeAddressLookup] ";
-				
+		WICIDBHelper dbHelper = new WICIDBHelper();			
 		String streetNumber = requestMediator.searchElementInsidePostRequestBody("streetNumber") != null ? requestMediator.searchElementInsidePostRequestBody("streetNumber") : EMPTY_STRING;;
 		String postalCode = requestMediator.searchElementInsidePostRequestBody("postalCode") != null ? requestMediator.searchElementInsidePostRequestBody("postalCode") : EMPTY_STRING;;
 		
 		log.info(sMethod + "streetNumber=" + streetNumber + ", postalCode=" + postalCode);
 		
-			SharedWebServicesSOAPProxy sharedWebServicesSOAPProxy = getWICISharedServicesProxy();
+		WICIDSSAddressResponse response = new WICIDSSAddressResponse();
+		WICIResponse appResponse = new WICIResponse();
+		appResponse.setError(true);
+		appResponse.setMsg("Unknown error!");
+		
+		/*	SharedWebServicesSOAPProxy sharedWebServicesSOAPProxy = getWICISharedServicesProxy();
 			WebICAddressLookupRequest addressLookupRequest = new WebICAddressLookupRequest();
 
 			addressLookupRequest.setOriginalAddressLine1(streetNumber);
@@ -68,11 +69,44 @@ public class AddressLookupServlet extends WICIServlet
 			}
 
 			WICIResponse appResponse = formatOutputForTabletforSS(serviceResponse);
-			log.info("appResponse=" + appResponse.getMsg() );		
+			log.info("appResponse=" + appResponse.getMsg() );*/	
+		
+		
+		
+		try
+		{
+			if(streetNumber != null && postalCode != null){
+				response =	addressLookupHelper.retriveAddress(streetNumber,postalCode );
+			 if(response != null && response.getStandardCityName() != null && response.getStandardCityName().length() >=18 ){
+						
+						log.info(sMethod + " cityName from postalcode Resposne "+response.getStandardCityName());
+						String abbrCityNameResponse =	dbHelper.retrieve13charABBRCityName(response);
+						
+						if(abbrCityNameResponse != null ){
+							response.setStandardCityName(abbrCityNameResponse);
+					    log.info(sMethod + " cityName from retrive13charABBCityName "+response.getStandardCityName());
+					    
+						appResponse.setData(response);
+						appResponse.setError(false);
+						appResponse.setMsg(EMPTY_STRING);
+						}
+					}
+					appResponse.setData(response);
+					appResponse.setError(false);
+					appResponse.setMsg(EMPTY_STRING);
+					
+				}
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 			requestMediator.processHttpResponse(appResponse);
 	}
 
-	private WICIResponse formatOutputForTabletforSS(ServiceResponse serviceResponse)
+/*	private WICIResponse formatOutputForTabletforSS(ServiceResponse serviceResponse)
 	{
 		String sMethod = this.getClass().getName() + "[formatOutputForTablet] ";
 		log.info(sMethod);
@@ -102,5 +136,5 @@ public class AddressLookupServlet extends WICIServlet
 			}
 		}
 		return appResponse;
-	}
+	}*/
 }

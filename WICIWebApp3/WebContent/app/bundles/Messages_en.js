@@ -59,7 +59,7 @@ WICI.dictionary_en =  {
 	breadCrumbItem_ProductSelection						:	"Product Selection",
 	breadCrumbItem_ApplicantInfo						:	"Applicant Info",
 	// US4637
-	breadCrumbItem_EmailInfo							:	"E-mail Info",	
+	breadCrumbItem_EmailInfo							:	"Contact Information",	
 	breadCrumbItem_FinancialAndEmploymentInfo			:   "Financial and Employment Info",
 	breadCrumbItem_SupplementaryCard					:   "Supp Card",
 	breadCrumbItem_OptionalProducts						:   "Optional Products",
@@ -190,6 +190,39 @@ WICI.dictionary_en =  {
     
     overview_Triangle_world_ELite_MasterCardNote :	"<b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> can impose higher card acceptance costs on merchants.</b>",
     
+
+	contactInfo_Heading1						:  "Contact Information",
+	contactInfo_Heading2						:  "What’s your number?",
+	contactInfo_Heading3						:  "What's your email address? (Optional)",
+	contactInfo_Heading4						:  "eStatements (Optional)",
+	contactInfo_Heading5						:  "eStatements Terms & Conditions",
+	contactInfo_EmailAddress					:	"Email Address",
+	contactInfo_Para41							:	"Access, track and store your statements online. eStatements are a faster more convenient way to manage your credit card account while helping to protect the environment. You’ll be notified instantly when your statement is ready so you don’t have to wait for mail delivery. You can change your statement preferences at any time by logging in to your online account.",
+	contactInfo_Heading6						:  "Stay in the loop with offers and promotions (Optional)",
+	contactInfo_Heading7						:  "Get a $5 CT Money® bonus when you sign up for offers. ",
+	contactInfo_Para1							:  "All fields required unless marked as optional.",
+	contactInfo_Para2							:  "By providing us with your mobile phone number, your chances of instant approval increase and you can add your card to your digital wallet right away!<br><br> "+
+													"Please note, we may send you text messages to your mobile phone number for account notices, these messages will be at no cost to you.",
+	contactInfo_Para3							:  "Yes, I would like to receive eStatements and have read and agree to the Terms and Conditions.",
+	contactInfo_Para51							:  "eStatements Terms & Conditions",
+	contactInfo_Para52							:  	"1. You can continue to access your account details through ctfs.com and telephone banking.<br>"+
+													"2. It usually takes 1 business day for your request to be processed so, depending on your statement date, you may receive one more paper statement in the mail before your electronic statement is processed.<br>"+
+													"3. If you currently receive a paper statement in the mail, it will no longer be mailed to you. As well, notices of change to the information provided in your initial disclosure statement and notices of any amendments to your cardmember agreement, will, in most cases, be sent to you electronically rather than by mail. These notices will appear either as a message on your monthly statement or you will receive notification by email that such notice is available if you log in to Your Online Account.<br>"+
+													"4. You will receive email notifications indicating your statement is available. This email notification may also include some information pertaining to your account such as minimum payment and due date. If you are to receive a notice separate from your statement we will send you an email notification that such notice is available. You will be required to log in to your Online Account to view your electronic statement or any separately provided notices. Email notification will be sent to the email address that you have provided to us. If your email address changes (or you have provided an incorrect address) you are responsible for providing us with the updated email address. You may update your email address by logging in to you Online Account and selecting Manage Email Preferences from Settings.<br>"+
+													"5. Documents that are provided electronically will be retained and made available to you in My Online Account for 7 years. You are responsible for retaining a copy of any such documents. You can cancel your enrolment and switch back to paper statements and notices of change at any time via My Online Account by selecting “Statement Preferences” from the Card Settings or by calling us toll-free at 1-800-459-6415. However, it's very important that you save or print any electronic documents in your My Online Account prior to cancellation as you will no longer have access to them online once the cancellation has been processed.<br>"+
+													"6. Canadian Tire Bank is not liable for any technical issues related to your computer that prevent you from accessing your electronic statement or any notice or other document posted to Your Online Account or receiving any email notification from us.<br>"+
+													"7. If there are supplementary cardholders on this account for which you have given access, you understand that all supplementary cardholders will have access to past information on this account, including information on the primary cardholder and other supplementary cardholders.<br>"+
+													"8. If a transaction has been processed to your account in error, you must call us at 1-800- 459-6415 within 90 days of the date that the transaction was posted to your account.<br>"+
+													"9. Electronic statements, notices and other documents will be in PDF format allowing you to easily print them or save them to your own computer. Adobe Reader is required to view electronic statements. Most versions of Adobe Reader are available at no cost.<br>"+
+													"10. If your account falls into arrears by 3 statement periods or more, you will instead receive statements, notices and other documents in paper format. Once your account is brought up-to-date you will then be able to enrol for electronic documents again.<br>"+
+													"By selecting the tick box you agree to the terms above and confirm that you now wish to receive your monthly credit card statements, notices of any change to the information provided in your initial disclosure statement and notices of any amendments to your cardmember agreement electronically. If you do not wish to proceed, select the cancel button.<br>"+
+													"For more information regarding our privacy policies and how we collect, use and disclose your personal information, please visit our Privacy and Security page.<br>"+
+													"Effective as of 04/26/2018<br>",
+	contactInfo_Para5							:  "Make the most of your credit card by receiving offers.<br>"+
+													" Check the box below to let us know you don't want to miss out!",
+	contactInfo_Para6							:  "<i>I consent to receiving commercial electronic messages from Canadian Tire Corporation, Limited, and its affiliates and/or marketing partners, including Canadian Tire Bank and Canadian Tire Services Limited. You may contact us at <b>customerservice@cantire.ca</b> and may unsubscribe at any time. Standard text and data rates may apply.</i><br><br>"+
+												   	"<i>If you already receive emails from Canadian Tire or its affiliates, you can ignore this box. Your preferences won’t change.</i><br>",
+
 	personalData_TellUsAboutYourself					:	"Tell us about yourself",
 	personalData_IDType									:	"ID Type",
 	personalData_ScanID 								: 	"Scan ID",
@@ -278,7 +311,11 @@ WICI.dictionary_en =  {
 	personalData_PreviousAddress_Title					:	"Previous address only required",
 	personalData_PreviousAddress_Description			:	" if less than 2 years at current address",
 
-
+    // VZE-52
+	pesonalData_covid19LockDownYear                    : "2020",
+	pesonalData_covid19LockDownMonth                    : "03",
+	pesonalData_covid19LockDownDay                    : "01",
+	
 	personalData_PreviousAddress_PostalCode			:	"Postal Code",
 	personalData_PreviousAddress_StreetNumber			:	"Street Number",
 
@@ -489,7 +526,9 @@ WICI.dictionary_en =  {
 	// Old line
 	// optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded Mastercard and that they are not required to obtain the Canadian Tire branded Mastercard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire Mastercard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire Mastercard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
 	optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire Bank issued Mastercard and that they are not required to obtain the Canadian Tire Bank issued Mastercard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire Mastercard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire Mastercard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
-	optionalProducts_SignatureAgreement2				:	"By signing and checking the box below, I agree to enrol in the(se) optional product(s), accept the terms and conditions and to the cost(s) disclosed.",
+	// VZE-87
+	optionalProducts_SignatureAgreement_CP_subTitle				:	"<p>By signing and checking the box below, I agree to enrol in the Optional Product below and I accept the <b>monthly premium of $1.10/$100 of my average daily balance</b> that will be charged to my Canadian Tire Bank issued Mastercard. I also understand the coverages this product offers and all the terms and conditions that have been disclosed to me above.</p><p>Residents of Quebec: I also confirm that I have been provided with and have reviewed the Summary and Fact Sheet.</p>",
+	optionalProducts_SignatureAgreement_IW_subTitle				:	"<p>By signing and checking the box below, I agree to enrol in the Optional Product below and I accept the <b>monthly subscription fee of $4.99 + taxes</b> that will be charged to my Canadian Tire Bank issued Mastercard. I also understand the features this product offers and all the terms and conditions that have been disclosed to me above.</p>",
 
     optionalProducts_CreditProtector_Additions			:	"*Plus applicable taxes, payable monthly. See the Legal Information handout or your Certificate of Insurance for all terms, conditions, limitations and exclusions. Terms and conditions apply." +
       														"<br>**If you are less than age 66, you will be enrolled in Credit Protector. If you are between 66-75 you will be enrolled in Credit Protector - <i>Senior</i>. Credit Protector and Credit Protector-<i>Senior</i> are underwritten by American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida. American Bankers Life Assurance Company of Florida and American Bankers Insurance Company of Florida and their subsidiaries and affiliates carry on business in Canada under the name of Assurant Solutions.",
@@ -591,17 +630,20 @@ WICI.dictionary_en =  {
 	optionalProducts_DoNotEnrolMe 						:   "Not at this time",
 
 	optionalProducts_CreditProtector 					:	"- Enrol me in Credit Protector/Credit Protector Senior.",
-	optionalProducts_TermsAndConditions16				:	"I have read and understand the product details, terms and conditions and give my consent to be enrolled in the above selected optional product(s).",
+	// VZE-87
+	optionalProducts_TermsAndConditions_16_CP				:	"<p>I have read and understand the product details, terms and conditions and give my consent to be enrolled in <b>Credit Protector<span class=\"optionaProduct_cp_iw_sup\">&reg;</span> Insurance.</b></p>",
+	optionalProducts_TermsAndConditions_16_IW              :   "<p>I have read and understand the product details, terms and conditions and give my consent to be enrolled in <b>Identity Watch Classic.</b></p>",            
 
-
-	optionalProducts_WarningHeader 						:   "PLEASE READ CAREFULLY REGARDING<br/>OPTIONAL PRODUCTS",
+    // VZE-87
+	optionalProducts_CP_WarningHeader 						:   "PLEASE READ CAREFULLY REGARDING<br>CREDIT PROTECTOR<sup>&reg;</sup> INSURANCE",
+	optionalProducts_IW_WarningHeader 						:   "PLEASE READ CAREFULLY REGARDING<br>IDENTITY WATCH CLASSIC",
 	
 	// Old line
 	// optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector/Credit Protector-Senior</li><li>Identity Watch Classic</li></ul></i>",
 	// optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector/Credit Protector-Senior</li></ul></i>",
 	optionalProducts_PAProducts							:   "Canadian Tire Protection Advantage, which includes:<i><ul><li>Credit Protector<sup>&reg;</sup> Insurance</li><li>Identity Watch Classic</li></ul></i>",
-	optionalProducts_CPProducts							:   "<i><ul><li>Credit Protector<sup>&reg;</sup> Insurance</li></ul></i>",
-	optionalProducts_IWProducts							:   "<i><ul><li>Identity Watch Classic</li></ul></i>",
+	optionalProducts_CPProducts							:   "<ul><li>Credit Protector<sup>&reg;</sup> Insurance</li></ul>",
+	optionalProducts_IWProducts							:   "<ul><li>Identity Watch Classic</li></ul>",
 	
 	// US3981
 	optionalProductScreen_Handoutprompts_Title			:	"IMPORTANT",
@@ -1057,7 +1099,9 @@ WICI.dictionary_en =  {
 	sigworldElite_MasterCardNote_1                      :  " <b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>can impose higher card acceptance costs on merchants.</b>",
 
 	signatureScreen_Reset_Button_Label             		:    "Clear Signature",
-
+	// VZE-88
+	signatureScreen_AllowUpSellOMZCard                  :     "false",
+	
 	signatureScreen_TermsAndConditions_AcceptBox     	:    "I have read, understood and agree to the terms and conditions set out above for the ",
 	signatureScreen_TermsAndConditions_AcceptBox_MSPVerification              	:    " <b>and MSP verification.</b>",
 
@@ -1085,7 +1129,7 @@ WICI.dictionary_en =  {
 	summary_SelectProduct_Province						:	"Province",
 
 	summary_TellAboutYourself_SubTitle                  :	"Customer Identification" ,
-
+	summary_ContactInfo_SubTitle                 		:	"Contact Information" ,
 	summary_TellAboutYourself_ApplicantInfo				:	"Applicant Information",
 	summary_TellAboutYourself_FirstName					:	"First Name",
 	summary_TellAboutYourself_Initial					:	"Middle Initial",

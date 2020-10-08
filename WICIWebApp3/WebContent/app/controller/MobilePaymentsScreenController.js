@@ -76,7 +76,7 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
     function syncUserData() {
         var sMethod = 'syncUserData() ';
         console.log(logPrefix + sMethod);
-        console.log(logPrefix + sMethod + "cellPhone from Personal Info page  :: " + activationItems.getModel('personalData').get('cellPhone'));
+        console.log(logPrefix + sMethod + "cellPhone from Personal Info page  :: " + activationItems.getModel('contactInfoScreen').get('cellPhone'));
         model.set('androidPayCheckField', $(refs.androidPayCheckField).is(':checked') ? 'Y' : 'N');
         model.set('applePaycheckField',   $(refs.applePaycheckField).is(':checked') ? 'Y' : 'N');
         model.set('noThanksCheckField',   $(refs.noThanksCheckField).is(':checked') ? 'Y' : 'N');
@@ -84,7 +84,7 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
         if($(refs.mobilePhoneField).hasClass('hideElement')){
         	model.set('mobilePhone', '');
         } else {
-        	activationItems.getModel('personalData').set('cellPhone', $(refs.mobilePhone).val());
+        	activationItems.getModel('contactInfoScreen').set('cellPhone', $(refs.mobilePhone).val());
       	    model.set('mobilePhone',  $(refs.mobilePhone).val());  
         }
         console.log(logPrefix + sMethod + "Mobile phone :: " + $(refs.mobilePhone).val());
@@ -102,17 +102,17 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
         
         if(!$(refs.mobilePhoneField).hasClass('hideElement')) {
 		        if($(refs.mobilePhone).val() != '') {     	
-		        	activationItems.getModel('personalData').set("cellPhone", $(refs.mobilePhone).val());
-		        } else if($('#personalData_CellPhone_TextField').val().replace(/-/g, '') != '' && $(refs.mobilePhone).val() == '') {
+		        	activationItems.getModel('contactInfoScreen').set("cellPhone", $(refs.mobilePhone).val());
+		        } else if($('#contactInfo_CellPhone_TextField').val().replace(/-/g, '') != '' && $(refs.mobilePhone).val() == '') {
 		        	if(($('#secondaryLandline_CheckField').is(':checked'))){
-		        		activationItems.getModel('personalData').set("cellPhone", activationItems.getModel('personalData').get('cellPhone'));
+		        		activationItems.getModel('contactInfoScreen').set("cellPhone", activationItems.getModel('contactInfoScreen').get('cellPhone'));
 		        	} else if ($('#primaryLandline_CheckField').is(':checked') && ($('#secondaryLandline_CheckField').is(':checked'))) {
-		        		activationItems.getModel('personalData').set("cellPhone", activationItems.getModel('personalData').get('cellPhone'));
+		        		activationItems.getModel('contactInfoScreen').set("cellPhone", activationItems.getModel('contactInfoScreen').get('cellPhone'));
 		        	} else {
-		        		activationItems.getModel('personalData').set("cellPhone", $('#personalData_CellPhone_TextField').val());
+		        		activationItems.getModel('contactInfoScreen').set("cellPhone", $('#contactInfo_CellPhone_TextField').val());
 		        	}		        	
 		        } else if($(refs.mobilePhone).val() == '') {
-		        	activationItems.getModel('personalData').set("cellPhone", '');
+		        	activationItems.getModel('contactInfoScreen').set("cellPhone", '');
 		        }
         }
         console.log(logPrefix + sMethod + ' model data: \n' + model.toString());

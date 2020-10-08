@@ -89,7 +89,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         
         if(pendingScreenState==="INSESSION"){        	        	
         	retrievalTokenRefNum = respAn.getRetrievalToken(argResponse).toUpperCase();
-        	retrievalPhoneNumber = activationItems.getModel("personalData").get("homePhone");
+        	retrievalPhoneNumber = activationItems.getModel("contactInfoScreen").get("homePhone");
         	activationItems.setAccountApplicationResponse(argResponse);
         	activationItems.setNewAccountApplicationResponse(argResponse);
         	console.log(logPrefix + sMethod + "INSESSION Retrieval Data=" + retrievalTokenRefNum + "," + retrievalPhoneNumber);

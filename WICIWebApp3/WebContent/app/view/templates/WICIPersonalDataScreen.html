@@ -8,30 +8,49 @@
 	    <br>
 		<br>
 		<center><span class="pageTitle" data-translationkey="personalData_TellUsAboutYourself"></span></center>
-		<center><div id="personalData_MyCTMArea" >
-            <br>
-            <br>
-                <table id="myCTMTable" class="stretchThisTable">
-                    <tr class="fieldRow">
-                        <td class="fieldLabelsTopCell fieldCellSize33 selectedBreadcrumb">
-                            <span data-translationKey="personalData_CTMField"></span>
-                        </td>
-                        <td class="fieldValuesTopCell">
-                            <input class="fieldValuesTextField" id="personalData_CTMNumber_TextField" type="text" maxlength="16" tabindex=1/>
-                        </td>
-                    </tr>
-                    <tr class="fieldRow">
-                       <td  style="padding-left:5px;border-left:0px;border-bottom:0px;outline-style: none;margin: 0px;">
-                         <span id="personalData_ScanLoyaltyButton" class="button greenflat scanLoyaltyButtonWidth bottomSpacing">
-        					<span class="buttonText lookupSpan driversLicenseSpan" data-translationKey="personalData_Scan_Loyalty_Label"></span>
-					     </span>
+		<center>
+				<div id="personalData_MyCTMArea">
+			<br> <br>
+			<table id="myCTMTable" class="stretchThisTable">
+				<tbody>
+					<tr class="fieldRow">
+						<td style="border-radius: 11px 0 0 11px;" class="fieldLabelsTopCell fieldCellSize33 selectedBreadcrumb">
+							<span data-translationkey="personalData_CTMField"></span>
 						</td>
-                        <td class="fieldValuesCell">
-                            <p><span data-translationKey="personalData_CTMAccountText"></span></p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+						<td class="fieldValuesTopCell"
+							style="width: 75px; border-right: none; padding-right: 0;"><input
+							class="fieldValuesTextField" autocomplete="off" autocorrect="off"
+							autocapitalize="off" spellcheck="false"
+							id="personalData_CTMNumber_TextField_Prefix" type="tel" maxlength="6" ></td>
+						<td class="fieldValuesTopCell" style="border-left: none; padding-left: 0;"><input
+							class="fieldValuesTextField" autocomplete="off" autocorrect="off"
+							autocapitalize="off" spellcheck="false"
+							id="personalData_CTMNumber_TextField" maxlength="10"
+							tabindex=1 type='tel' max="9999999999" min="0"></td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="myCTMTable" class="stretchThisTable">
+				<tbody>
+					<tr class="fieldRow">
+						<td
+							style="padding-left: 5px; border-left: 0px; border-bottom: 0px; outline-style: none; margin: 0px; border-radius: 11px 0 0 11px;"
+							class="fieldLabelsBottomCell fieldCellSize33 selectedBreadcrumb">
+							<span id="personalData_ScanLoyaltyButton"
+							class="button greenflat scanLoyaltyButtonWidth bottomSpacing">
+								<span class="buttonText lookupSpan driversLicenseSpan"
+								data-translationkey="personalData_Scan_Loyalty_Label"></span>
+						</span>
+						</td>
+						<td class="fieldValuesCell">
+							<p>
+								<span data-translationkey="personalData_CTMAccountText"></span>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
         </center>
         <br>
         <br>
@@ -130,7 +149,7 @@
 	                        <span data-translationKey="personalData_FirstName"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=6/>
+	                        <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="personalData_FirstName_TextField" type="text" maxlength="50" tabindex=6/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -138,7 +157,7 @@
 	                        <span data-translationKey="personalData_Initial"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Initial_TextField" type="text" tabindex=7/>
+	                        <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="1" id="personalData_Initial_TextField" type="text" tabindex=7/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -146,7 +165,7 @@
 	                        <span data-translationKey="personalData_LastName"></span>
 	                    </td>
 	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=8/>
+	                        <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="personalData_LastName_TextField" type="text" maxlength="50" tabindex=8/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -178,7 +197,7 @@
 	                        <span data-translationKey="personalData_Address_PostalCode"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_PostalCode_TextField" tabindex=11 type="text"/>
+	                        <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="6" id="personalData_Address_PostalCode_TextField" tabindex=11 type="text"/>
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -186,7 +205,7 @@
 	                        <span data-translationKey="personalData_Address_StreetNumber"></span>
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="personalData_Address_StreetNumber_TextField" tabindex=12 type="text" maxlength="6" />
+	                        <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="personalData_Address_StreetNumber_TextField" tabindex=12 type="text" maxlength="6" />
 	                    </td>
 	                </tr>
 	            </table>
@@ -385,7 +404,7 @@
 	                        <span data-translationKey="personalData_Address_MonthlyPayment"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField" id="personalData_Address_MonthlyPayment_TextField" tabindex=18 type='tel' max="9999" min="0" />
+	                        <input class="fieldValuesTextField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="8" id="personalData_Address_MonthlyPayment_TextField" tabindex=18 type='tel' max="9999" min="0" />
 	                    </td>
 	                </tr>
 
@@ -412,7 +431,7 @@
 
 								   						<td id="durationCellsSeparator" class="fieldValuesCell fieldCellSize50">
 									   						<div id="durationControlLeftPadding" class="numbers-row">
-		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_years_TextField" tabindex=19 min="0" max="100">
+		        												<input type="tel" class="durationInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="3" id="personalData_Address_Duration_years_TextField" tabindex=19 min="0" max="100">
 		      												</div>
 	      												</td>
 													</tr>
@@ -428,7 +447,7 @@
 
 								   						<td id="durationCellsSeparatorPadding" class="fieldValuesCell fieldCellSize50">
 									   						<div id="durationControlLeftPadding" class="numbers-row" >
-		        												<input type="tel" class="durationInput" id="personalData_Address_Duration_months_TextField" tabindex=20 min="0" max="11">
+		        												<input type="tel" class="durationInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="2" id="personalData_Address_Duration_months_TextField" tabindex=20 min="0" max="11">
 		      												</div>
 	      												</td>
 													</tr>
@@ -579,85 +598,12 @@
 				</div>
 			</div>
 			<!-- US3623 End -->
+			<br>
+			<br>
 		</div>
 		</center>
 		<! -- US4709 -->
-		<br>
-		<br>
-			<div>
-				<center>
-		            <table id="personalInfoTable" class="stretchThisTable personalInfoPhoneTable">
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsTopCell fieldCellSize33">
-		                        <span data-translationKey="personalData_PrimaryPhone"></span>
-		                    </td>
-		                    <td class="fieldValuesCell">
-		                        <input class="fieldValuesPhoneField" id="personalData_HomePhone_TextField" type='tel' maxlength="10" tabindex=28/>
-		                    </td>
-		                </tr>
-	                </table>
-            	</center>
-                <br>
-	            <table class="radioButtonTableNoBorderPersonalInfo elementWithLeft25"  id="primaryPhoneRadioGroup">
-                        <tr>
-                            <td>
-                            	<div class="agentRadiobutton">
-                                	<input type="radio" id="primaryLandline_CheckField" name="primayRadios" value="primaryLandline">
-                                </div> 
-                            </td>
-                            <td class="radioTextWidth">
-                                 <span class="agentRadioButton" data-translationKey="personalData_Landline"></span>
-                            </td>
-                            
-                            <td>
-                                <div class="agentRadiobutton">
-                                	<input type="radio" id="primaryMobile_CheckField" name="primayRadios" value="primaryMobile">
-						        </div>    
-                            </td>
-                            <td class="radioTextWidth">
-                            	<span class="agentRadioButton" data-translationKey="personalData_Mobile"></span>
-                            </td>
-                        </tr>
-             	</table>
-             	<br>
-             	<br>
-             	<center>
-	             	<table id="personalInfoTable" class="stretchThisTable personalInfoPhoneTable">
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsTopCell fieldCellSize33">
-		                        <span data-translationKey="personalData_SecondaryPhone"></span>
-		                    </td>
-		                    <td class="fieldValuesBottomCell">
-		                        <input class="fieldValuesPhoneField" id="personalData_CellPhone_TextField" type='tel' maxlength="10" tabindex=29/>
-		                    </td>
-		                </tr>
-	            	</table>
-            	</center>
-            	<br>
-            	<table class="radioButtonTableNoBorderPersonalInfo elementWithLeft25" id="secondaryPhoneRadioGroup">
-                        <tr>
-                            <td>
-                            	<div class="agentRadiobutton">
-                                	<input type="radio" id="secondaryLandline_CheckField" name="secondaryRadios" value="secondaryLandline">
-                                </div> 
-                            </td>
-                            <td class="radioTextWidth">
-                                 <span class="agentRadioButton" data-translationKey="personalData_Landline"></span>
-                            </td>
-                            
-                            <td>
-                                <div class="agentRadiobutton">
-                                	<input type="radio" id="secondaryMobile_CheckField" name="secondaryRadios" value="secondaryMobile">
-						        </div>    
-                            </td>
-                            <td class="radioTextWidth">
-                            	<span class="agentRadioButton" data-translationKey="personalData_Mobile"></span>
-                            </td>
-                        </tr>
-             	</table>
-			</div>
-			<br>
-			<br>
+			
 		<!--
 	personalData_Correspondence							:	"Correspondence:",
 	personalData_English								:	"English:",

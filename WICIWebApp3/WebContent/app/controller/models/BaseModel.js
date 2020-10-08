@@ -270,12 +270,6 @@ WICI.BaseModel = function(config) {
 		
     	return fullYears;
     };
-    //----------------------------------------------------------------
-    // US4637
-    this.isEmail_valid = function(email){
-    	var pattern = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/;
-    	return pattern.test(email);
-    };
     // ---------------------------------------------------------------
     this.isUserAgentId_valid = function(userAgentIdValue){
     	var pattern = /^[a-zA-Z0-9]{1,7}$/;

@@ -36,6 +36,7 @@ import com.ctfs.WICI.Model.LoginInfo;
 import com.ctfs.WICI.Model.PendingApplicationDatabaseUpdateException;
 import com.ctfs.WICI.Model.PendingApplicationRetrievalException;
 import com.ctfs.WICI.Model.ReceiptCustomerInfo;
+import com.ctfs.WICI.Model.WICIDSSAddressResponse;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
@@ -104,6 +105,25 @@ public class WICIDBHelper
 
 		// Get connection
 		Connection connection = new DatabaseConnectionFactory().getOracleTCTSalesDatabaseConnection();
+		connection.setAutoCommit(enableAutoCommit);
+
+		return connection;
+	}
+	
+	
+	protected Connection connectToINETDB(boolean enableAutoCommit) throws SQLException, NamingException
+	{
+		if (mockedConnection != null)
+		{
+			return mockedConnection;
+		}
+		String sMethod = "[] ";
+		log.info(sMethod + "::Called::");
+
+		log.info("Start connectToINETDB process...");
+
+		// Get connection
+		Connection connection = new DatabaseConnectionFactory().getOracleINetDatabaseConnection();
 		connection.setAutoCommit(enableAutoCommit);
 
 		return connection;
@@ -2180,6 +2200,50 @@ public class WICIDBHelper
 			DisposeBDResources(connection, preparedStatement, null);
 		}
 		return checkLocationResponse;
+	}
+	
+	
+	
+	
+	public String retrieve13charABBRCityName(
+			WICIDSSAddressResponse addressResponse) throws Exception {
+		String sMethod = "[retrieve13charABBRCityName] ";
+
+		// Create sql statement
+		String sql = "SELECT * FROM  INST_CR.CITY_ABBR WHERE CITY_FULLNAME = ? AND  PROVINCE =?";
+		
+		log.info(sMethod + "::SQL::" + sql);
+		
+		String city13CharName= null;
+		
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			
+			connection = connectToINETDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			
+			preparedStatement.setString(1, addressResponse.getStandardCityName().toUpperCase());
+			preparedStatement.setString(2, addressResponse.getStandardProvince());
+			rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				
+				city13CharName =(rs.getString("CITY_13CHAR_NAME"));
+				
+				log.info(sMethod + "::::" + city13CharName );
+				
+			}
+		} catch (Exception ex) {
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		} finally {
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+		return city13CharName;
 	}
 	
 }

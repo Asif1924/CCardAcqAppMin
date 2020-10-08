@@ -6,8 +6,8 @@ WICI.BreadcrumbsHelper = (function () {
     }
     
     function checkLandlineSelected(activationItems) {
-    	return activationItems.getModel('personalData').get('primaryLandline_CheckField') === "Y" && 
-				activationItems.getModel('personalData').get('secondaryLandline_CheckField') === "Y";
+    	return activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === "Y" && 
+				activationItems.getModel('contactInfoScreen').get('secondaryLandline_CheckField') === "Y";
     }
 
     function assembleBreadcrumbs (currentScreenNumber, $screenContainer, activationItems) {

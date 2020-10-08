@@ -30,7 +30,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var refs = {
         moneyAdvantageContainer :   '#personalData_MyCTMArea',
         loyaltyMembershipNumber :   '#personalData_CTMNumber_TextField',
-
+		loyaltyMembershipNumberPrefix  :	'#personalData_CTMNumber_TextField_Prefix',
+		
         placeofissue : '#personalData_PlaceOfIssue_TextField',
         idtype : '#personalData_IDType_TextField',
         idnumbers : '#personalData_IDNumber_TextField',
@@ -51,18 +52,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         idExpiryDate : '#personalData_ExpiryDate_TextField',
         expiryDate_Area : '#personalData_ExpiryDate_Area',
 
-      //  email : '#personalData_EmailAddress_TextField',
-        homePhone : '#personalData_HomePhone_TextField',
-        cellPhone : '#personalData_CellPhone_TextField',
-
         correspondence : '#personalData_Correspondence_Group',
         correspondence_eng : '#personalData_English_RadioButton',
         correspondence_fre : '#personalData_French_RadioButton',
         
-      //  receiveemailArea:'#personalData_ReceiveEmailArea',
-       // receiveEmail : '#personalData_ReceiveEmail_Group',
-       // receiveemail_optin : '#personalData_Optin_RadioButton',
-       // receiveemail_optout : '#personalData_Optout_RadioButton',
         nextButton: ".PersonalDataScreen_NextButton",
         prevButton: ".PersonalDataScreen_PrevButton",
         postalcode:         '#personalData_Address_PostalCode_TextField',
@@ -113,15 +106,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         residance_Other     : '#residance_Other',
         
         // US4709
-        homePhoneRadioGroup     	    :   '#primaryPhoneRadioGroup',
-        cellPhoneRadioGroup		        :   '#secondaryPhoneRadioGroup',
-        //consentYesOrNoRadioButton       :   '#consentYesOrNoRadioButton',
-        yes_CheckField					:	'#yes_CheckField',
-        nothanks_CheckField				:	'#nothanks_CheckField',
-        primaryMobile_CheckField		:	'#primaryMobile_CheckField',
-        primaryLandline_CheckField		:	'#primaryLandline_CheckField',
-        secondaryLandline_CheckField	:	'#secondaryLandline_CheckField',
-        secondaryMobile_CheckField		:	'#secondaryMobile_CheckField',
         mobilePayments					:	'#mobilePayments',
         month_expirydate_QC_healthCard  :   '#personalData_month_of_expirydate',
         year_expirydate_QC_healthCard   :   '#personalData_year_of_expirydate',
@@ -129,183 +113,25 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var validationGrroupsCol = 5;
     var prevAdressValidationIndex = 4;
     var durationValidationIndex = 5;
-    //var emailValidationIndex = 2;
     var personalDataValidationMax = 2;
     var personalDataModel = new WICI.BaseModel({
         name : 'personalData',
         refs : refs,
-        data : [ {
-            name: 'loyaltyMembershipNumber',
-            value: null,
-            validation: {
-                type: 'mod10',
-                message: 'personalData1_validation_loyaltyMembershipNumber',
-                canBeEmpty: true,
-                minlength: 16,
-                group: [ 1 ]
-            }
-        }, {
-            name : 'placeofissue',
-            value : null,
-            validation : {
-                type : 'presence',
-                message : 'personalData1_validation_placeofissue',
-                group: [ 1 ]
-            }
-        }, {
-            name : 'idtype',
-            value : null,
-            validation : {
-                type : 'presence',
-                message : 'personalData1_validation_idtype',
-                group: [ 1 ]
-            }
-        }, {
-            name : 'idnumbers',
-            value : null,
-            validation : {
-                type : 'idFormat',
-                message : 'personalData1_validation_idnumbers',
-                // US4112
-                matcher : /^[a-zA-Z0-9\-\s]{1,20}$/,
-                group: [ 1 ]
-            }
-        },
-
-            {
-                name : 'title',
-                value : null,
-                validation : null
-            }, {
-                name : 'firstName',
-                value : null,
-                validation : {
-                    type : 'personName',
-                    message : 'personalData1_validation_firstName',
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'initial',
-                value : null,
-                validation : {
-                    type : 'format',
-                    message : 'personalData1_validation_initial',
-                    matcher : /^[A-Z]{1}/,
-                    canBeEmpty : true,
-                    group: [ 1 ]
-
-                }
-            }, {
-                name : 'lastName',
-                value : null,
-                validation : {
-                    type : 'personName',
-                    message : 'personalData1_validation_lastName',
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'birthDate',
-                value : null,
-                validation : {
-                    type : 'birthDate',
-                    message : 'personalData1_validation_birthDate',
-                    group: [ 1 ]
-                }
-            },
-            // US4365
-            {
-                name : 'idExpiryDate',
-                value : null,
-                validation : {
-                    type : 'idExpiryDate',
-                    message : 'personalData1_validation_expiryDate',                    
-                    group: [ 1 ]
-                }
-            },
-            // US4168
-            {
-                name : 'age',
-                value : null,
-                validation : null
-            },
-            /*{
-                name : 'email',
-                value : null,
-                validation : {
-                    type : 'email',
-                    message : 'personalData1_validation_email',
-                    canBeEmpty : true,
-                    group: [ 1 ]
-                }
-            },{
-                name : 'receiveEmail',
-                value : null,
-                validation : {
-                    type : 'presence',
-                    message : 'personalData1_validation_ReceiveEmail',
-                    group: [ 2 ]
-                }
-            },*/
-            {
-                name : 'homePhone',
-                value : null,
-                validation : {
-                    type : 'phone',
-                    message : 'personalData1_validation_homePhone',
-                    canBeEmpty : false,
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'cellPhone',
-                value : null,
-                validation : {
-                    type : 'phone',
-                    message : 'personalData1_validation_cellPhone',
-                    canBeEmpty : true,
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'correspondence',
-                value : null,
-                validation : {
-                    type : 'presence',
-                    message : 'personalData1_validation_correspondence',
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'homePhoneRadioGroup',
-                value : null,
-                validation : {
-                    type : 'termsAndConditions',
-                    message : 'personalData1_validation_primaryRadio',
-                    canBeEmpty : false,
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'cellPhoneRadioGroup',
-                value : null,
-                validation : {
-                    type : 'termsAndConditions',
-                    message : 'personalData1_validation_secondaryRadio',
-                    canBeEmpty : true,
-                    group: [ 1 ]
-                }
-            }, {
-                name : 'consentYesOrNoRadioButton',
-                value : null,
-                validation : null
-            },
-            
-            //{ name: 'consentGranted',     		 value: null, validation: null },
-            { notField:true, name: 'MSISDN',     value: null, validation: null },
-            { notField: true, name: 'primaryMobile_CheckField',       value: null },
-            { notField: true, name: 'primaryLandline_CheckField',     value: null },
-            { notField: true, name: 'secondaryLandline_CheckField',   value: null },
-            { notField: true, name: 'secondaryMobile_CheckField',     value: null },
-            
-            { notField: true, name: 'yes_CheckField',   value: null },
-            { notField: true, name: 'nothanks_CheckField',     value: null },
-            ]
+        data : [ 
+		{ name: 'loyaltyMembershipNumber', 	value: null,  validation : { type : 'mod10', 		message : '', group: [ 1 ], canBeEmpty: true, minlength: 16 } },
+		{ name : 'placeofissue', 			value : null, validation : { type : 'presence', 	message : '', group: [ 1 ] } },
+		{ name : 'idtype', 					value : null, validation : { type : 'presence', 	message : '', group: [ 1 ] } },
+		{ name : 'idnumbers', 				value : null, validation : { type : 'idFormat', 	message : '', group: [ 1 ], matcher : /^[a-zA-Z0-9\-\s]{1,20}$/ } },
+		{ name : 'title', 					value : null, validation : null },
+		{ name : 'firstName', 				value : null, validation : { type : 'personName',   message : '', group: [ 1 ] } },
+		{ name : 'initial', 				value : null, validation : { type : 'format', 	    message : '', group: [ 1 ], matcher : /^[A-Z]{1}/, canBeEmpty : true } },
+		{ name : 'lastName', 				value : null, validation : { type : 'personName',   message : '', group: [ 1 ] } },
+		{ name : 'birthDate', 				value : null, validation : { type : 'birthDate',    message : '', group: [ 1 ] } },
+        { name : 'idExpiryDate', 			value : null, validation : { type : 'idExpiryDate', message : '', group: [ 1 ] } },
+        { name : 'age', 					value : null, validation : null },
+		{ name : 'correspondence', 			value : null, validation : { type : 'presence', 	message : '', group: [ 1 ] } },
+		{notField: true, name: 'scanFlag', value: null },
+      ]
     });
     var addressModel = new WICI.BaseModel({
         name : 'personalData2_Address',
@@ -318,17 +144,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             {name: 'suiteunit',    value: null, validation: {type: 'suiteUnit',    message: '', group: [3], canBeEmpty: true} },
             {name: 'city',         value: null, validation: {type: 'city',         message: '', group: [3]} },
             {name: 'province',     value: null, validation: {type: 'presence',     message: '', group: [3]} },
-
             {notField: true, name: 'addressline1_Array', value: null },
             {notField: true, name: 'addressline2_Array', value: null },
-
+			{notField: true, name: 'addressline1_prev_Array', value: null },
             {name: 'house',             value: null, validation: {type: 'presence',     message: '', group: [3]} },
-            // US4039
             {name: 'housingpayment',    value: null, validation: {type: 'format',       message: '', group: [3], matcher: /^[0-9\,]{1,4}$/} },
-
             {name: 'years',             value: null, validation: {type: 'presence',     message: '', group: [5]} },
             {name: 'months',            value: null, validation: {type: 'presence',     message: '', group: [5]} },
-
             {name: 'postalcode_prev',   value: null, validation: {type: 'postal',       message: '', group: [4]} },
             {name: 'streetnumber_prev', value: null, validation: {type: 'streetNumber', message: '', group: [4]} },
             {name: 'addressline1_prev', value: null, validation: {type: 'addressLine',  message: '', group: [4]} },
@@ -336,17 +158,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             {name: 'city_prev',         value: null, validation: {type: 'city',         message: '', group: [4]} },
             {name: 'suiteunit_prev',    value: null, validation: {type: 'suiteUnit',    message: '', group: [4], canBeEmpty: true} },
             {name: 'province_prev',     value: null, validation: {type: 'presence',     message: '', group: [4]} },
-            // US3623            
-            {name: 'flipPrevWasInCanada',  value: null, validation: null },
-            
-            {notField:true, name: 'addressline1_prev_Array', value: null } ]
+            {name: 'flipPrevWasInCanada',  value: null, validation: null }]
     });
     var models = {
         personalDataModel:personalDataModel,
         addressModel: addressModel
     };
     this.innerModels = models;
-
     // ---------------------------------------------------------------------------------------
     function init(argFlow) {
         var sMethod = 'init() ';
@@ -380,26 +198,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         createView();        
         bindEvents();
-
+		createFlips();
+		restoreCreditCardData();
         populateIdTypesProvinces();
         populateProvinces();
         populateIdTypesList();
         showHideQCHealthCard();
-         // US4782 
         populateMonthOfExpiryDate();
         populateYearOfExpiryDate();
-        // Set masks for UI elements
         setUIElementsMasks();
-
-        restoreCreditCardData();
-
-        // onEmailChangesHandler();
         hideShowMoneyAdvantage();
-        
-        // US3623
-         createFlips();
-         applyPaddingForResidanceType();
+        applyPaddingForResidanceType();
+		setLoyaltyMembershipNumberPrefix();
     }
+    // ---------------------------------------------------------------------------------------
+	function setLoyaltyMembershipNumberPrefix() {
+		$(refs.loyaltyMembershipNumberPrefix).val("636574");
+		$(refs.loyaltyMembershipNumberPrefix).attr('disabled', 'disabled');
+	}
     // ---------------------------------------------------------------------------------------
     function show() {
         $screenContainer.show();
@@ -432,14 +248,38 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 break;
         }
     }
+	//---------------------------------------------------------------------------------------
+    function updateTitleRadioButtons() {
+        clearRadios('title');
+        switch (models.personalDataModel.get('title')) {
+            case 'MR':
+                $(refs.title_MR).addClass('ui-btn-active');
+                break;
+            case 'MRS':
+                $(refs.title_MRS).addClass('ui-btn-active');
+                break;
+            case 'MISS':
+                $(refs.title_MISS).addClass('ui-btn-active');
+                break;
+            case 'MS':
+            	$(refs.title_MS).addClass('ui-btn-active');
+            	break;     
+        }
+    }
+	//---------------------------------------------------------------------------------------
+    function updateCorrespondenceRadioButtons() {
+        clearRadios('correspondence');
+        switch (models.personalDataModel.get('correspondence')) {
+            case 'E':
+                $(refs.correspondence_eng).addClass('ui-btn-active');
+                break;
+            case 'F':
+                $(refs.correspondence_fre).addClass('ui-btn-active');
+                break;
+        }
+    }
     // ---------------------------------------------------------------------------------------
     function setUIElementsMasks() {
-        // Set phone fields mask
-        $('.fieldValuesPhoneField').mask('999-999-9999', {
-            placeholder : "",
-            useDelimeter : true,
-            delimeter : '-'
-        });
         $(refs.housingpayment).autoNumeric('init', {aSign:' $ ',vMin:'0.00', vMax:'9999.99', mDec:'0', wEmpty: 'sign'});
 
         $(refs.years).durationControl('createControl');
@@ -448,13 +288,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.years).autoNumeric('init', {aSign:'',vMin:'0', vMax:'100', mDec:'0'});
         $(refs.months).autoNumeric('init', {aSign:'',vMin:'0', vMax:'11', mDec:'0'});
 
-        $(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999999999', mDec:'0',wEmpty: '', aSep:''});
+        $(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999', mDec:'0',wEmpty: '', aSep:'', lZero: 'keep'});
     }
     // ---------------------------------------------------------------------------------------
     function createView() {
         $screenContainer.empty();
         assembleNavigationBarAtTop();
-        WICI.BreadcrumbsHelper.assembleBreadcrumbs(2, $screenContainer, activationItems);
+        WICI.BreadcrumbsHelper.assembleBreadcrumbs(3, $screenContainer, activationItems);
         assemblePageHTML($screenContainer, '#WICIPersonalDataScreen-template');
         hideAddressLookupSelectionDropDowns();
         $screenContainer.addClass("breadcrumbPadding");
@@ -498,10 +338,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function syncUserData(scanFlag) {
         var sMethod = 'syncUserData() ';
-        console.log(logPrefix + sMethod);
-        var currModel = models.personalDataModel;
-        currModel.set('loyaltyMembershipNumber', $(refs.loyaltyMembershipNumber).val()) ;
+        console.log(logPrefix + sMethod + " " + $(refs.loyaltyMembershipNumberPrefix).val()+$(refs.loyaltyMembershipNumber).val());
 
+        var currModel = models.personalDataModel;
+		if($(refs.loyaltyMembershipNumber).val() == null || $(refs.loyaltyMembershipNumber).val() == '') {
+			currModel.set('loyaltyMembershipNumber', $(refs.loyaltyMembershipNumber).val()) ;
+		} else {
+			currModel.set('loyaltyMembershipNumber', $(refs.loyaltyMembershipNumberPrefix).val()+$(refs.loyaltyMembershipNumber).val()) ;
+		}
+		console.log(logPrefix + sMethod + " loyaltyMembershipNumber in model " + currModel.get('loyaltyMembershipNumber'));
+		
         currModel.set('placeofissue', $(refs.placeofissue).val());
         
         console.log(logPrefix + sMethod + " idtype :: before sync :: " + $(refs.idtype).val());        
@@ -522,7 +368,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         console.log(logPrefix + sMethod + " idtype :: after sync:: " + currModel.get('idtype'));
         
-        // currModel.set('idtype', $(refs.idtype).val());
         currModel.set('idnumbers', $(refs.idnumbers).val().toUpperCase().replace(/\s/g,''));
 
         currModel.set('firstName', $(refs.firstName).val().toUpperCase());
@@ -533,77 +378,19 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         // US4365
       
         if(showQCHealthCard){
-        if(currModel.get('placeofissue') != null && currModel.get('idtype') != null  && currModel.get('placeofissue') == 'QC' && currModel.get('idtype') == 'HE'){
-              
+        	if(currModel.get('placeofissue') != null && currModel.get('idtype') != null  && currModel.get('placeofissue') == 'QC' && currModel.get('idtype') == 'HE'){
               expiryDateQC_HE = getExpiryDateQC_HE(formatedMonth, year);
               console.log(logPrefix + sMethod + "expirydateForQC :: "  + expiryDateQC_HE );
               currModel.set('idExpiryDate', expiryDateQC_HE);
-         }
+         	}
         } 
         else{
-               currModel.set('idExpiryDate', $(refs.idExpiryDate).val());
+        	 currModel.set('idExpiryDate', $(refs.idExpiryDate).val());
         }
         
         // US4168
         currModel.set('age', models.personalDataModel.calculateAge(models.personalDataModel));
         console.log(logPrefix + sMethod + " age :: after sync:: " + currModel.get('age'));
-        
-        currModel.set('primaryMobile_CheckField',      $(refs.primaryMobile_CheckField).is(':checked') ? 'Y' : 'N');
-        currModel.set('primaryLandline_CheckField',    $(refs.primaryLandline_CheckField).is(':checked') ? 'Y' : 'N');
-        currModel.set('secondaryLandline_CheckField',  $(refs.secondaryLandline_CheckField).is(':checked') ? 'Y' : 'N');
-        currModel.set('secondaryMobile_CheckField',    $(refs.secondaryMobile_CheckField).is(':checked') ? 'Y' : 'N');                
-        
-        currModel.set('homePhoneRadioGroup', isPrimaryPhoneSelected(currModel));
-        currModel.set('cellPhoneRadioGroup', isSecondaryPhoneSelected(currModel));
-                
-        //currModel.set('email', $(refs.email).val());
-        //currModel.set('homePhone', $(refs.homePhone).val().replace(/-/g, ''));
-        //currModel.set('cellPhone', $(refs.cellPhone).val().replace(/-/g, ''));
-
-        var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
-        var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
-        
-        /*if(!$(refs.mobilePayments).hasClass('hideElement')){
-        	currModel.set('yes_CheckField',  $(refs.yes_CheckField).is(':checked') ? 'Y' : 'N');
-            currModel.set('nothanks_CheckField',    $(refs.nothanks_CheckField).is(':checked') ? 'Y' : 'N');
-            //currModel.set('consentYesOrNoRadioButton', isConsentGrantedSelected(currModel));
-        }*/
-        
-        currModel.set('homePhone', primaryPhone);
-        currModel.set('cellPhone', secondaryPhone);
-        console.log(logPrefix + sMethod + " model home phone :: " + currModel.get('homePhone'));
-        console.log(logPrefix + sMethod + " model cell phone :: " + currModel.get('cellPhone'));
-        	
-        // This logic is for filtering the mobile number entered in UI
-        // Only for sending to Enstream request
-        // Reprint logic for saving number is added here
-        if(primaryPhone !== "") {
-        	activationItems.setHomePhone(currModel.get('homePhone'));
-        		if($(refs.primaryMobile_CheckField).is(':checked')) {
-        			activationItems.setMobilePhone(primaryPhone);
-        		}
-        }
-        if(secondaryPhone !== "") {
-        	activationItems.setHomePhone(currModel.get('cellPhone'));
-        		if($(refs.secondaryMobile_CheckField).is(':checked')) {
-        			activationItems.setMobilePhone(secondaryPhone);
-        		}
-        }
-        if(primaryPhone !== "" && secondaryPhone !== "") {
-        	activationItems.setHomePhone(currModel.get('homePhone'));
-        		if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked')) {
-        			activationItems.setMobilePhone(primaryPhone);
-        		}
-        }
-        console.log(logPrefix + sMethod + " Mobile Number :: " + activationItems.getMobilePhone());
-        
-		// US4282
-        //activationItems.setHomePhone(currModel.get('homePhone'));
-        console.log(logPrefix + sMethod + " PersonalData HomePhone : " + activationItems.getHomePhone());
-        
-        // US4797
-       // activationItems.setConsentGranted(currModel.get('consentGranted'));
-        //console.log(logPrefix + sMethod + " activationItems.getConsentGranted() : " + activationItems.getConsentGranted());
         
         currModel = models.addressModel;
 
@@ -613,8 +400,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('addressline2',   '');
         currModel.set('suiteunit',      $(refs.suiteunit).val().toUpperCase());
         currModel.set('city',           $(refs.city).val().toUpperCase());
-        currModel.set('province',       $(refs.province).val());
-
+		if(currModel.get('province')) {
+			currModel.set('province',       currModel.get('province'));
+		} else {
+			currModel.set('province',       $(refs.province).val());
+		}
         currModel.set('housingpayment', $(refs.housingpayment).val().replace(/,/g,'').replace(' $ ','').replace('.',','));
         currModel.set('years',          $(refs.years).val());
         currModel.set('months',         $(refs.months).val());
@@ -629,38 +419,33 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             currModel.set('addressline2_prev',  '');
             currModel.set('city_prev',          $(refs.city_prev).val().toUpperCase());
             currModel.set('suiteunit_prev',     $(refs.suiteunit_prev).val().toUpperCase());
-            currModel.set('province_prev',      $(refs.province_prev).val());
+			if(currModel.get('province_prev')) {
+				currModel.set('province_prev',      currModel.get('province_prev'));
+			} else {
+				currModel.set('province_prev',      $(refs.province_prev).val());
+			}
         }        
         // End               
         for (var currModel in models) {
             console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
         }
-        
-        
-
+		console.log(logPrefix + sMethod + ' model data: ' + models.personalDataModel.toString());
+		console.log(logPrefix + sMethod + ' model data: ' + models.addressModel.toString());
     }
-    // ---------------------------------------------------------------------------------------
-    function isPrimaryPhoneSelected (currentModel) {
-        return  currentModel.get('primaryMobile_CheckField') == 'Y' ||
-        currentModel.get('primaryLandline_CheckField') == 'Y';
-    }
-    // ---------------------------------------------------------------------------------------
-    function isSecondaryPhoneSelected (currentModel) {
-        return currentModel.get('secondaryLandline_CheckField') == 'Y' ||
-        currentModel.get('secondaryMobile_CheckField') == 'Y';
-    }
-    // ---------------------------------------------------------------------------------------
-    /*function isConsentGrantedSelected(currentModel) {
-        return (currentModel.get('consentGranted') !== 'Y' &&
-        currentModel.get('consentGranted') !== 'N');
-    }*/    
     // ---------------------------------------------------------------------------------------
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
 
+		for (var currModel in models) {
+            console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
+        }
+
         var currModel = models.personalDataModel;
-        
+
+		console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
+		populateIdTypesProvinces();
+		restorePopulateIdTypesList();
         $(refs.loyaltyMembershipNumber).val(currModel.get('loyaltyMembershipNumber'));
         $(refs.placeofissue).val(currModel.get('placeofissue'));
         $(refs.idtype).val(currModel.get('idtype'));
@@ -669,13 +454,15 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.initial).val(currModel.get('initial'));
         $(refs.lastName).val(currModel.get('lastName'));
         $(refs.birthDate).val(currModel.get('birthDate'));
-        //$(refs.email).val(currModel.get('email'));
-        $(refs.homePhone).val(currModel.get('homePhone'));
-        $(refs.cellPhone).val(currModel.get('cellPhone'));
         // US4365
         $(refs.idExpiryDate).val(currModel.get('idExpiryDate'));
         
+		if(models.personalDataModel.get('scanFlag')) {
+			disableScannedDriversLicenceFields();
+		}
         currModel = models.addressModel;
+
+		console.log(logPrefix + sMethod + ' model data: ' + currModel.toString());
 
         $(refs.postalcode).val(currModel.get('postalcode'));
         $(refs.streetnumber).val( currModel.get('streetnumber'));
@@ -698,9 +485,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.province_prev).val(currModel.get('province_prev'));
 
         updateResidenceTypeRadioButtons();
+		updateTitleRadioButtons();
+		updateCorrespondenceRadioButtons();
         onDurationChangesHandler();
         updateLookUpControls();
-        // onEmailChangesHandler();
     }
     //---------------------------------------------------------------------------------------
     function updateLookUpControls()
@@ -722,7 +510,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         {
             if( currModel.get('addressline1_prev_Array') && currModel.get('addressline1_prev_Array').length>1){
                 $("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").show();
-                repopulateAddressLineControl(model.get('addressline1_prev_Array'),$("#personalData_PreviousAddress_AddressLine1_SelectField"), 'addressline1_prev_Array');
+                repopulateAddressLineControl(currModel.get('addressline1_prev_Array'),$("#personalData_PreviousAddress_AddressLine1_SelectField"), 'addressline1_prev_Array');
             }
             if(currModel.get('addressline1_prev_Array') && currModel.get('addressline1_prev_Array').length<=1){
                 $("#addressLookup_PreviousAddress_AddressLine1_MultipleControl").hide();
@@ -752,32 +540,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         var displayText = argDisplayText.replace(/ {N}| {Y}/gi, '');        
         return "<option value=\"" + argValue + "\">" + displayText + "</option>";
     }
-    //-----------------------------------------------------------------------------------------
-    function onEmailChangesHandler(){
-        var sMethod = 'onEmailChangesHandler() ';
-        console.log(logPrefix + sMethod);
-
-        var currModel = models.personalDataModel;
-
-        syncUserData();
-        validEmail = /^[_a-z0-9-][_a-z0-9-]+(\.[_a-z0-9+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i;
-        console.log("validEmail : " + validEmail.test(currModel.get('email').trim()));
-        clearRadios('receiveEmail');
-
-        if(validEmail.test(currModel.get('email').trim()) != true ){
-            $(refs.receiveemailArea).hide();
-        }
-        else{
-            $(refs.receiveemailArea).show();
-        }
-    }
-
-    //----------------------------------------------------------------------------------------
-    /*function bindRealTimeEmailControl(){
-        $(refs.email).change(function(){
-            onEmailChangesHandler();
-        });
-    }*/
     //---------------------------------------------------------------------------------------
     function onDurationChangesHandler(){
         var sMethod = 'onDurationChangesHandler() ';
@@ -785,12 +547,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         syncUserData();   
         // US3623                            
-        var currModel = models.addressModel;        
-        if(currModel.get('years')>=2 || (currModel.get('years')==='' && currModel.get('months')==='')){
+        var currModel = models.addressModel;
+		console.log(logPrefix + sMethod + currModel.get('years') + currModel.get('months'));
+
+		if(currModel.get('years') >=2 || (currModel.get('years') === '' && currModel.get('months') === '')){
             $(refs.previousAddressArea).hide();
             $(refs.personalData_PreviousAddressYesNO).hide();
-        }
-        else {        	
+        } else if(currModel.get('years') === null && currModel.get('months') === null) {
+			$(refs.previousAddressArea).hide();
+            $(refs.personalData_PreviousAddressYesNO).hide();
+		} else {        	
         	$(refs.personalData_PreviousAddressYesNO).show();
         	if(currModel.get('flipPrevWasInCanada') === 'Y') {
         		$(refs.previousAddressArea).show();                
@@ -798,13 +564,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         }
 
     }
-   
     //-----------------------------------------------------------------------------------------
     function bindEvents() {
         var sMethod = 'bindEvents() ';
         console.log(logPrefix + sMethod);
-
-        // bindRealTimeEmailControl();
 
         $(refs.postalcode).live('paste, input', function(e) {
             var self = $(this);
@@ -828,11 +591,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         // US4709
         var currModel = models.personalDataModel;
-        // Hide Mobile payments if no radio button is slected for primary and cecondary phone 
-        /*if(!($(refs.primaryLandline_CheckField).is(':checked')) && !($(refs.secondaryLandline_CheckField).is(':checked')) && !($(refs.primaryMobile_CheckField).is(':checked')) && !($(refs.secondaryMobile_CheckField).is(':checked'))){
-        	hideElement();
-    		currModel.set('consentGranted', 'N');
-    	}*/
 
         $(refs.placeofissue).change(function(event) {
             console.log(refs.placeofissue + '::change');
@@ -840,7 +598,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.idtype).val(" ")
             $(refs.idnumbers).val(" ");
             $(refs.idExpiryDate).val(" ");
-            currModel.set('idtype', $(refs.idtype).val());
+			models.personalDataModel.set('scanFlag', false);
+			models.personalDataModel.set('placeofissue', '');
+			models.personalDataModel.set('idtype', '');
+			console.log(refs.placeofissue + '::change :: ' + models.personalDataModel.get('placeofissue') + " " + models.personalDataModel.get('idtype'));
             populateIdTypesList();
             showHideQCHealthCard();
         });
@@ -928,16 +689,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             models.personalDataModel.set('correspondence', 'F');
         });
         
-        /*$(refs.receiveemail_optin).click(function() {
-            clearRadios('receiveEmail');
-            $(refs.receiveemail_optin).addClass('ui-btn-active');
-            models.personalDataModel.set('receiveEmail', 'Y');
-        });
-        $(refs.receiveemail_optout).click(function() {
-            clearRadios('receiveEmail');
-            $(refs.receiveemail_optout).addClass('ui-btn-active');
-            models.personalDataModel.set('receiveEmail', 'N');
-        });*/
         bindAddressHandlingControls();
         bindRadioButtons();
         bindRealTimeDurationControl();
@@ -965,21 +716,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // US5131
             applyPaddingForResidanceType();
             $(refs.province).val(models.addressModel.get("province"));
+			$(refs.province_prev).val(models.addressModel.get("province_prev"));
 
         });
 
         $(refs.province_prev).on("change", function() {
             console.log(refs.province_prev + '::change');
             models.addressModel.set("province_prev", $(refs.province_prev).val());
-        });
-
-        $.subscribe('translatorFinished',function(){
-            console.log(refs.province_prev + 'subscribe(translatorFinished)');
-            populateProvinces();
-            // US4078
-            populateIdTypesProvinces();
-            
-            $(refs.province_prev).val(models.addressModel.get("province_prev"));
         });
 
         checkForMsButton();
@@ -991,16 +734,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.flipPrevWasInCanada_no).text(translator.translateKey("no"));
         $(refs.flipPrevWasInCanada_yes).text(translator.translateKey("yes"));
     }
-
+	//---------------------------------------------------------------------------------------
     function createSliders() {
         $(refs.flipPrevWasInCanada).slider();
     }
-
+	//---------------------------------------------------------------------------------------
     function createFlips() {
         setSlidersText();
         createSliders();
     }
-    
+    //---------------------------------------------------------------------------------------
     function bindPreviousAddress() {
     	var flipPrevWasInCanada = models.addressModel.get('flipPrevWasInCanada');
     	
@@ -1012,7 +755,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     }
 	// End
     // ---------------------------------------------------------------------------------------
-    
     function bindRealTimeDurationControl(){
         $(refs.years).change(function(){
             onDurationChangesHandler();
@@ -1167,7 +909,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             if(aptFlag == "{N}" || aptFlag == "{Y}") {
             	validatePrevAddrAptSuitUnit(aptFlag.substring(1, 2));
             }
-            // $("#personalData_PreviousAddress_AddressLine1_TextField").val($("#personalData_PreviousAddress_AddressLine1_SelectField").val());
         });
 
     }
@@ -1231,7 +972,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         if($argField.attr('id')=="personalData_PreviousAddress_PostalCode_TextField" || $argField.attr('id')=="personalData_PreviousAddress_StreetNumber_TextField")
             updateAddressLookupButtonState($("#personalData_PreviousAddress_PostalCode_TextField"),$("#personalData_PreviousAddress_StreetNumber_TextField"),$("#personalData_PreviousAddressLookupButton"));
     }
-
+	//---------------------------------------------------------------------------------------
     function checkForMsButton(){
         if(translator.currentLanguageEnglish()){
             showMsButton();
@@ -1239,7 +980,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             hideMsButton();
         }
     }
-
+	//---------------------------------------------------------------------------------------
     function hideMsButton() {
         var currModel = models.personalDataModel;
         $(refs.title_MS).hide();
@@ -1249,6 +990,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.title_MISS).addClass('ui-btn-active');
         }
     }
+	//---------------------------------------------------------------------------------------
     function showMsButton() {
         var currModel = models.personalDataModel;
         $(refs.title_MISS).removeClass('ui-corner-right ui-controlgroup-last');
@@ -1258,7 +1000,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.title_MS).addClass('ui-btn-active');
         }
     }
-    
+    //---------------------------------------------------------------------------------------
     // US4782 :  WICI - QC Health Card Expiry
     function showHideQCHealthCard() {
        var sMethod = "showHideQCHealthCard :: ";
@@ -1276,9 +1018,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                showQCHealthCard = false;
                $("#personalData_ExpiryDate_for_QC_healthCard").hide();
         }
-        
     }
-    
+	//---------------------------------------------------------------------------------------
     // US5131 WICI - Add Student Housing label to Residence Type list
     function applyPaddingForResidanceType(){
     	if(!translator.currentLanguageEnglish()){
@@ -1294,9 +1035,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
    		 	$(refs.residance_Student).removeClass('paddingForResidancytype')
    		 	$(refs.residance_Other).removeClass('paddingForResidancytype')
     	}
-    	
     }
-    
     // ---------------------------------------------------------------------------------------
     function clearRadios(radioGroup) {
         var currModel = models.personalDataModel;
@@ -1308,13 +1047,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         } else if (radioGroup === 'correspondence') {
             $(refs.correspondence_eng).removeClass('ui-btn-active');
             $(refs.correspondence_fre).removeClass('ui-btn-active');
-        }/*
-        else if (radioGroup === 'receiveEmail') {
-            $(refs.receiveemail_optin).removeClass('ui-btn-active');
-            $(refs.receiveemail_optout).removeClass('ui-btn-active');
-            currModel.set('receiveEmail', null);
-        }*/ 
-        else if (radioGroup === 'residence') {
+        } else if (radioGroup === 'residence') {
             $(refs.house_Own).removeClass('ui-btn-active');
             $(refs.house_Rent).removeClass('ui-btn-active');
             $(refs.house_Parents).removeClass('ui-btn-active');
@@ -1407,8 +1140,40 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             });
         });
     }
-    
- // ---------------------------------------------------------------------------------------
+	function restorePopulateIdTypesList() {
+        var sMethod = 'restorePopulateIdTypesList() ',
+            currModel, provinceValue, idType, controlRef, list;
+        console.log(logPrefix + sMethod);
+
+        currModel = models.personalDataModel;
+        provinceValue = currModel.get('placeofissue');
+        idType = currModel.get('idtype');
+		console.log(logPrefix + sMethod + " provinceValue : " + provinceValue + " idType : " + idType);
+
+        controlRef = $(refs.idtype);
+        controlRef.empty();
+        list = new WICI.IdTypesList();
+        list.data = list.getDataByProvince(provinceValue);
+
+        $.each(list.data, function (index, item) {
+            var optTempl = '<option value="' +
+                item.value +
+                '">' +
+                translator.translateKey(item.text) +
+                '</option>';
+            controlRef.append(optTempl);
+        });
+
+        if (idType || $.inArray(provinceValue, ['BC', 'AB', 'NS', 'NB', 'NL', 'SK', 'MB', 'PE', 'NT', 'NU', 'YT', 'ON']) != -1) {
+            if (!idType) {
+                idType = provinceValue;
+            }
+            $(refs.idtype + ' [value="' + idType + '"]').attr(
+                'selected', 'selected'
+            );
+        }
+	}
+ 	// ---------------------------------------------------------------------------------------
     function populateMonthOfExpiryDate() {
         var sMethod = 'populateMonthOfExpiryDate() ',
             //listOfMonth = monthList(),
@@ -1419,29 +1184,22 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         for (var i = 1; i <= 12; i++) {
               arrMonth.push(i);
         }
-        console.log(logPrefix + sMethod + " monthList ::" + arrMonth);
 
         for(var j= 0; j<arrMonth.length; j++){
               optTempl += '<option value="' +j+
                               '">'+arrMonth[j] +'</option>';        
         }
         
-        console.log(logPrefix + sMethod + " monthList ::" + optTempl);
-        
         var controlRef;
-
         controlRef = $("#personalData_month_of_expirydate");
         controlRef.empty();
         controlRef.append(optTempl);
-        
     }
-    
- // ---------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------
     function populateYearOfExpiryDate() {
         var sMethod = 'populateYearOfExpiryDate() ',
             optTempl = '';
             
-        var sMethod = "yearList :: "; 
         var date = new Date();
         var year = date.getFullYear();
         var yearStart = year;
@@ -1452,21 +1210,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
               arrYear.push(i);
         }
         
-        console.log(logPrefix + sMethod + " yearList ::" + arrYear);
-
         for(var j= 0; j<arrYear.length; j++){
               optTempl += '<option value="' +j+
                               '">'+ arrYear[j] +'</option>';
         }
-        console.log(logPrefix + sMethod + " year list ::" + optTempl);
         
         var controlRef;
-
         controlRef = $("#personalData_year_of_expirydate");
         controlRef.empty();
         controlRef.append(optTempl);
-        }
-
+	}
     // ---------------------------------------------------------------------------------------
     function populateIdTypesList(takeIdTypeByProvince) {
         var sMethod = 'populateIdTypesList() ',
@@ -1652,21 +1405,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 currModel.set("province", lookupHelper.getProvince());
                 selectedPersonalProvince = lookupHelper.getProvince();
 
-                /* US2825 WICI - Address Look Up Enhancement
-                 * if( lookupHelper.getAddressLine1().length>1){
-	                    $("#addressLookup_Address_AddressLine1_MultipleControl").show();
-	                    repopulateAddressLineControl(lookupHelper.getAddressLine1(),$("#personalData_Address_AddressLine1_SelectField"), 'addressline1_Array');
-	                    $("#personalData_Address_AddressLine1_SelectField").prop('selectedIndex', -1);
-	                }
-	                if( lookupHelper.getAddressLine1().length<=1){
-	                    $("#addressLookup_Address_AddressLine1_MultipleControl").hide();
-	                    $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
-	                }
-	
-	                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
-	                $("#personalData_Address_Province_TextField").val(lookupHelper.getProvince());
-                 * */
-                
                 // US2825 begin 
                 if( lookupHelper.getAddressLine1().length < 1 ) {            	
                 	$("#personalData_Address_AddressLine1_TextField").val("");
@@ -1694,7 +1432,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
 	                    $("#personalData_Address_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
 	                    validateAptSuitUnit(aptFlag);	                    
-	                    // $("#personalData_Address_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 	                }
 	
 	                $("#personalData_Address_City_TextField").val(lookupHelper.getCityName());
@@ -1733,7 +1470,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	                    var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
 	                    $("#personalData_PreviousAddress_AddressLine1_TextField").val(addressLine.replace(/ {N}| {Y}/gi, ''));
 	                    validatePrevAddrAptSuitUnit(aptFlag);	
-						// $("#personalData_PreviousAddress_AddressLine1_TextField").val(lookupHelper.getAddressLine1());
 					}
 
 					$("#personalData_PreviousAddress_City_TextField").val(
@@ -1758,6 +1494,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function showPrevScreen() {
         var sMethod = 'showPrevScreen() ';
         console.log(logPrefix + sMethod);
+		syncUserData();
         flow.back();
     }
     // ---------------------------------------------------------------------------------------
@@ -1787,40 +1524,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // US4112
             // Id validation start here
             valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers);
-            // US4781
-            // Phone number validation based on canBeEmpty true or false
-            if($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() !== '') {
-            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are not null");
-            	setFlag(false, false);
-            } else if($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() === '') {
-            	console.log(logPrefix + sMethod + "HomePhone is not null and CellPhone is null");
-            	setFlag(false, true);
-            } else if($(refs.homePhone).val() === '' && $(refs.cellPhone).val() !== '') {
-            	console.log(logPrefix + sMethod + "HomePhone is null and CellPhone is not null");
-            	setFlag(true, false);
-            } else if($(refs.homePhone).val() === '' && $(refs.cellPhone).val() === '') {
-            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null");
-            	setFlag(false, true);
-            } 
-            
-            if($(refs.homePhone).val() === '' && 
-            		($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked'))) {
-            	console.log(logPrefix + sMethod + "HomePhone is null and radio button is checked");
-            	setFlag(false, true);
-            } 
-            
-            if($(refs.cellPhone).val() === '' && 
-            		($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked'))) {
-            	console.log(logPrefix + sMethod + "CellPhone is null and radio button is checked");
-            	setFlag(true, false);
-            }
-            
-            if(($(refs.homePhone).val() === '' && $(refs.cellPhone).val() === '') && 
-            		(($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked'))) &&
-            		($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked'))) {
-            	console.log(logPrefix + sMethod + "HomePhone and CellPhone are null and homephone radio and cellphone radio are checked");
-            	setFlag(false, false);
-            }
             
             if(showQCHealthCard){
             	var currentDate = new Date();
@@ -1870,10 +1573,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     temprez = models.addressModel.validate(i);
                }
                
-                //custom validation for e-mail
-                /*if (i === emailValidationIndex && validEmail.test(models.personalDataModel.get('email').trim()) != true ) {
-                    continue;
-                }*/
                 //custom validation for previous adress
                if (i === prevAdressValidationIndex) {
                     if ( enteredYears >= 2) {                    	
@@ -1903,7 +1602,15 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                         }
                     }
                 }
-
+                // VZE-52
+                var covid19DateValidation = validateExpirtDateCOVID19();
+                var covidRez = [];
+                if(covid19DateValidation != null){
+             	   covidRez.push(covid19DateValidation);
+             	   app.validationDecorator.applyErrAttribute(covidRez, true);
+             	   
+                }
+                rez = rez.concat(covidRez);
                 rez = rez.concat(temprez);
             }
 
@@ -1946,33 +1653,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             
             syncUserData();
         }
-        // US4781
-        updatePhoneNumberInModel();
         flow.next();
-    }
-    // US4781
-    // setting canBeEmpty flag based on the input entered
-    function setFlag(argHomeFlag, argPhoneFlag) {
-    	var sMethod = 'setFlag() ';
-        console.log(logPrefix + sMethod);
-    	$.each(models.personalDataModel.data, function(index, item) {
-    		if(item.name == "homePhone") {
-				item.validation.canBeEmpty = argHomeFlag;
-				console.log(logPrefix + sMethod + " homePhone :: canBeEmpty " + item.validation.canBeEmpty);
-			}
-			if(item.name == "cellPhone") {
-				item.validation.canBeEmpty = argPhoneFlag;
-				console.log(logPrefix + sMethod + " cellPhone :: canBeEmpty " + item.validation.canBeEmpty);
-			}
-			if(item.name == "homePhoneRadioGroup") {
-				item.validation.canBeEmpty = argHomeFlag;
-				console.log(logPrefix + sMethod + " homePhoneRadioGroup :: canBeEmpty " + item.validation.canBeEmpty);
-			}
-			if(item.name == "cellPhoneRadioGroup") {
-				item.validation.canBeEmpty = argPhoneFlag;
-				console.log(logPrefix + sMethod + " cellPhoneRadioGroup :: canBeEmpty " + item.validation.canBeEmpty);
-			}
-		});
     }
 
     function selectDOBFileld() {
@@ -1981,7 +1662,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
     //---------------------------------------------------------------------------------------
     function hideShowMoneyAdvantage (){
-
         cardTypeGlobal = activationItems.getModel('chooseProductModel').get('productCard');
         if(cardTypeGlobal === 'OMX') {
             $(refs.moneyAdvantageContainer).show();
@@ -2016,27 +1696,38 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     // US3625 Loyalty Scanner
     // ---------------------------------------------------------------------------------------
     function onScanLoyaltySuccessCallback(response) {
-         
     	console.log('onScanLoyaltySuccessCallback - response: ' + response.data);
     	
         try {
             rez = response.data;
+			console.log('onScanLoyaltySuccessCallback - : rez ' + rez.substring(0, 6) + " :: " + rez.substring(6, 16));
+			
             if (!rez) {
                 throw ('ERROR! Got the empty data.');
             }
-            if((rez.indexOf('PDF') === -1) && (mod10(rez,16)) )
-            {	
-               	$('#personalData_CTMNumber_TextField').val(rez);
-            }else
-            	{
-            	$('#personalData_CTMNumber_TextField').val('');
-            	messageDialog.error(
-            			 translator.translateKey('scanLoyalty_parsingErrorText'),
-                         translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
-                         $.noop
-                );
-            }
-             
+
+			if(rez.substring(0, 6) == "636574") {
+				if((rez.indexOf('PDF') === -1) && (mod10(rez,16)) )
+	            {	
+	               	$('#personalData_CTMNumber_TextField').val(rez.substring(6, 16));
+	            } else
+	            	{
+	            	$('#personalData_CTMNumber_TextField').val('');
+	            	messageDialog.error(
+	            			 translator.translateKey('scanLoyalty_parsingErrorText'),
+	                         translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
+	                         $.noop
+	                );
+	            }
+			}else
+	            	{
+	            	$('#personalData_CTMNumber_TextField').val('');
+	            	messageDialog.error(
+	            			 translator.translateKey('scanLoyalty_parsingErrorText'),
+	                         translator.translateKey('personalData_Scan_Loyalty_Dialog_Label'),
+	                         $.noop
+	                );
+	            }
         } catch (e) {
         	$('#personalData_CTMNumber_TextField').val('');
         	if(isDebugMode){
@@ -2075,6 +1766,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 var idProvince = JSON.stringify(rez.idProvince);
                 
                 var currModel = models.personalDataModel;
+				currModel.set('scanFlag', true);
                 
                 if(idType != "null" && idProvince != "null" && idNumber != "null" ) {
                   if( idProvince.split('"').join('') === "MB" && idType.split('"').join('') === "DR" ) {
@@ -2123,6 +1815,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	             const idProvinceAB = JSON.stringify(rezNewABDL.idProvince);
     	             
     	             var currModel = models.personalDataModel;
+					 currModel.set('scanFlag', true);
+				
     	             if(idTypeAB != "null") {
     	             	currModel.set('idtype', idTypeAB);
     	             }
@@ -2159,6 +1853,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     const idNumber = JSON.stringify(rezNew.idNumber);
                     const idProvince = JSON.stringify(rezNew.idProvince);
                     var currModel = models.personalDataModel;
+					currModel.set('scanFlag', true);
                     
                     if(idType != "null" && idProvince != "null" && idNumber != "null" ) {
                       if( idProvince.split('"').join('') === "MB" && idType.split('"').join('') === "DR" ) {
@@ -2202,6 +1897,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	               const idNumberNewDL = JSON.stringify(rezNewDL.idNumber);
 	             
 	               var currModel = models.personalDataModel;
+				   currModel.set('scanFlag', true);
 	         	   currModel.set("idnumbers", parseInt(idNumberNewDL));
 	               currModel.set('idtype', idTypeNewDL.split('"').join(''));
 	               
@@ -2228,7 +1924,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	        	console.log(logPrefix + sMethod + " Exception: " + e);
 	        }
 		}
-
+        validateExpirtDateCOVID19();
     }
 
     // ---------------------------------------------------------------------------------------
@@ -2252,74 +1948,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	$(refs.lastName).prop('disabled', true);
     	$(refs.birthDate).prop('disabled', true);
     }
-    // US4709
-    // ---------------------------------------------------------------------------------------
-    /*function hideElement(){
-    	var sMethod = logPrefix + '[hideElement]: ';
-    	console.log(sMethod);
-    	
-    	var loginModel = activationItems.getModel('loginScreen');
-        console.log(logPrefix + sMethod + " enableEnstreamAuth "+loginModel.get('enableEnstreamAuth'));
-    	if(loginModel.get('enableEnstreamAuth')){
-    	    $(refs.mobilePayments).addClass('hideElement');
-    	}
-    }*/
-    // US4781  
-    // ---------------------------------------------------------------------------------------
-    function updatePhoneNumberInModel()
-    {
-    	var sMethod = "updatePhoneNumberInModel()";
-    	var primaryPhone = $(refs.homePhone).val().replace(/-/g, '');
-        var secondaryPhone = $(refs.cellPhone).val().replace(/-/g, '');
-        
-        var currModel = models.personalDataModel;
-    	console.log(logPrefix + sMethod + " secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
-            
-        if(($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "")) && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod +" 4 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked') + 
-    				" secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', primaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);        	        	
-    	} else if($(refs.primaryMobile_CheckField).is(':checked') && $(refs.secondaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 5 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked') + 
-    				" secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', primaryPhone);
-    	} else if(($(refs.primaryLandline_CheckField).is(':checked')) && (primaryPhone !== "") && ($(refs.secondaryMobile_CheckField).is(':checked')) && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 6 : primary  landline checked :"+ $(refs.primaryLandline_CheckField).is(':checked')
-    				+ " secondary mobile checked :" +$(refs.secondaryMobile_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', primaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);
-    	} else if(($(refs.primaryMobile_CheckField).is(':checked')) && (primaryPhone !== "")  && ($(refs.secondaryLandline_CheckField).is(':checked')) && (secondaryPhone !== "")) {
-    		console.log(logPrefix + sMethod +" 7 : primary  mobile checked :"+ $(refs.primaryMobile_CheckField).is(':checked')
-    				+ " secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked')+ "primaryPhone :"+ primaryPhone + "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', primaryPhone);        	        	
-    	} else if($(refs.secondaryMobile_CheckField).is(':checked') && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod +" 8 : secondary mobile  mobile checked :"+ $(refs.secondaryMobile_CheckField).is(':checked')+ "secondaryPhone :: "+secondaryPhone);
-    		currModel.set('homePhone', secondaryPhone);
-        	currModel.set('cellPhone', secondaryPhone);        	        	
-    	} else if($(refs.primaryLandline_CheckField).is(':checked') && (primaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod + " 2 :  primaryPhone : "+primaryPhone + " primary landline checked  :" +$(refs.primaryLandline_CheckField).is(':checked'));
-    		currModel.set('homePhone', primaryPhone);
-    		// this is for confirmation screen
-    		currModel.set('cellPhone', "");    		    		
-    	} else if($(refs.secondaryLandline_CheckField).is(':checked') && (secondaryPhone !== "") ) {
-    		console.log(logPrefix + sMethod + " 3 : secondary landline checked :" +$(refs.secondaryLandline_CheckField).is(':checked'));
-    		currModel.set('homePhone', secondaryPhone);
-    		// this is for confirmation screen
-    		currModel.set('cellPhone', "");    		    		
-    	} else if($(refs.primaryMobile_CheckField).is(':checked') && (primaryPhone !== "") && (secondaryPhone === "")) {
-        	
-        	console.log(logPrefix + sMethod + "  1  : secondaryPhone :: " +secondaryPhone + "primaryPhone : "+primaryPhone + "primary mobile checked :" +$(refs.primaryMobile_CheckField).is(':checked'));
-        	currModel.set('homePhone', primaryPhone);
-            currModel.set('cellPhone', primaryPhone);            
-    	}
-    	
-        console.log(logPrefix + sMethod + " model home phone :: " +currModel.get('homePhone'));
-        console.log(logPrefix + sMethod + " model cell phone :: " +currModel.get('cellPhone'));
-    };
-    
     // ---------------------------------------------------------------------------------------
     function containsAny(obj, keys) {
         var key;
@@ -2348,7 +1976,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod + "year ::" + y + " Month  :: " +  m);
         // expirydate should be grater then current date 
         if(y >= currentDate.getFullYear()){
-                	 expiryDate = new Date(y,m+1,0);
+        	expiryDate = new Date(y,m+1,0);
         }
         var yearfn = expiryDate.getFullYear();
         var intMonth = expiryDate.getMonth() + 1;
@@ -2357,6 +1985,52 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         expirydateForQC = expiryDate.getFullYear() + "-"+ monthfn + "-" + expiryDate.getDate();
         console.log(logPrefix + sMethod + "expirydateForQC :: "  + expirydateForQC );
         return expirydateForQC;
-         
+    }
+    // VZE-52
+    function validateExpirtDateCOVID19() {
+    	var sMethod = "validateExpirtDateCOVID19()";
+		console.log(logPrefix + sMethod);
+
+    	var rez;
+    	var covid19Year =  parseInt(translator.translateKey("pesonalData_covid19LockDownYear"));
+    	var covid19Month = parseInt(translator.translateKey("pesonalData_covid19LockDownMonth"));
+    	var covid19Day = parseInt(translator.translateKey("pesonalData_covid19LockDownDay"));
+    	var aestTime = new Date($(refs.idExpiryDate).val()).toLocaleString("en-US", {timeZone: "America/Toronto"});
+    	var aestDate = new Date(aestTime).toISOString();
+    	var stringDate  = aestDate.substr(0, 10).split("-");
+    	var inputDateYear = parseInt(stringDate[0]);
+    	var inputDateMonth = parseInt(stringDate[1]);
+    	var inputDateDay = parseInt(stringDate[2]);
+        var todaysDate = new Date();
+        todaysDate.setDate(todaysDate.getDate() - 1);
+        var yesterdayDate = moment(todaysDate).format('MM-DD-YYYY').split("-");
+        var yesterdayMonth = parseInt((yesterdayDate[0]));
+        var yesterdayDay =  parseInt(yesterdayDate[1]);
+        var yesterdayYear = parseInt(yesterdayDate[2]);
+    	var currModel = models.personalDataModel;
+ 		var item = currModel.getItemByName('idExpiryDate');
+     	var itemName =  item === null ? '' : item.name;
+     	var itemuiid = currModel.refs == null ? '' : currModel.refs[item.name];
+
+    	if(((covid19Year == inputDateYear) && (covid19Month < inputDateMonth))){
+    		rez = null;  // true 
+    	}else if((covid19Year > inputDateYear)){
+    		rez= {name: itemName, err: 'personalData1_validation_expiryDate', uiid: itemuiid};
+    	}else if((covid19Year == inputDateYear) &&  (inputDateMonth < covid19Month)){
+    		rez= {name: itemName, err: 'personalData1_validation_expiryDate', uiid: itemuiid};
+    	}else if((covid19Year == inputDateYear) && ((inputDateMonth == covid19Month)) && (covid19Day == inputDateDay ) ){
+    		rez = null;
+    	}else if(((covid19Year == inputDateYear) && ((inputDateMonth == covid19Month)) && (covid19Day == inputDateDay )) ||((inputDateYear <= yesterdayYear) && (inputDateMonth == yesterdayMonth) &&  (inputDateDay < yesterdayDay )) ){
+    		rez = null;
+    	}else{
+    		// Expiry date is less then yesterday 
+            // DL is expired 
+    		if((inputDateYear <= yesterdayYear) && (inputDateMonth == yesterdayMonth) &&  (inputDateDay <= yesterdayDay )){
+    			rez= {name: itemName, err: 'personalData1_validation_expiryDate', uiid: itemuiid};
+    		}else{
+    			rez = null;
+    		}
+    	}
+    	return rez;
     }
 };

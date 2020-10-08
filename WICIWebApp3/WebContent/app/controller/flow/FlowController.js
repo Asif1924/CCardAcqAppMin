@@ -234,22 +234,6 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		activeScreen = storedScreen.screen;
 	}
 	
-	/*
-	this.tearDownNavigationBarAtTop = tearDownNavigationBarAtTop;
-	
-    function tearDownNavigationBarAtTop() {
-        $("#pageHeader-template").template("pageHeader");
-        $.tmpl("pageHeader", {
-            "logo_En" : translator.currentLanguageEnglish(),
-            "settingsButtonId" : "PendingScreen_SettingsButton",
-            "isNotEmployee" : activationItems.getModel('loginScreen').get('employerID').toLowerCase() !== "e"
-        }).appendTo("#ChooseProductScreen");
-
-        $('#chooseProductScreen_SettingsButton').addClass('rightPosition');
-        $('#chooseProductScreen_SettingsButton').attr("chooseProductMenuItem",
-            "false")
-    }	
-	*/
 	this.bindSettingsButtonEvent = bindSettingsButtonEvent;
 	
 	//---------------------------------------------------------------------------------------	

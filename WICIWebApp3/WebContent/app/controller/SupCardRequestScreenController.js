@@ -832,7 +832,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
         var rezAge =[];
         console.log(logPrefix + sMethod + "Age :: " + age);
         
-        if(age <= 16){
+        if(age < 16){
            var item = model.getItemByName('birthDate');
            var itemName =  item === null ? '' : item.name;
            var itemuiid = model.refs == null ? '' : model.refs[item.name];

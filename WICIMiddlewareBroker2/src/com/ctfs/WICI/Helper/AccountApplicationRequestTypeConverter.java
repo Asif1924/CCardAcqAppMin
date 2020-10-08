@@ -29,7 +29,7 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_CHOOSE_PRODUCT = "chooseProductModel";
 	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
 	// US4637
-	private static final String MODEL_EMAILINFO_SCREEN = "emailInfoScreen";
+	private static final String MODEL_CONTACTINFO_SCREEN = "contactInfoScreen";
 	private static final String MODEL_MOBILEPAYMENTS_SCREEN = "mobilePaymentsScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
@@ -516,15 +516,6 @@ public class AccountApplicationRequestTypeConverter
 					}
 				}
 				argAccAppRequest.setApplicantGender(gender);
-				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
-				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
-			    //argAccAppRequest.setEnstreamConsent(model.get("consentGranted"));
-				
-				
-				// Moved to EmailInfo model
-				// argAccAppRequest.setCurrentEmailAddress(model.get("email"));
-				// argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
-				
 				argAccAppRequest.setRequestedCreditLimit(model.getInt("requestedCreditLimit")); //US3270 Feb 17th, 2015
 			}
 		}
@@ -628,9 +619,11 @@ public class AccountApplicationRequestTypeConverter
 		BaseModel model;
 		try
 		{
-			model = argCreditCardData.getModel(MODEL_EMAILINFO_SCREEN);
+			model = argCreditCardData.getModel(MODEL_CONTACTINFO_SCREEN);
 			if (model != null)
 			{
+				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 				argAccAppRequest.setEstmt_consent((model.get("estmt_consent")));

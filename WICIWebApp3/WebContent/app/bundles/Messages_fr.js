@@ -59,7 +59,7 @@ WICI.dictionary_fr =  {
 	breadCrumbItem_ProductSelection	   				  :							"Choix de produit",
 	breadCrumbItem_ApplicantInfo					  :							"Données d'appl",
 	// US4637
-	breadCrumbItem_EmailInfo						  :							"Courriel",	
+	breadCrumbItem_EmailInfo						  :							"Pour nous joindre",	
 	breadCrumbItem_FinancialAndEmploymentInfo		  :   						"Emploi et situation financière",
 	breadCrumbItem_SupplementaryCard				  :  						"Carte additionnelle",
 	breadCrumbItem_OptionalProducts					  :  						"Produits facultatifs",
@@ -183,7 +183,41 @@ WICI.dictionary_fr =  {
 	 overview_Triangle_world_ELite_MasterCardNote :	"<b>Veuillez noter que  World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup> peut imposer des frais d'acceptation de cartes plus élevés aux commerçants.</b>",
 	  
     overview_CostOfCreditDisclosure_ChooseProduct_Right1 :"<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.</p><p><b>Si vous résidez ailleurs qu’au Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p> <p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22,99 %</strong></span></p><p><b>Pour la carte Mastercard Avantage Essence uniquement :</b>  Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom aux taux d’intérêt annuels suivants : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25,99 %</strong></span> pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27,99 %</strong></span> pour les transactions au comptant et les frais afférents.</p><p><b>Si vous êtes un résident du Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span></p><p><b>Pour la carte Mastercard Avantage Essence uniquement :</b> Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom au taux d’intérêt annuel suivant : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span> pour toutes les transactions.</p>",
-   overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.</p><p><b>Si vous résidez ailleurs qu’au Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b>  Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom aux taux d’intérêt annuels suivants : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25,99 %</strong></span> pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27,99 %</strong></span> pour les transactions au comptant et les frais afférents.</p><p><b>Si vous êtes un résident du Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b> Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom au taux d’intérêt annuel suivant : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span> pour toutes les transactions.</p>",    													  
+   overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.</p><p><b>Si vous résidez ailleurs qu’au Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b>  Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom aux taux d’intérêt annuels suivants : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25,99 %</strong></span> pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27,99 %</strong></span> pour les transactions au comptant et les frais afférents.</p><p><b>Si vous êtes un résident du Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b> Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom au taux d’intérêt annuel suivant : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span> pour toutes les transactions.</p>",
+
+
+	contactInfo_Heading1						:  "Pour nous joindre",
+	contactInfo_Heading2						:  "Quel est votre numéro?",
+	contactInfo_Heading3						:  "Quelle est votre courriel? (Optionnel)",
+	contactInfo_Heading4						:  "Relevés électroniques (Optionnel)",
+	contactInfo_Heading5						:  "Modalités du service des relevés électroniques",
+	contactInfo_EmailAddress					:	"Courriel",
+	contactInfo_Para41							:	"Consultez, suivez et conservez vos relevés en ligne. Le relevé électronique est un moyen plus rapide et plus pratique de gérer votre compte de carte de crédit tout en contribuant à la protection de l'environnement. Vous serez avisé instantanément lorsque votre relevé est prêt, ce qui vous évitera d'attendre que le courrier soit livré. Vous pouvez modifier vos préférences de relevé à tout moment en vous connectant à votre compte en ligne.",
+	contactInfo_Heading6						:  "Recevez les dernières offres et promotions (Optionnel)",
+	contactInfo_Heading7						:  "Obtenez une prime de 5 $ en Argent CTMD lorsque vous vous inscrivez pour recevoir des offres. ",
+	contactInfo_Para1							:  "Tous les champs sont obligatoires, sauf ceux marqués comme facultatifs.",
+	contactInfo_Para2							:  "En nous fournissant votre numéro de téléphone mobile, vous augmentez vos chances d’approbation immédiate et vous pourrez ajouter votre carte à votre portefeuille numérique tout de suite!<br><br>"+
+													" Remarque : il se peut que nous vous envoyions des avis sur votre compte par message texte. Ces messages n’entraîneront aucuns frais.",
+	contactInfo_Para3							:  "Oui, j’aimerais recevoir des relevés électroniques et J’ai lu et j’accepte les modalités.",
+	contactInfo_Para51							:  "Modalités du service des relevés électroniques",
+	contactInfo_Para52							:  "1. Vous pouvez continuer d'accéder aux renseignements sur votre compte à partir du site ctfs.com et du service bancaire téléphonique.<br>"+
+													"2. Le traitement de votre demande prend habituellement une journée ouvrable. Par conséquent, selon la date de votre relevé, vous pourriez recevoir un dernier relevé imprimé par la poste avant de recevoir vos relevés en ligne.<br>"+
+													"3. Si vous recevez actuellement un relevé imprimé par la poste, celui-ci ne vous sera plus envoyé. De plus, la plupart des avis de modifications aux renseignements contenus dans le document d'information que vous avez reçu à l'ouverture de votre compte ainsi que les avis de changements à votre contrat du titulaire de carte seront envoyés par voie électronique plutôt que par la poste. Ces avis figureront sous forme de messages sur votre relevé mensuel ou vous recevrez un avis par courriel vous indiquant que vous avez reçu de tels avis et que vous pouvez les consulter en ouvrant une session Votre compte en ligne.<br>"+
+													"4. Nous vous ferons parvenir un courriel vous avisant que votre relevé est disponible. Cet avis par courriel peut également inclure certains renseignements relatifs à votre compte, comme le paiement minimum et la date d’échéance. Si vous devez recevoir une communication distincte de votre relevé, nous vous enverrons un avis par courriel vous informant qu’un tel avis est disponible. Vous devrez alors ouvrir une session Votre compte en ligne pour pouvoir consulter votre relevé électronique ou tout message envoyé séparément. Les courriels seront envoyés à l’adresse que vous nous aurez fournie. Il vous incombe de nous fournir une adresse courriel valide et de nous aviser de toute modification à cette adresse. Pour modifier votre adresse, ouvrez une session Votre compte en ligne, puis sélectionnez l’option Gérer mes préférences de courriel dans Paramètres.<br>"+
+													"5. Les documents fournis par voie électronique seront conservés et mis à votre disposition dans Votre compte en ligne pendant 7 ans. Il vous incombe de conserver une copie de vos relevés électroniques. Vous pouvez annuler votre inscription et revenir aux relevés et aux avis de changement envoyés par la poste en tout temps via Votre compte en ligne en sélectionnant « Préférences de relevé » dans les paramètres de la carte ou en nous appelant sans frais au 1-800-459-6415. Toutefois, il est très important que vous sauvegardiez ou imprimiez tout document électronique dans votre compte Votre compte en ligne avant l’annulation, car vous n’y aurez plus accès une fois l’annulation confirmée.<br>"+
+													"6. La Banque Canadian Tire n'est pas responsable de quelque problème technique que ce soit relatif à votre ordinateur qui vous empêcherait d’accéder à votre relevé électronique ou à tout avis ou autre document versé dans Votre compte en ligne ou de recevoir quelque avis par courriel que ce soit provenant de nous.<br>"+
+													"7. Vous comprenez que tous les titulaires de carte additionnelle à qui vous avez accordé l’accès au présent compte pourront accéder aux renseignements antérieurs de votre compte, y compris à ceux sur le titulaire de carte principal et les autres titulaires de carte additionnelle.<br>"+
+													"8. Vous devez composer le 1 800 459-6415 dans les 90 jours de la date d’inscription d’une transaction si celle-ci a été portée à votre compte par erreur.<br>"+
+													"9. Nous fournissons les relevés, les avis et les autres documents électroniques en format PDF pour que vous puissiez les imprimer ou les sauvegarder en toute facilité. Vous devez utiliser le logiciel Adobe Reader pour visionner vos relevés électroniques. La plupart des versions de ce logiciel sont gratuites.<br>"+
+													"10. Vos relevés, avis et autres documents vous seront de nouveau envoyés par la poste si votre compte est en souffrance pendant trois périodes de facturation ou plus. Vous pourrez vous inscrire de nouveau au service de relevés électroniques dès que votre compte redeviendra en règle. En cochant la case correspondante, vous acceptez les modalités ci-dessus et confirmez que vous désirez maintenant recevoir par voie électronique les relevés mensuels de votre compte de carte de crédit, tout avis de modifications au document d’information reçu à l’ouverture de votre compte et tout avis de changements à votre contrat du titulaire de carte. Dans le cas contraire, cliquez sur Annuler.<br>"+
+													"Pour en savoir plus sur notre politique relative à la collecte, à l’utilisation, à la communication et à la protection de vos renseignements personnels, consultez le Document relatif à la protection des renseignements personnels.<br>"+
+													"En cochant la case correspondante, vous acceptez les modalités ci-dessus et confirmez que vous désirez à partir de maintenant recevoir par voie électronique les relevés mensuels de votre compte de carte de crédit et tout avis de modifications au document d’information reçu à l’ouverture de votre compte. Dans le cas contraire, cliquez sur Annuler. Pour obtenir de plus amples renseignements sur notre politique relative à la collecte, à l’utilisation, à la communication et à la protection de vos renseignements personnels, consultez notre page Modalités juridiques et renseignements personnels.<br>"+
+													"En vigueur à compter du 26/04/2018",	
+	contactInfo_Para5							:  "Profitez au maximum de votre carte de crédit en recevant des offres."+
+													"Cochez la case ci-dessous pour nous indiquer que vous ne voulez rien manquer!",
+	contactInfo_Para6							:  "<i>Je consens à recevoir des communications promotionnelles de la Société Canadian Tire Limitée et de ses sociétés affiliées et/ou partenaires commerciaux, y compris de la Banque Canadian Tire et des Services Canadian Tire Limitée. Vous pouvez nous contacter à l’adresse <b>serviceclientele@cantire.ca</b> et vous désabonner en tout temps. Les tarifs standard de messagerie et de transmission de données peuvent s’appliquer.</i><br><br>"+
+													"<i>Si vous recevez déjà des courriels de Canadian Tire ou de ses sociétés affiliées, vous pouvez ignorer cette case. Vos préférences ne changeront pas.</i><br>",
+    													  
 	personalData_TellUsAboutYourself                  :                         "Renseignements personnels",
 	personalData_IDType                               :                         "Type de pièce d'identité",
 	personalData_ScanID  	     					  : 						"Balayer pièce ID",
@@ -268,6 +302,11 @@ WICI.dictionary_fr =  {
 
 	personalData_PreviousAddress_Title               :                         "Adresse précédente requise seulement",
 	personalData_PreviousAddress_Description         :                         " si moins de deux ans à l'adresse actuelle",
+	 
+	 // VZE-52
+	pesonalData_covid19LockDownYear                    : "2020",
+	pesonalData_covid19LockDownMonth                    : "03",
+	pesonalData_covid19LockDownDay                    : "01",
 
 	personalData_PreviousAddress_PostalCode          :                         "Code postal",
 	personalData_PreviousAddress_StreetNumber        :                         "Numéro d'adresse ",
@@ -724,7 +763,9 @@ WICI.dictionary_fr =  {
 	// Old line
 	// optionalProducts_SignatureAgreement1				:	"<i>Je comprends que ce ou ces produits facultatifs sont offerts séparément de carte Mastercard émise par la Banque Canadian Tire et qu'il n'est pas nécessaire d'obtenir carte Mastercard émise par la Banque Canadian Tire. Je comprends que le ou les produits facultatifs que je choisis ne seront fournis que si je signe et accepte les frais indiqués. Si j'ai fait la demande d'une carte Mastercard de Canadian Tire et que celle-ci a été approuvée, j'autorise les Services Financiers Canadian Tire Limitée à porter à mon compte Mastercard de Canadian Tire le montant du paiement périodique indiqué ci-dessus. J'ai lu et compris les détails du produit indiqués dans la documentation comprenant les modalités et je consens à m'inscrire au(x) produit(s) facultatif(s) susmentionné(s).</i>",
 	optionalProducts_SignatureAgreement1				:	"<i>Je comprends que ce ou ces produits facultatifs sont offerts séparément de carte Mastercard émise par la Banque Canadian Tire et qu'il n'est pas nécessaire d'obtenir carte Mastercard émise par la Banque Canadian Tire. Je comprends que le ou les produits facultatifs que je choisis ne seront fournis que si je signe et accepte les frais indiqués. Si j'ai fait la demande d'une carte Mastercard de Canadian Tire et que celle-ci a été approuvée, j'autorise les Services Financiers Canadian Tire Limitée à porter à mon compte Mastercard de Canadian Tire le montant du paiement périodique indiqué ci-dessus. J'ai lu et compris les détails du produit indiqués dans la documentation comprenant les modalités et je consens à m'inscrire au(x) produit(s) facultatif(s) susmentionné(s).</i>",
-	optionalProducts_SignatureAgreement2				:	"En signant et en cochant la case ci-dessous, j'accepte de m'inscrire à ce(s) produit(s) facultatif(s) et j'accepte les modalités et les frais indiqués.",
+	// VZE-87
+	optionalProducts_SignatureAgreement_CP_subTitle				:	"<p>En signant et en cochant la case ci-dessous, j'accepte de souscrire au produit facultatif ci-dessous et j'accepte <b>la prime mensuelle de 1,10 $ par tranche de 100 $ de mon solde quotidien moyen</b> qui sera imputée à ma carte Mastercard émise par la Banque Canadian Tire. Je comprends également les couvertures offertes par ce produit et toutes les modalités qui m'ont été divulguées ci-dessus.</p><p>Pour les résidents du Québec: Je confirm également avoir reçu et consulté le sommaire et la fiche de renseignements.</p>",
+	optionalProducts_SignatureAgreement_IW_subTitle				:	"<P>En signant et en cochant la case ci-dessous, j'accepte de souscrire au produit facultatif ci-dessous et j'accepte <b>les frais d’abonnement mensuel de 4,99 $ plus taxes</b> qui seront imputés à ma carte Mastercard émise par la Banque Canadian Tire. Je comprends également les caractéristiques de ce produit et toutes les modalités qui m'ont été divulguées ci-dessus.</P>",
 
 	optionalProducts_ProtectionAdvantage_Title			:	"Avantage protection<span class=\"MC\"><sup></sup></span> de Canadian Tire",
 
@@ -837,15 +878,20 @@ WICI.dictionary_fr =  {
 	optionalProducts_TermsAndConditions14             :                         "Le créancier a un intérêt financier dans la vente de Couverture-crédit.",
 	optionalProducts_TermsAndConditions15             :                         "Si vous souhaitez obtenir plus de renseignements sur Couverture-crédit, vous pouvez obtenir un certificat d'assurance complet et des renseignements détaillés en visitant le site www.ctfs.com ou en appelant au 1 800 459-6415. ",
 
-	optionalProducts_TermsAndConditions16             :                         "J'ai lu et compris les modalités et les détails relatifs au produit et je consens à m'inscrire au(x) produit(s) facultatif(s) susmentionné(s).",
+	// VZE-87
+	optionalProducts_TermsAndConditions_16_CP				:	"J'ai lu et compris les détails et les modalités du produit et je donne mon consentement pour souscrire <b>l'assurance Couverture-crédit<span class=\"MD\"><sup></sup></span>.</b>",
+	optionalProducts_TermsAndConditions_16_IW              :   "J'ai lu et compris les détails et les modalités du produit et je donne mon consentement pour souscrire à <b>Surveillance d’identité Classique.</b>",
+	
+	
 	//................................................................
-	optionalProducts_WarningHeader 					  :                         "VEUILLEZ LIRE ATTENTIVEMENT CE QUI CONCERNE<br> LES PRODUITS FACULTATIFS",
+	optionalProducts_CP_WarningHeader 						:   "VEUILLEZ LIRE ATTENTIVEMENT CONCERNE<br>L’ASSURANCE COUVERTURE-CREDIT<sup>MD</sup>",
+	optionalProducts_IW_WarningHeader 						:   "VEUILLEZ LIRE ATTENTIVEMENT CONCERNE<br>SURVEILLANCE D’IDENTITÉ CLASSIQUE",
 	
 	// Old line
 	// optionalProducts_PAProducts					      : 						"Programme Avantage Protection de Canadian Tire, lequel comprend :<i><ul><li>Couverture-crédit / Couverture-crédit – Âge d'or</li><li>Surveillance d'identité Classique</li></ul></i>",
 	// optionalProducts_CPProducts						  : 						"<ul><li>Couverture-crédit / Couverture-crédit – Âge d'or</li></ul>",
 	optionalProducts_PAProducts					      : 						"Programme Avantage Protection de Canadian Tire, lequel comprend :<i><ul><li>Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span></li><li>Surveillance d'identité Classique</li></ul></i>",
-	optionalProducts_CPProducts						  : 						"<ul><li>Assurance Couverture-crédit<span class=\"MD\"><sup></sup></span></li></ul>",
+	optionalProducts_CPProducts						  : 						"<ul><li>L’assurance Couverture-crédit<span class=\"MD\"><sup></sup></span></li></ul>",
 	optionalProducts_IWProducts						  : 						"<ul><li>Surveillance d'identité Classique</li></ul>",
 	
 	// US3981
@@ -1263,6 +1309,8 @@ WICI.dictionary_fr =  {
 	signatureScreen_License9                          :                         "J'ai lu et compris le texte figurant sur la présente demande de carte et ai reçu un document contenant des renseignements additionnels concernant cette demande.",
 
 	signatureScreen_Reset_Button_Label                :                         "Effacer Signature",
+	// VZE-88
+	signatureScreen_AllowUpSellOMZCard                :                         "false",
 
 	signatureScreen_TermsAndConditions_AcceptBox      :                         "Je reconnais avoir lu, compris et accepté les modalités et les conditions, telles que définies ci-dessus, pour la carte ",
 	signatureScreen_TermsAndConditions_AcceptBox_MSPVerification              	:    " <b>et mon fournisseur de services mobiles.</b>",
@@ -1293,7 +1341,7 @@ WICI.dictionary_fr =  {
 	summary_SelectProduct_Province                    :                         "Province",
 
 	summary_TellAboutYourself_SubTitle                :                         "Identification du client",
-
+	summary_ContactInfo_SubTitle	                  :                         "Pour nous joindre",
 	summary_TellAboutYourself_FirstName               :                         "Prénom",
 	summary_TellAboutYourself_Initial                 :                         "Initiale du deuxième prénom",
 	summary_TellAboutYourself_LastName                :                         "Nom de famille",
