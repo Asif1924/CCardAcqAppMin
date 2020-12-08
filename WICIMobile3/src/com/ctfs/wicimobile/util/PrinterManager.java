@@ -12,6 +12,7 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterBluetooth;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterNetwork;
+import com.zebra.sdk.printer.PrinterStatus;
 
 public class PrinterManager {
     private static final int MAX_HISTORY_SIZE = 1;    
@@ -45,6 +46,42 @@ public class PrinterManager {
     public String getMacAddress() {
         DiscoveredPrinter latestPrinter = PrinterManager.getInstance().getSelectedPrinter();
         return latestPrinter == null ? null : latestPrinter.address;
+    }
+    
+    public String getPrinterStatus() throws ConnectionException, ZebraPrinterLanguageUnknownException {
+    	
+    	try {
+	    	ZebraPrinter latestPrinter = getZebraPrinterWrapper();
+	        PrinterStatus printerStatus = latestPrinter == null ? null : latestPrinter.getCurrentStatus();
+	        
+	        if (printerStatus.isReadyToPrint) {
+	            return "Ready To Print";
+	        } else if (printerStatus.isHeadOpen) {
+	        	return "Cannot Print because the printer head is open.";
+	        } else if (printerStatus.isPaperOut) {
+	        	return "Cannot Print because the paper is out.";
+	        } else if (printerStatus.isHeadCold) { 
+	        	return "Cannot Print because the printer head is cold.";
+	    	} else if (printerStatus.isHeadTooHot) {
+	    		return "Cannot Print because the printer head is too hot.";
+	    	} else if (printerStatus.isPartialFormatInProgress) {
+	    		return "Partial Format In Progress.";
+	    	} else if (printerStatus.isReceiveBufferFull) {
+	    		return "Received Buffer Full.";
+	    	} else if (printerStatus.isRibbonOut) {
+	    		return "Ribbon is out.";
+	    	} else if (printerStatus.isPaused) {
+	    		return "Cannot Print because the printer is paused.";
+	        } else {
+	        	return "Cannot Print.";
+	        }
+    	}
+    	catch (Exception ex) {
+    		return ex.getMessage();
+    	} finally {
+    		//disconnectSelectedPrinter();
+    	}
+        
     }
 
     public DiscoveredPrinter[] getPrinterHistory() {

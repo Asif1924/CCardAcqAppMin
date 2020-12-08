@@ -19,6 +19,7 @@ WICI.MessageDialog = function(translate){
 	this.qcDistributionGuide = qcDistributionGuide;
 	// US4495
 	this.verifyTestPrint = verifyTestPrint;
+	this.printerError = printerError;
 
 	function error(message, title, callback, uiDecoration, dialogTemplateOverride){
 		console.log("MessageDialog.error: message=" + message);
@@ -55,6 +56,21 @@ WICI.MessageDialog = function(translate){
 				determineDialogTemplate(dialogTemplateOverride));
 		dialogQueue.enqueue(dialog);
 	}
+	
+	function printerError(errorMessage, message, title, callback, uiDecoration, dialogTemplateOverride){
+		var parsedMessageArray = parseMessage(message);
+		var parsedErrorMessageArray = parseMessage(errorMessage);
+		var dialog = new WICI.PrinterErrorDialog(
+				parsedErrorMessageArray,
+				parsedMessageArray,
+				buildTitle(title, "infoDialog_defaultTitle"),
+				translate.translateKey("messageDialog_ok"),
+				buildCallback(callback),
+				uiDecoration,
+				determineDialogTemplate(dialogTemplateOverride));
+		dialogQueue.enqueue(dialog);
+	}
+	
 	function close(message, title, callback, uiDecoration, dialogTemplateOverride){
 		var parsedMessageArray = parseMessage(message);
 		var dialog = new WICI.OkDialog(

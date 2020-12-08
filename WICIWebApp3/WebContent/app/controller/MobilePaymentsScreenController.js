@@ -11,6 +11,7 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
     var chooseProductModel = null;
     
     var	flow = null;
+	var loginModel = activationItems.getModel('loginScreen');
 
     this.syncUserData = syncUserData;
     var nextButtonEnabled = false;
@@ -29,22 +30,12 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
     var model = new WICI.BaseModel({
         name: 'mobilePaymentsScreen',
         refs: refs,
-        data: [{
-            name : 'mobilePhone',
-            value : null,
-            validation : {
-                type : 'phone',
-                message : 'personalData1_validation_cellPhone',
-                canBeEmpty : true,
-                group: [ 1 ]
-            }
-        
-        },
+        data: [
+		{name: 'mobilePhone', value : null, validation : { type : 'phone', message : 'personalData1_validation_cellPhone', canBeEmpty : true, group: [ 1 ]}},
         {name: 'androidPayCheckField', value: null, validation: {type: 'presence', message: 'ProvincesList_null'}},
         {name: 'applePaycheckField', value: null, validation: {type: 'presence', message: 'ProvincesList_null'}},
         {name: 'noThanksCheckField', value: null, validation: {type: 'presence', message: 'ProvincesList_null'}},
-        { name: 'consentGranted',    value: null, validation: null }
-
+		{name: 'consentGranted',    value: null, validation: null }
         ]
     });
     this.innerModel = model;
@@ -229,7 +220,15 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
             showRedNextButton();
             nextButtonEnabled = true;
         },10000);
-        showHideMobilePhoneFields();  
+        showHideMobilePhoneFields();
+		$("#mobilePaymentHandoutToRepOk").click(function(){
+			$("#mobilePaymentHandoutTabToRepDialog-container").hide();
+			flow.next();
+        });
+   
+        $("#mobilePaymentHandoutToRepCancel").click(function(){ 
+        	$("#mobilePaymentHandoutTabToRepDialog-container").hide();
+        });  
     }    
     // ---------------------------------------------------------------------------------------
     function assemblePageHTML($element, templateName) {
@@ -267,8 +266,16 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
 	         		return;
 	        }
       }
-      flow.next();
-    }     
+      if (loginModel.get('employerID').toUpperCase() == 'E') {
+		 showSignatureHandoutTabToRep_dialog();
+	  } else {
+		 flow.next();
+	  }
+    }
+	// ---------------------------------------------------------------------------------------
+	function showSignatureHandoutTabToRep_dialog() {
+		$("#mobilePaymentHandoutTabToRepDialog-container").show();
+	}     
     // ---------------------------------------------------------------------------------------
     function showPrevScreen() {
     	var sMethod = 'showPrevScreen() ';

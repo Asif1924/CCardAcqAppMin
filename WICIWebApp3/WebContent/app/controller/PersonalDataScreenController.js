@@ -20,6 +20,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var addressLookupButton1Enabled = false;
     var addressLookupButton2Enabled = false;
     var showQCHealthCard = false;
+    var isAliveInterval = null;
     
     var expirydateForQC = "";
     var month;
@@ -131,6 +132,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         { name : 'age', 					value : null, validation : null },
 		{ name : 'correspondence', 			value : null, validation : { type : 'presence', 	message : '', group: [ 1 ] } },
 		{notField: true, name: 'scanFlag', value: null },
+		{name: 'DSAScore',  value: null, validation: null },
+		{name: 'treatmentCode',  value: null, validation: null },
+		{name: 'tmxProfileID',  value: null, validation: null },
       ]
     });
     var addressModel = new WICI.BaseModel({
@@ -1653,6 +1657,126 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             
             syncUserData();
         }
+        
+        var loginModel = activationItems.getModel('loginScreen');
+        var contactInfoScreenModel = activationItems.getModel('contactInfoScreen');
+        
+        var loginId='';
+        if(loginModel.get('employerID') !== 'E') {
+        	loginId = loginModel.get('employerID') + loginModel.get('agentID');
+        }
+        
+        var storePostCode = loginModel.get('outletPostalcode');
+        var mfgSerial;
+        if(app.deviceInfoHelper && app.deviceInfoHelper.getDeviceInfo()) {
+			mfgSerial = app.deviceInfoHelper.getDeviceInfo().MfgSerial;
+		} else {
+			mfgSerial = "SCOOBY";
+		}
+        
+        var phoneNumber;
+        var phone_Type;
+        
+        if(contactInfoScreenModel.get('primaryMobile_CheckField') == 'Y') {
+        	phoneNumber = contactInfoScreenModel.get('homePhone');
+        	phone_Type = "mobile";
+        } else if(contactInfoScreenModel.get('primaryLandline_CheckField') == 'Y') {
+        	phoneNumber = contactInfoScreenModel.get('homePhone');
+            phone_Type = "home";
+        } else if(contactInfoScreenModel.get('secondaryMobile_CheckField') == 'Y') {
+        	phoneNumber = contactInfoScreenModel.get('cellPhone');
+        	phone_Type = "mobile";
+        } else if(contactInfoScreenModel.get('secondaryLandline_CheckField') == 'Y') {
+        	phoneNumber = contactInfoScreenModel.get('cellPhone');
+        	phone_Type = "home";
+        } else {
+        	phoneNumber = '';
+        	phone_Type = '';
+        }
+        
+        var emailAddress = contactInfoScreenModel.get('email');
+        
+        var currModel = models.personalDataModel;
+        
+        var firstName = currModel.get('firstName');
+        var lastName = currModel.get('lastName');
+        var birthDate = currModel.get('birthDate').replace(new RegExp('-', 'g'), '');
+        
+        currModel = models.addressModel;
+        
+        var province = currModel.get('province');
+        var postCode = currModel.get('postalcode');
+        var city = currModel.get('city');
+        var addressline1 = currModel.get("addressline1");
+        var streetnumber = currModel.get("streetnumber");
+        var suiteunit = currModel.get('suiteunit');
+        var addressline2 = currModel.get('addressline2');
+        
+        var financialScreenModel = activationItems.getModel('financialData');
+        var sin='';
+        
+        try {
+            sin = financialScreenModel.get('sin');
+            console.log(logPrefix + sMethod + " sin : " + sin);
+        } catch (e) {
+        	console.log(e);  
+        }
+        
+        console.log(logPrefix + sMethod + " " + loginId + " " + storePostCode + " " + mfgSerial + " " + phoneNumber + " " + phone_Type + " " + emailAddress + " " + 
+        		firstName + " " + lastName + " " + birthDate + " " + province + " " + postCode + " " + city + " " + addressline1 + " " + streetnumber + " " + suiteunit + " " + addressline2 + " " + sin);
+        
+        if(emailAddress != '') {
+        	invokeTMXEmailage( loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
+            		firstName,lastName,birthDate,province,postCode,city,addressline1,streetnumber,suiteunit,addressline2,sin, tMXEmailageSuccess, tMXEmailageFailure );
+        } else {
+        	var currModel = models.personalDataModel;
+            currModel.set('DSAScore', '');
+            currModel.set('treatmentCode', '');
+            currModel.set('tmxProfileID', '');
+        	flow.next();
+        }
+    }
+    
+    function invokeTMXEmailage(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
+    		firstName,lastName,birthDate,province,postCode,city,addressline1,streetnumber,suiteunit,addressline2,sin, argSuccessCB, argFailureCB) {
+    	var sMethod = "invokeTMXEmailage() :: ";
+    	console.log(logPrefix + sMethod);
+    	
+    	new WICI.LoadingIndicatorController().show();
+    	connectivityController.TMXEmailage(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
+        		firstName,lastName,birthDate,province,postCode,city,addressline1,streetnumber,suiteunit,addressline2,sin,argSuccessCB,argFailureCB);
+    }
+    
+    function tMXEmailageSuccess(argResponse) {
+    	var sMethod = "tMXEmailageSuccess(argResponse)";
+        console.log(logPrefix + sMethod + JSON.stringify(argResponse));
+        
+        new WICI.LoadingIndicatorController().hide();
+        if(!argResponse.error) {
+        	try {
+        		var currModel = models.personalDataModel;
+                currModel.set('DSAScore', argResponse.data.fpsTrustscore);
+                currModel.set('treatmentCode', argResponse.data.requestResult);
+                currModel.set('tmxProfileID', argResponse.data.tmxProfileID);
+                flow.next();
+        	} catch (e) {
+        		console.log(logPrefix + sMethod + "Exception : " + e);
+        		flow.next();
+        	}
+        } else {
+        	flow.next();
+        }
+    }
+    
+    function tMXEmailageFailure(argResponse) {
+    	var sMethod = "tMXEmailageFailure(argResponse)";
+        console.log(logPrefix + sMethod);
+        
+        new WICI.LoadingIndicatorController().hide();
+        var currModel = models.personalDataModel;
+        currModel.set('DSAScore', '');
+        currModel.set('treatmentCode', '');
+        currModel.set('tmxProfileID', '');
         flow.next();
     }
 

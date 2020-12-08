@@ -1,7 +1,0 @@
-The latest version of antisamy can always be downloaded here:
-
-http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.owasp.antisamy&a=antisamy&c=sources&v=LATEST
-
-http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.owasp.antisamy&a=antisamy&v=LATEST
-
-MD5/SHA1 checksums can be found at http://repo1.maven.org/maven2/org/owasp/antisamy/antisamy/<version>/

@@ -68,7 +68,7 @@ WICI.LoginScreenController = function(app) {
         refs: refs,
         data: [
             { name: 'employerID', value: null,  validation: { type: 'format', message: '', matcher: /^[a-zA-Z0-9]{1}$/, group: [1] } }, 
-            { name : 'retailNetWork', value : null, validation : { type : 'presence', message : 'RetailNetWork is not selected', group: [1], canBeEmpty : true } },
+            { name: 'retailNetWork', value : null, validation : { type : 'presence', message : 'RetailNetWork is not selected', group: [1], canBeEmpty : true } },
             { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,9}/, canBeEmpty : true } },
          	{ name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
         	{ name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
@@ -85,6 +85,8 @@ WICI.LoginScreenController = function(app) {
         	
         	{ name: 'signature_trainee', value: null, validation: {type: 'presence', message: '', group: [2]}},
             { notField: true, name: 'userLocationResponse', value: null, validation: null },
+            { name: 'outletProvince', value: null, validation: null },
+            { name: 'outletPostalcode', value: null, validation: null },
             { notField: true, name: 'rollId', value: null, validation: null },
     		{ notField: true, name: 'enableEnstreamAuth', value: null, validation: null },
             { notField: true, name: 'printerMacAddress', value: null, validation: null },
@@ -798,7 +800,9 @@ WICI.LoginScreenController = function(app) {
             if (app.getDemoMode()) {
                 constructedMessage += translator.translateKey("loginScreen_DemoModeAlert").replace(/\n/g, "<br>");
             }
-
+            model.set('outletProvince', outletProvince.trim());
+            model.set('outletPostalcode', outletPostal.trim());
+            console.log(logPrefix + sMethod + model.get('outletProvince'));
             messageDialog.htmlConfirm(constructedMessage, handleLookupYes, handleLookupNo, translator.translateKey("loginScreen_UserLookupDialog_NormalTitle"));
             model.set('userLocationResponse', userLocationResponse);
         } else {

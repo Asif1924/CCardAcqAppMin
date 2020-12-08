@@ -51,6 +51,27 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             }
+        } else if (action.equals("getPrinterStatus")) {
+            try {
+                String printerStatus = PrinterManager.getInstance().getPrinterStatus();
+                if (printerStatus == null) {
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Printer Not found"));
+                    return true;
+                }
+
+                // Call UI callback with search results
+                PluginResult result = new PluginResult(PluginResult.Status.OK, printerStatus);
+                // Send search results to Web UI side
+                callbackContext.sendPluginResult(result);
+
+                return true;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+                if (callbackContext != null) {
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
+                }
+            }
         } else if (action.equals("storePrintMacAddress")) {
             try {
                 String printerMACAddress = args.getString(0);
@@ -286,7 +307,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 }
 
                 // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+                PluginResult result = new PluginResult(PluginResult.Status.OK, PrinterManager.getInstance().getPrinterStatus());
                 result.setKeepCallback(false);
 
                 // Send search results to Web UI side
@@ -332,7 +353,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                             cardmemberModel.getCorrespondenceLanguage());
                 }
                 // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+                PluginResult result = new PluginResult(PluginResult.Status.OK, PrinterManager.getInstance().getPrinterStatus());
                 result.setKeepCallback(false);
 
                 // Send search results to Web UI side

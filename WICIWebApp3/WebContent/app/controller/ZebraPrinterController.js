@@ -298,6 +298,17 @@ WICI.ZebraPrinterController = function () {
            return printerMacAddress && printerMacAddress.length == 17 && printerMacAddress.indexOf("_") === -1 && printerMacAddress.indexOf("__") === -1 ? true : false;
        };
        //---------------------------------------------------------------------------------------
+       this.getPrinterStatus = function (successCallback, failureCallback) {
+           var sMethod = 'getPrinterStatus() ';
+           console.log(logPrefix + sMethod);
+
+           try {
+                 cordova.exec(successCallback, failureCallback, "ZebraPrinterPlugin", "getPrinterStatus", []);
+           } catch (err) {
+               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
+           }
+        };
+       //---------------------------------------------------------------------------------------
        function prepareCreditProtectorYesNo(insuranceCode, language) {
     	   console.log('prepareCreditProtectorYesNo');
     	   if ((insuranceCode == "W4")

@@ -148,11 +148,50 @@ html,body {
   max-width: 90%;
 }
 
+/*VZE-107 */
+.signatureFixCustomer{
+   width: 700px;
+   height: 200px;
+   max-width: 100%;
+} 
+
 .wiciChooseProductPage {
   background-color: #FFFFFF;
   padding-top: 0;
 }
 
+/* VZE-107 */
+.chooseProduct_SignatureTitle_Red{
+    background-color: red;
+    height: 50px;
+    width: 100%;
+    margin-top: -30px;
+
+}
+
+.chooseProduct_SignatureTitle_Green{
+    background-color: #1e940a;
+    height: 50px;
+    width: 100%;
+    margin-top: -30px;
+
+}
+
+.signatureDialogTitleFont{
+    padding: 10px;
+    font-size: 28px;
+    color: white;
+    overflow: hidden;
+    text-shadow: none;
+}
+
+.signatureDialogpadding{
+    padding: 20px;
+}
+
+
+  
+/* VZE-107*/ 
 .wiciWhiteBackgroundPage {
   background-color: #FFFFFF;
   box-sizing: border-box;
@@ -200,6 +239,12 @@ border: 0px;
 .locationDetailsFont {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  font-size: 18pt;
+  font-color: #000;
+}
+
+.printerErrorDetailsFont {
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 18pt;
   font-color: #000;
 }
@@ -304,6 +349,11 @@ border: 0px;
 	margin-block-start: 0em;
 }
 
+.paragraphAlignmentStartEndPoint5 {
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+}
+
 .paragraphAlignmentHeading4 {
 	margin-block-start: 1em;
 	margin-block-end: 0.25em;
@@ -348,6 +398,10 @@ border: 0px;
 
 .fontSize20 {
 	font-size: 20px;
+}
+
+.fontSize16 {
+	font-size: 16px;
 }
 
 .fontSize19 {
@@ -780,22 +834,69 @@ border: 0px;
 
 // US5146 WICI - New Disclaimer Pop up START
 .popup {
-  width: 100%;
-  padding: 15px;
-  left: 0;
-  margin-left: 5%;
-  border: 1px solid rgb(1,82,73);
-  border-radius: 10px;
-  color: rgb(1,82,73);
-  background: white;
-  position: absolute;
-  top: 15%;
-  box-shadow: 5px 5px 5px #000;
-  z-index: 10001;
-  font-weight: 700;
-  text-align: center;
+	  width: 100%;
+	  padding: 15px;
+	  left: 0;
+	  margin-left: 5%;
+	  border: 1px solid rgb(1,82,73);
+	  border-radius: 10px;
+	  color: rgb(1,82,73);
+	  background: white;
+	  position: absolute;
+	  top: 15%;
+	  box-shadow: 5px 5px 5px #000;
+	  z-index: 10001;
+	  font-weight: 700;
+	  text-align: center;
 }
 
+.handoutTabToCustomerpopup {
+	  width: 100%;
+	  padding: 10px 20px 20px 20px;
+	  left: 0;
+	  margin-left: 5%;
+	  border: 1px solid rgb(1,82,73);
+	  border-radius: 10px;
+	  color: rgb(1,82,73);
+	  background: white;
+	  position: absolute;
+	  top: 15%;
+	  box-shadow: 5px 5px 5px #000;
+	  z-index: 10001;
+	  font-weight: 700;
+	  text-align: center;
+}
+
+/*VZE-107 */
+.popup_SignatureDialog_Red {
+    width: 60%;
+    left: 15%;
+    margin-left: 5%;
+    border: 1px solid #ff0000;;
+    color: black;
+    background: white;
+    position: absolute;
+    top: 15%;
+    box-shadow: 0 0 10px red;
+    z-index: 10001;
+    font-weight: 700;
+    text-align: center;
+}
+.popup_SignatureDialog_Green {
+    width: 60%;
+    left: 15%;
+    margin-left: 5%;
+    border: 1px solid #1e940a;
+    color: black;
+    background: white;
+    position: absolute;
+    top: 15%;
+    box-shadow: 0 0 10px #1e940a;
+    z-index: 10001;
+    font-weight: 700;
+    text-align: center;
+}
+/*VZE-107 */
 .overlay {
   position: fixed;
   width: 100%;
@@ -810,8 +911,12 @@ border: 0px;
 
 @media (min-width: 768px) {
   .popup {
-    width: 66.66666666%;
-    margin-left: 16.666666%;
+    width: 66%;
+    margin-left: 16%;
+  }
+  .handoutTabToCustomerpopup {
+	width: 40%;
+    margin-left: 30%;
   }
 }
 @media (min-width: 992px) {
@@ -819,12 +924,31 @@ border: 0px;
     width: 80%;
     margin-left: 25%;
   }
+  .handoutTabToCustomerpopup {
+	width: 35%;
+    margin-left: 32.5%;
+  }
 }
 @media (min-width: 1200px) {
   .popup {
     width: 50%;
     margin-left: 25%;
   }
+  .handoutTabToCustomerpopup {
+	width: 25%;
+    margin-left: 37.5%;
+  }
+}
+
+.dialog-btn-ok {
+  background-color:#44B78B;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #44B78B;
+  border-radius: 10px;
+  height: 30px;
+  width: 130px;
+  margin-right: 10%;
 }
 
 .dialog-btn-proceed {
@@ -1634,25 +1758,25 @@ tr {
 	 height: 1350px;
 	} 
 	@media(min-width: 645px){
-	 height: 1350px;
-	}
-	@media(min-width: 700px){
 	 height: 1750px;
 	}
+	@media(min-width: 700px){
+	 height: 2850px;
+	}
 	@media(min-width: 1000px){
-	 height: 2700px;
+	 height: 3500px;
 	}
 }
 
  #cpOptionalProduct {
-    background-image: #{inline_image("creditProtectorInsuranceDisclosure_EN_v1.png")};
+    background-image: #{inline_image("EnglishSummaryofCoverageFinal.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100% 100%;
   }
 
   #cpOptionalProduct.en_card {
-    background-image: #{inline_image("creditProtectorInsuranceDisclosure_EN_v1.png")};
+    background-image: #{inline_image("EnglishSummaryofCoverageFinal.png")};
    /* @media(max-width: 500px){
 	 height: 1320px;
 	}
@@ -1674,7 +1798,7 @@ tr {
   }
 
   #cpOptionalProduct.fr_card {
-    background-image: #{inline_image("creditProtectorInsuranceDisclosure_FR_v1.png")};
+    background-image: #{inline_image("FrenchSummaryofCoverageFinal.png")};
    /* @media(max-width: 500px){
 	 height: 1420px;
 	}
@@ -2046,7 +2170,31 @@ tr {
   height: 72px;
   width: 640px;
 }
+/*VZE-107 */
+.buttonWithSquareBorder {
+  display: table-cell;
+  zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+  *display: inline;
+  vertical-align: middle;
+  margin: 0 2px;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font: 14px/100% Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: .5em 0em .5em;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
 
+  
+
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  height: 72px;
+  width: 640px;
+}
+/*VZE-107 */
 .button:disabled {
   opacity: 0.5;
 }
@@ -3185,14 +3333,24 @@ body.ui-mobile-viewport { overflow-x: visible; }
 }
 
 .receiveEmail_TextArea{
-  	font-family: Arial, Helvetica, sans-serif;
+  	font-family: Helvetica, Arial, sans-serif;
   	font-size: 12pt;
   	font-color: #000;
   	margin-left: 27px;
   	margin-block-start: 0.5em;
   margin-block-end: 0.5em;
 }
-
+/* VZE-108 */
+.cantire_Agreement{
+    text-align: left;
+    border: 2px solid #dcd9d9;
+    font-family: Helvetica, Arial, sans-serif;
+    height: 150px;
+    width: 100%;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    min-height: 150px;
+}
 .wiciCheckBox label {
   cursor: pointer;
   position: absolute;
@@ -3738,11 +3896,19 @@ and (max-width: 705px) {
   font-family: Helvetica, Arial, sans-serif;font-size: 7pt;position: relative;top: -4px;
 }
 
+.MD10pt {
+  font-family: Helvetica, Arial, sans-serif;font-size: 10pt;position: relative;top: -4px;
+}
+
 .MC sup:after {
   content: 'MC';
 }
 
 .MD sup:after {
+  content: 'MD';
+}
+
+.MD10pt sup:after {
   content: 'MD';
 }
 

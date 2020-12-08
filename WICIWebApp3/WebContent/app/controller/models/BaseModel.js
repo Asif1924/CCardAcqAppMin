@@ -25,14 +25,19 @@ WICI.BaseModel = function(config) {
     };
     //---------------------------------------------------------------
     this.getNotEmtyData = function(bIncludeNonFields){
-        var sMethod = 'getData() ';
+        var sMethod = 'getNotEmtyData() ';
         console.log(logPrefix + sMethod);
 
         var rez=[];
         $.each(this.data, function(index, item) {
             if(!item.notField || (bIncludeNonFields && item.notField)){
+            	// Add all DSA Score field value to the request
+            	// since "0" is also a valid DSA Score 
+            	if(item.name == "DSAScore" && item.value !== '') {
+            		rez.push({name: item.name, value: item.value});
+            	}
             	 // Don't add empty field to the request
-                if (!_.isEmpty(item.name)  && item.value && !_.isEmpty(item.value.toString()) && programCheck(item)) {
+            	else if (!_.isEmpty(item.name)  && item.value && !_.isEmpty(item.value.toString()) && programCheck(item)) {
                 	 rez.push({name: item.name, value: item.value});
                 }
             }

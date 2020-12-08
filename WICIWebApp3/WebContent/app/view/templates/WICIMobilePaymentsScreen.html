@@ -1,7 +1,16 @@
 <script id="WICIMobilePaymentsScreen-template" type="text/x-jquery-tmpl">
     <div class="ScreenLayout">
 		<br>
-		<br>		
+		<br>
+		<div class="overlay" id="mobilePaymentHandoutTabToRepDialog-container">
+  			<div class="handoutTabToCustomerpopup">
+    			<p class="text-left" data-translationKey="mobilePayment_HandoutTabToRepDialogContent"></p>
+    			<div>      				
+      				<button class="dialog-btn-ok" id="mobilePaymentHandoutToRepOk" data-translationKey="mobilePayment_HandoutTabToRepDialogOk"></button>
+					<button class="dialog-btn-cancel" id="mobilePaymentHandoutToRepCancel" data-translationKey="mobilePayment_HandoutTabToRepDialogCancel"></button>
+    			</div>
+  			</div>
+		</div>	
 	    <div class="mobilePaymentContentSize">
 	    	<table id="mobilePhoneField"  class="stretchThisTable margingMobilePhoneField">
 	        	<tr class="fieldRow">

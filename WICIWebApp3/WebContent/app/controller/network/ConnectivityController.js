@@ -232,7 +232,59 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			offlineCallback
 		);
     };
+    //---------------------------------------------------------------------------------------
+    this.TMXEmailage = function(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
+    		firstName,lastName,birthDate,province,postCode,city,addressline1,streetnumber,suiteunit,addressline2,sin,argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'TMXEmailage() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
     
+		var requestParams = {
+			"loginId": loginId,
+			"storePostCode": storePostCode,
+	      	"tabSerialNumber": mfgSerial,
+	      	"phoneNumber": phoneNumber,
+	      	"phone_Type" : phone_Type,
+	      	"emailAddress" : emailAddress,	      	
+	      	"firstName": firstName,
+			"lastName": lastName,
+	      	"birthDate": birthDate,
+	      	"province": province,
+	      	"postCode" : postCode,
+	      	"city" : city,	      	
+	      	"addressline1": addressline1,
+	      	"streetNumber": streetnumber,
+	      	"suiteunit": suiteunit,
+	      	"addressline2" : addressline2,	      	
+	      	"sin" : sin,	      	
+		};
+		connRequestBuilder.setHttpType( "POST" );
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("TMXEmailage Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("TMX");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.TMXProfile,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.TMXEMAILAGE_REQUEST_INTERVAL
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
     // ---------------------------------------------------------------------------------------
     this.InstantIssuance = function(argTransactionID, argPAN, argMSISDN, argDeviceType, argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'InstantIssuance() ';

@@ -7,13 +7,17 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     var translator = null;
     var messageDialog = null;
     var isDebugMode;
-
+    // VZE-107
+    var signatureControl;
+    var isCustomerSignatureDiloge = false;
+    
     this.show = show;
     this.init = init;
     this.hide = hide;
     var selectedProvince = "";
 
     var flow = null;
+    var self = this;
 
     var loginModel = activationItems.getModel('loginScreen');
 
@@ -25,7 +29,18 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         agencyProgram : '#programDropDown',
         agencyPromoCode : '#promoCodeTextField',
         // US3767
-        agencyPromoCodeDropDown : '#promoCodeDropDown'
+        agencyPromoCodeDropDown : '#promoCodeDropDown',
+        // VZE-107
+        signature:  '#chooseProductScreen_signature',
+        signature_customer : '#chooseProductScreen_SingnatureContainer',
+        resetSignature: '#chooseProductScreen_signature_Reset_Button',
+        // VZE-108
+        costOfCredit_Checkbox: '#receive_CostOfCredit_CheckBox',
+        costOfCreditCheckbox_Area : '#receive_CostOfCredit_CheckBox_Area',
+        cardmemberAgreement_Checkbox : '#cantireCard_Agreement_CheckBox',
+        cardmemberAgreementCheckbox_Area : '#cantireCard_Agreement_CheckBoxArea',
+        triangleRewardProgramCheckbox : '#triangle_Rewards_Program_TermsAndCondition_CheckBox',
+        triangleRewardProgramCheckbox_Area :  '#triangle_Rewards_Program_TermsAndCondition_CheckBox_Area'
     };
 
     var model = new WICI.BaseModel({
@@ -36,14 +51,16 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             value : null,
             validation : {
                 type : 'presence',
-                message : 'Choose one of the Credit Cards'
+                message : 'Choose one of the Credit Cards',
+                group: [1]
             }
         }, {
             name : 'agencyProgram',
             value : null,
             validation : {
                 type : 'presence',
-                message : 'Program is not selected'
+                message : 'Program is not selected',
+                group: [1]
             }
         }, 
         // US3767 
@@ -52,7 +69,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             value : null,
             validation : {
                 type : 'presence',
-                message : 'PromoCodeDropDown is not selected'
+                message : 'PromoCodeDropDown is not selected',
+                group: [1]
             }
         }, {
             name : 'agencyPromoCode',
@@ -60,6 +78,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             validation : {
                 type : 'format',
                 message : 'Enter valid Promo Code',
+                group: [1],
                 matcher : /^[a-zA-Z0-9\'\-||S.O.]{1,5}$/,
                 // US4433   Other then FGl store PromoCode field should not allow blank (Empty)
                 canBeEmpty : (loginModel.get('retailNetWork') == "SPORTS" || loginModel.get('retailNetWork') == "PC") ? true : false
@@ -69,9 +88,21 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             value : null,
             validation : {
                 type : 'presence',
-                message : 'Province is not selected'
+                message : 'Province is not selected',
+                group: [1]
             }
-        }]
+           
+        },
+        //VZE-107
+        { notField: true, name: 'userSingnatureNative', value: null, validation: null},
+        { name: 'controlConfirmation', value: null, validation: null},
+        { name: 'signature_customer', value: null, validation: {type: 'presence', message: '', group: [2]}},
+        { notField: true, name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature', group: [2]}},
+        // VZE-108
+        {name: 'costOfCreditAgreement',   value: null},
+        {name: 'cardmemberAgreement',   value: null},
+        {name: 'triangleRewardAgreement',   value: null},
+        ]
     });
     this.innerModel = model;
     // ---------------------------------------------------------------------------------------
@@ -168,6 +199,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             }
         	console.log(logPrefix + sMethod + " Exception: " + e);
         }
+        if(loginModel.get('employerID').toUpperCase() == 'E') {
+        	showHandoutTabToCustomer_dialog();
+		}
     }
     //----------------------------------------------------------------------------------------
     function setFrenchCTMlogo(){
@@ -191,6 +225,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         updatePageTranslation();
         setFrenchCTMlogo();
+    
     }
     // ---------------------------------------------------------------------------------------
     function hide() {
@@ -253,10 +288,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     }
     // ---------------------------------------------------------------------------------------
     function assemblePageHTML($element, templateName) {
+        // VZE-107
+        var outletProvince = getOutletProvince();
         $(templateName).tmpl( {
 	        // US3767 
         	activationItems: activationItems,
-            isNotEmployee: activationItems.getModel('loginScreen').get('employerID').toUpperCase !== 'E'
+            isNotEmployee: activationItems.getModel('loginScreen').get('employerID').toUpperCase !== 'E',
+            loginProvince : outletProvince
+            
             } ).appendTo($element);
     }
     // ---------------------------------------------------------------------------------------
@@ -278,6 +317,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // US4989
             updateOmxCardLanguage();
         });
+        // VZE-107
+        $("#dialog_container_customer_signature").hide();
         updateOmxCardLanguage();
         $(refs.agencyPromoCode).on('paste, input', inputLengthControlHandler);
 
@@ -495,21 +536,151 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	showOMX(); 
         	updateOmxCardLanguage();
         });
-        // US5146
-        $("#proceed").click(function(){ 
-        	$("#dialog-container").hide();        	
-        	messageDialog.legalHandout(translator.translateKey("chooseProductScreen_LegalHandout_Message"), translator.translateKey("chooseProductScreen_LegalHandout_PleaseSign") , translator.translateKey("signatureScreen_Reset_Button_Label"),
-              		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));
+        
+        // VZE-107
+        $("#signatureDialogIAgree").click(function(){ 
+	         var outletProvince = getOutletProvince();
+              syncUserData();
+
+              if (app.validationsOn){
+	              // VZE-107 : FMR - All Province
+			     if(loginModel.get('employerID').toUpperCase() !== 'E'){
+				    if(isCustomerSignatureDiloge){
+					   app.validationDecorator.focusControl("#chooseProductScreen_PageHeader");
+				       app.validationDecorator.clearErrArrtibute();
+			           var rez = model.validate(2);
+		               app.validationDecorator.applyErrAttribute(rez);
+		               $("#dialog_container_customer_signature").show();
+			           $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
+			           app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+		               if (rez.length > 0) {
+		                  return;
+		               }else{
+			             model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			             model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+		                 hide_dialog();
+			             saveState();
+			             flow.next();
+			             app.abandonApplicationTriggerActionService.start();
+		               }
+			         }
+			     }
+                 // VZE-107 : Store Staff (E Login) - ROC Province 
+		         if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC"){
+			         if(isCustomerSignatureDiloge){
+				        app.validationDecorator.focusControl("#ChooseProductScreen");
+				        app.validationDecorator.clearErrArrtibute();
+			            var rez1 = model.validate(2);
+		                app.validationDecorator.applyErrAttribute(rez1);
+		                $("#dialog_container_customer_signature").show();
+			            $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
+			            app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+		                if (rez1.length > 0) {
+		                  return;
+		                }else{
+			              app.validationDecorator.focusControl("#ChooseProductScreen");
+			              model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			              model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+		                  hide_dialog();
+		               }
+			         }
+		         }
+                 // VZE-107 : Store Staff (E Login) - QC Province 
+                 if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince === "QC"){
+	                if(isCustomerSignatureDiloge){
+		               app.validationDecorator.focusControl("#ChooseProductScreen");
+				       app.validationDecorator.clearErrArrtibute();
+			           var rez2 = model.validate(2);
+		               app.validationDecorator.applyErrAttribute(rez2);
+		               $("#dialog_container_customer_signature").show();
+			           $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
+			           app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+		               if (rez2.length > 0) {
+		                  return;
+		               }else{
+			              app.validationDecorator.focusControl("#ChooseProductScreen");
+			              model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			              model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+		                  hide_dialog();
+		               }
+			         }
+                 }
+              }
+        }); 
+        
+        $("#signatureDialogCancel").click(function(){
+	         var outletProvince = getOutletProvince();
+        	// VZE-107 : FMR - All Province
+            if(loginModel.get('employerID').toUpperCase() !== 'E') {
+	           $("#dialog_container_customer_signature").hide();
+            }
+            // VZE-107 : Store Staff (E Login) - ROC Province 
+            if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC"){
+	           $("#dialog_container_customer_signature").hide();
+	           logout();
+            }
+            // VZE-107 : Store Staff (E Login) - QC Province 
+        	if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince === "QC"){
+	           $("#dialog_container_customer_signature").hide();
+	           logout();
+            }
+        });
+
+		$("#handoutOk").click(function(){
+			show_dialog();
         });
    
-        $("#cancel").click(function(){ 
-        	$("#dialog-container").hide();
+        $("#handoutCancel").click(function(){
+        	$("#handoutTabToCustomerDialog-container").hide();
+        	logout();
         });
+
+        // VZE-108
+       /*var outletProvince = getOutletProvince();
+       if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC") {
+	       	$.each(model.data, function(index, item) {
+    		 				console.log( " Store Staff - ROC | Display Legal, CMA and Triangle Rewards T&C's on Product Info Screen. " );
+    		 					if(item.name == "costOfCreditAgreement") {
+    		 						 item.validation.canBeEmpty = false;
+    		 					}
+    		 					if(item.name == "cardmemberAgreement") {
+    								 item.validation.canBeEmpty = false;
+    							}
+			                    if(item.name == "triangleRewardAgreement") {
+    								 item.validation.canBeEmpty = false;
+    							}
+    		});
+       }*/
+        
     }
-    // US5146
-    function show_dialog() {
-    	$("#dialog-container").show();
-   	}
+    //----------------------------------------------------------------------------------------
+    function logout(){
+    	app.flowController.logOut(self);
+    }
+    //----------------------------------------------------------------------------------------
+	function showHandoutTabToCustomer_dialog() {
+		$("#handoutTabToCustomerDialog-container").show();
+        
+	}
+	//---VZE-108-------------------------------------------------------------------------------------
+	function show_dialog() {
+		var sMethod = 'show_dialog() ';
+        console.log(logPrefix + sMethod);
+        app.validationDecorator.focusControl("#ChooseProductScreen");
+        isCustomerSignatureDiloge = true;
+		$("#handoutTabToCustomerDialog-container").hide(); 
+        $("#dialog_container_customer_signature").show();
+       
+        createSignatureControl();
+	}
+	//---VZE-108-------------------------------------------------------------------------------------
+	function hide_dialog() {
+		var sMethod = 'hide_dialog() ';
+        console.log(logPrefix + sMethod);
+        isCustomerSignatureDiloge = false;
+		$("#handoutTabToCustomerDialog-container").hide(); 
+        $("#dialog_container_customer_signature").hide();
+	}
     // US4989
     //----------------------------------------------------------------------------------------
     function updateOmxCardLanguage() {
@@ -594,7 +765,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             // Bind with click event
             $(refs.applyButton).bind("click", function() {
                 console.log("chooseProductScreen_ApplyNowButton.click");
-                
                 showNextScreen();                
                 // US4571 starts
                 //testPrint();                
@@ -775,29 +945,66 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         if (app.validationsOn) {
             app.validationDecorator.clearErrArrtibute();
-
-            var rez = model.validate();
+             // VZE-107
+	         
+            var outletProvince = getOutletProvince();
+			// VZE-108 -- Starts
+			if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC") {
+				var rezCheckbox = [];
+				if(!$(refs.costOfCredit_Checkbox).is(':checked') && !$(refs.cardmemberAgreement_Checkbox).is(':checked') && !$(refs.triangleRewardProgramCheckbox ).is(':checked')){
+					rezCheckbox.push(refs.costOfCreditCheckbox_Area);
+					rezCheckbox.push(refs.cardmemberAgreementCheckbox_Area);
+					rezCheckbox.push(refs.triangleRewardProgramCheckbox_Area);
+					$(refs.costOfCreditCheckbox_Area).addClass('errorField');
+					$(refs.cardmemberAgreementCheckbox_Area).addClass('errorField');
+					$(refs.triangleRewardProgramCheckbox_Area).addClass('errorField');
+				}
+				if(!$(refs.costOfCredit_Checkbox).is(':checked')){
+					rezCheckbox.push(refs.costOfCreditCheckbox_Area);
+					$(refs.costOfCreditCheckbox_Area).addClass('errorField');
+				}
+				if(!$(refs.cardmemberAgreement_Checkbox).is(':checked')){
+					rezCheckbox.push(refs.cardmemberAgreementCheckbox_Area);
+					$(refs.cardmemberAgreementCheckbox_Area).addClass('errorField');
+				}
+				if(!$(refs.triangleRewardProgramCheckbox ).is(':checked')){
+					rezCheckbox.push(refs.triangleRewardProgramCheckbox_Area);
+					$(refs.triangleRewardProgramCheckbox_Area).addClass('errorField');
+				}
+				if(rezCheckbox.length>0){
+	                app.validationDecorator.applyErrAttribute(rezCheckbox);
+	                return;
+	            }
+			}
+			
+			// VZE-108 -- Ends
+            var rez = model.validate(1);
             if (rez.length > 0) {
                 var errStrArr = [];
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-
                 app.validationDecorator.applyErrAttribute(rez);
-
+                
                 return;
             }
+           
         }
-        // US5146
-        show_dialog();
+       
         // US3981       
        	/*messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
-           		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));*/               
-        /*
-        saveState();
-        flow.next();
-        app.abandonApplicationTriggerActionService.start();
-        */
+           		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));*/ 
+       // VZE-107    		
+       if(loginModel.get('employerID').toUpperCase() !== 'E'){
+	     show_dialog();
+       }else{
+	     saveState();
+         flow.next();
+         app.abandonApplicationTriggerActionService.start();
+        
+       }             
+        
+        
     }
     // US3981 - Start
     // ---------------------------------------------------------------------------------------
@@ -874,7 +1081,25 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             	model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
             }        	
         }
-
+        // VZE-107
+       
+        if(isCustomerSignatureDiloge){
+	         model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+             model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+             model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+             model.set('controlConfirmation',  'Y');
+        }
+	    
+        var outletProvince = getOutletProvince();
+        if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !=="QC") {
+	      model.set('costOfCreditAgreement',   $(refs.costOfCredit_Checkbox).is(':checked') ? 'Y' : 'N');
+          model.set('cardmemberAgreement',   $(refs.cardmemberAgreement_Checkbox).is(':checked') ? 'Y' : 'N');
+          model.set('triangleRewardAgreement',   $(refs.triangleRewardProgramCheckbox).is(':checked') ? 'Y' : 'N');
+        }else{
+	      model.set('costOfCreditAgreement',  'N');
+          model.set('cardmemberAgreement', 'N');
+          model.set('triangleRewardAgreement','N');
+        }
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
     }
     // ---------------------------------------------------------------------------------------
@@ -1251,6 +1476,30 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
+        // VZE-107
+        /*model.set('userSingnatureNative', null);
+        $(refs.signature).jSignature('reset');
+        $(refs.signature).jSignature ('setData',[], 'native');
+        $(refs.resetSignature).removeClass('darkgrayflat');
+        $(refs.resetSignature).addClass('grayflat');
+        $("#handoutTabToCustomerDialog-container").hide();
+        $("#dialog_container_customer_signature").hide();*/
+        hide_dialog();
+        //VZE-108
+        var outletProvince = null;
+
+        if (loginModel != null
+            && loginModel.get('userLocationResponse') != null) {
+            var locationHelper = new WICI.UserLocationResponseHelper();
+            locationHelper.setUserLocationResponseObject(loginModel
+                .get('userLocationResponse'));
+            outletProvince = locationHelper.getOutletProvince();
+        }
+      //  if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC") {
+	      $(refs.costOfCredit_Checkbox).prop('checked', model.get('costOfCreditAgreement') === 'Y' ? true : false );
+          $(refs.cardmemberAgreement_Checkbox).prop('checked', model.get('cardmemberAgreement_Checkbox') === 'Y' ? true : false );
+          $(refs.triangleRewardProgramCheckbox).prop('checked', model.get('triangleRewardAgreement') === 'Y' ? true : false );
+      // }      
         restoreProgramAndPromoCode();
     }
     //---------------------------------------------------------------------------------------
@@ -1327,4 +1576,66 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod + $(refs.agencyPromoCode).val().toUpperCase());
         model.set('agencyPromoCode', $(refs.agencyPromoCode).val().toUpperCase());
     }
+    
+    //-------------VZE- 107---------------------------------------------------------
+    function createSignatureControl() {
+        if (!signatureControl) {
+            // Restore signature
+            if (model.get('userSingnatureNative')) {
+                // Create signature object
+                signatureControl = $(refs.signature).jSignature({'signatureLine': true});
+                // Restore signature content
+                $(refs.signature).jSignature("setData", model.get('userSingnatureNative'), 'native');
+                // Apply some dependencies
+                onSignatureChaged();
+            } else {
+                signatureControl = $(refs.signature).jSignature();
+            }
+
+            $(refs.signature).bind('change', onSignatureChaged);
+        }
+    }
+  //---------------------------------------------------------------------------------------
+    function onSignatureChaged (e) {
+        var sMethod = 'onSignatureChaged() ';
+        console.log(logPrefix + sMethod);
+
+        if ($(refs.signature).jSignature('getData', 'native').length > 0) {
+            //isCustomerSignatureDiloge = true;
+            $(refs.resetSignature).removeClass('grayflat');
+            $(refs.resetSignature).addClass('blackflat');
+            $("#chooseProductScreen_SingnatureContainer").removeClass('errorField');
+            $("#customerSignatureWarningDIV").removeClass("popup_SignatureDialog_Red").addClass("popup_SignatureDialog_Green");
+	   		$("#customerSignatureHeader").removeClass("chooseProduct_SignatureTitle_Red").addClass("chooseProduct_SignatureTitle_Green");
+            $(refs.resetSignature).bind('click', onResetSignatureClicked);
+            
+        }
+        model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+        model.set('controlConfirmation', 'Y');
+    }
+    //---------------------------------------------------------------------------------------
+    function onResetSignatureClicked () {
+        var sMethod = 'onResetSignatureClicked() ';
+        console.log(logPrefix + sMethod);
+        //isCustomerSignatureDiloge = false;
+        model.set('controlConfirmation', 'N');
+        // Clear canvas
+        $(refs.signature).jSignature('reset');
+        $(refs.resetSignature).removeClass('darkgrayflat');
+        $(refs.resetSignature).addClass('grayflat');
+        $("#customerSignatureWarningDIV").removeClass("popup_SignatureDialog_Green").addClass("popup_SignatureDialog_Red");
+	   	$("#customerSignatureHeader").removeClass("chooseProduct_SignatureTitle_Green").addClass("chooseProduct_SignatureTitle_Red");
+        $(refs.resetSignature).unbind('click', onResetSignatureClicked);
+    }
+    
+  	 //-------------VZE- 107---------------------------------------------------------
+     function getOutletProvince(){
+	    if (loginModel != null && loginModel.get('userLocationResponse') != null) {
+                var locationHelper = new WICI.UserLocationResponseHelper();
+                locationHelper.setUserLocationResponseObject(loginModel.get('userLocationResponse'));
+                outletProvince = locationHelper.getOutletProvince();
+        }
+        return outletProvince;
+	      
+	 }
 };

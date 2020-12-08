@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.0.0">
-    <wb-module deploy-name="BRBWeb">
-        <wb-resource deploy-path="/" source-path="/WebContent"/>
-        <property name="context-root" value="BRBWeb"/>
-    </wb-module>
-</project-modules>

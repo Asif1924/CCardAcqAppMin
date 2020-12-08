@@ -11,6 +11,7 @@ WICI._AppConfig = function() {
 		AUTO_CONNECT_WIFI : true,
 		AUTO_CONNECT_RETRIES : 2,
 		INSTANTISSUANCE_REQUEST_INTERVAL: 120000, // 2 minutes
+		TMXEMAILAGE_REQUEST_INTERVAL: 	  5000,   // 5 seconds
 	};
 
 	this.PollingConfig = {
@@ -22,7 +23,8 @@ WICI._AppConfig = function() {
 	this.BackgroundServicesConfig = {
 		AUTO_LOGOUT_TIMEOUT:				8,			//minutes
 		AUTO_ABANDON_APPLICATION_TIMEOUT:	7,			//minutes
-		TRIGGER_ACTION_SERVICE_UPDATE:		1000		//Setting this to 1 minute
+		TRIGGER_ACTION_SERVICE_UPDATE:		1000,		//Setting this to 1 minute
+		PRINTER_ERROR_APPLICATION_TIMEOUT:	3,			//Setting this to 3 minutes
 	};
 
 	this.SubmissionConfig = {

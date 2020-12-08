@@ -55,6 +55,7 @@ WICI.WICIWebApp = function() {
     this.idleTimeService = null;
     this.logOutTriggerActionService = null;
     this.abandonApplicationTriggerActionService = null;
+    this.printerErrorTriggerActionService = null;
 
     var isDemoMode = false;
     this.getDemoMode = function(){return isDemoMode;};
@@ -121,6 +122,15 @@ WICI.WICIWebApp = function() {
         }
         this.idleTimeService = new WICI.IdleTimeService($(document));
         var idleTimeServiceParam = this.idleTimeService;
+        
+        if(this.printerErrorTriggerActionService!==null){
+            this.printerErrorTriggerActionService.stop();
+        }
+
+        this.printerErrorTriggerActionService = new WICI.TriggerActionService("printerErrorTriggerActionService");
+        this.printerErrorTriggerActionService.setTriggerMethod(function(){
+            return idleTimeServiceParam.getIdleTime()>=WICI.AppConfig.BackgroundServicesConfig.PRINTER_ERROR_APPLICATION_TIMEOUT;
+        });
 
         if(this.logOutTriggerActionService!==null){
             this.logOutTriggerActionService.stop();

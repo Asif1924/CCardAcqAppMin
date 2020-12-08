@@ -11,10 +11,11 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 	this.hide = hide;
 	var signatureControl;
 	var signatureDate = "";
-  var cardNameGlobal;
-  var cardTypeGlobal;
+  	var cardNameGlobal;
+  	var cardTypeGlobal;
 
 	var flow = null;
+	var loginModel = activationItems.getModel('loginScreen');
 
 	var refs = {
 	        signature:  '#signature',
@@ -40,7 +41,6 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         data:[
                 {name: 'userAcceptAgreement',   value: null, validation: {type: 'termsAndConditions', message: 'signatureScreen_validation_acceptAgreement'}},
                 {name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
-
                 {notField:true, name: 'userSingnatureNative', value: null, validation: null},
                 {notField:true, name: 'modelsData', value: null, validation: null},
                 {notField:true, name: 'sigcardSelection', value: false, validation: null},
@@ -263,6 +263,15 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         	toggleWarningDIV();
         });
         $.subscribe('translatorFinished',toggleCardImage);
+
+		$("#signatureHandoutToRepOk").click(function(){
+			$("#signatureHandoutTabToRepDialog-container").hide();
+			flow.next();
+        });
+   
+        $("#signatureHandoutToRepCancel").click(function(){ 
+        	$("#signatureHandoutTabToRepDialog-container").hide();
+        });
 	}
 	//---------------------------------------------------------------------------------------
 	function onSignatureChaged (e) {
@@ -311,7 +320,16 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
                 return;
             }
         }
-		flow.next();
+		if (loginModel.get('employerID').toUpperCase() == 'E' && (activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === 'Y' && 
+							activationItems.getModel('contactInfoScreen').get('secondaryLandline_CheckField') === 'Y')) {
+			showSignatureHandoutTabToRep_dialog();
+		} else {
+			flow.next();
+		}
+	}
+	// ---------------------------------------------------------------------------------------
+	function showSignatureHandoutTabToRep_dialog() {
+		$("#signatureHandoutTabToRepDialog-container").show();
 	}
 	//---------------------------------------------------------------------------------------
 	function syncUserData() {

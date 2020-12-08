@@ -13,4 +13,5 @@ WICI.ServiceNameEnum = {
 		Vocabulary_FR 							: 	"res/messages_fr_1.1.js", //placeholder
 		Agent									:	"Agent",
 		InstantIssuance							:	"InstantIssuance",
+		TMXProfile								:	"TMXProfile",
 };

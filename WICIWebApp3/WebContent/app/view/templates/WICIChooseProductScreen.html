@@ -7,20 +7,65 @@
 			<div class="printerNotConnected" data-translationKey="chooseProduct_PrinterNotConnected"></div>			
 		{{/if}}
 
-		<div class="overlay" id="dialog-container">
-  			<div class="popup">
-    			<p class="text-left" data-translationKey="chooseProduct_DialogContent"></p>
-				<ul class="text-left">
-					<li data-translationKey="chooseProduct_DialogContent1"></li>
-					<li data-translationKey="chooseProduct_DialogContent2"></li>
-				</ul>
+		<div class="overlay" id="handoutTabToCustomerDialog-container">
+  			<div class="handoutTabToCustomerpopup">
+    			<p class="text-left" data-translationKey="chooseProduct_HandoutTabToCustomerDialogContent"></p>
     			<div>      				
-      				<button class="dialog-btn-proceed" id="proceed" data-translationKey="chooseProduct_DialogProceed"></button>
-					<button class="dialog-btn-cancel" id="cancel" data-translationKey="chooseProduct_DialogCancel"></button>
+      				<button class="dialog-btn-ok" id="handoutOk" data-translationKey="chooseProduct_HandoutTabToCustomerDialogOk"></button>
+					<button class="dialog-btn-cancel" id="handoutCancel" data-translationKey="chooseProduct_HandoutTabToCustomerDialogCancel"></button>
+    			</div>
+  			</div>
+		</div>
+
+		<!-- VZE-107 -->
+		<div class="overlay" id="dialog_container_customer_signature">
+  			<div id="customerSignatureWarningDIV" class="popup_SignatureDialog_Red">
+  			    <div id="customerSignatureHeader" class="chooseProduct_SignatureTitle_Red"><center><p class="signatureDialogTitleFont" data-translationKey="chooseProduct_Customer_signatureBoxDialog_title"></center></p></div>
+  			    <div class="signatureDialogpadding">  
+	                  {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() === "E" && outletProvince !== "QC"}}
+                        <p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_Content_CSR_ROC"></p>
+    					<p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_ROC"></p>
+							<ul class="text-left">
+								<li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_ROC"></li>
+								<li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_ROC"></li>
+							</ul>
+                       {{else activationItems.getModel('loginScreen').get('employerID').toUpperCase() === "E" && outletProvince == "QC"}}
+                              <p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_Content_CSR_QC_And_FMR_AllProvince"></p>
+    					      <p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_QC_And_FMR_AllProvince"></p>
+							    <ul class="text-left">
+								   <li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_QC_And_FMR_AllProvince"></li>
+								   <li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_QC_And_FMR_AllProvince"></li>
+							    </ul>
+                       {{else activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
+                              <p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_Content_CSR_QC_And_FMR_AllProvince"></p>
+    					      <p class="text-left" data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_QC_And_FMR_AllProvince"></p>
+							    <ul class="text-left">
+								   <li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_QC_And_FMR_AllProvince"></li>
+								   <li data-translationKey="chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_QC_And_FMR_AllProvince"></li>
+							    </ul>
+                       {{/if}}
+    			
+				<br>
+				<center>
+                   <div class="signatureContainer signatureFixCustomer" >
+					  <div class="signatureBorder" id="chooseProductScreen_SingnatureContainer">
+					      <div class="signature" id="chooseProductScreen_signature"/>
+					  </div>
+				  </div>
+				  <br>
+				  <span id="chooseProductScreen_signature_Reset_Button" class="buttonWithSquareBorder grayflat sigResetButton proceedButtonWidth">
+					   <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+				  </span>
+				  <br>
+                </center>
+    			<div>      				
+      				<button class="dialog-btn-proceed" id="signatureDialogIAgree" data-translationKey="chooseProduct_Customer_signatureBoxDialog_IAgree"></button>
+					<button class="dialog-btn-cancel" id="signatureDialogCancel" data-translationKey="chooseProduct_DialogCancel"></button>
+    			</div>
     			</div>
   			</div>
 		</div>	
-		
+	<!-- VZE-107 --->
 		<br />
 		<div id="chooseProductScreen_PageHeader">
             <span class="pageTitle" data-translationKey="chooseProduct_ChooseOneOfTheCreditCards"></span>
@@ -124,6 +169,128 @@
 		</div>
 		</center>
 		<br />
+		
+		<!-- ------------------ VZE-108 Starts ------------------ -->
+		
+	    {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() === "E" && outletProvince !== "QC"}}	 
+	
+		 <div id="receive_CostOfCredit_CheckBox_Area" class="contactInfoCheckBoxOuterBox">
+				<div class="agreementBoxContainerEX" style="display: table" >
+					<div class="rightContaier">
+						<div class="contactInfoCheckBox">
+							<input type="checkbox" id="receive_CostOfCredit_CheckBox"> <label for="receive_CostOfCredit_CheckBox"></label>
+						</div>
+					</div>
+					<div class="leftContainer opCheckBoxLabel fontSize16 bold" style="padding-top: 0; display: table-cell; vertical-align: middle;">
+						<label data-translationkey="chooseProduct_received_and_reviewed"></label>
+					</div>
+			  </div>
+		</div>
+		
+		<p class="fontSize25 bold paragraphAlignment"><span data-translationKey="chooseProduct_Application_Disclosures"></span></p>
+		<p class="overviewCenterTableTitle bold paragraphAlignment"><span data-translationKey="chooseProduct_CanadianTireAgreementTitle"></span></p>
+		
+		<table class="stretchThisTable borderZero" >
+	 	  	 <div class="rightContaier align-vertical-middle-item">
+				<div class="cantire_Agreement">
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para1"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para2"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para3"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para4"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para5"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para6"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para7"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para8"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para9"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para10"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para11"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para12"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para13"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para14"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para15"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para16"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para17"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para18"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para19"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para20"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para21"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para22"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para23"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para24"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para25"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para26"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para27"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para28"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para29"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para30"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para31"></p>
+						<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_CanadianTireAgreement_para32"></p>
+				</div>
+		     </div>
+	   </table>
+       <br>
+       <div id="cantireCard_Agreement_CheckBoxArea" class="contactInfoCheckBoxOuterBox">
+				<div class="agreementBoxContainerEX" style="display: table" >
+				
+					<div class="rightContaier">
+						<div class="contactInfoCheckBox">
+							<input type="checkbox" id="cantireCard_Agreement_CheckBox"> <label for="cantireCard_Agreement_CheckBox"></label>
+						</div>
+					</div>
+					
+					<div class="leftContainer opCheckBoxLabel fontSize16 bold" style="padding-top: 0; display: table-cell; vertical-align: middle;">
+							<label data-translationkey="chooseProduct_CanadianTireCardAgreementCheckBoxText"></label>
+					</div>
+					
+			  </div>
+		</div>
+		<br>
+		
+		<p class="overviewCenterTableTitle bold paragraphAlignment"><span data-translationKey="chooseProduct_Triangle_reward_Program"></span></p>
+		
+		<table class="stretchThisTable borderZero" >
+	 	  	 <div class="rightContaier align-vertical-middle-item">
+					<div class="cantire_Agreement">
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para1"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para2"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para3"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para4"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para5"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para6"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para7"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para8"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para9"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para10"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para11"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para12"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para13"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para14"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para15"></p>
+							<p class="receiveEmail_TextArea" data-translationKey = "chooseProduct_TriangleRewardsProgram_para16"></p>
+					</div>
+		     </div>
+	   </table>
+       <br>
+       <div id="triangle_Rewards_Program_TermsAndCondition_CheckBox_Area" class="contactInfoCheckBoxOuterBox">
+			<div class="agreementBoxContainerEX" style="display: table" >
+			
+				<div class="rightContaier">
+					<div class="contactInfoCheckBox">
+						<input type="checkbox" id="triangle_Rewards_Program_TermsAndCondition_CheckBox"> <label for="triangle_Rewards_Program_TermsAndCondition_CheckBox"></label>
+					</div>
+				</div>
+				
+				<div class="leftContainer opCheckBoxLabel fontSize16 bold" style="padding-top: 0; display: table-cell; vertical-align: middle;">
+						<label data-translationkey="chooseProduct_Triangle_RewardsProgramTnC"></label>
+				</div>
+				
+			</div>
+		</div>
+		
+		{{/if}}
+		
+	<!-- ------------------ VZE-108 Ends ------------------ -->
+		
 		<br />
 		<center>
             <span id="chooseProductScreen_ApplyNowButton" class="button grayflat applyButtonWidth">

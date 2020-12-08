@@ -33,6 +33,9 @@ WICI.DemoAjax = function() {
 		case WICI.ServiceNameEnum.InstantIssuance:
 			response = WICI.Demo_InstantIssuance;
 			break;
+		case WICI.ServiceNameEnum.TMXProfile:
+			response = WICI.Demo_TMXProfile;
+			break;
 		default:
 			console.log(logPrefix + sMethod
 					+ " ERROR!!! service name is not supported by DemoAjax!");
@@ -49,13 +52,6 @@ WICI.DemoAjax = function() {
 		return true;
 	};
 };
-/*
- * WICI.Demo_Login = { error: false, msg: "SUCCESSFUL Authentication and
- * authorization for user ", data: { statusCode: "200", LTPAToken: "DemoToken",
- * checkLocation:{ message: "SUCCESS", outletName: "DEMO STORE ", outletNumber:
- * "1", outletStreet: "100 Demo Street ", outletCity: "Oakville ",
- * outletProvince: "ON", outletPostal: "L6L0C6" } } };
- */
 
 WICI.Demo_Login = {
 	"error" : false,
@@ -127,22 +123,6 @@ WICI.Demo_PollAccountApplicationResponse = {
 			"currentTelephone":"8564125987"
 		}
 	}; 
-	
-	/*{
-	"error" : false,
-	"msg" : "",
-	"data" : {
-		// '4111111111111111'   
-		//"accountNumber" : "I6npN1A6bWwT1hnzHfXGdPYKPnuHgsMBMJUu6oOvOk+oR9qBZ6rcUyGf6nAVVoBPRKHfjF+CPr3z7NURE/hDgk9tkNBoLHHjOShgcC/NmsFwMxd19TcuLREQXaSAETakPkrxMyqtooju84CCuRK9MmU0qDafjevQhx0Dbea0Stc4b1J33uxYztHnzqGQ1bCLhyEhOXjvwTE7tnTepTMPQZD99a9bdcJUw0heX1gW9Rd3f0q0jI8MYaf3H03wSxneey5AKJNrCjiVorSdhugjJ2130WzU6wqzRDwpDOFbb8Z8H0Gki7sANeFXqszX5poyIcYEEPScY7AbvX2rKLNnjuDM41d1KQcFq/k5I8qZPCDnhTP1VLHZJM9hXL/xlQ20EAH2cTGlNwFzpgRtyAHPUrKol4ZBcEHmptd0XlwxuqHUFcTdffvs0wdrUz4HkB0JxGnkU9elMt72AO5dazpkUhstBRsCFYtFCx3yB0yWpHlk8jR5qGr8veansQmJ/NnwdrJ3xe8sCOV2prE4XA/O7QLKgjDLtGYQMxIor2sOkP7WdD+CK0NikL+lfbchTGaOInT31MwDSeUhQ+gf3O9keTpIJSjnoExNzvpSfcbM4Ui4B8DAaPwpxuMb/hNamaKzw1ebDyUYQXDi1Q9qDfKH/0Whr91D0KCUsXWK+TSyhRg=",
-		"accountNumber" : "4111111111111111", // US3433 March 31st Release
-		"expiryDate" : "1705",
-		"creditLimit" : "5000", // US4533
-		"apr" : "19.99",
-		"cashAPR" : "22.99",
-		"appStatus" : "APPROVED",
-		"customerValueInd" : "1"
-	}
-};*/
 
 WICI.Demo_InitAccountApplicationResponse = {
 	error : false,
@@ -178,25 +158,19 @@ WICI.Demo_AccountApplication = {
 			"currentTelephone":"8564125987"
 		}
 	};
-	
-	/*{
-	"error" : false,
-	"msg" : "",
-	"data" : {
-		// '4111111111111111'      
-		//"accountNumber" : "I6npN1A6bWwT1hnzHfXGdPYKPnuHgsMBMJUu6oOvOk+oR9qBZ6rcUyGf6nAVVoBPRKHfjF+CPr3z7NURE/hDgk9tkNBoLHHjOShgcC/NmsFwMxd19TcuLREQXaSAETakPkrxMyqtooju84CCuRK9MmU0qDafjevQhx0Dbea0Stc4b1J33uxYztHnzqGQ1bCLhyEhOXjvwTE7tnTepTMPQZD99a9bdcJUw0heX1gW9Rd3f0q0jI8MYaf3H03wSxneey5AKJNrCjiVorSdhugjJ2130WzU6wqzRDwpDOFbb8Z8H0Gki7sANeFXqszX5poyIcYEEPScY7AbvX2rKLNnjuDM41d1KQcFq/k5I8qZPCDnhTP1VLHZJM9hXL/xlQ20EAH2cTGlNwFzpgRtyAHPUrKol4ZBcEHmptd0XlwxuqHUFcTdffvs0wdrUz4HkB0JxGnkU9elMt72AO5dazpkUhstBRsCFYtFCx3yB0yWpHlk8jR5qGr8veansQmJ/NnwdrJ3xe8sCOV2prE4XA/O7QLKgjDLtGYQMxIor2sOkP7WdD+CK0NikL+lfbchTGaOInT31MwDSeUhQ+gf3O9keTpIJSjnoExNzvpSfcbM4Ui4B8DAaPwpxuMb/hNamaKzw1ebDyUYQXDi1Q9qDfKH/0Whr91D0KCUsXWK+TSyhRg=",
-		"accountNumber" : "4111111111111111", // US3433 March 31st Release
-		"expiryDate" : "1705",
-		"creditLimit" : "5000", // US4533
-		"apr" : "19.99",
-		"cashAPR" : "22.99",
-		"appStatus" : "APPROVED",
-		"customerValueInd" : "1"
-	}
-};*/
 
 WICI.Demo_InstantIssuance = {
 		"error" : false,
 		"msg" : "",
 		"enstreamResponse" : "Y"
 	};
+
+WICI.Demo_TMXProfile = {
+		"error": false,
+		"msg": "",
+		"data": {
+			"fpsTrustscore": 100,
+			"requestResult": "success",
+			"tmxProfileID": "9cac5adf-2692-4ecf-ad88-b07054dca6c8"
+		}
+	}

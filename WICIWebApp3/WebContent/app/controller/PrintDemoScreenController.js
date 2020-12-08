@@ -31,6 +31,13 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     
     var PAN = "";
     var expiryDate = "";
+    var printFileBottomErrorFlag = true;
+    var printFileErrorFlag = true;
+    var rePrintFlag = false;
+    var preprintPrinterStatus ='Ready To Print'; //Anything other than Ready To Print means trouble for the printer.
+    var isDebugMode = false;
+    var showPrintErrorMessages = "N";
+    var inPrintDebugMode = false;
     
     this.show = show;
     this.hide = hide;
@@ -82,6 +89,10 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         flow = argFlow;
         messageDialog = argMessageDialog; 	//(AA)Dependency Injection Principle: Allows for proper unit testing
         translator = argTranslator; 		//(AA)Dependency Injection Principle: Allows for proper unit testing
+        
+        isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
+        showPrintErrorMessages = translator.translateKey("printerErrorShowDialogFlag");
+        inPrintDebugMode = isDebugMode || (showPrintErrorMessages == "Y");
         
         var currentModel = activationItems.getModel(model.name);
 
@@ -217,6 +228,9 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 
         if (app.zebraPrinterWrapper.verifyPrinterMacAddress ()){
         	console.log(logPrefix + sMethod + ":: PrinterMACAddress is good");
+        	//If we have the printer, lets check the status as well.
+        	app.zebraPrinterWrapper.getPrinterStatus(precheckPrinterStatusSuccess, precheckPrinterStatusFailure);
+        	
             printFile();
         }
         else {
@@ -450,6 +464,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
      	app.navigationController.adhocPendingScreen = new WICI.InstantIssuanceSetupCompleteScreenController(activationItems, translator, messageDialog);
     	app.navigationController.adhocPendingScreen.init(flow);
     	app.navigationController.adhocPendingScreen.show();
+    	messageDialog.printerError(error, translator.translateKey("printScreen_PrinterError_Message")
+        		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
 	}
 	//---------------------------------------------------------------------------------------
     function successInitActivate( argResponse ){
@@ -487,6 +503,30 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod);
         var isDevice = new WICI.DeviceDetectionHelper().any();
         var respAn = new WICI.PollingResponseAnalyzer();
+         
+        /*
+        if(model.get('appStatus') == "APPROVED") {
+        	app.printerErrorTriggerActionService.stop();        
+            app.printerErrorTriggerActionService
+            .setActionMethod(function() {
+            	console.log(logPrefix + sMethod + " printerErrorTriggerActionService :: setActionMethod");
+            	console.log(logPrefix + sMethod + "printerErrorShowDialogFlag : " + translator.translateKey("printerErrorShowDialogFlag"));
+            	console.log(logPrefix + sMethod + " printFileBottomErrorFlag : " + printFileBottomErrorFlag
+            									+ " printFileErrorFlag : " + printFileErrorFlag + " rePrintFlag : " + rePrintFlag);
+            	if((printFileBottomErrorFlag || printFileErrorFlag) && !rePrintFlag) {
+            		new WICI.LoadingIndicatorController().hide();
+                	if(translator.translateKey("printerErrorShowDialogFlag") == "Y") {
+                		messageDialog.printerError(translator.translateKey("printScreen_PrinterError_ExceptionOrMessage"), translator.translateKey("printScreen_PrinterError_Message")
+                        		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+                	}
+                	app.printerErrorTriggerActionService.stop();
+            	} else {
+            		app.printerErrorTriggerActionService.stop();
+            	}
+            });        
+            app.printerErrorTriggerActionService.start();
+        }
+        */
         
         if( isDevice ){
             if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
@@ -497,6 +537,11 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 
             try
             {
+            	if(model.get('appStatus') == "APPROVED" && inPrintDebugMode && preprintPrinterStatus != 'Ready To Print'){
+            		messageDialog.printerError(preprintPrinterStatus, translator.translateKey("printScreen_Pre_PrinterError_Message")
+                    		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+            	}
+            	
                 new WICI.LoadingIndicatorController().show();
 
                 // Get application server response                
@@ -634,7 +679,6 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 		}
 		return;
 	}
-	
 	//---------------------------------------------------------------------------------------
 	function printCouponSuccess(result) {
 	    var sMethod = 'printCouponSuccess() ';
@@ -714,8 +758,9 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     //---------------------------------------------------------------------------------------
     function printFileBottomSuccess(result) {
         var sMethod = 'printFileBottomSuccess() ';
-        console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod + " Result: " + result);
         
+        printFileBottomErrorFlag = false;
         if( fromPendScreen ) {
 	        console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
 	        console.log(logPrefix + sMethod + "argPendScreenInfo activationItemsFromServer :: " + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
@@ -752,6 +797,16 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         // US5240
         if(model.get('appStatus') == "APPROVED") {
+        	
+        	if(inPrintDebugMode && result != 'Ready To Print'){
+		        new WICI.LoadingIndicatorController().hide();
+			
+        		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+                		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+				
+	        	new WICI.LoadingIndicatorController().show();
+        	}
+        	
         	app.zebraPrinterWrapper.printFile(
                     activationItems,
                     applicationResponseData,
@@ -774,11 +829,20 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 
     }
     //---------------------------------------------------------------------------------------
-    function printFileBottomFailure() {
+    function printFileBottomFailure(result) {
         var sMethod = 'printFileBottomFailure() ';
         console.log(logPrefix + sMethod);
         
+        console.log(logPrefix + sMethod + "exception is :" + result);
+        
+        printFileBottomErrorFlag = false;
+        printFileErrorFlag = false;
         new WICI.LoadingIndicatorController().hide();
+        
+    	if(inPrintDebugMode){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
         
         if(activationItems.getModel('personalData2_Address').get('province') == 'QC') {
         	new WICI.LoadingIndicatorController().hide();
@@ -794,9 +858,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     //---------------------------------------------------------------------------------------
     function printFileSuccess(result) {
         var sMethod = 'printFileSuccess() ';
-        console.log(logPrefix + sMethod);                
+        console.log(logPrefix + sMethod + " Result: " + result);               
         
+        printFileErrorFlag = false;
         new WICI.LoadingIndicatorController().hide();
+    	if(inPrintDebugMode && result != 'Ready To Print'){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
         
         // US4414 & US4282
         console.log(logPrefix + sMethod + " employerID :: " + employerID);
@@ -811,11 +880,18 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         }
     }
     //---------------------------------------------------------------------------------------
-    function printFileFailure() {
+    function printFileFailure(result) {
         var sMethod = 'printFileFailure() ';
         console.log(logPrefix + sMethod);
         
+        console.log(logPrefix + sMethod + " Exception is: " + result);
+        
+        printFileErrorFlag = false;
         new WICI.LoadingIndicatorController().hide();
+    	if(inPrintDebugMode){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
         
         // US4414 & US4282
         console.log(logPrefix + sMethod + " employerID :: " + employerID);
@@ -833,7 +909,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     //---------------------------------------------------------------------------------------
     function rePrintFileBottomSuccess(result) {
         var sMethod = 'rePrintFileBottomSuccess() ';
-        console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod + " Result: " + result);
         
         if( fromPendScreen ) {
 	        console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
@@ -869,6 +945,13 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
         console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
         
+    	if(inPrintDebugMode && result != 'Ready To Print'){
+	        new WICI.LoadingIndicatorController().hide();
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+	    	new WICI.LoadingIndicatorController().show();
+    	}
+    	
         app.zebraPrinterWrapper.printFile(
                 activationItems,
                 applicationResponseData,
@@ -876,18 +959,27 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 rePrintFileFailure);
     }
     //---------------------------------------------------------------------------------------
-    function rePrintFileBottomFailure() {
+    function rePrintFileBottomFailure(result) {
         var sMethod = 'rePrintFileBottomFailure() ';
         console.log(logPrefix + sMethod);
         
         new WICI.LoadingIndicatorController().hide();
+    	if(inPrintDebugMode){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
     }
     //---------------------------------------------------------------------------------------
-    function rePrintFileSuccess() {
+    function rePrintFileSuccess(result) {
         var sMethod = 'rePrintFileSuccess() ';
-        console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod + " Result: " + result);
         
         new WICI.LoadingIndicatorController().hide();
+    	if(inPrintDebugMode && result != 'Ready To Print'){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
+    	
         /*if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
  				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
         	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
@@ -908,11 +1000,15 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         }*/
     }
     //---------------------------------------------------------------------------------------
-    function rePrintFileFailure() {
+    function rePrintFileFailure(result) {
         var sMethod = 'rePrintFileFailure() ';
         console.log(logPrefix + sMethod);
         
         new WICI.LoadingIndicatorController().hide();
+    	if(inPrintDebugMode){
+    		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
+            		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
+    	}
     }
     //---------------------------------------------------------------------------------------
     // US4282
@@ -986,6 +1082,8 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         console.log(logPrefix + sMethod);
         
         console.log(logPrefix + sMethod + " employerID :: " + employerID + " appStatus :: " + appStatus);
+        
+        rePrintFlag = true;
         // US4307
         if(argPendScreenInfo) {
             console.log(logPrefix + sMethod + " activationItemsFromServer=" + argPendScreenInfo.activationItemsFromServer);            
@@ -1172,4 +1270,18 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
       
 }
 // US4282 Ends
+    
+    function precheckPrinterStatusSuccess(result) {
+    	 var sMethod = 'precheckPrinterStatusSuccess() ';
+         console.log(logPrefix + sMethod + " Result:" + result);
+         preprintPrinterStatus = result;
+    }
+    
+    function precheckPrinterStatusFailure(result) {
+   	 var sMethod = 'precheckPrinterStatusFailure() ';
+        console.log(logPrefix + sMethod + " Result:" + result);
+        
+        console.log(logPrefix + sMethod + " Likely exception is :" + result);
+        preprintPrinterStatus = result;
+   }
 };
