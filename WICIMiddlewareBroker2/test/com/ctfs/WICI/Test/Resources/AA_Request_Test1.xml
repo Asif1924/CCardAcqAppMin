@@ -1,0 +1,72 @@
+<AccountApplicationRequest>
+  <externalReferenceId>2BA25142-3520-434A-8780-1417096CE7B5</externalReferenceId>
+  <storeNumber>1</storeNumber>
+  <agentId>aalli</agentId>
+  <channelIndicator>IP</channelIndicator>
+  <acquistionStrategyCode>0A5577</acquistionStrategyCode>
+  <requestedProductType>OMC</requestedProductType>
+  <firstName>DEO</firstName>
+  <lastName>GESINGHAUS</lastName>
+  <dateOfBirth>1974-03-25</dateOfBirth>
+  <sin>123123123</sin>
+  <idType>DR</idType>
+  <idNumber>ASDF2132132132132132</idNumber>
+  <placeOfIssue>MB</placeOfIssue>
+  <preferedLanguage>E</preferedLanguage>
+  <applicantGender>F</applicantGender>
+  <currentAddressType>R</currentAddressType>
+  <currentAddressLine1>123-314 MANDEVILLE</currentAddressLine1>
+  <currentCity>YELLOWKNIFE</currentCity>
+  <currentProvince>MB</currentProvince>
+  <currentPostalCode>X1A3N3</currentPostalCode>
+  <currentCountry>CA</currentCountry>
+  <currentTelephoneNumber>2041135874</currentTelephoneNumber>
+  <currentCellPhoneNumber>2041135874</currentCellPhoneNumber>
+  <yearsAtCurrentAddress>4</yearsAtCurrentAddress>
+  <monthsAtCurrentAddress>4</monthsAtCurrentAddress>
+  <currentEmailAddress>dania_pardoe@gmail.com</currentEmailAddress>
+  <previousAddressLine1>null null</previousAddressLine1>
+  <previousCountry>CA</previousCountry>
+  <employementStatus>F</employementStatus>
+  <jobTitle>MANAGER</jobTitle>
+  <employementCategory>MA</employementCategory>
+  <employerName>EPAM</employerName>
+  <employerCity>TORONTO</employerCity>
+  <employerCountry>CA</employerCountry>
+  <yearsAtEmployement>4</yearsAtEmployement>
+  <monthsAtEmployement>4</monthsAtEmployement>
+  <grossAnnualIncome>123123</grossAnnualIncome>
+  <monthlyRentMortgageAmount>1234</monthlyRentMortgageAmount>
+  <bankCardFlag>N</bankCardFlag>
+  <bankLoanFlag>N</bankLoanFlag>
+  <chequingAccountFlag>N</chequingAccountFlag>
+  <savingsAccountFlag>N</savingsAccountFlag>
+  <storeCardFlag>N</storeCardFlag>
+  <gasCardFlag>N</gasCardFlag>
+  <agreedToTermsFlag>Y</agreedToTermsFlag>
+  <applicantSignature>/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIf
+IiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7
+Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAsALEDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2aioZ
+LZJLiKdmlDw7toWVlU5GDuUHDe2QcdsVNQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFF
+ABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUA
+FFFFABUcwmZAIJERs8l0LDH0BFSUUAVfL1D/AJ+rb/wHb/4ujy9Q/wCfq2/8B2/+Lq1RQBV8vUP+
+fq2/8B2/+Lo8vUP+fq2/8B2/+Lq1RQBV8vUP+fq2/wDAdv8A4ujy9Q/5+rb/AMB2/wDi6tUUAVfL
+1D/n6tv/AAHb/wCLo8vUP+fq2/8AAdv/AIurVFAFXy9Q/wCfq2/8B2/+Lo8vUP8An6tv/Adv/i6t
+UUAVfL1D/n6tv/Adv/i6PL1D/n6tv/Adv/i6tUUAVfL1D/n6tv8AwHb/AOLo8vUP+fq2/wDAdv8A
+4urVFAFXy9Q/5+rb/wAB2/8Ai6PL1D/n6tv/AAHb/wCLq1RQBV8vUP8An6tv/Adv/i6PL1D/AJ+r
+b/wHb/4urVFAEUKzqD58kbntsjK4/MmpaKKACiiigD//2Q==</applicantSignature>
+  <signatureFlag>Y</signatureFlag>
+  <signatureMatchFlag>Y</signatureMatchFlag>
+  <dateSigned >2015-01-02</dateSigned>
+  <insuranceAgreedFlag>N</insuranceAgreedFlag>
+  <insuranceCode>N</insuranceCode>
+  <emailConsentFlag>N</emailConsentFlag>
+</AccountApplicationRequest>

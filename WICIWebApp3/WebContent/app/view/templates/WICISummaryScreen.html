@@ -311,14 +311,12 @@
 <!--
 	summary_Address_SubTitle							:	"Address Information",
 
-	summary_Address_PostalCode							:	"Postal Code",
-	summary_Address_StreetNumber						:	"Street Number",
-	summary_Address_StreetName							:	"Street Name",
-	summary_Address_AddressLine2						:	"Address Line 2",
 	summary_Address_SuiteUnit							:	"Suite/Unit",
+	summary_Address_AddressLine1						:	"Mailing Address Line 1",
+	summary_Address_AddressLine2						:	"Mailing Address Line 2",
 	summary_Address_City								:	"City",
 	summary_Address_Province							:	"Province",
-
+	summary_Address_PostalCode							:	"Postal Code",
 	summary_Address_ResidenceType						:	"Residence Type",
 	summary_Address_MonthlyHousePayment					:	"Monthly House Payment",
 	summary_Address_DurationCurrentAddress				:	"Duration at Current Address",
@@ -332,44 +330,28 @@
 				<br>
 				<br>
 	            <table id="summary_Address_Table" class="stretchThisTable">
-	                <tr class="fieldRow">
+					<tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_PostalCode"></span>
+	                        <span data-translationKey="summary_Address_SuiteUnit"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
-	                        ${ activationItems.getModel('personalData2_Address').get('postalcode') }
+	                         ${activationItems.getModel('personalData2_Address').get('suiteunit')}
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_StreetNumber"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                        ${activationItems.getModel('personalData2_Address').get('streetnumber')}
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_StreetName"></span>
+	                        <span data-translationKey="summary_Address_AddressLine1"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData2_Address').get('addressline1')}
 	                    </td>
 	                </tr>
-	               <!--  <tr class="fieldRow">
+	                <tr id="summary_AddressLine2" class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="summary_Address_AddressLine2"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData2_Address').get('addressline2')}
-	                    </td>
-	                </tr>  -->
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_SuiteUnit"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                         ${activationItems.getModel('personalData2_Address').get('suiteunit')}
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -387,6 +369,14 @@
 	                    <td class="fieldLabelsCell">
 	                         <span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('personalData2_Address').get('province'))}></span>
 	                         <!--${activationItems.getModel('personalData2_Address').get('province')} -->
+	                    </td>
+	                </tr>
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
+	                        <span data-translationKey="summary_Address_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell">
+	                        ${ activationItems.getModel('personalData2_Address').get('postalcode') }
 	                    </td>
 	                </tr>
 	                <tr class="fieldRow">
@@ -420,13 +410,13 @@
 			</div>
 		<!--
 	summary_PreviousAddress_SubTitle					:	"Previous Address Information",
-	summary_Address_PostalCode							:	"Postal Code",
-	summary_Address_StreetNumber						:	"Street Number",
-	summary_Address_StreetName							:	"Street Name",
-	summary_Address_AddressLine2						:	"Address Line 2",
+
 	summary_Address_SuiteUnit							:	"Suite/Unit",
+	summary_Address_AddressLine1						:	"Mailing Address Line 1",
+	summary_Address_AddressLine2						:	"Mailing Address Line 2",
 	summary_Address_City								:	"City",
 	summary_Address_Province							:	"Province",
+	summary_Address_PostalCode							:	"Postal Code",
 		//-->
 		{{if activationItems.getModel('personalData2_Address').get('years')<2 }}
 			<div id="summary_Address_Area2" >
@@ -436,47 +426,31 @@
 				<br>
 				<br>
 	            <table id="summary_Address_Table" class="stretchThisTable">
-	                <tr class="fieldRow">
+					<tr class="fieldRow">
 	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_PostalCode"></span>
+	                        <span data-translationKey="summary_Address_SuiteUnit"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell fieldValuesTopCell">
-	                        ${ activationItems.getModel('personalData2_Address').get('postalcode_prev') }
+	                         ${activationItems.getModel('personalData2_Address').get('suiteunit_prev')}
 	                    </td>
 	                </tr>
-	                <tr class="fieldRow">
+					<tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_StreetNumber"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                        ${activationItems.getModel('personalData2_Address').get('streetnumber_prev')}
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_StreetName"></span>
+	                        <span data-translationKey="summary_Address_AddressLine1"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData2_Address').get('addressline1_prev')}
 	                    </td>
 	                </tr>
-	            <!--    <tr class="fieldRow">
+	                <tr id="summary_PreviousAddressLine2" class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="summary_Address_AddressLine2"></span>
 	                    </td>
 	                    <td class="fieldLabelsCell">
 	                         ${activationItems.getModel('personalData2_Address').get('addressline2_prev')}
 	                    </td>
-	                </tr>   -->
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="summary_Address_SuiteUnit"></span>
-	                    </td>
-	                    <td class="fieldLabelsCell">
-	                         ${activationItems.getModel('personalData2_Address').get('suiteunit_prev')}
-	                    </td>
 	                </tr>
-	                <tr class="fieldRow">
+					<tr class="fieldRow">
 	                    <td class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="summary_Address_City"></span>
 	                    </td>
@@ -484,13 +458,20 @@
 	                         ${activationItems.getModel('personalData2_Address').get('city_prev')}
 	                    </td>
 	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+					<tr class="fieldRow">
+	                    <td class="fieldLabelsCell fieldCellSize33">
 	                        <span data-translationKey="summary_Address_Province"></span>
 	                    </td>
-	                    <td class="fieldLabelsCell fieldValuesBottomCell">
+	                    <td class="fieldLabelsCell">
 	                         <span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('personalData2_Address').get('province_prev'))}></span>
-	                         <!--${activationItems.getModel('personalData2_Address').get('province_prev')} -->
+	                    </td>
+	                </tr>
+	                <tr class="fieldRow">
+	                    <td class="fieldLabelsBottomCell fieldCellSize33">
+	                        <span data-translationKey="summary_Address_PostalCode"></span>
+	                    </td>
+	                    <td class="fieldLabelsCell fieldValuesBottomCell">
+	                        ${ activationItems.getModel('personalData2_Address').get('postalcode_prev') }
 	                    </td>
 	                </tr>
 	            </table>
@@ -657,20 +638,20 @@
 	summary_SupCard_SubTitle							:	"Supplementary Card Information",
 	summary_SupCard_OptedIn								:	"Wants supplementary card",
 	summary_SupCard_ForWhom								:	"Supplementary card for",
-	personalData_FirstName							:	"First Name",
+	personalData_FirstName								:	"First Name",
 	personalData_Initial								:	"Initial",
-	personalData_LastName							:	"Last Name",
+	personalData_LastName								:	"Last Name",
 	personalData_DateOfBirth							:	"Date of Birth",
 	summary_SupCard_Telephone							:	"Telephone",
 
 	summary_SupCard_Address_SubTitle					:	"Address Information",
-	summary_SupCard_Address_PostalCode					:	"Postal Code",
-	summary_SupCard_Address_StreetNumber				:	"Street Number",
-	summary_SupCard_Address_StreetName					:	"Street Name",
-	summary_SupCard_Address_AddressLine2				:	"Address Line 2",
+
 	summary_SupCard_Address_SuiteUnit					:	"Suite/Unit",
+	summary_SupCard_Address_AddressLine1				:	"Address Line 1",
+	summary_SupCard_Address_AddressLine2				:	"Address Line 2",
 	summary_SupCard_Address_City						:	"City",
-	chooseProduct_Province                              :   "Province",
+	summary_Address_Province                            :   "Province",
+	summary_SupCard_Address_PostalCode					:	"Postal Code",
 //-->
 			<div id="summary_SupCard_Area1" >
 				<br>
@@ -772,44 +753,29 @@
                             </tr>
 
                             {{if activationItems.getModel('supCardRequestData').get('sameAddressYesNo')==='N' }}
-                            <tr class="fieldRow">
-                                <td class="fieldLabelsCell fieldCellSize33">
-                                    <span data-translationKey="summary_SupCard_Address_PostalCode"></span>
-                                </td>
-                                <td class="fieldLabelsCell">
-                                     ${activationItems.getModel('supCardRequestData').get('postalCode')}
-                                </td>
-                            </tr>
-                            <tr class="fieldRow">
-                                <td class="fieldLabelsCell fieldCellSize33">
-                                    <span data-translationKey="summary_SupCard_Address_StreetNumber"></span>
-                                </td>
-                                <td class="fieldLabelsCell">
-                                     ${activationItems.getModel('supCardRequestData').get('streetNumber')}
-                                </td>
-                            </tr>
-                            <tr class="fieldRow">
-                                <td class="fieldLabelsCell fieldCellSize33">
-                                    <span data-translationKey="summary_SupCard_Address_StreetName"></span>
-                                </td>
-                                <td class="fieldLabelsCell">
-                                     ${activationItems.getModel('supCardRequestData').get('addressLine1')}
-                                </td>
-                            </tr>
-                          <!--  <tr class="fieldRow">
-                                <td class="fieldLabelsCell fieldCellSize33">
-                                    <span data-translationKey="summary_SupCard_Address_AddressLine2"></span>
-                                </td>
-                                <td class="fieldLabelsCell">
-                                     ${activationItems.getModel('supCardRequestData').get('addressLine2')}
-                                </td>
-                            </tr>  -->
+                            
                             <tr class="fieldRow">
                                 <td class="fieldLabelsCell fieldCellSize33">
                                     <span data-translationKey="summary_SupCard_Address_SuiteUnit"></span>
                                 </td>
                                 <td class="fieldLabelsCell">
                                      ${activationItems.getModel('supCardRequestData').get('suiteUnit')}
+                                </td>
+                            </tr>
+							<tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_AddressLine1"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('addressLine1')}
+                                </td>
+                            </tr>
+                            <tr id="summary_SupAddressLine2" class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_SupCard_Address_AddressLine2"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                     ${activationItems.getModel('supCardRequestData').get('addressLine2')}
                                 </td>
                             </tr>
                             <tr class="fieldRow">
@@ -821,12 +787,19 @@
                                 </td>
                             </tr>
                             <tr class="fieldRow">
+                                <td class="fieldLabelsCell fieldCellSize33">
+                                    <span data-translationKey="summary_Address_Province"></span>
+                                </td>
+                                <td class="fieldLabelsCell">
+                                    <span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('supCardRequestData').get('province'))}></span>
+                                </td>
+                            </tr>
+							<tr class="fieldRow">
                                 <td class="fieldLabelsBottomCell fieldCellSize33">
-                                    <span data-translationKey="chooseProduct_Province"></span>
+                                    <span data-translationKey="summary_SupCard_Address_PostalCode"></span>
                                 </td>
                                 <td class="fieldLabelsCell fieldValuesBottomCell">
-                                    <span data-translationKey=${activationItems.getProvinceNameByValue(activationItems.getModel('supCardRequestData').get('province'))}></span>
-                                     <!-- ${activationItems.getModel('supCardRequestData').get('province')} -->
+                                     ${activationItems.getModel('supCardRequestData').get('postalCode')}
                                 </td>
                             </tr>
                             {{/if}}

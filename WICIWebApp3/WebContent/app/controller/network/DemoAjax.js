@@ -21,6 +21,9 @@ WICI.DemoAjax = function() {
 		case WICI.ServiceNameEnum.AddressLookup:
 			response = WICI.Demo_LookupResponse;
 			break;
+		case WICI.ServiceNameEnum.AbbreviateCityname:
+			response = WICI.Demo_AbbreviatedCityname;
+			break;
 		case WICI.ServiceNameEnum.AccountApplication:
 			response = WICI.Demo_AccountApplication;
 			break;
@@ -76,17 +79,25 @@ WICI.Demo_Login = {
 };
 
 WICI.Demo_LookupResponse = {
-	"error" : false,
-	"msg" : "SUCCESSFUL find address for user epamfmr",
-	"data" : {
-		"standardAddressLine1" : [ "100 Demo Street", "200 DEMO STREET" ],
-		"standardAddressLine2" : [ "" ],
-		"standardCityName" : "Oakville",
-		"standardProvince" : "ON",
-		"standardPostalCode" : "L6L0C6",
-		"addressStatus" : "N"
+		"error": false,
+		"msg": "",
+		"data": {
+			"city": "Grimsby",
+			"postalCode": "L3M 0B5",
+			"addressLine1": "100 Demo Street",
+			"province": "ON",
+			"addressValidation": false
+		}
 	}
-};
+
+WICI.Demo_AbbreviatedCityname = {
+		"error": false,
+		"msg": "",
+		"data": {
+			"abrivatedCityLookup": "Y",
+			"abbrevaitedCityName": "ST-MICH-D-BEL",
+		}
+	}
 
 WICI.Demo_IsAlive = {
 	error : false,

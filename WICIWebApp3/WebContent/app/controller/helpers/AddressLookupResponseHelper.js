@@ -17,7 +17,7 @@ WICI.AddressLookupResponseHelper = function() {
 	}
 	
 	function getAddressLine1() {
-		return ( (addressResponseObject.standardAddressLine1 && !_.isEmpty(addressResponseObject) )? addressResponseObject.standardAddressLine1 : "");
+		return ( (addressResponseObject.addressLine1 && !_.isEmpty(addressResponseObject) )? addressResponseObject.addressLine1 : "");
 	}
 	function getAddressLine2() {
 //		disabled address line 2 functionality 		
@@ -25,15 +25,15 @@ WICI.AddressLookupResponseHelper = function() {
 		return '';
 	}
 	function getProvince(){
-		return ( (addressResponseObject.standardProvince && !_.isEmpty(addressResponseObject)) ? addressResponseObject.standardProvince : "");		
+		return ( (addressResponseObject.province && !_.isEmpty(addressResponseObject)) ? addressResponseObject.province : "");		
 	}
 	function getCityName(){
-		return ( (addressResponseObject.standardCityName && !_.isEmpty(addressResponseObject))? addressResponseObject.standardCityName : "");
+		return ( (addressResponseObject.city && !_.isEmpty(addressResponseObject))? addressResponseObject.city : "");
 	}
 	function getPostalCode(){
-		return ( (addressResponseObject.standardPostalCode && !_.isEmpty(addressResponseObject))? addressResponseObject.standardPostalCode : "");
+		return ( (addressResponseObject.postalCode && !_.isEmpty(addressResponseObject))? addressResponseObject.postalCode : "");
 	}
 	function getAddressStatus(){
-		return ( (addressResponseObject.addressStatus && !_.isEmpty(addressResponseObject)) ? addressResponseObject.addressStatus : "");
+		return ( (addressResponseObject.addressValidation && !_.isEmpty(addressResponseObject)) ? addressResponseObject.addressValidation : "");
 	}
 };

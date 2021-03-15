@@ -256,12 +256,11 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		            		{
 		            			return;
 		            		}
-		    				if($(item).attr('chooseProductMenuItem') && $(item).attr('chooseProductMenuItem') === 'false')
-		    				{
+		    				if($(item).attr('chooseProductMenuItem') && $(item).attr('chooseProductMenuItem') === 'false') {
 		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
-		    				}
-		    				else
-		    				{
+		    				} else if($(item).attr('printScreenMenuItem') && $(item).attr('printScreenMenuItem') === 'false') {
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), printLogOutClick, printChooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
+		    				} else {
 		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
 		    				}	
 		    	        });
@@ -295,17 +294,33 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), logOut, $.noop, translate.translateKey("backButtonPrompt_title"));
 	}
     this.logOutClick = logOutClick;
+    
+    function printLogOutClick()
+	{	    
+	    var sMethod = 'logOutClick() ';
+        console.log(logPrefix + sMethod);
+        
+        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), printLogOut, $.noop, translate.translateKey("backButtonPrompt_title"));
+	}
+    this.printLogOutClick = printLogOutClick;
+    
+    function printLogOut()
+	{
+		var sMethod = 'printLogOut() ';
+        console.log(logPrefix + sMethod);
+               
+        destroyPendingScreen();
+		forceExitFlow();
+        activationItems.clearAllModels();        
+        app.init();
+	}
+	this.printLogOut = printLogOut;
 
 	function logOut(argScreen)
 	{
 		var sMethod = 'logOut() ';
         console.log(logPrefix + sMethod);
-        /*
-        if(argScreen){
-        	console.log(logPrefix + sMethod + " argScreen =" + argScreen);
-        	argScreen.hide();
-        }*/
-        
+               
         hidePendingScreen();
 		forceExitFlow();
         activationItems.clearAllModels();        
@@ -313,13 +328,23 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 	}
 	this.logOut = logOut;
 	
-	function hidePendingScreen(){
-		var sMethod = 'hidePendingScreen() ';
+	function destroyPendingScreen(){
+		var sMethod = 'destroyPendingScreen() ';
         console.log(logPrefix + sMethod);  
         if( app.navigationController.adhocPendingScreen!==null )
         	app.navigationController.adhocPendingScreen.destroy();
         if( app.navigationController.adhocPrintDemoScreen!==null )
         	app.navigationController.adhocPrintDemoScreen.destroy();
+	}
+	this.destroyPendingScreen = destroyPendingScreen;
+	
+	function hidePendingScreen(){
+		var sMethod = 'hidePendingScreen() ';
+        console.log(logPrefix + sMethod);  
+        if( app.navigationController.adhocPendingScreen!==null )
+        	app.navigationController.adhocPendingScreen.hidePendScreen();
+        if( app.navigationController.adhocPrintDemoScreen!==null )
+        	app.navigationController.adhocPrintDemoScreen.hidePendScreen();
 	}
 	this.hidePendingScreen = hidePendingScreen;	
 	
@@ -329,6 +354,14 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         console.log(logPrefix + sMethod);
         
         messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), goToChooseProduct, $.noop, 
+        						  translate.translateKey("backButtonPrompt_title"));
+	}
+	function printChooseProductClick()
+	{
+		var sMethod = 'printChooseProductClick() ';
+        console.log(logPrefix + sMethod);
+        
+        messageDialog.htmlConfirm(translate.translateKey("backButtonPrompt_message"), startApplication, $.noop, 
         						  translate.translateKey("backButtonPrompt_title"));
 	}
 	//---------------------------------------------------------------------------------------	
@@ -342,7 +375,17 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         activationItems.clearToLoginScreen();        
         start();
 	}
-	
+	//---------------------------------------------------------------------------------------	
+	function startApplication()
+	{
+		var sMethod = 'startApplication() ';
+        console.log(logPrefix + sMethod);
+        
+        destroyPendingScreen();        
+		forceExitFlow();
+        activationItems.clearToLoginScreen();        
+        start();
+	}
 	function exitFlow_clearActivationItems_startOver(){
 		forceExitFlow();
         activationItems.clearToLoginScreen();        
@@ -361,6 +404,7 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         	app.navigationController.adhocPendingScreen.clearFields();
         }
 	}
+	this.retrieveClick = retrieveClick;
 	
 	function handleRetrieveClick(){
 		var sMethod = 'handleRetrieveClick() ';
@@ -445,6 +489,6 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 	}
 
 	
-	this.startApplication = goToChooseProduct;
+	this.startApplication = startApplication;
 	//---------------------------------------------------------------------------------------	
 };

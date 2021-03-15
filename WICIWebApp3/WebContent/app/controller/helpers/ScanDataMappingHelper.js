@@ -265,6 +265,10 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                     'searchkey': 'DAG'
                 },
                 {
+                    'name': 'addressLine2',
+                    'searchkey': 'DAH'
+                },
+                {
                     'name': 'addressCity',
                     'searchkey': 'DAI'
                 },
@@ -356,6 +360,10 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                     'searchkey': 'DAG'
                 },
                 {
+                    'name': 'addressLine2',
+                    'searchkey': 'DAH'
+                },
+                {
                     'name': 'addressCity',
                     'searchkey': 'DAI'
                 },
@@ -397,6 +405,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
             addressLine1_Unit : '', // -- Will populate in parser for easier implementaion
             addressLine1_CivicStreetNumber : '', // -- Will populate in parser for easier implementaion
             addressLine1_StreetName : '', // -- Will populate in parser for easier implementaion
+            addressLine2 : '',
             addressCity : '',
             addressProvince : '',
             addressPostal : '',
@@ -502,6 +511,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
     }
 
     function finishPersonModel(pModel) {
+    	console.log("pModel : " + JSON.stringify(pModel));
         var arrGivenNames, tmpAdd1, location1, location2, i, foundPreUnit;
 
         // This function will finish ther person model
@@ -544,6 +554,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         }
 
         tmpAdd1 = pModel.addressLine1;
+        console.log("tmpAdd1 : " + tmpAdd1);
         location1 = -1;
         location2 = -1;
 
@@ -563,7 +574,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                 // Found PO BOX
                 // Copy addressLine1 to for addressLine1_StreetName
                 // for simplified WICI Purposes
-                pModel.addressLine1_StreetName = cleanFinalString(pModel.addressLine1);
+                pModel.addressLine1_StreetName = pModel.addressLine1;
                 pModel.flagPOBoxFound = true;
                 break;
             }
@@ -579,7 +590,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                 // Found PO BOX
                 // Copy addressLine1 to for addressLine1_StreetName
                 // for simplified WICI Purposes
-                pModel.addressLine1_StreetName = cleanFinalString(pModel.addressLine1);
+                pModel.addressLine1_StreetName = pModel.addressLine1;
                 pModel.flagRRNumberFound = true;
                 break;
             }
@@ -637,17 +648,20 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
                 // Grab the item before the first space, ASSUME CivicStreetNumber
                 pModel.addressLine1_CivicStreetNumber = cleanFinalString(tmpAdd1.slice(0, location1).trim());
                 // Grab the section after the first space, put it in StreetName
-                pModel.addressLine1_StreetName = cleanFinalString(tmpAdd1.slice((location1 + 1)));
+                pModel.addressLine1_StreetName = tmpAdd1.slice((location1 + 1));
             } else {
                 // Not expected do not addtoCivicStreetNumber, just add everything to StreetName
-                pModel.addressLine1_StreetName = cleanFinalString(tmpAdd1);
+                pModel.addressLine1_StreetName = tmpAdd1;
             }
         }
 
         // Now that all parsing is done with addressLine1,
         // DO NOT clean it up
-        pModel.addressLine1 = cleanFinalString(pModel.addressLine1);
-
+        pModel.addressLine1 = pModel.addressLine1;
+        console.log("pModel.addressLine1 : " + pModel.addressLine1);
+        
+        pModel.addressLine2 = cleanFinalString(pModel.addressLine2);
+        console.log("pModel.addressLine2 : " + pModel.addressLine2);
         // Remove spaces from postal code
         pModel.addressPostal = cleanFinalString(pModel.addressPostal.replace(' ', ''));
 
@@ -760,7 +774,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         // Street Number
         pModel.addressLine1_CivicStreetNumber = cleanFinalString(houseNumber);            
         // Now that all parsing is done with addressLine1,
-        pModel.addressLine1 = cleanFinalString(streetName);
+        pModel.addressLine1 = cleanFinalString(houseNumberandStreet);
         // Postal code
         pModel.addressPostal = cleanFinalString(postalCode.replace(' ', ''));
         // Province

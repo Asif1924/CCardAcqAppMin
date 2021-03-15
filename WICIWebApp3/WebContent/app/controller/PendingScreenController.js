@@ -36,6 +36,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     this.init = init;
     this.hide = hide;
     this.destroy = destroy;
+    this.hidePendScreen = hidePendScreen;
     
     var self = this;
     var flow = null;
@@ -146,6 +147,14 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
         //UAT Defects #44 – Polling issue (critical) 
         //pollingController.stopPolling();
         pollingController.destroyPolling();
+        
+    	hide();
+    	app.navigationController.adhocPendingScreen = null;
+    }
+    
+    function hidePendScreen(){
+        var sMethod = 'hidePendScreen() ';
+        console.log(logPrefix + sMethod)
         
     	hide();
     	app.navigationController.adhocPendingScreen = null;

@@ -143,6 +143,7 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
         //assembleDisclaimerAtBottom();
         assembleNavigationBarAtBottom();
         hideNextButton();
+        $('#mobile_infomation_phone').hide();
        }
     // ---------------------------------------------------------------------------------------
     function assembleNavigationBarAtTop() {
@@ -241,7 +242,20 @@ WICI.MobilePaymentsScreenController = function(activationItems, argTranslator, a
     	var sMethod = 'showNextScreen() ';
         console.log(logPrefix + sMethod);
         
-    	syncUserData();    	
+    	syncUserData();
+    	
+    	
+    	 var mobilePayment = app.validationDecorator.phoneValidation($(refs.mobilePhone).val() , refs.mobilePhone );
+         
+         if(!mobilePayment){
+        	 $('#mobile_infomation_phone').show();	
+         	return;
+         	
+         }else{
+        	 $('#mobile_infomation_phone').hide();
+         }
+    	
+    	
         if (app.validationsOn) {
         	app.validationDecorator.clearErrArrtibute();
         	        	 

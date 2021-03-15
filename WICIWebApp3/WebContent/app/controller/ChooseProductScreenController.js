@@ -117,6 +117,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // Principle: Allows for proper unit
         // testing
         isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
+        app.setAddressLine2Flag(translator.translateKey("addressLine2Flag"));
+        console.log(logPrefix + sMethod + " AddressLine2Flag :: " + app.getAddressLine2Flag());
         
         var retailNetwork = loginModel.get('retailNetWork');
         var employerID = loginModel.get('employerID').toUpperCase();
@@ -633,6 +635,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $("#handoutCancel").click(function(){
         	$("#handoutTabToCustomerDialog-container").hide();
         	logout();
+        });
+        
+        $("#retrieveButton").click(function(){
+        	app.flowController.retrieveClick();
         });
 
         // VZE-108

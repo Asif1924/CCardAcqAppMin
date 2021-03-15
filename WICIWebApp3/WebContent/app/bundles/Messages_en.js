@@ -6,6 +6,10 @@ WICI.dictionary_en =  {
 	no 													: 	"No",
 	cancel  											:  	"Cancel",
 	printerErrorShowDialogFlag						    :	"Y",
+	addressLine2Flag	                                :   "Y",
+	
+	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
+	accents_out											:	"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
 	
 	app_loading 										:	"Loading...",
 	backButtonPrompt_message 							: 	"The information collected on this application will be permanently deleted and cannot be retained. Are you sure you want to continue?",
@@ -95,6 +99,7 @@ WICI.dictionary_en =  {
 	loginScreen_DemoModeAlert 							:   "You are logging into \n DEMO MODE \n Are you sure?",
 
 	loginScreen_EmployerIDLookup_FailedMessage			:	"Invalid Employer Id. Please correct and try again",
+	chooseProduct_HandoutTabToCustomerDialogRetrieve	:	"Retrieve An Application",
 	chooseProduct_PrinterConnected						:	"Printer is connected",
 	chooseProduct_PrinterNotConnected					:	"Printer is not connected. Please ensure printer is powered on, within<br> range and Bluetooth is connected before proceeding with application.",
 	loginScreen_Login_Details_In_Use					:	"Login failed. Your login details are currently in use. Please contact your supervisor for more information.",
@@ -188,7 +193,7 @@ WICI.dictionary_en =  {
     chooseProduct_TriangleRewardsProgram_para1          : "This page sets out important information about the Triangle Rewards program (the <b>Program</b>) – the program that rewards you with electronic Canadian Tire Money when you shop at participating Canadian Tire<sup>&reg;</sup> stores, on-line at canadiantire.ca and at Canadian Tire gas bars. The Program is made available by Canadian Tire Corporation, Limited (referred to as <b>Canadian Tire</b> or <b>we</b>) on the following terms and conditions.",
     chooseProduct_TriangleRewardsProgram_para2          : "<b>Participating in the Program</b><br> In order to collect and redeem electronic Canadian Tire Money <b>(eCTM<sup>&reg;</sup>),</b> you must become a member (a <b>Member</b>). Membership is open to you if you are an individual, you reside in Canada and you are of the age of majority in the province in which you reside. You can become a Member by <br>(i) completing the registration process online at canadiantire.ca (the <b>Program Website</b>) or <br>(ii) by downloading the Program application to your mobile phone or device (the <b>Program App</b>) which you can receive information on by calling Program customer service at 1-800-226-8473 or by visiting the Program Website, or <br>(iii) by applying for a credit card issued by Canadian Tire Bank that is designated as being linked to the Program or by being issued a debit card connected to a bank account from Canadian Tire Bank that is designated as being linked to the Program (a <b>Program Payment Card),</b> or <br>(iv) by calling customer service at 1-800-226-8473 after you have picked up a Triangle Rewards Card in store. If you apply for a credit card that is a Program Payment Card and are not approved you will still become a Member of the Triangle Rewards Program if you provided all of the necessary information unless, at time of application for such credit card, you were advised that you would have to enroll separately in the Triangle Rewards Program in the event your credit card application was declined or unless we otherwise notify you in writing.",
  	chooseProduct_TriangleRewardsProgram_para3          : "<b>Triangle Rewards Cards</b><br> Each Member may receive a Triangle Rewards Program card (a <b>Triangle Rewards Card</b>) that is linked to a <b>Triangle Rewards Account.</b> Your eCTM will be stored in that account. If you do not receive a Triangle Rewards Card you will need to use a <b>Cardless Method</b> (see below) when you collect or redeem eCTM. Any Program Payment Cards that are issued to a Member will also be linked to that Member’s Triangle Rewards Account. If a Member has multiple Program Payment Cards they cannot be linked to the same Triangle Rewards Account. A Member can request the issuance of additional Triangle Rewards Cards that have the same account number as that Member’s Triangle Rewards Account.",
-	chooseProduct_TriangleRewardsProgram_para4          : "<b>Collecting electronic Canadian Tire Money</b> <br>eCTM can be collected when you purchase <b>Eligible Merchandise</b> (see below) at participating Canadian Tire stores or on-line at canadiantire.ca (or such other web site as may be designated by Canadian Tire from time to time). eCTM is calculated on the pre-tax, purchase amount (or eligible portion thereof) and is rounded to the nearest cent. To collect eCTM you must present a Triangle Rewards Card (or use a <b>Cardless Method</b> described below). You can also collect eCTM on that portion of a purchase charged to a Program Payment Card. The Program Payment Card must be linked to a Triangle Rewards Account at the time the purchase is made in order to collect eCTM. eCTM can also be collected when you purchase fuel (gasoline or diesel) at participating Canadian Tire gas bars and present a Triangle Rewards Card (or use a Cardless Method described below) and use a qualifying form of tender or if you pay for the purchase with a Program Payment Card. The amount of eCTM collected on fuel purchases depends on the number of litres purchased. A minimum fuel purchase may be required before eCTM can be collected. The rate of collection may vary from time to time and by location and by type of tender used for payment so check at your local Canadian Tire gas bar. eCTM can only be collected at Canadian Tire gas bars on fuel purchases. You can also collect eCTM on purchases that you make at other merchants that are charged to a Program Payment Card. eCTM that you collect at other merchants will also be rounded to the nearest cent. The rate at which eCTM can be collected may vary from time to time and by location and is subject to change by Canadian Tire without notice. In addition, you may collect eCTM at a different rate if you pay with a Program Payment Card than you would if you use a Triangle Rewards Card (or <b>Cardless Method</b>) or based on the type of Program Payment Card that you use. Please call 1-800-226-8473 for current rates. When shopping at Canadian Tire stores or gas bars, if you forget your Triangle Rewards Card or choose not to use it, you may still be able to collect eCTM on a qualifying purchase if you provide the telephone number that you gave when you enrolled as a Member or you scan at a compatible point of sale device your mobile phone or other mobile device on which you have downloaded the Program App (each of these is a <b>Cardless Method</b>). Purchases made in a foreign currency with a Program Payment Card are first converted into Canadian currency (as set out in the cardmember agreement) prior to calculating the amount of eCTM that you have collected. eCTM can only be collected on one Triangle Rewards Account for each purchase transaction. If you use a Triangle Rewards Card or Cardless Method, it must be swiped or scanned or your phone number provided, as the case may be, before you make your purchase. When shopping online at canadiantire.ca (or other website as designated by Canadian Tire), you must enter your Triangle Rewards Account number at check out to collect eCTM. Members are also eligible to collect bonus eCTM, or to collect eCTM at a promotional rate offered from time to time on the purchase of select items, upon the occurrence of certain events or as part of a promotion or offer, but unless otherwise indicated, bonus eCTM or eCTM awarded at a promotional rate is awarded only once for a transaction, or for the occurrence of an event, as the case may be. You cannot use a Triangle Rewards Card (or Cardless Method) together with a Program Payment Card. If you charge a purchase to a Program Payment Card, you will only earn eCTM at the applicable Program Payment Card rate then in effect, even if you also present your Triangle Rewards Card (or Cardless Method). However, if you redeem eCTM to pay for part of a transaction and pay for the balance of the transaction with a Program Payment Card that is linked to a different Triangle Rewards Account than the account from which the redemption is occurring, all eCTM collected in respect of that transaction will be credited to the Triangle Rewards Account from which redemption is occurring. You will not be able to collect eCTM on that portion of a transaction in respect of which you redeemed eCTM. However, we may, from time to time and at our discretion, have special offers or promotions that would allow you to collect eCTM on that portion of a transaction in respect of which you redeemed eCTM. If you use more than one Program Payment Card to make a purchase (e.g. split the cost between two or more cards), all eCTM collected on that purchase will be credited only to the Triangle Rewards Account linked to the first Program Payment Card that is presented. If you make payment using a Program Payment Card in combination with some other form of tender, only that portion of the purchase charged to the Program Payment Card will earn eCTM at the then applicable Program Payment Card rate. That portion of the purchases made with the other form of tender may be eligible to earn eCTM at a different rate. Delays may occur in recording eCTM to a Triangle Rewards Account. You cannot collect paper Canadian Tire Money<sup>&reg;</sup> and eCTM on the same transaction.",
+	chooseProduct_TriangleRewardsProgram_para4          : "<b>Collecting electronic Canadian Tire Money</b> <br>eCTM can be collected when you purchase <b>Eligible Merchandise</b> (see below) at participating Canadian Tire stores or on-line at canadiantire.ca (or such other web site as may be designated by Canadian Tire from time to time). eCTM is calculated on the pre-tax, purchase amount (or eligible portion thereof) and is rounded to the nearest cent. To collect eCTM you must present a Triangle Rewards Card (or use a <b>Cardless Method</b> described below). You can also collect eCTM on that portion of a purchase charged to a Program Payment Card. The Program Payment Card must be linked to a Triangle Rewards Account at the time the purchase is made in order to collect eCTM. eCTM can also be collected when you purchase fuel (gasoline or diesel) at participating Canadian Tire gas bars and present a Triangle Rewards Card (or use a Cardless Method described below) and use a qualifying form of tender or if you pay for the purchase with a Program Payment Card. The amount of eCTM collected on fuel purchases depends on the number of litres purchased. A minimum fuel purchase may be required before eCTM can be collected. The rate of collection may vary from time to time and by location and by type of tender used for payment so check at your local Canadian Tire gas bar. eCTM can only be collected at Canadian Tire gas bars on fuel purchases. You can also collect eCTM on purchases that you make at other merchants that are charged to a Program Payment Card. eCTM that you collect at other merchants will also be rounded to the nearest cent until March 31, 2021 after which it will be rounded down to the nearest cent. The rate at which eCTM can be collected may vary from time to time and by location and is subject to change by Canadian Tire without notice. In addition, you may collect eCTM at a different rate if you pay with a Program Payment Card than you would if you use a Triangle Rewards Card (or <b>Cardless Method</b>) or based on the type of Program Payment Card that you use. Please call 1-800-226-8473 for current rates. When shopping at Canadian Tire stores or gas bars, if you forget your Triangle Rewards Card or choose not to use it, you may still be able to collect eCTM on a qualifying purchase if you provide the telephone number that you gave when you enrolled as a Member or you scan at a compatible point of sale device your mobile phone or other mobile device on which you have downloaded the Program App (each of these is a <b>Cardless Method</b>). Purchases made in a foreign currency with a Program Payment Card are first converted into Canadian currency (as set out in the cardmember agreement) prior to calculating the amount of eCTM that you have collected. eCTM can only be collected on one Triangle Rewards Account for each purchase transaction. If you use a Triangle Rewards Card or Cardless Method, it must be swiped or scanned or your phone number provided, as the case may be, before you make your purchase. When shopping online at canadiantire.ca (or other website as designated by Canadian Tire), you must enter your Triangle Rewards Account number at check out to collect eCTM. Members are also eligible to collect bonus eCTM, or to collect eCTM at a promotional rate offered from time to time on the purchase of select items, upon the occurrence of certain events or as part of a promotion or offer, but unless otherwise indicated, bonus eCTM or eCTM awarded at a promotional rate is awarded only once for a transaction, or for the occurrence of an event, as the case may be. You cannot use a Triangle Rewards Card (or Cardless Method) together with a Program Payment Card. If you charge a purchase to a Program Payment Card, you will only earn eCTM at the applicable Program Payment Card rate then in effect, even if you also present your Triangle Rewards Card (or Cardless Method). However, if you redeem eCTM to pay for part of a transaction and pay for the balance of the transaction with a Program Payment Card that is linked to a different Triangle Rewards Account than the account from which the redemption is occurring, all eCTM collected in respect of that transaction will be credited to the Triangle Rewards Account from which redemption is occurring. You will not be able to collect eCTM on that portion of a transaction in respect of which you redeemed eCTM. However, we may, from time to time and at our discretion, have special offers or promotions that would allow you to collect eCTM on that portion of a transaction in respect of which you redeemed eCTM. If you use more than one Program Payment Card to make a purchase (e.g. split the cost between two or more cards), all eCTM collected on that purchase will be credited only to the Triangle Rewards Account linked to the first Program Payment Card that is presented. If you make payment using a Program Payment Card in combination with some other form of tender, only that portion of the purchase charged to the Program Payment Card will earn eCTM at the then applicable Program Payment Card rate. That portion of the purchases made with the other form of tender may be eligible to earn eCTM at a different rate. Delays may occur in recording eCTM to a Triangle Rewards Account. You cannot collect paper Canadian Tire Money<sup>&reg;</sup> and eCTM on the same transaction.",
 	chooseProduct_TriangleRewardsProgram_para5          : "<b>If you are the holder of a Program Payment Card and you fail to keep your credit card account, or bank account to which your debit card is linked, in good standing, any eCTM that you might have collected as a result of transactions with that Program Payment Card, may, in Canadian Tire’s sole discretion, be cancelled.</b><br><br><b>Eligible Merchandise</b><br> All merchandise sold at Canadian Tire stores, or on-line at canadiantire.ca, is <b>Eligible Merchandise</b> <U>except the following: </U>gift cards, lottery tickets, hunting and fishing licences, tire disposal fees, tire taxes, Rug Doctor<sup>&reg;</sup> rental charges, refundable deposits, environmental fees, repair charges, delivery or assembly charges, other store services (other than automobile service), inter-store sales, other store labour (other than labour for automobile repairs), donations at a discount, house account charges, towing charges, prepaid cards, phone cards, tobacco products or alcohol, Pit Stop<sup>&reg;</sup>  parts/labour charges, Canadian Tire Roadside Assistance<sup>&reg;</sup>  memberships that are purchased over the phone or on-line, premiums for credit card balance insurance or for insurance or extended warranties on items purchased with a Canadian Tire branded credit card, premiums for other Canadian Tire branded insurance products, cash advances, transactions using a convenience cheque, balance transfers and other cash transactions, any fees charged on a Program Payment Card, payments made to a credit card account, the value of any part or item traded-in in connection with a purchase, any item that we are legally precluded from awarding eCTM in respect of and such other goods or services as we may determine from time to time in our sole discretion. In addition, individual Canadian Tire stores may exclude additional items sold in that store from being Eligible Merchandise. We reserve the right, at any time without notice, to change what constitutes Eligible Merchandise.",
 	chooseProduct_TriangleRewardsProgram_para6          : "<b>Redeeming electronic Canadian Tire Money</b><br> eCTM can only be redeemed for merchandise (including applicable taxes) at participating Canadian Tire stores or at other locations designated by Canadian Tire. eCTM cannot be redeemed for alcohol, tobacco, gift cards, pre-paid cards, other stored value cards or products, items that we designate on the Program Website and those items which the law does not permit to be purchased this way, or used to make a payment on any Canadian Tire Bank issued credit cards or on loans or for financial or insurance products or in respect of fees or overdraft on any Canadian Tire Bank provided bank account. To redeem your eCTM you must present your Triangle Rewards Card (or Cardless Method) or Program Payment Card to the cashier with your purchase. Please note that in some Canadian Tire stores it may not be possible to simply provide your phone number when redeeming eCTM; presentation of your Triangle Rewards Card or Program Payment Card or scanning of the Program App may be required instead. eCTM can be used in combination with paper Canadian Tire Money and/or in combination with any other form of tender. eCTM collected on a purchase transaction cannot be redeemed on the same transaction. You may not redeem eCTM from more than one Triangle Rewards Account for the same transaction. You must have enrolled in the Program, or have activated your Program Payment Card, in order to redeem eCTM.",
 	chooseProduct_TriangleRewardsProgram_para7          : "<b>What Happens When an Item is Returned?</b><br> If you return an item for a refund and had received eCTM when you purchased such item, such amount of eCTM will be deducted from your Triangle Rewards Account. Merchandise that was purchased either in whole or in part by redeeming eCTM may not be returned for cash, rather, the connected Triangle Rewards Account will be credited with the same amount of eCTM used to make the original purchase.",
@@ -274,6 +279,8 @@ WICI.dictionary_en =  {
 
 	contactInfo_Heading1						:  "Contact Information",
 	contactInfo_Heading2						:  "What’s your number?",
+	contactInfo_PhoneToolTipMsg                 :   "Please ensure you <br> enter a valid <br> phone number",
+    
 	contactInfo_Heading3						:  "What's your email address? (Optional)",
 	contactInfo_Heading4						:  "eStatements (Optional)",
 	contactInfo_Heading5						:  "eStatements Terms & Conditions",
@@ -364,9 +371,18 @@ WICI.dictionary_en =  {
 	personalData_Correspondence							:	"Preferred Language:",
 	personalData_English								:	"English",
 	personalData_French									:	"French",
-
-	personalData_AddressInformation					:	"ADDRESS INFORMATION",
-	personalData_Address_PostalCode					:	"Postal Code",
+	
+	personalData_AddressConfirmation_Title				:	"Address Confirmation",
+	personalData_AddressNotFound_Title					:	"Address Cannot be Found",
+	personalData_AddressNotFound_Message				:	"Your address scanned as:",
+	personalData_AddressScannedAs						:	"Your address scanned as:",
+	personalData_CanadaPostNotFindAddress				:	"Canada Post could not find your address. Please enter your address manually.",
+	personalData_AddressCanadaPostFormat				:	"Canada Post Recommended Format:",
+	personalData_AddressAccept							:	"Accept",
+	personalData_AddressContinue						:	"Continue with Scanned Address",
+	canadaPostMessageDialog_ok 						: 	"Ok",
+	personalData_AddressInformation						:	"ADDRESS INFORMATION",
+	personalData_Address_PostalCode						:	"Postal Code",
 	personalData_Address_StreetNumber					:	"Street Number",
 	personalData_Address_Button_Label					:	"FIND ADDRESS",
     personalData_Scan_Id_Label                          :   "Scan Driver's Licence",
@@ -402,16 +418,38 @@ WICI.dictionary_en =  {
 	pesonalData_covid19LockDownMonth                    : "03",
 	pesonalData_covid19LockDownDay                    : "01",
 	
-	personalData_PreviousAddress_PostalCode			:	"Postal Code",
+	// VZE-161
+	ExpiryDateMonth_null                              :   'Month',
+	ExpiryDateMonth_JA                                :   'January',
+	ExpiryDateMonth_FE                                :   'February',
+	ExpiryDateMonth_MR                                :   'March',
+	ExpiryDateMonth_AL                                :   'April',
+	ExpiryDateMonth_MA                                :   'May',
+	ExpiryDateMonth_JN                                :   'June',
+	ExpiryDateMonth_JL                                :   'July',
+	ExpiryDateMonth_AU                                :   'August',
+	ExpiryDateMonth_SE                                :   'September',
+	ExpiryDateMonth_OC                                :   'October',
+	ExpiryDateMonth_NO                                :   'November',
+	ExpiryDateMonth_DE                                :   'December',
+	
+	ExpiryDateDay_null                                :   'Day',
+	ExpiryDateYear_null                               :   'Year',
+	expiryDate_error_title                            :   'Are you sure?',
+	expiryDate_error_message                          :   'Please ensure that your ID Expiry Date is accurate.',
+	expiryDate_continue_button                        :   'CONTINUE',
+	expiryDate_cancel_button                          :   'CANCEL',
+
+	personalData_PreviousAddress_PostalCode			:	"Postal Code*",
 	personalData_PreviousAddress_StreetNumber			:	"Street Number",
 
 	personalData_PreviousAddress_Button_Label			:	"FIND ADDRESS",
 
-	personalData_PreviousAddress_AddressLine1			:	"Street Name",
-	personalData_PreviousAddress_AddressLine2			:	"Address Line 2",
-	personalData_PreviousAddress_SuiteUnit				:	"Apt # / Suite / Unit",
-	personalData_PreviousAddress_City					:	"City",
-	personalData_PreviousAddress_Province				:	"Province",
+	 personalData_PreviousAddress_AddressLine1            :    "Mailing Address Line 1*",
+    personalData_PreviousAddress_AddressLine2            :    "Mailing Address Line 2",
+    personalData_PreviousAddress_SuiteUnit                :    "Unit #",
+    personalData_PreviousAddress_City                    :    "City*",
+    personalData_PreviousAddress_Province                :    "Province*",
 	// US5414 
 	chooseProductScreen_LegalHandout_PleaseSign         :   "Please sign",
 	chooseProductScreen_LegalHandout_Message            :   "I verify that I have provided the applicant the Legal Information Handout.",
@@ -1230,7 +1268,8 @@ WICI.dictionary_en =  {
 	summary_Address_PostalCode							:	"Postal Code",
 	summary_Address_StreetNumber						:	"Street Number",
 	summary_Address_StreetName							:	"Street Name",
-	summary_Address_AddressLine2						:	"Address Line 2",
+	summary_Address_AddressLine1						:	"Mailing Address Line 1",
+	summary_Address_AddressLine2						:	"Mailing Address Line 2",
 	summary_Address_SuiteUnit							:	"Apt # / Suite / Unit",
 	summary_Address_City								:	"City",
 	summary_Address_Province							:	"Province",
@@ -1270,9 +1309,11 @@ WICI.dictionary_en =  {
 	summary_SupCard_Address_PostalCode					:	"Postal Code",
 	summary_SupCard_Address_StreetNumber				:	"Street Number",
 	summary_SupCard_Address_StreetName					:	"Street Name",
-	summary_SupCard_Address_AddressLine2				:	"Address Line 2",
+	summary_SupCard_Address_AddressLine1				:	"Mailing Address Line 1",
+	summary_SupCard_Address_AddressLine2				:	"Mailing Address Line 2",
 	summary_SupCard_Address_SuiteUnit					:	"Apt # / Suite / Unit",
 	summary_SupCard_Address_City						:	"City",
+	summary_SupCard_Address_Province					:	"Province",
 
 	summary_OptProds_ProductSelected					:	"Product selected",
 	summary_OptProds_ProdName_PA						:	"Protection Advantage",
@@ -1589,6 +1630,19 @@ WICI.dictionary_en =  {
     
     personalData_Scan_TextField                         : "<b> Why are we scanning your licence?</b>  We scan your driver’s licence to automatically and accurately capture select information required to complete a credit card application.  This includes your name, address, date of birth, driver’s licence number and expiry date.",
     
+	// VZE-185    
+	personalData_current_Mailing_address                :    "Current Mailing Address",
+	personalData_canadaPostAddress_1                    :    "1. Start typing a Canadian address in the box provided. Suggested addresses appear as you type.",
+    personalData_canadaPostAddress_2                    :    "2. Select your address from the list of suggestions. For some addresses, you may also be prompted to select an appropriate unit number. The properly formatted address including the postal code will display.",
+    personalData_canadaPostAddress_3                    :    "If you do not see your address in the list of suggestions, continue entering your complete address, including city and province, to display more suggestions.",
+    personalData_canadaPostAddress_4                    :    "If you’re still having difficulty, you can enter your address manually.",
+    personalData_EnterAdressManuallyButton              :    "Enter Address Manually",
+    personalData_EditAddressButton			            :    "Edit Address",
+    personalData_AcceptButton							:    "Accept",
+    personalData_canadaPostAddressPara1             	:    "Please note that the properly formatted address including the postal code is currently displayed.",
+    // VZE-187 
+    personalData_POBoxToolTipMsg                        :    "If your address contains a P.O.Box, please enter it in Mailing Address Line 2",
+    
     // personalData_ReceiveEmail                           : "I would like to receive offers, promotions, contests, giveaways, events, coupons and other information about products and services that may be of interest to me by email, text message (standard text messaging and data rates may apply) and other electronic messaging from Canadian Tire Corporation, Limited (\"CTC\"), Canadian Tire Financial Services Limited (\"CTFS\"), and Canadian Tire Bank (\"CTB\"), including from their respective business units operating under the Canadian Tire, My Canadian Tire Money<sup>&reg;</sup> Program, Canadian Tire Drivers Academy<sup>&reg;</sup>, Canadian Tire Home Services<sup>&reg;</sup>, and Canadian Tire Roadside Assistance<sup>&reg;</sup> brands, as well as from other CTC-CTFS-CTB affiliates and/or marketing partners. You may contact CTC-CTFS-CTB, at P.O. Box 2000 Welland, ON L3B 5S3 or customerservice@canadiantire.ca. I understand that I may withdraw my consent at any time.",
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
@@ -1836,6 +1890,7 @@ WICI.dictionary_en =  {
       OP_IW_P_CC                                        :   "We will pay a three thousand dollar ($3,000) reward for information leading to the arrest and conviction of anyone fraudulently using your credit or registered debit card(s). You, your family and law enforcement personnel are not eligible to receive a reward. Those eligible to receive the reward must contact Sigma to complete and return a Reward Claim Form.",
       //-- IW offer details ends 
       OP_Not_at_this_time                               :   "Not at this time",
+      
       
       //Footer part of  optional products starts 
       OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; These are optional products offered to all customers approved for a Canadian Tire Bank issued Mastercard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued Mastercard and not for the optional products." ,

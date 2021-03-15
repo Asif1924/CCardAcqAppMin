@@ -122,6 +122,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         permanentlyEnableSubmitButton();
         
         checkExpiryDateField();
+        showHideAddressLine2();
 
         $(refs.grossIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossIncome')));
         
@@ -324,6 +325,18 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	$("#personalData_IDNumber_Value").addClass("fieldLabelsCell fieldValuesBottomCell");
         	$("#summary_TellUsAboutYourself_ExpiryDate_Area").hide();
         }
+    }
+    //---------------------------------------------------------------------------------------
+    function showHideAddressLine2() {
+    	if(app.getAddressLine2Flag() == 'Y') {
+    		$('#summary_AddressLine2').removeClass('hideElement');
+    		$('#summary_PreviousAddressLine2').removeClass('hideElement');
+    		$('#summary_SupAddressLine2').removeClass('hideElement');
+    	} else {
+    		$('#summary_AddressLine2').addClass('hideElement');
+    		$('#summary_PreviousAddressLine2').addClass('hideElement');
+    		$('#summary_SupAddressLine2').addClass('hideElement');
+    	}
     }
     // ---------------------------------------------------------------------------------------
     function bindSubmitHandlingControls(){

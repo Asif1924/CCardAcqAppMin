@@ -284,6 +284,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         }).appendTo("#PrintDemoScreen");
 
         $('#printScreen_SettingsButton').addClass('rightPosition');
+        $('#printScreen_SettingsButton').attr("printScreenMenuItem", "false")
     }
 
     function getKeyForCardSelection(  ){
@@ -425,7 +426,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     function handleLogout(){
     	if(fromPendScreen)
     	hide();
-    	app.flowController.logOutClick(self);
+    	app.flowController.printLogOutClick(self);
     }
     
     //---------------------------------------------------------------------------------------

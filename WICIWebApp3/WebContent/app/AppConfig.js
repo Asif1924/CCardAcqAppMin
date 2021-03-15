@@ -12,6 +12,8 @@ WICI._AppConfig = function() {
 		AUTO_CONNECT_RETRIES : 2,
 		INSTANTISSUANCE_REQUEST_INTERVAL: 120000, // 2 minutes
 		TMXEMAILAGE_REQUEST_INTERVAL: 	  5000,   // 5 seconds
+		CANADAPOST_REQUEST_INTERVAL: 	  10000,  // 10 seconds
+		ABBREVIATECITYNAME_REQUEST_INTERVAL: 	  5000,   // 5 seconds
 	};
 
 	this.PollingConfig = {

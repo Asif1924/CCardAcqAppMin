@@ -63,6 +63,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		// Set masks for UI elements
 		setUIElementsMasks();
 		disableCheckBox();
+		alignI_icon();
 		restoreCreditCardData();
 	}
 	// ---------------------------------------------------------------------------------------
@@ -148,6 +149,8 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		assemblePageHTML($screenContainer, '#WICIContactInfoScreen-template');
 		$screenContainer.addClass("breadcrumbPadding");
 		assembleNavigationBarAtBottom();
+	    $('#contactInfomation_infomation_phone').hide();
+		
 	}
 	// ---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
@@ -190,8 +193,22 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 				enableCheckBox();
 			}
         });
+		
+		$.subscribe('translatorFinished', function(event) {
+            console.log('translatorFinished' + '::change');
+            alignI_icon();
+        });
 	}
 	// ---------------------------------------------------------------------------------------
+	function alignI_icon() {
+		if(app.translator.getCurrentLanguage() === "en") {
+        	$('#contactInfomation_infomation_phone').addClass('marginleft_i_icon');
+        	$('#contactInfomation_infomation_phone').removeClass('marginleft_i_icon_fr');
+        } else {
+        	$('#contactInfomation_infomation_phone').removeClass('marginleft_i_icon');
+        	$('#contactInfomation_infomation_phone').addClass('marginleft_i_icon_fr');
+        }
+	}
 	function assemblePageHTML($element, templateName) {
 		$(templateName).tmpl({
 			activationItems: activationItems,
@@ -203,6 +220,10 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		console.log(logPrefix + sMethod);
 
 		syncUserData();
+		
+		
+		
+		
 
 		// Phone number validation based on canBeEmpty true or false
 		if ($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() !== '') {
@@ -238,6 +259,26 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			setFlag(false, false);
 		}
 
+		   var primaryMobile = app.validationDecorator.phoneValidation($(refs.homePhone).val() , refs.homePhone );
+	        
+	        if(!primaryMobile){
+	        	$('#contactInfomation_infomation_phone').show();
+	        	return;
+	        }else{
+	        	$('#contactInfomation_infomation_phone').hide();
+	        	
+	        }
+	        var secondryPhone = app.validationDecorator.phoneValidation($(refs.cellPhone).val() , refs.cellPhone );  	
+			
+	        if(!secondryPhone){
+	        	$('#contactInfomation_infomation_phone').show();
+	        	return;
+	        }else{
+	        	$('#contactInfomation_infomation_phone').hide();
+	        	
+	        }
+        
+		
 		if (app.validationsOn) {
 			app.validationDecorator.clearErrArrtibute();
 
@@ -263,7 +304,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 				return;
 			}
 		}
-
+		
 		updatePhoneNumberInModel();
 		flow.next();
 	}
@@ -382,4 +423,6 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		$(refs.receiveEmail).prop('disabled', false);
 	}
 	// ---------------------------------------------------------------------------------------
+	
+ 
 };

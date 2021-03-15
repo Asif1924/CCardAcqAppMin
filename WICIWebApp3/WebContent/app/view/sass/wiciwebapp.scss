@@ -59,6 +59,14 @@ html,body {
   
 }
 
+// VZE-161
+.text-center{
+	text-align: center;
+}
+.green_text{
+	color : #188e02;
+}
+
 /* Create a custom checkbox */
 .checkmarkEmailPage {
   position: absolute;
@@ -160,6 +168,14 @@ html,body {
   padding-top: 0;
 }
 
+.pcaflagbutton {
+	display: none;
+}
+
+.pca .pcadisableselect {
+	display: none;
+}
+
 /* VZE-107 */
 .chooseProduct_SignatureTitle_Red{
     background-color: red;
@@ -242,6 +258,346 @@ border: 0px;
   font-size: 18pt;
   font-color: #000;
 }
+
+.canadaPostTitleFont {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 16pt;
+  font-color: #000;
+}
+.canadaPostProvinceHeight{
+    top: 10%;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    width: 100%;
+    background-color: transparent;
+    border: .5px solid #666666;
+    height: 55px;
+    color: #666666;
+}
+
+.canadaPostDetailsFont {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16pt;
+  font-color: #000;
+}
+
+.paddingLeft40 {
+  padding-left: 40px;
+}
+
+.paddingLeft80 {
+  padding-left: 80px;
+}
+
+
+.width100 {
+  width: 100%
+}
+
+.printerErrorDetailsFont {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  font-color: #000;
+}
+
+// VZE-185
+.personalInfoFontColor{
+   color : #474c50;
+}
+
+.personalInfo_CanadianPostLogo{
+    background-image: inline-image("CanadaPost.png");
+    height: 40px;
+    width: 100%;
+    max-width: 40px;
+    max-height: 40px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: block;
+    margin-top: a;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 10px;
+}
+.personalInfo_addressBOx{
+  box-sizing: border-box;
+}
+
+.personalInfo_CanadaPostButton{
+   height: 50px;
+   width: 400px;
+   border-radius: 5px;
+   border: solid 1px #cccccc;
+   background: #eee;
+   font-size: 15pt;
+   font-family: Helvetica, Arial, sans-serif;
+   display: table-cell;
+   vertical-align: middle;
+   outline: none;
+   cursor: pointer;
+   text-align: center;
+   text-decoration: none;
+   font-weight: bold;
+   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.greenColor {
+  color: #ffffff;
+  border: solid 1px rgb(34, 152, 12);
+  background: rgb(24, 142, 2);
+}
+
+.inputTextAlignment{
+  float: left;
+  padding: 5px;
+  width : 30%;
+}
+.column_one {
+  float: left;
+  width: 5%;
+  padding: 5px;
+}
+.column_two {
+  float: left;
+  width: 90%;
+  padding: 5px;
+}
+.streetAddressCanadaPost{
+ top: 10%;
+ font-family: Helvetica, Arial, sans-serif;
+ font-size: 16pt;
+ height: 50px;
+ width: 100%;
+}
+
+.canadaPostInput{
+  top: 10%;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  height: 50px;
+  width: 100%;
+}
+
+.currentMailingAddress{
+  height: 50px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16pt;
+}
+.canadaPostInputBoxTitle{
+  height: 50px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13pt;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+  width: 100%
+}
+
+.marginCanadaPostLine1{
+   margin-left: 3%;
+   margin-right: 2%;
+}
+.marginCanadaPostLine2{
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.tdWidth22{
+  width: 22%;
+}
+
+.tdWidth15{
+  width: 17%;
+}
+
+.tdWidth35{
+ width: 35%;
+}
+// VZE-185 
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  border: 1px solid #000;
+  
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: #fff;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #000 transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #000 transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #000;
+  padding: 8px 16px;
+  /*border: 1px solid #000;
+  border-color: transparent #000 #000 transparent;*/
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  border: 1px solid #000;
+  position: absolute;
+  background-color: #fff;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+// VZE-185
+// VZE-187
+#contactInfomation_infomation_button{
+    background-image: #{inline_image("icon_i.png")};
+    height: 30px;
+    width: 100%;
+    max-width: 30px;
+    max-height: 30px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    top: 45px;
+    left: 20px;
+}
+#personalInfo_pre_year_informationButton{
+    background-image: #{inline_image("icon_i.png")};
+    height: 30px;
+    width: 100%;
+    max-width: 30px;
+    max-height: 30px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    top: 45px;
+    left: 20px;
+}
+#suppCardInfo_infomation_button{
+    background-image: #{inline_image("icon_i.png")};
+    height: 30px;
+    width: 100%;
+    max-width: 30px;
+    max-height: 30px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: block;
+    margin-top: a;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    top: 45px;
+    left: 20px;
+}
+#canadapost_AddressEdit{
+  background-image: #{inline_image("icon_i.png")};
+  background-size: 50px;
+  height: 50px;
+  margin: 0 auto;
+  width: 10%;
+  top: -25px;
+  background-repeat: no-repeat;
+  /* float: left; */
+  left: 20px;
+  top: 7px;
+}
+.contactInformation_I_Icon_column{
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+.contactInformation_I_Icon_row::after{
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 190px;
+  height: 70px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 0px;
+  padding:20px;
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  left: -10px;
+  margin-left: -80px;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent gray transparent;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.marginRightCanadaPostLine1{
+   margin-right: 2%;
+}	
 
 .printerErrorDetailsFont {
   font-family: Arial, Helvetica, sans-serif;
@@ -493,9 +849,12 @@ border: 0px;
 }
 
 .colorGray {
-	color: gray;
+	color : gray
 }
 
+.personalInfoColorGray{
+	color: #666666
+}
 .marginBlockStart25 {
 	margin-block-start: 0.25em;	
 }
@@ -867,6 +1226,10 @@ border: 0px;
 	  text-align: center;
 }
 
+.retrieveAppPadding {
+	  padding: 25px 0 5px 30px;
+}
+
 /*VZE-107 */
 .popup_SignatureDialog_Red {
     width: 60%;
@@ -940,16 +1303,32 @@ border: 0px;
   }
 }
 
+.width200 {
+	width: 200px !important;
+}
+
 .dialog-btn-ok {
   background-color:#44B78B;
   color: white;
   font-weight: 700;
   border: 1px solid #44B78B;
   border-radius: 10px;
-  height: 30px;
+  height: 35px;
   width: 130px;
   margin-right: 10%;
 }
+
+.dialog-btn-retrieve {
+  background-color:#418eda;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #418eda;
+  border-radius: 10px;
+  height: 35px;
+  width: 130px;
+  margin-right: 10%;
+}
+
 
 .dialog-btn-proceed {
   background-color:#44B78B;
@@ -957,7 +1336,7 @@ border: 0px;
   font-weight: 700;
   border: 1px solid #44B78B;
   border-radius: 10px;
-  height: 30px;
+  height: 35px;
   width: 130px;
   margin-right: 20%;
 }
@@ -968,7 +1347,7 @@ border: 0px;
   font-weight: 700;
   border: 1px solid #ED2524;
   border-radius: 10px;
-  height: 30px;
+  height: 35px;
   width: 130px;
 }
 
@@ -3435,6 +3814,17 @@ body.ui-mobile-viewport { overflow-x: visible; }
 }
 ////////////////
 
+/*VZE- 185 */
+input[type="text"]::placeholder {  
+   /* Firefox, Chrome, Opera */ 
+      text-align: left;
+      font-size: 12pt;
+      font-style: normal;
+      color : #8e8e8e;
+      text-transform : none;
+ 
+} 
+
 .agreementBoxContainer {
   height: 47px;
 }
@@ -3606,6 +3996,10 @@ div.ui-slider-switch
 
 .paddingBottom15 {
   padding-bottom: 15px;
+}
+
+.paddingBottom40 {
+  padding-bottom: 40px;
 }
 
 .marginTop23 {
@@ -4645,6 +5039,74 @@ padding-top:5px;
     font-size: 13pt;
     word-spacing: 1px;
     line-height: 1.4em;
+}
+
+
+.contactInfomation_i_icon{
+    background-image: #{inline_image("icon_i.png")};
+    height: 30px;
+    width: 100%;
+    max-width: 30px;
+    background-repeat: no-repeat;
+	background-size: 95%;
+}
+
+.margintopbottomleft {
+	margin-top: -10px;
+    margin-bottom: -8px;
+	margin-left: 5px;
+}
+
+.marginleft_i_icon{
+    margin-left: 10px;
+	margin-top: 2px;
+}
+
+.marginleft_i_icon_fr{
+    margin-left: 15px;
+	margin-top: 2px;
+}
+
+#i_icon{
+  float:left;
+
+}
+
+.tooltip .tooltipphonetext {
+  visibility: hidden;
+  width: 260px;
+  height: 80px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 0px;
+  padding:20px;
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  left: -47px;
+  margin-left: -80px;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+.tooltip .tooltipphonetext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent gray transparent;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.tooltip:hover .tooltipphonetext {
+  visibility: visible;
 }
       
   /*

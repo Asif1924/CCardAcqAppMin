@@ -1,0 +1,264 @@
+package com.ctfs.WICI.Servlet;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
+import com.ctfs.WICI.Helper.ApplicationApkVersionValidator;
+import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.DictionaryInfoValidator;
+import com.ctfs.WICI.Helper.EmployerIDCodeValidator;
+import com.ctfs.WICI.Helper.LoginInvocationHelper;
+import com.ctfs.WICI.Helper.WICIDBHelper;
+import com.ctfs.WICI.Helper.WICIObjectsHelper;
+import com.ctfs.WICI.Helper.WICIServletMediator;
+import com.ctfs.WICI.Model.AuthfieldValue;
+import com.ctfs.WICI.Model.DictionaryInfo;
+import com.ctfs.WICI.Model.IllegalAppVersionException;
+import com.ctfs.WICI.Model.InvalidDictionaryInformationException;
+import com.ctfs.WICI.Model.LoginInfo;
+import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
+import com.ctfs.WICI.Servlet.Model.WICIResponse;
+import static com.ctfs.WICI.AppConstants.*;
+
+public class LoginServlet extends WICIServlet
+{
+	private static final long serialVersionUID = 1L;
+	static Logger log = Logger.getLogger(LoginServlet.class.getName());	
+	WICIObjectsHelper requestHelper = new WICIObjectsHelper();
+
+	protected boolean isCheckLTPATokenRequired()
+	{
+		return false;
+	}
+
+	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
+	{
+		String sMethod = this.getClass().getName() + "[handleRequest] ";
+		log.info(sMethod);
+
+		invokeValidate(requestMediator);
+	}
+
+	private void invokeValidate(WICIServletMediator requestMediator) throws IOException
+	{
+		String sMethod = this.getClass().getName() + "[invokeValidate] ";
+		log.info(sMethod);
+
+		String employerID = requestMediator.searchElementInsidePostRequestBody("employerID") != null ? requestMediator.searchElementInsidePostRequestBody("employerID") : EMPTY_STRING;
+		String agentID = requestMediator.searchElementInsidePostRequestBody("agentID") != null ? requestMediator.searchElementInsidePostRequestBody("agentID") : EMPTY_STRING;
+		String userLocation = requestMediator.searchElementInsidePostRequestBody("userLocation") != null ? requestMediator.searchElementInsidePostRequestBody("userLocation") : EMPTY_STRING;
+		String apkVersion = requestMediator.searchElementInsidePostRequestBody("apkVersion") != null ? requestMediator.searchElementInsidePostRequestBody("apkVersion") : EMPTY_STRING;
+		String password = requestMediator.searchElementInsidePostRequestBody("password") != null ? requestMediator.searchElementInsidePostRequestBody("password") : EMPTY_STRING;
+		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
+		//String serialNumber = requestMediator.searchElementInsidePostRequestBody("serialNumber") != null ? requestMediator.searchElementInsidePostRequestBody("serialNumber") : EMPTY_STRING;
+		//String userOperation=requestMediator.searchElementInsidePostRequestBody("userOperation") != null ? requestMediator.searchElementInsidePostRequestBody("userOperation") : EMPTY_STRING;
+		
+		Boolean blackListedEmpIDAgtIDValid = false;
+		
+		log.info(sMethod + "::employerID: " + employerID);
+		log.info(sMethod + "::agentID: " + agentID);
+		log.info(sMethod + "::userLocation: " + userLocation);
+		log.info(sMethod + "::apkVersion: " + apkVersion);
+		log.info(sMethod + "::password: " + password);
+		log.info(sMethod + "::retailNetwork: " + retailNetwork);
+		//log.info(sMethod + "::serialNumber: " + serialNumber);
+		
+		WICIResponse appResponse = new WICIResponse();
+		WICILoginResponse loginResponse = new WICILoginResponse();
+		boolean authfieldCheckEnable=false; 
+	    boolean enableEnstreamAuth = false;
+	    boolean isDebugMode = false;
+		String CONFIG_NAME_ENABLE_ENSTREAM_AUTH = "ENABLE_ENSTREAM_AUTH"; 
+
+		try
+		{
+			AuthorizationHelper authorizationHelper = new AuthorizationHelper();
+
+			AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
+
+			//US3125 - Sep 16th 2014 Release
+			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+			
+			ApplicationApkVersionValidator applicationApkVersionValidator = new ApplicationApkVersionValidator();
+			applicationApkVersionValidator.validateApkVersion(employerID, agentID, userLocation, apkVersion, values);
+
+			EmployerIDCodeValidator employerIDCodeValidator = new EmployerIDCodeValidator();
+			Boolean employerIDValid = employerIDCodeValidator.validateCode(employerID);
+			log.info("Employer Id Valid returned value :: " + employerIDValid);
+			String roleId=null;
+			// US4231
+			
+			
+			
+			if(employerID != "" && employerID != null) {
+				if (!"E".equalsIgnoreCase(employerID.toUpperCase())) {
+					try {
+						WICIDBHelper wicidbHelper = new WICIDBHelper();
+						LoginInfo logonInfo = new LoginInfo();
+						logonInfo.setAgentID(agentID);
+						logonInfo.setApkVersion(apkVersion);
+						logonInfo.setBuildSerial((values.getBuildSerial()));
+						logonInfo.setEmployerID(employerID);
+						logonInfo.setMfgSerial(values.getMfgSerial());
+						logonInfo.setUserLocation(userLocation);
+
+						blackListedEmpIDAgtIDValid = wicidbHelper.employerIdAgentIDExists(logonInfo);
+						log.info("Employer Id and Agent Id Exists returned value :: " + blackListedEmpIDAgtIDValid);
+					} catch (Exception e) {
+						log.info("Error :: Employer Id and Agent Id validation check error!");
+					}
+					
+					WICIDBHelper wicidbHelper = new WICIDBHelper();	
+					String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
+					authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
+					if(authfieldCheckEnable)
+					{
+						log.info("Authentication started...");
+						WICIDBHelper wiciAuthHelper = new WICIDBHelper();
+						roleId=wiciAuthHelper.validateUserNamePassKey((employerID+agentID),encodePassWord(password),agentID);
+						log.info("roleId"+roleId);
+						if(roleId==null)
+						{
+							loginResponse.setMessage(LOGIN_FAILED);
+							loginResponse.setStatusCode(LOGIN_FAILED_CD);
+						}
+					}
+				}				
+			}			
+			
+			if (!employerIDValid)
+			{
+				loginResponse.setMessage("Invalid Employer Id. Please correct and try again");
+				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_FORBIDDEN)); // Force Failed Login Response
+			}
+			else if (blackListedEmpIDAgtIDValid)
+			{
+				loginResponse.setMessage("Login Failed. Please Contact your administrator");
+				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_FORBIDDEN)); // Force Failed Login Response
+			}
+			else
+			{
+				if(roleId!=null || "E".equalsIgnoreCase(employerID.toUpperCase())|| !authfieldCheckEnable)
+				{
+				String derivedUserID = employerID + agentID;
+				LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
+				loginResponse = loginInvocationHelper.checkLocation(retailNetwork, userLocation, derivedUserID);
+				loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
+				WICIDBHelper wicidbhelper = new WICIDBHelper();	
+				enableEnstreamAuth = wicidbhelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_ENSTREAM_AUTH);
+				loginResponse.setEnableEnstreamAuth(enableEnstreamAuth);
+				isDebugMode = wicidbhelper.isDebugMode(values.getMfgSerial(), values.getBuildSerial());
+				loginResponse.setDebugMode(isDebugMode);
+				try {
+					WICIDBHelper wicidbHelper = new WICIDBHelper();
+					LoginInfo logonInfo = new LoginInfo();
+					logonInfo.setAgentID(agentID);
+					logonInfo.setApkVersion(apkVersion);
+					logonInfo.setBuildSerial((values.getBuildSerial()));
+					logonInfo.setEmployerID(employerID);
+					logonInfo.setMfgSerial(values.getMfgSerial());
+					logonInfo.setUserLocation(userLocation);
+					
+					if(wicidbHelper.deviceWithThisMfgSerialNumberExists(values.getMfgSerial())) {
+						boolean loggedIn = false;
+						loggedIn = wicidbHelper.checkAgentPreLoggedin(logonInfo);
+						log.info("loggedIn Response :: " + loggedIn);
+						
+						if( loggedIn ) {				
+							String errorMsg = "Your login details are currently in use";
+
+							// Prepare login response
+							loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_OK));
+							loginResponse.setMessage(errorMsg);
+
+							// Prepare request response
+							appResponse.setError(false);
+							appResponse.setMsg(errorMsg);
+							appResponse.setData(loginResponse);
+						} else {
+							wicidbHelper.logonInfo(logonInfo);
+						}
+					} else {
+						wicidbHelper.logonInfo(logonInfo);
+					}
+					
+				} catch (Exception e) {
+					log.info("Error :: Update Logon info into DB");
+				}
+				}
+			}
+			
+			if(roleId!=null || "E".equalsIgnoreCase(employerID.toUpperCase())|| !authfieldCheckEnable )
+			{
+			DictionaryInfoValidator dictInfoValidator = new DictionaryInfoValidator();
+			DictionaryInfo dictInfo = dictInfoValidator.validateDictionaryInformation();						
+			loginResponse.setDictionaryInfo(dictInfo);
+			appResponse.setError(false);
+			appResponse.setMsg(loginResponse.getMessage());
+			}
+			else {
+				appResponse.setError(true);
+			}
+			
+			log.info(loginResponse + " loginResponse: " + loginResponse.getRoleId());
+			loginResponse.setRoleId(roleId);
+			appResponse.setData(loginResponse);
+		}
+		catch (IllegalAppVersionException ex)
+		{
+			log.info(sMethod + " Exception: " + ex.getMessage());
+			String errrorMsg = "Version does not match!";
+
+			// Prepare login response
+			loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION));
+			loginResponse.setMessage(errrorMsg);
+
+			// Prepare request response
+			appResponse.setError(false);
+			appResponse.setMsg(errrorMsg);
+			appResponse.setData(loginResponse);
+		}
+		catch (InvalidDictionaryInformationException ex)
+		{
+			log.info(sMethod + " Exception: " + ex.getMessage());
+			String errorMessage = "One of the values are null for the dictionary configuration keys";
+
+			// Prepare login response
+			loginResponse.setStatusCode(String.valueOf(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION));
+			loginResponse.setMessage(errorMessage);
+
+			// Prepare request response
+			appResponse.setError(false);
+			appResponse.setMsg(errorMessage);
+			appResponse.setData(loginResponse);
+		}
+		
+		catch (Exception ex)
+		{
+			log.warning(sMethod + " Exception: " + ex.getMessage());
+			appResponse.setError(true);
+			appResponse.setMsg(ex.getMessage());
+		}
+		finally
+		{
+			requestMediator.processHttpResponse(appResponse);
+		}
+	}
+	
+	private String encodePassWord(String passWord)
+	{
+		String encodedPassWord = null;
+		try {
+			// Encode data
+			encodedPassWord = DatatypeConverter.printBase64Binary(passWord
+					.getBytes());
+			System.out.println(passWord + " Encoded= " + encodedPassWord);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return encodedPassWord;
+	}
+
+}

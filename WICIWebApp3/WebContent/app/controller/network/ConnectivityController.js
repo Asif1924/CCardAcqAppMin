@@ -234,7 +234,7 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
     };
     //---------------------------------------------------------------------------------------
     this.TMXEmailage = function(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
-    		firstName,lastName,birthDate,province,postCode,city,addressline1,streetnumber,suiteunit,addressline2,sin,argSuccessCallback, argFailureCallback, offlineCallback) {
+    		firstName,lastName,birthDate,province,postCode,city,addressline1,suiteunit,addressline2,sin,argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'TMXEmailage() ';
         console.log(logPrefix + sMethod);
         
@@ -254,7 +254,6 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 	      	"postCode" : postCode,
 	      	"city" : city,	      	
 	      	"addressline1": addressline1,
-	      	"streetNumber": streetnumber,
 	      	"suiteunit": suiteunit,
 	      	"addressline2" : addressline2,	      	
 	      	"sin" : sin,	      	
@@ -387,14 +386,17 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
     // ---------------------------------------------------------------------------------------
-    this.AddressLookup = function(argPostalCode, argStreetNumber, argSuccessCallback, argFailureCallback) {
+    this.AddressLookup = function(line1,line2,city,province,postalCode, argSuccessCallback, argFailureCallback) {
     	console.log("AddressLookup");
     	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
 		var requestParams = {
-      		  "postalCode":argPostalCode,
-      		  "streetNumber":argStreetNumber
+      		  "addressline1":line1,
+      		  "addressline2":line2,
+      		  "city":city,
+    		  "province":province,
+    		  "postalCode":postalCode,
 		};
-		connRequestBuilder.setHttpType( "POST" );
+		connRequestBuilder.setHttpType("POST");
 		connRequestBuilder.setParams(requestParams);
 
 		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
@@ -410,7 +412,41 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			{
 				serviceName: 	serviceNameEnum.AddressLookup,
 				httpVerb: 	connRequestBuilder.getHttpType(),
-				requestParams: 	connRequestBuilder.getParamString()
+				requestParams: 	connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.CANADAPOST_REQUEST_INTERVAL
+			},
+        	argSuccessCallback,
+        	wrappedErrorCallback
+		);
+    };
+    // ---------------------------------------------------------------------------------------
+    this.AbbreviateCityname = function(city,province, argSuccessCallback, argFailureCallback) {
+    	console.log("AbbreviateCityname");
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+    	var requestParams = {
+    		"abrivatedCity":"Y",
+    		"city":city,
+    		"province":province,
+    	};
+		
+		connRequestBuilder.setHttpType("POST");
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if(sessionLiveCheck(jqXHR)){
+    			console.log("AbbreviateCityname Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("AbbreviateCityname");
+        	}
+    	};
+		
+		AJAXrequest(
+			{
+				serviceName: 	serviceNameEnum.AbbreviateCityname,
+				httpVerb: 	connRequestBuilder.getHttpType(),
+				requestParams: 	connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.ABBREVIATECITYNAME_REQUEST_INTERVAL
 			},
         	argSuccessCallback,
         	wrappedErrorCallback

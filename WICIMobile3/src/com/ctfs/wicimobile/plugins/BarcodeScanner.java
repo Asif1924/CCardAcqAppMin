@@ -1,8 +1,24 @@
 package com.ctfs.wicimobile.plugins;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
-import com.cognex.mobile.barcode.sdk.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.cognex.dataman.sdk.CameraMode;
+import com.cognex.dataman.sdk.ConnectionState;
+import com.cognex.dataman.sdk.PreviewOption;
+import com.cognex.dataman.sdk.exceptions.CameraPermissionException;
+import com.cognex.mobile.barcode.sdk.ReadResult;
+import com.cognex.mobile.barcode.sdk.ReadResults;
+import com.cognex.mobile.barcode.sdk.ReaderDevice;
 import com.ctfs.wicimobile.frw.CordovaMethod;
 import com.ctfs.wicimobile.frw.PluginProxy;
 import com.manateeworks.MWOverlay;
@@ -14,11 +30,9 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
-import com.cognex.dataman.sdk.*;
-import com.cognex.dataman.sdk.exceptions.CameraPermissionException;
+import android.util.Base64;
+import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class BarcodeScanner extends PluginProxy 
 	implements ReaderDevice.OnConnectionCompletedListener, ReaderDevice.ReaderDeviceListener {
@@ -145,35 +159,66 @@ public class BarcodeScanner extends PluginProxy
 	}
 
 	@Override
-	public void onReadResultReceived(ReaderDevice readerDevice, ReadResults readResults) {
-		
-        if (readResults.getSubResults() != null && readResults.getSubResults().size() > 0) {
-            for (ReadResult subResult : readResults.getSubResults()) {
-            	//TODO - We shouldn't be here. Need to see what to do.
-            }
-        } else if (readResults.getCount() > 0 && readResults.getResultAt(0).isGoodRead()) {
+    public void onReadResultReceived(ReaderDevice readerDevice, ReadResults readResults) {
+          
+     if (readResults.getSubResults() != null && readResults.getSubResults().size() > 0) {
+         for (ReadResult subResult : readResults.getSubResults()) {
+         //TODO - We shouldn't be here. Need to see what to do.
+         }
+     } else if (readResults.getCount() > 0 && readResults.getResultAt(0).isGoodRead()) {
 
-        	JSONObject result;
-            try {
-                result = successResponse(readResults.getResultAt(0));
-            } catch (JSONException e) {
-                throw new RuntimeException("This should never happen", e);
-            }
-            this.callbackContext.success(result);
-        	
-        }else if (readResults.getCount() > 0 && !readResults.getResultAt(0).isGoodRead()){
-        	returnError("Unable to read barcode.");
-        }
-        
-	}
+          JSONObject result;
+         try {
+             result = successResponse(readResults.getResultAt(0));
+         } catch (Exception e) {
+             throw new RuntimeException("This should never happen", e);
+         }
+         this.callbackContext.success(result);
+          
+     }else if (readResults.getCount() > 0 && !readResults.getResultAt(0).isGoodRead()){
+          returnError("Unable to read barcode.");
+     }
+    }
 	
-    private static JSONObject successResponse(ReadResult readResult) throws JSONException {
+	private static JSONObject successResponse(ReadResult readResult) throws JSONException, XmlPullParserException, IOException {
         JSONObject obj = new JSONObject();
 
         String barcodeType = readResult.getSymbology().toString();
 
         // read the data contained in barcode
-        String barcodeData = readResult.getReadString();
+        //String barcodeData = readResult.getReadString();
+        String barcodeData = "";
+        //Decode using ISO_8859_1 to cover Accented French Characters. 
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        factory.setNamespaceAware(true);
+        XmlPullParser xpp = factory.newPullParser();
+        String tag = "";
+        // the raw bytes will be stored in this variable
+        byte[] bytes;
+        xpp.setInput(new StringReader(readResult.getXml()));
+        int eventType = xpp.getEventType();
+        
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                tag = xpp.getName();
+            }
+            else if (eventType == XmlPullParser.TEXT && tag.equals("full_string")) {
+                String base64String = xpp.getText();
+                
+                // Get the bytes from the base64 string here
+                bytes = Base64.decode(base64String, Base64.DEFAULT);
+                
+                barcodeData = new String(bytes, StandardCharsets.ISO_8859_1);
+                    Log.d("BarcodeScanner_ISO", "outputString from base64 bytes: "+ barcodeData);
+                    
+                break;
+            }
+            else if (eventType == XmlPullParser.END_TAG && tag.equals("full_string")) {
+                tag = "";
+                break;
+            }
+            eventType = xpp.next();
+        }
 
         obj.put("type", barcodeType);
         obj.put("data", barcodeData);

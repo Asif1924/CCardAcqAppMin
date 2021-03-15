@@ -84,6 +84,9 @@ WICI.ValidationDecorator = function(config) {
 				  this.applyNumberIdError(numberId);
 				   return 
 		    }
+			if(!(inputNumber.length > 10 && inputNumber.length < 15)) {
+				this.applyNumberIdError(numberId);
+			}
 			if(inputNumber.length >=5 ){
 				if(inputNumber.substring(0,5) === 'ABCDE' || inputNumber.substring(0,5) === '12345'){
 					 this.applyNumberIdError(numberId);
@@ -221,5 +224,67 @@ WICI.ValidationDecorator = function(config) {
 		} else {
 			return false;
 		}
-	}
+	};
+	
+	// ---------------------------------------------------------------------------------------
+    this.phoneValidation = function phoneValidation(value,  id){
+    	
+    	   var  phoneValidation = true; 
+    	    	
+    	    	 var mobile= null;
+    	    	 if(value != null && value){
+    	    		mobile = value.replace(/-/g, '');
+    	    		
+    	    	}else{
+    	    		return phoneValidation;
+    	    	}
+    	    	if( mobile != null && mobile.length == 10){
+    	    		
+    	    	var  sevendigits = mobile.slice(3);
+    	    	var fristPositionZero = new RegExp("^[1-9][0-9]*$").test(mobile);
+    	    	
+    	    	var digitsame = this.test_same_digit(sevendigits);
+    	    	if(!fristPositionZero || sevendigits.charAt(0)==0 || digitsame ){
+    	    		app.validationDecorator.applyNumberIdError(id);
+    	    		phoneValidation = false;
+    	    		return phoneValidation;
+    	    	};
+    	    	
+    	    	}else{
+    	    		var phoneLength = this.verifyPhonelength(mobile);
+    	    		
+    	    		if(!phoneLength){
+    	    			app.validationDecorator.applyNumberIdError(id);
+        	    		phoneValidation = false;
+        	    		return phoneValidation;
+    	    			
+    	    		}
+    	    		
+    	    	}
+    	    return	phoneValidation;
+    	    };
+    	    
+    	 // ---------------------------------------------------------------------------------------  
+	
+    	 this.test_same_digit =  function test_same_digit(num) {
+    			var first = num % 10;
+    			while (num) {
+    				if (num % 10 !== first)
+    					return false;
+    				num = Math.floor(num / 10);
+    			}
+    			return true;
+    		};
+    		// ---------------------------------------------------------------------------------------
+    		
+    		
+    		 // ---------------------------------------------------------------------------------------  
+    		 this.verifyPhonelength= function(value) {
+    		       return new RegExp(/^[0-9]{10}$/).test(value);
+    		    };
+       		// ---------------------------------------------------------------------------------------
+    		
+    		
+    		
+    		
 };

@@ -9,18 +9,15 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	this.show = show;
 	this.init = init;
 	this.hide = hide;
-
 	var flow = null;
 
 	var translator = null;
 	var messageDialog = null;
 
-	var addressLookupButtonEnabled = false;
-	// var $addressLookupButtonClicked = null;
 	var connectivityController = null;
-	//US4989
 	var chooseProductModel = null;
-
+	var validator = new WICI.Validator();
+	
 	this.syncUserData = syncUserData;
 	var refs = {
 		flipCardYesNo : '#flipSupplementaryCard',
@@ -41,23 +38,25 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		cardDetailsPanel : '#supCardDetailsPanel',
 		addressPanel : '#supAddressPanel',
+		
+		supStreetAddress:      			'#supStreetAddress',
+		supEnterAddressManuallyButton: 	'#sup_EnterAddressManuallyButton',
+		supEditAddressButton: 			'#sup_EditAddressButton',
+		supAcceptButton:  				'#sup_AcceptButton',
 
-		postalCode : '#sup_PostalCode',
 		addressLine1 : '#sup_AddressLine1_TextField',
 		addressLine2 : '#sup_AddressLine2_TextField',
 		suiteUnit : '#sup_SuiteUnit_TextField',
 		city : '#sup_City_TextField',
 		province : '#sup_Province_TextField',
-
-		addressLine1_MultipleControl : '#addressLookup_sup_AddressLine1_MultipleControl',
-		addressLine2_MultipleControl : '#addressLookup_sup_AddressLine2_MultipleControl',
-
-		addressLine1_SelectField : '#sup_AddressLine1_SelectField',
-		addressLine2_SelectField : '#sup_AddressLine2_SelectField',
-
-		addressLookupButton : '#sup_AddressLookupButton',
-
-		streetNumber : '#sup_Address_StreetNumber_TextField',
+		postalCode : '#sup_PostalCode',
+		
+		address_supLine1:		'#address_supLine1',
+		address_supLine2:		'#address_supLine2',
+		address_supCity:		'#address_supCity',
+		address_supProvince:	'#address_supProvince',
+		address_supPostalcode:	'#address_supPostalcode',
+		
 		flipSupplementaryCard_no : "#flipSupplementaryCard_no",
 		flipSupplementaryCard_yes : "#flipSupplementaryCard_yes",
 		flipSameAddress_no : "#flipSameAddress_no",
@@ -68,151 +67,24 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	var model = new WICI.BaseModel({
 		name : 'supCardRequestData',
 		refs : refs,
-		data : [
-
-		{
-			name : 'cardYesNo',
-			value : null,
-			validation : null
-		},
-
-		{
-			name : 'cardRequestFor',
-			value : null,
-			validation : {
-				type : 'presence',
-				message : '',
-				group : [ 1 ]
-			}
-		},
-
-		{
-			name : 'firstName',
-			value : null,
-			validation : {
-				type : 'personName',
-				message : '',
-				group : [ 1 ]
-			}
-		}, {
-			name : 'lastName',
-			value : null,
-			validation : {
-				type : 'personName',
-				message : '',
-				group : [ 1 ]
-			}
-		}, {
-			name : 'initial',
-			value : null,
-			validation : {
-				type : 'format',
-				message : '',
-				matcher : /^[A-Z]{1}/,
-				group : [ 1 ],
-				canBeEmpty : true
-			}
-		}, {
-			name : 'birthDate',
-			value : null,
-			validation : {
-				type : 'birthDate',
-				message : '',
-				group : [ 1 ]
-			}
-		}, {
-			name : 'phone',
-			value : null,
-			validation : {
-				type : 'phone',
-				message : 'Enter valid Phone',
-				group : [ 1 ]
-			}
-		},
-
-		{
-			name : 'sameAddressYesNo',
-			value : null,
-			validation : null
-		},
-
-		{
-			notField : true,
-			name : 'addressLine1_Array',
-			value : null,
-			validation : null
-		}, {
-			notField : true,
-			name : 'addressLine2_Array',
-			value : null,
-			validation : null
-		},
-
-		{
-			name : 'postalCode',
-			value : null,
-			validation : {
-				type : 'postal',
-				message : '',
-				group : [ 2 ]
-			}
-		}, {
-			name : 'streetNumber',
-			value : null,
-			validation : {
-				type : 'streetNumber',
-				message : '',
-				group : [ 2 ]
-			}
-		}, {
-			name : 'addressLine1',
-			value : null,
-			validation : {
-				type : 'addressLine',
-				message : '',
-				group : [ 2 ]
-			}
-		}, {
-			name : 'addressLine2',
-			value : null,
-			validation : {
-				type : 'addressLine',
-				message : '',
-				group : [ 2 ],
-				canBeEmpty : true
-			}
-		}, {
-			name : 'suiteUnit',
-			value : null,
-			validation : {
-				type : 'suiteUnit',
-				message : '',
-				group : [ 2 ],
-				canBeEmpty : true
-			}
-		}, {
-			name : 'city',
-			value : null,
-			validation : {
-				type : 'city',
-				message : '',
-				group : [ 2 ]
-			}
-		}, {
-			name : 'province',
-			value : null,
-			validation : {
-				type : 'presence',
-				message : '',
-				group : [ 2 ]
-			}
-		}
-
+		data : [ { name : 'cardYesNo', 		value : null, validation : null },
+				 { name : 'cardRequestFor', value : null, validation : { type : 'presence', message : '', group : [ 1 ] } },
+				 { name : 'firstName', 		value : null, validation : { type : 'personName', message : '', group : [ 1 ] } },
+				 { name : 'lastName', 		value : null, validation : { type : 'personName', message : '', group : [ 1 ] } },
+				 { name : 'initial', 		value : null, validation : { type : 'format', message : '', matcher : /^[A-Z]{1}/, group : [ 1 ], canBeEmpty : true } },
+				 { name : 'birthDate', 		value : null, validation : { type : 'birthDate', message : '', group : [ 1 ] } },
+				 { name : 'phone', 			value : null, validation : { type : 'phone', message : 'Enter valid Phone', group : [ 1 ] } },
+				 { name : 'sameAddressYesNo', value : null, validation : null },
+				 { name : 'supStreetAddress', value : null, validation : { type : 'presence', message : '', group : [ 2 ], canBeEmpty : true } },
+				 { name : 'postalCode', 	value : null, validation : { type : 'postal', message : '', group : [ 2 ] } },
+				 { name : 'addressLine1', 	value : null, validation : { type : 'addressLinePOBox', message : '', group : [ 2 ] } },
+				 { name : 'addressLine2', 	value : null, validation : { type : 'addressLine', message : '', group : [ 2 ], canBeEmpty : true } },
+				 { name : 'suiteUnit', 		value : null, validation : { type : 'suiteUnit', message : '', group : [ 2 ], canBeEmpty : true } },
+				 { name : 'city', 			value : null, validation : { type : 'city', message : '', group : [ 2 ] } },
+				 { name : 'province', value : null, validation : { type : 'presence', message : '', group : [ 2 ] } }
 		]
 	});
-
 	// ---------------------------------------------------------------------------------------
-
 	function restoreCreditCardData() {
 		var sMethod = "restoreCreditCardData()";
 		console.log(logPrefix + sMethod);
@@ -229,63 +101,33 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			$(refs.flipSameAddress).val(model.get('sameAddressYesNo'));
 		}
 
+		list = new WICI.ProvincesList();
+        $('#address_supLine1').text(model.get('addressLine1'));
+        $('#address_supLine2').text(model.get('addressLine2'));
+        $('#address_supunit').text(model.get('suiteUnit'));
+        if($(refs.suiteUnit).val())
+        	$('#address_supunit_hyphen').show();
+        else 
+        	$('#address_supunit_hyphen').hide();
+        $('#address_supCity').text(model.get('city'));
+        $.each(list.data, function (index, item) {
+          if(item.value === model.get('province')){
+           $('#address_supProvince').text(translator.translateKey(item.text));
+           }
+        });
+        $('#address_supPostalcode').text(model.get('postalCode'));
+        
 		$(refs.postalCode).val(model.get('postalCode'));
-		$(refs.addressLine1).val(model.get('addressLine1'));
-		/* changes for task CTCOFSMB-1431, disabling address line 2
+		$(refs.addressLine1).val(model.get('addressLine1'));		
 		$(refs.addressLine2).val(model.get('addressLine2'));
-		*/
 		$(refs.suiteUnit).val(model.get('suiteUnit'));
-		$(refs.streetNumber).val(model.get('streetNumber'));
 		$(refs.city).val(model.get('city'));
 		$(refs.province).val(model.get('province'));
 
 		updateSupCardRequestForRadioButtons();
 		updatePanelsVisibility();
-
-		updateLookUpControls(model.get('addressLine1_Array'), model
-				.get('addressLine2_Array'));
-	}
-
-	// ---------------------------------------------------------------------------------------
-	function updateLookUpControls($addressLine1, $addressLine2) {
-		var sMethod = "updateLookUpControls()";
-		console.log(logPrefix + sMethod);
-
-		if ($addressLine1 && $addressLine1.length > 1) {
-			$(refs.addressLine1_MultipleControl).show();
-			repopulateAddressLineControl($addressLine1,
-					$(refs.addressLine1_SelectField), 'addressLine1_Array');
-			$(refs.addressLine1_SelectField).prop('selectedIndex', -1);
-		}
-		if ($addressLine1 && $addressLine1.length <= 1) {
-			$(refs.addressLine1_MultipleControl).hide();
-			// US4251
-			var addressLine;
-			$.each($addressLine1, function(index, item) {
-				addressLine = item;
-			});
-            var aptFlag = addressLine.slice(addressLine.length-3, addressLine.length).substring(1, 2);
-            $(refs.addressLine1).val(addressLine.replace(/ {N}| {Y}/gi, ''));
-            validateAptSuitUnit(aptFlag);
-			// $(refs.addressLine1).val($addressLine1);
-		}
-		/* changes for task CTCOFSMB-1431, disabling address line 2
-		if ($addressLine2 && $addressLine2.length > 1) {
-			$(refs.addressLine2_MultipleControl).show();
-			repopulateAddressLineControl($addressLine2,
-					$(refs.addressLine2_SelectField), 'addressLine2_Array');
-			$(refs.addressLine2_SelectField).prop('selectedIndex', -1);
-		}
-		if ($addressLine2 && $addressLine2 <= 1) {
-			$(refs.addressLine2_MultipleControl).hide();
-			$(refs.addressLine2).val($addressLine2);
-		}*/
-
-		updateAddressLookupButtonState($(refs.postalCode),
-				$(refs.streetNumber), $(refs.addressLookupButton));
 	}
 	// ---------------------------------------------------------------------------------------
-
 	function updateSupCardRequestForRadioButtons() {
 		clearRadios();
 		switch (model.get('cardRequestFor')) {
@@ -306,9 +148,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			break;
 		}
 	}
-
 	// ---------------------------------------------------------------------------------------
-
 	function init(argFlow) {
 		var sMethod = 'init() ';
 		console.log(logPrefix + sMethod);
@@ -330,13 +170,14 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		$(refs.cardDetailsPanel).hide();
 		$(refs.addressPanel).hide();
-
 		$(refs.flipSameAddress).val('Y');
 
 		populateProvinces();
 		restoreCreditCardData();
-
 		createFlips();
+		hideCanadaPostSupManualEdit();
+		showHideAddressLine2();
+		updatePlaceholderLanguage();
 
 		$(refs.phone).mask('999-999-9999', {
 			placeholder : "",
@@ -355,12 +196,6 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		$(refs.flipCardYesNo).slider();
 		$(refs.flipSameAddress).slider();
 	}
-
-	function hideAddressLookupSelectionDropDowns() {
-		$(refs.addressLine1_MultipleControl).hide();
-		//$(refs.addressLine2_MultipleControl).hide();
-	}
-
 	// ---------------------------------------------------------------------------------------
 	function updatePanelsVisibility() {
 		if (model.get('cardYesNo') == 'N') {
@@ -395,25 +230,18 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		assemblePageHTML($screenContainer, "#WICISupCardScreen-template");
 		assembleNavigationBarAtBottom();
 		$screenContainer.addClass("breadcrumbPadding");
-		hideAddressLookupSelectionDropDowns();
-		disableAddressline2();
-	}
-	// ---------------------------------------------------------------------------------------
-	function disableAddressline2(){
-	//	$(refs.addressLine2).prop('disabled', true);
+	    updatePlaceholderLanguage();
+	    $('#sup_infomation_phone').hide();
 	}
 	// ---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtTop() {
 		$("#pageHeader-template").template("pageHeader");
-		$
-				.tmpl(
-						"pageHeader",
-						{
-							"logo_En" : translator.currentLanguageEnglish(),
-							"previousButtonId" : "SupplementaryCardRequestScreen_PrevButton",
-							"nextButtonId" : "SupplementaryCardRequestScreen_NextButton",
-							"settingsButtonId" : "SupplementaryCardRequestScreen_SettingsButton"
-						}).appendTo("#SupplementaryCardRequestScreen");
+		$.tmpl("pageHeader",
+			{	"logo_En" : translator.currentLanguageEnglish(),
+				"previousButtonId" : "SupplementaryCardRequestScreen_PrevButton",
+				"nextButtonId" : "SupplementaryCardRequestScreen_NextButton",
+				"settingsButtonId" : "SupplementaryCardRequestScreen_SettingsButton"
+			}).appendTo("#SupplementaryCardRequestScreen");
 	}
 	 // ---------------------------------------------------------------------------------------
 	function assembleNavigationBarAtBottom(){
@@ -435,9 +263,219 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	function bindEvents() {
 		var sMethod = 'bindEvents() ';
 		console.log(logPrefix + sMethod);
+		
+		$(refs.supStreetAddress).live('paste, input', function(e) {
+	        var fields = [
+	        	{ element: "supStreetAddress", 	field: "" },
+	            { element: "supAddressLine1", 	field: "Line1", 		mode: pca.fieldMode.POPULATE },
+	            { element: "supAddressLine2", 	field: "Line2", 		mode: pca.fieldMode.POPULATE },
+	            { element: "supMulti-unit", 	field: "{AcMua}", 		mode: pca.fieldMode.POPULATE },
+	            { element: "supCity", 			field: "City", 			mode: pca.fieldMode.POPULATE },
+	            { element: "supProvinceCode", 	field: "ProvinceCode", 	mode: pca.fieldMode.POPULATE },
+	            { element: "supPostalcode", 	field: "PostalCode",	mode: pca.fieldMode.POPULATE }
+	        ],
+	        options = {
+	        	key: "gz38-nt61-zz89-db43"
+	        },
+	        control = new pca.Address(fields, options);
+			control.options.bar = options.bar || {};
+			control.options.bar.showCountry = false;
+			control.options.bar.showLogo = true;
+			control.listen('populate', function(){
+				app.validationDecorator.clearErrArrtibute();
+				$('#sup_canadaPost_SearchedAddress').show();
+		     	$('#sup_canadaPostAddressDescription1').show();
+		     	$('#sup_canadaPost_addressSearch_instructions').hide();
+		     	$('#sup_enterAddressManuallySection').hide();
+		     	$(refs.supEditAddressButton).removeClass('hideElement');
+		     	$(refs.supEnterAddressManuallyButton).addClass('hideElement');
+		     	$(refs.supAcceptButton).addClass('hideElement');
+                if($(refs.addressLine1).val().indexOf("-") !== -1){
+					var addressLinewithUnitNumberSup = [];
+					addressLinewithUnitNumberSup = $(refs.addressLine1).val().split('-');
+					var addressline1SuppFull = '';
+			    	for(i=1;i<addressLinewithUnitNumberSup.length;i++) {
+			    		addressline1SuppFull += addressLinewithUnitNumberSup[i] + "-";
+			    	}
+			    	console.log(logPrefix + sMethod + "addressline1SuppFull : " + addressline1SuppFull.substring(0, addressline1SuppFull.length-1));
+			    	
+					// If Unit No is more then 6 char then consider as addressline1 instead of Unit no
+					if(addressLinewithUnitNumberSup[0].length > 6){
+						$('#address_supunit').text('');
+						$('#address_supLine1').text($(refs.addressLine1).val());
+						$(refs.suiteUnit).val("");
+						$('#address_supunit_hyphen').hide();
+					}else{
+						$('#address_supunit_hyphen').show();
+						$('#address_supunit').text(addressLinewithUnitNumberSup[0]);
+                        $('#address_supLine1').text(addressline1SuppFull.substring(0, addressline1SuppFull.length-1));
+                        $(refs.suiteUnit).val(addressLinewithUnitNumberSup[0]);
+                        $(refs.addressLine1).val(addressline1SuppFull.substring(0, addressline1SuppFull.length-1));
+					}
+				}else{
+					$('#address_supunit_hyphen').hide();
+					$('#address_supunit').text("");
+					$('#address_supLine1').text($(refs.addressLine1).val());
+				}
+				//VZE-125
+                if($(refs.addressLine2).val() != ''){
+                   $('#address_supLine2').show();
+                   $('#address_supLine2_br').removeClass('hideElement');
+	               $('address_supLine2').text($(refs.addressLine2).val());
+                }else{
+	               $('#address_supLine2_br').addClass('hideElement');
+                   $('#address_supLine2').hide();
+                }
+                $('#address_supLine2').text($(refs.addressLine2).val());
+                $('#address_supCity').text($(refs.city).val());
+                list = new WICI.ProvincesList(),
+                $.each(list.data, function (index, item) {
+	              if(item.value === $(refs.province).val()){
+		           $('#address_supProvince').text(translator.translateKey(item.text));
+	               }
+                });
+                var postalCodevalSup = $(refs.postalCode).val().split(" ").join(""); 
+                $('#address_supPostalcode').text(postalCodevalSup);
+                $(refs.postalCode).val(postalCodevalSup);
+                model.set("province", $(refs.province).val());
+                
+                if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
+            		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);
+			});
+        });
+        $(refs.suiteUnit).live('paste, input', function(e) {
+            console.log(refs.suiteUnit + '::suiteUnit');
+            $('#address_supunit').text($(refs.suiteUnit).val());
+            if($(refs.suiteUnit).val())
+            	$('#address_supunit_hyphen').show();
+            else 
+            	$('#address_supunit_hyphen').hide();
+        });
+        $(refs.addressLine1).live('paste, input', function(e) {
+            console.log(refs.addressline1 + '::addressline1');
+            $('#address_supLine1').text($(refs.addressLine1).val());
+        });
+        $(refs.addressLine2).live('paste, input', function(e) {
+            console.log(refs.addressline2 + '::addressline2');
+            $('#address_supLine2').text($(refs.addressLine2).val());
+        });
+        $(refs.city).live('paste, input', function(e) {
+            console.log(refs.city + '::city');
+            $('#address_supCity').text($(refs.city).val());
+        });
+        
+        $(refs.province).live('paste, input', function(e) {
+            console.log(refs.province + '::province');
+            list = new WICI.ProvincesList(),
+            $.each(list.data, function (index, item) {
+	              if(item.value === $(refs.province).val()){
+		           $('#address_supProvince').text(translator.translateKey(item.text));
+	               }
+            });    
+        });
+        $(refs.postalCode).live('paste, input', function(e) {
+           console.log(refs.postalcode + '::postalcode');
+            var postalCodeval = $(refs.postalCode).val().split(" ").join(""); 
+            $('#address_supPostalcode').text(postalCodeval);
+        });
+        
+        $(refs.supEnterAddressManuallyButton).click(function() {
+        	console.log(refs.supEnterAddressManuallyButton + '::click');
+        	$(refs.supEnterAddressManuallyButton).addClass('hideElement');
+        	$(refs.supAcceptButton).removeClass('hideElement');
+        	$('#sup_enterAddressManuallySection').show();
+        	$('#sup_canadaPost_SearchedAddress').hide();
+        	$('#sup_canadaPost_addressSearch_instructions').hide();
+        	$('#sup_canadaPostAddressDescription1').show();
+        });
+        
+        $(refs.supEditAddressButton).click(function() {
+        	console.log(refs.supEnterAddressManuallyButton + '::click');
+        	$(refs.supEditAddressButton).addClass('hideElement');
+        	$(refs.supAcceptButton).removeClass('hideElement');
+        	$('#sup_enterAddressManuallySection').show();
+        	$('#sup_canadaPost_SearchedAddress').show();
+        	$('#sup_canadaPost_addressSearch_instructions').hide();
+        	$('#sup_canadaPostAddressDescription1').show();
+            $('#suppCardInfo_infomation_button').hide();
+        });
+        
+        $(refs.supAcceptButton).click(function() {
+        	console.log(refs.supAcceptButton + '::click');
+        	
+        	app.validationDecorator.clearErrArrtibute();
+        	var postrez = [];
+            if($(refs.suiteUnit).val() && !validator.suiteUnit($(refs.suiteUnit).val().toUpperCase()))
+            	postrez.push({name: 'suiteUnit', err: '', uiid: refs.suiteUnit});
+            if(!$(refs.addressLine1).val().toUpperCase() && !validator.addressLine($(refs.addressLine1).val().toUpperCase())){
+	            postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+	        }else{
+	        	var regex = new RegExp(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/);
+	               var isValid = $(refs.addressLine1).val().toUpperCase().match(regex);
+	               if(isValid){
+	                    var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+	                    $.each(poBoxArray, function (index, item) {
+	                      if($(refs.addressLine1).val().toLowerCase().includes(item.toLowerCase())){
+	                    	  $('#suppCardInfo_infomation_button').show();
+	                    	  postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+	                      }
+	                    });
+	               }else{
+	                    postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+	               }
+	        }
+            if($(refs.addressLine2).val() && !validator.addressLine($(refs.addressLine2).val().toUpperCase()))
+            	postrez.push({name: 'addressLine2', err: '', uiid: refs.addressLine2});
+            if(!validator.city($(refs.city).val().toUpperCase()))
+            	postrez.push({name: 'city', err: '', uiid: refs.city});
+            if($(refs.province).val() == "null")
+            	postrez.push({name: 'province', err: '', uiid: refs.province});
+            if(!validator.postalCode($(refs.postalCode).val().toUpperCase()))
+            	postrez.push({name: 'postalCode', err: '', uiid: refs.postalCode});
+            
+            console.log(refs.supAcceptButton + ' :: click :: ' + postrez.length);
+            if(postrez.length > 0) {
+            	app.validationDecorator.applyErrAttribute(postrez);
+                	if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
+                		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);
+            } else {
+                	if($(refs.city).val().length >= 18) 
+                		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);
+            	
+            	$('#address_supLine1').text(model.get('addressLine1'));
+                //VZE-125
+                if($(refs.addressLine2).val() != ''){
+                   $('#address_supLine2').show();
+                   $('#address_supLine2_br').removeClass('hideElement');
+	               $('address_supLine2').text($(refs.addressLine2).val());
+                }else{
+	               $('#address_supLine2_br').addClass('hideElement');
+                   $('#address_supLine2').hide();
+                }
+                $('#address_supunit').text(model.get('suiteUnit'));
+                if($(refs.suiteUnit).val())
+	            	$('#address_supunit_hyphen').show();
+	            else 
+	            	$('#address_supunit_hyphen').hide();
+                $('#address_supCity').text(model.get('city'));
+                list = new WICI.ProvincesList();
+                $.each(list.data, function (index, item) {
+                  if(item.value === $(refs.province).val()){
+                   $('#address_supProvince').text(translator.translateKey(item.text));
+                   }
+                });
+                var postalCodeval = $(refs.postalCode).val().split(" ").join(""); 
+            	$('#address_supPostalcode').text(postalCodeval);
+            	
+            	$(refs.supEditAddressButton).removeClass('hideElement');
+            	$(refs.supAcceptButton).addClass('hideElement');
+            	$('#sup_enterAddressManuallySection').hide();
+            	$('#sup_canadaPost_SearchedAddress').show();
+            }
+        	
+        });
 
 		bindNavigationHandlingControls();
-		bindAddressHandlingControls();
 		bindRadioHandlingControls();
 
 		$(refs.province).on("change", function() {
@@ -446,14 +484,116 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		});
 
 		$.subscribe('translatorFinished', function(event) {
-			    toggleImage();
-				console.log(refs.province + 'subscribe(translatorFinished)');
-				populateProvinces();
-				$(refs.province).val(model.get("province"));
+			toggleImage();
+			populateProvinces();
+			checkSupAddressProvince();
+			updatePlaceholderLanguage();
+			$(refs.province).val(model.get("province"));
 		});
+		
 		updateOmxCardLanguage();
 		updateOmpOmrCardLanguage();
 	}
+	//---------------------------------------------------------------------------------------
+    function invokeAbbreviateSupCityname( city, province, argSuccessCB, argFailureCB ){
+        new WICI.LoadingIndicatorController().show();
+        connectivityController.AbbreviateCityname(city,province,argSuccessCB,argFailureCB);
+    }
+    //---------------------------------------------------------------------------------------
+    function abbreviateCitynameSupSuccess(argResponse) {
+    	var sMethod = "abbreviateCitynameSupSuccess() :: ";
+    	
+    	new WICI.LoadingIndicatorController().hide();
+    	if(argResponse && argResponse.data && argResponse.data.abrivatedCityLookup == "Y") {
+    		// City name is abbreviated
+    		$(refs.city).removeClass('errorField');
+        	console.log(logPrefix + sMethod + "Supp City name is abbreviated.");
+    		model.set('city', argResponse.data.abbrevaitedCityName);
+    		$(refs.city).val(model.get('city'));
+    		$('#address_supCity').text(model.get('city'));
+        } else if(argResponse && argResponse.data && argResponse.data.abrivatedCityLookup == "N") {
+        	// City name is not abbreviated
+        	console.log(logPrefix + sMethod + "Supp City name is not abbreviated.");
+        }
+    }
+    //---------------------------------------------------------------------------------------
+    function abbreviateCitynameSupFail(argResponse) {
+    	var sMethod = "abbreviateCitynameSupFail() :: ";
+    	
+    	// City name abbreviation failed
+    	new WICI.LoadingIndicatorController().hide();
+    	console.log(logPrefix + sMethod + "City name abbreviation failed.");
+    }
+   // ---------------------------------------------------------------------------------------
+   function updatePlaceholderLanguage() {
+	    var sMethod = logPrefix + 'updatePlaceholderLanguage';
+        if (app.translator.getCurrentLanguage() === "en") {
+	        $('#supStreetAddress').attr('placeholder', '  Start typing a street address or postal code'); 
+            $('#sup_SuiteUnit_TextField').attr('placeholder', ' Unit #');
+            $('#sup_AddressLine1_TextField').attr('placeholder', ' Street Number, Street Name');
+            $('#sup_AddressLine2_TextField').attr('placeholder', ' Mailing Address Line 2');
+            $('#sup_City_TextField').attr('placeholder', ' City');
+            $('#sup_Province_TextField').attr('placeholder', ' Province');
+            $('#sup_PostalCode').attr('placeholder', ' L#L#L#');
+            
+        } else {
+	        $('#supStreetAddress').attr('placeholder', '  Commencez à entrer une adresse ou un code postal'); 
+            $('#sup_SuiteUnit_TextField').attr('placeholder', ' No unité');
+            $('#sup_AddressLine1_TextField').attr('placeholder', ' Adresse postale ligne 1*');
+            $('#sup_AddressLine2_TextField').attr('placeholder', ' Adresse postale ligne 2');
+            $('#sup_City_TextField').attr('placeholder', ' Ville*');
+            $('#sup_Province_TextField').attr('placeholder', ' Province*');
+            $('#sup_PostalCode').attr('placeholder', ' Code postal*');
+        }
+    }
+	//---------------------------------------------------------------------------------------
+    function checkSupAddressProvince() {
+    	var sMethod = 'checkSupAddressProvince() ';
+        console.log(logPrefix + sMethod + $(refs.province).val());
+        
+    	list = new WICI.ProvincesList();
+        $.each(list.data, function (index, item) {
+          if(item.value === $(refs.province).val()){
+           $('#address_supProvince').text(translator.translateKey(item.text));
+           }
+        });
+    }
+	//---------------------------------------------------------------------------------------
+    function hideCanadaPostSupManualEdit(){
+    	if(model.get("postalCode")) {
+    		$('#sup_canadaPost_SearchedAddress').show();
+    		$('#sup_canadaPostAddressDescription1').show();
+        	$('#sup_enterAddressManuallySection').hide();
+        	$('#sup_canadaPost_addressSearch_instructions').hide();
+        	$(refs.supEnterAddressManuallyButton).addClass('hideElement');
+        	$(refs.supEditAddressButton).removeClass('hideElement');
+        	$(refs.supAcceptButton).addClass('hideElement');
+        	$('#suppCardInfo_infomation_button').hide();
+        	if($(refs.addressLine2).val() != ''){
+                $('#address_supLine2').show();
+                $('#address_supLine2_br').removeClass('hideElement');
+	            $('address_supLine2').text($(refs.addressLine2).val());
+            }else{
+	            $('#address_supLine2_br').addClass('hideElement');
+                $('#address_supLine2').hide();
+            }
+    	} else {
+    		$(refs.supEditAddressButton).addClass('hideElement');
+        	$(refs.supAcceptButton).addClass('hideElement');
+        	$('#sup_canadaPost_SearchedAddress').hide();
+            $('#sup_enterAddressManuallySection').hide();
+            $('#sup_canadaPostAddressDescription1').hide();
+            $('#suppCardInfo_infomation_button').hide();
+    	}
+    }
+    //---------------------------------------------------------------------------------------
+    function showHideAddressLine2() {
+    	if(app.getAddressLine2Flag() == 'Y') {
+    		$('#supAddressLine2Section').removeClass('hideElement');
+    	} else {
+    		$('#supAddressLine2Section').addClass('hideElement');
+    	}
+    }
 	// ---------------------------------------------------------------------------------------
     function toggleImage() {
     	var sMethod = " :: toggleImage() :: ";
@@ -548,202 +688,6 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		});
 	}
 	// ---------------------------------------------------------------------------------------
-	function handleRealTimeKeyStrokes($argPostalCodeFieldID,
-			$argStreetNumberFieldID, $argAddressLookupButtonID) {
-		updateAddressLookupButtonState($argPostalCodeFieldID,
-				$argStreetNumberFieldID, $argAddressLookupButtonID);
-	}
-	// ---------------------------------------------------------------------------------------
-	function initFields() {
-		updateAddressLookupButtonState($(refs.postalCode),
-				$(refs.streetNumber), $(refs.addressLookupButton));
-	}
-	// ---------------------------------------------------------------------------------------
-	function disableAddressLookupButton($argButtonID) {
-		$argButtonID.removeClass("greenflat");
-		$argButtonID.addClass("grayflat");
-		addressLookupButtonEnabled = false;
-
-	}
-	// ---------------------------------------------------------------------------------------
-	function enableAddressLookupButton($argButtonID) {
-		$argButtonID.removeClass('grayflat');
-		$argButtonID.addClass("greenflat");
-		addressLookupButtonEnabled = true;
-	}
-	// ---------------------------------------------------------------------------------------
-	function updateAddressLookupButtonState($argPostalCodeFieldID,
-			$argStreetNumberFieldID, $argAddressLookupButtonID) {
-		var postalCode = $argPostalCodeFieldID.val();
-		var streetNumber = $argStreetNumberFieldID.val();
-		if (postalCode === "" || streetNumber === "")
-			disableAddressLookupButton($argAddressLookupButtonID);
-		else
-			enableAddressLookupButton($argAddressLookupButtonID);
-	}
-	// ---------------------------------------------------------------------------------------
-	function bindAddressHandlingControls() {
-		$(refs.addressLookupButton).click(
-				function() {
-					if (addressLookupButtonEnabled) {
-						var postalCode = $(refs.postalCode).val();
-						var validationResult = model.validateFieldByName(
-								'postalCode', postalCode.toUpperCase());
-						if (validationResult.length === 0) {
-							if (app.validationsOn) {
-								app.validationDecorator.clearErrArrtibute();
-							}
-							invokeAddressLookup($(refs.postalCode),
-									$(refs.streetNumber), addressLookupSuccess,
-									addressLookupFail);
-						} else {
-							if (app.validationsOn) {
-								app.validationDecorator
-										.applyErrAttribute(validationResult);
-							}
-						}
-					}
-				});
-
-		$(refs.postalCode).click(
-				function() {
-					setInterval(function() {
-						handleRealTimeKeyStrokes($(refs.postalCode),
-								$(refs.streetNumber),
-								$(refs.addressLookupButton));
-					}, 100);
-				});
-		$(refs.streetNumber).click(
-				function() {
-					setInterval(function() {
-						handleRealTimeKeyStrokes($(refs.postalCode),
-								$(refs.streetNumber),
-								$(refs.addressLookupButton));
-					}, 100);
-				});
-
-		// //////////////////////////////////////////////////////////////////////////////////////////
-
-		$(refs.addressLine1_SelectField).change(function() {
-			// US4251
-			var displayValue = $(refs.addressLine1_SelectField).val();
-        	var aptFlag = displayValue.slice(displayValue.length-3, displayValue.length);
-            $(refs.addressLine1).val($(refs.addressLine1_SelectField).val().replace(/ {N}| {Y}/gi, ''));
-            if(aptFlag == "{N}" || aptFlag == "{Y}") {
-            	validateAptSuitUnit(aptFlag.substring(1, 2));
-            }
-			// $(refs.addressLine1).val($(refs.addressLine1_SelectField).val());
-		});
-		/* changes for task CTCOFSMB-1431, disabling address line 2
-		$(refs.addressLine1_SelectField).change(function() {
-			$(refs.addressLine2).val($(refs.addressLine2_SelectField).val());
-		});
-		*/
-	}
-	// US4251
-    function validateAptSuitUnit(argAptFlag) {
-    	var sMethod = "validateAptSuitUnit() :: ";
-    	console.log(logPrefix + sMethod + "argAptFlag : " + argAptFlag);    	    	
-    	if(argAptFlag == "Y") {
-        	var canBeEmptyFlag = true;
-        	console.log(sMethod+ " before :: " +canBeEmptyFlag);
-        	$.each(model.data, function(index, item) {
-				if(item.name == "suiteUnit") {
-					canBeEmptyFlag = item.validation.canBeEmpty = false;
-					console.log(sMethod+ " after :: " +canBeEmptyFlag);
-				}
-			});
-            var validationResult = model.validateAptFlag('suiteUnit', canBeEmptyFlag);
-            if(validationResult.length === 0) {
-                if (app.validationsOn) {
-                    app.validationDecorator.clearErrArrtibute();
-                }
-            }
-            else {
-                if (app.validationsOn) {
-                    app.validationDecorator.applyErrAttribute(validationResult);
-                }
-            }
-        } else {
-        	// No validation for apt/suit/unit field for aptFlag No.
-        }
-    }
-	// ---------------------------------------------------------------------------------------
-	function invokeAddressLookup($argPCodeFieldID, $argStreetNumberFieldID,
-			argSuccessCB, argFailureCB) {
-		var sMethod = "invokeAddressLookup()";
-		console.log(logPrefix + sMethod);
-
-		new WICI.LoadingIndicatorController().show();
-		userPostalCode = $argPCodeFieldID.val();
-		userStreetNumber = $argStreetNumberFieldID.val();
-		connectivityController.AddressLookup(userPostalCode, userStreetNumber,
-				argSuccessCB, argFailureCB);
-	}
-	// ---------------------------------------------------------------------------------------
-	function addressLookupSuccess(argResponse) {
-		var sMethod = "addressLookupSuccess(argResponse)";
-		console.log(logPrefix + sMethod);
-
-		new WICI.LoadingIndicatorController().hide();
-
-		if (argResponse && !argResponse.error && !_.isEmpty(argResponse.data)) {
-			var lookupHelper = new WICI.AddressLookupResponseHelper();
-			lookupHelper.setAddressResponseObject(argResponse.data);
-
-			console.log("Address Line 1:" + lookupHelper.getAddressLine1());
-			console.log("Address Line 2:" + lookupHelper.getAddressLine2());
-			console.log("City:" + lookupHelper.getCityName());
-			console.log("Province:" + lookupHelper.getProvince());
-			model.set("province", lookupHelper.getProvince());
-			selectedSupProvince = lookupHelper.getProvince();
-			//US2825 - Jun23rd release - Begin
-			if( lookupHelper.getAddressLine1() == null || lookupHelper.getAddressLine1() == "" ) {            	
-            	$("#sup_AddressLine1_TextField").val("");
-            	$("#addressLookup_sup_AddressLine1_MultipleControl").hide();
-            	$("#sup_SuiteUnit_TextField").val("");
-            	$("#sup_City_TextField").val("");
-            	$("#sup_Province_TextField").val("");
-            	messageDialog.error(translator.translateKey("addressLookup_noResults"));
-            } else { //End
-			updateLookUpControls(lookupHelper.getAddressLine1(), lookupHelper
-					.getAddressLine2());
-
-			$(refs.city).val(lookupHelper.getCityName());
-			$(refs.province).val(lookupHelper.getProvince());
-            }
-		} else {
-			messageDialog.error(translator
-					.translateKey("addressLookup_noResults"));
-		}
-	}
-	function addressLookupFail(argResponse) {
-		new WICI.LoadingIndicatorController().hide();
-		messageDialog.error(translator
-				.translateKey("addressLookup_failedMessage"));
-	}
-
-	// ---------------------------------------------------------------------------------------
-	function repopulateAddressLineControl(argArrayOfAddressLines,
-			argControlToPopulate, argDataMember) {
-		if (argArrayOfAddressLines) {
-			argControlToPopulate.empty();
-			model.set(argDataMember, argArrayOfAddressLines);
-			$.each(argArrayOfAddressLines, function(index, item) {
-				var addressOption = buildOptionItem(item, item);
-				argControlToPopulate.append(addressOption);
-			});
-		}
-	}
-	// ---------------------------------------------------------------------------------------
-	function buildOptionItem(argDisplayText, argValue) {
-		argDataMember = argDisplayText;
-		// US3598
-		var displayText = argDisplayText.replace(/ {N}| {Y}/gi, '');        
-        return "<option value=\"" + argValue + "\">" + displayText + "</option>";
-	}
-
-	// ---------------------------------------------------------------------------------------
 	function showHideAddressPanel(value) {
 		if ("Y" == value) {
 			$(refs.addressPanel).hide();
@@ -779,9 +723,9 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 		model.set('postalCode', $(refs.postalCode).val().toUpperCase());
 		model.set('addressLine1', $(refs.addressLine1).val().toUpperCase());
-		model.set('addressLine2', '');
+		model.set('addressLine2', $(refs.addressLine2).val().toUpperCase());
 		model.set('suiteUnit', $(refs.suiteUnit).val().toUpperCase());
-		model.set('streetNumber', $(refs.streetNumber).val().toUpperCase());
+		/*model.set('streetNumber', $(refs.streetNumber).val().toUpperCase());*/
 		model.set('city', $(refs.city).val().toUpperCase());
 		model.set('province', $(refs.province).val());
 
@@ -809,6 +753,17 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			"selected");
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------------------------
+    function restrictSpecialChar(event){
+	  var sMethod = "restrictSpecialChar()";
+	  console.log(logPrefix + sMethod);
+      var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+	      if (!regex.test(key)) {
+			    event.preventDefault();
+			    return false;
+		  }
+    }
 	// ---------------------------------------------------------------------------------------
 	function showPrevScreen() {
 		syncUserData();
@@ -820,19 +775,23 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		console.log(logPrefix + sMethod);
 
 		syncUserData();
+
+		// US5123 WICI - Restrict Supp Card applicants to 16 and older
+		var SupMobile = app.validationDecorator.phoneValidation($(refs.phone).val() , refs.phone );
+	    if(!SupMobile){
+	    	$('#sup_infomation_phone').show();
+	    	return;
+	    	
+	    }else{
+	    	$('#sup_infomation_phone').hide();
+	    	
+	    }
 		
-		// US4251 - to make apt field optional
-        $.each(model.data, function(index, item) {
-			if(item.name == "suiteUnit") {
-				canBeEmptyFlag = item.validation.canBeEmpty = true;
-			}
-		});
-        // US5123 WICI - Restrict Supp Card applicants to 16 and older
         var age = model.calculateAge(model);
         var rezAge =[];
         console.log(logPrefix + sMethod + "Age :: " + age);
         
-        if(age < 16){
+        if(age < 16 || age > 120){
            var item = model.getItemByName('birthDate');
            var itemName =  item === null ? '' : item.name;
            var itemuiid = model.refs == null ? '' : model.refs[item.name];
@@ -843,7 +802,6 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
                 app.validationDecorator.applyErrAttribute(rezAge);
                 return;
            }
-        	
         }
         
 		var isValidationError = false;
@@ -858,9 +816,53 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				rez1 = model.validate(1);
 				if (model.get('sameAddressYesNo') == 'N') {
 					rez2 = model.validate(2);
+					//custom validation for Canada Post address
+	                var address_supPostalcode = $('#address_supPostalcode').text();
+	                if(!address_supPostalcode) {
+	                	rez.push({name: 'supStreetAddress', err: '', uiid: refs.supStreetAddress});
+	                }
 				}
 
 				rez = rez.concat(rez1, rez2);
+				
+				var validator = new WICI.Validator();
+                if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
+                	if($(refs.addressLine1).val()!=''){
+	                      $('#sup_enterAddressManuallySection').show();
+		                  $('#suppCardInfo_infomation_button').show();
+	                      $(refs.supEditAddressButton).addClass('hideElement');
+			        	  $(refs.supAcceptButton).removeClass('hideElement');
+			        	  $('#sup_canadaPost_SearchedAddress').show();
+			        	  $('#sup_canadaPost_addressSearch_instructions').hide();
+			        	  $('#sup_canadaPostAddressDescription1').show();
+                     }
+                        
+                } else {
+                	$('#suppCardInfo_infomation_button').hide();
+                }
+                
+                if(!validator.suiteUnit($(refs.suiteUnit).val().toUpperCase())) {
+                	if($(refs.suiteUnit).val()!=''){
+                		showAddressFieldsError();
+                     }
+                } 
+                
+                if(!validator.addressLine($(refs.addressLine2).val().toUpperCase())) {
+                	if($(refs.addressLine2).val()!=''){
+                		showAddressFieldsError();
+                     }
+                }
+                if(!validator.city($(refs.city).val().toUpperCase())) {
+                	if($(refs.city).val()!=''){
+                		showAddressFieldsError();
+                     }
+                }
+                
+                if(!validator.postalCode($(refs.postalCode).val().toUpperCase())) {
+                	if($(refs.postalCode).val()!=''){
+                		showAddressFieldsError();
+                     }
+                }
 
 				if (rez.length > 0) {
 					app.validationDecorator.applyErrAttribute(rez);
@@ -868,9 +870,20 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				}
 			}
 		}
-
+		
+		/*if(!app.getDemoMode()) 
+        	if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
+        		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);*/
+		
 		flow.next();
 	}
 	// ---------------------------------------------------------------------------------------
-
+	 function showAddressFieldsError() {
+		 $('#sup_enterAddressManuallySection').show();
+         $(refs.supEditAddressButton).addClass('hideElement');
+   	  	 $(refs.supAcceptButton).removeClass('hideElement');
+   	  	 $('#sup_canadaPost_SearchedAddress').show();
+   	  	 $('#sup_canadaPost_addressSearch_instructions').hide();
+   	  	 $('#sup_canadaPostAddressDescription1').show();
+	}
 };

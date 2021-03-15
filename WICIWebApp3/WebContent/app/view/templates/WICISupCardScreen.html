@@ -124,6 +124,11 @@
 		                <tr class="fieldRow">
 		                    <td class="fieldLabelsBottomCell fieldCellSize33">
 		                        <span data-translationKey="supCardRequest_Telephone"></span>
+								<span id="sup_phone_div">
+				          			<a class="tooltip contactInfomation_i_icon margintopbottomleft" id="sup_infomation_phone">
+             		     			<span class="tooltipphonetext" data-translationKey="contactInfo_PhoneToolTipMsg"></span>
+                        			</a>
+                       			</span>
 		                    </td>
 		                    <td class="fieldValuesBottomCell">
 		                        <input class="fieldValuesPhoneField" id="supCardRequest_Telephone_TextField" type='tel' maxlength="10" tabindex=5/>
@@ -154,100 +159,95 @@
 		<br>
 		<br>
 		<br>
-		<div id="supAddressPanel" >			
-			<center>
-				<div id="personalData_AddressLookupArea" >
-		            <table id="addressLookupTable" class="stretchThisTable">
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsTopCell fieldCellSize33">
-		                        <span data-translationKey="personalData_Address_PostalCode"></span>
-		                    </td>
-		                    <td class="fieldValuesTopCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="sup_PostalCode" type="text" maxlength="6" tabindex=6/>
-		                    </td>
-		                </tr>
-		                <tr class="fieldRow">
-		                    <td class="fieldLabelsBottomCell fieldCellSize33">
-		                        <span data-translationKey="personalData_Address_StreetNumber"></span>
-		                    </td>
-		                    <td class="fieldValuesBottomCell">
-		                        <input class="fieldValuesTextField upperCaseField" id="sup_Address_StreetNumber_TextField" type="text" maxlength="6" tabindex=7/>
-		                    </td>
-		                </tr>
-		            </table>
-				</div>
-			</center>
-			<br>
-	        <span id="sup_AddressLookupButton" class="button greenflat addressLookupButtonWidth rightalign">
-	        	<span class="buttonText lookupSpan" data-translationKey="personalData_Address_Button_Label"></span>
-			</span>	
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>			
-			<center>
-			<div id="personalData_AddressArea" >
-	            <table id="personalInfoTable" class="stretchThisTable">
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsTopCell fieldCellSize33">
-	                        <span data-translationKey="personalData_PreviousAddress_AddressLine1"></span>
-	                    </td>
-	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine1_TextField" type="text" maxlength="40" tabindex=8/>
-	                        <div id="addressLookup_sup_AddressLine1_MultipleControl"  class="addressLookup_DropDownItemsControl">
-	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
-		                        <select class="fieldValuesTextField" id="sup_AddressLine1_SelectField" >
-								</select>							
-							</div>								
-	                    </td>
-	                </tr>
-	            <!--    <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData_PreviousAddress_AddressLine2"></span>
-	                    </td>
-	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="sup_AddressLine2_TextField" type="text" maxlength="40" tabindex=9/>
-	                        <div id="addressLookup_sup_AddressLine2_MultipleControl"  class="addressLookup_DropDownItemsControl">
-	                        	<span data-translationKey="addressLookup_multipleItemsExist"></span>
-		                        <select class="fieldValuesTextField" id="sup_AddressLine2_TextField_SelectField" >
-								</select>
-							</div>															
-	                    </td>
-	                </tr>    -->
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData_PreviousAddress_SuiteUnit"></span>
-	                    </td>
-	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="sup_SuiteUnit_TextField" type="text" maxlength="5" tabindex=10/>
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsCell fieldCellSize33">
-	                        <span data-translationKey="personalData_PreviousAddress_City"></span>
-	                    </td>
-	                    <td class="fieldValuesCell">
-	                        <input class="fieldValuesTextField upperCaseField" id="sup_City_TextField" type="text" maxlength="24" tabindex=11/>
-	                    </td>
-	                </tr>
-	                <tr class="fieldRow">
-	                    <td class="fieldLabelsBottomCell fieldCellSize33">
-	                        <span data-translationKey="personalData_PreviousAddress_Province"></span>
-	                    </td>
-	                    <td class="fieldValuesBottomCell">
-	                        <!-- input class="fieldValuesTextField" id="personalData_PreviousAddress_Province_TextField" type="text"/ -->
-							<select class="fieldValuesTextField" id="sup_Province_TextField" tabindex=12>
-							</select>
-	                    </td>
-	                </tr>
-	            </table>
-			</div>
-		</center>
+		<div id="supAddressPanel" >
+		<div class="row">
+            <div class="column_two elementWithBoldFont">
+                <span data-translationKey="personalData_current_Mailing_address" class="currentMailingAddress"></span>
+            </div>
+        </div>
+        
+        <div class="row">
+             <div class="column_one">
+                 <div id="canadaPostLogo" class="personalInfo_CanadianPostLogo"></div>
+              </div>
+              <div class="column_two">
+                   <input id="supStreetAddress" placeholder="Start typing a street address or postal code" type="text" class="streetAddressCanadaPost upperCaseField" >
+              </div>
+        </div>
+        <br>
+         <div id="sup_canadaPost_SearchedAddress" class="personalInfoColorGray fontSize19 width100 uppercase">
+            <div class="elementWithBoldFont">
+                <span id="address_supunit" name="address_supunit"></span><span id="address_supunit_hyphen">-</span>
+                <span id="address_supLine1" name="address_supLine1"></span><span>, </span><br>
+				<span id="address_supLine2" name="address_supLine2"></span></span><span  id="address_supLine2_br"><br></span>
+				<span id="address_supCity" name="address_supCity"></span><span>, </span>			
+				<span id="address_supProvince" name="address_supProvince"></span><br>
+				<span id="address_supPostalcode" name="address_supPostalcode"></span>
+            </div>
+        </div>
 		<br>
-		<br>
-			
+		<div id="sup_canadaPostAddressDescription1" class="fontSize20 personalInfoColorGray elementWithTop17 paddingBottom40">
+           <span data-translationKey="personalData_canadaPostAddressPara1"></span>
+        </div>
+		<center>
+            <span id="sup_EditAddressButton" class="personalInfo_CanadaPostButton greenColor">
+                <span data-translationKey="personalData_EditAddressButton"></span>
+			</span>
+         </center>  
+        <div id="sup_enterAddressManuallySection" class="elementWithTop17 paddingBottom40">
+        <div class="row stretchThisTable">
+            <div class="column_one tdWidth15">
+                <span data-translationKey="personalData_PreviousAddress_SuiteUnit" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>
+                <input id="sup_SuiteUnit_TextField" placeholder="Unit #" autocomplete="off" autocorrect="off" spellcheck="false" type="text" class="canadaPostInput margin_title_text upperCaseField" name="supMulti-unit" >
+            </div>
+            <div  class="column_one">
+                <a class="tooltip" href="#" id="suppCardInfo_infomation_button">
+                    <span class="tooltiptext" data-translationKey="personalData_POBoxToolTipMsg"></span>
+                </a>
+             </div>
+            <div class="marginCanadaPostLine1 column_one androidPaytdWidth">
+                <span data-translationKey="personalData_PreviousAddress_AddressLine1" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>
+                <input id="sup_AddressLine1_TextField" placeholder="Street Number, Street Name" autocomplete="off" autocorrect="off" spellcheck="false" type="text" class="canadaPostInput margin_title_text upperCaseField" name="supAddressLine1" >
+            </div>
+            <div id="supAddressLine2Section" class="marginCanadaPostLine1 column_one androidPaytdWidth">
+                <span data-translationKey="personalData_PreviousAddress_AddressLine2" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>
+                <input id="sup_AddressLine2_TextField" placeholder="Mailing Address Line 2" autocomplete="off" autocorrect="off" spellcheck="false" type="text" class="canadaPostInput margin_title_text upperCaseField" name="supAddressLine2" >
+            </div>
+        </div><br>
+        <div class="row stretchThisTable">
+            <div class="column_one tdWidth35">
+                <span data-translationKey="personalData_PreviousAddress_City" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>
+                <input id="sup_City_TextField" placeholder="City" autocomplete="off" autocorrect="off" spellcheck="false" type="text" class="margin_title_text canadaPostInput upperCaseField" name="supCity" >
+            </div>
+            <div class="marginCanadaPostLine2 inputTextAlignment">
+                <span data-translationKey="personalData_PreviousAddress_Province" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>               
+                <select id="sup_Province_TextField" placeholder="Province" type="text" class="canadaPostProvinceHeight margin_title_text upperCaseField" name="supProvinceCode" ></select>
+            </div>
+            <div class="column_one tdWidth20">
+                <span data-translationKey="personalData_PreviousAddress_PostalCode" class="canadaPostInputBoxTitle personalInfoColorGray"></span><br>
+                <input id="sup_PostalCode" placeholder="L#L#L#" autocomplete="off" autocorrect="off" spellcheck="false" type="text" class="canadaPostInput form-control margin_title_text upperCaseField" name="supPostalcode" >
+            </div>
+        </div>
+        </div>
+		<center>
+            <span id="sup_AcceptButton" class="personalInfo_CanadaPostButton greenColor">
+                <span  data-translationKey="personalData_AcceptButton"></span>
+			</span>
+         </center>
+        <p id="sup_canadaPost_addressSearch_instructions" class="fontSize16 personalInfoColorGray">
+            <span data-translationKey="personalData_canadaPostAddress_1"></span><br>
+            <span data-translationKey="personalData_canadaPostAddress_2"></span><br><br>
+            <span data-translationKey="personalData_canadaPostAddress_3"></span><br><br>
+            <span data-translationKey="personalData_canadaPostAddress_4"></span>
+         </p>
+         <br>
+         <center>
+            <span id="sup_EnterAddressManuallyButton" class="personalInfo_CanadaPostButton greenColor">
+                <span  data-translationKey="personalData_EnterAdressManuallyButton"></span>
+			</span>
+         </center>
+		 <br>
+
 		</div>
 		<br>
 		<br>

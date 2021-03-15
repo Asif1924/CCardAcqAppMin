@@ -14,4 +14,5 @@ WICI.ServiceNameEnum = {
 		Agent									:	"Agent",
 		InstantIssuance							:	"InstantIssuance",
 		TMXProfile								:	"TMXProfile",
+		AbbreviateCityname						:	"AbbreviateCity",
 };

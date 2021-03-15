@@ -51,7 +51,7 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\'\-., ]{1,24}$/, value.trim());
+        return regexMatch(/^[A-Z0-9àèìòùáéóíúý \-\'.]{1,24}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     function regexMatch(regex, value) {
@@ -72,8 +72,8 @@ WICI.Validator = function() {
     };
 
     this.isOnlyNumeric = function(toTest) {
-        var reg = new RegExp("^[0-9]+$");
-        return (reg.test(toTest));
+    	 var reg = new RegExp("^[0-9]+$");
+         return (reg.test(toTest)); 
     };
 
     this.isWholeNumber = function(toTest) {
@@ -133,10 +133,13 @@ WICI.Validator = function() {
 
     //---------------------------------------------------------------------------------------
     this.phone= function(value) {
-        if(value===null){
+    	
+    	 if(value === null || value === '' || !value)
+         {
             return false;
-        }
-        return regexMatch(/^[0-9]{10}$/, value);
+         }
+        return true;
+       // return regexMatch(/^[0-9]{10}$/, value);
     };
     
     this.sin= function(value) {
@@ -157,14 +160,33 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\'\-., ]{1,40}$/, value.trim());
+        return regexMatch(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/, value.trim());
+    };
+    //---------------------------------------------------------------------------------------
+    this.addressLinePOBox= function(value) {
+    	 var isPoBox = true;
+         if(value===''){
+             return false;
+         }
+         var isValid = regexMatch(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/, value.trim());
+         if(isValid){
+               var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+                  $.each(poBoxArray, function (index, item) {
+                      if(value.toLowerCase().includes(item.toLowerCase())){
+                          isPoBox = false;
+                      }
+                  });
+           return isPoBox;
+         }else{
+            return false;
+         }  
     };
     //---------------------------------------------------------------------------------------
     this.suiteUnit = function(value) {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\'\-., ]{1,10}$/, value.trim());
+        return regexMatch(/^[A-Z0-9 _.]{1,10}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     this.termsAndConditions = function(value) {
@@ -203,9 +225,10 @@ WICI.Validator = function() {
 
     //---------------------------------------------------------------------------------------
     this.employerID = function(value) {
-        if(value===null){
+        if(value===''){
             return false;
         }
         return regexMatch(/^[a-zA-Z]{1}$/, value.trim());
     };
+    
 };

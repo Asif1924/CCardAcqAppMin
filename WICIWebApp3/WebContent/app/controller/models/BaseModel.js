@@ -166,6 +166,9 @@ WICI.BaseModel = function(config) {
             case 'addressLine':
                 isError=!validator.addressLine(value);
                 break;
+            case 'addressLinePOBox':
+                isError=!validator.addressLinePOBox(value);
+                break;
             case 'birthDate':
             	isError=!validator.birthDate(value);
                 break;
@@ -297,12 +300,18 @@ WICI.BaseModel = function(config) {
     	var itemName =  item === null ? '' : item.name;
     	var itemuiid = model.refs == null ? '' : model.refs[item.name];
         // US4976 
+    	// Age validation for minority
     	if (fullYears < 18 && province !== null && province != '' && $.inArray(province, ['AB', 'SK', 'MB', 'ON', 'QC', 'PE']) != -1) {    		
     		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid, province: province};
     	} else if(fullYears < 19 && province !== null && province != '' && $.inArray(province, ['NB', 'NS', 'BC', 'YT', 'NT', 'NL', 'NU']) != -1){
     		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid, province: province};
     	} else if(fullYears < 18){
     		rez= {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
+    	}
+    	
+    	// Age validation for majority
+    	if(fullYears > 120) {
+    		rez= {name: itemName, err: 'personalData_DOB_120YearsError', uiid: itemuiid};
     	}
 
     	return rez;

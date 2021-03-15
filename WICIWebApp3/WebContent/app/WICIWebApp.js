@@ -60,6 +60,9 @@ WICI.WICIWebApp = function() {
     var isDemoMode = false;
     this.getDemoMode = function(){return isDemoMode;};
     this.setDemoMode = function(bValue){isDemoMode = bValue;};
+    
+    this.getAddressLine2Flag = function(){return addressLine2Flag;};
+    this.setAddressLine2Flag = function(bValue){addressLine2Flag = bValue;};
 
     this.language = null;
 

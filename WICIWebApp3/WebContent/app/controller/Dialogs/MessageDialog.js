@@ -9,6 +9,8 @@ WICI.MessageDialog = function(translate){
 	this.confirm = confirm;
 	this.confirmAgent = confirmAgent;
 	this.htmlConfirm = htmlConfirm;
+	this.canadaPost = canadaPost;
+	this.canadaPostAddressNotFound = canadaPostAddressNotFound;
 	this.settings = settings;
 	this.printerSetup = printerSetup;
 	this.scan = scan;
@@ -142,6 +144,32 @@ WICI.MessageDialog = function(translate){
 		dialogQueue.enqueue(dialog);
 	}
 	
+	function canadaPost(scannedAddressTitle, scannedAddressMessage, canadaPostTitle, canadaPostMessage, yesCallback, noCallback, title, acceptButton, continueButton) {
+		var dialog = new WICI.CanadaPostMessageDialog(
+				scannedAddressTitle,
+				scannedAddressMessage,
+				canadaPostTitle,
+				canadaPostMessage,
+				buildCallback(yesCallback),
+				buildCallback(noCallback),
+				buildTitle(title, "confirmDialog_defaultTitle"),
+				buildButton(acceptButton, "personalData_AddressAccept"),
+				buildButton(continueButton, "personalData_AddressContinue"));
+		dialogQueue.enqueue(dialog);
+	}
+	
+	function canadaPostAddressNotFound(scannedAddressTitle, message, messageBottom, title, callback, uiDecoration, dialogTemplateOverride){
+		var dialog = new WICI.CanadaPostAddressNotFoundMessageDialog(
+				scannedAddressTitle,
+				message,
+				messageBottom,
+				buildTitle(title, "personalData_AddressNotFound_Title"),
+				translate.translateKey("canadaPostMessageDialog_ok"),
+				buildCallback(callback),
+				uiDecoration,
+				determineDialogTemplate(dialogTemplateOverride));
+		dialogQueue.enqueue(dialog);
+	}
 	
 	// US5414 : new dialog for legal handout with signature
 	function legalHandout(message, pleasesign, clearsignature, yesCallback, noCallback, title, yesButton, noButton) {
