@@ -200,6 +200,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                 validation : {
                     type : 'presence',
                     message : '',
+                    canBeEmpty : true,
                     group : [ 3 ]
                 }
             },
@@ -949,7 +950,19 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             app.validationDecorator.clearErrArrtibute();
 
             var rez;
+            // VZE-279
+            let rezPhone = [];
             var employmentType = model.get('employmentType');
+            let employeePhone = model.get('employerPhone');
+            let employeePhoneValidate = new RegExp(/^[0-9]{10}$/).test(employeePhone);
+            if($(refs.employerPhone).val() !== "" || $(refs.employerPhone).val() !== ''){
+            	if(!employeePhoneValidate){
+                	rezPhone.push(refs.employerPhone);
+                	$(refs.employerPhone).addClass('errorField');
+                	app.validationDecorator.focusControl(refs.employerPhone);
+                }
+            }
+            
             // group 2 validation only
             //if (employmentType == 'R' || employmentType == 'H' || employmentType == 'U') {
             //    rez = model.validate(2);
@@ -975,10 +988,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
                         rez2 = [];
                     }
                 }
-
+                
                 rez = rez.concat(rez1, rez2, rez3);
            //}
-
+            
             if (rez.length > 0) {
                 var errStrArr = [];
                 $.each(rez, function(index, item) {
@@ -989,6 +1002,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
                 // app.messageDialog.error(errStrArr);
                 return;
+            }
+            if(rezPhone.length>0){
+            	  app.validationDecorator.applyErrAttribute(rezPhone);
+                 return;
             }
         }
         if (checkGrossAnnualIncome(model.get('grossIncome')) && checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {

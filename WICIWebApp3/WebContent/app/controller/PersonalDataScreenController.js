@@ -18,7 +18,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     var validator = new WICI.Validator();
     var addressNotFoundFlag = false;
     var IDScan = false;
-    var ManualFill = false;
     
     var scannedExpiryDate;
     var expirydateForQC = "";
@@ -152,6 +151,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		{ name: 'treatmentCode',  	value: null, validation: null },
 		{ name: 'tmxProfileID',  	value: null, validation: null },
 		{ name: 'PIISource',  		value: null, validation: null },
+		{ name: 'IDScan',  			value: null, validation: null },
+        { name: 'manualFill',  		value: null, validation: null }
       ]
     });
     var addressModel = new WICI.BaseModel({
@@ -572,7 +573,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
          hideIdExpiryDateErrorMessage_dialog();
         $(refs.streetAddress).live('paste, input', function(e) {
-        	ManualFill = true;
+        	models.personalDataModel.set('manualFill', true);
 	        var fields = [
 	        	{ element: "streetAddress", field: "" },
 	            { element: "AddressLine1", 	field: "Line1", 		mode: pca.fieldMode.POPULATE },
@@ -655,7 +656,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.enterAddressManuallyButton).click(function() {
         	console.log(refs.enterAddressManuallyButton + '::click');
         	
-        	ManualFill = true;
+        	models.personalDataModel.set('manualFill', true);
         	$(refs.enterAddressManuallyButton).addClass('hideElement');
         	$(refs.acceptButton).removeClass('hideElement');
         	$('#personalData_enterAddressManuallySection').show();
@@ -667,7 +668,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.editAddressButton).click(function() {
         	console.log(refs.enterAddressManuallyButton + '::click');
         	
-        	ManualFill = true;
+        	models.personalDataModel.set('manualFill', true);
         	$(refs.editAddressButton).addClass('hideElement');
         	$(refs.acceptButton).removeClass('hideElement');
         	$('#personalData_enterAddressManuallySection').show();
@@ -680,8 +681,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         $(refs.acceptButton).click(function() {
         	console.log(refs.acceptButton + '::click');
-        	
-        	ManualFill = true;
+        	models.personalDataModel.set('manualFill', true);
         	app.validationDecorator.clearErrArrtibute();
         	var postrez = [];
             if($(refs.suiteunit).val() && !validator.suiteUnit($(refs.suiteunit).val().toUpperCase()))
@@ -2066,17 +2066,14 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     scannedMessage += currAddrModel.get('scannedCity') + ", " + currAddrModel.get('scannedProvince') + "<br>";
                     scannedMessage += currAddrModel.get('scannedPostalcode') + "<br>";
                     scannedMessage += "<br>";
-                    
                     messageDialog.canadaPostAddressNotFound(translator.translateKey("personalData_AddressNotFound_Message"), 
-                    		scannedMessage, translator.translateKey("personalData_CanadaPostNotFindAddress"), 
-                    		translator.translateKey("personalData_AddressNotFound_Title"), $.noop);
-                    
+                        		scannedMessage, translator.translateKey("personalData_CanadaPostNotFindAddress"), 
+                        		translator.translateKey("personalData_AddressNotFound_Title"), $.noop);
                 } else if(lookupHelper.getAddressStatus()) {
                 	// Scanned address and Canada post address matches
                 	// So populate the scanned address in the UI
                 	
                 	continueWithScannedAddress();
-                	
                 } else if(!lookupHelper.getAddressStatus()) {
                 	// Scanned address and Canada post address doesn't match. Show pop up
                 	
@@ -2366,8 +2363,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 if(idExpiryDate != "null"){
                 	populateScannedExpiryDateFields(idExpiryDate);
                 }
-                // US4535
-                disableScannedDriversLicenceFields();                       
+               // US4535
+                disableScannedDriversLicenceFields();  
             } catch (e) {
             	if(isDebugMode){
                     messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
@@ -2411,9 +2408,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	             if(idExpiryDate != "null"){
     	            	 populateScannedExpiryDateFields(idExpiryDate);
     	               }
-    	             // US4535
+    	           
+    			 // US4535
     	             disableScannedDriversLicenceFields(); 
-    			
     			}catch (e) {
                 	if(isDebugMode){
                         messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
@@ -2459,8 +2456,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     if(idExpiryDate != "null"){
                     	populateScannedExpiryDateFields(idExpiryDate);
    	                }
+                        
                     // US4535
-                    disableScannedDriversLicenceFields();                       
+                    disableScannedDriversLicenceFields();                 
                 } catch (e) {
                 	if(isDebugMode){
                         messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
@@ -2497,7 +2495,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	            	   populateScannedExpiryDateFields(idExpiryDate);
 	   	           }
 	               disableScannedDriversLicenceFields();
-	        	 
 	           }catch (e) {
 	           	if(isDebugMode){
 	                messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
@@ -2658,6 +2655,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                         	streetAddressPrevFlag = true;
                      	    temprez.push({name: 'streetPreviousAddress', err: '', uiid: refs.streetPreviousAddress});
                         }
+                        if( verifyCurrentandPrevAddress()){
+	
+	                     
+	                       temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+                           temprez.push({name: 'city_prev', err: '', uiid: refs.city_prev});
+                           temprez.push({name: 'postalcode_prev', err: '', uiid: refs.postalcode_prev});
+                           temprez.push({name: 'province_prev', err: '', uiid: refs.province_prev});
+
+                            if( !isEmpty($(refs.suiteunit).val()) && !isEmpty($(refs.suiteunit_prev).val()) ){
+				               temprez.push({name: 'suiteunit_prev', err: '', uiid: refs.suiteunit_prev});
+		                     }
+	
+	
+                         }
+
+
+
+
                     } 
                 }
                 
@@ -2787,6 +2802,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             if(streetAddressPrevFlag) {
             	app.validationDecorator.focusControl(refs.streetPreviousAddress);
             }
+            
+            // current and prev address not Identical validation.
+            
+            
+                     
+            
+            
             syncUserData();
         }
         
@@ -2800,12 +2822,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         
         var currPersModel = models.personalDataModel;
         
-        console.log(logPrefix + sMethod + " IDScan : " + IDScan + " ManualFill : " + ManualFill);
-        if(IDScan && ManualFill) {
+        console.log(logPrefix + sMethod + " IDScan : " + currPersModel.get('IDScan') + " ManualFill : " + currPersModel.get('manualFill'));
+        if(currPersModel.get('IDScan') && currPersModel.get('manualFill')) {
         	currPersModel.set('PIISource', '4');
-        } else if(ManualFill){
+        } else if(currPersModel.get('manualFill')){
         	currPersModel.set('PIISource', '9');
-        } else if(IDScan) {
+        } else if(currPersModel.get('IDScan')) {
         	currPersModel.set('PIISource', '3');
         }
         console.log(logPrefix + sMethod + " PIISource : " + currPersModel.get('PIISource') );
@@ -3035,12 +3057,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     function onScanSuccessCallback(response) {
 	    var sMethod = "onScanSuccessCallback() : ";
 	    
-	    IDScan = true;
     	var currModel = models.personalDataModel;
 		currModel.set('response', response);
 		console.log(logPrefix + sMethod + " response : " + JSON.stringify(currModel.get('response')));
 		
 		var response = currModel.get('response');
+		clearFieldsData();
         var parser = new WICI.ScanDataMappingHelper(),
             mapping = {
                 idProvince: refs.placeofissue,
@@ -3064,13 +3086,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	            if (!containsAny(rez, mapping)) {
                     throw ('ERROR! Got the empty data.');
                 } else {
-                	invokeAddressLookup(rez.addressLine1, '', rez.addressCity, 
+                	//VZE-210
+                	
+                	if(isAnyScannedFieldEmpty(rez)){
+                		// show VZE-210 Dialog
+                		enableScannedDriversLicenceFields();
+                		clearFieldsData();
+                		messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
+                	}else{
+						currModel.set('IDScan', true);
+                		invokeAddressLookup(rez.addressLine1, '', rez.addressCity, 
                 				rez.addressProvince, rez.addressPostal, addressLookupSuccess, addressLookupFail);
+                	}
+                	
                 }
         	} catch (e) {
-        		if(isDebugMode){
-                    messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
-                }
+        		enableScannedDriversLicenceFields();
+            	clearFieldsData();
+            	messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
             	console.log(logPrefix + sMethod + " Exception: " + e);
             }
         } else if(parser.checkSupportedID(response.data, ['ANSI']) > 0) {
@@ -3082,13 +3115,23 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	             if (!containsAny(rezNewABDL, mapping)) {
     	            	 throw ('ERROR! Got the empty data.');
     	             } else {
-    	            	 invokeAddressLookup(rezNewABDL.addressLine1, '', rezNewABDL.addressCity, 
-    	            			 rezNewABDL.addressProvince, rezNewABDL.addressPostal, addressLookupSuccess, addressLookupFail);
+    	            	//VZE-210
+    	                if(isAnyScannedFieldEmpty(rezNewABDL)){
+    	                		// show VZE-210 Dialog
+    	                	    enableScannedDriversLicenceFields();
+                    		    clearFieldsData();
+    	                		messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
+    	                 }else{
+							 currModel.set('IDScan', true);
+    	                	 invokeAddressLookup(rezNewABDL.addressLine1, '', rezNewABDL.addressCity, 
+        	            			 rezNewABDL.addressProvince, rezNewABDL.addressPostal, addressLookupSuccess, addressLookupFail);
+    	                 }
+    	            	 
     	             }
     			} catch (e) {
-    				if(isDebugMode){
-                        messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
-                    }
+    				enableScannedDriversLicenceFields();
+                	clearFieldsData();
+                	messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
                 	console.log(logPrefix + sMethod + " Exception: " + e);
                 }
     		} else {
@@ -3097,14 +3140,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	   	             if (!containsAny(rezNew, mapping)) {
 	   	            	 throw ('ERROR! Got the empty data.');
 	   	             } else {
-	   	            	invokeAddressLookup(rezNew.addressLine1, '', rezNew.addressCity, 
-	   	            			rezNew.addressProvince, rezNew.addressPostal, addressLookupSuccess, addressLookupFail);
+	   	                //VZE-210
+	    	             if(isAnyScannedFieldEmpty(rezNew)){
+	    	               // show VZE-210 Dialog
+	    	               enableScannedDriversLicenceFields();
+	                 	   clearFieldsData();
+	    	               messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
+	    	             }else{
+							currModel.set('IDScan', true);
+	    	                invokeAddressLookup(rezNew.addressLine1, '', rezNew.addressCity, 
+	 	   	            			rezNew.addressProvince, rezNew.addressPostal, addressLookupSuccess, addressLookupFail);
+	    	             }
+	   	            	
 	   	             }
 	   	 	         
                 } catch (e) {
-                	if(isDebugMode){
-   	                    messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
-   	                }
+                	enableScannedDriversLicenceFields();
+                	clearFieldsData();
+                	messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
                 	console.log(logPrefix + sMethod + " Exception: " + e);
                 }
     		}
@@ -3114,14 +3167,24 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
   	             if (!containsAny(rezNewDL, mapping)) {
  	            	 throw ('ERROR! Got the empty data.');
  	             } else {
- 	            	invokeAddressLookup(rezNewDL.addressLine1, '', rezNewDL.addressCity, 
- 	            			rezNewDL.addressProvince, rezNewDL.addressPostal, addressLookupSuccess, addressLookupFail);
+ 	            	//VZE-210
+    	             if(isAnyScannedFieldEmpty(rezNewDL)){
+    	               // show VZE-210 Dialog
+    	               enableScannedDriversLicenceFields();
+                 	   clearFieldsData();
+    	               messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
+    	             }else{
+						currModel.set('IDScan', true);
+    	                invokeAddressLookup(rezNewDL.addressLine1, '', rezNewDL.addressCity, 
+    	 	            			rezNewDL.addressProvince, rezNewDL.addressPostal, addressLookupSuccess, addressLookupFail); 
+    	             }
+ 	            	
  	             }
 	           } catch (e) {
-	        	   if(isDebugMode){
-	                    messageDialog.error(e,translator.translateKey('errorDialog_defaultTitle'),$.noop);
-	                }
-	        	   console.log(logPrefix + sMethod + " Exception: " + e);
+	        	    enableScannedDriversLicenceFields();
+	            	clearFieldsData();
+	            	messageDialog.scanFailedErrorMessage(translator.translateKey("scanFaildErrorMessageTitle"),translator.translateKey("scanFaildErrorMessageOne"),translator.translateKey("scanFaildErrorMessageTwo"), okCallback,translator.translateKey('scanFaildErrorMessageOkButton'), translator);
+	            	console.log(logPrefix + sMethod + " Exception: " + e);
 	           }
 		}
     }
@@ -3134,7 +3197,65 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         for (prop in response) {
             console.log(sMethod + prop + ': ' + response[prop]);
         }
-    }    
+    }  
+    // VZE-210
+    function okCallback() {
+        var sMethod = logPrefix + '[okCallback]: ';
+        console.log(sMethod);
+        enableScannedDriversLicenceFields();
+		clearFieldsData();
+    }  
+    // VZE-210
+    function clearFieldsData(){
+    	var sMethod = logPrefix + '[clearDataFromFields]: ';
+        console.log(sMethod);
+    	var currModel = models.personalDataModel;
+        currModel.set('placeofissue', 'null');
+        currModel.set('idtype', 'null');
+        currModel.set('idnumbers', '');
+        currModel.set('firstName', '');
+        currModel.set('initial', '');
+        currModel.set('lastName', '');
+        currModel.set('birthDate', 'null');
+        currModel.set('idExpiryDate', '');
+        currModel.set('expiryDateMonth', 'null');
+        currModel.set('expiryDateYear', 'null');
+        currModel.set('expiryDateDay', 'null');
+        $(refs.placeofissue).val('');
+     	$(refs.idtype).val('');
+     	$(refs.idnumbers).val('');
+     	$(refs.firstName).val('');
+     	$(refs.initial).val('');
+     	$(refs.lastName).val('');
+     	$(refs.birthDate).val('');
+     	$(refs.expiryDateYear).val('');
+     	$(refs.expiryDateMonth).val('');
+     	$(refs.expiryDateDay).val('');
+    }
+    // ---------------------------------------------------------------------------------------
+    // VZE-210
+    function enableScannedDriversLicenceFields(){
+    	$(refs.placeofissue).prop('disabled', false);
+     	$(refs.idtype).prop('disabled', false);
+     	$(refs.idnumbers).prop('disabled', false);
+     	$(refs.firstName).prop('disabled', false);
+     	$(refs.initial).prop('disabled', false);
+     	$(refs.lastName).prop('disabled', false);
+     	$(refs.birthDate).prop('disabled', false);
+     	$(refs.expiryDateYear).prop('disabled', false);
+     	$(refs.expiryDateMonth).prop('disabled', false);
+     	$(refs.expiryDateDay).prop('disabled', false);
+     	$(refs.placeofissue).removeAttr('disabled');
+     	$(refs.idtype).removeAttr('disabled');
+     	$(refs.idnumbers).removeAttr('disabled');
+     	$(refs.firstName).removeAttr('disabled');
+     	$(refs.initial).removeAttr('disabled');
+     	$(refs.lastName).removeAttr('disabled');
+     	$(refs.birthDate).removeAttr('disabled');
+     	$(refs.expiryDateYear).removeAttr('disabled');
+     	$(refs.expiryDateMonth).removeAttr('disabled');
+     	$(refs.expiryDateDay).removeAttr('disabled');
+    }
     // ---------------------------------------------------------------------------------------
     // US4535
     function disableScannedDriversLicenceFields(){
@@ -3352,7 +3473,26 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             return rez;
         } 
     }
-    
+    function isAnyScannedFieldEmpty(rez){
+    	var sMethod = 'isAnyScannedFieldEmpty(rez) ';
+        console.log(logPrefix + sMethod);
+        const idProvince = JSON.stringify(rez.idProvince);
+        const idNumber = JSON.stringify(rez.idNumber);
+        const firstName = JSON.stringify(rez.firstName);
+        const lastName = JSON.stringify(rez.lastName);
+        const dateOfBirth = JSON.stringify(rez.dateOfBirth);
+        const expiryDate = JSON.stringify(rez.expiryDate);
+        if((rez.idProvince == '' || !rez.idProvince) ||
+        	 (rez.idNumber == '' || !rez.idNumber) ||
+        	   (rez.firstName == '' || !rez.firstName) ||
+        		(rez.lastName == '' || !rez.lastName) ||
+        		 (rez.dateOfBirth == '' || !rez.dateOfBirth) ||
+        		   (rez.expiryDate == '' || !rez.expiryDate)){
+        	return true;
+        }else{
+        	return false;
+        }
+    }
     //------------------------------------------------------------------------------------------------------------------------------
 	function removeAccents(str) {
 		var sMethod = 'removeAccents() ';
@@ -3370,4 +3510,76 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			nstr[i] = accents_map.get(x = str.charCodeAt(i)) || x;
 		return String.fromCharCode.apply(null, nstr);
 	}
+	
+	
+	
+	
+	 
+	  function verifyCurrentandPrevAddress(){
+		  var sMethod = 'verifyCurrentandPrevAddress() ';
+		 if( !isEmpty($(refs.addressline1).val()) && !isEmpty($(refs.addressline1_prev).val()) && trim($(refs.addressline1).val()).toLowerCase() == trim($(refs.addressline1_prev).val()).toLowerCase()  ){
+			 
+		  if( !isEmpty($(refs.city).val()) && !isEmpty($(refs.city_prev).val()) && trim($(refs.city).val()).toLowerCase() == trim($(refs.city_prev).val()).toLowerCase()  ){
+				
+				
+		   if( !isEmpty($(refs.postalcode).val()) && !isEmpty($(refs.postalcode_prev).val()) && trim($(refs.postalcode).val()).toLowerCase() == trim($(refs.postalcode_prev).val()).toLowerCase()  ){
+				console.log('postalCode matches');
+			
+			if( !isEmpty($(refs.province).val()) && !isEmpty($(refs.province_prev).val()) && trim( $(refs.province).val()).toLowerCase() == trim($(refs.province_prev).val()).toLowerCase()  ){
+				
+				
+				
+		// suitnumber validation for current and previoues address	
+		    if( !isEmpty($(refs.suiteunit).val()) && !isEmpty($(refs.suiteunit_prev).val()) ){
+					
+			if(  trim( $(refs.suiteunit).val()).toLowerCase() == trim($(refs.suiteunit_prev).val()).toLowerCase()  ) {
+				 console.log('current adddress and previou unitnumbe same');
+			     preAddressInputDisplay();
+				return true;
+				              
+		        }
+  					 else {
+	 				return false;
+                }
+ 
+           }
+         // end suitnumber validtion for current and previous address
+				
+        	preAddressInputDisplay();
+				return true;
+	
+				
+			 }
+
+				}
+			}
+
+		}
+		return false;
+	};
+	
+	 function trim(value) {
+		return value.replace(/^\s+|\s+$/g, "");
+	}
+	;
+
+	function isEmpty(val) {
+		return (val === undefined || val == null || val.length <= 0) ? true
+				: false;
+	}
+	; 
+	
+	function preAddressInputDisplay(){
+		
+		$(refs.editAddressPreviousButton).addClass('hideElement');
+        	$(refs.acceptPreviousButton).removeClass('hideElement');
+        	$('#personalData_enterAddressManuallyPreviousSection').show();
+        	$('#personalInfo_canadaPost_SearchedPreviousAddress').show();
+        	$('#personalInfo_canadaPost_PreviousAddressSearch_instructions').hide();
+        	$('#personalData_canadaPostPreviousAddressDescription1').show();
+            $('#contactInfomation_infomation_button').hide();
+            $('#personalInfo_pre_year_informationButton').hide();
+		
+	}
+	
 };

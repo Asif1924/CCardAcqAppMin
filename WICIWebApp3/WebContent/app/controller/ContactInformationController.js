@@ -34,10 +34,10 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		name: 'contactInfoScreen',
 		refs: refs,
 		data: [
-			{ name: 'homePhone', value: null, validation: { type: 'phone', message: 'personalData1_validation_homePhone', canBeEmpty: false, group: [1] } },
-			{ name: 'cellPhone', value: null, validation: { type: 'phone', message: 'personalData1_validation_cellPhone', canBeEmpty: true, group: [1] } },
-			{ name: 'homePhoneRadioGroup', value: null, validation: { type: 'termsAndConditions', message: 'personalData1_validation_primaryRadio', canBeEmpty: false, group: [1] } },
-			{ name: 'cellPhoneRadioGroup', value: null, validation: { type: 'termsAndConditions', message: 'personalData1_validation_secondaryRadio', canBeEmpty: true, group: [1] } },
+			{ name: 'homePhone', value: null, validation: {  message: 'personalData1_validation_homePhone', group: [1] } },
+			{ name: 'cellPhone', value: null, validation: {  message: 'personalData1_validation_cellPhone', group: [1] } },
+			{ name: 'homePhoneRadioGroup', value: null, validation: {  message: 'personalData1_validation_primaryRadio', canBeEmpty: false, group: [1] } },
+			{ name: 'cellPhoneRadioGroup', value: null, validation: {  message: 'personalData1_validation_secondaryRadio', canBeEmpty: true, group: [1] } },
 			{ notField: true, name: 'primaryMobile_CheckField', value: null },
 			{ notField: true, name: 'primaryLandline_CheckField', value: null },
 			{ notField: true, name: 'secondaryMobile_CheckField', value: null },
@@ -226,7 +226,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		
 
 		// Phone number validation based on canBeEmpty true or false
-		if ($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() !== '') {
+		/*if ($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() !== '') {
 			console.log(logPrefix + sMethod + "HomePhone and CellPhone are not null");
 			setFlag(false, false);
 		} else if ($(refs.homePhone).val() !== '' && $(refs.cellPhone).val() === '') {
@@ -257,26 +257,8 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked'))) {
 			console.log(logPrefix + sMethod + "HomePhone and CellPhone are null and homephone radio and cellphone radio are checked");
 			setFlag(false, false);
-		}
-
-		   var primaryMobile = app.validationDecorator.phoneValidation($(refs.homePhone).val() , refs.homePhone );
-	        
-	        if(!primaryMobile){
-	        	$('#contactInfomation_infomation_phone').show();
-	        	return;
-	        }else{
-	        	$('#contactInfomation_infomation_phone').hide();
-	        	
-	        }
-	        var secondryPhone = app.validationDecorator.phoneValidation($(refs.cellPhone).val() , refs.cellPhone );  	
-			
-	        if(!secondryPhone){
-	        	$('#contactInfomation_infomation_phone').show();
-	        	return;
-	        }else{
-	        	$('#contactInfomation_infomation_phone').hide();
-	        	
-	        }
+		}*/
+          
         
 		
 		if (app.validationsOn) {
@@ -303,6 +285,90 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 				syncUserData();
 				return;
 			}
+			
+			
+			 var skip = false;
+			   var primaryMobile = app.validationDecorator.phoneValidation($(refs.homePhone).val() , refs.homePhone );
+			   
+
+		     if ($(refs.homePhone).val() === '') {
+				app.validationDecorator.applyNumberIdError(refs.homePhone);
+				primaryMobile = false;
+
+			}
+			   
+			   
+			   
+			  
+		        if(!primaryMobile){
+		        	$('#contactInfomation_infomation_phone').show();
+		        	 app.validationDecorator.applyNumberIdError(refs.homePhoneRadioGroup);
+		        	 
+		        	 if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked')){
+		        		 
+		        		 $(refs.homePhoneRadioGroup).removeClass('errorField');
+		        	 }
+		        			        	 
+		        	return;
+		        }else{
+		        	skip = true;
+		        	app.validationDecorator.clearErrArrtibute();
+		        	$('#contactInfomation_infomation_phone').hide();
+		        	 if($(refs.primaryLandline_CheckField).is(':checked') || $(refs.primaryMobile_CheckField).is(':checked')){
+		        		 console.log('error removed');
+		        		 $(refs.homePhoneRadioGroup).removeClass('errorField');
+		        	 }
+		        	 if( !$(refs.primaryLandline_CheckField).is(':checked') &&  !$(refs.primaryMobile_CheckField).is(':checked')){
+		        		 
+		        		 app.validationDecorator.applyNumberIdError(refs.homePhoneRadioGroup);
+		        		 return;
+		        	 }
+		                  	 
+		        	
+		        }
+		       if(  !$(refs.secondaryLandline_CheckField).is(':checked') && !$(refs.secondaryMobile_CheckField).is(':checked') && $(refs.cellPhone).val().length > 0 ){
+		    	   skip = false;
+		       }
+		       
+		       if(  $(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked') ){
+		    	   skip = false;
+		       }
+		        
+		        var secondryPhone = app.validationDecorator.phoneValidation($(refs.cellPhone).val() , refs.cellPhone );  
+		        
+
+		        console.log(' skip cellphone ' +skip);
+		        if(!secondryPhone && !skip){
+		        	$('#contactInfomation_infomation_phone').show();
+		        	 app.validationDecorator.applyNumberIdError(refs.cellPhoneRadioGroup);
+		        	 if($(refs.secondaryLandline_CheckField).is(':checked') || $(refs.secondaryMobile_CheckField).is(':checked')){
+		        		 
+		        		 $(refs.cellPhoneRadioGroup).removeClass('errorField');
+		        	 }
+		        	 
+		        	 if( !$(refs.secondaryMobile_CheckField).is(':checked') &&  !$(refs.secondaryLandline_CheckField).is(':checked')){
+		        		 
+		        		 app.validationDecorator.applyNumberIdError(refs.cellPhoneRadioGroup);
+		        		 return;
+		        	 }
+		        	 return;
+		        }else{
+		        	$('#contactInfomation_infomation_phone').hide();
+		        	app.validationDecorator.clearErrArrtibute();
+		        	 if( !$(refs.secondaryMobile_CheckField).is(':checked') &&  !$(refs.secondaryLandline_CheckField).is(':checked') && $(refs.cellPhone).val().length > 0){
+		        		 app.validationDecorator.applyNumberIdError(refs.cellPhoneRadioGroup);
+		        		 return;
+		        	 }
+		        	
+		        }
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		
 		updatePhoneNumberInModel();
@@ -320,10 +386,10 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		var sMethod = 'setFlag() ';
 		console.log(logPrefix + sMethod);
 		$.each(model.data, function(index, item) {
-			if (item.name == "homePhone") {
+			/*if (item.name == "homePhone") {
 				item.validation.canBeEmpty = argHomeFlag;
 				console.log(logPrefix + sMethod + " homePhone :: canBeEmpty " + item.validation.canBeEmpty);
-			}
+			}*/
 			if (item.name == "cellPhone") {
 				item.validation.canBeEmpty = argPhoneFlag;
 				console.log(logPrefix + sMethod + " cellPhone :: canBeEmpty " + item.validation.canBeEmpty);

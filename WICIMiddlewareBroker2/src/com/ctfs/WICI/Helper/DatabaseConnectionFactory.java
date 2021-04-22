@@ -17,7 +17,7 @@ public class DatabaseConnectionFactory
 
 		// Set up DB connection
 		javax.naming.Context ctx = new javax.naming.InitialContext();
-		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/WebICDataSource");
+		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/WICIDataSource");
 
 		return dataSource.getConnection();
 	}

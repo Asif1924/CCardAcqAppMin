@@ -232,6 +232,7 @@ WICI.ValidationDecorator = function(config) {
     	   var  phoneValidation = true; 
     	    	
     	    	 var mobile= null;
+    	    	
     	    	 if(value != null && value){
     	    		mobile = value.replace(/-/g, '');
     	    		
@@ -251,6 +252,9 @@ WICI.ValidationDecorator = function(config) {
     	    	};
     	    	
     	    	}else{
+    	    		
+    	    		
+    	    		
     	    		var phoneLength = this.verifyPhonelength(mobile);
     	    		
     	    		if(!phoneLength){

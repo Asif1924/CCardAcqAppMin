@@ -17,6 +17,9 @@ WICI.MessageDialog = function(translate){
 	this.scanLoyalty = scanLoyalty;
 	this.homePhone = homePhone;
 	this.legalHandout = legalHandout;
+	//VZE-210
+	this.scanFailedErrorMessage = scanFailedErrorMessage;
+	
 	//US4892
 	this.qcDistributionGuide = qcDistributionGuide;
 	// US4495
@@ -110,6 +113,19 @@ WICI.MessageDialog = function(translate){
 		return dialog;
 	}
 	
+	// VZE-210
+	function scanFailedErrorMessage(title, message1,message2, yesCallback,yesButton, autoClose, autoCloseCallback) {
+		var dialog = new WICI.ScanFailedErrorMessageDialog(
+				title,
+				message1,
+				message2,
+				buildCallback(yesCallback),
+				buildButton(yesButton, "scanFaildErrorMessageOkButton"),
+				autoClose,
+				autoCloseCallback);
+		dialogQueue.enqueue(dialog);
+		return dialog;
+	}
 	function qcDistributionGuide(message, yesCallback, noCallback, title, yesButton, noButton) {
 		var dialog = new WICI.QCDistributionGuideMessageDialoge(message,
 				buildCallback(yesCallback),

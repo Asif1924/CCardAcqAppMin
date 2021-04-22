@@ -215,6 +215,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             } catch (ConnectionException ex) {
                 ex.printStackTrace();
                 disconnect();
+                
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -227,7 +228,8 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-
+                disconnect();
+                
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
@@ -314,18 +316,21 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 _callbackContext.sendPluginResult(result);
             } catch (ConnectionException ex) {
                 ex.printStackTrace();
-
+                disconnect();
+                
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
+                disconnect();
 
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+                disconnect();
 
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
@@ -360,18 +365,21 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 _callbackContext.sendPluginResult(result);
             } catch (ConnectionException ex) {
                 ex.printStackTrace();
+                disconnect();
 
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
+                disconnect();
 
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+                disconnect();
 
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));

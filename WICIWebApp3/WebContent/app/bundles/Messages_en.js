@@ -1416,6 +1416,13 @@ WICI.dictionary_en =  {
 	print_StartNewApplicationMessage					:	"Are you sure you would like to start a new application?",
 	confirmDialogPritTest_Message                       :   "Do you want to send a test print?",
 	testPrintStatusMsg                                  :   "Did the test print successfully?",
+	
+	// VZE-210
+	scanFaildErrorMessageTitle                          :   "Drivers Licence Scan Error",
+    scanFaildErrorMessageOne                            :   "Sorry, we are unable to scan your drivers licence today.",
+    scanFaildErrorMessageTwo                            :   "Please complete the remainder of your application manually.",
+    scanFaildErrorMessageOkButton                       :   "Ok",
+    
 	//US4495 - WICI - Test Print at tablet login for FMR
 	testPrintVerifyPrinterMsg                           :    "Please ensure printer is on and paired to tablet before proceeding",
 	testPrintVerify_Title                               :    "Verify Printer",

@@ -30,13 +30,6 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>UserLocationServlet</display-name>
-		<servlet-name>UserLocationServlet</servlet-name>
-		<servlet-class>com.ctfs.WICI.Servlet.UserLocationServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<description>
-		</description>
 		<display-name>IsAlive</display-name>
 		<servlet-name>IsAlive</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.IsAliveServlet</servlet-class>
@@ -212,7 +205,7 @@
 		</form-login-config>
 	</login-config>
     <resource-ref>
-    	<res-ref-name>jdbc/WebICDataSource</res-ref-name>
+    	<res-ref-name>jdbc/WICIDataSource</res-ref-name>
     	<res-type>javax.sql.DataSource</res-type>
     	<res-auth>Container</res-auth>
     	<res-sharing-scope>Shareable</res-sharing-scope>

@@ -1643,6 +1643,12 @@ WICI.dictionary_fr =  {
 	print_StartNewApplicationMessage                  :                         "Êtes-vous certain(e) de vouloir commencer une nouvelle demande?",
 	confirmDialogPritTest_Message                     :                         "Voulez-vous procéder à un test d'impression?",
 	testPrintStatusMsg                                :                         "La page de test s'est-elle imprimée?",
+	//VZE-210
+	scanFaildErrorMessageTitle                          :   "Erreur de lecture du permis de conduire",
+    scanFaildErrorMessageOne                            :   "Désolé, nous ne sommes pas en mesure de numériser votre permis de conduire aujourd'hui.",
+    scanFaildErrorMessageTwo                            :   "Veuillez remplir le reste de votre demande manuellement.",
+    scanFaildErrorMessageOkButton                       :   "D’ACCORD",
+    
 	//US4495 - WICI - Test Print at tablet login for FMR
 	testPrintVerifyPrinterMsg                           :    "SVP s'assurer que l'imprimante est activée et appariée à la tablette avant de continuer",
 	testPrintVerify_Title                               :    "Verifier l'imprimante",
