@@ -32,7 +32,7 @@ import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.util.Log;
-
+import com.newrelic.agent.android.NewRelic;
 
 public class BarcodeScanner extends PluginProxy 
 	implements ReaderDevice.OnConnectionCompletedListener, ReaderDevice.ReaderDeviceListener {
@@ -48,7 +48,7 @@ public class BarcodeScanner extends PluginProxy
 	public void scan(JSONArray args, CallbackContext callbackContext) {
     	this.callbackContext = callbackContext;
     	this.arguments = args;
-    	
+    	NewRelic.startInteraction("BarcodeScanner");
         scan();
 	}
     
@@ -178,6 +178,7 @@ public class BarcodeScanner extends PluginProxy
      }else if (readResults.getCount() > 0 && !readResults.getResultAt(0).isGoodRead()){
           returnError("Unable to read barcode.");
      }
+     NewRelic.endInteraction("BarcodeScanner");
     }
 	
 	private static JSONObject successResponse(ReadResult readResult) throws JSONException, XmlPullParserException, IOException {

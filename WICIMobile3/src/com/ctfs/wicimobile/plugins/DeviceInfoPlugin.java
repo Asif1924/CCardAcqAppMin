@@ -1,12 +1,12 @@
 package com.ctfs.wicimobile.plugins;
 
-import java.lang.reflect.Method;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import com.ctfs.wicimobile.util.WICIDeviceInfoHelper;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -26,22 +26,7 @@ public class DeviceInfoPlugin extends CordovaPlugin
 
 	private String getManufacturerSerialNumber()
 	{
-		Log.i(TAG, "getManufacturerSerialNumber" );
-		String serial = null;
-		try
-		{
-			Class<?> c = Class.forName("android.os.SystemProperties");
-			Method get = c.getMethod("get", String.class, String.class);
-			serial = (String) get.invoke(c, "ril.serialnumber", "unknown");
-			Log.i(TAG, "Manufacturer Serial#:" + serial );
-					
-		}
-		catch (Exception ignored)
-		{		
-			Log.e(TAG, "Exception:" + ignored.getMessage() );
-			serial = "";
-		}
-		return serial;
+		return WICIDeviceInfoHelper.getDeviceSerialNo();
 	}
 
 	private String getBuildSerialNumber()

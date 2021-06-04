@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.ChooseProductScreenController Inner Model" errors="0" failures="0" tests="5" time="0.007">
-<testcase classname="Firefox_270_Windows.ChooseProductScreenController Inner Model" name="test that it will ensure correct can pass" time="0.002"/>
-<testcase classname="Firefox_270_Windows.ChooseProductScreenController Inner Model" name="test that it will ensure 'productCard' cannot be empty" time="0.001"/>
-<testcase classname="Firefox_270_Windows.ChooseProductScreenController Inner Model" name="test that it will ensure 'agencyProgram' cannot be empty" time="0.002"/>
-<testcase classname="Firefox_270_Windows.ChooseProductScreenController Inner Model" name="test that it will ensure 'agencyPromoCode' cannot be empty" time="0.001"/>
-<testcase classname="Firefox_270_Windows.ChooseProductScreenController Inner Model" name="test that it will ensure 'province' cannot be empty" time="0.001"/>
-</testsuite>

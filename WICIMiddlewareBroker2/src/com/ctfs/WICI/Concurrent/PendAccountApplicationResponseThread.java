@@ -59,7 +59,7 @@ public class PendAccountApplicationResponseThread implements Work
 			WICIDBHelper wicidbHelper = new WICIDBHelper();
 			updateResponse = wicidbHelper.updatePendingAccountApplicationData(argPAARequestObject);
 			
-
+			log.info("updatePendingApplication  : argPAARequestObject"+argPAARequestObject);
 			if( "APPROVED".equalsIgnoreCase(argPAARequestObject.getAppStatus()) && !wicidbHelper.isEmailSendForApprovedApp(argPAARequestObject.getExternalReferenceId())){
 				
 				log.info(sMethod + "::send email pend to approveded case  appsatus : \n" + argPAARequestObject.getAppStatus() + "transactionID   ::" +     argPAARequestObject.getExternalReferenceId());

@@ -25,24 +25,6 @@ public class WICIReplacementHelper {
         _replacementStrategies.add(new WICICardTermsReplacementStrategy(carmemberModel.getCardType()));
         _replacementStrategies.add(new WICIAccountShopingReplacementStrategy(carmemberModel.getCardType()));
                 
-        String _storeNumber =  "Test".equalsIgnoreCase(carmemberModel.getStoreNumber())? "0" : carmemberModel.getStoreNumber() ;
-        double storeNo = 0.0;
-        if(!_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
-        	storeNo = Double.parseDouble(_storeNumber);
-        }
-    	
-    	boolean isMarksStore = false;
-    	// US4062
-    	boolean isGasBar = false;
-    	if(_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
-    		isGasBar = true;
-    	} else if(storeNo > 0){
-    		if(storeNo >= 1000 && storeNo <= 2010 ) {
-    			isGasBar = true;
-	        } else if(storeNo >= 6000 && storeNo <= 6999 ) {
-	        	isMarksStore = true;
-	        }
-    	}
         // US3692
         String cryptedAccountNumber = carmemberModel.getAccountNumber();
         String maskedPAN = carmemberModel.getMaskedPAN();
@@ -64,22 +46,12 @@ public class WICIReplacementHelper {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
-	        } else if("PC".equalsIgnoreCase(retailNetwork) && "4111111111111111".equals(cryptedAccountNumber) ) {
-	        	Log.i(" WICIReplacementHelper ", " Party City Demo Mode");
+	        } else if(("PHL".equalsIgnoreCase(retailNetwork) || "NS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	Log.i(" WICIReplacementHelper ", " PHL or NS ");
+	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("4111111111111111", context));
+	        } else if("4111111111111111".equals(cryptedAccountNumber) ) {
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
-	        } else if(("MARKS".equalsIgnoreCase(retailNetwork) || "SPORTS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
-	        	Log.i(" WICIReplacementHelper ", " MARKS or SPORTS ");
-	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("4111111111111111", context));
-	        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
-	         	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
-	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
-	        } else if(isMarksStore  && "4111111111111111".equals(cryptedAccountNumber) ) {
-	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
-	        }
-	        // US4062
-	        else if(isGasBar  && "4111111111111111".equals(cryptedAccountNumber) ) {
-	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        }
 	        
         }

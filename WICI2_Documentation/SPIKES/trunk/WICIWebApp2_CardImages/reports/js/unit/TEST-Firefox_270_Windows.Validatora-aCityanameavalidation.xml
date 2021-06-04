@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - City name validation" errors="0" failures="0" tests="3" time="0.004">
-<testcase classname="Firefox_270_Windows.Validator - City name validation" name="test that it will make sure value could not be empty or null" time="0.002"/>
-<testcase classname="Firefox_270_Windows.Validator - City name validation" name="test that it will make sure value could be only in uppercase" time="0.001"/>
-<testcase classname="Firefox_270_Windows.Validator - City name validation" name="test that it will make sure value contains only valid characters" time="0.001"/>
-</testsuite>

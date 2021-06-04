@@ -11,6 +11,18 @@ public class Activity implements Serializable {
 	
 	private String  event;
 	
+	private String formSubmID;
+	
+	public String getFormSubmID() {
+		return formSubmID;
+	}
+
+	public void setFormSubmID(String formSubmID) {
+		this.formSubmID = formSubmID;
+	}
+
+	private String pgToken;
+	
 	private Map<String, Object> properties;
 
 	public Subscriber getSubscriber() {
@@ -35,6 +47,16 @@ public class Activity implements Serializable {
 
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
+	}
+
+	
+
+	public String getPgToken() {
+		return pgToken;
+	}
+
+	public void setPgToken(String pgToken) {
+		this.pgToken = pgToken;
 	}
 
 	@Override

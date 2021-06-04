@@ -18,6 +18,7 @@ import com.zebra.sdk.printer.ZebraPrinter;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterBluetooth;
+import com.newrelic.agent.android.NewRelic;
 
 public class ZebraPrinterPlugin extends CordovaPlugin {
     protected static final String EMPTY_STRING = "";
@@ -29,6 +30,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         Log.i(getClass().getSimpleName(), "ZebraPrinterPlugin.printText");
+        NewRelic.startInteraction(action);
         
         if (action.equals("getStoredPrintMacAddress")) {
             try {
@@ -45,6 +47,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -66,6 +69,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -85,6 +89,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -97,6 +102,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -109,6 +115,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -121,6 +128,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -134,6 +142,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
 
                 return true;
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (callbackContext != null) {
@@ -142,6 +151,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
             }
         }
 
+        NewRelic.endInteraction(action);
         return false;
     }
 
@@ -174,6 +184,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
         try {
             new ZebraPrintTask(isBottomFile, isFileOrCoupon, carmemberModel, callbackContext).execute(null, null, null);
         } catch (Exception ex) {
+        	NewRelic.recordHandledException(ex);
             ex.printStackTrace();
             if (callbackContext != null) {
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
@@ -213,6 +224,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     disconnect();
                 }
             } catch (ConnectionException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
                 
@@ -220,6 +232,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (ZebraPrinterLanguageUnknownException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 
@@ -227,6 +240,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
                 
@@ -253,6 +267,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 PrinterManager.getInstance().disconnectSelectedPrinter();
 
             } catch (ConnectionException ex) {
+            	NewRelic.recordHandledException(ex);
                 Log.i(getClass().getSimpleName(), "COMM Error! Disconnected");
                 ex.printStackTrace();
 
@@ -260,6 +275,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (ZebraPrinterLanguageUnknownException ex) {
+            	NewRelic.recordHandledException(ex);
                 Log.i(getClass().getSimpleName(), "ZebraPrinterLanguageUnknownException! Disconnected");
                 ex.printStackTrace();
 
@@ -267,6 +283,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
+            	NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
 
                 if (_callbackContext != null) {
@@ -315,13 +332,15 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 // Send search results to Web UI side
                 _callbackContext.sendPluginResult(result);
             } catch (ConnectionException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
-                
+
                 if (_callbackContext != null) {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (IOException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 
@@ -329,6 +348,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 
@@ -364,6 +384,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 // Send search results to Web UI side
                 _callbackContext.sendPluginResult(result);
             } catch (ConnectionException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 
@@ -371,6 +392,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (IOException ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 
@@ -378,6 +400,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     _callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ex.getMessage()));
                 }
             } catch (Exception ex) {
+            		NewRelic.recordHandledException(ex);
                 ex.printStackTrace();
                 disconnect();
 

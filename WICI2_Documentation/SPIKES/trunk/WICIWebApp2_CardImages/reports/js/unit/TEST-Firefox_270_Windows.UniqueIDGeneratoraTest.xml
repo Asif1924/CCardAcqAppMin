@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.UniqueIDGenerator Test" errors="0" failures="0" tests="5" time="0.0070000007">
-<testcase classname="Firefox_270_Windows.UniqueIDGenerator Test" name="test that it  will confirm that we can get a unique ID" time="0.003"/>
-<testcase classname="Firefox_270_Windows.UniqueIDGenerator Test" name="test that it  will confirm that the time component of the unique ID is always unique" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UniqueIDGenerator Test" name="test that it  will confirm a unique ID contains the agentID whatever it is" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UniqueIDGenerator Test" name="test that it  will confirm a unique ID contains the WICI prefix" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UniqueIDGenerator Test" name="test that it  will confirm a unique ID starts with the WICI prefix" time="0.001"/>
-</testsuite>

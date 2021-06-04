@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Common value validation" errors="0" failures="0" tests="4" time="0.006">
-<testcase classname="Firefox_270_Windows.Validator - Common value validation" name="test that it will make sure all values are empty" time="0.002"/>
-<testcase classname="Firefox_270_Windows.Validator - Common value validation" name="test that it will make sure string is less than a defined length" time="0.001"/>
-<testcase classname="Firefox_270_Windows.Validator - Common value validation" name="test that it will make sure value is more than 0" time="0.001"/>
-<testcase classname="Firefox_270_Windows.Validator - Common value validation" name="test that it will check that multiple values match" time="0.002"/>
-</testsuite>

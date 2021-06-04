@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.UserLocationResponseHelper Test" errors="0" failures="0" tests="7" time="0.0050000004">
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get status message of success" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outlet name" time="0.0"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outletNumber" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outletStreet" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outletCity" time="0.0"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outletProvince" time="0.001"/>
-<testcase classname="Firefox_270_Windows.UserLocationResponseHelper Test" name="test that it  will confirm that a successful userlocation response can get outletPostal" time="0.001"/>
-</testsuite>

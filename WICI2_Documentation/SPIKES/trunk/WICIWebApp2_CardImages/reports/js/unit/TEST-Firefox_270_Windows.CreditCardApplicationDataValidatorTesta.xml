@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " errors="0" failures="0" tests="7" time="0.048">
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  can be instantiated" time="0.008"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that the credit card data passed in CANNOT be null" time="0.006"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that all rules for outgoing request are met" time="0.008"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that the outgoing request data contains signDate in the signatureModel object" time="0.006"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that the outgoing request data contains signature in the signatureModel object" time="0.007"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that the outgoing request data contains signDate in the optionalProductsModel object" time="0.006"/>
-<testcase classname="Firefox_270_Windows.CreditCardApplicationDataValidatorTest " name="test that it  ensures that the outgoing request data contains signature in the optionalProductsModel object" time="0.007"/>
-</testsuite>

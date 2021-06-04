@@ -5,16 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
-import com.ctfs.wicimobile.models.WICICardmemberModel;
 import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
+import com.newrelic.agent.android.instrumentation.Trace;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.printer.ZebraPrinter;
+
+import android.content.Context;
+import android.util.Log;
 
 public class WICIFileHelper {
     private static final String LOG_TAG = "WICIFileHelper";
@@ -22,11 +21,7 @@ public class WICIFileHelper {
     public final static String PrintOutMockupFilePath = "templates/";
     public final static String PrintOutMockupFileExtension = ".prn";    
     public final static String PrintOutMockupPendDecSuffix = "_PENDING_DECLINE";
-    //public final static String PrintOutMockupProvinceSuffix = "_555";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
-    //public final static String PrintOutMockupCTGonlyCouponSuffix = "_CTRonly_coupon";
-    //public final static String PrintOutMockupMarkssuffix = "_MARKS";
-    //public final static String PrintOutMockupFGLsuffix = "_FGL";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
     public final static String PrintOutMockupCardTypeForOMXandOMZsuffix = "OMX_OMZ";
     // US5240 -  Printout updates
@@ -36,6 +31,7 @@ public class WICIFileHelper {
     // DE1724 printout language
     static String preferedLang;
     
+    @Trace
     @SuppressWarnings("null")
 	public void processMockupFile(
             ZebraPrinter printer,
@@ -87,17 +83,7 @@ public class WICIFileHelper {
 	        // Set suffix for correspondence language
 	        templateFileName += "_{lang}";
 	        
-	        // Coupon Decoupled, so single print file for Approved, Declined/Pending print. No 555 print.	        
-	        /*if (cardType.equalsIgnoreCase("OMC") &&
-	           ((province.equalsIgnoreCase("QC") ||
-	             province.equalsIgnoreCase("PE") ||
-	             province.equalsIgnoreCase("NL") ||
-	             province.equalsIgnoreCase("NB") ||
-	             province.equalsIgnoreCase("NS")))) {
-	        	// cardType += PrintOutMockupQCProvinceSuffix;
-	             templateFileName += PrintOutMockupProvinceSuffix;
-	        }*/	        
-	        
+	        // Tokenization print logic goes here
 	        if(cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
 	        	
 	        	String accountNumber = "";
@@ -108,109 +94,30 @@ public class WICIFileHelper {
 	        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
 	        	
 		        String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
-	        	boolean isMarksStore = false;
 	        	boolean isGasBar = false;
 	        	int offset = 0;
 	        	
 	        	// Husky Gas Store Specific Logic for printing Approved card
 	        	if(_storeNumber.substring(0,1).equalsIgnoreCase("H")) {
-	        		templateFileName = templateFileName;
         			isGasBar = true;
-        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
-        					+ " accountNumber : " + accountNumber);
-        			
-			        if("4111111111111111".equals(accountNumber) ) {
-			        	templateFileName = templateFileName;
-			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-			        	templateFileName = templateFileName;
-			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-			        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
-			        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-			        }
 	        	} else if(Double.parseDouble(_storeNumber) > 0){
 	        		double storeNo = Double.parseDouble(_storeNumber);
-	        		
-	        		// Adding PC approved print out logic first since store numbers of the PC are overlapping with CT store number for now. Range is 0815 to 0879.
-	        		if("PC".equalsIgnoreCase(retailNetwork)) {
-	        			if(isBottomFile && "4111111111111111".equals(accountNumber) ) {
-	        				templateFileName = templateFileName;
-	        				Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if(!isBottomFile && "4111111111111111".equals(accountNumber) ) {
-			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        }
-	        		}
-	        		// US4062
-	        		// These conditions are all for printing Approved printouts
-	        		// Gas Store Specific Logic
-	        		// Gas stores are between 1000 to 2010 store numbers
-	        		else if(storeNo >= 1000 && storeNo <= 2010 ) {
-	        			templateFileName = templateFileName;
+	        		// Party city Range : 0815 to 0879.
+	        		// Gas store Range : 1000 to 2010
+	        		if(storeNo >= 1000 && storeNo <= 2010 ) {
 	        			isGasBar = true;
-	        			Log.i(LOG_TAG, " isGasBar :" + isGasBar + "templateFileName : " + templateFileName + " cardType : " + cardType
-	        					+ " accountNumber : " + accountNumber);
-	        			// US4341
-				        if("4111111111111111".equals(accountNumber) ) {
-				        	templateFileName = templateFileName;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        }
 	        		} 
-	        		// Marks Store Specific Logic
-	        		// Marks stores are between 6000 to 6999 store numbers
-	        		else if(storeNo >= 6000 && storeNo <= 6999 ) {
-			        	templateFileName = templateFileName;
-			        	isMarksStore = true;
-			        } 
-	        		// US4432
-	        		// FGL Store Specific Logic
-	        		// FGL stores are between 4000 to 5999 store numbers
-	        		else if(storeNo >= 4000 && storeNo <= 5999) {
-				        // E && !Marks && Demo than tokrn prn			        	
-			        	if("4111111111111111".equals(accountNumber) ) {
-			        		 templateFileName = templateFileName;
-				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        }
-			        }
-	        		// CT(Canadian Tire) Store Specific Logic
-	        		// Now for CT store, we added in else condition.
-	        		// But CT stores are between 1 to 999 store numbers
-	        		else {
-	        			if(("MARKS".equalsIgnoreCase(retailNetwork) || "SPORTS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(accountNumber) ) {
-	        				templateFileName = templateFileName;
-	        				Log.i(LOG_TAG, " MARKS or SPORTS Demo Mode templateFileName : " + templateFileName);
-	        			} else if(!isGasBar && !isMarksStore && isBottomFile && "4111111111111111".equals(accountNumber) ) {
-			        		 templateFileName = templateFileName;
-				        } else if(!isGasBar && !isMarksStore && "4111111111111111".equals(accountNumber) ) {
-			        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        } else if(isMarksStore && "4111111111111111".equals(cryptedAccountNumber) ) {
-				        	templateFileName = templateFileName;
-				        } else if( (Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16) && (maskedPAN == null || maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        } else if((!isBottomFile) && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
-				        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
-				        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
-				        }
-			        }
 	        	}
+	        	
+	        	if(("PHL".equalsIgnoreCase(retailNetwork) || "NS".equalsIgnoreCase(retailNetwork)) && !isBottomFile && "4111111111111111".equals(accountNumber) ) {
+    				// No Token print for ProHockey Life and National Sports
+	        		//templateFileName = templateFileName + PrintOutMockupTokensuffix;
+		        } else if(!isBottomFile && "4111111111111111".equals(accountNumber) ) {
+	        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
+		        } else if(!isBottomFile && (Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15) && (maskedPAN != null || !maskedPAN.isEmpty())) {			        	
+		        	templateFileName = templateFileName + PrintOutMockupTokensuffix;
+		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+		        }
 	        	
 	        	// US5240 -  Printout updates
 	        	if(isBottomFile && isGasBar && cardType.equals("OMP")) {
@@ -261,6 +168,7 @@ public class WICIFileHelper {
     }
     
     // US3462
+    @Trace
     public void processMockupCoupon(
             ZebraPrinter printer,
             Context context, 

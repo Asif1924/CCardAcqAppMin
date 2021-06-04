@@ -19,14 +19,16 @@
 
 package com.ctfs.wicimobile;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import org.apache.cordova.*;
+import org.apache.cordova.CordovaActivity;
 
 import com.ctfs.wicimobile.plugins.AppLanguagePlugin;
 import com.ctfs.wicimobile.util.PrinterManager;
 import com.ctfs.wicimobile.util.WICIAppSettingsStorageManager;
+import com.ctfs.wicimobile.util.WICIDeviceInfoHelper;
+import com.newrelic.agent.android.NewRelic;
+
+import android.os.Bundle;
+import android.util.Log;
 
 public class WICIMobile3 extends CordovaActivity
 {
@@ -52,6 +54,12 @@ public class WICIMobile3 extends CordovaActivity
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+        
+        NewRelic.withApplicationToken("AA1f24be0bf516669da84d7c0aec7b098f5835ffcb-NRMA")
+		.start(this.getApplicationContext());
+
+        NewRelic.setUserId(WICIDeviceInfoHelper.getDeviceSerialNo());
+		NewRelic.setAttribute("PrinterMAC",PrinterManager.getInstance().getMacAddress() != null ? PrinterManager.getInstance().getMacAddress() : "NOT_AVAILABLE");
         
         //Orphaned and only relevant for DroidGap inheritance
         // super.loadUrl(Config.getStartUrl());

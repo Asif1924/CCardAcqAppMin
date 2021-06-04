@@ -45,6 +45,8 @@
 		<pathelement location="WebContent/WEB-INF/lib/commons-lang3-3.1.jar"/>
 		<pathelement location="WebContent/WEB-INF/lib/commons-io-2.2.jar"/>
 		<pathelement location="WebContent/WEB-INF/lib/icu4j-60.1.jar"/>
+		<pathelement location="WebContent/WEB-INF/lib/jjwt-0.6.0-sources.jar"/>
+	    <pathelement location="WebContent/WEB-INF/lib/jjwt-0.6.0.jar"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
     <path id="JUnit 4.libraryclasspath">
@@ -87,6 +89,8 @@
         <pathelement location="WebContent/WEB-INF/lib/jackson-core-2.6.0.jar"/>
     	<pathelement location="WebContent/WEB-INF/lib/jackson-databind-2.6.0.jar"/>
     	<pathelement location="WebContent/WEB-INF/lib/icu4j-60.1.jar"/>
+    	<pathelement location="WebContent/WEB-INF/lib/jjwt-0.6.0-sources.jar"/>
+    	<pathelement location="WebContent/WEB-INF/lib/jjwt-0.6.0.jar"/>
 
         <pathelement location="libs/develop/mockito-core-1.9.5.jar"/>
 		<pathelement location="libs/develop/objenesis-1.3.jar"/>

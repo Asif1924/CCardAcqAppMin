@@ -94,6 +94,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "encryptedPan",
     "respCardType",
     "queueName",
+    "formSubmId",
 })
 public class AccountApplicationResponseType
     implements Serializable
@@ -114,9 +115,18 @@ public class AccountApplicationResponseType
     protected String encryptedPan;
     protected String respCardType;
     protected String queueName;
+    protected String formSubmId;
    
 
-    /**
+    public String getFormSubmId() {
+		return formSubmId;
+	}
+
+	public void setFormSubmId(String formSubmId) {
+		this.formSubmId = formSubmId;
+	}
+
+	/**
      * Gets the value of the ResponseCardType property.
      * 
      * @return

@@ -2326,6 +2326,64 @@ public class WICIDBHelper
 	
 	}
 	
+/*	public boolean checkTabSerialNumberExistsAndAuthorized( String argSerialNumber ) throws SQLException
+	{
+		String sMethod = "[checkTabSerialNumberExistsAndAuthorized] ";
+		log.info(sMethod + "::Called::");
+
+		validateSerialNumber(argSerialNumber);
+
+		boolean serialNumberAuthorized = false;
+
+		String sql = "SELECT AUTHORIZED FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Integer authorized = 0;
+
+		try
+		{
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, argSerialNumber.toUpperCase());
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+			{
+				
+				authorized =(resultSet.getInt("AUTHORIZED"));
+				log.info(sMethod + "::  tabSerialNumber AuthorizedValue" + authorized);
+				if(authorized == 1)
+					 serialNumberAuthorized = true;
+				else 
+					 serialNumberAuthorized = false;
+				
+				
+				
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			serialNumberAuthorized = false;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return serialNumberAuthorized;
+	}
+	
+	*/
+	
+	
+	
+	
 	
 	
 }

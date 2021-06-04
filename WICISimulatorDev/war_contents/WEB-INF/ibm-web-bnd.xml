@@ -5,6 +5,6 @@
 	xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee http://websphere.ibm.com/xml/ns/javaee/ibm-web-bnd_1_0.xsd"
 	version="1.0">
 
-	<virtual-host name="wici_brb_host" />
+	<virtual-host name="default_host" />
 
 </web-bnd>

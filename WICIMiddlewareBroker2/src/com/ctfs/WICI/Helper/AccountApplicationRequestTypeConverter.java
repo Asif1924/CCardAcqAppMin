@@ -15,6 +15,7 @@ import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Helper.ApplicationConfiguration;
+import com.ctfs.WICI.Model.AccountApplicationContactInfo;
 
 import com.google.gson.Gson;
 
@@ -36,9 +37,9 @@ public class AccountApplicationRequestTypeConverter
 	private static final String ASC_ECTM="9977"; //New Asc added for US4926 - Instant Issuance WICI - TSYS Enstream Integration //ASC_ECTM="2277"; //ASC_ECTM="3377";  
 												 // US5244 - Bill 134 - New ASCs
 	private static final String ASC_DEFAULT="9977"; // US5244 - Bill 134 - New ASCs
-	private static final String ASC_FMR="9988";
-	private static final String ASC_STORE_STAFF_QC="9989";
-	private static final String ASC_STORE_STAFF_ROC="9988";
+	private static final String ASC_FMR="9989";
+	private static final String ASC_STORE_STAFF_QC="9991";
+	private static final String ASC_STORE_STAFF_ROC="9990";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
 	
@@ -171,6 +172,18 @@ public class AccountApplicationRequestTypeConverter
 
                     return populatedAccountApplicationRequest;
     }
+	
+	public AccountApplicationContactInfo createAccountApplicationContactInfo(CreditCardApplicationData argCreditCardApplicationData) {
+		
+		String sMethod = "[createAccountApplicationContactInfo()]";
+        log.info(sMethod);
+        
+        com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
+        AccountApplicationContactInfo populatedAccountApplicationContactInfo = objectFactory.createAccountApplicationContactInfo();
+        
+        populateEmailInfoModel(argCreditCardApplicationData, populatedAccountApplicationContactInfo);
+		return populatedAccountApplicationContactInfo;
+	}
 
     private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
     {
@@ -666,6 +679,30 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 				argAccAppRequest.setEstmt_consent((model.get("estmt_consent")));
+			}
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + " Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationContactInfo argAccAppRequest)
+	{
+		String sMethod = "[populateEmailInfoModel()]";
+		log.info(sMethod);
+
+		BaseModel model;
+		try
+		{
+			model = argCreditCardData.getModel(MODEL_CONTACTINFO_SCREEN);
+			if (model != null)
+			{
+				argAccAppRequest.setPrimaryMobile_CheckField(model.get("primaryMobile_CheckField"));
+				argAccAppRequest.setPrimaryLandline_CheckField(model.get("primaryLandline_CheckField"));
+				argAccAppRequest.setSecondaryMobile_CheckField(model.get("secondaryMobile_CheckField"));
+				argAccAppRequest.setSecondaryLandline_CheckField(model.get("secondaryLandline_CheckField"));
 			}
 		}
 		catch (Exception e)

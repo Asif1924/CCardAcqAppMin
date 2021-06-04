@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
+import com.ctfs.WICI.Model.AccountApplicationContactInfo;
+
 
 /**
  * This object contains factory methods for each 
@@ -40,6 +42,14 @@ public class ObjectFactory {
      */
     public AccountApplicationRequestType createAccountApplicationRequestType() {
         return new AccountApplicationRequestType();
+    }
+    
+    /**
+     * Create an instance of {@link AccountApplicationContactInfo }
+     * 
+     */
+    public AccountApplicationContactInfo createAccountApplicationContactInfo() {
+        return new AccountApplicationContactInfo();
     }
 
     /**

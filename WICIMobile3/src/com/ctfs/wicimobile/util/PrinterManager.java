@@ -2,17 +2,20 @@ package com.ctfs.wicimobile.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.content.Context;
+
 import com.ctfs.wicimobile.enums.PrinterNetworkType;
+import com.newrelic.agent.android.instrumentation.Trace;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.printer.PrinterStatus;
 import com.zebra.sdk.printer.ZebraPrinter;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterBluetooth;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterNetwork;
-import com.zebra.sdk.printer.PrinterStatus;
+
+import android.content.Context;
 
 public class PrinterManager {
     private static final int MAX_HISTORY_SIZE = 1;    
@@ -30,11 +33,13 @@ public class PrinterManager {
     private PrinterManager () {        
     }
     
+    @Trace
     public ZebraPrinter getZebraPrinterWrapper() throws ConnectionException, ZebraPrinterLanguageUnknownException {
         Connection connection = getSelectedPrinterConnection();
         return connection != null ? ZebraPrinterFactory.getInstance(connection) : null;
     }
 
+    @Trace
     public DiscoveredPrinter getSelectedPrinter() {
         if (selectedPrinterHistory.size() > 0) {
             return selectedPrinterHistory.get(0);
@@ -43,11 +48,13 @@ public class PrinterManager {
         }
     }
 
+    @Trace
     public String getMacAddress() {
         DiscoveredPrinter latestPrinter = PrinterManager.getInstance().getSelectedPrinter();
         return latestPrinter == null ? null : latestPrinter.address;
     }
     
+    @Trace
     public String getPrinterStatus() throws ConnectionException, ZebraPrinterLanguageUnknownException {
     	
     	try {
@@ -84,10 +91,12 @@ public class PrinterManager {
         
     }
 
+    @Trace
     public DiscoveredPrinter[] getPrinterHistory() {
         return selectedPrinterHistory.toArray(new DiscoveredPrinter[selectedPrinterHistory.size()]);
     }
 
+    @Trace
     public void populatePrinterHistory(DiscoveredPrinter[] newHistory) {
         for (int i = newHistory.length; i > 0; i--) {
             setSelectedPrinter(newHistory[i - 1]);
@@ -126,6 +135,7 @@ public class PrinterManager {
         }
     }
 
+    @Trace
     public void storePrinterHistoryInPreferences(Context appContext) {
         try {            
             Settings appSettings = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings();
@@ -155,6 +165,7 @@ public class PrinterManager {
         }
     }
 
+    @Trace
     public void populatePrinterHistoryFromPreferences(Context appContext) {
         try {
             Settings appSettings = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings();
@@ -189,6 +200,7 @@ public class PrinterManager {
         return connection;
     }
 
+    @Trace
     public Boolean disconnectPrinterConnection(Connection connection) throws ConnectionException, ZebraPrinterLanguageUnknownException {
         if (connection != null && connection.isConnected()) {
             connection.close();

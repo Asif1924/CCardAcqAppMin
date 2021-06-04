@@ -244,6 +244,7 @@ public class WICIObjectsHelper
 			mangledPendAARequest.setApplicationId(null);
 			mangledPendAARequest.setRespCardType(pAARequest.getRespCardType());
 			mangledPendAARequest.setQueueName(pAARequest.getQueueName());
+			mangledPendAARequest.setFormSubmId(pAARequest.getFormSubmId());
 			convertedResponse.setData(mangledPendAARequest);
 		}
 		

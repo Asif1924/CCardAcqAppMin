@@ -670,7 +670,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "deviceType",
     "requestedCreditLimit", //US3270 Feb 17th, 2015
     "estmt_consent",
-    "businessStoreNo"
+    "businessStoreNo",
+    "accountNumber",
+    "formSubmId"
 })
 @XmlRootElement(name="AccountApplicationRequest") 
 public class AccountApplicationRequestType
@@ -760,7 +762,7 @@ public class AccountApplicationRequestType
     protected String currentPostalCode;
     @XmlElement(required = true)
     protected String currentCountry;
-    @XmlElement(required = true)
+    
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String currentTelephoneNumber;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -894,6 +896,10 @@ public class AccountApplicationRequestType
     protected String estmt_consent;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String businessStoreNo;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String accountNumber;
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String formSubmId;
     
     public String getEstmt_consent() {
 		return estmt_consent;
@@ -1726,7 +1732,7 @@ public class AccountApplicationRequestType
         this.currentCellPhoneNumber = value;
     }
 
-    /**
+	/**
      * Gets the value of the yearsAtCurrentAddress property.
      * 
      * @return
@@ -3218,6 +3224,22 @@ public class AccountApplicationRequestType
 		this.deviceType = deviceType;
 	}
 
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getFormSubmId() {
+		return formSubmId;
+	}
+
+	public void setFormSubmId(String formSubmId) {
+		this.formSubmId = formSubmId;
+	}
+
 	@Override
 	public String toString() {
 		return "AccountApplicationRequestType ["
@@ -3306,6 +3328,8 @@ public class AccountApplicationRequestType
 				+ ", transactionState=" + transactionState
 				+ ", deviceType=" + deviceType + ", estmt_consent=" + estmt_consent 
 				+ ", businessStoreNo=" + businessStoreNo
+				+ ", accountNumber=" + accountNumber
+				+ ", formSubmId=" + formSubmId
 				+ ", requestedCreditLimit=" + requestedCreditLimit + "]";
 	}	
     

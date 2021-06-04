@@ -11,6 +11,9 @@ public class WICIConfiguration
 	String jksPath;
 	String dssTmxEndPoint;
 	String dssEmailEndPoint;
+	String dssDIIEndPoint;
+	String jwtToken;
+	String dssserviceEnv;
 	
 	public String getJksTlsVersion() {
 		return jksTlsVersion;
@@ -103,6 +106,30 @@ public class WICIConfiguration
 
 	public void setDssEmailEndPoint(String dssEmailEndPoint) {
 		this.dssEmailEndPoint = dssEmailEndPoint;
+	}
+
+	public String getDssDIIEndPoint() {
+		return dssDIIEndPoint;
+	}
+
+	public void setDssDIIEndPoint(String dssDIIEndPoint) {
+		this.dssDIIEndPoint = dssDIIEndPoint;
+	}
+
+	public String getJwtToken() {
+		return jwtToken;
+	}
+
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
+
+	public String getDssserviceEnv() {
+		return dssserviceEnv;
+	}
+
+	public void setDssserviceEnv(String dssserviceEnv) {
+		this.dssserviceEnv = dssserviceEnv;
 	}
 
 	

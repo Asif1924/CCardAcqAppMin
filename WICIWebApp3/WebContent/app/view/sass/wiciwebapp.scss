@@ -2209,18 +2209,18 @@ tr {
   // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
    #omxCardChooseProduct {
-    background-image: #{inline_image("chooseProduct_OMX_VP_EN.png")};
+    background-image: #{inline_image("chooseProduct_OMX_EN_V1.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardChooseProduct.en_card {
-    background-image: #{inline_image("chooseProduct_OMX_VP_EN.png")};
+    background-image: #{inline_image("chooseProduct_OMX_EN_V1.png")};
   }
 
   #omxCardChooseProduct.fr_card {
-    background-image: #{inline_image("chooseProduct_OMX_VP_FR.png")};
+    background-image: #{inline_image("chooseProduct_OMX_FR_V1.png")};
   }
   .omxCardChooseProduct {
     background-size: 100% 100%;
@@ -2230,7 +2230,8 @@ tr {
     border-radius: 0px;
     margin: 0px auto;
     outline-style: none;
-    height: 1000px;
+    height: 1200px;
+    max-width: 1200px;
     margin-bottom: 15px;
  }
  

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
+import com.newrelic.agent.android.NewRelic;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,6 +44,7 @@ public class InstantIssuancePlugin  extends CordovaPlugin
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException
 	{
+		NewRelic.startInteraction(action);
 		Log.i(TAG,"execute");
 		if (action.equals("InstantIssuance"))
 		{
@@ -53,6 +55,7 @@ public class InstantIssuancePlugin  extends CordovaPlugin
 				String decryptedAccountNumber = DecryptAccountNumber(getCurrentContext(), encryptedAccountNumber);
 				PluginResult result = new PluginResult(PluginResult.Status.OK, decryptedAccountNumber);
 				callbackContext.sendPluginResult(result);
+				NewRelic.endInteraction(action);
 				return true;
 			}
 			catch (Exception ex)
@@ -75,6 +78,7 @@ public class InstantIssuancePlugin  extends CordovaPlugin
 			}
 		}
 
+		NewRelic.endInteraction(action);
 		return false;
 	}
 }

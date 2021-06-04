@@ -61,6 +61,14 @@ public void setAccountApplicationresponse(
 		this.respCardType = respCardType;
 	}
 
+	public String getFormSubmId() {
+		return formSubmId;
+	}
+
+	public void setFormSubmId(String formSubmId) {
+		this.formSubmId = formSubmId;
+	}
+
 	String accountReference;
 	String expiryDate;
 	String creditLimit;
@@ -71,6 +79,7 @@ public void setAccountApplicationresponse(
 	String customerValueInd;
 	String respCardType;
 	String queueName;
+	String formSubmId;
 
 	public WICIAccountApplicationResponse()
 	{
@@ -87,6 +96,7 @@ public void setAccountApplicationresponse(
 		result.creditLimit=String.valueOf(entity.getCreditLimit()); 
 		result.apr= String.valueOf(entity.getApr());
 		result.appStatus=String.valueOf(entity.getAppStatus());
+		result.formSubmId=String.valueOf(entity.getFormSubmId());
 		try
 		{
 			result.accountNumber = entity.getAccountNumber();
@@ -158,7 +168,14 @@ public void setAccountApplicationresponse(
 		{
 			result.queueName = null;
 		}
-
+		try 
+		{
+			result.formSubmId = entity.getFormSubmId().toString();
+		} 
+		catch (Exception e) 
+		{
+			result.formSubmId = null;
+		}
 		return result;
 	}
 

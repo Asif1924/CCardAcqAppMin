@@ -20,6 +20,8 @@ public class AccountApplicationSubmissionRequest {
 	String transactionState;
 	String retailNetwork;
 	String agencyCode;
+	String currentAddressLine1;
+	String tabSerialId;
 	public String getAgencyCode() {
 		return agencyCode;
 	}
@@ -200,5 +202,29 @@ public class AccountApplicationSubmissionRequest {
 	 */
 	public void setTransactionState(String transactionState) {
 		this.transactionState = transactionState;
+	}
+	/**
+	 * @return the currentAddressLine1
+	 */
+	public String getCurrentAddressLine1() {
+		return currentAddressLine1;
+	}
+	/**
+	 * @param currentAddressLine1 the currentAddressLine1 to set
+	 */
+	public void setCurrentAddressLine1(String currentAddressLine1) {
+		this.currentAddressLine1 = currentAddressLine1;
+	}
+	/**
+	 * @return the tabSerialId
+	 */
+	public String getTabSerialId() {
+		return tabSerialId;
+	}
+	/**
+	 * @param tabSerialId the tabSerialId to set
+	 */
+	public void setTabSerialId(String tabSerialId) {
+		this.tabSerialId = tabSerialId;
 	}
 	}

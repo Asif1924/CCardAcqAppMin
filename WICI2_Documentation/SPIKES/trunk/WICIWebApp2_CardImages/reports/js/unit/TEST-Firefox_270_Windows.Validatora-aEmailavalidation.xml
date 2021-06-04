@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="Firefox_270_Windows.Validator - Email validation" errors="0" failures="0" tests="3" time="0.005">
-<testcase classname="Firefox_270_Windows.Validator - Email validation" name="test that it will allow an empty email address" time="0.001"/>
-<testcase classname="Firefox_270_Windows.Validator - Email validation" name="test that it will trim email addresses of spaces" time="0.001"/>
-<testcase classname="Firefox_270_Windows.Validator - Email validation" name="test that it will allow correct email addresses" time="0.003"/>
-</testsuite>

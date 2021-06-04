@@ -52,7 +52,8 @@ public class WICISignatureReplacementStrategy implements ReplacementStrategy {
 
         // Leave only data with coordinates
         String subString1 = source.replace("^FT", "");
-        String subString2 = subString1.replace("^A0N,28,28^FH\\^FD#[Signature]^FS", "");
+        //String subString2 = subString1.replace("^A0N,28,28^FH\\^FD#[Signature]^FS", "");
+        String subString2 = subString1.substring(0, subString1.indexOf("^"));
         String[] signatureCoordinates = subString2.split(",");
         coordinates.setX(Integer.parseInt(signatureCoordinates[0]));
         coordinates.setY(Integer.parseInt(signatureCoordinates[1]));
