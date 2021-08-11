@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
+import com.ctfs.wicimobile.models.WICICardmemberModel;
 import com.ctfs.wicimobile.util.crypto.WICICryptoHelper;
 import com.newrelic.agent.android.instrumentation.Trace;
 import com.zebra.sdk.comm.Connection;
@@ -19,6 +20,7 @@ public class WICIFileHelper {
     private static final String LOG_TAG = "WICIFileHelper";
 
     public final static String PrintOutMockupFilePath = "templates/";
+    public final static String StoreRecallFilePath = "srtemplates/";
     public final static String PrintOutMockupFileExtension = ".prn";    
     public final static String PrintOutMockupPendDecSuffix = "_PENDING_DECLINE";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
@@ -30,34 +32,28 @@ public class WICIFileHelper {
     String templateName, templateFileName;
     // DE1724 printout language
     static String preferedLang;
+    WICIStoreRecallPrintHelper storeRecallPrint = new WICIStoreRecallPrintHelper();
     
     @Trace
     @SuppressWarnings("null")
 	public void processMockupFile(
             ZebraPrinter printer,
             Context context, 
-            WICIReplacementHelper replacementHelper, 
-            String cardType,
-            ServerResponseStatus serverResponseStatus,
-            String cryptedAccountNumber,
-            String maskedPAN,
-            String province,
-            String storeNumber,
-            String employeeId,
-            String correspondenceLanguage,
-            boolean isBottomFile,
-            String apartmentNumber,
-            String streetNumber,
-            String streetName,
-            String city,
-            String adrProvince,
-            String postalCode,
-            String retailNetwork) throws ConnectionException, IOException {
+            WICIReplacementHelper replacementHelper, boolean isBottomFile, 
+            WICICardmemberModel cardmemberModel) throws ConnectionException, IOException {
+        
+    	String cardType = cardmemberModel.getCardType();
+        ServerResponseStatus serverResponseStatus = cardmemberModel.getResponseStatus();
+        String cryptedAccountNumber = cardmemberModel.getAccountNumber();
+        String maskedPAN = cardmemberModel.getMaskedPAN();
+        String storeNumber = cardmemberModel.getStoreNumber();
+        String correspondenceLanguage = cardmemberModel.getCorrespondenceLanguage();  
+        String retailNetwork = cardmemberModel.getRetailNetwork();
+        Boolean performStoreRecallPrint = cardmemberModel.getPerformStoreRecallPrint();
         
         // Get printer connection
         Connection  connection = printer.getConnection();
         preferedLang = correspondenceLanguage;
-        
         
         try {
         	// Print Approved, Declined/Pending print goes here.
@@ -83,7 +79,7 @@ public class WICIFileHelper {
 	        // Set suffix for correspondence language
 	        templateFileName += "_{lang}";
 	        
-	        // Tokenization print logic goes here
+	        // Token print logic goes here
 	        if(cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
 	        	
 	        	String accountNumber = "";
@@ -133,32 +129,16 @@ public class WICIFileHelper {
 	        	
 	        }
 	             
-        	InputStream inputStream = readTemplate(context, templateFileName);
-            
-            if ( inputStream != null ) {
-                // Get input file stream
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String line;                                
-                
-                // Open connection                
-                if (!connection.isConnected()) {
-                    connection.open();
-                }
-                
-                // Read file per line
-                while ((line = bufferedReader.readLine()) != null ) {
-                    String replacedLine = replacementHelper.applyReplacement(line);
-                    if ("".equals(replacedLine)) continue;
-                    
-                    // Send result to the printer
-                    connection.write(replacedLine.getBytes());
-                }
-
-                // Close input file stream
-                inputStream.close();
-            }
+	        Log.i(getClass().getSimpleName(), " performStoreRecallPrint :: " + performStoreRecallPrint);
+            Boolean storeRecallPrintDone = false;
+        	if(performStoreRecallPrint) {
+        		storeRecallPrintDone = storeRecallPrint.performStoreRecallPrint(templateFileName, context, printer, replacementHelper, cardmemberModel); 
+        	}
         	
+        	Log.i(LOG_TAG, "storeRecallPrintDone : " + storeRecallPrintDone);
+        	if(!storeRecallPrintDone) {
+        		sendFileToPrint(templateFileName, context, connection, replacementHelper);
+        	}
         }
         finally{
             if (connection.isConnected()) {
@@ -172,100 +152,42 @@ public class WICIFileHelper {
     public void processMockupCoupon(
             ZebraPrinter printer,
             Context context, 
-            WICIReplacementHelper replacementHelper, 
-            String cardType,
-            String province,
-            String firstName,
-            String middleInitial,
-            String lastName,
-            String storeNumber,
-            String correspondenceLanguage) throws ConnectionException, IOException {
+            WICIReplacementHelper replacementHelper, WICICardmemberModel cardmemberModel) throws ConnectionException, IOException {
+        
+    	String cardType = cardmemberModel.getCardType();
+        String storeNumber = cardmemberModel.getStoreNumber();
+        String correspondenceLanguage = cardmemberModel.getCorrespondenceLanguage();
+        Boolean performStoreRecallPrint = cardmemberModel.getPerformStoreRecallPrint();
         
         // Get printer connection
         Connection  connection = printer.getConnection();
         preferedLang = correspondenceLanguage;
                 
         try {    
-        	
         	String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
         	double storeNo = Double.parseDouble(_storeNumber);
         	Log.i(getClass().getSimpleName(), "----- storeNo -------" + storeNo);
         	if(storeNo > 0){
-        		
         		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
         			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
         		} else {
         			templateName = "PrintOutMockup_" + cardType;
         		}
         		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-        		
-        		// All below coupons are removed and added single coupon for all stores
-        		// US3452 
-        		// Check Store Number. If Marks store, print Marks coupon, else print CT coupon
-	        	/*if(storeNo >= 6000 && storeNo <= 6999 ){
-	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
-	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupMarkssuffix;
-	        		} else {
-	        			templateName = "PrintOutMockup_" + cardType + PrintOutMockupMarkssuffix;
-	        		}
-	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}*/
-	        	// US4644
-	        	// WICI - Print out an FGL coupon
-	        	/*else if(storeNo >= 4000 && storeNo <= 5999){
-	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
-	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix + PrintOutMockupFGLsuffix;
-	        		} else {
-	        			templateName = "PrintOutMockup_" + cardType + PrintOutMockupFGLsuffix;
-	        		}
-	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}*/
-	        	// WICI - Print out an CTP(Gas store) coupon
-	        	/*else if(storeNo >= 1000 && storeNo <= 2010){
-	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
-	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
-	        		} else {
-	        			templateName = "PrintOutMockup_" + cardType;
-	        		}
-	        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-	        	}*/
-	        	// WICI - Print out an CTR(Retail store) coupon
-	        	/*else {
-	        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
-	        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
-	        		} else {
-	        			templateName = "PrintOutMockup_" + cardType;
-	        		}
-	        		templateName += "_{lang}" + PrintOutMockupCTGonlyCouponSuffix;
-	        	}*/
         	}        
 	        	
-	       Log.i(getClass().getSimpleName(), "----- templateName -------" + templateName);
-	       InputStream inputStream = readTemplate(context, templateName);
-	            
-	       if ( inputStream != null ) {
-	           // Get input file stream
-	           InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	           BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-	           String line;                                
-	                
-	           // Open connection                
-	           if (!connection.isConnected()) {
-	               connection.open();
-	           }
-	                
-	           // Read file per line
-	           while ((line = bufferedReader.readLine()) != null ) {
-	               String replacedLine = replacementHelper.applyReplacement(line);
-	           if ("".equals(replacedLine)) continue;
-	                    
-	                // Send result to the printer
-	                connection.write(replacedLine.getBytes());
-	           }
-	
-	           // Close input file stream
-	           inputStream.close();
-	       }
+	        Log.i(getClass().getSimpleName(), "----- templateName -------" + templateName);
+	        Log.i(getClass().getSimpleName(), " performStoreRecallPrint :: " + performStoreRecallPrint);
+	        
+	       	Boolean storeRecallPrintDone = false;
+	       	if(performStoreRecallPrint) {
+	       		storeRecallPrintDone = storeRecallPrint.performStoreRecallPrint(templateName, context, printer, replacementHelper, cardmemberModel); 
+	       	}
+	       	
+	       	Log.i(LOG_TAG, "storeRecallPrintDone : " + storeRecallPrintDone);
+	       	if(!storeRecallPrintDone) {
+	       		sendFileToPrint(templateName, context, connection, replacementHelper);
+	       	}
         } 
         finally{
             if (connection.isConnected()) {
@@ -291,7 +213,6 @@ public class WICIFileHelper {
     public void printTestFile(ZebraPrinter printer, Context context) throws ConnectionException, IOException {
         // Get printer connection
         Connection  connection = printer.getConnection();
-        
         try {
             String templateName = "TestPrintTemplate";
             InputStream inputStream = readTemplate(context, templateName);
@@ -306,13 +227,11 @@ public class WICIFileHelper {
                 if (!connection.isConnected()) {
                     connection.open();
                 }
-                
                 // Read file per line
                 while ((line = bufferedReader.readLine()) != null ) {
                     // Send result to the printer
                     connection.write(line.getBytes());
                 }
-
                 // Close input file stream
                 inputStream.close();
             }
@@ -322,22 +241,41 @@ public class WICIFileHelper {
                 connection.close();
             }
         }        
-    }    
-    
-    public boolean isCardTypeOMCForProvince(String cardType , String province){
-    	if (cardType.equalsIgnoreCase("OMC") &&
-            	((province.equalsIgnoreCase("QC") ||
-            	  province.equalsIgnoreCase("PE") ||
-            	  province.equalsIgnoreCase("NL") ||
-            	  province.equalsIgnoreCase("NB") ||
-            	  province.equalsIgnoreCase("NS")))) {
-    		return true;	
-    	} else {
-    		return false;
-    	}
     }
     
     private String DecryptAccountNumber (Context context, String cryptedAccountNumber) {
         return WICICryptoHelper.getInstance().decryptRSA(context, cryptedAccountNumber);
     }
+    
+    private void sendFileToPrint(String fileName, Context context, Connection  connection, 
+    		WICIReplacementHelper replacementHelper) throws IOException, ConnectionException {
+    	
+    	Log.i(getClass().getSimpleName(), "----- templateName -------" + fileName);
+    	InputStream inputStream = readTemplate(context, fileName);
+        if ( inputStream != null ) {
+            // Get input file stream
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;                                
+            // Open connection                
+            if (!connection.isConnected()) {
+                connection.open();
+            }
+            // Read file per line
+            while ((line = bufferedReader.readLine()) != null ) {
+                // Send result to the printer
+            	if(replacementHelper == null) {
+            		connection.write(line.getBytes());
+            	} else {
+            		String replacedLine = replacementHelper.applyReplacement(line);
+                    if ("".equals(replacedLine)) continue;
+                    
+                    connection.write(replacedLine.getBytes());
+            	}
+            }
+            // Close input file stream
+            inputStream.close();
+        }
+    }
+
 }

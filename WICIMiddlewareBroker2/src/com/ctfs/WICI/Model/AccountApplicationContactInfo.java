@@ -7,6 +7,7 @@ public class AccountApplicationContactInfo {
     String primaryLandline_CheckField;
     String secondaryMobile_CheckField;
     String secondaryLandline_CheckField;
+    String primaryPhone;
     
     public String getPrimaryMobile_CheckField() {
 		return primaryMobile_CheckField;
@@ -31,6 +32,12 @@ public class AccountApplicationContactInfo {
 	}
 	public void setSecondaryLandline_CheckField(String secondaryLandline_CheckField) {
 		this.secondaryLandline_CheckField = secondaryLandline_CheckField;
+	}
+	public String getPrimaryPhone() {
+		return primaryPhone;
+	}
+	public void setPrimaryPhone(String primaryPhone) {
+		this.primaryPhone = primaryPhone;
 	}
 
 }

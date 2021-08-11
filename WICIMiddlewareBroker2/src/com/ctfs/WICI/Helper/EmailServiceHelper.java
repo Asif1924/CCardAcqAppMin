@@ -13,9 +13,11 @@ import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;

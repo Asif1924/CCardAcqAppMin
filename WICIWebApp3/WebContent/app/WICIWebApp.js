@@ -64,6 +64,9 @@ WICI.WICIWebApp = function() {
     this.getAddressLine2Flag = function(){return addressLine2Flag;};
     this.setAddressLine2Flag = function(bValue){addressLine2Flag = bValue;};
 
+	this.getNewStylePrintFlag = function(){return newStylePrintFlag;};
+    this.setNewStylePrintFlag = function(bValue){newStylePrintFlag = bValue;};
+
     this.language = null;
 
     this.apkVersionHelper = null;

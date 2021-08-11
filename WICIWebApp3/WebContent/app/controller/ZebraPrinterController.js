@@ -60,14 +60,25 @@ WICI.ZebraPrinterController = function () {
         }
     };
     //---------------------------------------------------------------------------------------
-    this.printFile = function (activationItems, applicationResponse, successCallback, failureCallback) {
+    this.printFile = function (translator, activationItems, applicationResponse, successCallback, failureCallback) {
         var sMethod = 'printFile() ';
         console.log(logPrefix + sMethod);
         console.log('---------- printFile ----------');
         console.log(activationItems.getModel('personalData').get('correspondence'));
         console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
         console.log('--------------------');
-        var respCardType, retailNetwork = '';
+        var respCardType, retailNetwork = '', performStoreRecallPrint = 'N', 
+			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
+			//storeRecallPrintStores = JSON.parse(WICI.dictionary_en.storeRecallPrintStores);
+        	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
+			
+		console.log(logPrefix + sMethod + " storeNumber :: " + storeNumber + " storeRecallPrintStores :: " + storeRecallPrintStores.stores.length);
+		if ($.inArray(storeNumber, storeRecallPrintStores.stores) != -1 || app.getNewStylePrintFlag() == 'Y') {
+			performStoreRecallPrint = 'Y';
+		}
+		
+		console.log(logPrefix + sMethod + " performStoreRecallPrint :: " + performStoreRecallPrint);
+		
         if(app.getDemoMode()) {
         	respCardType = activationItems.getModel('chooseProductModel').get('productCard');
         	retailNetwork = activationItems.getModel('loginScreen').get('retailNetWork');
@@ -113,7 +124,8 @@ WICI.ZebraPrinterController = function () {
                          "",
                          "",
                          "",
-                         retailNetwork ? retailNetwork : ""]);
+                         retailNetwork ? retailNetwork : "",
+						 performStoreRecallPrint ? performStoreRecallPrint : ""]);
         	} else {
         		cordova.exec(successCallback,
                         failureCallback,
@@ -144,7 +156,8 @@ WICI.ZebraPrinterController = function () {
                          activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
                          activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
                          activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
-                         retailNetwork ? retailNetwork : ""]);
+                         retailNetwork ? retailNetwork : "",
+						 performStoreRecallPrint ? performStoreRecallPrint : ""]);
         	}
             
         } catch (err) {
@@ -153,14 +166,24 @@ WICI.ZebraPrinterController = function () {
       };
       // US5240
       //---------------------------------------------------------------------------------------
-      this.printFileBottom = function (activationItems, applicationResponse, successCallback, failureCallback) {
+      this.printFileBottom = function (translator, activationItems, applicationResponse, successCallback, failureCallback) {
           var sMethod = 'printFileBottom() ';
           console.log(logPrefix + sMethod);
           console.log('---------- printFileBottom ----------');
           console.log(activationItems.getModel('personalData').get('correspondence'));
           console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
           console.log('--------------------');
-          var respCardType, retailNetwork = '';
+          var respCardType, retailNetwork = '', performStoreRecallPrint = 'N', 
+			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
+			//storeRecallPrintStores = JSON.parse(WICI.dictionary_en.storeRecallPrintStores);
+          	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
+			
+		  console.log(logPrefix + sMethod + " storeNumber :: " + storeNumber + " storeRecallPrintStores :: " + storeRecallPrintStores.stores.length);
+		  if ($.inArray(storeNumber, storeRecallPrintStores.stores) != -1 || app.getNewStylePrintFlag() == 'Y') {
+			performStoreRecallPrint = 'Y';
+		  }
+		  console.log(logPrefix + sMethod + " performStoreRecallPrint :: " + performStoreRecallPrint);
+		  
           if(app.getDemoMode()) {
           	respCardType = activationItems.getModel('chooseProductModel').get('productCard');
           	retailNetwork = activationItems.getModel('loginScreen').get('retailNetWork');
@@ -205,7 +228,8 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('personalData2_Address').get('city') ? activationItems.getModel('personalData2_Address').get('city') : "",
                    activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
                    activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
-                   retailNetwork ? retailNetwork : ""]);
+                   retailNetwork ? retailNetwork : "",
+				   performStoreRecallPrint ? performStoreRecallPrint : ""]);
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }

@@ -302,23 +302,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     // US3692
                     // Process file
                     fileHelper.processMockupFile(printer, getCurrentContext(), replacementHelper,
-                            cardmemberModel.getCardType(),
-                            cardmemberModel.getResponseStatus(),
-                            cardmemberModel.getAccountNumber(),
-                            cardmemberModel.getMaskedPAN(),        
-                            cardmemberModel.getProvince(),
-                            cardmemberModel.getStoreNumber(),
-                            cardmemberModel.getEmployeeId(),
-                            // DE1724 printout language 
-                            cardmemberModel.getCorrespondenceLanguage(),
-                            isBottomFile,
-                            cardmemberModel.getAdrsuiteunit(),
-                            cardmemberModel.getAdrstreetnumber(),
-                            cardmemberModel.getAdraddressline1(),
-                            cardmemberModel.getAdrcity(),
-                            cardmemberModel.getAdrprovince(),
-                            cardmemberModel.getAdrpostalcode(),
-                            cardmemberModel.getRetailNetwork());
+                    		isBottomFile,cardmemberModel);
                 }
                 else {
                     // Print test file
@@ -326,7 +310,7 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                 }
 
                 // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, PrinterManager.getInstance().getPrinterStatus());
+                PluginResult result = new PluginResult(PluginResult.Status.OK, "Ready To Print");
                 result.setKeepCallback(false);
 
                 // Send search results to Web UI side
@@ -368,17 +352,10 @@ public class ZebraPrinterPlugin extends CordovaPlugin {
                     WICIReplacementHelper replacementHelper = new WICIReplacementHelper(cardmemberModel, getCurrentContext(), printer);                  
                     // Process file
                     fileHelper.processMockupCoupon(printer, getCurrentContext(), replacementHelper,
-                            cardmemberModel.getCardType(),
-                            cardmemberModel.getProvince(),
-                            cardmemberModel.getFirstName(),
-                            cardmemberModel.getMiddleInitial(),
-                            cardmemberModel.getLastName(),
-                            cardmemberModel.getStoreNumber(),
-                            // DE1724 printout language 
-                            cardmemberModel.getCorrespondenceLanguage());
+                            cardmemberModel);
                 }
                 // Call UI callback with search results
-                PluginResult result = new PluginResult(PluginResult.Status.OK, PrinterManager.getInstance().getPrinterStatus());
+                PluginResult result = new PluginResult(PluginResult.Status.OK, "Ready To Print");
                 result.setKeepCallback(false);
 
                 // Send search results to Web UI side

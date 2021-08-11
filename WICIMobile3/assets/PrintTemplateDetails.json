@@ -1,0 +1,108 @@
+{
+    "Name": "Print Template Details",
+    "Description": "This JSON lists all print templates and their new Store Recall Equivalents and their versions.",
+    "PrintOutMockup_OMP_E_top": {
+        "NewTemplateName": "P_E_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_E_TOKEN_top": {
+        "NewTemplateName": "PE_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_F_TOKEN_top": {
+        "NewTemplateName": "PF_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_F_top": {
+        "NewTemplateName": "P_F_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_E_TOKEN_top": {
+        "NewTemplateName": "XE_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_E_top": {
+        "NewTemplateName": "X_E_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_F_TOKEN_top": {
+        "NewTemplateName": "XF_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_F_top": {
+        "NewTemplateName": "X_F_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMZ_E_TOKEN_top": {
+        "NewTemplateName": "ZE_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMZ_E_top": {
+        "NewTemplateName": "Z_E_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMZ_F_TOKEN_top": {
+        "NewTemplateName": "ZF_T_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMZ_F_top": {
+        "NewTemplateName": "Z_F_T",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_E_coupon_bottom": {
+        "NewTemplateName": "PE_C_B",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_F_coupon_bottom": {
+        "NewTemplateName": "PF_C_B",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_E_bottom": {
+        "NewTemplateName": "PE_NCB",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_F_bottom": {
+        "NewTemplateName": "PF_NCB",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_OMZ_E_bottom": {
+        "NewTemplateName": "XZ_E_B",
+        "Version": 2
+    },
+    "PrintOutMockup_OMX_OMZ_F_bottom": {
+        "NewTemplateName": "XZ_F_B",
+        "Version": 2
+    },
+    "PrintOutMockup_REF_NUMBER_E": {
+        "NewTemplateName": "REF_ENG",
+        "Version": 2
+    },
+    "PrintOutMockup_REF_NUMBER_F": {
+        "NewTemplateName": "REF_FRC",
+        "Version": 2
+    },
+    "PrintOutMockup_OMP_PENDING_DECLINE_E": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    },
+    "PrintOutMockup_OMP_PENDING_DECLINE_F": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    },
+    "PrintOutMockup_OMX_OMZ_PENDING_DECLINE_E": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    },
+    "PrintOutMockup_OMX_OMZ_PENDING_DECLINE_F": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    },
+    "PrintOutMockup_OMR_PENDING_DECLINE_E": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    },
+    "PrintOutMockup_OMR_PENDING_DECLINE_F": {
+        "NewTemplateName": "NOT_PRINT",
+        "Version": 1
+    }
+}

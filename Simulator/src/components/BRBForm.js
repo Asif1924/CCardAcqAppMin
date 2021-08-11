@@ -242,7 +242,7 @@ class TextFields extends React.Component {
                               window.open('https://www-dev.ctal.ctc/content/dsa/'+lang+'.html?transactionId='+transactionID+'&lang='+lang, '_blank');
                             }else if(environmentFlagValue == 2){
                               //BRB Preprod
-                              window.open('https://qa-mastercard.cantire.net/content/dsa/'+lang+'.html?transactionId='+transactionID+'&lang='+lang, '_blank');
+                              window.open('https://qa-mastercard.triangle.com/content/dsa/'+lang+'.html?transactionId='+transactionID+'&lang='+lang, '_blank');
                             }else if(environmentFlagValue == 4){
                               // BRB PROD
                               window.open('https://mastercard.canadiantire.ca/content/dsa/'+lang+'.html?transactionId='+transactionID+'&lang='+lang, '_blank');

@@ -7,7 +7,9 @@ WICI.dictionary_en =  {
 	cancel  											:  	"Cancel",
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
-	
+	newStylePrintFlag	                                :   "N",
+	storeRecallPrintStores								:	"{\"stores\":[\"6029\",\"6323\",\"4401\",\"5141\",\"861\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\"]}",
+
 	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
 	accents_out											:	"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
 	
@@ -332,6 +334,8 @@ WICI.dictionary_en =  {
     personalData_MISS 									: 	"MISS",
     personalData_MS 									: 	"MS",
 //    personalData_DR 									: 	"DR",
+    // VZE-265
+    personalData_cityNameLongerThen24CharError_msg      :    "Please enter a city name that is 24 characters or less. If you do not know your abbreviated city name, please use the address search box provided.",
 
 	personalData_FirstName								:	"First Name",
 	personalData_Initial								:	"Middle Initial",

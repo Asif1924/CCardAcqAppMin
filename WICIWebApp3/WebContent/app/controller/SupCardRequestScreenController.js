@@ -189,6 +189,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				new WICI.ConnectionStatus(), messageDialog, translator,
 				WICI.AppConfig.ConnectivityConfig);
 		connectivityController.init();
+		//VZE-265
+		$("#suppCard_infomation_cityName").hide();
 	}
 	function createFlips() {
 		$(refs.flipSupplementaryCard_no + ","+ refs.flipSameAddress_no).text(translator.translateKey("no"));
@@ -264,6 +266,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		var sMethod = 'bindEvents() ';
 		console.log(logPrefix + sMethod);
 		
+		$("#suppCard_infomation_cityName").hide();
 		$(refs.supStreetAddress).live('paste, input', function(e) {
 	        var fields = [
 	        	{ element: "supStreetAddress", 	field: "" },
@@ -436,8 +439,15 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
             console.log(refs.supAcceptButton + ' :: click :: ' + postrez.length);
             if(postrez.length > 0) {
             	app.validationDecorator.applyErrAttribute(postrez);
-                	if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
+            	if($(refs.city).val() != '' && $(refs.city).val().length > 24){
+            		$("#suppCard_infomation_cityName").show();
+            	}else{
+            		
+            		if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
                 		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);
+            		
+            		$("#suppCard_infomation_cityName").hide();
+            	}
             } else {
                 	if($(refs.city).val().length >= 18) 
                 		invokeAbbreviateSupCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSupSuccess, abbreviateCitynameSupFail);

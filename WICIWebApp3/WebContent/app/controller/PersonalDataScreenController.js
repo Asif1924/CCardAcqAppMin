@@ -249,6 +249,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		setLoyaltyMembershipNumberPrefix();
 		updatePlaceholderLanguage();
 		hideIdExpiryDateErrorMessage_dialog();
+		$("#personalInfomation_infomation_cityName").hide();
+		$("#personalInfomation_infomation_Pre_cityName").hide();
     }
     // ---------------------------------------------------------------------------------------
 	function setLoyaltyMembershipNumberPrefix() {
@@ -572,6 +574,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
         
          hideIdExpiryDateErrorMessage_dialog();
+         // VZE-265
+         
+         $("#personalInfomation_infomation_cityName").hide();
+         $("#personalInfomation_infomation_Pre_cityName").hide();
+         
         $(refs.streetAddress).live('paste, input', function(e) {
         	models.personalDataModel.set('manualFill', true);
 	        var fields = [
@@ -648,8 +655,9 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 $(refs.postalcode).val(postalCodeval);
                 models.addressModel.set("province",$(refs.province).val());
                 
-                if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
+                if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18){
                 	invokeAbbreviateCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSuccess, abbreviateCitynameFail);
+                }
 			});
         });
         
@@ -715,11 +723,21 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             console.log(refs.acceptButton + '::click' + postrez.length);
             if(postrez.length > 0) {
             	app.validationDecorator.applyErrAttribute(postrez);
-                	if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18) 
-                		invokeAbbreviateCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSuccess, abbreviateCitynameFail);
+            	   // VZE-265
+            	   if($(refs.city).val() != '' && $(refs.city).val().length > 24) {
+            		   $("#personalInfomation_infomation_cityName").show();
+            	   }else{
+            		   if($(refs.city).val() != '' && $(refs.province).val() != '' && $(refs.city).val().length >= 18){
+            			   invokeAbbreviateCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSuccess, abbreviateCitynameFail); 
+            		   }
+            		   $("#personalInfomation_infomation_cityName").hide();
+            	   }
+                	
             } else {
-                if($(refs.city).val().length >= 18) 
+                if($(refs.city).val().length >= 18) {
                 	invokeAbbreviateCityname($(refs.city).val().toUpperCase(), $(refs.province).val(), abbreviateCitynameSuccess, abbreviateCitynameFail);
+                }
+                	
             	
 	            $('#address_unit').text($(refs.suiteunit).val());
 	            if($(refs.suiteunit).val())
@@ -926,8 +944,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             console.log(refs.acceptButton + '::click' + postrez.length);
             if(postrez.length > 0) {
             	app.validationDecorator.applyErrAttribute(postrez);
-                	if($(refs.city_prev).val() != '' && $(refs.province_prev).val() != '' && $(refs.city_prev).val().length >= 18) 
-                		invokeAbbreviateCitynamePrev($(refs.city_prev).val().toUpperCase(), $(refs.province_prev).val(), abbreviateCitynamePrevSuccess, abbreviateCitynamePrevFail);
+            	// VZE-265
+            	if($(refs.city_prev).val() != '' && $(refs.city_prev).val().length > 24){
+            		$("#personalInfomation_infomation_Pre_cityName").show();
+            	}else{
+            		if($(refs.city_prev).val() != '' && $(refs.province_prev).val() != '' && $(refs.city_prev).val().length >= 18){
+            			invokeAbbreviateCitynamePrev($(refs.city_prev).val().toUpperCase(), $(refs.province_prev).val(), abbreviateCitynamePrevSuccess, abbreviateCitynamePrevFail);	
+            		}
+            		$("#personalInfomation_infomation_Pre_cityName").hide();
+            	}
+                	
             } else {
                 if($(refs.city_prev).val().length >= 18) 
                 	invokeAbbreviateCitynamePrev($(refs.city_prev).val().toUpperCase(), $(refs.province_prev).val(), abbreviateCitynamePrevSuccess, abbreviateCitynamePrevFail);
@@ -2183,6 +2209,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	console.log(logPrefix + sMethod);
     	
     	var currAddrModel = models.addressModel;
+    	// VZE-268
+    	$("#personalInfomation_infomation_cityName").hide();
     	$('#personalInfo_canadaPost_SearchedAddress').show();
      	$('#personalData_canadaPostAddressDescription1').show();
      	$('#personalInfo_canadaPost_addressSearch_instructions').hide();
@@ -2209,7 +2237,13 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             $(refs.suiteunit).val(currAddrModel.get('scannedSuitunit'));
             $(refs.addressline1).val(removeAccents(currAddrModel.get('scannedStrtNoAndName')));
             $(refs.addressline2).val(currAddrModel.get('scannedAddressline2'));
-            $(refs.city).val(currAddrModel.get('scannedCity'));
+            // VZE-268
+            if(currAddrModel.get('scannedCity').toUpperCase().length > 24){
+            	invokeAbbreviateCityname(currAddrModel.get('scannedCity').toUpperCase(), currAddrModel.get('scannedProvince'), abbreviateCitynameSuccess, abbreviateCitynameFail);
+            }else{
+            	$(refs.city).val(currAddrModel.get('scannedCity'));
+            }
+            
             $(refs.province).val(currAddrModel.get('scannedProvince'));
             $(refs.postalcode).val(postalCodeval);
             showHideAddressLine2Text();
@@ -2258,7 +2292,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             //$(refs.suiteunit).val("");
             //$(refs.addressline1).val(currAddrModel.get('canadaPostAddressline1'));
             $(refs.addressline2).val("");
-            $(refs.city).val(currAddrModel.get('canadaPostCity'));
+            // VZE-268
+            if(currAddrModel.get('canadaPostCity').toUpperCase().length > 24){
+            	invokeAbbreviateCityname(currAddrModel.get('canadaPostCicanadaPostProvincety').toUpperCase(), currAddrModel.get('canadaPostProvince'), abbreviateCitynameSuccess, abbreviateCitynameFail);
+            }else{
+            	$(refs.city).val(currAddrModel.get('canadaPostCity'));
+            }
             $(refs.province).val(currAddrModel.get('canadaPostProvince'));
             $(refs.postalcode).val(postalCodeval);
         }
@@ -2704,8 +2743,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 }
                 if(!validator.city($(refs.city).val().toUpperCase())) {
                 	if($(refs.city).val()!=''){
+                		// VZE-268
+                		$('#personalInfomation_infomation_cityName').show();
                 		showAddressFieldsError();
                      }
+                }else{
+                	$('#personalInfomation_infomation_cityName').hide();
                 }
                 
                 if(!validator.postalCode($(refs.postalcode).val().toUpperCase())) {
@@ -2742,6 +2785,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 }
                 if(!validator.city($(refs.city_prev).val().toUpperCase())) {
                 	if($(refs.city_prev).val()!=''){
+                		personalInfomation_infomation_Pre_cityName
                 		showPrevAddressFieldsError();
                      }
                 }

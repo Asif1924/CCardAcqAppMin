@@ -162,7 +162,13 @@
 		<div id="supAddressPanel" >
 		<div class="row">
             <div class="column_two elementWithBoldFont">
-                <span data-translationKey="personalData_current_Mailing_address" class="currentMailingAddress"></span>
+               <!-- VZE-265 -->
+               <p class="bold fontSize30 currentMailingAddress"><span id="i_icon_sup_card" data-translationKey="personalData_current_Mailing_address"></span>
+			 		<span>
+						<a class="tooltip personalInfomation_i_icon" id="suppCard_infomation_cityName">
+             				<span class="tooltipCityNametext" data-translationKey="personalData_cityNameLongerThen24CharError_msg"></span>
+                		</a>
+             </span><br> 
             </div>
         </div>
         

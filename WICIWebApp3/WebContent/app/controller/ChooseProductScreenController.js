@@ -118,7 +118,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // testing
         isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
         app.setAddressLine2Flag(translator.translateKey("addressLine2Flag"));
-        console.log(logPrefix + sMethod + " AddressLine2Flag :: " + app.getAddressLine2Flag());
+		app.setNewStylePrintFlag(translator.translateKey("newStylePrintFlag"));
+        console.log(logPrefix + sMethod + " AddressLine2Flag :: " + app.getAddressLine2Flag()
+										+ " NewStylePrintFlag :: " + app.getNewStylePrintFlag());
         
         var retailNetwork = loginModel.get('retailNetWork');
         var employerID = loginModel.get('employerID').toUpperCase();

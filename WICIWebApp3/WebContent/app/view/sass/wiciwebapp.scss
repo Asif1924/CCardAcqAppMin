@@ -366,6 +366,11 @@ border: 0px;
   width: 5%;
   padding: 5px;
 }
+.column{
+  float: left;
+  width: auto;
+  padding: 5px;
+}
 .column_two {
   float: left;
   width: 90%;
@@ -5059,6 +5064,16 @@ padding-top:5px;
 	background-size: 95%;
 }
 
+/* VZE-265 */
+.personalInfomation_i_icon{
+    background-image: #{inline_image("icon_i.png")};
+    height: 30px;
+    width: 100%;
+    max-width: 30px;
+    background-repeat: no-repeat;
+    background-size: 95%;
+}
+
 .margintopbottomleft {
 	margin-top: -10px;
     margin-bottom: -8px;
@@ -5114,6 +5129,46 @@ padding-top:5px;
 }
 
 .tooltip:hover .tooltipphonetext {
+  visibility: visible;
+}
+
+.tooltip .tooltipCityNametext {
+    visibility: hidden;
+    width: 280px;
+    height: 160px;
+    background-color: gray;
+    color: #fff;
+    text-align: l;
+    text-align: center;
+    border-radius: 0px;
+    padding: 20px;
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    margin-top: 20;
+    padding-top: 20;
+    left: -94px;
+    margin-left: -43px;
+    text-shadow: 0 0 black;
+    font-style: normal;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+.tooltip .tooltipCityNametext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -20px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent gray transparent;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.tooltip:hover .tooltipCityNametext {
   visibility: visible;
 }
       

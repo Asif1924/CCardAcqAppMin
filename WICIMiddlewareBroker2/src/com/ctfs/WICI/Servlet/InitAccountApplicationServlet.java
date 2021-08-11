@@ -150,27 +150,13 @@ public class InitAccountApplicationServlet extends WICIServlet
 		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
 		
 		AccountApplicationRequestType aaObject = new AccountApplicationRequestTypeConverter().createAccountApplicationRequestFromCreditCardApplicationData(incomingCreditCardApplicationData,tabSerialNum,authfieldCheckEnable);
-		// VZE-235 Reverted - Start
-		//AccountApplicationContactInfo aaContactInfo = new AccountApplicationRequestTypeConverter().createAccountApplicationContactInfo(incomingCreditCardApplicationData);
-		// End
+		AccountApplicationContactInfo aaContactInfo = new AccountApplicationRequestTypeConverter().createAccountApplicationContactInfo(incomingCreditCardApplicationData);
 		
 		String requestData = incomingCreditCardApplicationData.getSOAPRequestBodyString(aaObject);
 		String transactionID = aaObject.getExternalReferenceId();
 		String consentGranted = aaObject.getEnstreamConsent();
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
-		String currentTelephone = aaObject.getCurrentTelephoneNumber();
-		// VZE-235 Reverted - Start
-		/*
-		String currentTelephone = "";
-		if(aaContactInfo.getPrimaryMobile_CheckField().equalsIgnoreCase("Y") && aaContactInfo.getSecondaryLandline_CheckField().equalsIgnoreCase("Y")) {
-			currentTelephone = aaObject.getCurrentCellPhoneNumber();
-		} else if(aaContactInfo.getPrimaryMobile_CheckField().equalsIgnoreCase("Y") && aaContactInfo.getSecondaryMobile_CheckField().equalsIgnoreCase("Y")) {
-			currentTelephone = aaObject.getCurrentCellPhoneNumber();
-		} else {
-			currentTelephone = aaObject.getCurrentTelephoneNumber();
-		}
-		*/
-		// End
+		String currentTelephone = aaContactInfo.getPrimaryPhone();
 		
 		try
 		{

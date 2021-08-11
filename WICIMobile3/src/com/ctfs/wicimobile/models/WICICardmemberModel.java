@@ -37,6 +37,7 @@ public class WICICardmemberModel {
 	private String _adrprovince;
 	private String _adrpostalcode;
 	private String _retailNetwork;
+	private Boolean _performStoreRecallPrint;
 		
 	public WICICardmemberModel(){
         _cardType = "";
@@ -55,11 +56,9 @@ public class WICICardmemberModel {
         _correspondenceLanguage = "";
         _creditProtectorYesNo = "N";
         _identityWatchYesNo = "N";
-        
         _todayDate = "";
     	_storeNumber = "";
     	_employeeId = "";
-    	
     	_adrsuiteunit = "";
     	_adrstreetnumber = "";
     	_adraddressline1 = "";
@@ -67,6 +66,7 @@ public class WICICardmemberModel {
     	_adrprovince = "";
     	_adrpostalcode = "";
     	_retailNetwork = "";
+    	_performStoreRecallPrint = false;
     }   
     
     public void initializeModel(JSONArray source) {
@@ -99,6 +99,8 @@ public class WICICardmemberModel {
             _adrprovince = source.getString(23);
             _adrpostalcode = source.getString(24);
             _retailNetwork = source.getString(25);
+            _performStoreRecallPrint = source.getString(26).equalsIgnoreCase("Y");
+            Log.i("WICICardmemberModel", "_performStoreRecallPrint : " + _performStoreRecallPrint + source.getString(26) );
         } catch (JSONException e) {            
             e.printStackTrace();
         }
@@ -416,5 +418,13 @@ public class WICICardmemberModel {
 
 	public void setRetailNetwork(String _retailNetwork) {
 		this._retailNetwork = _retailNetwork;
+	}
+
+	public Boolean getPerformStoreRecallPrint() {
+		return _performStoreRecallPrint;
+	}
+
+	public void setPerformStoreRecallPrint(Boolean _performStoreRecallPrint) {
+		this._performStoreRecallPrint = _performStoreRecallPrint;
 	}
 }

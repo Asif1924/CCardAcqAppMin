@@ -67,7 +67,8 @@ export default function Header() {
   const [ecomm, setEcomm] = React.useState(false);
   const [oic, setOic] = React.useState(false);
   const [oicdev, setOicdev] = React.useState(false);
-  const [oicpreprod, setOicpreprod] = React.useState(false);
+  const [oicajpreprod, setOicajpreprod] = React.useState(false);
+  const [oicwdcpreprod, setOicwdcpreprod] = React.useState(false);
   const [oicprod, setOicprod] = React.useState(false);
   const [completed, setCompleted] = React.useState(0);
   const [buffer, setBuffer] = React.useState(10);
@@ -121,10 +122,15 @@ export default function Header() {
   function handleOICDevClick() {
 	setOicdev(!oicdev);
   }
-
-  function handleOICPreProdClick() {
-	setOicpreprod(!oicpreprod);
+  
+  function handleOICAJPreProdClick() {
+	 setOicajpreprod(!oicajpreprod);
   }
+  
+  function handleOICWDCPreProdClick() {
+	setOicwdcpreprod(!oicwdcpreprod);
+  }
+  
   function handleOICProdClick() {
 	setOicprod(!oicprod);
   }
@@ -237,41 +243,77 @@ export default function Header() {
 							</ListItem>		          
 							</List>
 						</Collapse>		
-						<ListItem button className={classes.nestedSpacingEight} onClick={handleOICPreProdClick}>
+						
+					<ListItem button className={classes.nestedSpacingEight} onClick={handleOICAJPreProdClick}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<ListItemText primary="PREPROD (AJ)" />
+						{oicajpreprod ? <ExpandLess /> : <ExpandMore />}
+					</ListItem>
+					<Collapse in={oicajpreprod} timeout="auto" unmountOnExit>
+					<List component="div" disablePadding>
+						<ListItem button className={classes.nestedSpacingTwelve}>
 							<ListItemIcon>
 							<StarBorder />
 							</ListItemIcon>
-							<ListItemText primary="PREPROD" />
-							{oicpreprod ? <ExpandLess /> : <ExpandMore />}
+							<a target="_blank" href="https://aj-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMX">PreProd (AJ) OMX</a>													
 						</ListItem>
-						<Collapse in={oicpreprod} timeout="auto" unmountOnExit>
-						<List component="div" disablePadding>
-							<ListItem button className={classes.nestedSpacingTwelve}>
-								<ListItemIcon>
-								<StarBorder />
-								</ListItemIcon>
-								<a target="_blank" href="https://qa-mastercard.cantire.net/content/dsa/en.html?cardType=OMX">PreProd OMX</a>													
-							</ListItem>
-							<ListItem button className={classes.nestedSpacingTwelve}>
-								<ListItemIcon>
-								<StarBorder />
-								</ListItemIcon>
-								<a target="_blank" href="https://qa-mastercard.cantire.net/content/dsa/en.html?cardType=OMZ">PreProd OMZ</a>								
-							</ListItem>
-							<ListItem button className={classes.nestedSpacingTwelve}>
-								<ListItemIcon>
-								<StarBorder />
-								</ListItemIcon>
-								<a target="_blank" href="https://qa-mastercard.cantire.net/content/dsa/en.html?cardType=OMP">PreProd OMP</a>								
-							</ListItem>
-							<ListItem button className={classes.nestedSpacingTwelve}>
-								<ListItemIcon>
-								<StarBorder />
-								</ListItemIcon>
-								<a target="_blank" href="https://qa-mastercard.cantire.net/content/dsa/en.html?cardType=OMR">PreProd OMR</a>
-							</ListItem>		          
-							</List>
-						</Collapse>		
+						<ListItem button className={classes.nestedSpacingTwelve}>
+							<ListItemIcon>
+							<StarBorder />
+							</ListItemIcon>
+							<a target="_blank" href="https://aj-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMZ">PreProd (AJ) OMZ</a>								
+						</ListItem>
+						<ListItem button className={classes.nestedSpacingTwelve}>
+							<ListItemIcon>
+							<StarBorder />
+							</ListItemIcon>
+							<a target="_blank" href="https://aj-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMP">PreProd (AJ) OMP</a>								
+						</ListItem>
+						<ListItem button className={classes.nestedSpacingTwelve}>
+							<ListItemIcon>
+							<StarBorder />
+							</ListItemIcon>
+							<a target="_blank" href="https://aj-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMR">PreProd (AJ) OMR</a>
+						</ListItem>		          
+						</List>
+					</Collapse>	
+					<ListItem button className={classes.nestedSpacingEight} onClick={handleOICWDCPreProdClick}>
+					<ListItemIcon>
+					<StarBorder />
+					</ListItemIcon>
+					<ListItemText primary="PREPROD (WDC)" />
+					{oicwdcpreprod ? <ExpandLess /> : <ExpandMore />}
+				</ListItem>
+				<Collapse in={oicwdcpreprod} timeout="auto" unmountOnExit>
+				<List component="div" disablePadding>
+					<ListItem button className={classes.nestedSpacingTwelve}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<a target="_blank" href="https://wdc-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMX">PreProd (WDC) OMX</a>													
+					</ListItem>
+					<ListItem button className={classes.nestedSpacingTwelve}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<a target="_blank" href="https://wdc-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMZ">PreProd (WDC) OMZ</a>								
+					</ListItem>
+					<ListItem button className={classes.nestedSpacingTwelve}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<a target="_blank" href="https://wdc-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMP">PreProd (WDC) OMP</a>								
+					</ListItem>
+					<ListItem button className={classes.nestedSpacingTwelve}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<a target="_blank" href="https://wdc-qa-mastercard.triangle.com/content/dsa/en.html?cardType=OMR">PreProd (WDC) OMR</a>
+					</ListItem>		          
+					</List>
+				</Collapse>
 						<ListItem button className={classes.nestedSpacingEight} onClick={handleOICProdClick}>
 							<ListItemIcon>
 							<StarBorder />
@@ -327,13 +369,13 @@ export default function Header() {
 							<ListItemIcon>
 							<StarBorder />
 							</ListItemIcon>
-							<a target="_blank" href="http://dev8.ctal.ctc/WICISimulatorDev/index.html">DEVELOPMENT</a>					
+							<a target="_blank" href="http://szdev9.ctal.ctc/WICISimulatorDev/index.html">DEVELOPMENT</a>					
 						</ListItem>
 						<ListItem button className={classes.nested}>
 							<ListItemIcon>
 							<StarBorder />
 							</ListItemIcon>
-							<a target="_blank" href="http://dev8.ctal.ctc/WICISimulatorPreprod/index.html">PREPROD</a>
+							<a target="_blank" href="http://szdev9.ctal.ctc/WICISimulatorPreprod/index.html">PREPROD</a>
 						</ListItem>							          
 					</List>
 				</Collapse>	        	    			  			  

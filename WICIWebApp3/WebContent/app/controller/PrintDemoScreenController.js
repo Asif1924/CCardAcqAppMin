@@ -229,7 +229,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         if (app.zebraPrinterWrapper.verifyPrinterMacAddress ()){
         	console.log(logPrefix + sMethod + ":: PrinterMACAddress is good");
         	//If we have the printer, lets check the status as well.
-        	app.zebraPrinterWrapper.getPrinterStatus(precheckPrinterStatusSuccess, precheckPrinterStatusFailure);
+        	//app.zebraPrinterWrapper.getPrinterStatus(precheckPrinterStatusSuccess, precheckPrinterStatusFailure);
         	
             printFile();
         }
@@ -563,6 +563,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
                 
                 app.zebraPrinterWrapper.printFileBottom(
+					translator,
                     activationItems,
                     applicationResponseData,
                     printFileBottomSuccess,
@@ -635,6 +636,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 
                 // US5240
                 app.zebraPrinterWrapper.printFileBottom(
+					translator, 
                     activationItems,
                     applicationResponseData,
                     rePrintFileBottomSuccess,
@@ -809,6 +811,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         	}
         	
         	app.zebraPrinterWrapper.printFile(
+					translator,
                     activationItems,
                     applicationResponseData,
                     printFileSuccess,
@@ -954,6 +957,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     	}
     	
         app.zebraPrinterWrapper.printFile(
+				translator,
                 activationItems,
                 applicationResponseData,
                 rePrintFileSuccess,
@@ -1272,7 +1276,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 }
 // US4282 Ends
     
-    function precheckPrinterStatusSuccess(result) {
+    /*function precheckPrinterStatusSuccess(result) {
     	 var sMethod = 'precheckPrinterStatusSuccess() ';
          console.log(logPrefix + sMethod + " Result:" + result);
          preprintPrinterStatus = result;
@@ -1284,5 +1288,5 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         console.log(logPrefix + sMethod + " Likely exception is :" + result);
         preprintPrinterStatus = result;
-   }
+   }*/
 };

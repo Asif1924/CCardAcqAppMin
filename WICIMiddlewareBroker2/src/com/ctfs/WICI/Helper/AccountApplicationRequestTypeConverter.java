@@ -674,8 +674,34 @@ public class AccountApplicationRequestTypeConverter
 			model = argCreditCardData.getModel(MODEL_CONTACTINFO_SCREEN);
 			if (model != null)
 			{
-				argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
-				argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
+				if(model.get("primaryLandline_CheckField").equalsIgnoreCase("Y") && model.get("secondaryLandline_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
+				} else if(model.get("primaryMobile_CheckField").equalsIgnoreCase("Y") && model.get("secondaryMobile_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("cellPhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("homePhone"));
+				} else if(model.get("primaryLandline_CheckField").equalsIgnoreCase("Y") && model.get("secondaryMobile_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
+				} else if(model.get("primaryMobile_CheckField").equalsIgnoreCase("Y") && model.get("secondaryLandline_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("cellPhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("homePhone"));
+				} else if(model.get("primaryMobile_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("homePhone"));
+				} else if(model.get("primaryLandline_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber("");
+				} else if(model.get("secondaryMobile_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("cellPhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
+				} else if(model.get("secondaryLandline_CheckField").equalsIgnoreCase("Y")) {
+					argAccAppRequest.setCurrentTelephoneNumber(model.get("cellPhone"));
+					argAccAppRequest.setCurrentCellPhoneNumber("");
+				}
+				
+				//argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
+				//argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				argAccAppRequest.setCurrentEmailAddress(model.get("email"));
 				argAccAppRequest.setEmailConsentFlag(model.get("receiveEmail"));
 				argAccAppRequest.setEstmt_consent((model.get("estmt_consent")));
@@ -688,7 +714,7 @@ public class AccountApplicationRequestTypeConverter
 		}
 	}
 	
-	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationContactInfo argAccAppRequest)
+	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationContactInfo argAccAppContactInfo)
 	{
 		String sMethod = "[populateEmailInfoModel()]";
 		log.info(sMethod);
@@ -699,10 +725,11 @@ public class AccountApplicationRequestTypeConverter
 			model = argCreditCardData.getModel(MODEL_CONTACTINFO_SCREEN);
 			if (model != null)
 			{
-				argAccAppRequest.setPrimaryMobile_CheckField(model.get("primaryMobile_CheckField"));
-				argAccAppRequest.setPrimaryLandline_CheckField(model.get("primaryLandline_CheckField"));
-				argAccAppRequest.setSecondaryMobile_CheckField(model.get("secondaryMobile_CheckField"));
-				argAccAppRequest.setSecondaryLandline_CheckField(model.get("secondaryLandline_CheckField"));
+				argAccAppContactInfo.setPrimaryPhone(model.get("homePhone"));
+				argAccAppContactInfo.setPrimaryMobile_CheckField(model.get("primaryMobile_CheckField"));
+				argAccAppContactInfo.setPrimaryLandline_CheckField(model.get("primaryLandline_CheckField"));
+				argAccAppContactInfo.setSecondaryMobile_CheckField(model.get("secondaryMobile_CheckField"));
+				argAccAppContactInfo.setSecondaryLandline_CheckField(model.get("secondaryLandline_CheckField"));
 			}
 		}
 		catch (Exception e)

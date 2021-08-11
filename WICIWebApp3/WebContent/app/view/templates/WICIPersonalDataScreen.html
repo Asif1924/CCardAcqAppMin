@@ -214,8 +214,17 @@
 		//-->
 
 		<div class="row">
-            <div class="column_two elementWithBoldFont">
-                <span data-translationKey="personalData_current_Mailing_address" class="currentMailingAddress"></span>
+            <div class="column elementWithBoldFont">
+              <!-- VZE-265 -->
+               <span id="i_icon_current_mailling_address" class="bold fontSize30 currentMailingAddress" data-translationKey="personalData_current_Mailing_address"></span>
+            </div>
+            <div class="column_one">
+        
+                <span>
+						<a class="tooltip personalInfomation_i_icon" id="personalInfomation_infomation_cityName">
+             				<span class="tooltipCityNametext" data-translationKey="personalData_cityNameLongerThen24CharError_msg"></span>
+                		</a>
+               </span><br>
             </div>
         </div>
         
@@ -525,16 +534,27 @@
 
 	<!-- US3623 Start -->
 	<div id='personalData_PreviousAddressDetailsArea' >
-
-		<center>
-			<span class="pageSubTitle" data-translationKey="personalData_PreviousAddress_Title"></span>
-			<br>
-			<span class="pageSubTitle" data-translationKey="personalData_PreviousAddress_Description"></span>
-		</center>
+	
+            <div class="row">
+              <div class="column elementWithBoldFont">
+                <!-- VZE-265 -->
+                   <span class="pageSubTitle fontSize30" data-translationKey="personalData_PreviousAddress_Title"></span> 
+              </div>
+              <div class="column_one">
+                <span>
+						<a class="tooltip personalInfomation_i_icon" id="personalInfomation_infomation_Pre_cityName">
+             				<span class="tooltipCityNametext" data-translationKey="personalData_cityNameLongerThen24CharError_msg"></span>
+                		</a>
+                </span><br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <span class="pageSubTitle fontSize30" data-translationKey="personalData_PreviousAddress_Description"></span>
+            </div>  
+          </div>
 		<br>
 		
-		
-        
         <div class="row">
              <div class="column_one">
                  <center>
