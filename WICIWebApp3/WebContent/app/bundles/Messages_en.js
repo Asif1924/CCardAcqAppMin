@@ -8,7 +8,7 @@ WICI.dictionary_en =  {
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
 	newStylePrintFlag	                                :   "N",
-	storeRecallPrintStores								:	"{\"stores\":[\"6029\",\"6323\",\"4401\",\"5141\",\"861\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\"]}",
+	storeRecallPrintStores								:	"{\"stores\":[\"122\",\"412\",\"143\",\"424\",\"429\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\",\"861\",\"6029\",\"4401\",\"5141\",\"815\",\"6323\",\"6529\",\"6030\",\"6239\",\"6097\",\"6041\",\"6351\",\"6381\",\"6521\",\"6530\",\"4241\",\"4284\",\"4465\",\"4285\",\"4398\"]}",
 
 	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
 	accents_out											:	"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
@@ -18,7 +18,7 @@ WICI.dictionary_en =  {
 	backButtonPrompt_title 								: 	"Exit Application",
 
 	connectionError_unableToConnect 					: 	"Unable to connect to backend server. Please try again in a few minutes.",
-	connectionError_networkDown 						: 	"Your data connection has been lost. If you’re connecting by WIFI, please try the \‘Re-establish WIFI Connection\’ option. If you are on a mobile data, please ensure a proper wireless connection exists.",
+	connectionError_networkDown 						: 	"Your connection has been lost. To re-connect, check the \“Alternate Process for re-connection to Wifi\” included in the Triangle Instant Credit Guide.",
 
 	confirmDialog_defaultTitle 							: 	"Confirm",
 	confirmDialog_yes 									: 	"Yes",

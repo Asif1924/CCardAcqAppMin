@@ -257,11 +257,11 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		            			return;
 		            		}
 		    				if($(item).attr('chooseProductMenuItem') && $(item).attr('chooseProductMenuItem') === 'false') {
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, null, printerSetupClick, testPrintClick, retrieveClick, toggleLanguageClick, manageRepsClick);
 		    				} else if($(item).attr('printScreenMenuItem') && $(item).attr('printScreenMenuItem') === 'false') {
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), printLogOutClick, printChooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), printLogOutClick, printChooseProductClick, printerSetupClick, testPrintClick, retrieveClick, toggleLanguageClick, manageRepsClick);
 		    				} else {
-		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, reEstablishWifiClick, toggleLanguageClick, manageRepsClick);
+		    					messageDialog.settings(app.accountProfileHelper.isAdminProfile(), app.accountProfileHelper.isAdminRole(), logOutClick, chooseProductClick, printerSetupClick, testPrintClick, retrieveClick, toggleLanguageClick, manageRepsClick);
 		    				}	
 		    	        });
 		            }
@@ -439,19 +439,6 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
         	return;
         }
 		
-	}
-	
-	function reEstablishWifiClick() {
-		var deferred = WICI.WIFIHelper.createWICINetwork();
-		deferred.done(function() {
-			console.log('WIFIHelper.createWICINetwork success');
-			messageDialog.info(translate.translateKey('settings_reEstablishWifiSuccess'), translate.translateKey("infoDialog_defaultTitle"));
-
-		});
-		deferred.fail(function(msg) {
-			console.log('WIFIHelper.createWICINetwork fail: ' + msg);
-			messageDialog.error(translate.translateKey('settings_reEstablishWifiFailure'), translate.translateKey("errorDialog_defaultTitle"));
-		});
 	}
 	
 	function manageRepsClick() {

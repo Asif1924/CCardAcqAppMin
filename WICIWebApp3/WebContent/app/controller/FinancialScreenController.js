@@ -256,7 +256,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         createView();
         bindEvents();
-
+        alignI_icon();
         var currentModel = activationItems.getModel(model.name);
 
         if (!currentModel) {
@@ -676,6 +676,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         assemblePageHTML($screenContainer, "#WICIFinancialScreen-template");
         assembleNavigationBarAtBottom();
         $screenContainer.addClass("breadcrumbPadding");
+        $('#financialScreen_infomation_phone').hide();
     }
 
     // ---------------------------------------------------------------------------------------
@@ -910,12 +911,14 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             $(refs.employmentType).val(model.get("employmentType"));           
             populateEmplTypes(true);
             $(refs.employmentType).val(model.get("employmentType"));
+            alignI_icon();
         });
 
         $.subscribe('translatorFinished', function() {
             console.log(refs.jobCategory + 'subscribe(translatorFinished)');
             populateJobCategories();
             $(refs.jobCategory).val(model.get("jobCategory"));
+            alignI_icon();
         });
 
         $(refs.employmentType).on("change", function() {
@@ -925,12 +928,24 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             model.set('jobCategory', null);
             model.set('jobTitle', null);
             model.set('jobTitle_temp', null);
+            $('#financialScreen_infomation_phone').hide();
             updateEmploymentType(true);
         });
 
 
 
     }
+    
+ // ---------------------------------------------------------------------------------------
+	function alignI_icon() {
+		if(app.translator.getCurrentLanguage() === "en") {
+        	$('#financialScreen_infomation_phone').addClass('financial_info_i_en');
+        	$('#financialScreen_infomation_phone').removeClass('financial_info_i_fr');
+        } else {
+        	$('#financialScreen_infomation_phone').removeClass('financial_info_i_en');
+        	$('#financialScreen_infomation_phone').addClass('financial_info_i_fr');
+        }
+	}
     // ---------------------------------------------------------------------------------------
 
     function showPrevScreen() {
@@ -954,13 +969,15 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             let rezPhone = [];
             var employmentType = model.get('employmentType');
             let employeePhone = model.get('employerPhone');
-            let employeePhoneValidate = new RegExp(/^[0-9]{10}$/).test(employeePhone);
-            if($(refs.employerPhone).val() !== "" || $(refs.employerPhone).val() !== ''){
-            	if(!employeePhoneValidate){
-                	rezPhone.push(refs.employerPhone);
-                	$(refs.employerPhone).addClass('errorField');
-                	app.validationDecorator.focusControl(refs.employerPhone);
-                }
+            // VZE-286 : New phone number field validation 
+            var employeePhoneValidate = app.validationDecorator.phoneValidation($(refs.employerPhone).val() , refs.employerPhone, true );
+            if(!employeePhoneValidate){
+            	rezPhone.push(refs.employerPhone);
+            	$(refs.employerPhone).addClass('errorField');
+            	app.validationDecorator.focusControl(refs.employerPhone);
+            	$('#financialScreen_infomation_phone').show();
+            }else{
+            	$('#financialScreen_infomation_phone').hide();
             }
             
             // group 2 validation only

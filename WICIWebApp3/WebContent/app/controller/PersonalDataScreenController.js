@@ -2596,7 +2596,21 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // US4112
             // Id validation start here
             valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers);
-            
+            if(IDScan){
+            	// VZE-273 
+            	$.each(models.personalDataModel.data, function(index, item) {
+          			if(item.name == "lastName") {
+          				item.validation.type = 'personName';
+          			}
+          		});
+            }else{
+            	// VZE-273 
+            	$.each(models.personalDataModel.data, function(index, item) {
+          			if(item.name == "lastName") {
+          				item.validation.type = 'personLastName';
+          			}
+          		});
+            }
             if(showQCHealthCard){
             	var currentDate = new Date();
             	var currentMonth = currentDate.getMonth();

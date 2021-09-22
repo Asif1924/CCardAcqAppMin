@@ -117,7 +117,6 @@ public class AccountApplicationHelper
 
 		return webIcMQRespVO;
 	}
-
 	
 	private AccountApplicationResponseType setWebICAccountApplicationResponseforSS(WebIcMQRespVO webIcMQRespVO) {
 		

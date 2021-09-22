@@ -5064,6 +5064,15 @@ padding-top:5px;
 	background-size: 95%;
 }
 
+// VZE-286 
+.financialInfomation_i_icon{
+    background-image: #{inline_image("icon_i.png")};
+    height: 25px;
+    width: 100%;
+    max-width: 25px;
+    background-repeat: no-repeat;
+    background-size: 95%;
+}
 /* VZE-265 */
 .personalInfomation_i_icon{
     background-image: #{inline_image("icon_i.png")};
@@ -5093,6 +5102,15 @@ padding-top:5px;
 #i_icon{
   float:left;
 
+}
+
+.financial_info_i_en{
+    margin-left: 20px;
+    display: inline-block;
+}
+.financial_info_i_fr{
+    margin-left: 60px;
+    display: inline-block;
 }
 
 .tooltip .tooltipphonetext {
@@ -5129,6 +5147,44 @@ padding-top:5px;
 }
 
 .tooltip:hover .tooltipphonetext {
+  visibility: visible;
+}
+
+.tooltip .tooltipphonetextFinSuppPage {
+  visibility: hidden;
+  width: 200px;
+  height: 80px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 0px;
+  padding:20px;
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  left: -25px;
+  margin-left: -80px;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.tooltip .tooltipphonetextFinSuppPage::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -25px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent gray transparent;
+  text-shadow: 0 0 black;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.tooltip:hover .tooltipphonetextFinSuppPage {
   visibility: visible;
 }
 

@@ -200,15 +200,14 @@ WICI.MessageDialog = function(translate){
 		dialogQueue.enqueue(dialog);
 	}
 
-	function settings(isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback, manageRepsCallback,  
-						title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, manageRepsButton, chancelButton) {
+	function settings(isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, toggleLanguageCallback, manageRepsCallback,  
+						title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, toggleLanguageButton, manageRepsButton, chancelButton) {
 		var dialog = new WICI.SettingsDialog(translate, isAdminProfile, isAdminRole,
 		        buildCallback(logOutCallback),
 				buildCallback(chooseProductCallback),
 				buildCallback(printerSetupCallback),
 				buildCallback(testPrintCallback),
 				buildCallback(retrieveCallback),
-				buildCallback(reEstablishWifiCallback),
 				buildCallback(toggleLanguageCallback),
 				buildCallback(manageRepsCallback),
 				buildTitle(title, "settings"),
@@ -217,7 +216,6 @@ WICI.MessageDialog = function(translate){
 				buildButton(printerSetupButton, "settings_printerSetupButton"),
 				buildButton(testPrintButton, "settings_testPrintButton"),
 				buildButton(retrieveButton, "settings_retrieveButton"),
-				buildButton(reEstablishWifiButton, "settings_reEstablishWifiButton"),
 				buildButton(toggleLanguageButton, ""),
 				buildButton(manageRepsButton, "settings_manageRepsButton"),
 				buildButton(chancelButton, "cancel")

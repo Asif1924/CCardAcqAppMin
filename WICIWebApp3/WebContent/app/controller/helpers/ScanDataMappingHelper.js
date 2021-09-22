@@ -542,15 +542,25 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
             pModel.firstName = cleanFinalString(arrGivenNames[0]);
             // Assume middlename was not present as well
             // But check to make sure one was split out on the above attempt
+            var provinceValue  = provinceCodeLookupMap[pModel.idProvince];
             if (arrGivenNames.length > 1) {
-                pModel.middleName = cleanFinalString(arrGivenNames[1]);
+            	if(provinceValue == 'NL' && cleanFinalString(arrGivenNames[1]) == 'NONE'){
+            		 pModel.middleName = '';
+            	}else{
+            		 pModel.middleName = cleanFinalString(arrGivenNames[1]);
+            	}
             }
             else {
                 pModel.middleName = '';
             }
         }
         if (pModel.middleName !== '') {
-            pModel.middleName_Initial = cleanFinalString(pModel.middleName.substr(0, 1));
+        	var provinceValue  = provinceCodeLookupMap[pModel.idProvince];
+        	if(provinceValue == 'NL' && cleanFinalString(pModel.middleName) == 'NONE'){
+       		   pModel.middleName = '';
+       	    }else{
+       	    	pModel.middleName_Initial = cleanFinalString(pModel.middleName.substr(0, 1));
+       	    }
         }
 
         tmpAdd1 = pModel.addressLine1;
@@ -667,7 +677,6 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
 
         // idProvince finishing - get desirted value from object map
         pModel.idProvince = provinceCodeLookupMap[pModel.idProvince];
-
         // Change ID Type from AAMVA Standard to WICI Standard
         pModel.idType = idTypeLookupMap[pModel.idType];
 
@@ -755,9 +764,17 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         pModel.lastName = cleanFinalString(lastName);
         // First name
         pModel.firstName = cleanFinalString(firstName);
+        // Province
+        pModel.idProvince = provinceCodeLookupMap[provinceCode];
+        var idProvinceNew = cleanFinalString(idProvince);
+        var middnleNAMENew = cleanFinalString(middleName);
         // Middle name
         if (middleName != '') {
-            pModel.middleName_Initial = cleanFinalString(middleName);
+        	if(cleanFinalString(idProvince) == 'NL' && cleanFinalString(middleName) == 'NONE'){
+        		   pModel.middleName = '';
+        	    }else{
+        	    	pModel.middleName_Initial = cleanFinalString(middleName);
+        	}
         }
 
         // Address Finishing
@@ -777,8 +794,7 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         pModel.addressLine1 = cleanFinalString(houseNumberandStreet);
         // Postal code
         pModel.addressPostal = cleanFinalString(postalCode.replace(' ', ''));
-        // Province
-        pModel.idProvince = provinceCodeLookupMap[provinceCode];
+        
         pModel.addressProvince = province;
         // IdNumber
         pModel.idNumber = idNumberVal;        

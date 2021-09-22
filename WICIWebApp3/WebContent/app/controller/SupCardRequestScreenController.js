@@ -70,7 +70,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		data : [ { name : 'cardYesNo', 		value : null, validation : null },
 				 { name : 'cardRequestFor', value : null, validation : { type : 'presence', message : '', group : [ 1 ] } },
 				 { name : 'firstName', 		value : null, validation : { type : 'personName', message : '', group : [ 1 ] } },
-				 { name : 'lastName', 		value : null, validation : { type : 'personName', message : '', group : [ 1 ] } },
+				 { name : 'lastName', 		value : null, validation : { type : 'personLastName', message : '', group : [ 1 ] } },
 				 { name : 'initial', 		value : null, validation : { type : 'format', message : '', matcher : /^[A-Z]{1}/, group : [ 1 ], canBeEmpty : true } },
 				 { name : 'birthDate', 		value : null, validation : { type : 'birthDate', message : '', group : [ 1 ] } },
 				 { name : 'phone', 			value : null, validation : { type : 'phone', message : 'Enter valid Phone', group : [ 1 ] } },
@@ -787,16 +787,6 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		syncUserData();
 
 		// US5123 WICI - Restrict Supp Card applicants to 16 and older
-		var SupMobile = app.validationDecorator.phoneValidation($(refs.phone).val() , refs.phone );
-	    if(!SupMobile){
-	    	$('#sup_infomation_phone').show();
-	    	return;
-	    	
-	    }else{
-	    	$('#sup_infomation_phone').hide();
-	    	
-	    }
-		
         var age = model.calculateAge(model);
         var rezAge =[];
         console.log(logPrefix + sMethod + "Age :: " + age);
@@ -821,9 +811,19 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 			var rez = [];
 			var rez1 = [];
 			var rez2 = [];
+			// VZE-286
+			var temprez = [];
 
 			if (model.get('cardYesNo') == 'Y') {
 				rez1 = model.validate(1);
+				var supMobile = app.validationDecorator.phoneValidation($(refs.phone).val() , refs.phone,false );
+				if ($(refs.phone).val() === '') {
+					$('#sup_infomation_phone').show();
+					temprez.push(refs.phone);
+	            	$(refs.phone).addClass('errorField');
+	            	app.validationDecorator.focusControl(refs.phone);
+					supMobile = false;
+	            }
 				if (model.get('sameAddressYesNo') == 'N') {
 					rez2 = model.validate(2);
 					//custom validation for Canada Post address
@@ -878,6 +878,17 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 					app.validationDecorator.applyErrAttribute(rez);
 					return;
 				}
+				if (temprez.length > 0) {
+					$('#sup_infomation_phone').show();
+					app.validationDecorator.applyErrAttribute(rez);
+					return;
+				}
+				if(!supMobile){
+			    	$('#sup_infomation_phone').show();
+			    	return;
+			    }else{
+			    	$('#sup_infomation_phone').hide();
+			    }
 			}
 		}
 		

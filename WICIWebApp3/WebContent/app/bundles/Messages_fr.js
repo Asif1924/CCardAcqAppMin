@@ -9,7 +9,7 @@ WICI.dictionary_fr =  {
 	printerErrorShowDialogFlag						  :							"Y",	
 	addressLine2Flag	                              :    						"Y",
 	newStylePrintFlag	                              :    						"N",
-	storeRecallPrintStores							  :							"{\"stores\":[\"6029\",\"6323\",\"4401\",\"5141\",\"861\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\"]}",
+	storeRecallPrintStores							  :							"{\"stores\":[\"122\",\"412\",\"143\",\"424\",\"429\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\",\"861\",\"6029\",\"4401\",\"5141\",\"815\",\"6323\",\"6529\",\"6030\",\"6239\",\"6097\",\"6041\",\"6351\",\"6381\",\"6521\",\"6530\",\"4241\",\"4284\",\"4465\",\"4285\",\"4398\"]}",
 	
 	accents											  :							'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
 	accents_out										  :							"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
@@ -20,7 +20,7 @@ WICI.dictionary_fr =  {
 
 
 	connectionError_unableToConnect                   :                         "Impossible de se connecter au serveur du système principal. Veuillez réessayer dans quelques minutes.",
-	connectionError_networkDown                       :                         "Connexion au réseau perdue. Veuillez essayer l’option « Rétablir la connexion WIFI » si vous connectez par WIFI. Si vous connectez par réseau mobile, assurez-vous qu’une connexion sans fil appropriée existe.",
+	connectionError_networkDown                       :                         "Vous avez perdu votre connexion. Pour rétablir la connexion, veuillez consulter le « Processus alternatif de reconnexion au réseau Wifi » dans le Guide sur le programme Crédit immédiat Triangle.",
 
 	confirmDialog_defaultTitle                        :                         "Confirmer",
 	confirmDialog_yes                                 :                         "Oui",

@@ -227,50 +227,56 @@ WICI.ValidationDecorator = function(config) {
 	};
 	
 	// ---------------------------------------------------------------------------------------
-    this.phoneValidation = function phoneValidation(value,  id){
-    	
-    	   var  phoneValidation = true; 
+    this.phoneValidation = function phoneValidation(value,id, skip7DigitValidation){
+    	  var  phoneValidation = true; 
+    	  var mobile= null;
     	    	
-    	    	 var mobile= null;
-    	    	
-    	    	 if(value != null && value){
-    	    		mobile = value.replace(/-/g, '');
-    	    		
-    	    	}else{
-    	    		return phoneValidation;
-    	    	}
-    	    	if( mobile != null && mobile.length == 10){
-    	    		
-    	    	var  sevendigits = mobile.slice(3);
-    	    	var fristPositionZero = new RegExp("^[1-9][0-9]*$").test(mobile);
-    	    	
-    	    	var digitsame = this.test_same_digit(sevendigits);
-    	    	if(!fristPositionZero || sevendigits.charAt(0)==0 || digitsame ){
-    	    		app.validationDecorator.applyNumberIdError(id);
-    	    		phoneValidation = false;
-    	    		return phoneValidation;
-    	    	};
-    	    	
-    	    	}else{
-    	    		
-    	    		
-    	    		
-    	    		var phoneLength = this.verifyPhonelength(mobile);
-    	    		
-    	    		if(!phoneLength){
-    	    			app.validationDecorator.applyNumberIdError(id);
-        	    		phoneValidation = false;
-        	    		return phoneValidation;
-    	    			
-    	    		}
-    	    		
-    	    	}
-    	    return	phoneValidation;
-    	    };
+    	  if(value != null && value){
+    	     mobile = value.replace(/-/g, '');
+    	  }else{
+    	     return phoneValidation;
+    	  }
+    	  //1) Phone Number must be 10-digits. 
+    	  if( mobile != null && mobile.length == 10){
+    		     let firstChar0 = mobile.charAt(0)== '0';
+    		     let firstChar1 = mobile.charAt(0)== '1';
+    		     let fourthChar0 = mobile.charAt(3)== '0';
+    		     let sevenDigits = mobile.slice(3);
+	    		 let sameDigit = this.test_same_digit(sevenDigits);
+		    	 if(this.test_same_digit(mobile)){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(this.isDigitDecendingSequence(mobile) || this.isDigitAscendingSequence(mobile)){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(firstChar0){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(firstChar1){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(fourthChar0){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(!skip7DigitValidation && sameDigit){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }else if(!skip7DigitValidation && (this.isDigitAscendingSequence(sevenDigits) || this.isDigitDecendingSequence(sevenDigits))){
+		    		 phoneValidation = false;
+		    		 app.validationDecorator.applyNumberIdError(id);
+		    	 }
+    	  }else{
+    		  var phoneLength = this.verifyPhonelength(mobile);
+	    	  if(!phoneLength){
+	    		 app.validationDecorator.applyNumberIdError(id);
+	    	  }
+  	    	  phoneValidation = false;
+    	  }
+    	  return phoneValidation;
+     };
     	    
-    	 // ---------------------------------------------------------------------------------------  
-	
-    	 this.test_same_digit =  function test_same_digit(num) {
+     // ---------------------------------------------------------------------------------------  
+     this.test_same_digit =  function test_same_digit(num) {
     			var first = num % 10;
     			while (num) {
     				if (num % 10 !== first)
@@ -278,17 +284,40 @@ WICI.ValidationDecorator = function(config) {
     				num = Math.floor(num / 10);
     			}
     			return true;
-    		};
-    		// ---------------------------------------------------------------------------------------
-    		
-    		
-    		 // ---------------------------------------------------------------------------------------  
-    		 this.verifyPhonelength= function(value) {
-    		       return new RegExp(/^[0-9]{10}$/).test(value);
-    		    };
-       		// ---------------------------------------------------------------------------------------
-    		
-    		
-    		
+     };
+     
+     // ---------------------------------------------------------------------------------------
+    this.verifyPhonelength= function(value) {
+      return new RegExp(/^[0-9]{10}$/).test(value);
+    };
+        
+     // ---------------------------------------------------------------------------------------
+      this.isDigitAscendingSequence = function isDigitAscendingSequence(inputPhoneNo){
+    	    console.log('isDigitAscendingSequence : ' + inputPhoneNo);
+	      	const ascendingSequence1 ="1234567890";
+	      	const ascendingSequence2 ="0123456789";
+	      	console.log("ascendingSequence1 : " + ascendingSequence1 + "ascendingSequence2 : " + ascendingSequence2);
+	      	if(ascendingSequence1.includes(inputPhoneNo)){
+	      		return true;
+	      	}else if(ascendingSequence2.includes(inputPhoneNo)){
+	      		return true;
+	      	}else{
+	      		return false;
+	      	}
+      }
+      // ---------------------------------------------------------------------------------------
+        this.isDigitDecendingSequence = function isDigitDecendingSequence(inputPhoneNo){
+        	console.log('isDigitDecendingSequence : ' + inputPhoneNo);
+        	const decendingSequence1 ="0987654321";
+        	const decendingSequence2 ="9876543210";
+        	console.log("decendingSequence1 : " + decendingSequence1 + " decendingSequence2 : " +decendingSequence2);
+        	if(decendingSequence1.includes(inputPhoneNo)){
+        		 return true;
+        	}else if(decendingSequence2.includes(inputPhoneNo)){
+        		return true;
+        	}else{
+        		return false;
+        	}
+        }
     		
 };

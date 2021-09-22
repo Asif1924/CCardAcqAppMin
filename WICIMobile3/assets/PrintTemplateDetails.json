@@ -1,48 +1,48 @@
 {
     "Name": "Print Template Details",
     "Description": "This JSON lists all print templates and their new Store Recall Equivalents and their versions.",
-    "PrintOutMockup_OMP_E_top": {
-        "NewTemplateName": "P_E_T",
-        "Version": 2
-    },
     "PrintOutMockup_OMP_E_TOKEN_top": {
         "NewTemplateName": "PE_T_T",
-        "Version": 2
+        "Version": 4
     },
     "PrintOutMockup_OMP_F_TOKEN_top": {
         "NewTemplateName": "PF_T_T",
+        "Version": 4
+    },
+    "PrintOutMockup_OMX_E_TOKEN_top": {
+        "NewTemplateName": "XE_T_T",
+        "Version": 4
+    },
+    "PrintOutMockup_OMX_F_TOKEN_top": {
+        "NewTemplateName": "XF_T_T",
+        "Version": 4
+    },
+    "PrintOutMockup_OMZ_E_TOKEN_top": {
+        "NewTemplateName": "ZE_T_T",
+        "Version": 4
+    },
+    "PrintOutMockup_OMZ_F_TOKEN_top": {
+        "NewTemplateName": "ZF_T_T",
+        "Version": 4
+    },
+    "PrintOutMockup_OMP_E_top": {
+        "NewTemplateName": "P_E_T",
         "Version": 2
     },
     "PrintOutMockup_OMP_F_top": {
         "NewTemplateName": "P_F_T",
         "Version": 2
     },
-    "PrintOutMockup_OMX_E_TOKEN_top": {
-        "NewTemplateName": "XE_T_T",
-        "Version": 2
-    },
     "PrintOutMockup_OMX_E_top": {
         "NewTemplateName": "X_E_T",
-        "Version": 2
-    },
-    "PrintOutMockup_OMX_F_TOKEN_top": {
-        "NewTemplateName": "XF_T_T",
         "Version": 2
     },
     "PrintOutMockup_OMX_F_top": {
         "NewTemplateName": "X_F_T",
         "Version": 2
     },
-    "PrintOutMockup_OMZ_E_TOKEN_top": {
-        "NewTemplateName": "ZE_T_T",
-        "Version": 2
-    },
     "PrintOutMockup_OMZ_E_top": {
         "NewTemplateName": "Z_E_T",
-        "Version": 2
-    },
-    "PrintOutMockup_OMZ_F_TOKEN_top": {
-        "NewTemplateName": "ZF_T_T",
         "Version": 2
     },
     "PrintOutMockup_OMZ_F_top": {

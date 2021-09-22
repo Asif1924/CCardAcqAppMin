@@ -100,7 +100,21 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\-\' ]{2,50}$/, value.trim());
+        return regexMatch(/^[A-Z0-9\-\' ]{2,40}$/, value.trim());
+    };
+  //-----VZE-273----------------------------------------------------------------------------------
+    this.personLastName = function(value) {
+        // length:50
+        // value:
+        // "A-Z 0-9 -'
+        // Alpha Numeric (Upper Case)
+        // Hyphen
+        // Single Quote"
+        if(value===null){
+            return false;
+        }
+        
+        return regexMatch(/^(?=.*[a-zA-Z])([a-zA-Z0-9\-\' ]+)$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     this.employerName = function(value) {

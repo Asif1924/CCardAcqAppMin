@@ -1,7 +1,7 @@
 ensureNamespaceExists();
 
-WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, reEstablishWifiCallback, toggleLanguageCallback, manageRepsCallback,
-								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, reEstablishWifiButton, toggleLanguageButton, manageRepsButton, chancelButton)
+WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCallback, chooseProductCallback, printerSetupCallback, testPrintCallback, retrieveCallback, toggleLanguageCallback, manageRepsCallback,
+								title, logOutButton, chooseProductButton, printerSetupButton, testPrintButton, retrieveButton, toggleLanguageButton, manageRepsButton, chancelButton)
 {
 	var dialogViewHelper = new WICI.DialogViewHelper();
 	
@@ -36,7 +36,6 @@ WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCal
 			chancelButton: chancelButton,
 			retrieveButton: retrieveButton,
 			retrieveButtonDisplayed: WICI.AppConfig.PendingFeature.AllowAppRetrieval,
-			reEstablishWifiButton: reEstablishWifiButton,
 			manageRepsButton: manageRepsButton
 		}).appendTo("body");
 		
@@ -88,11 +87,7 @@ WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCal
 		$("#settings_printerSetupButton").on("click", function(event){
 			action = "printerSetup";
 		});
-		/*
-		$("#settings_printerSetupButton").on("click", function(event){
-			action = "printerSetup";
-		});		
-		*/
+		
 		$("#settings_testPrintButton").on("click", function(event){
 			action = "testPrint";
 		});
@@ -100,11 +95,9 @@ WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCal
 		$("#settings_toggleLanguageButton").on("click", function(event){
 			action = "toggleLanguage";
 		});
+		
 		$("#settings_retrieveButton").on("click", function(event){
 			action = "retrieve";
-		});
-		$("#settings_reEstablishWifiButton").on("click", function(event){
-			action = "settings_reEstablishWifi";
 		});
 		
 		$("#settings_manageRepsButton").on("click", function(event){
@@ -126,8 +119,6 @@ WICI.SettingsDialog = function(translate, isAdminProfile, isAdminRole, logOutCal
 					case "toggleLanguage": toggleLanguageCallback();
 						break;
 					case "retrieve": retrieveCallback();
-						break;
-					case "settings_reEstablishWifi": reEstablishWifiCallback();
 						break;
 					case "manageReps": manageRepsCallback();
 						break;

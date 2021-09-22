@@ -131,6 +131,5 @@ public class WICIConfiguration
 	public void setDssserviceEnv(String dssserviceEnv) {
 		this.dssserviceEnv = dssserviceEnv;
 	}
-
 	
 }

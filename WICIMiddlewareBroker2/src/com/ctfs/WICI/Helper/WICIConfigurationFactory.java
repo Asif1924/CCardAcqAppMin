@@ -130,6 +130,7 @@ public class WICIConfigurationFactory
 		conf.setDssDIIEndPoint(dssDIIEndPoit);
 		conf.setJwtToken(jwtToken);
 		conf.setDssserviceEnv(dssServiceEnv);
+		
 		log.info(sMethod + "---Jks Details  " + conf.getJksPath()   +"======"+conf.getJksPassword()+ "===="+conf.getJksTlsVersion()+"====="+conf.getDssTmxEndPoint()+"======"+conf.getDssEmailEndPoint()+"==========="+conf.getDssDIIEndPoint()+"============="+conf.getJwtToken());
 		
 		

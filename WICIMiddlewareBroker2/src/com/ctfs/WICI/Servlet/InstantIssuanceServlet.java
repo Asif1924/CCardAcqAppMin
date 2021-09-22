@@ -288,6 +288,8 @@ public class InstantIssuanceServlet extends WICIServlet {
 					log.info(sMethod + "::TransactionState: "+ accountAplicationRequest.getTransactionState());
 					log.info(sMethod + "::addressLine1: "+ accountAplicationRequest.getCurrentAddressLine1());
 					log.info(sMethod + "::tabserialId : "+ accountAplicationRequest.getTabSerialId());
+					
+					
 					WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
 					WICIDSSInstantIssuanceRequest	instantIssuanceRequest = prepareDSSInstantIssuanceRequest(accountAplicationRequest);
 					instantIssuanceRequest.setExternalReferenceId(externalReferenceId);
