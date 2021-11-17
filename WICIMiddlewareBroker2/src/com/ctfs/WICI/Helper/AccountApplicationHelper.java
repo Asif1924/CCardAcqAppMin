@@ -6,12 +6,12 @@ import java.util.logging.Logger;
 
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationResponseType;
-import com.ctc.ctfs.channel.sharedservices.ServiceRequest;
 import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
-import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
+import com.ctfs.WICI.Model.WICISubmitResponse;
 import com.ctfs.WICI.Model.WebIcMQRespVO;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.WICIAccountApplicationResponse;
+import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 
 public class AccountApplicationHelper
 {
@@ -21,41 +21,25 @@ public class AccountApplicationHelper
 	{
 		String sMethod = this.getClass().getName() + "[doRequest( CreditCardApplicationData, AccountApplicationRequestType )] ";
 		log.info(sMethod);
-
-		log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
-			ServiceRequest serviceRequest = new ServiceRequest();
-			ServiceResponse serviceResponse = new ServiceResponse();
-			AccountApplicationResponseType result = null;
-			WebIcMQRespVO webIcMQResp = null;
-			WICIAccountApplicationResponse wiciAccountApplicationResponse = new WICIAccountApplicationResponse();
-			SharedWebServicesSOAPProxy sharedWebServicesSOAPProxy = new WICIPortalProxyFactory().createWICIWebSharedServicesPortalProxy();
-			try
-			{
-				if (argAARequestObject != null ) {	
-					
-					String requestBodyString = serializeRequest(argAARequestObject);
-					log.info(sMethod + "::requestBodyString::" + requestBodyString);
-					serviceRequest.setMethodName("processIcApplication");
-					serviceRequest.setServiceArgument1(requestBodyString);
-					serviceRequest.setServiceName("CTFSWebICGatewayService");
-					log.info("serviceRequest=" + serviceRequest.getServiceArgument1());
-					
-					serviceResponse = sharedWebServicesSOAPProxy.processRequest(serviceRequest);
-					log.info("serviceResponse=" + serviceResponse.getPassFail()+","  + serviceResponse.getResponseArgument1());
-					webIcMQResp  = deserializeResponseforSS(serviceResponse);
-					
-					result = setWebICAccountApplicationResponseforSS(webIcMQResp);
-					wiciAccountApplicationResponse.setAccountApplicationresponse(result);
+		WICIAccountApplicationResponse response = new WICIAccountApplicationResponse();
+			log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
+				try
+				{
+					if (argAARequestObject != null ) {	
+						
+						
+						processWICIDSSSubmitAPP(argAARequestObject);
+						
+					}
 				}
-			}
-			catch (Exception e)
-			{
-				log.warning(sMethod + "::Exception::" + e.getMessage());
-				throw e;
-			}
-			return wiciAccountApplicationResponse.entityToModel(result);
-	}
-
+				catch (Exception e)
+				{
+					log.warning(sMethod + "::Exception::" + e.getMessage());
+					throw e;
+				}
+				return response;
+		}
+	
 
 	public String serializeRequest(Object obj) throws Exception
 	{
@@ -165,5 +149,55 @@ public class AccountApplicationHelper
 		
 		return accountApplicationResponse;
 	}
+	
 
+	// WICI submit request point to DSS services
+	
+	
+	public void  processWICIDSSSubmitAPP( AccountApplicationRequestType argAARequestObject ) throws Exception {
+		
+		String sMethod = this.getClass().getName() + "[processDSSWICISubmitAPP( AccountApplicationRequestType )] ";
+		log.info(sMethod);
+		log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
+		WICISubmitResponse dsssubmitResponse = new WICISubmitResponse();
+		SubmitAppHelper  submitAppHelper = new SubmitAppHelper();
+		WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+		
+		try
+		{
+			    if (argAARequestObject != null ) {	
+				
+				if( conf != null && conf.getDsssubmitAppEndPoint() != null && conf.getDssserviceEnv() != null && conf.getJwtToken() != null ) {
+					
+					log.info(sMethod + "SubmitApp Point to   " +conf.getDssserviceEnv()  + " Endpoint "+conf.getDsssubmitAppEndPoint());
+			
+					if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
+					
+							submitAppHelper.SubmitAPPHttpClient( argAARequestObject, conf.getDsssubmitAppEndPoint(), conf.getJwtToken());
+					
+					}else{
+						
+							submitAppHelper.submitAPPSecureClient( argAARequestObject, conf.getDsssubmitAppEndPoint(), conf.getJwtToken());
+						
+					}
+				
+				}else{
+					
+					log.warning("Configuration properties not loaded");
+					
+				}
+				
+			}
+		}
+		catch (Exception e)
+		{
+			log.warning(sMethod + "::Exception::" + e.getMessage());
+			throw e;
+		}
+		
+		log.info(sMethod + "SubmitApp Response  "+dsssubmitResponse); 
+		
+	}
+	
+	
 }

@@ -15,10 +15,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
@@ -27,6 +29,8 @@ import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupRequest;
 import com.ctc.ctfs.channel.webicaddressverification.WebICAddressLookupResponse;
 import com.ctfs.WICI.Model.WICIDSSAddressInput;
 import com.ctfs.WICI.Model.WICIDSSAddressResponse;
+import com.ctfs.WICI.Model.WICIDSSInstantIssuanceRequest;
+import com.ctfs.WICI.Model.WICIDSSInstantIssuanceResponse;
 import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
@@ -120,9 +124,6 @@ public class AddressLookupHelper
 		
 		 try{
 			 
-			
-		   
-			 
 		     String responseContent = null;
 			 
 			 String postUrl = conf.getDssEndPoint();
@@ -167,5 +168,83 @@ public class AddressLookupHelper
 		 
 	 }
 	
-	 
+	
+	public  WICIDSSAddressResponse  retriveAddressHttpClient(WICIDSSAddressInput dssInput, String endPoint) throws Exception{
+		 
+		 String sMethod = this.getClass().getName() + "[retriveAddressHttpClient] ";
+		 WICIDSSAddressResponse dssAddressResp = new WICIDSSAddressResponse();
+	     String responseContent = null;
+	     
+	     HttpClient   httpClient   = HttpClientBuilder.create().build();
+	     
+		 try{
+			 
+	    	HttpPost     post  = new HttpPost(endPoint);
+	    	ObjectMapper  mapper = new ObjectMapper();
+	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
+	    	String jsonInput = mapper.writeValueAsString(dssInput);
+	    	
+	    	log.info(sMethod + " The DSS Address Input  "  +jsonInput);
+	    	
+	    	
+	    	post.setEntity(new StringEntity(jsonInput));
+	    	post.setHeader("Content-type", "application/json");
+	    	HttpResponse  response = httpClient.execute(post);
+	    	        
+	        int statusCode = response.getStatusLine().getStatusCode();
+	        if (statusCode != 200) 
+	        {    
+	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	        }
+	        responseContent = EntityUtils.toString(response.getEntity());
+	        
+	        dssAddressResp = jsonWrapper.deserialize(responseContent,
+	        		WICIDSSAddressResponse.class);
+	        
+	        if( dssAddressResp != null ){
+	        	log.info(sMethod + "address Response "+ dssAddressResp);
+	        	
+	        }
+	        
+	     }catch(Exception e){
+	    	
+	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	    	
+	    }
+	    finally
+	    {
+	    	
+	   	httpClient.getConnectionManager().shutdown();
+	    }
+	    return dssAddressResp;
+		 
+
+		 
+	 } 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

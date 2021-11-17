@@ -283,10 +283,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		        }
 		        
 		        var secondryPhone = app.validationDecorator.phoneValidation($(refs.cellPhone).val() , refs.cellPhone, false );  
-		        if ($(refs.cellPhone).val() === '') {
-					app.validationDecorator.applyNumberIdError(refs.cellPhone);
-					secondryPhone = false;
-				}
+
 		        console.log(' skip cellphone ' +skip);
 		        if(!secondryPhone && !skip){
 		        	$('#contactInfomation_infomation_phone').show();

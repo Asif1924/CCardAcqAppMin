@@ -14,7 +14,29 @@ public class WICIConfiguration
 	String dssDIIEndPoint;
 	String jwtToken;
 	String dssserviceEnv;
+	String dsssubmitAppEndPoint;
+	String shareserviceEnabled;
 	
+	
+	public String getShareserviceEnabled() {
+		return shareserviceEnabled;
+	}
+
+
+	public void setShareserviceEnabled(String shareserviceEnabled) {
+		this.shareserviceEnabled = shareserviceEnabled;
+	}
+
+
+	public String getDsssubmitAppEndPoint() {
+		return dsssubmitAppEndPoint;
+	}
+
+	
+	public void setDsssubmitAppEndPoint(String dsssubmitAppEndPoint) {
+		this.dsssubmitAppEndPoint = dsssubmitAppEndPoint;
+	}
+
 	public String getJksTlsVersion() {
 		return jksTlsVersion;
 	}
@@ -131,5 +153,6 @@ public class WICIConfiguration
 	public void setDssserviceEnv(String dssserviceEnv) {
 		this.dssserviceEnv = dssserviceEnv;
 	}
+
 	
 }

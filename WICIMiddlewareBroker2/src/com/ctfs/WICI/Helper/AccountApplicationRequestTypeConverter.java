@@ -2,21 +2,15 @@ package com.ctfs.WICI.Helper;
 
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.apache.commons.codec.binary.Base64;
 
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
+import org.apache.commons.codec.binary.Base64;
 import com.ctc.ctfs.channel.accountacquisition.CountryType;
-import com.ctc.ctfs.channel.accountacquisition.PlaceOfIssueType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceStateType;
 import com.ctc.ctfs.channel.accountacquisition.ProvinceType;
+import com.ctfs.WICI.Model.AccountApplicationContactInfo;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
-import com.ctfs.WICI.Helper.ApplicationConfiguration;
-import com.ctfs.WICI.Model.AccountApplicationContactInfo;
-
 import com.google.gson.Gson;
 
 public class AccountApplicationRequestTypeConverter
@@ -53,8 +47,8 @@ public class AccountApplicationRequestTypeConverter
                     String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
                     log.info(sMethod);
 
-                    com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
-                    AccountApplicationRequestType populatedAccountApplicationRequest = objectFactory.createAccountApplicationRequestType();
+                    //com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
+                    AccountApplicationRequestType populatedAccountApplicationRequest = new AccountApplicationRequestType();
 
                     GUIDGenerator guidGenerator = new GUIDGenerator();
                     populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
@@ -135,7 +129,7 @@ public class AccountApplicationRequestTypeConverter
                                     model_supp = argCreditCardApplicationData.getModel(MODEL_SUP_CARD_REQUEST_DATA);
                                     if (model_supp != null && model_supp.get("cardYesNo").equals("Y"))
                                     {
-                                                    populatedAccountApplicationRequest.setSupp1Country(CountryType.CA);
+                                                    populatedAccountApplicationRequest.setSupp1Country(CountryType.CA.value());
                                     }
                     }
                     catch (Exception e)
@@ -143,7 +137,7 @@ public class AccountApplicationRequestTypeConverter
                                     log.warning(sMethod + " Exception: " + e.getMessage());
                                     e.printStackTrace();
                     }
-                    populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA);
+                    populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA.value());
 
                     // From AccountApplication.xsd v1.14 this filed have been removed
                     // populatedAccountApplicationRequest.setRoadsideOnRequestFlag("N");
@@ -173,6 +167,15 @@ public class AccountApplicationRequestTypeConverter
                     return populatedAccountApplicationRequest;
     }
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public AccountApplicationContactInfo createAccountApplicationContactInfo(CreditCardApplicationData argCreditCardApplicationData) {
 		
 		String sMethod = "[createAccountApplicationContactInfo()]";
@@ -189,7 +192,7 @@ public class AccountApplicationRequestTypeConverter
     {
                     String sMethod = "[OptionalProductsModel()]";
                     log.info(sMethod);
-
+                    ImageUtils imageUtil = new ImageUtils();
                     BaseModel model;
                     try
                     {
@@ -209,17 +212,8 @@ public class AccountApplicationRequestTypeConverter
                                     		("Y").equalsIgnoreCase(model.get("optionalProduct_IW_AcceptBox"))) {
                                     	argAccAppRequest.setInsuranceAgreedFlag("Y");
                                     	argAccAppRequest.setInsuranceSignatureFlag("Y");
-                                    	try
-                                        {
-                                                        XMLGregorianCalendar xgc;
-                                                        xgc = model.getGregorianDate("signDate");
-                                                        argAccAppRequest.setInsuranceDateSigned(xgc);
-                                        }
-                                        catch (DatatypeConfigurationException e)
-                                        {
-                                                        log.warning(sMethod + " MODEL_OPTIONAL_PRODUCTS_MODEL::signDate Exception: " + e.getMessage());
-                                                        e.printStackTrace();
-                                        }
+                                    	argAccAppRequest.setInsuranceDateSigned(model.get("signDate"));
+                                    	
                                     } else {
                                     	argAccAppRequest.setInsuranceAgreedFlag("N");
                                     	argAccAppRequest.setInsuranceSignatureFlag("N");
@@ -258,7 +252,7 @@ public class AccountApplicationRequestTypeConverter
 	{
 		String sMethod = "[SignatureModel()]";
 		log.info(sMethod + "::called");
-
+		ImageUtils imageUtil = new ImageUtils();
 		BaseModel model;
 		try
 		{
@@ -272,11 +266,14 @@ public class AccountApplicationRequestTypeConverter
 				// argAccAppRequest.setApplicantSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
 				byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature"));
 				argAccAppRequest.setApplicantSignature(decodedBase64Image);
-
+				
+				
+				//argAccAppRequest.setApplicantSignature(decodedBase64Image.toString());
+				//argAccAppRequest.setApplicantSignature(imageUtil.convertPNGDataURLToJPGByteString(model.get("userSingnature")));
 				argAccAppRequest.setSignatureFlag("Y");
 				argAccAppRequest.setSignatureMatchFlag("Y");
-
-				try
+				argAccAppRequest.setDateSigned(model.get("signDate"));
+				/*try
 				{
 					XMLGregorianCalendar xgc;
 					xgc = model.getGregorianDate("signDate");
@@ -286,7 +283,7 @@ public class AccountApplicationRequestTypeConverter
 				{
 					log.warning(sMethod + " MODEL_SIGNATURE_MODEL::signDate Exception: " + e.getMessage());
 					e.printStackTrace();
-				}
+				}*/
 			}
 		}
 		catch (Exception e)
@@ -312,8 +309,8 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setSupp1MiddleInitial(model.get("initial"));
 
 				argAccAppRequest.setSupp1Relationship(model.get("cardRequestFor"));
-
-				try
+				argAccAppRequest.setSupp1DateOfBirth(model.get("birthDate"));
+				/*try
 				{
 					XMLGregorianCalendar xgc;
 					xgc = model.getGregorianDate("birthDate");
@@ -323,7 +320,7 @@ public class AccountApplicationRequestTypeConverter
 				{
 					log.warning(sMethod + " MODEL_SUP_CARD_REQUEST_DATA::birthDate Exception: " + e.getMessage());
 					e.printStackTrace();
-				}
+				}*/
 
 				argAccAppRequest.setSupp1AddrSameAsPrimary(model.get("sameAddressYesNo"));
 				argAccAppRequest.setSupp1TelephoneNumber(model.get("phone"));
@@ -340,7 +337,7 @@ public class AccountApplicationRequestTypeConverter
 
 					argAccAppRequest.setSupp1AddressLine2(model.get("addressLine2"));
 					argAccAppRequest.setSupp1City(model.get("city"));
-					argAccAppRequest.setSupp1Province(ProvinceStateType.valueOf(model.get("province")));
+					argAccAppRequest.setSupp1Province(model.get("province"));
 					argAccAppRequest.setSupp1PostalCode(model.get("postalCode"));					
 				}
 
@@ -449,9 +446,14 @@ public class AccountApplicationRequestTypeConverter
 				
 				addressLine1Prev += model.get("addressline1_prev");
 				argAccAppRequest.setPreviousAddressLine1(addressLine1Prev);
+				if(argAccAppRequest.getPreviousAddressLine1()!= null && argAccAppRequest.getPreviousAddressLine1().equalsIgnoreCase("null")){
+					argAccAppRequest.setPreviousAddressLine1(null);
+					log.info(sMethod+ "addressline1_prev "+ argAccAppRequest.getPreviousAddressLine1());
+				}
 
 				argAccAppRequest.setPreviousAddressLine2(model.get("addressline2_prev"));
 				argAccAppRequest.setPreviousCity(model.get("city_prev"));
+				
 				try
 				{
 					argAccAppRequest.setPreviousProvinceState(ProvinceStateType.valueOf(model.get("province_prev")));
@@ -489,8 +491,8 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setFirstName(model.get("firstName"));
 				argAccAppRequest.setMiddleInitial(model.get("initial"));
 				argAccAppRequest.setLastName(model.get("lastName"));
-
-				try
+				argAccAppRequest.setDateOfBirth(model.get("birthDate"));
+				/*try
 				{
 					XMLGregorianCalendar xgc;
 					xgc = model.getGregorianDate("birthDate");
@@ -500,38 +502,38 @@ public class AccountApplicationRequestTypeConverter
 				{
 					log.warning(sMethod + " MODEL_PERSONAL_DATA::birthDate Exception: " + e.getMessage());
 					e.printStackTrace();
-				}
+				}*/
 
 				argAccAppRequest.setIdType(model.get("idtype"));
 				argAccAppRequest.setIdNumber(model.get("idnumbers").replace("-", ""));
-				argAccAppRequest.setPlaceOfIssue(PlaceOfIssueType.valueOf(model.get("placeofissue")));
+				argAccAppRequest.setPlaceOfIssue(model.get("placeofissue"));
 				argAccAppRequest.setPreferedLanguage(model.get("correspondence"));
-
+				argAccAppRequest.setIdExpiryDate(model.get("idExpiryDate"));
 				// US4365
-				if(model.get("idExpiryDate") != null) {
+				/*if(model.get("idExpiryDate") != null) {
 					try
 					{
 						XMLGregorianCalendar xgc;
 						xgc = model.getGregorianDate("idExpiryDate");
-						argAccAppRequest.setIDExpiryDate(xgc);
+						argAccAppRequest.setIDExpiryDate(model.get("idExpiryDate"));
 					}
 					catch (DatatypeConfigurationException e)
 					{
 						log.warning(sMethod + " MODEL_PERSONAL_DATA::expiryDate Exception: " + e.getMessage());
 						e.printStackTrace();
 					}
-				}
-				String title = model.get("title");
+				}*/
+				//String title = model.get("title");
 				// US5073 WICI - Update Gender Mapping
-				String gender = null;
+			/*	String gender = null;
 				if(title != null) {
 					if (title.equals("MR")) {
 						gender = "M";
 					} else if (title.equals("MRS") || title.equals("MISS") || title.equals("MS")) {
 						gender = "F";
 					}
-				}
-				argAccAppRequest.setApplicantGender(gender);
+				}*/
+				argAccAppRequest.setApplicantGender(model.get("title"));
 				argAccAppRequest.setRequestedCreditLimit(model.getInt("requestedCreditLimit")); //US3270 Feb 17th, 2015
 				argAccAppRequest.setDSAScore(model.get("DSAScore"));
 				argAccAppRequest.setTreatmentCode(model.get("treatmentCode"));
@@ -622,7 +624,7 @@ public class AccountApplicationRequestTypeConverter
 	{
 		String sMethod = "[ChooseProductModel()]";
 		log.info(sMethod);
-
+		ImageUtils imageUtil = new ImageUtils();
 		BaseModel model;
 		BaseModel loginModel;
 		String agency = "";

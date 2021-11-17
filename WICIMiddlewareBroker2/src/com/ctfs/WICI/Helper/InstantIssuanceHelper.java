@@ -28,7 +28,7 @@ public class InstantIssuanceHelper {
 	//private static final String jwt_key = "wynGi/9ZhYKV6Fs+hU7H7sf10y604BFDaMFlguVQc4Y=";
 
 	
-	public  WICIDSSInstantIssuanceResponse  instantIssuanceHttpClient(WICIDSSInstantIssuanceRequest dssInput,String endPoint, String jwtToken) throws Exception{
+	public  WICIDSSInstantIssuanceResponse  instantIssuanceHttpClient(WICIDSSInstantIssuanceRequest dssInput, String endPoint, String jwtToken) throws Exception{
 		 
 		 String sMethod = this.getClass().getName() + "[instantIssuanceHttpClient] ";
 	     WICIDSSInstantIssuanceResponse dssInstantIssuanceResponse = new WICIDSSInstantIssuanceResponse();
@@ -94,7 +94,7 @@ public class InstantIssuanceHelper {
 	 }
 
 	
-	public  WICIDSSInstantIssuanceResponse  instantIssuanceSecureClient(WICIDSSInstantIssuanceRequest dssInput,String endPoint, String jwtToken) throws Exception{
+	public  WICIDSSInstantIssuanceResponse  instantIssuanceSecureClient(WICIDSSInstantIssuanceRequest dssInput, String endPoint, String jwtToken) throws Exception{
 		 
 	     String sMethod = this.getClass().getName() + "[instantIssuanceSecureClient] ";
 	     CloseableHttpClient httpClient = null;

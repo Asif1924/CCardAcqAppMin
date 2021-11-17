@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,6 +25,7 @@ import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 
+import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.AppConstants;
@@ -1040,6 +1040,80 @@ public class WICIDBHelper
 
 		return transactionID;
 	}
+	
+	
+	public String insertAccountApplicationDataDSS(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork, String longitude, String latitude, String sec_firstName, String sec_lastName, String sec_employee_number) throws Exception
+	{
+		String sMethod = "[insertAccountApplicationData] ";
+		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
+
+		// Create sql statement
+		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
+				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK,LONGITUDE,LATITUDE,SEC_EMP_FIRST_NAME,SEC_EMP_LAST_NAME,SEC_EMP_NUMBER)"
+				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		log.info(sMethod + "::SQL::" + sql);
+	
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			preparedStatement.setString(1, transactionID);
+			preparedStatement.setString(2, TRANSACTION_TYPE);
+			preparedStatement.setString(3, AppConstants.QUEUE_REQUEST_SUBMIT);
+			preparedStatement.setString(4, userID);
+
+			Reader clobReader = new StringReader(requestData);
+			preparedStatement.setCharacterStream(5, clobReader, requestData.length());
+
+			preparedStatement.setString(6, retrievalToken);
+			preparedStatement.setString(7, currentTelephone);
+			preparedStatement.setString(8, consentGranted);
+			preparedStatement.setString(9, unitNumber);
+			preparedStatement.setString(10, streetNumber);
+			preparedStatement.setString(11, streetName);
+			preparedStatement.setString(12, accountApplicationRequestType.getChannelIndicator());
+			preparedStatement.setString(13, accountApplicationRequestType.getRequestedProductType());
+			preparedStatement.setString(14, employerId);
+			preparedStatement.setString(15, accountApplicationRequestType.getAgencyPromoCode());
+			preparedStatement.setString(16, accountApplicationRequestType.getStoreNumber());
+			preparedStatement.setString(17, firstName);
+			preparedStatement.setString(18, lastName);
+			preparedStatement.setString(19, retailNetWork);
+			preparedStatement.setString(20, longitude);
+			preparedStatement.setString(21, latitude);
+			preparedStatement.setString(22, sec_firstName);
+			preparedStatement.setString(23, sec_lastName);
+			preparedStatement.setString(24, sec_employee_number);
+			preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, null);
+		}
+
+		return transactionID;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public boolean isApprovedAppRetrievable( String argTransactionID, String argToken, String argPhone  ){
 		String sMethod = "[isApprovedAppRetrievable] ";

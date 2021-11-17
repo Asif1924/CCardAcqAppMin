@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import com.ctfs.WICI.Helper.HttpClientHelper;
@@ -17,6 +19,7 @@ import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.EmailRiskAssessmentRequest;
 import com.ctfs.WICI.Model.EmailRiskAssessmentResponse;
+import com.ctfs.WICI.Model.WICIDSSAddressResponse;
 import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,7 +61,7 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 			
 			
 			EmailRiskAssessmentRequest tmxRequest = new EmailRiskAssessmentRequest();
-			
+			EmailRiskAssessmentResponse tmxResponse = new  EmailRiskAssessmentResponse();
 			tmxRequest.setTabSerialNumber(tabSerialNumber);
 			tmxRequest.setPhoneNumber(phoneNumber);
 			tmxRequest.setPhone_Type(phone_Type);
@@ -68,10 +71,18 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 			tmxRequest.setPostCode(postalCode);
 			tmxRequest.setLoginId(loginId);
 			tmxRequest.setStorePostCode(storePostCode);
-						
-			EmailRiskAssessmentResponse dssResponse = tmxProfileHttpClientCall(tmxRequest);
-			if(dssResponse != null && dssResponse.getFpsTrustscore() != null && dssResponse.getTmxProfileID() != null ){
-				tableResponse.setData(dssResponse);
+			 WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+			if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
+				
+				 tmxResponse = tmxProfileHttpClientCall(tmxRequest);
+			}
+			else{
+				
+				 tmxResponse = tmxProfileHttpsClientCall(tmxRequest);
+			}
+			
+			if(tmxResponse != null && tmxResponse.getFpsTrustscore() != null && tmxResponse.getTmxProfileID() != null ){
+				tableResponse.setData(tmxResponse);
 			}
 			else{
 				tableResponse.setError(true);
@@ -87,13 +98,13 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 		requestMediator.processHttpResponse(tableResponse);
 	}
 
-	private EmailRiskAssessmentResponse  tmxProfileHttpClientCall(EmailRiskAssessmentRequest tmxDSSRequest){
+	private EmailRiskAssessmentResponse  tmxProfileHttpsClientCall(EmailRiskAssessmentRequest tmxDSSRequest){
 	   
 		CloseableHttpClient httpClient= null;
 		
 		 String  responseContent = null;
 		 EmailRiskAssessmentResponse tmxResponse = new EmailRiskAssessmentResponse();
-		 String sMethod = this.getClass().getName() + "[TXMHttpclientCall] ";
+		 String sMethod = this.getClass().getName() + "[TMXHttpsclientCall] ";
 		 log.info(sMethod);
 		 try{
 		
@@ -131,5 +142,53 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 	}
 	
 	
+	private EmailRiskAssessmentResponse  tmxProfileHttpClientCall(EmailRiskAssessmentRequest tmxDSSRequest){
+		 String sMethod = this.getClass().getName() + "[TMXHttpclientCall] ";
+		 String  responseContent = null;
+		 EmailRiskAssessmentResponse tmxResponse = new EmailRiskAssessmentResponse();
+         HttpClient   httpClient   = HttpClientBuilder.create().build();
+	     
+		 try{
+			 WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+			 HttpPost post = new HttpPost(conf.getDssTmxEndPoint());
+	    	ObjectMapper  mapper = new ObjectMapper();
+	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
+	    	String jsonInput = mapper.writeValueAsString(tmxDSSRequest);
+	    	
+	    	log.info(sMethod + " The DSS TMX endPoint  ===" + conf.getDssTmxEndPoint() + "txm request for dss ::: "+jsonInput);
+	    	
+	    	
+	    	post.setEntity(new StringEntity(jsonInput));
+	    	post.setHeader("Content-type", "application/json");
+	    	HttpResponse  response = httpClient.execute(post);
+	    	        
+	        int statusCode = response.getStatusLine().getStatusCode();
+	        if (statusCode != 200) 
+	        {    
+	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	        }
+	        responseContent = EntityUtils.toString(response.getEntity());
+	        
+	        tmxResponse = jsonWrapper.deserialize(responseContent,
+	        		EmailRiskAssessmentResponse.class);
+	        
+	        if( tmxResponse != null ){
+	        	log.info(sMethod + "tmxResponse Response "+ tmxResponse);
+	        	
+	        }
+	        
+	     }catch(Exception e){
+	    	
+	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	    	
+	    }
+	    finally
+	    {
+	    	
+	   	httpClient.getConnectionManager().shutdown();
+	    }
+	    return tmxResponse;
+		 
+	}
 	
 }

@@ -43,6 +43,55 @@ public class ImageUtils
 		}
 		return base64EncodedJPGImageAsByteArray;
 	}
+	
+	
+	public String convertPNGDataURLToJPGByteString(String argJSONImageString) throws Exception
+	{
+		if (argJSONImageString.startsWith("data:image") && argJSONImageString.contains("base64,"))
+			argJSONImageString = argJSONImageString.substring(22); // Offset
+																	// from
+																	// beginning
+																	// of string
+																	// to remove
+																	// data:image/png;base64,
+
+		byte[] byteArray = Base64.decodeBase64(argJSONImageString);
+		byte[] base64EncodedJPGImageAsByteArray = compressRawByteArray(byteArray);
+
+		// if array length that was return from compress method is more than
+		// 6KB, lets compress it again
+		while (base64EncodedJPGImageAsByteArray.length > _6KB)
+		{
+			byte[] base64DecodedImage = Base64.decodeBase64(base64EncodedJPGImageAsByteArray);
+			base64EncodedJPGImageAsByteArray = compressRawByteArray(base64DecodedImage);
+		}
+		
+		
+		return new String(base64EncodedJPGImageAsByteArray);
+		
+	}
+	
+	
+	
+	
+	
+	public String removeDataImageStringfromSignature(String argJSONImageString) throws Exception
+	{
+		if (argJSONImageString.startsWith("data:image") && argJSONImageString.contains("base64,"))
+			argJSONImageString = argJSONImageString.substring(22); // Offset
+																	// from
+																	// beginning
+																	// of string
+																	// to remove
+																	// data:image/png;base64,
+
+	
+		return argJSONImageString;
+		}
+	
+	
+	
+	
 
 	private byte[] compressRawByteArray(byte[] argByteArray) throws IOException
 	{
@@ -92,5 +141,6 @@ public class ImageUtils
 		}
 		return (decodeCount == 1);
 	}
+	
 
 }

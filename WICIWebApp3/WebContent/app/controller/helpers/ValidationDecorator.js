@@ -293,31 +293,17 @@ WICI.ValidationDecorator = function(config) {
         
      // ---------------------------------------------------------------------------------------
       this.isDigitAscendingSequence = function isDigitAscendingSequence(inputPhoneNo){
-    	    console.log('isDigitAscendingSequence : ' + inputPhoneNo);
-	      	const ascendingSequence1 ="1234567890";
-	      	const ascendingSequence2 ="0123456789";
-	      	console.log("ascendingSequence1 : " + ascendingSequence1 + "ascendingSequence2 : " + ascendingSequence2);
-	      	if(ascendingSequence1.includes(inputPhoneNo)){
-	      		return true;
-	      	}else if(ascendingSequence2.includes(inputPhoneNo)){
-	      		return true;
-	      	}else{
-	      		return false;
-	      	}
-      }
+        	console.log('isDigitAscendingSequence : ' + inputPhoneNo);
+        	const ascendingSequence ="1234567890";
+        	console.log("isAscendingSequence : " + ascendingSequence);
+            return ascendingSequence.includes(inputPhoneNo);
+        }
       // ---------------------------------------------------------------------------------------
         this.isDigitDecendingSequence = function isDigitDecendingSequence(inputPhoneNo){
         	console.log('isDigitDecendingSequence : ' + inputPhoneNo);
-        	const decendingSequence1 ="0987654321";
-        	const decendingSequence2 ="9876543210";
-        	console.log("decendingSequence1 : " + decendingSequence1 + " decendingSequence2 : " +decendingSequence2);
-        	if(decendingSequence1.includes(inputPhoneNo)){
-        		 return true;
-        	}else if(decendingSequence2.includes(inputPhoneNo)){
-        		return true;
-        	}else{
-        		return false;
-        	}
+        	const decendingSequence ="0987654321";
+        	console.log("isAscendingSequence : " + decendingSequence);
+            return decendingSequence.includes(inputPhoneNo);
         }
     		
 };

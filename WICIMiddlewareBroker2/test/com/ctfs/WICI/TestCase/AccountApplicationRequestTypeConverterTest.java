@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctfs.WICI.Helper.AccountApplicationHelper;
@@ -14,7 +15,7 @@ import com.ctfs.WICI.Helper.ImageUtils;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
-
+@Ignore
 public class AccountApplicationRequestTypeConverterTest
 {
 	static Logger log = Logger.getLogger(AccountApplicationHelper.class.getName());

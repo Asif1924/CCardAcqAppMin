@@ -107,7 +107,7 @@ public class CreditCardApplicationData
 		return SOAPRequestBodyString;
 	}
 
-	public String getSOAPRequestBodyString( AccountApplicationRequestType argAARequestType )
+	public String getSOAPRequestBodyString( Object argAARequestType )
 	{
 		String sMethod = this.getClass().getName() + "[getSOAPRequestBodyString( AccountApplicationRequestType )] ";
 		log.info(sMethod);

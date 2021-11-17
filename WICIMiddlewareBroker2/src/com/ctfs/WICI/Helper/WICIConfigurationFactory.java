@@ -27,7 +27,8 @@ public class WICIConfigurationFactory
 	private static final String DSS_DII_ENDPOINT ="DSS_DII_ENDPOINT";
 	private static final String JWT_TOKEN ="JWT_TOKEN";
 	private static final String DSS_SERVICE_ENV ="DSS_SERVICE_ENV";
-	
+	private static final String DSS_SUBMITAPP_ENDPOINT ="DSS_SUBMITAPP_ENDPOINT";
+	//private static final String SHAREDSERVICE_ON ="SHAREDSERVICE_ON";
 	
 	
 	
@@ -103,6 +104,10 @@ public class WICIConfigurationFactory
 		log.info(DSS_DII_ENDPOINT + " -> "+ environmentMap.get(DSS_DII_ENDPOINT));
 		log.info(JWT_TOKEN + " -> "+ environmentMap.get(JWT_TOKEN));
 		log.info(DSS_SERVICE_ENV + " -> "+ environmentMap.get(DSS_SERVICE_ENV));
+		log.info(DSS_SUBMITAPP_ENDPOINT + " -> "+ environmentMap.get(DSS_SUBMITAPP_ENDPOINT));
+		
+		/*log.info(SHAREDSERVICE_ON + " -> "+ environmentMap.get(SHAREDSERVICE_ON));*/
+		
 		
 		String dssEndPoint = environmentMap.get(DSS_ADDRESS_ENDPOINT).toString();
 		String tmxEndPoint = environmentMap.get(DSS_TMX_ENDPOINT).toString();
@@ -110,7 +115,7 @@ public class WICIConfigurationFactory
 		String dssDIIEndPoit = environmentMap.get(DSS_DII_ENDPOINT).toString();
 		String jwtToken = environmentMap.get(JWT_TOKEN).toString();
 		String dssServiceEnv = environmentMap.get(DSS_SERVICE_ENV).toString();
-		
+		String dsssubmitAPPEndpont = environmentMap.get(DSS_SUBMITAPP_ENDPOINT).toString();
 		conf.setDssEndPoint(dssEndPoint);
 		
 		log.info("jksPath -> "+jksconfigurationMap.get(JKSFileName));
@@ -120,8 +125,9 @@ public class WICIConfigurationFactory
 		String jksPath = jksconfigurationMap.get(JKSFileName).toString();
 		String jksPassword = jksconfigurationMap.get(JKSPassword).toString();
 		String jksTlsVersion = jksconfigurationMap.get(TLSVersion).toString();
-		
-		conf.setDssEndPoint(dssEndPoint);
+		/*String sharedservicflag = environmentMap.get(SHAREDSERVICE_ON).toString();
+		log.info("sharedservicflag -> "+sharedservicflag);
+		*/conf.setDssEndPoint(dssEndPoint);
 		conf.setJksPath(jksPath);
 		conf.setJksPassword(jksPassword);
 		conf.setJksTlsVersion(jksTlsVersion);
@@ -130,6 +136,9 @@ public class WICIConfigurationFactory
 		conf.setDssDIIEndPoint(dssDIIEndPoit);
 		conf.setJwtToken(jwtToken);
 		conf.setDssserviceEnv(dssServiceEnv);
+		conf.setDsssubmitAppEndPoint(dsssubmitAPPEndpont);
+		
+		/*conf.setShareserviceEnabled(sharedservicflag);*/
 		
 		log.info(sMethod + "---Jks Details  " + conf.getJksPath()   +"======"+conf.getJksPassword()+ "===="+conf.getJksTlsVersion()+"====="+conf.getDssTmxEndPoint()+"======"+conf.getDssEmailEndPoint()+"==========="+conf.getDssDIIEndPoint()+"============="+conf.getJwtToken());
 		

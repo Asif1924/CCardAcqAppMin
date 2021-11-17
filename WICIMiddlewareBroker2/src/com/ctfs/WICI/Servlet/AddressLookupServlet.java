@@ -6,10 +6,12 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 
 import com.ctfs.WICI.Helper.AddressLookupHelper;
+import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.WICIDSSAddressInput;
 import com.ctfs.WICI.Model.WICIDSSAddressResponse;
+import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.ibm.icu.text.Transliterator;
 
@@ -101,7 +103,27 @@ public class AddressLookupServlet extends WICIServlet
 		
 		try
 		{
-			   dssResponse =	addressLookupHelper.retriveAddress(dssInput);
+			
+			
+			WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+			
+			if( conf != null && conf.getDssEndPoint() != null &&  conf.getDssserviceEnv() != null) {
+				
+				log.info(sMethod + "Address service Point to   " +conf.getDssserviceEnv()  + " Endpoint "+conf.getDssEndPoint() );
+		
+				if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
+					
+					dssResponse =	addressLookupHelper.retriveAddressHttpClient(dssInput , conf.getDssEndPoint());
+					
+					
+				}else{
+					
+					dssResponse =	addressLookupHelper.retriveAddress(dssInput);
+				}
+			
+			}
+			
+			  
 			 if(dssResponse != null && dssResponse.getCity() != null && dssResponse.getCity().length() >=18 ){
 						
 						log.info(sMethod + " cityName from postalcode Resposne "+dssResponse.getCity());
