@@ -766,11 +766,13 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         pModel.firstName = cleanFinalString(firstName);
         // Province
         pModel.idProvince = provinceCodeLookupMap[provinceCode];
-        var idProvinceNew = cleanFinalString(idProvince);
-        var middnleNAMENew = cleanFinalString(middleName);
+        //VZE-466
+        var idProvinceNew = cleanFinalString(pModel.idProvince);
+        var middleNameNew = cleanFinalString(middleName);
+        // VZE-466
         // Middle name
-        if (middleName != '') {
-        	if(cleanFinalString(idProvince) == 'NL' && cleanFinalString(middleName) == 'NONE'){
+        if (middleNameNew != '') {
+        	if(idProvinceNew == 'NL' && idProvinceNew == 'NONE'){
         		   pModel.middleName = '';
         	    }else{
         	    	pModel.middleName_Initial = cleanFinalString(middleName);
@@ -794,8 +796,12 @@ WICI.ScanDataMappingHelper = function (messageDialog, translate) {
         pModel.addressLine1 = cleanFinalString(houseNumberandStreet);
         // Postal code
         pModel.addressPostal = cleanFinalString(postalCode.replace(' ', ''));
+        //VZE-466
+        // Province
+        pModel.idProvince = provinceCodeLookupMap[provinceCode];
         
         pModel.addressProvince = province;
+        
         // IdNumber
         pModel.idNumber = idNumberVal;        
         // City

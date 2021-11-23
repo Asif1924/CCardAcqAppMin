@@ -326,7 +326,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         $(refs.months).durationControl('createControl');
         $(refs.years).autoNumeric('init', {aSign:'',vMin:'0', vMax:'100', mDec:'0'});
         $(refs.months).autoNumeric('init', {aSign:'',vMin:'0', vMax:'11', mDec:'0'});
-        $(refs.loyaltyMembershipNumber).autoNumeric('init', {aSign:'',vMin:'0', vMax:'9999999999', mDec:'0',wEmpty: '', aSep:'', lZero: 'keep'});
     }
     // ---------------------------------------------------------------------------------------
     function createView() {
@@ -475,7 +474,18 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		populateIdTypesProvinces();
 		restorePopulateIdTypesList();
 		restorePopulateExpiryDateList();
-        $(refs.loyaltyMembershipNumber).val(currModel.get('loyaltyMembershipNumber'));
+        
+		// VZE-473 : 
+		// trim the prefix 636574
+		let loyaltyValue = currModel.get('loyaltyMembershipNumber');
+		if(loyaltyValue !== null && loyaltyValue !== '' && loyaltyValue.includes("636574")){
+			if(loyaltyValue.substring(0, 6) == "636574") {
+				$(refs.loyaltyMembershipNumber).val(loyaltyValue.substring(6, 16));
+			}
+		}else{
+			 $(refs.loyaltyMembershipNumber).val(currModel.get('loyaltyMembershipNumber'));
+		}
+		// VZE-473
         $(refs.placeofissue).val(currModel.get('placeofissue'));
         $(refs.idtype).val(currModel.get('idtype'));
         $(refs.idnumbers).val(currModel.get('idnumbers'));
@@ -2558,7 +2568,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 displayAddress(false);
             }
         }
-        validateExpirtDateCOVID19();
+        validateExpiryDateForMarch2020();
     }
     // ---------------------------------------------------------------------------------------
     function addressLookupFail( argResponse ){
@@ -2588,6 +2598,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             var rezQC_HE = [];
             var c1;
             var personalModel = models.personalDataModel;
+            var idScan = personalModel.get('IDScan');
             var currModel = models.addressModel;
             var enteredYears = models.addressModel.get('years');
             var enteredMonthes = models.addressModel.get('months');
@@ -2596,7 +2607,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             // US4112
             // Id validation start here
             valid =  app.validationDecorator.idNumberValidation(models.personalDataModel,refs.idnumbers);
-            if(IDScan){
+            if(idScan){
             	// VZE-273 
             	$.each(models.personalDataModel.data, function(index, item) {
           			if(item.name == "lastName") {
@@ -2691,7 +2702,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 
                 // VZE-52
                 var covidRez = [];
-                covidRez = validateExpirtDateCOVID19();
+                covidRez = validateExpiryDateForMarch2020();
                 
                 //custom validation for Canada Post address
                 var address_postalcode = $('#address_postalcode').text();
@@ -3371,39 +3382,26 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     }
    //------------------------------------------------------------------------------------------------------------------------------
     function isInputDateSameAsToday(){
-	    var sMethod = "isInputDateSameAsToday()";
-        var expiryDateVal;
-	    var aestTime;
-    	var aestDate;
-    	var stringDate;
-    	var inputDateYear;
-    	var inputDateMonth;
-        var inputDateDay;
+    	var sMethod = "isInputDateSameAsToday()";
+	    
+        var expiryDateVal, stringDate, inputDateYear, inputDateMonth, inputDateDay;
         var todaysDate = new Date();
-	    console.log(logPrefix + sMethod + "todaysDate :  " + todaysDate);
 	    var todayDateFormat = moment(todaysDate).format('MM-DD-YYYY').split("-");
-	    console.log(logPrefix + sMethod + "todayDateFormat :  " + todayDateFormat);
-	    var todayMonth = parseInt((todayDateFormat[0]));
-	    var todayDay =  parseInt(todayDateFormat[1]);
-	    var todayYear = parseInt(todayDateFormat[2]);
-	    console.log(logPrefix + sMethod + "todayMonth :  " + todayMonth + " todayDay : "+ todayDay + "Year : "+todayYear);
+	    var todayMonth = parseInt((todayDateFormat[0])), todayDay =  parseInt(todayDateFormat[1]), todayYear = parseInt(todayDateFormat[2]);
+	    console.log(logPrefix + sMethod +  "todayDateFormat :  " + todayDateFormat + " todayMonth :  " + todayMonth + " todayDay : "+ todayDay + "Year : "+todayYear);
+	    
         if($(refs.expiryDateYear).val() !== "null" && $(refs.expiryDateMonth).val() !== "null" && $(refs.expiryDateDay).val() !== "null"){
-	           expiryDateVal = $(refs.expiryDateYear).val()+"-"+$(refs.expiryDateMonth).val()+"-"+$(refs.expiryDateDay).val();
-               console.log(logPrefix + sMethod + "expiryDateVal :: " + expiryDateVal);
-	           aestTime = new Date(expiryDateVal).toLocaleString("en-US", {timeZone: "America/Toronto"});
-               console.log(logPrefix + sMethod + "aestTime :: " + aestTime);
-    	       aestDate = new Date(aestTime).toISOString();
-    	       stringDate  = aestDate.substr(0, 10).split("-");
-    	       inputDateYear = parseInt(stringDate[0]);
-    	       inputDateMonth = parseInt(stringDate[1]);
-               inputDateDay = parseInt(stringDate[2]);
-               console.log(logPrefix + sMethod + "inputDateYear :  " + inputDateYear + " inputDateMonth : "+ inputDateMonth + "inputDateDay : "+inputDateDay);
+        	expiryDateVal = $(refs.expiryDateYear).val()+"-"+$(refs.expiryDateMonth).val()+"-"+$(refs.expiryDateDay).val();
+    	    inputDateYear = $(refs.expiryDateYear).val();
+    	    inputDateMonth = $(refs.expiryDateMonth).val();
+            inputDateDay = $(refs.expiryDateDay).val();
+            console.log(logPrefix + sMethod + "expiryDateVal :: " + expiryDateVal + " inputDateYear :  " + inputDateYear + " inputDateMonth : "+ inputDateMonth + "inputDateDay : "+inputDateDay);
         }
+        
         if(( todayMonth == inputDateMonth) && (todayDay == inputDateDay)){
-	           console.log("same date as todays date'");
-	           return true;
+	        return true;
         }else{
-	           return false;
+	        return false;
         }
     }
     //--VZE-161----------------------------------------------------------------------------------------------------------------------------
@@ -3444,90 +3442,80 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
           }
     }
    //------------------------------------------------------------------------------------------------------------------------------
-    // VZE-52
-    function validateExpirtDateCOVID19() {
-    	var sMethod = "validateExpirtDateCOVID19()";
-		console.log(logPrefix + sMethod);
+ // VZE-52
+    function validateExpiryDateForMarch2020() {
+    	var sMethod = "validateExpiryDateForMarch2020()";
+    	console.log(logPrefix + sMethod);
         
-        var rez =[];
-        var aestTime;
-    	var aestDate;
-    	var stringDate;
-    	var inputDateYear;
-    	var inputDateMonth;
-    	var inputDateDay;
-    	var covid19Year =  parseInt(translator.translateKey("pesonalData_covid19LockDownYear"));
-    	var covid19Month = parseInt(translator.translateKey("pesonalData_covid19LockDownMonth"));
-    	var covid19Day = parseInt(translator.translateKey("pesonalData_covid19LockDownDay"));
-        console.log(logPrefix + sMethod + "covid19Year :  " + covid19Year + " covid19Month : "+ covid19Month + "covid19Day : "+covid19Day); 
-        console.log(logPrefix + sMethod + "Entered Year :  " + $(refs.expiryDateYear).val() + " Entered Month : "+ $(refs.expiryDateMonth).val() + "Entered Day : "+$(refs.expiryDateDay).val());
-        var todaysDate = new Date();
-	    console.log(logPrefix + sMethod + "todaysDate :  " + todaysDate);
-	    var todayDateFormat = moment(todaysDate).format('MM-DD-YYYY').split("-");
-	    console.log(logPrefix + sMethod + "todayDateFormat :  " + todayDateFormat);
-	    var todayMonth = parseInt((todayDateFormat[0]));
-	    var todayDay =  parseInt(todayDateFormat[1]);
-	    var todayYear = parseInt(todayDateFormat[2]);
-	    console.log(logPrefix + sMethod + "todayMonth :  " + todayMonth + " todayDay : "+ todayDay + "Year : "+todayYear);
-	    todaysDate.setDate(todaysDate.getDate() - 1);
-	    var yesterdayDate = moment(todaysDate).format('MM-DD-YYYY').split("-");
-	    var yesterdayMonth = parseInt((yesterdayDate[0]));
-	    var yesterdayDay =  parseInt(yesterdayDate[1]);
-	    var yesterdayYear = parseInt(yesterdayDate[2]);
-	    console.log(logPrefix + sMethod + "yesterdayYear :  " + yesterdayYear + " yesterdayMonth : "+ yesterdayMonth + "yesterdayDay : "+yesterdayDay);
-
-        if($(refs.expiryDateYear).val() === "null"  && $(refs.expiryDateMonth).val() === "null"  && $(refs.expiryDateDay).val() ==="null" ){
+    	var rez =[], inputDateYear, inputDateMonth, inputDateDay, todaysDate, todayDateFormat, todayMonth, todayDay, todayYear ;
+    	var march2020Year,march2020Month, march2020Day;
+        
+    	march2020Year =  parseInt(translator.translateKey("pesonalData_covid19LockDownYear"));
+    	march2020Month = parseInt(translator.translateKey("pesonalData_covid19LockDownMonth"));
+    	march2020Day = parseInt(translator.translateKey("pesonalData_covid19LockDownDay"));
+    	console.log(logPrefix + sMethod + "march2020Year :  " + march2020Year + " march2020Month : "+ march2020Month + "march2020Day : "+march2020Day);
+        
+    	todaysDate = new Date();
+    	todayDateFormat = moment(todaysDate).format('MM-DD-YYYY').split("-");
+    	console.log(logPrefix + sMethod + "todayDateFormat :  " + todayDateFormat);
+    	todayMonth = parseInt((todayDateFormat[0]));
+    	todayDay =  parseInt(todayDateFormat[1]);
+    	todayYear = parseInt(todayDateFormat[2]);
+    	console.log(logPrefix + sMethod + "todayMonth :  " + todayMonth + " todayDay : "+ todayDay + "Year : "+todayYear);
+        if($(refs.expiryDateYear).val() == "null"  && $(refs.expiryDateMonth).val() == "null"  && $(refs.expiryDateDay).val() =="null" ){
         	rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
         	rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
         	rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
         	return rez;
-        }else if($(refs.expiryDateYear).val() === "null"  || $(refs.expiryDateMonth).val() === "null"  || $(refs.expiryDateDay).val() ==="null" ){
+        }else if($(refs.expiryDateYear).val() == "null"  || $(refs.expiryDateMonth).val() == "null"  || $(refs.expiryDateDay).val() =="null" ){
         	rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
         	rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
         	rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
         	return rez;
-        }else if($(refs.expiryDateYear).val() !== "null"  && $(refs.expiryDateMonth).val() !== "null"  && $(refs.expiryDateDay).val() !=="null"){
+        }else {
         	var expiryDateVal = $(refs.expiryDateYear).val()+"-"+$(refs.expiryDateMonth).val()+"-"+$(refs.expiryDateDay).val();
-            console.log(logPrefix + sMethod + "expiryDateVal :: " + expiryDateVal); 
-            aestTime = new Date(expiryDateVal).toLocaleString("en-US", {timeZone: "America/Toronto"});
-            console.log(logPrefix + sMethod + "aestTime :: " + aestTime);
-    	    aestDate = new Date(aestTime).toISOString();
-    	    stringDate  = aestDate.substr(0, 10).split("-");
-    	    inputDateYear = parseInt(stringDate[0]);
-    	    inputDateMonth = parseInt(stringDate[1]);
-            inputDateDay = parseInt(stringDate[2]);
-            console.log(logPrefix + sMethod + "inputDateYear :  " + inputDateYear + " inputDateMonth : "+ inputDateMonth + "inputDateDay : "+inputDateDay);
-            if((inputDateMonth === todayMonth) && (inputDateDay === todayDay ) ){
+        	inputDateYear = $(refs.expiryDateYear).val();
+        	inputDateMonth = $(refs.expiryDateMonth).val();
+        	inputDateDay = $(refs.expiryDateDay).val();
+        	console.log(logPrefix + sMethod + "expiryDateVal :: " + expiryDateVal + "inputDateYear :  " + inputDateYear + " inputDateMonth : "+ inputDateMonth + "inputDateDay : "+inputDateDay);
+            if(((march2020Year == inputDateYear) && (march2020Month < inputDateMonth))){
+            	rez = null;
+	    	}else if((march2020Year > inputDateYear)){
+	    		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+	    	}else if((march2020Year == inputDateYear) &&  (inputDateMonth < march2020Month)){
+		        rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+	    	}else if((march2020Year == inputDateYear) && ((inputDateMonth == march2020Month)) && (march2020Day == inputDateDay ) ){
+		        rez = null;
+	    	}else if(((march2020Year == inputDateYear) && ((inputDateMonth == march2020Month)) && (march2020Day == inputDateDay ))){
+	    		rez = null;
+	    	}else if((inputDateMonth == todayMonth) && (inputDateDay == todayDay ) ){
 	    		if(IDScan){
-	    			// VZE-26 : Change rule from ID Exp must be = > today to ID Exp must be = > 03-01-2020
+	    			// VZE-26 : Change rule from ID Expiry Date must be = > today to ID Expiry  must be = > 03-01-2020
 	    			rez = null;
 	    		}else{
-	    			 // Manually entered an expiry date 
+	    			// Manually entered an Expiry date 
 	    			if(isContinueButton){
 	    				// continue button - skip validation
-		    			rez = null;
-		    		}else if((covid19Year > inputDateYear)){
-	    		        console.log("condition 2");
-	    		        rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
-	    		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
-	    		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
-	    		        return rez;
-	    	    	}else if((covid19Year == inputDateYear)){
-		    			// cancel button - do the validation
-		    			
-		    			rez = null;
-			    		return rez;
-		    		}else{
-		    			rez = null;
-		    			return rez;
-		    		}
-	    		}
-	        }else if(((covid19Year == inputDateYear) && ((inputDateMonth == covid19Month)) && (covid19Day == inputDateDay )) ||((inputDateYear <= yesterdayYear) && (inputDateMonth == yesterdayMonth) &&  (inputDateDay < yesterdayDay )) ){
-	    		console.log("condition 5");
-	    		rez = null;
+	    				rez = null;
+	    			}else{
+	    				// cancel button - do the validation
+	    				rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+	    				rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+	    				rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+	    			}
+	            }
+	        }else{
+	        	rez =null;
 	    	}
-        }
+            return rez;
+        } 
     }
+    
+   //------------------------------------------------------------------------------------------------------------------------------
     function isAnyScannedFieldEmpty(rez){
     	var sMethod = 'isAnyScannedFieldEmpty(rez) ';
         console.log(logPrefix + sMethod);

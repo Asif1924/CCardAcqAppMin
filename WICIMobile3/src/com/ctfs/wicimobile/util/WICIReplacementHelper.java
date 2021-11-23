@@ -46,8 +46,8 @@ public class WICIReplacementHelper {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
-	        } else if(("PHL".equalsIgnoreCase(retailNetwork) || "NS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
-	        	Log.i(" WICIReplacementHelper ", " PHL or NS ");
+	        } else if(("NS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
+	        	Log.i(" WICIReplacementHelper ", " NS ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("4111111111111111", context));
 	        } else if("4111111111111111".equals(cryptedAccountNumber) ) {
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));

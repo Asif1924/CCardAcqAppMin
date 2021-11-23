@@ -100,7 +100,8 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        return regexMatch(/^[A-Z0-9\-\' ]{2,40}$/, value.trim());
+        // VZE-265
+        return regexMatch(/^[A-Z0-9\-\' ]{1,40}$/, value.trim());
     };
   //-----VZE-273----------------------------------------------------------------------------------
     this.personLastName = function(value) {
@@ -113,8 +114,8 @@ WICI.Validator = function() {
         if(value===null){
             return false;
         }
-        
-        return regexMatch(/^(?=.*[a-zA-Z])([a-zA-Z0-9\-\' ]+)$/, value.trim());
+        // VZE-265
+        return regexMatch(/^(?=.*[a-zA-Z])([a-zA-Z0-9\-\' ]+){2,40}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     this.employerName = function(value) {

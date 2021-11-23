@@ -693,7 +693,7 @@ public class AccountApplicationRequestTypeConverter
 					argAccAppRequest.setCurrentCellPhoneNumber(model.get("homePhone"));
 				} else if(model.get("primaryLandline_CheckField").equalsIgnoreCase("Y")) {
 					argAccAppRequest.setCurrentTelephoneNumber(model.get("homePhone"));
-					argAccAppRequest.setCurrentCellPhoneNumber("");
+					argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));
 				} else if(model.get("secondaryMobile_CheckField").equalsIgnoreCase("Y")) {
 					argAccAppRequest.setCurrentTelephoneNumber(model.get("cellPhone"));
 					argAccAppRequest.setCurrentCellPhoneNumber(model.get("cellPhone"));

@@ -105,8 +105,8 @@ public class WICIFileHelper {
 	        		} 
 	        	}
 	        	
-	        	if(("PHL".equalsIgnoreCase(retailNetwork) || "NS".equalsIgnoreCase(retailNetwork)) && !isBottomFile && "4111111111111111".equals(accountNumber) ) {
-    				// No Token print for ProHockey Life and National Sports
+	        	if("NS".equalsIgnoreCase(retailNetwork) && !isBottomFile && "4111111111111111".equals(accountNumber) ) {
+    				// No Token print for National Sports
 	        		//templateFileName = templateFileName + PrintOutMockupTokensuffix;
 		        } else if(!isBottomFile && "4111111111111111".equals(accountNumber) ) {
 	        		 templateFileName = templateFileName + PrintOutMockupTokensuffix;
