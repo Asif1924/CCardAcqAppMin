@@ -25,6 +25,8 @@ public class WICIFileHelper {
     public final static String PrintOutMockupPendDecSuffix = "_PENDING_DECLINE";
     public final static String PrintOutMockupCouponSuffix = "_coupon";
     public final static String PrintOutMockupTokensuffix = "_TOKEN";
+    public final static String PrintOutMockupMarksSuffix = "MARKS";
+    public final static String PrintOutMockupSportsSuffix = "SPORTS";
     public final static String PrintOutMockupCardTypeForOMXandOMZsuffix = "OMX_OMZ";
     // US5240 -  Printout updates
     public final static String PrintOutMockupTopsuffix = "_top";
@@ -33,6 +35,7 @@ public class WICIFileHelper {
     // DE1724 printout language
     static String preferedLang;
     WICIStoreRecallPrintHelper storeRecallPrint = new WICIStoreRecallPrintHelper();
+    WICIStoreRecallCouponPrintHelper storeRecallCouponPrint = new WICIStoreRecallCouponPrintHelper();
     
     @Trace
     @SuppressWarnings("null")
@@ -154,27 +157,20 @@ public class WICIFileHelper {
             Context context, 
             WICIReplacementHelper replacementHelper, WICICardmemberModel cardmemberModel) throws ConnectionException, IOException {
         
-    	String cardType = cardmemberModel.getCardType();
-        String storeNumber = cardmemberModel.getStoreNumber();
         String correspondenceLanguage = cardmemberModel.getCorrespondenceLanguage();
         Boolean performStoreRecallPrint = cardmemberModel.getPerformStoreRecallPrint();
+        String retailNetwork = cardmemberModel.getRetailNetwork();
         
         // Get printer connection
         Connection  connection = printer.getConnection();
         preferedLang = correspondenceLanguage;
                 
         try {    
-        	String _storeNumber =  "Test".equalsIgnoreCase(storeNumber)? "0" : storeNumber ;
-        	double storeNo = Double.parseDouble(_storeNumber);
-        	Log.i(getClass().getSimpleName(), "----- storeNo -------" + storeNo);
-        	if(storeNo > 0){
-        		if (cardType.equalsIgnoreCase("OMX") || cardType.equalsIgnoreCase("OMZ")) {
-        			templateName = "PrintOutMockup_" + PrintOutMockupCardTypeForOMXandOMZsuffix;
-        		} else {
-        			templateName = "PrintOutMockup_" + cardType;
-        		}
-        		templateName += "_{lang}" + PrintOutMockupCouponSuffix;
-        	}        
+        	if(retailNetwork.equalsIgnoreCase("MARKS")){
+        		templateName = "PrintOutMockup_" + PrintOutMockupMarksSuffix +  "_{lang}" + PrintOutMockupCouponSuffix;
+        	} else if(retailNetwork.equalsIgnoreCase("SPORTS")) {
+        		templateName = "PrintOutMockup_" + PrintOutMockupSportsSuffix + "_{lang}" + PrintOutMockupCouponSuffix;
+        	}
 	        	
 	        Log.i(getClass().getSimpleName(), "----- templateName -------" + templateName);
 	        Log.i(getClass().getSimpleName(), " performStoreRecallPrint :: " + performStoreRecallPrint);

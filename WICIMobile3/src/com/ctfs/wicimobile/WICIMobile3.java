@@ -55,7 +55,7 @@ public class WICIMobile3 extends CordovaActivity
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
         
-        NewRelic.withApplicationToken("AA1f24be0bf516669da84d7c0aec7b098f5835ffcb-NRMA")
+        NewRelic.withApplicationToken("${NewRelic.WICI_App_Token}")
 		.start(this.getApplicationContext());
 
         NewRelic.setUserId(WICIDeviceInfoHelper.getDeviceSerialNo());

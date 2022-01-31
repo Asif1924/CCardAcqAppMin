@@ -71,7 +71,7 @@ WICI.dictionary_fr =  {
 	breadCrumbItem_EmailInfo						  :							"Pour nous joindre",	
 	breadCrumbItem_FinancialAndEmploymentInfo		  :   						"Emploi et situation financière",
 	breadCrumbItem_SupplementaryCard				  :  						"Carte additionnelle",
-	breadCrumbItem_OptionalProducts					  :  						"Produits facultatifs",
+	breadCrumbItem_OptionalProducts					  :  						"Produit facultatif",
 	breadCrumbItem_MobilePayments					  :	             			"Paiements mobiles",
 	breadCrumbItem_Confirmation						  :	             			"Confirmation",
 
@@ -665,7 +665,7 @@ WICI.dictionary_fr =  {
 	//........................NEW ITEMS ..............................
 
 	optionalProducts_Proceed                          :                         "PASSER À LA CONFIRMATION",
-	optionalProducts_PageTitle                        :                         "Voici deux produits facultatifs offerts<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> pour votre <br>carte de crédit émise par la Banque Canadian Tire",
+	optionalProducts_PageTitle                        :                         "Voici un produit facultatif<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> offerts pour votre <br>carte de crédit émise par la Banque Canadian Tire",
 	//US4131
 	optionalProducts_CP_title                         :                         "L’ASSURANCE COUVERTURE-CR&Eacute;DIT<sup><span style=\"font-size: small;\">MD</span></sup>",
 	//US4131
@@ -701,7 +701,7 @@ WICI.dictionary_fr =  {
     
     //---Optional product CP details  ends ------
     //--PA Offer  details starts  
-    OP_yes_i_am_interested_for_op                     :   "Oui, je m’intéresse aux produits facultatifs suivants :",
+    OP_yes_i_am_interested_for_op                     :   "Oui, je m’intéresse au produit facultatif suivant : ",
     OP_PA_title                                       :   "Avantage Protection de Canadian Tire<span class=\"section_3_sup_iw\">MD</span>",
     OP_PA_Rule_li_1_not_available                     :   "N’est pas offert aux résidents de la Saskatchewan.",
     OP_PA_Rule_li_2_available                         :   "Offert aux titulaires de carte de 18 à 76 ans.",
@@ -892,14 +892,14 @@ WICI.dictionary_fr =  {
     OP_Not_at_this_time                               :   "Pas pour le moment",
     
     //Footer part of  optional products starts 
-    OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; Ce sont des produits facultatifs offerts à tous les nouveaux titulaires de carte Mastercard émise par la Banque Canadian Tire. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte Mastercard émise par la Banque Canadian Tire et non pour votre adhésion aux produits facultatifs." ,
-    OP_FT_business_product		                      :   "La Banque Canadian Tire possède un intérêt financier dans la vente de ces produits.",
+    OP_FT_there_are_op_offfers                        :   "&dagger;&dagger;Ceci est un produit facultatif offert à tous les clients dont la demande de carte Mastercard émise par la Banque Canadian Tire a été approuvée. Les renseignements que vous fournissez sur la présente demande de carte sont utilisés pour déterminer votre admissibilité à l’obtention d’une carte Mastercard émise par la Banque Canadian Tire et non pour votre adhésion au produit facultatif." ,
+    OP_FT_business_product		                      :   "La Banque Canadian Tire possède un intérêt financier dans la vente de ce produit.",
     OP_FT_business_name                               :   "Services Financiers Canadian Tire est une dénomination commerciale de la Banque Canadian Tire.",
     OP_FT_unless                                      :   "<span class=\"footer_p_sup\">MD/MC</span> Sauf indication contraire, toutes les marques de commerce sont la propriété de La Société Canadian Tire Limitée et sont utilisées sous licence.",
     OP_FT_CP                                          :   "<span class=\"footer_p_sup\">MD/MC</span> Couverture-crédit est une marque de commerce déposée de la Banque Canadian Tire.",
     OP_FT_IW_programs                                 :   "Le programme Surveillance d’identité Classique est commandité par la Banque Canadian Tire et fourni par Sigma Loyalty Group Inc.",
     OP_FT_internet                                    :   "<span class=\"footer_p_sup\">MD/MC</span> Suivi des informations personnelles sur Internet<span class=\"footer_p_sup\">MD</span>, iPiP<span class=\"footer_p_sup\">MD</span>, et Retour<span class=\"footer_p_sup\">MD</span> sont des marques de commerce déposées de Sigma Loyalty Group Inc.",
-    OP_FT_assurant                                    :   "<b><sup>&reg;</sup></b> Assurant est une marque déposée de Assurant, Inc.<b><sup>&reg;</sup></b>",
+    OP_FT_assurant                                    :   "<b><sup>&reg;</sup></b>Assurant est une marque déposée de Assurant, Inc.<b><sup>&reg;</sup></b>",
     OP_FT_mastercard                                  :   "<span class=\"footer_p_sup\">MD/MC</span> Mastercard est une marque déposée, et le logo des deux cercles imbriqués est une marque de commerce de Mastercard International Incorporated.",
     //Foooter part of optional products ends 
     
@@ -1902,7 +1902,7 @@ WICI.dictionary_fr =  {
                                                             "<br><br><span class=\"MD\"><sup></sup></span> Assurant Solutions est une marque de commerce de Assurant Inc." +
                                                             "<br><br>Mastercard, World Mastercard et Mastercard SecureCode sont des marques de commerce déposées de Mastercard International et sont utilisées sous licence.",                                                                                                                                
     // UAT 12 - CP Revitalization
-    optionalProducts_TableTitle                        :   "Oui, je m’intéresse aux produits facultatifs suivants :",
+    optionalProducts_TableTitle                        :   "Oui, je m’intéresse au produit facultatif suivant:",
     // Old line
     /*
 	optionalProducts_SellingLanguageText                :   "<p><strong>Couverture-crédit<span class=\"MD\"><sup>**</sup></span>/Couverture-crédit - <em>Âge d'or<span class=\"MD\"><sup></sup></span>***</em></strong><em><br/>(non disponible pour les résidents de la Saskatchewan)</em></p>" +

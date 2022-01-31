@@ -69,7 +69,7 @@ WICI.dictionary_en =  {
 	breadCrumbItem_EmailInfo							:	"Contact Information",	
 	breadCrumbItem_FinancialAndEmploymentInfo			:   "Financial and Employment Info",
 	breadCrumbItem_SupplementaryCard					:   "Supp Card",
-	breadCrumbItem_OptionalProducts						:   "Optional Products",
+	breadCrumbItem_OptionalProducts						:   "Optional Product",
 	breadCrumbItem_MobilePayments					  	:	"Mobile Payments",
 	breadCrumbItem_Confirmation							:	"Confirmation",
 
@@ -649,7 +649,7 @@ WICI.dictionary_en =  {
 	//........................NEW ITEMS ..............................
 
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
-	optionalProducts_PageTitle						    :	"Here are two optional products<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> available for<br> your Canadian Tire Bank issued credit card",
+	optionalProducts_PageTitle						    :	"Here is an optional product<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> available for<br> your Canadian Tire Bank issued credit card",
 
 	// Old line
 	// optionalProducts_SignatureAgreement1				:	"<i>I understand the(se) optional product(s) is(are) being offered separately from the Canadian Tire branded Mastercard and that they are not required to obtain the Canadian Tire branded Mastercard. I understand the optional product(s) I select will only be provided if I sign and thereby agree to the cost disclosed. If I have applied for a Canadian Tire Mastercard and I am approved, I authorize Canadian Tire Financial Services Limited to charge my Canadian Tire Mastercard account in the amount and time period indicated above. I have read and understand the product details disclosed in the terms and conditions and give my consent to be enrolled in the above selected optional product(s).</i>",
@@ -1694,7 +1694,7 @@ WICI.dictionary_en =  {
                                                         	"<br><br><sup>&reg;</sup> Assurant<sup>&reg;</sup> is a trademark of Assurant, Inc." +
                                                         	"<br><br>Mastercard, the Mastercard Brand Mark and Mastercard SecureCode are registered trademarks of Mastercard International, and used under licence.",
     
-    optionalProducts_TableTitle                         :   "Yes, I am interested in the following optional products:",
+    optionalProducts_TableTitle                         :   "Yes, I am interested in the following optional product:",
     //US4131
     optionalProducts_CP_title                           :   "CREDIT PROTECTOR<span class=\"optionaProduct_cp_iw_sup\">&reg;</span> INSURANCE",
     //---Optional product CP details  start ------
@@ -1717,7 +1717,7 @@ WICI.dictionary_en =  {
     //---Optional product CP details  ends ------
     
     //--PA Offer  details starts  
-      OP_yes_i_am_interested_for_op                     :   "Yes, I am interested in the following optional products:",
+      OP_yes_i_am_interested_for_op                     :   "Yes, I am interested in the following optional product:",
       OP_PA_title                                       :   "Canadian Tire Protection Advantage<sup>&reg;</sup>",
       OP_PA_Rule_li_1_not_available                     :   "Not available for residents of Saskatchewan",
       OP_PA_Rule_li_2_available                         :   "Available for cardmembers aged 18 to under 76",
@@ -1904,14 +1904,14 @@ WICI.dictionary_en =  {
       
       
       //Footer part of  optional products starts 
-      OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; These are optional products offered to all customers approved for a Canadian Tire Bank issued Mastercard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued Mastercard and not for the optional products." ,
-      OP_FT_business_product		                    :   "Canadian Tire Bank has a financial interest in the sale of these products.",
+      OP_FT_there_are_op_offfers                        :   "&dagger;&dagger; This is an optional product offered to all customers approved for a Canadian Tire Bank issued Mastercard. The information on this application is used to determine eligibility for a Canadian Tire Bank issued Mastercard and not for the optional product." ,
+      OP_FT_business_product		                    :   "Canadian Tire Bank has a financial interest in the sale of this product.",
       OP_FT_business_name                               :   "Canadian Tire Financial Services is a business name of Canadian Tire Bank.",
       OP_FT_unless                                      :   "&reg;/&trade; Unless otherwise noted, all trademarks are owned by Canadian Tire Corporation, Limited and are used under licence.",
       OP_FT_CP                                          :   "&reg;/&trade; Credit Protector is a registered trademark of Canadian Tire Bank.",
       OP_FT_IW_programs                                 :   "The Identity Watch Classic Program is sponsored by Canadian Tire Bank and provided by Sigma Loyalty Group Inc..",
       OP_FT_internet                                    :   "&reg;/&trade; Internet Personal Information Patrol&reg;, iPiP&reg; and Rebound&reg; are registered trademarks of Sigma Loyalty Group Inc.",
-      OP_FT_assurant                                    :   "&reg; Assurant is a registered trademark of Assurant, Inc.",
+      OP_FT_assurant                                    :   "&reg;Assurant is a registered trademark of Assurant, Inc.",
       OP_FT_mastercard                                  :   "&reg;/&trade; Mastercard is a registered trademark, and the circles design is a trademark of Mastercard International Incorporated.",
       //Foooter part of optional products ends 
     //US4131

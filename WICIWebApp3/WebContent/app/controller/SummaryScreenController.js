@@ -421,39 +421,10 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	new WICI.LoadingIndicatorController().show();
 
         	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
-        		// US3462 
-        		// Print Coupon after submit app if cardtype is OMC
-        		// VZE 24
-        		/*console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('locationFieldID'));
-        			if(activationItems.getModel('chooseProductModel').get('productCard') == "OMX" ||
-                		activationItems.getModel('chooseProductModel').get('productCard') == "OMZ"){
-        				if(activationItems.getModel('loginScreen').get('employerID') == 'E' && 
-        						$.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), [ "CT", "GAS"]) != '-1') {
-        					// No coupons for DP Channel
-                		}
-                		else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
-                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
-                			// No coupons for gas store
-                		} else if(activationItems.getModel('loginScreen').get('locationFieldID').substring(0, 1) == "H") {
-                			// No coupons for Husky gas store
-                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500) {
-                			// No coupons for OOS store
-                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 4000 &&
-                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 5999) {
-                			// Coupons print for FGL store
-                			printCoupon();
-                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1 &&
-                     		activationItems.getModel('loginScreen').get('locationFieldID') <= 999) {
-                			// Coupons print for CT store
-                			printCoupon();
-                		} else if(activationItems.getModel('loginScreen').get('locationFieldID') >= 6000 &&
-                			activationItems.getModel('loginScreen').get('locationFieldID') <= 6999) {
-                			// Coupons print for Marks store
-                			printCoupon();
-                		} else {
-                			// No coupons for any other channels
-                		}
-                	}*/
+				// VZE-478
+				if($.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), ["MARKS", "SPORTS"]) != '-1') {
+					printCoupon();
+				}
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
         	}else{
         		showMessageForDataValidationIssue();
@@ -514,7 +485,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 				}
 				new WICI.LoadingIndicatorController().show();
 
-				app.zebraPrinterWrapper.printCoupon(activationItems,
+				app.zebraPrinterWrapper.printCoupon(translator, activationItems,
 						printFileSuccess, printFileFailure);
 
 			} else {

@@ -93,6 +93,13 @@
 	<servlet>
 		<description>
 		</description>
+		<display-name>IsServerAliveServlet</display-name>
+		<servlet-name>IsServerAliveServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.IsServerAliveServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
 		<display-name>TMXEmailRiskAssessmentServlet</display-name>
 		<servlet-name>TMXEmailRiskAssessmentServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.TMXEmailRiskAssessmentServlet</servlet-class>
@@ -104,7 +111,6 @@
 		<servlet-name>AbbrevaitedCityServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.AbbrevaitedCityServlet</servlet-class>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>/AddressLookup</url-pattern>
@@ -116,6 +122,10 @@
 	<servlet-mapping>
 		<servlet-name>InstantIssuanceServlet</servlet-name>
 		<url-pattern>/InstantIssuance</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IsServerAliveServlet</servlet-name>
+		<url-pattern>/IsServerAlive</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AgentServlet</servlet-name>

@@ -3,19 +3,19 @@
     "Description": "This JSON lists all print templates and their new Store Recall Equivalents and their versions.",
     "PrintOutMockup_OMP_E_TOKEN_top": {
         "NewTemplateName": "PE_T_T",
-        "Version": 4
+        "Version": 5
     },
     "PrintOutMockup_OMP_F_TOKEN_top": {
         "NewTemplateName": "PF_T_T",
-        "Version": 4
+        "Version": 5
     },
     "PrintOutMockup_OMX_E_TOKEN_top": {
         "NewTemplateName": "XE_T_T",
-        "Version": 4
+        "Version": 5
     },
     "PrintOutMockup_OMX_F_TOKEN_top": {
         "NewTemplateName": "XF_T_T",
-        "Version": 4
+        "Version": 6
     },
     "PrintOutMockup_OMZ_E_TOKEN_top": {
         "NewTemplateName": "ZE_T_T",
@@ -104,5 +104,21 @@
     "PrintOutMockup_OMR_PENDING_DECLINE_F": {
         "NewTemplateName": "NOT_PRINT",
         "Version": 1
+    },
+    "PrintOutMockup_MARKS_E_coupon": {
+        "NewTemplateName": "M_Cou_E",
+        "Version": 2
+    },
+    "PrintOutMockup_MARKS_F_coupon": {
+        "NewTemplateName": "M_Cou_F",
+        "Version": 2
+    },
+    "PrintOutMockup_SPORTS_E_coupon": {
+        "NewTemplateName": "SC_Co_E",
+        "Version": 2
+    },
+    "PrintOutMockup_SPORTS_F_coupon": {
+        "NewTemplateName": "SC_Co_F",
+        "Version": 2
     }
 }

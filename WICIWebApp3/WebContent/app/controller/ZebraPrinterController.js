@@ -114,7 +114,8 @@ WICI.ZebraPrinterController = function () {
                          activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                          activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                          prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                         //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+						 "", // VZE-401
                          activationItems.getModel('loginScreen').get('locationFieldID'),
                          "",
                          activationItems.getModel('loginScreen').get('employerID'),
@@ -146,7 +147,8 @@ WICI.ZebraPrinterController = function () {
                          activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                          activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                          prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                         prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                         //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+						 "", // VZE-401
                          activationItems.getModel('loginScreen').get('locationFieldID'),
                          "",
                          activationItems.getModel('loginScreen').get('employerID'),
@@ -218,7 +220,8 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                    activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                    prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                   prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                   //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+				   "", // VZE-401
                    activationItems.getModel('loginScreen').get('locationFieldID'),
                    "",
                    activationItems.getModel('loginScreen').get('employerID'),
@@ -236,7 +239,7 @@ WICI.ZebraPrinterController = function () {
         };
       // US3462
       //---------------------------------------------------------------------------------------
-      this.printCoupon = function (activationItems, successCallback, failureCallback) {
+      this.printCoupon = function (translator, activationItems, successCallback, failureCallback) {
           var sMethod = 'printCoupon() ';
           console.log(logPrefix + sMethod);
           console.log('---------- printCoupon ----------');         
@@ -247,6 +250,21 @@ WICI.ZebraPrinterController = function () {
           console.log(activationItems.getModel('chooseProductModel').get('province')); 
           console.log(activationItems.getModel('loginScreen').get('locationFieldID'));
           console.log('--------------------');
+
+		  var retailNetwork = '', performStoreRecallPrint = 'N', 
+			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
+          	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
+			
+		  console.log(logPrefix + sMethod + " storeNumber :: " + storeNumber + " storeRecallPrintStores :: " + storeRecallPrintStores.stores.length);
+		  if ($.inArray(storeNumber, storeRecallPrintStores.stores) != -1 || app.getNewStylePrintFlag() == 'Y') {
+			performStoreRecallPrint = 'Y';
+		  }
+		  console.log(logPrefix + sMethod + " performStoreRecallPrint :: " + performStoreRecallPrint);
+
+		  var todaysDate = new Date();
+		  var todayPlus30Days = moment(todaysDate).add(30, 'd').format('M/D/YYYY');
+		  console.log(logPrefix + sMethod + " todaysDate : " + moment(todaysDate).format('M/D/YYYY') + " todayPlus30Days : " + todayPlus30Days);
+
           try {
               // Send response to mobile side
               cordova.exec(successCallback,
@@ -259,7 +277,7 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('personalData').get('lastName') ? activationItems.getModel('personalData').get('lastName') : "",
                    "",
                    "",
-                   "",
+                   todayPlus30Days ? todayPlus30Days : "",
                    "",
                    "",
                    "",
@@ -268,10 +286,19 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                    activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
                    prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                   prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+                   //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
+				   "", // VZE-401
                    activationItems.getModel('loginScreen').get('locationFieldID'),
                    "",
-                   activationItems.getModel('loginScreen').get('employerID')]);             
+                   activationItems.getModel('loginScreen').get('employerID'),
+				   "",
+                   "",
+                   "",
+                   "",
+                   "",
+                   "",
+				   activationItems.getModel('loginScreen').get('retailNetWork'),
+				   performStoreRecallPrint ? performStoreRecallPrint : ""]);             
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }

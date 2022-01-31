@@ -18,20 +18,18 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 
-import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
 import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionRequest;
 import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.DictionaryInfo;
+import com.ctfs.WICI.Model.HealthCheckRecord;
 import com.ctfs.WICI.Model.LoginInfo;
 import com.ctfs.WICI.Model.PendingApplicationDatabaseUpdateException;
 import com.ctfs.WICI.Model.PendingApplicationRetrievalException;
@@ -65,6 +63,8 @@ public class WICIDBHelper
 	public static final String WICI_TAB_LST_TABLE = "WICI_TAB_LST";
 	public static final String CTFS_WICI_USER_INFO = "WICI_USER_INFO";
 	public static final String CTFS_WICI_USER_ROLES ="WICI_USER_ROLES";
+	public static final String WICI_BROKER_HEALTH_TABLE ="WICI_BROKER_HEALTH";
+	
 
 	static final String CONFIG_NAME_APPROVED_APK_VERSION = "APPROVED_APK_VERSION";
 // AUTHFIELD_CHECK_ENABLED
@@ -2399,7 +2399,8 @@ public class WICIDBHelper
 	
 	
 	}
-	
+
+		
 /*	public boolean checkTabSerialNumberExistsAndAuthorized( String argSerialNumber ) throws SQLException
 	{
 		String sMethod = "[checkTabSerialNumberExistsAndAuthorized] ";
@@ -2456,7 +2457,61 @@ public class WICIDBHelper
 	*/
 	
 	
-	
+	public HealthCheckRecord getHealthCheckRecord(String hostName)throws Exception {
+		String sMethod = "[getHealthCheckRecord]";
+		log.info(sMethod);
+
+		String sql = "SELECT * FROM " + WICI_BROKER_HEALTH_TABLE + " WHERE SERVER = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+		log.info("hostName: "+hostName);
+		String correctedHost=null;
+		if (hostName.length() > 14) {
+			String splitted[] = hostName.split("\\.");
+			correctedHost = splitted[0];
+		} else {
+			correctedHost = hostName;
+		}
+		log.info("correctedHost: "+correctedHost);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		HealthCheckRecord healthCheckRecord = null;
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, correctedHost);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet!= null && resultSet.next())
+			{
+				healthCheckRecord=new HealthCheckRecord();
+				String ltmEnabled= resultSet.getString("LTM_ENABLED");
+				String gtmEnabled= resultSet.getString("GTM_ENABLED");
+				healthCheckRecord.setLtmEnabled(ltmEnabled);
+				healthCheckRecord.setGtmEnabled(gtmEnabled);
+				
+				log.info(sMethod + "::ltmEnabled value::" + ltmEnabled );
+				log.info(sMethod + "::gtmEnabled value::" + gtmEnabled );
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			throw ex;
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return healthCheckRecord;
+		
+	}
+
 	
 	
 	

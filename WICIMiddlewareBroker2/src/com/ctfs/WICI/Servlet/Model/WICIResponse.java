@@ -12,6 +12,7 @@ public class WICIResponse implements IResponse
 	protected String transactionId;
 	protected String enstreamResponse;
 	protected String admAppId;
+	
 	AccountApplicationSubmissionRequest accountApplicationSubmissionRequest;
 	
 	public WICIResponse() {
@@ -19,11 +20,15 @@ public class WICIResponse implements IResponse
 		this.msg = "";
 		this.data = null;
 	}
+	public WICIResponse(Object data) {
+		this.data = data;
+	}
 	public WICIResponse(boolean error, String msg, Object data) {
 		this.error = error;
 		this.msg = msg;
 		this.data = data;
 	}
+	
 	public WICIResponse(boolean error, String msg, String transactionId,String consentGranted,String admAppId) {
 		this.error = error;
 		this.msg = msg;

@@ -89,18 +89,44 @@
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
     
-    <target name="build.full.debug.copy" description="Clean and build full debug version" depends="set.apk.version.debug,import.wici.webapp.production.artifacts,-pre-clean,clean,debug,copy.debug.apk.file.somewhere"/>
+    <target name="build.full.debug.copy" description="Clean and build full debug version" depends="set.apk.version.debug,import.wici.webapp.production.artifacts,update.NewRelic.Token,-pre-clean,clean,debug,copy.debug.apk.file.somewhere"/>
     
-    <target name="build.full.debug" description="Clean and build full debug version" depends="import.wici.webapp.production.artifacts,-pre-clean,clean,debug"/>
+    <target name="build.full.debug" description="Clean and build full debug version" depends="import.wici.webapp.production.artifacts,update.NewRelic.Token,-pre-clean,clean,debug"/>
 
-    <target name="build.full.release" description="Clean and build full release version" depends="import.wici.webapp.production.artifacts,create.wifi.profile,-pre-clean,clean,release"/>
+    <target name="build.full.release" description="Clean and build full release version" depends="import.wici.webapp.production.artifacts,create.wifi.profile,update.NewRelic.Token,-pre-clean,clean,release"/>
 
-	<target name="jenkins.build.full.release" description="Clean and build full release version" depends="set.apk.version,import.wici.webapp.production.artifacts,create.wifi.profile,-pre-clean,clean,release"/>
+	<target name="jenkins.build.full.release" description="Clean and build full release version" depends="set.apk.version,import.wici.webapp.production.artifacts,update.NewRelic.Token,create.wifi.profile,-pre-clean,clean,release"/>
+	
+	<target name="jenkins.build.full.prod.release" description="Clean and build full release version" depends="set.apk.version,import.wici.webapp.production.artifacts,update.NewRelic.prod.Token,create.wifi.profile,-pre-clean,clean,release"/>
 
     <target name="build.full.release.copy" description="Clean and build full release version" depends="build.full.release,copy.release.apk.file.somewhere"/>
 
     <target name="jenkins.build.full.release.copy" description="Clean and build full release version" depends="jenkins.build.full.release,copy.release.apk.file.somewhere"/>
+    
+    <target name="jenkins.build.full.prod.release.copy" description="Clean and build full release version" depends="jenkins.build.full.prod.release,copy.release.apk.file.somewhere"/>
 
+    <!-- This sets the NewRelic App Token in the code. It looks for any valid token used in the code and replaces with 
+    	build properties specific value. It throws an error if a replacement is not done.  -->
+    <target name="update.NewRelic.Token">
+        <echo>"Ant Version: " ${ant.version}</echo>
+        <echo message="Updating NewRelic App Token..."/>
+        <replace file="src/com/ctfs/wicimobile/WICIMobile3.java"
+            	 token="${NewRelic.WICI_App_Token}"
+		         value="AA1f24be0bf516669da84d7c0aec7b098f5835ffcb-NRMA" > <!-- Non-Prod App Token -->
+		</replace>
+        <echo message="NewRelic Token Updated."/>
+    </target>
+    
+    <target name="update.NewRelic.prod.Token">
+        <echo>"Ant Version: " ${ant.version}</echo>
+        <echo message="Updating NewRelic App Token..."/>
+        <replace file="src/com/ctfs/wicimobile/WICIMobile3.java"
+		         token="${NewRelic.WICI_App_Token}"
+		         value="AA01f1aac1f6b5c461eef05eb703a6dcfee47d54e6-NRMA"> <!-- Prod App Token -->
+		</replace>
+        <echo message="NewRelic Token Updated."/>
+    </target>
+    
     <target name="create.wifi.profile">
         <echo message="Creating WIFI profile..."/>
         <echo message="Setting WIFI SSID to ${wifi.ssid}..."/>

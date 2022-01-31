@@ -281,6 +281,9 @@ public class WICIServletMediator
 				}
 			}
 			String responseAsJsonString = gson.create().toJson(response, response.getClass());
+			
+			log.info(sMethod + "::tablet Response :: "+responseAsJsonString);
+			
 			writer.append(responseAsJsonString);
 		}
 		catch (Exception e)

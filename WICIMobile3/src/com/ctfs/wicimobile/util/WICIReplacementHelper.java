@@ -59,6 +59,7 @@ public class WICIReplacementHelper {
         Log.i(" accountNumber ", accountNumber);     
                 
         _replacementStrategies.add(new WICIExpiryDateReplacementStrategy(carmemberModel.getExpiryDate()));
+        _replacementStrategies.add(new WICITodayPlus30DaysReplacementStrategy(carmemberModel.getExpiryDate())); // VZE-478 Only used for Marks and Sports store coupon prints.
         _replacementStrategies.add(new WICICreditLimitReplacementStrategy(carmemberModel.getCorrespondenceLanguage(), carmemberModel.getCreditLimit()));
         if(carmemberModel.getPerformStoreRecallPrint()) {
         	_replacementStrategies.add(new WICISimpleTextReplacementStrategy(carmemberModel.getCorrespondenceLanguage(), carmemberModel.getFirstName(), carmemberModel.getMiddleInitial(), 

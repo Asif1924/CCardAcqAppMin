@@ -18,21 +18,15 @@ import org.json.JSONObject;
 import com.ctfs.wicimobile.models.WICICardmemberModel;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.device.ZebraIllegalArgumentException;
-import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
 import com.zebra.sdk.printer.FieldDescriptionData;
 import com.zebra.sdk.printer.ZebraPrinter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.Base64;
 import android.util.Log;
 
-public class WICIStoreRecallPrintHelper {
+public class WICIStoreRecallCouponPrintHelper {
 	
-	private static final String LOG_TAG = "WICIStoreRecallPrintHelper";
+	private static final String LOG_TAG = "WICIStoreRecallCouponPrintHelper";
 
 	public final static String StoreRecallFilePath = "srtemplates/";
 	private String _storageDrive = "E:";
@@ -40,9 +34,9 @@ public class WICIStoreRecallPrintHelper {
 	String _versionControlLabelName = "Form_Ver";
 	static String preferedLang;
 	    
-	Boolean performStoreRecallPrint(String fileName, Context context, ZebraPrinter  printer, 
+	Boolean performStoreRecallCouponPrint(String fileName, Context context, ZebraPrinter  printer, 
 	    		WICIReplacementHelper replacementHelper, WICICardmemberModel cardmemberModel) {
-			String SMethod = "performStoreRecallPrint () :: ";
+			String SMethod = "performStoreRecallCouponPrint () :: ";
 	    	String correspondenceLanguage = cardmemberModel.getCorrespondenceLanguage();
 	    	preferedLang = correspondenceLanguage;
 	    	
@@ -237,27 +231,25 @@ public class WICIStoreRecallPrintHelper {
 	    	String SMethod = "storeFileOnPrinter() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        sendFileWithSignatureCommand(context, printer, prnName);
+	        sendFile(context, printer, prnName);
 	        sendVersionControlLabel(context, prnName, prnVersion, printer);
 	    }
 	    
-	    private void sendFileWithSignatureCommand(Context context, ZebraPrinter printer, String fileName) 
+	    private void sendFile(Context context, ZebraPrinter printer, String fileName) 
 	    		throws IOException, ConnectionException {
-	    	String SMethod = "sendFileWithSignatureCommand() :: ";
+	    	String SMethod = "sendFile() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        createPRNWithSignature(context, fileName ,"TEMP_COPY.PRN");
+	        createPRN(context, fileName ,"TEMP_COPY.PRN");
 	        File filepath = context.getFileStreamPath("TEMP_COPY.PRN");
 	        printer.sendFileContents(filepath.getAbsolutePath());
 	    }
 
-	    private void createPRNWithSignature(Context context, String fromFile, String toFile) throws IOException {
-	    	String SMethod = "createPRNWithSignature() :: ";
+	    private void createPRN(Context context, String fromFile, String toFile) throws IOException {
+	    	String SMethod = "createPRN() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        boolean foundSignatureCommand = false;
 	        OutputStreamWriter writer = new OutputStreamWriter(context.openFileOutput(toFile, Context.MODE_PRIVATE));
-
 	        InputStream inputStream = context.getAssets().open(StoreRecallFilePath + fromFile + ".prn");
 
 	        if ( inputStream != null ) {
@@ -266,21 +258,8 @@ public class WICIStoreRecallPrintHelper {
 	            String receiveString = "";
 	            StringBuilder stringBuilder = new StringBuilder();
 
-	            while ( (receiveString = bufferedReader.readLine()) != null ) {
-
-	                if(receiveString.contains("SIGNATURE.GRF")){
-	                    foundSignatureCommand = true;
-	                }
-	                else if(receiveString.contains("Signature") && !foundSignatureCommand){
-	                    //Get the Y-Coordinate
-	                    // ^FT154,1376^A0N,28,28^FH\^CI28^FN8"Signature"^FS^CI27
-	                    int commaPosition = receiveString.indexOf(",");
-	                    int carrotPositionPostComma = receiveString.indexOf("^", commaPosition);
-	                    String ycoordinateforsignature=receiveString.substring(commaPosition+1,carrotPositionPostComma);
-	                    stringBuilder.append("\n").append("^FO11," + ycoordinateforsignature + "^XGE:SIGNATURE.GRF,1,1^FS");
-	                    foundSignatureCommand = true;
-	                }
-
+	            while ((receiveString = bufferedReader.readLine()) != null ) {
+	            	receiveString = bufferedReader.readLine();
 	                stringBuilder.append("\n").append(receiveString);
 	            }
 
@@ -303,45 +282,9 @@ public class WICIStoreRecallPrintHelper {
 	    	Map<Integer, String> preparedVariables = new HashMap<Integer, String>();
 	    	
 	    	for (FieldDescriptionData fieldDescriptionData : fieldDescriptionDataList){
-
-	               if(fieldDescriptionData.fieldName.contains("Signature")) {
-	                    sendSignatureImageToPrinter(printer, cardmemberModel);
-	                    preparedVariables.put(fieldDescriptionData.fieldNumber, "");
-	               } else {
-	                    preparedVariables.put(fieldDescriptionData.fieldNumber, replacementHelper.applyReplacement("#[" + fieldDescriptionData.fieldName + "]"));
-	               }
+	    		preparedVariables.put(fieldDescriptionData.fieldNumber, replacementHelper.applyReplacement("#[" + fieldDescriptionData.fieldName + "]"));
 	        }
 	        return preparedVariables;
 	    }
 	    
-	    private void sendSignatureImageToPrinter(ZebraPrinter printer, WICICardmemberModel cardmemberModel) 
-	    		throws ConnectionException, ZebraIllegalArgumentException {
-	    	String SMethod = "sendSignatureImageToPrinter() :: ";
-	    	Log.i(LOG_TAG, SMethod);
-	    	
-	        String imageString = cardmemberModel.getSignture();
-
-	        if (imageString == null || imageString.isEmpty()) {
-	            throw new NullPointerException("pngSource could not be null or empty");
-	        }
-
-	        // Remove signature service data
-	        String imageContent = imageString.replace("data:image/png;base64,", "");
-
-	        // Apply Base64 decoding
-	        byte[] imageAsBytes = Base64.decode(imageContent, Base64.DEFAULT);
-
-	        // Convert png to bitmap
-	        Bitmap image = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-
-	        // Set image background to white
-	        Bitmap bitmapWithBackground = Bitmap.createBitmap(image.getWidth(), image.getHeight(), image.getConfig());
-	        Canvas canvas = new Canvas(bitmapWithBackground);
-	        canvas.drawColor(Color.WHITE);
-	        canvas.drawBitmap(image, 0, 0, null);
-
-	        printer.storeImage(_storageDrive + "SIGNATURE.GRF", new ZebraImageAndroid(bitmapWithBackground), 550, 200);
-	     
-	    }
-	
 }
