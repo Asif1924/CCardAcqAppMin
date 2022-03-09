@@ -38,7 +38,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         promoCode               :   '#promocode',
         icon                    :   '.logoIcon',
         // US4364
-        expiryDate_id			:	"#expiryDate_id"
+        expiryDate_id			:	"#expiryDate_id",
+		summary_JobDescription	:	"#summary_JobDescription"
     };
     var submitButtonEnabled = false;
 
@@ -132,6 +133,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		$(refs.housingpayment).html(activationItems.getFormatedCurrency(activationItems.getModel('personalData2_Address').get('housingpayment')));
 
     	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
+		if(activationItems.getModel('financialData').get('jobDescSuccessFlag')) {
+			var jobDesc_Text = document.getElementById("select2-finEmpInfo_JobDescription_SelectField-container").innerText;
+			console.log(logPrefix + sMethod + jobDesc_Text);
+			$(refs.summary_JobDescription).html(jobDesc_Text);
+		}
     	
         // US4698 - Enable bluetooth on click of submit application
         // WICI.BluetothHelper.toggle();
@@ -280,6 +286,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			$(refs.grossIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossIncome')));
 			// US3960
 			$(refs.grossHouseholdIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossHouseholdIncome')));
+			setTimeout(function() {
+                var jobDesc_Text = document.getElementById("select2-finEmpInfo_JobDescription_SelectField-container").innerText;
+				console.log("subscribe(translatorFinished) : " + jobDesc_Text);
+				$(refs.summary_JobDescription).html(jobDesc_Text);
+            },100);
 		});
         $.subscribe('translatorFinished', function(event) {
 			console.log(refs.housingpayment + 'subscribe(translatorFinished)');
@@ -407,7 +418,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			return;
 		}
 
-        mapEmploymentType();
+        //mapEmploymentType();
 
         try{
 

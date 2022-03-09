@@ -16,8 +16,25 @@ public class WICIConfiguration
 	String dssserviceEnv;
 	String dsssubmitAppEndPoint;
 	String shareserviceEnabled;
+	String jobDescEndPoint;
 	
 	
+	/**
+	 * @return the jobDescEndPoint
+	 */
+	public String getJobDescEndPoint() {
+		return jobDescEndPoint;
+	}
+
+
+	/**
+	 * @param jobDescEndPoint the jobDescEndPoint to set
+	 */
+	public void setJobDescEndPoint(String jobDescEndPoint) {
+		this.jobDescEndPoint = jobDescEndPoint;
+	}
+
+
 	public String getShareserviceEnabled() {
 		return shareserviceEnabled;
 	}

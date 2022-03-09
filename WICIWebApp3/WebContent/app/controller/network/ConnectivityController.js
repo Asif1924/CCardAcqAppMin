@@ -233,6 +233,40 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
     //---------------------------------------------------------------------------------------
+    this.RetrieveJobDescription = function(argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'RetrieveJobDescription() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+    
+		var requestParams = {};
+		connRequestBuilder.setHttpType("POST");
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("TMXEmailage Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("TMX");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.RetrieveJobDescription,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.RETRIEVE_JOBDESCRIPTION_REQUEST_INTERVAL
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+	//---------------------------------------------------------------------------------------
     this.TMXEmailage = function(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
     		firstName,lastName,birthDate,province,postCode,city,addressline1,suiteunit,addressline2,sin,argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'TMXEmailage() ';

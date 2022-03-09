@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="runtime_permission_error_title">Erreur :</string>
+    <string name="runtime_permission_error_message1">Impossible d\'accorder une autorisation de temps d\'exécution Pour rétablir l\’autorisation, veuillez contacter votre service d\'assistance pour signaler cette erreur.</string>
+    <string name="runtime_permission_error_ok_button">OUI</string>
+</resources>
+ 

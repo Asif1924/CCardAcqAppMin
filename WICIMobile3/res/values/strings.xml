@@ -3,5 +3,8 @@
     <string name="app_name">WICI Mobile</string>
     <string name="launcher_name">@string/app_name</string>
     <string name="activity_name">@string/launcher_name</string>
+    <string name="runtime_permission_error_title">Error:</string>
+    <string name="runtime_permission_error_message1">Unable To Grant Run Time Permission. To re-grant permission, contact your help desk and inform about this error.</string>
+    <string name="runtime_permission_error_ok_button">OK</string>
 </resources>
  

@@ -317,6 +317,7 @@ public class WICIServletMediator
 	protected void updateResponseHeader()
 	{
 		servletResponse.setContentType("application/json");
+		servletResponse.setCharacterEncoding("utf-8");
 		servletResponse.addHeader("X-Frame-Options", "SAMEORIGIN");
 		servletResponse.addHeader("Access-Control-Allow-Origin", "*");
 	}

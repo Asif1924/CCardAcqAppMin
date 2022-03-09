@@ -370,6 +370,14 @@ WICI.LoginScreenController = function(app) {
         createFlips();
        // showAndHideOtherStaffMember();
         $(refs.loginButtonID).click(function() {
+        	//VZE-442
+        	if(app.deviceInfoHelper.getDeviceInfo().MfgSerial == "UNKNOWN" ||
+    		app.deviceInfoHelper.getDeviceInfo().MfgSerial == "SCOOBY" ||
+    			app.deviceInfoHelper.getDeviceInfo().BuildSerial == "unknown" ||
+    				app.deviceInfoHelper.getDeviceInfo().BuildSerial == "123213123213"){
+   	                   messageDialog.printerError(translator.translateKey("loginScreen_Device_serial_number_error_message"),translator.translateKey("loginScreen_Device_serial_number_message"), translator.translateKey("loginScreen_Device_serial_number_error_title"), $.noop);
+            }
+            // VZE-442
         	generateAgentId();
         	testPrint();
             //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            

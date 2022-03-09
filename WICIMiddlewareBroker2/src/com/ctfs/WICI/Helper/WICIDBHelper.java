@@ -92,6 +92,20 @@ public class WICIDBHelper
 		return connection;
 	}
 	
+	protected Connection connectToDB(boolean enableAutoCommit, boolean healthCheckCall) throws SQLException, NamingException
+	{
+		if (mockedConnection != null)
+		{
+			return mockedConnection;
+		}
+		
+		// Get connection
+		Connection connection = new DatabaseConnectionFactory().getOracleDatabaseConnectionForHealthCheck();
+		connection.setAutoCommit(enableAutoCommit);
+
+		return connection;
+	}
+	
 	protected Connection connectToTCTSalesDB(boolean enableAutoCommit) throws SQLException, NamingException
 	{
 		if (mockedConnection != null)
@@ -148,12 +162,49 @@ public class WICIDBHelper
 			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
 		}
 	}
+	
+	protected void closeDBConnection(Connection connection, Boolean healthCheckCall)
+	{
+		String sMethod = "[closeDBConnection for health check call] ";
+		
+		// Close DB connection
+		try
+		{
+			if (connection != null)
+			{
+				connection.setAutoCommit(true);
+				connection.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+	}
 
 	protected void closePreparedStatement(PreparedStatement preparedStatement)
 	{
 		String sMethod = "[closePreparedStatement] ";
 		log.info(sMethod + "::Called::");
 
+		// Close prepared statement
+		try
+		{
+			if (preparedStatement != null)
+			{
+				preparedStatement.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+	}
+	
+	protected void closePreparedStatement(PreparedStatement preparedStatement, Boolean healthCheckCall)
+	{
+		String sMethod = "[closePreparedStatement for health check call] ";
+		
 		// Close prepared statement
 		try
 		{
@@ -186,6 +237,24 @@ public class WICIDBHelper
 			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
 		}
 	}
+	
+	protected void closeResultSet(ResultSet resultSet, Boolean healthCheckCall)
+	{
+		String sMethod = "[closeResultSet for health check call] ";
+		
+		// Close result set
+		try
+		{
+			if (resultSet != null)
+			{
+				resultSet.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+	}
 
 	protected void DisposeBDResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet)
 	{
@@ -193,6 +262,14 @@ public class WICIDBHelper
 		closeResultSet(resultSet);
 		closePreparedStatement(preparedStatement);
 		closeDBConnection(connection);
+	}
+	
+	protected void DisposeBDResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet, Boolean healthCheckCall)
+	{
+		// Keep resource dispose order
+		closeResultSet(resultSet, healthCheckCall);
+		closePreparedStatement(preparedStatement, healthCheckCall);
+		closeDBConnection(connection, healthCheckCall);
 	}
 
 	/*
@@ -1670,7 +1747,7 @@ public class WICIDBHelper
 			connection = connectToTCTSalesDB(false);
 
 			if (locationRequest.getLocationID() != null)
-				locationId = Integer.parseInt(locationRequest.getLocationID());
+				locationId = Integer.parseInt(locationRequest.getLocationID().trim());
 			
 			if(retailNetwork != null && retailNetwork != "PRTNR" ) {
 				if( locationId > 0 ) {
@@ -2459,12 +2536,12 @@ public class WICIDBHelper
 	
 	public HealthCheckRecord getHealthCheckRecord(String hostName)throws Exception {
 		String sMethod = "[getHealthCheckRecord]";
-		log.info(sMethod);
+		//log.info(sMethod);
 
 		String sql = "SELECT * FROM " + WICI_BROKER_HEALTH_TABLE + " WHERE SERVER = ?";
-
-		log.info(sMethod + "::SQL::" + sql);
-		log.info("hostName: "+hostName);
+		Boolean healthCheckCall = true;
+		//log.info(sMethod + "::SQL::" + sql);
+		//log.info("hostName: "+hostName);
 		String correctedHost=null;
 		if (hostName.length() > 14) {
 			String splitted[] = hostName.split("\\.");
@@ -2472,14 +2549,14 @@ public class WICIDBHelper
 		} else {
 			correctedHost = hostName;
 		}
-		log.info("correctedHost: "+correctedHost);
+		//log.info("correctedHost: "+correctedHost);
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		HealthCheckRecord healthCheckRecord = null;
 		try
 		{
-			connection = connectToDB(false);
+			connection = connectToDB(false, true);
 
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, correctedHost);
@@ -2494,8 +2571,8 @@ public class WICIDBHelper
 				healthCheckRecord.setLtmEnabled(ltmEnabled);
 				healthCheckRecord.setGtmEnabled(gtmEnabled);
 				
-				log.info(sMethod + "::ltmEnabled value::" + ltmEnabled );
-				log.info(sMethod + "::gtmEnabled value::" + gtmEnabled );
+				//log.info(sMethod + "::ltmEnabled value::" + ltmEnabled );
+				//log.info(sMethod + "::gtmEnabled value::" + gtmEnabled );
 			}
 		}
 		catch (Exception ex)
@@ -2505,7 +2582,7 @@ public class WICIDBHelper
 		}
 		finally
 		{
-			DisposeBDResources(connection, preparedStatement, resultSet);
+			DisposeBDResources(connection, preparedStatement, resultSet, healthCheckCall);
 		}
 
 		return healthCheckRecord;

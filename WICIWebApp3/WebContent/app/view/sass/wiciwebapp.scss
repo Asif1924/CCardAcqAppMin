@@ -1237,6 +1237,23 @@ border: 0px;
 	  font-weight: 700;
 	  text-align: center;
 }
+// VZE-456
+.handoutTabToCustomerpopup_chooseProduct {
+	  display: block;
+      width: 60%;
+      margin: auto;
+	  padding: 10px 20px 20px 20px;
+	  border: 1px solid rgb(1,82,73);
+	  border-radius: 10px;
+	  color: rgb(1,82,73);
+	  background: white;
+	  position: relative;
+	  top: 15%;
+	  box-shadow: 5px 5px 5px #000;
+	  z-index: 10001;
+	  font-weight: 700;
+	  text-align: center;
+}
 
 .retrieveAppPadding {
 	  padding: 25px 0 5px 30px;
@@ -3617,6 +3634,10 @@ body.ui-mobile-viewport { overflow-x: visible; }
 */
 
 /* Financial Screen */
+.fincJobDescFont {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+}
 
 .flipAlignCenter .ui-slider-switch {
   width: 100%;

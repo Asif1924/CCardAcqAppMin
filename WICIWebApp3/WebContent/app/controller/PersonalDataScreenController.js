@@ -1138,8 +1138,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
 
         $(refs.nextButton).click(function() {
+        	var personalModel = models.personalDataModel;
+            var idScan = personalModel.get('IDScan');
         	// VZE-161
-        	if(IDScan){
+        	if(idScan){
         		showNextScreen();
         	}else{
         		if(isInputDateSameAsToday()){
@@ -1265,20 +1267,19 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		selectedDay = models.personalDataModel.get('expiryDateDay');
 	     
 		
-		let currentYear = new Date().getFullYear();
-		var pastYear = currentYear - 1;
+		let marchYear2020 = new Date(2020,02,01).getFullYear();
 		var list = new WICI.ExpiryDateMonthList();
 
 		var optTemplYear = '<option value="' + null + '" ';
 			optTemplYear = optTemplYear + '>' + translator.translateKey("ExpiryDateYear_null")
 					+ '</option>';
 			controlRefYear.append(optTemplYear);
-		for (var y = 0; y < 50; y++) {
-            var optTemplYear = '<option value="' + pastYear + '" ';
-			optTemplYear = optTemplYear + '>' + pastYear
+		for (var y = 0; y < 51; y++) {
+            var optTemplYear = '<option value="' + marchYear2020 + '" ';
+			optTemplYear = optTemplYear + '>' + marchYear2020
 					+ '</option>';
 			controlRefYear.append(optTemplYear);
-		    pastYear++;
+		    marchYear2020++;
   		}
 		
 		$.each(list.data, function(index, item) {
@@ -2699,7 +2700,6 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                     }
                 }
 
-                
                 // VZE-52
                 var covidRez = [];
                 covidRez = validateExpiryDateForMarch2020();
@@ -2730,13 +2730,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                             if( !isEmpty($(refs.suiteunit).val()) && !isEmpty($(refs.suiteunit_prev).val()) ){
 				               temprez.push({name: 'suiteunit_prev', err: '', uiid: refs.suiteunit_prev});
 		                     }
-	
-	
                          }
-
-
-
-
                     } 
                 }
                 
@@ -2836,7 +2830,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-                validateExpirtDateCOVID19();
+                //validateExpirtDateCOVID19();
                 // US4781
                 app.validationDecorator.applyErrAttribute(rez);
                 // US4112
@@ -2875,11 +2869,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             }
             
             // current and prev address not Identical validation.
-            
-            
-                     
-            
-            
+
             syncUserData();
         }
         
@@ -3448,11 +3438,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	console.log(logPrefix + sMethod);
         
     	var rez =[], inputDateYear, inputDateMonth, inputDateDay, todaysDate, todayDateFormat, todayMonth, todayDay, todayYear ;
-    	var march2020Year,march2020Month, march2020Day;
+    	var march2020Year,march2020Month, march2020Day, marchYearValidationFlag;
+    	var personalModel = models.personalDataModel;
+        var idScan = personalModel.get('IDScan');
         
     	march2020Year =  parseInt(translator.translateKey("pesonalData_covid19LockDownYear"));
     	march2020Month = parseInt(translator.translateKey("pesonalData_covid19LockDownMonth"));
     	march2020Day = parseInt(translator.translateKey("pesonalData_covid19LockDownDay"));
+    	// VZE-492
+    	marchYearValidationFlag = translator.translateKey("personalData_ExpiryDate_validation_ON_OFF");
+    	// VZE-492
     	console.log(logPrefix + sMethod + "march2020Year :  " + march2020Year + " march2020Month : "+ march2020Month + "march2020Day : "+march2020Day);
         
     	todaysDate = new Date();
@@ -3478,39 +3473,55 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	inputDateMonth = $(refs.expiryDateMonth).val();
         	inputDateDay = $(refs.expiryDateDay).val();
         	console.log(logPrefix + sMethod + "expiryDateVal :: " + expiryDateVal + "inputDateYear :  " + inputDateYear + " inputDateMonth : "+ inputDateMonth + "inputDateDay : "+inputDateDay);
-            if(((march2020Year == inputDateYear) && (march2020Month < inputDateMonth))){
-            	rez = null;
-	    	}else if((march2020Year > inputDateYear)){
-	    		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+        	if(marchYearValidationFlag === "true"){
+            	if(((march2020Year == inputDateYear) && (march2020Month < inputDateMonth))){
+                	rez = null;
+    	    	}else if((march2020Year > inputDateYear)){
+    	    		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+    		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+    		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+    	    	}else if((march2020Year == inputDateYear) &&  (inputDateMonth < march2020Month)){
+    		        rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+    		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+    		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+    	    	}else if((march2020Year == inputDateYear) && ((inputDateMonth == march2020Month)) && (march2020Day == inputDateDay ) ){
+    		        rez = null;
+    	    	}
+            }else if((todayYear <= inputDateYear) && (inputDateMonth >= todayMonth) && (todayDay <= inputDateDay ) ){
+        		rez =null;
+        	}else if((inputDateYear > todayYear)){
+        		rez =null;
+        	}else if((inputDateYear < todayYear )){
+        		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
 		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
 		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
-	    	}else if((march2020Year == inputDateYear) &&  (inputDateMonth < march2020Month)){
-		        rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+        	}else if((todayYear == inputDateYear) &&  (inputDateMonth < todayMonth)){
+        		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
 		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
 		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
-	    	}else if((march2020Year == inputDateYear) && ((inputDateMonth == march2020Month)) && (march2020Day == inputDateDay ) ){
-		        rez = null;
-	    	}else if(((march2020Year == inputDateYear) && ((inputDateMonth == march2020Month)) && (march2020Day == inputDateDay ))){
-	    		rez = null;
-	    	}else if((inputDateMonth == todayMonth) && (inputDateDay == todayDay ) ){
-	    		if(IDScan){
-	    			// VZE-26 : Change rule from ID Expiry Date must be = > today to ID Expiry  must be = > 03-01-2020
-	    			rez = null;
-	    		}else{
-	    			// Manually entered an Expiry date 
-	    			if(isContinueButton){
-	    				// continue button - skip validation
-	    				rez = null;
-	    			}else{
-	    				// cancel button - do the validation
-	    				rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
-	    				rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
-	    				rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
-	    			}
-	            }
-	        }else{
-	        	rez =null;
-	    	}
+        	}else if((todayYear == inputDateYear) &&  (inputDateMonth == todayMonth) && (inputDateDay < todayDay )){
+        		rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+		        rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+		        rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+        	}else if((inputDateMonth == todayMonth) && (inputDateDay == todayDay ) ){
+    	    		if(idScan){
+    	    			// VZE-26 : Change rule from ID Expiry Date must be = > today to ID Expiry  must be = > 03-01-2020
+    	    			rez = null;
+    	    		}else{
+    	    			// Manually entered an Expiry date 
+    	    			if(isContinueButton){
+    	    				// continue button - skip validation
+    	    				rez = null;
+    	    			}else{
+    	    				// cancel button - do the validation
+    	    				rez.push({name: 'expiryDateYear', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateYear});
+    	    				rez.push({name: 'expiryDateMonth', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateMonth});
+    	    				rez.push({name: 'expiryDateDay', err: 'personalData1_validation_expiryDate', uiid: refs.expiryDateDay});
+    	    			}
+    	            }
+    	    }else{
+    	    	rez = null;
+    	    }
             return rez;
         } 
     }

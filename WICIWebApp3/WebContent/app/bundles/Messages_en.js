@@ -8,7 +8,7 @@ WICI.dictionary_en =  {
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
 	newStylePrintFlag	                                :   "N",
-	storeRecallPrintStores								:	"{\"stores\":[\"122\",\"412\",\"143\",\"424\",\"429\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\",\"861\",\"6029\",\"4401\",\"5141\",\"815\",\"6323\",\"6529\",\"6030\",\"6239\",\"6097\",\"6041\",\"6351\",\"6381\",\"6521\",\"6530\",\"4241\",\"4284\",\"4465\",\"4285\",\"4398\"]}",
+	storeRecallPrintStores								:	"{\"stores\":[]}",
 
 	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
 	accents_out											:	"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
@@ -81,6 +81,11 @@ WICI.dictionary_en =  {
     loginScreen_First_Name		 						: 	"Employee First Name",
     loginScreen_Last_Name		 						: 	"Employee Last Name",
 	loginScreen_Button_Label 							: 	"LOG IN",
+	// VZE-442
+	loginScreen_Device_serial_number_error_title        :    "Error",
+	loginScreen_Device_serial_number_error_message      : "<p><b>Device Serial Number Can Not Be Retrieved</b></p>",
+	loginScreen_Device_serial_number_message      :    "To fix this issue, check the &quot;Alternative Process to re-apply &quot;WICI Custom Settings-Profile&quot; included in the Triangle Instant Credit Guide.",
+	// VZE-442
 
 	loginScreen_Dialog_ErrorTitle						:	"Login Error",
 	loginScreen_FailureMessage							:	"Login Failed. Please Try Again.",
@@ -399,15 +404,15 @@ WICI.dictionary_en =  {
 	personalData_Address_Province						:	"Province",
 
 
-	personalData_Address_ResidenceType					:	"Residence Type",
+	personalData_Address_ResidenceType					:	"Home Type",
 	personalData_Address_Own							:	"Own",
 	personalData_Address_Rent							:	"Rent",
-	personalData_Address_Parents						:	"With Parents",
+	personalData_Address_Parents						:	"Live with Parents",
 	// US5131 WICI - Add Student Housing label to Residence Type list
 	personalData_Address_Student                        :   "Student Housing",
 	personalData_Address_Other							:	"Other",
 
-	personalData_Address_MonthlyPayment				:	"Monthly House Payment (per month)",
+	personalData_Address_MonthlyPayment				:	"Mortgage & Rent Payment (per month)",
 	personalData_Address_Duration						:	"How long have you lived at your current address?",
 	personalData_Address_DurationYears					:	"Years",
 	personalData_Address_DurationMonths				:	"Months",
@@ -421,6 +426,10 @@ WICI.dictionary_en =  {
 	pesonalData_covid19LockDownYear                    : "2020",
 	pesonalData_covid19LockDownMonth                    : "03",
 	pesonalData_covid19LockDownDay                    : "01",
+	
+	// VZE-492
+	personalData_ExpiryDate_validation_ON_OFF         : "false",
+	// VZE-492
 	
 	// VZE-161
 	ExpiryDateMonth_null                              :   'Month',
@@ -502,17 +511,18 @@ WICI.dictionary_en =  {
 
 	finEmpInfo_EmpType									:	"Employment Status",
 	finEmpInfo_FullTime									:	"Full Time",
-	finEmpInfo_Seasonal									:	"Seasonal",
-	finEmpInfo_PartTime									:	"Part Time",
+	finEmpInfo_PartTime25hrsOrMore						:	"Part Time - 25 Hours or More",
+	finEmpInfo_PartTimeLessThan25hrs					:	"Part Time - Less than 25 Hours",
+	finEmpInfo_Seasonal									:	"Seasonal/Contract/Temporary",
 	finEmpInfo_Homemaker							    :	"Homemaker",
 	finEmpInfo_Retired									:	"Retired",
 	finEmpInfo_Unemployed								:	"Unemployed",
-	finEmpInfo_Other									:	"Other",
+	finEmpInfoJobDesc_Other                             :   "Other",
 
 	// US3621
-	finEmpInfo_JobTitleOther							:	"Job Title (Other)",
+	finEmpInfo_JobTitleOther							:	"Job Description (Other)",
 	
-	finEmpInfo_JobTitle									:	"Job Title",
+	finEmpInfo_JobDescription							:	"Job Description",
 	finEmpInfo_JobCategory								:	"Job Category",
 	finEmpInfo_EmployerName								:	"Employer Name",
 	finEmpInfo_EmployerCity								:	"Employer City",
@@ -808,27 +818,31 @@ WICI.dictionary_en =  {
 	// ---------- US3621 Start ---------
 	
 	// Job Categories - Start
-	
 	jobCategoriesList_null 								:  	"Please select...",
-	jobCategoriesList_FT								: 	'FULL TIME',
 	jobCategoriesList_DR								: 	'Driver',
-	jobCategoriesList_GU								: 	'Guard',
-	jobCategoriesList_HO								: 	'Homemaker',
+	jobCategoriesList_FA								: 	'Factory Worker',
+	jobCategoriesList_GU								: 	'Guard/Police',
+	jobCategoriesList_IS								: 	'Internship',
 	jobCategoriesList_LA								: 	'Labourer',
-	jobCategoriesList_MA								: 	'Manager',
-	jobCategoriesList_MI								: 	'Military',
-	jobCategoriesList_OF								: 	'Office Staff',
+	jobCategoriesList_MA								: 	'Management',
+	jobCategoriesList_MF								: 	'Medical Field',	
+	jobCategoriesList_MI								: 	'Military',	
+	jobCategoriesList_OF								: 	'Office Worker',
+	jobCategoriesList_OT								: 	'Other',	
 	jobCategoriesList_OW								: 	'Owner',
-	jobCategoriesList_FA								: 	'Production Worker',
+	jobCategoriesList_PL								: 	'Parental Leave',
 	jobCategoriesList_PR								: 	'Professional',
-	jobCategoriesList_RE								: 	'Repairer',
-	jobCategoriesList_RT								: 	'Retired',
+	jobCategoriesList_RE								: 	'Service/Repair',
+	jobCategoriesList_RR								: 	'Retail Representative',
+	jobCategoriesList_SB								: 	'Sabbatical',
 	jobCategoriesList_SA								: 	'Sales',
-	jobCategoriesList_SE								: 	'Service',
+	jobCategoriesList_SE								: 	'Cust Service/Hospitality/Tourism',
 	jobCategoriesList_ST								: 	'Student',
+	jobCategoriesList_SC								: 	'Student Coop Placement',
 	jobCategoriesList_TR								: 	'Trades',
+	jobCategoriesList_RT								: 	'Retired',
 	jobCategoriesList_UN								: 	'Unemployed',
-	jobCategoriesList_OT								: 	'Other',
+	jobCategoriesList_HO								: 	'Homemaker',
 	
 	// End
 	
@@ -1278,8 +1292,8 @@ WICI.dictionary_en =  {
 	summary_Address_City								:	"City",
 	summary_Address_Province							:	"Province",
 
-	summary_Address_ResidenceType						:	"Residence Type",
-	summary_Address_MonthlyHousePayment					:	"Monthly House Payment",
+	summary_Address_ResidenceType						:	"Home Type",
+	summary_Address_MonthlyHousePayment					:	"Mortgage & Rent Payment (per month)",
 	summary_Address_DurationCurrentAddress				:	"How long have you lived at your current address?",
 
 	summary_PreviousAddress_SubTitle					:	"Previous Address Information",
@@ -1296,7 +1310,7 @@ WICI.dictionary_en =  {
 	
 	summary_FinEmp_SIN									:	"Social Insurance Number",
 
-	summary_FinEmp_JobTitle								:	"Job Title",
+	summary_FinEmp_JobDescription						:	"Job Description",
 	summary_FinEmp_JobCategory							:	"Job Category",
 	summary_FinEmp_EmpName								:	"Employer Name",
 	summary_FinEmp_EmpCity								:	"Employer City",

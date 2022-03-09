@@ -26,7 +26,9 @@ public class DeviceInfoPlugin extends CordovaPlugin
 
 	private String getManufacturerSerialNumber()
 	{
-		return WICIDeviceInfoHelper.getDeviceSerialNo();
+		//return WICIDeviceInfoHelper.getDeviceSerialNo();
+		//return new WICIDeviceInfoHelper().getDeviceSerialNo(this.cordova.getActivity());
+		return WICIDeviceInfoHelper.getInstace(this.cordova.getActivity()).getDeviceSerialNo();
 	}
 
 	private String getBuildSerialNumber()
@@ -34,6 +36,7 @@ public class DeviceInfoPlugin extends CordovaPlugin
 		Log.i(TAG, "getBuildSerialNumber" );
 		return Build.SERIAL;
 	}
+
 
 	private String getDeviceInfo()
 	{
@@ -82,3 +85,4 @@ public class DeviceInfoPlugin extends CordovaPlugin
 		return false;
 	}
 }
+

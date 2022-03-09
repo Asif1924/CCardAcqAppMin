@@ -1,7 +1,6 @@
 package com.ctc.ctfs.channel.accountacquisition;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -110,11 +109,53 @@ public class AccountApplicationRequestType implements Serializable {
 	private String previousPostalCode;
 	private CountryType previousCountry;
 
-	private String employementStatus;
+	private String employmentStatus;
 
-	private String jobTitle;
+	/**
+	 * @return the employmentStatus
+	 */
+	public String getEmploymentStatus() {
+		return employmentStatus;
+	}
 
-	private String employementCategory;
+	/**
+	 * @param employmentStatus the employmentStatus to set
+	 */
+	public void setEmploymentStatus(String employmentStatus) {
+		this.employmentStatus = employmentStatus;
+	}
+
+	/**
+	 * @return the jobDescription
+	 */
+	public String getJobDescription() {
+		return jobDescription;
+	}
+
+	/**
+	 * @param jobDescription the jobDescription to set
+	 */
+	public void setJobDescription(String jobDescription) {
+		this.jobDescription = jobDescription;
+	}
+
+	/**
+	 * @return the jobCategory
+	 */
+	public String getJobCategory() {
+		return jobCategory;
+	}
+
+	/**
+	 * @param jobCategory the jobCategory to set
+	 */
+	public void setJobCategory(String jobCategory) {
+		this.jobCategory = jobCategory;
+	}
+
+	private String jobDescription;
+
+	private String jobCategory;
 
 	private String employerName;
 
@@ -690,6 +731,1515 @@ public class AccountApplicationRequestType implements Serializable {
 	 * 
 	 * @return possible object is {@link String }
 	 * 
+	 */
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	/**
+	 * Sets the value of the idNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setIdNumber(String value) {
+		this.idNumber = value;
+	}
+
+	/**
+	 * Gets the value of the placeOfIssue property.
+	 * 
+	 * @return possible object is {@link PlaceOfIssueType }
+	 * 
+	 */
+	public String getPlaceOfIssue() {
+		return placeOfIssue;
+	}
+
+	/**
+	 * Sets the value of the placeOfIssue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link PlaceOfIssueType }
+	 * 
+	 */
+	public void setPlaceOfIssue(String value) {
+		this.placeOfIssue = value;
+	}
+
+	/**
+	 * Gets the value of the preferedLanguage property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPreferedLanguage() {
+		return preferedLanguage;
+	}
+
+	/**
+	 * Sets the value of the preferedLanguage property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPreferedLanguage(String value) {
+		this.preferedLanguage = value;
+	}
+
+	/**
+	 * Gets the value of the applicantGender property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getApplicantGender() {
+		return applicantGender;
+	}
+
+	/**
+	 * Sets the value of the applicantGender property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setApplicantGender(String value) {
+		this.applicantGender = value;
+	}
+
+	/**
+	 * Gets the value of the currentAddressType property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentAddressType() {
+		return currentAddressType;
+	}
+
+	/**
+	 * Sets the value of the currentAddressType property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentAddressType(String value) {
+		this.currentAddressType = value;
+	}
+
+	/**
+	 * Gets the value of the currentAddressLine1 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentAddressLine1() {
+		return currentAddressLine1;
+	}
+
+	/**
+	 * Sets the value of the currentAddressLine1 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentAddressLine1(String value) {
+		this.currentAddressLine1 = value;
+	}
+
+	/**
+	 * Gets the value of the currentAddressLine2 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentAddressLine2() {
+		return currentAddressLine2;
+	}
+
+	/**
+	 * Sets the value of the currentAddressLine2 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentAddressLine2(String value) {
+		this.currentAddressLine2 = value;
+	}
+
+	/**
+	 * Gets the value of the currentCity property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentCity() {
+		return currentCity;
+	}
+
+	/**
+	 * Sets the value of the currentCity property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentCity(String value) {
+		this.currentCity = value;
+	}
+
+	/**
+	 * Gets the value of the currentProvince property.
+	 * 
+	 * @return possible object is {@link ProvinceType }
+	 * 
+	 */
+	public ProvinceType getCurrentProvince() {
+		return currentProvince;
+	}
+
+	/**
+	 * Sets the value of the currentProvince property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ProvinceType }
+	 * 
+	 */
+	public void setCurrentProvince(ProvinceType value) {
+		this.currentProvince = value;
+	}
+
+	/**
+	 * Gets the value of the currentPostalCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentPostalCode() {
+		return currentPostalCode;
+	}
+
+	/**
+	 * Sets the value of the currentPostalCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentPostalCode(String value) {
+		this.currentPostalCode = value;
+	}
+
+	/**
+	 * @return the admAppId
+	 */
+	public String getAdmAppId() {
+		return admAppId;
+	}
+
+	/**
+	 * @param admAppId
+	 *            the admAppId to set
+	 */
+	public void setAdmAppId(String admAppId) {
+		this.admAppId = admAppId;
+	}
+
+	/**
+	 * Gets the value of the currentCountry property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentCountry() {
+		return currentCountry;
+	}
+
+	/**
+	 * Sets the value of the currentCountry property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentCountry(String value) {
+		this.currentCountry = value;
+	}
+
+	/**
+	 * Gets the value of the currentTelephoneNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentTelephoneNumber() {
+		return currentTelephoneNumber;
+	}
+
+	/**
+	 * Sets the value of the currentTelephoneNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentTelephoneNumber(String value) {
+		this.currentTelephoneNumber = value;
+	}
+
+	/**
+	 * Gets the value of the currentCellPhoneNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentCellPhoneNumber() {
+		return currentCellPhoneNumber;
+	}
+
+	/**
+	 * Sets the value of the currentCellPhoneNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentCellPhoneNumber(String value) {
+		this.currentCellPhoneNumber = value;
+	}
+
+	/**
+	 * Gets the value of the yearsAtCurrentAddress property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getYearsAtCurrentAddress() {
+		return yearsAtCurrentAddress;
+	}
+
+	/**
+	 * Sets the value of the yearsAtCurrentAddress property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setYearsAtCurrentAddress(Integer value) {
+		this.yearsAtCurrentAddress = value;
+	}
+
+	/**
+	 * Gets the value of the monthsAtCurrentAddress property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getMonthsAtCurrentAddress() {
+		return monthsAtCurrentAddress;
+	}
+
+	/**
+	 * Sets the value of the monthsAtCurrentAddress property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setMonthsAtCurrentAddress(Integer value) {
+		this.monthsAtCurrentAddress = value;
+	}
+
+	/**
+	 * Gets the value of the currentEmailAddress property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrentEmailAddress() {
+		return currentEmailAddress;
+	}
+
+	/**
+	 * Sets the value of the currentEmailAddress property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrentEmailAddress(String value) {
+		this.currentEmailAddress = value;
+	}
+
+	/**
+	 * Gets the value of the previousAddressLine1 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPreviousAddressLine1() {
+		return previousAddressLine1;
+	}
+
+	/**
+	 * Sets the value of the previousAddressLine1 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPreviousAddressLine1(String value) {
+		this.previousAddressLine1 = value;
+	}
+
+	/**
+	 * Gets the value of the previousAddressLine2 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPreviousAddressLine2() {
+		return previousAddressLine2;
+	}
+
+	/**
+	 * Sets the value of the previousAddressLine2 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPreviousAddressLine2(String value) {
+		this.previousAddressLine2 = value;
+	}
+
+	/**
+	 * Gets the value of the previousCity property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPreviousCity() {
+		return previousCity;
+	}
+
+	public String getDSAScore() {
+		return DSAScore;
+	}
+
+	public void setDSAScore(String dSAScore) {
+		DSAScore = dSAScore;
+	}
+
+	public String getTreatmentCode() {
+		return treatmentCode;
+	}
+
+	public void setTreatmentCode(String treatmentCode) {
+		this.treatmentCode = treatmentCode;
+	}
+
+	public String getTmxProfileId() {
+		return tmxProfileId;
+	}
+
+	public void setTmxProfileId(String tmxProfileId) {
+		this.tmxProfileId = tmxProfileId;
+	}
+
+	public String getPIISource() {
+		return PIISource;
+	}
+
+	public void setPIISource(String pIISource) {
+		PIISource = pIISource;
+	}
+
+	/**
+	 * Sets the value of the previousCity property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPreviousCity(String value) {
+		this.previousCity = value;
+	}
+
+	/**
+	 * Gets the value of the previousProvinceState property.
+	 * 
+	 * @return possible object is {@link ProvinceStateType }
+	 * 
+	 */
+	public ProvinceStateType getPreviousProvinceState() {
+		return previousProvinceState;
+	}
+
+	/**
+	 * Sets the value of the previousProvinceState property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ProvinceStateType }
+	 * 
+	 */
+	public void setPreviousProvinceState(ProvinceStateType value) {
+		this.previousProvinceState = value;
+	}
+
+	/**
+	 * Gets the value of the previousPostalCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPreviousPostalCode() {
+		return previousPostalCode;
+	}
+
+	/**
+	 * Sets the value of the previousPostalCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPreviousPostalCode(String value) {
+		this.previousPostalCode = value;
+	}
+
+	/**
+	 * Gets the value of the previousCountry property.
+	 * 
+	 * @return possible object is {@link CountryType }
+	 * 
+	 */
+	public CountryType getPreviousCountry() {
+		return previousCountry;
+	}
+
+	/**
+	 * Sets the value of the previousCountry property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link CountryType }
+	 * 
+	 */
+	public void setPreviousCountry(CountryType value) {
+		this.previousCountry = value;
+	}
+
+	
+	
+	public String getEmployerName() {
+		return employerName;
+	}
+
+	/**
+	 * Sets the value of the employerName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setEmployerName(String value) {
+		this.employerName = value;
+	}
+
+	/**
+	 * Gets the value of the employerCity property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getEmployerCity() {
+		return employerCity;
+	}
+
+	/**
+	 * Sets the value of the employerCity property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setEmployerCity(String value) {
+		this.employerCity = value;
+	}
+
+	/**
+	 * Gets the value of the employerProvince property.
+	 * 
+	 * @return possible object is {@link ProvinceStateType }
+	 * 
+	 */
+	public String getEmployerProvince() {
+		return employerProvince;
+	}
+
+	/**
+	 * Sets the value of the employerProvince property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ProvinceStateType }
+	 * 
+	 */
+	public void setEmployerProvince(String value) {
+		this.employerProvince = value;
+	}
+
+	/**
+	 * Gets the value of the employerCountry property.
+	 * 
+	 * @return possible object is {@link CountryType }
+	 * 
+	 */
+	public String getEmployerCountry() {
+		return employerCountry;
+	}
+
+	/**
+	 * Sets the value of the employerCountry property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link CountryType }
+	 * 
+	 */
+	public void setEmployerCountry(String value) {
+		this.employerCountry = value;
+	}
+
+	/**
+	 * Gets the value of the employerTelephoneNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getEmployerTelephoneNumber() {
+		return employerTelephoneNumber;
+	}
+
+	/**
+	 * Sets the value of the employerTelephoneNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setEmployerTelephoneNumber(String value) {
+		this.employerTelephoneNumber = value;
+	}
+
+	/**
+	 * Gets the value of the yearsAtEmployement property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getYearsAtEmployement() {
+		return yearsAtEmployement;
+	}
+
+	/**
+	 * Sets the value of the yearsAtEmployement property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setYearsAtEmployement(Integer value) {
+		this.yearsAtEmployement = value;
+	}
+
+	/**
+	 * Gets the value of the monthsAtEmployement property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getMonthsAtEmployement() {
+		return monthsAtEmployement;
+	}
+
+	/**
+	 * Sets the value of the monthsAtEmployement property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setMonthsAtEmployement(Integer value) {
+		this.monthsAtEmployement = value;
+	}
+
+	/**
+	 * Gets the value of the grossAnnualIncome property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getGrossAnnualIncome() {
+		return grossAnnualIncome;
+	}
+
+	/**
+	 * Sets the value of the grossAnnualIncome property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setGrossAnnualIncome(Integer value) {
+		this.grossAnnualIncome = value;
+	}
+
+	/**
+	 * Gets the value of the grossAnnualHouseholdIncome property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getGrossAnnualHouseholdIncome() {
+		return grossAnnualHouseholdIncome;
+	}
+
+	/**
+	 * Sets the value of the grossAnnualHouseholdIncome property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setGrossAnnualHouseholdIncome(Integer value) {
+		this.grossAnnualHouseholdIncome = value;
+	}
+
+	/**
+	 * Gets the value of the monthlyRentMortgageAmount property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getMonthlyRentMortgageAmount() {
+		return monthlyRentMortgageAmount;
+	}
+
+	/**
+	 * Sets the value of the monthlyRentMortgageAmount property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setMonthlyRentMortgageAmount(Integer value) {
+		this.monthlyRentMortgageAmount = value;
+	}
+
+	/**
+	 * Gets the value of the bankCardFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getBankCardFlag() {
+		return bankCardFlag;
+	}
+
+	/**
+	 * Sets the value of the bankCardFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setBankCardFlag(String value) {
+		this.bankCardFlag = value;
+	}
+
+	/**
+	 * Gets the value of the bankLoanFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getBankLoanFlag() {
+		return bankLoanFlag;
+	}
+
+	/**
+	 * Sets the value of the bankLoanFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setBankLoanFlag(String value) {
+		this.bankLoanFlag = value;
+	}
+
+	/**
+	 * Gets the value of the chequingAccountFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getChequingAccountFlag() {
+		return chequingAccountFlag;
+	}
+
+	/**
+	 * Sets the value of the chequingAccountFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setChequingAccountFlag(String value) {
+		this.chequingAccountFlag = value;
+	}
+
+	/**
+	 * Gets the value of the savingsAccountFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSavingsAccountFlag() {
+		return savingsAccountFlag;
+	}
+
+	/**
+	 * Sets the value of the savingsAccountFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSavingsAccountFlag(String value) {
+		this.savingsAccountFlag = value;
+	}
+
+	/**
+	 * Gets the value of the storeCardFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getStoreCardFlag() {
+		return storeCardFlag;
+	}
+
+	/**
+	 * Sets the value of the storeCardFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setStoreCardFlag(String value) {
+		this.storeCardFlag = value;
+	}
+
+	/**
+	 * Gets the value of the gasCardFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getGasCardFlag() {
+		return gasCardFlag;
+	}
+
+	/**
+	 * Sets the value of the gasCardFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setGasCardFlag(String value) {
+		this.gasCardFlag = value;
+	}
+
+	/**
+	 * Gets the value of the supp1FirstName property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1FirstName() {
+		return supp1FirstName;
+	}
+
+	public String getBusinessStoreNo() {
+		return businessStoreNo;
+	}
+
+	public void setBusinessStoreNo(String businessStoreNo) {
+		this.businessStoreNo = businessStoreNo;
+	}
+
+	/**
+	 * Sets the value of the supp1FirstName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1FirstName(String value) {
+		this.supp1FirstName = value;
+	}
+
+	/**
+	 * Gets the value of the supp1LastName property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1LastName() {
+		return supp1LastName;
+	}
+
+	/**
+	 * Sets the value of the supp1LastName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1LastName(String value) {
+		this.supp1LastName = value;
+	}
+
+	/**
+	 * Gets the value of the supp1MiddleInitial property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1MiddleInitial() {
+		return supp1MiddleInitial;
+	}
+
+	/**
+	 * Sets the value of the supp1MiddleInitial property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1MiddleInitial(String value) {
+		this.supp1MiddleInitial = value;
+	}
+
+	/**
+	 * Gets the value of the supp1Relationship property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1Relationship() {
+		return supp1Relationship;
+	}
+
+	/**
+	 * Sets the value of the supp1Relationship property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1Relationship(String value) {
+		this.supp1Relationship = value;
+	}
+
+	/**
+	 * Gets the value of the supp1DateOfBirth property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public String getSupp1DateOfBirth() {
+		return supp1DateOfBirth;
+	}
+
+	/**
+	 * Sets the value of the supp1DateOfBirth property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setSupp1DateOfBirth(String value) {
+		this.supp1DateOfBirth = value;
+	}
+
+	/**
+	 * Gets the value of the supp1AddrSameAsPrimary property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1AddrSameAsPrimary() {
+		return supp1AddrSameAsPrimary;
+	}
+
+	/**
+	 * Sets the value of the supp1AddrSameAsPrimary property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1AddrSameAsPrimary(String value) {
+		this.supp1AddrSameAsPrimary = value;
+	}
+
+	/**
+	 * Gets the value of the supp1AddressLine1 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1AddressLine1() {
+		return supp1AddressLine1;
+	}
+
+	/**
+	 * Sets the value of the supp1AddressLine1 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1AddressLine1(String value) {
+		this.supp1AddressLine1 = value;
+	}
+
+	/**
+	 * Gets the value of the supp1AddressLine2 property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1AddressLine2() {
+		return supp1AddressLine2;
+	}
+
+	/**
+	 * Sets the value of the supp1AddressLine2 property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1AddressLine2(String value) {
+		this.supp1AddressLine2 = value;
+	}
+
+	/**
+	 * Gets the value of the supp1City property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1City() {
+		return supp1City;
+	}
+
+	/**
+	 * Sets the value of the supp1City property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1City(String value) {
+		this.supp1City = value;
+	}
+
+	/**
+	 * Gets the value of the supp1Province property.
+	 * 
+	 * @return possible object is {@link ProvinceStateType }
+	 * 
+	 */
+	public String getSupp1Province() {
+		return supp1Province;
+	}
+
+	/**
+	 * Sets the value of the supp1Province property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ProvinceStateType }
+	 * 
+	 */
+	public void setSupp1Province(String value) {
+		this.supp1Province = value;
+	}
+
+	/**
+	 * Gets the value of the supp1PostalCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1PostalCode() {
+		return supp1PostalCode;
+	}
+
+	/**
+	 * Sets the value of the supp1PostalCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1PostalCode(String value) {
+		this.supp1PostalCode = value;
+	}
+
+	/**
+	 * Gets the value of the supp1Country property.
+	 * 
+	 * @return possible object is {@link CountryType }
+	 * 
+	 */
+	public String getSupp1Country() {
+		return supp1Country;
+	}
+
+	/**
+	 * Sets the value of the supp1Country property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link CountryType }
+	 * 
+	 */
+	public void setSupp1Country(String value) {
+		this.supp1Country = value;
+	}
+
+	/**
+	 * Gets the value of the supp1TelephoneNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSupp1TelephoneNumber() {
+		return supp1TelephoneNumber;
+	}
+
+	/**
+	 * Sets the value of the supp1TelephoneNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSupp1TelephoneNumber(String value) {
+		this.supp1TelephoneNumber = value;
+	}
+
+	/**
+	 * Gets the value of the agreedToTermsFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAgreedToTermsFlag() {
+		return agreedToTermsFlag;
+	}
+
+	/**
+	 * Sets the value of the agreedToTermsFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAgreedToTermsFlag(String value) {
+		this.agreedToTermsFlag = value;
+	}
+
+	public String getSignatureFlag() {
+		return signatureFlag;
+	}
+
+	/**
+	 * Sets the value of the signatureFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSignatureFlag(String value) {
+		this.signatureFlag = value;
+	}
+
+	/**
+	 * Gets the value of the signatureMatchFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSignatureMatchFlag() {
+		return signatureMatchFlag;
+	}
+
+	/**
+	 * Sets the value of the signatureMatchFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSignatureMatchFlag(String value) {
+		this.signatureMatchFlag = value;
+	}
+
+	/**
+	 * Gets the value of the dateSigned property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public String getDateSigned() {
+		return dateSigned;
+	}
+
+	/**
+	 * Sets the value of the dateSigned property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setDateSigned(String value) {
+		this.dateSigned = value;
+	}
+
+	/**
+	 * Gets the value of the insuranceAgreedFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getInsuranceAgreedFlag() {
+		return insuranceAgreedFlag;
+	}
+
+	/**
+	 * Sets the value of the insuranceAgreedFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setInsuranceAgreedFlag(String value) {
+		this.insuranceAgreedFlag = value;
+	}
+
+	public String getInsuranceAgreedFlag_CP() {
+		return insuranceAgreedFlag_CP;
+	}
+
+	public void setInsuranceAgreedFlag_CP(String insuranceAgreedFlag_CP) {
+		this.insuranceAgreedFlag_CP = insuranceAgreedFlag_CP;
+	}
+
+	public String getInsuranceAgreedFlag_IW() {
+		return insuranceAgreedFlag_IW;
+	}
+
+	public void setInsuranceAgreedFlag_IW(String insuranceAgreedFlag_IW) {
+		this.insuranceAgreedFlag_IW = insuranceAgreedFlag_IW;
+	}
+
+	/**
+	 * Gets the value of the insuranceCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getInsuranceCode() {
+		return insuranceCode;
+	}
+
+	/**
+	 * Sets the value of the insuranceCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setInsuranceCode(String value) {
+		this.insuranceCode = value;
+	}
+
+	/**
+	 * Gets the value of the insuranceSignatureFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getInsuranceSignatureFlag() {
+		return insuranceSignatureFlag;
+	}
+
+	/**
+	 * Sets the value of the insuranceSignatureFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setInsuranceSignatureFlag(String value) {
+		this.insuranceSignatureFlag = value;
+	}
+
+	public String getInsuranceSignatureFlag_CP() {
+		return insuranceSignatureFlag_CP;
+	}
+
+	public void setInsuranceSignatureFlag_CP(String insuranceSignatureFlag_CP) {
+		this.insuranceSignatureFlag_CP = insuranceSignatureFlag_CP;
+	}
+
+	public String getInsuranceSignatureFlag_IW() {
+		return insuranceSignatureFlag_IW;
+	}
+
+	public void setInsuranceSignatureFlag_IW(String insuranceSignatureFlag_IW) {
+		this.insuranceSignatureFlag_IW = insuranceSignatureFlag_IW;
+	}
+
+	/**
+	 * Gets the value of the insuranceDateSigned property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public String getInsuranceDateSigned() {
+		return insuranceDateSigned;
+	}
+
+	/**
+	 * Sets the value of the insuranceDateSigned property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setInsuranceDateSigned(String value) {
+		this.insuranceDateSigned = value;
+	}
+
+	/**
+	 * Gets the value of the insuranceSignature property.
+	 * 
+	 * @return possible object is byte[]
+	 */
+	public String getInsuranceSignature() {
+		return insuranceSignature;
+	}
+
+	/**
+	 * Sets the value of the insuranceSignature property.
+	 * 
+	 * @param value
+	 *            allowed object is byte[]
+	 */
+
+	
+
+	/**
+	 * Gets the value of the affiliationCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAffiliationCode() {
+		return affiliationCode;
+	}
+
+	/**
+	 * Sets the value of the affiliationCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAffiliationCode(String value) {
+		this.affiliationCode = value;
+	}
+
+	/**
+	 * Gets the value of the acquirerCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAcquirerCode() {
+		return acquirerCode;
+	}
+
+	/**
+	 * Sets the value of the acquirerCode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAcquirerCode(String value) {
+		this.acquirerCode = value;
+	}
+
+	/**
+	 * Gets the value of the tuSessionID property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getTUSessionID() {
+		return tuSessionID;
+	}
+
+	/**
+	 * Sets the value of the tuSessionID property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setTUSessionID(String value) {
+		this.tuSessionID = value;
+	}
+
+	/**
+	 * Gets the value of the tuExamResult property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getTUExamResult() {
+		return tuExamResult;
+	}
+
+	/**
+	 * Sets the value of the tuExamResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setTUExamResult(String value) {
+		this.tuExamResult = value;
+	}
+
+	/**
+	 * Gets the value of the emailConsentFlag property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getEmailConsentFlag() {
+		return emailConsentFlag;
+	}
+
+	/**
+	 * Sets the value of the emailConsentFlag property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setEmailConsentFlag(String value) {
+		this.emailConsentFlag = value;
+	}
+
+	// US3270 Feb 17th, 2015
+
+	/**
+	 * Gets the value of the requestedCreditLimit property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getRequestedCreditLimit() {
+		return requestedCreditLimit;
+	}
+
+	/**
+	 * Sets the value of the requestedCreditLimit property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setRequestedCreditLimit(Integer value) {
+		this.requestedCreditLimit = value;
+	}
+
+	/**
+	 * Sets the value of the dateOfBirth property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setDateOfBirth(String value) {
+		this.dateOfBirth = value;
+	}
+
+	/**
+	 * @param pan
+	 *            the pan to set
+	 */
+	public String getSin() {
+		return sin;
+	}
+
+	/**
+	 * Sets the value of the sin property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSin(String value) {
+		this.sin = value;
+	}
+
+	/**
+	 * @param transactionState
+	 *            the transactionState to set
+	 */
+	public String getIdType() {
+		return idType;
+	}
+
+	/**
+	 * Sets the value of the idType property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setIdType(String value) {
+		this.idType = value;
+	}
+
+	/**
+	 * @param deviceType
+	 *            the deviceType to set
 	 */
 	public String getIdNumber() {
 		return idNumber;
@@ -2311,6 +3861,117 @@ public class AccountApplicationRequestType implements Serializable {
 				+ ", previousPostalCode=" + previousPostalCode + ", previousCountry=" + previousCountry
 				+ ", employementStatus=" + employementStatus 
 				+ ", jobTitle=" + jobTitle + ", employementCategory=" + employementCategory
+				+ ", employerName=" + employerName + ", employerCity=" + employerCity 
+				+ ", employerProvince=" + employerProvince
+				+ ", employerCountry=" + employerCountry
+				+ ", employerTelephoneNumber=" + employerTelephoneNumber
+				+ ", yearsAtEmployement=" + yearsAtEmployement
+				+ ", monthsAtEmployement=" + monthsAtEmployement
+				+ ", grossAnnualIncome=" + grossAnnualIncome
+				+ ", grossAnnualHouseholdIncome=" + grossAnnualHouseholdIncome
+				+ ", monthlyRentMortgageAmount=" + monthlyRentMortgageAmount
+				+ ", bankCardFlag=" + bankCardFlag + ", bankLoanFlag=" + bankLoanFlag 
+				+ ", chequingAccountFlag=" + chequingAccountFlag
+				+ ", savingsAccountFlag=" + savingsAccountFlag
+				+ ", storeCardFlag=" + storeCardFlag + ", gasCardFlag=" + gasCardFlag 
+				+ ", supp1FirstName=" + supp1FirstName
+				+ ", supp1LastName=" + supp1LastName + ", supp1MiddleInitial=" + supp1MiddleInitial 
+				+ ", supp1Relationship=" + supp1Relationship + ", supp1DateOfBirth=" + supp1DateOfBirth
+				+ ", supp1AddrSameAsPrimary=" + supp1AddrSameAsPrimary
+				+ ", supp1AddressLine1=" + supp1AddressLine1
+				+ ", supp1AddressLine2=" + supp1AddressLine2 + ", supp1City="
+				+ supp1City + ", supp1Province=" + supp1Province
+				+ ", supp1PostalCode=" + supp1PostalCode + ", supp1Country="
+				+ supp1Country + ", supp1TelephoneNumber="
+				+ supp1TelephoneNumber + ", agreedToTermsFlag="
+				+ agreedToTermsFlag + ", applicantSignature="
+				+ applicantSignature + ", signatureFlag=" + signatureFlag
+				+ ", signatureMatchFlag=" + signatureMatchFlag
+				+ ", dateSigned=" + dateSigned + ", insuranceAgreedFlag="
+				+ insuranceAgreedFlag + ", insuranceAgreedFlag_CP="
+				+ insuranceAgreedFlag_CP + ", insuranceAgreedFlag_IW="
+				+ insuranceAgreedFlag_IW + ", insuranceCode=" + insuranceCode
+				+ ", insuranceSignatureFlag=" + insuranceSignatureFlag
+				+ ", insuranceSignatureFlag_CP=" + insuranceSignatureFlag_CP
+				+ ", insuranceSignatureFlag_IW=" + insuranceSignatureFlag_IW
+				+ ", insuranceDateSigned=" + insuranceDateSigned
+				+ ", insuranceSignature=" + insuranceSignature
+				+ ", insuranceSignatureCP=" + insuranceSignatureCP
+				+ ", insuranceSignatureIW=" + insuranceSignatureIW
+				+ ", affiliationCode=" + affiliationCode + ", acquirerCode="
+				+ acquirerCode + ", tuSessionID=" + tuSessionID
+				+ ", tuExamResult=" + tuExamResult + ", emailConsentFlag="
+				+ emailConsentFlag + ", enstreamConsent=" + enstreamConsent
+				+ ", msisdn=" + msisdn + ", pan=" + pan + ", admAppId="
+				+ admAppId + ", unitNumber=" + unitNumber + ", streetName="
+				+ streetName + ", streetNumber=" + streetNumber
+				+ ", transactionState=" + transactionState + ", deviceType="
+				+ deviceType + ", estmt_consent=" + estmt_consent
+				+ ", businessStoreNo=" + businessStoreNo + ", accountNumber="
+				+ accountNumber + ", formSubmId=" + formSubmId
+				+ ", requestedCreditLimit=" + requestedCreditLimit + "]";
+	}
+	
+	
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getFormSubmId() {
+		return formSubmId;
+	}
+
+	public void setFormSubmId(String formSubmId) {
+		this.formSubmId = formSubmId;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountApplicationRequestType [" + "externalReferenceId="
+				+ externalReferenceId + ", storeNumber=" + storeNumber
+				+ ", agentId=" + agentId + ", tabSerialId=" + tabSerialId
+				+ ", channelIndicator=" + channelIndicator
+				+ ", agencyPromoCode=" + agencyPromoCode
+				+ ", acquistionStrategyCode=" + acquistionStrategyCode
+				+ ", controlConfirmationFlag=" + controlConfirmationFlag
+				+ ", controlConfirmationSignature="
+				+ controlConfirmationSignature + ", costOfCreditFlag="
+				+ costOfCreditFlag + ", cardMemberFlag=" + cardMemberFlag
+				+ ", triangleRewardFlag=" + triangleRewardFlag
+				+ ", requestedProductType=" + requestedProductType
+				+ ", loyaltyMembershipNumber=" + loyaltyMembershipNumber
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", middleInitial=" + middleInitial 
+				+ ", dateOfBirth=" + dateOfBirth 
+				+ ", sin=" + sin + ", idType=" + idType
+				+ ", idNumber=" + idNumber + ", idExpiryDate=" + idExpiryDate
+				+ ", placeOfIssue=" + placeOfIssue + ", preferedLanguage="
+				+ preferedLanguage + ", treatmentCode=" + treatmentCode
+				+ ", DSAScore=" + DSAScore + ", tmxProfileId=" + tmxProfileId
+				+ ", PIISource=" + PIISource + ", applicantGender="
+				+ applicantGender + ", currentAddressType="
+				+ currentAddressType + ", currentAddressLine1="
+				+ currentAddressLine1 + ", currentAddressLine2="
+				+ currentAddressLine2 + ", currentCity=" + currentCity
+				+ ", currentProvince=" + currentProvince
+				+ ", currentPostalCode=" + currentPostalCode
+				+ ", currentCountry=" + currentCountry
+				+ ", currentTelephoneNumber=" + currentTelephoneNumber
+				+ ", currentCellPhoneNumber=" + currentCellPhoneNumber
+				+ ", yearsAtCurrentAddress=" + yearsAtCurrentAddress
+				+ ", monthsAtCurrentAddress=" + monthsAtCurrentAddress
+				+ ", currentEmailAddress=" + currentEmailAddress
+				+ ", previousAddressLine1=" + previousAddressLine1
+				+ ", previousAddressLine2=" + previousAddressLine2
+				+ ", previousCity=" + previousCity + ", previousProvinceState=" + previousProvinceState 
+				+ ", previousPostalCode=" + previousPostalCode + ", previousCountry=" + previousCountry
+				+ ", employmentStatus=" + employmentStatus 
+				+ ", jobDescription=" + jobDescription + ", jobCategory=" + jobCategory
 				+ ", employerName=" + employerName + ", employerCity=" + employerCity 
 				+ ", employerProvince=" + employerProvince
 				+ ", employerCountry=" + employerCountry

@@ -9,7 +9,7 @@ WICI.dictionary_fr =  {
 	printerErrorShowDialogFlag						  :							"Y",	
 	addressLine2Flag	                              :    						"Y",
 	newStylePrintFlag	                              :    						"N",
-	storeRecallPrintStores							  :							"{\"stores\":[\"122\",\"412\",\"143\",\"424\",\"429\",\"118\",\"90\",\"145\",\"162\",\"218\",\"649\",\"861\",\"6029\",\"4401\",\"5141\",\"815\",\"6323\",\"6529\",\"6030\",\"6239\",\"6097\",\"6041\",\"6351\",\"6381\",\"6521\",\"6530\",\"4241\",\"4284\",\"4465\",\"4285\",\"4398\"]}",
+	storeRecallPrintStores							  :							"{\"stores\":[]}",
 	
 	accents											  :							'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
 	accents_out										  :							"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
@@ -59,7 +59,7 @@ WICI.dictionary_fr =  {
 	addressLookup_noResults                           :                         "Aucun résultat. Veuillez essayer de nouveau.",
 	addressLookup_multipleItemsExist                  :                         "Il existe plusieurs noms de rues. Sélectionnez ci-dessous",
 
-	messageDialog_ok                                  :                         "Ok",
+	messageDialog_ok                                  :                         "OUI",
 
 	pageHeader_next                                   :                         "Suivant",
 	pageHeader_previous                               :                         "Retour",
@@ -82,6 +82,11 @@ WICI.dictionary_fr =  {
 	loginScreen_Location_Number                       :                         "Numéro de magasin ou d'emplacement",
     loginScreen_First_Name		 					  : 	                    "Prénom de l'employé",
     loginScreen_Last_Name		 					  : 	                    "Nom de famille de l'employé",
+    // VZE-442
+	loginScreen_Device_serial_number_error_title      :                         "Erreur",
+	loginScreen_Device_serial_number_error_message      : "<p><b>Le numéro de série de l’appareil ne peut pas être récupéré</b></p>",
+	loginScreen_Device_serial_number_message      :    "Pour résoudre ce problème, consultez le &laquo; Processus alternatif pour refaire une demande &raquo; dans la rubrique &laquo; Paramètres de profil personnalisés &raquo; incluse dans le Guide sur le programme Crédit immédiat Triangle.",
+	// VZE-442
 	loginScreen_Button_Label                          :                          "CONNEXION",
 	loginScreen_EmployeeNumberID_Label                  :                       "Numéro d'employé",
 
@@ -392,15 +397,15 @@ WICI.dictionary_fr =  {
 	personalData_Address_City                        :                         "Ville",
 	personalData_Address_Province                    :                         "Province",
 
-	personalData_Address_ResidenceType               :                         "Êtes-vous :",
+	personalData_Address_ResidenceType               :                         "Type de Domicile",
 	personalData_Address_Own                         :                         "Propriétaire",
 	personalData_Address_Rent                        :                         "Locataire",
-	personalData_Address_Parents                     :                         "Maison des parents",
+	personalData_Address_Parents                     :                         "Domicile Parental",
 	//  US5131 WICI - Add Student Housing label to Residence Type list
-	personalData_Address_Student                     :                         "Logement étudiant",
-	personalData_Address_Other                       :                         "Autres",
+	personalData_Address_Student                     :                         "Logement pour étudiants",
+	personalData_Address_Other                       :                         "Autre",
 
-	personalData_Address_MonthlyPayment              :                         "Loyer / hypothèque (montant mensuel)",
+	personalData_Address_MonthlyPayment              :                         "Paiement hypothécaire et du loyer (par mois)",
 	personalData_Address_Duration                    :                         "Depuis combien de temps habitez-vous à votre adresse actuelle? ",
 	personalData_Address_DurationYears               :                         "Années",
 	personalData_Address_DurationMonths              :                         "Mois",
@@ -415,6 +420,11 @@ WICI.dictionary_fr =  {
 	pesonalData_covid19LockDownYear                    : "2020",
 	pesonalData_covid19LockDownMonth                    : "03",
 	pesonalData_covid19LockDownDay                    : "01",
+	
+	// VZE-492
+	personalData_ExpiryDate_validation_ON_OFF         : "false",
+	// VZE-492
+	
 	
 	// VZE-161
 	ExpiryDateMonth_null                              :   'Mois',
@@ -477,8 +487,7 @@ WICI.dictionary_fr =  {
 	finEmpInfo_ChequingAcct                           :                         "Compte chèque",
 	finEmpInfo_SavingsAcct                            :                         "Compte d'épargne",
 
-	finEmpInfo_EmpType								  :						    "Situation d'emploi",
-	finEmpInfo_JobTitle                               :                         "Titre du poste",
+	finEmpInfo_JobDescription                         :                         "Description du travail",
 	finEmpInfo_JobCategory                            :                         "Catégorie d'emploi",
 	finEmpInfo_EmployerName                           :                         "Nom de l'employeur",
 	finEmpInfo_EmployerCity                           :                         "Ville de l'employeur",
@@ -493,18 +502,18 @@ WICI.dictionary_fr =  {
 	finEmpInfo_Years                                  :                         "Années : ",
 	finEmpInfo_Months                                 :                         "Mois : ",
 
+	finEmpInfo_EmpType								  :						    "Type d'emploi",
 	finEmpInfo_FullTime                				  :                         "Temps plein",
-	finEmpInfo_PartTime               				  :                         "Temps partiel",
-	finEmpInfo_Seasonal                 			  :                         "Saisonnier",
-	finEmpInfo_Retired                				  :                         "Retraite",
+	finEmpInfo_PartTime25hrsOrMore     				  :                         "Temps partiel – 25 h ou plus",
+	finEmpInfo_PartTimeLessThan25hrs				  :							"Temps partiel – moins de 25 h",
+	finEmpInfo_Seasonal                 			  :                         "Saisonnier/contractuel/temporaire",
 	finEmpInfo_Homemaker 				 			  : 						"Personne au foyer",
+	finEmpInfo_Retired                				  :                         "Retraité",
 	finEmpInfo_Unemployed 			 				  : 						"Sans emploi",
-	finEmpInfo_Other 						     	  : 						"Autre",
-	finEmpInfo_Default_Unemployed 					  : 						"Chomage",
+	finEmpInfoJobDesc_Other                           :                         "Autre",
 	
 	// US3621
-	finEmpInfo_JobTitleOther						  :							"Titre du poste (Autre)",
-
+	finEmpInfo_JobTitleOther						  :							"Description du travail (Autre)",
 
 	supCardRequest_PageTitle                          :                         "DEMANDE DE CARTE ADDITIONNELLE",
 
@@ -1051,27 +1060,31 @@ WICI.dictionary_fr =  {
 	
 	// Job Categories - Start
 	
-	jobCategoriesList_null                            :"Veuillez sélectionner...",
-    jobCategoriesList_FT							  :"Temps plein",
-	jobCategoriesList_DR                              :"Conducteur",
-	jobCategoriesList_GU                              :"Gardien",
-	jobCategoriesList_HO                              :"Personne au foyer",
-	jobCategoriesList_LA                              :"Ouvrier",
-	jobCategoriesList_MA                              :"Personnel de gestion",
-	jobCategoriesList_MI                              :"Militaire",
-	jobCategoriesList_OF                              :"Personnel de bureau",
-	jobCategoriesList_OW                              :"Propriétaire",
-	jobCategoriesList_FA                              :"Travailleur à la production",
-	jobCategoriesList_PR                              :"Professionnel",
-	jobCategoriesList_RE                              :"Réparation",
-	jobCategoriesList_RT                              :"Retraite",
-	jobCategoriesList_SA                              :"Ventes",
-	jobCategoriesList_SE                              :"Service",
-	jobCategoriesList_ST                              :"Étudiant",
-	jobCategoriesList_TR                              :"Métiers",
-	jobCategoriesList_UN                              :"Sans emploi",
-	jobCategoriesList_OT                              :"Autre",
-	
+	jobCategoriesList_null 								:  	"Veuillez sélectionner...",
+	jobCategoriesList_DR								: 	'Chauffeur',
+	jobCategoriesList_FA								: 	'Travailleur d’usine',
+	jobCategoriesList_GU								: 	'Agent de sécurité/police',
+	jobCategoriesList_IS								: 	'Stagiaire',
+	jobCategoriesList_LA								: 	'Ouvrier',
+	jobCategoriesList_MA								: 	'Gestion',
+	jobCategoriesList_MF								: 	'Domaine médical',	
+	jobCategoriesList_MI								: 	'Militaire',	
+	jobCategoriesList_OF								: 	'Employé de bureau',
+	jobCategoriesList_OT								: 	'Autre',	
+	jobCategoriesList_OW								: 	'Propriétaire',
+	jobCategoriesList_PL								: 	'Congé parental',
+	jobCategoriesList_PR								: 	'Professionnel',
+	jobCategoriesList_RE								: 	'Service/réparation',
+	jobCategoriesList_RR								: 	'Représentant de vente au détail',
+	jobCategoriesList_SB								: 	'Année sabbatique',
+	jobCategoriesList_SA								: 	'Ventes',
+	jobCategoriesList_SE								: 	'Service à la clientèle/hospitalité/tourisme',
+	jobCategoriesList_ST								: 	'Étudiant',
+	jobCategoriesList_SC								: 	'Placement d’étudiants en coopérative',
+	jobCategoriesList_TR								: 	'Métiers',
+	jobCategoriesList_RT                              	:	'Retraite',
+	jobCategoriesList_UN                              	:	'Sans emploi',
+	jobCategoriesList_HO                              	:	'Personne au foyer',
 	// End
 	
 	// Job Titles - Start
@@ -1506,8 +1519,8 @@ WICI.dictionary_fr =  {
 	summary_Address_City                              :                         "Ville",
 	summary_Address_Province                          :                         "Province",
 
-	summary_Address_ResidenceType                     :                         "Type de résidence ",
-	summary_Address_MonthlyHousePayment               :                         "Hypothèque / Loyer mensuel ",
+	summary_Address_ResidenceType                     :                         "Type de Domicile",
+	summary_Address_MonthlyHousePayment               :                         "Paiement hypothécaire et du loyer (par mois)",
 	summary_Address_DurationCurrentAddress            :                         "Depuis combien de temps habitez-vous à votre adresse actuelle?",
 
 	summary_PreviousAddress_SubTitle                  :                         "Ancienne adresse",
@@ -1524,7 +1537,7 @@ WICI.dictionary_fr =  {
 	
 	summary_FinEmp_SIN                                :                         "Numéro d'assurance sociale",
 
-	summary_FinEmp_JobTitle                           :                         "Titre du poste",
+	summary_FinEmp_JobDescription                     :                         "Description du travail",
 	summary_FinEmp_JobCategory                        :                         "Catégorie d'emploi",
 	summary_FinEmp_EmpName                            :                         "Nom de l'employeur",
 	summary_FinEmp_EmpCity                            :                         "Ville de l'employeur",

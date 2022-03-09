@@ -137,7 +137,7 @@ public class AccountApplicationRequestTypeConverter
                                     log.warning(sMethod + " Exception: " + e.getMessage());
                                     e.printStackTrace();
                     }
-                    populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA.value());
+                   // populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA.value());
 
                     // From AccountApplication.xsd v1.14 this filed have been removed
                     // populatedAccountApplicationRequest.setRoadsideOnRequestFlag("N");
@@ -362,28 +362,51 @@ public class AccountApplicationRequestTypeConverter
 			if (model != null)
 			{
 
-				String emplStatus = model.get("employmentType");
-				String jobTitle = model.get("jobTitle");
+				String emplStatus = model.get("employmentTypeDSS");
+				String jobDescription = model.get("jobDescription");
+				if(jobDescription.equalsIgnoreCase("OTHER")) {
+					jobDescription = model.get("jobDescriptionOther");
+				} else {
+					jobDescription = model.get("jobDescription");
+				}
 				String emplCategory = model.get("jobCategory");
 				String employerName = model.get("employerName");
 				String employerPhone = model.get("employerPhone");
 				String employerCity = model.get("employerCity");
 				int howLongYears = model.getInt("howLongYears");
 				int howLongMonthes = model.getInt("howLongMonthes");
-				if (emplStatus.equals("R"))
+				if (emplStatus.equalsIgnoreCase("RETIRED"))
 				{
-					emplStatus = "F";
-					jobTitle = "RETIRED";
-					emplCategory = "RT";
+					emplStatus = "RETIRED";
+					jobDescription = "RETIRED";
+					emplCategory = "RETIRED";
 					employerName = "RETIRED";
 					employerPhone = "";
-					howLongYears = 99;
+					howLongYears = 0;
+					howLongMonthes = 0;
+					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
+				} else if(emplStatus.equalsIgnoreCase("HOMEMAKER")) {
+					emplStatus = "HOMEMAKER";
+					jobDescription = "HOMEMAKER";
+					emplCategory = "HOMEMAKER";
+					employerName = "HOMEMAKER";
+					employerPhone = "";
+					howLongYears = 0;
+					howLongMonthes = 0;
+					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
+				} else if(emplStatus.equalsIgnoreCase("UNEMPLOYED")) {
+					emplStatus = "UNEMPLOYED";
+					jobDescription = "UNEMPLOYED";
+					emplCategory = "UNEMPLOYED";
+					employerName = "UNEMPLOYED";
+					employerPhone = "";
+					howLongYears = 0;
 					howLongMonthes = 0;
 					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
 				}
-				argAccAppRequest.setEmployementStatus(emplStatus);
-				argAccAppRequest.setJobTitle(jobTitle);
-				argAccAppRequest.setEmployementCategory(emplCategory);
+				argAccAppRequest.setEmploymentStatus(emplStatus);
+				argAccAppRequest.setJobDescription(jobDescription);
+				argAccAppRequest.setJobCategory(emplCategory);
 				argAccAppRequest.setEmployerName(employerName);
 				argAccAppRequest.setEmployerTelephoneNumber(employerPhone);
 				argAccAppRequest.setEmployerCity(employerCity);

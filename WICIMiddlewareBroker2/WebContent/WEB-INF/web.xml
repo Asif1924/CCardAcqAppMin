@@ -111,6 +111,13 @@
 		<servlet-name>AbbrevaitedCityServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.AbbrevaitedCityServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>RetrieveJobDescriptionServlet</display-name>
+		<servlet-name>RetrieveJobDescriptionServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.RetrieveJobDescriptionServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>/AddressLookup</url-pattern>
@@ -162,6 +169,10 @@
 	<servlet-mapping>
 		<servlet-name>AbbrevaitedCityServlet</servlet-name>
 		<url-pattern>/AbbreviateCity</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RetrieveJobDescriptionServlet</servlet-name>
+		<url-pattern>/RetrieveJobDescriptionServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

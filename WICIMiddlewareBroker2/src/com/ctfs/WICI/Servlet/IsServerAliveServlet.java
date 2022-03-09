@@ -25,13 +25,13 @@ public class IsServerAliveServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		String sMethod = this.getClass().getName() + "[doGet] ";
-		log.info(sMethod + "IsServerAliveServlet");
+		//log.info(sMethod + "IsServerAliveServlet");
 		handleRequest(response);
 	}
 
 	protected void handleRequest(HttpServletResponse response)throws ServletException, IOException {
 		String sMethod = this.getClass().getName()+ "[IsServerAliveServlet handleRequest] ";
-		log.info(sMethod);
+		//log.info(sMethod);
 
 		String hostName = InetAddress.getLocalHost().getHostName();
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
@@ -40,7 +40,7 @@ public class IsServerAliveServlet extends HttpServlet
 		try {
 			HealthCheckRecord healthCheckRecord = wicidbHelper.getHealthCheckRecord(hostName);
 			String ltmHealth = null;
-			String gtmHelath = null;
+			String gtmHealth = null;
 
 			if (healthCheckRecord.getLtmEnabled().equalsIgnoreCase("1")) {
 				ltmHealth = "online";
@@ -49,13 +49,13 @@ public class IsServerAliveServlet extends HttpServlet
 				ltmHealth = "offline";
 			}
 			if (healthCheckRecord.getGtmEnabled().equalsIgnoreCase("1")) {
-				gtmHelath = "available";
+				gtmHealth = "available";
 			}
 			if (healthCheckRecord.getGtmEnabled().equalsIgnoreCase("0")) {
-				gtmHelath = "disabled";
+				gtmHealth = "disabled";
 			}
-			status = ltmHealth + "-" + gtmHelath;
-			log.info("status :" + status);
+			status = ltmHealth + "-" + gtmHealth;
+			//log.warning("status :" + status);
 
 		} catch (Exception ex) {
 			response.setStatus(500);
@@ -71,7 +71,7 @@ public class IsServerAliveServlet extends HttpServlet
 		try {
 			writer = response.getWriter();
 			String responseAsJsonString = gson.create().toJson(appResponse,appResponse.getClass());
-			log.info(sMethod + "::responseAsJsonString :: "	+ responseAsJsonString);
+			log.info(sMethod + "::responseAsJsonString for HealthCheck:: "	+ responseAsJsonString);
 			writer.append(responseAsJsonString);
 		} catch (Exception e) {
 			log.warning(sMethod+ "::Error occurred during process servlet response::"+ e.getMessage());

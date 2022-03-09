@@ -32,11 +32,11 @@ WICI.CreditCardApplicationData = function() {
 	var employmentTypeFriendlyNames = {
 		'F' : 'finEmpInfo_FullTime',
 		'S' : 'finEmpInfo_Seasonal',
-		'P' : 'finEmpInfo_PartTime',
+		'P' : 'finEmpInfo_PartTime25hrsOrMore',
+		'O' : 'finEmpInfo_PartTimeLessThan25hrs',
 		'H' : 'finEmpInfo_Homemaker',
 		'R' : 'finEmpInfo_Retired',
-		'U' : 'finEmpInfo_Unemployed',
-		'O' : 'finEmpInfo_Other'
+		'U' : 'finEmpInfo_Unemployed'
 	};
 
 	var residenceTypeFriendlyNames = {

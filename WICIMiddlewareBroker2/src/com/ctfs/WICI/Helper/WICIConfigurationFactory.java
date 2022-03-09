@@ -29,7 +29,7 @@ public class WICIConfigurationFactory
 	private static final String DSS_SERVICE_ENV ="DSS_SERVICE_ENV";
 	private static final String DSS_SUBMITAPP_ENDPOINT ="DSS_SUBMITAPP_ENDPOINT";
 	//private static final String SHAREDSERVICE_ON ="SHAREDSERVICE_ON";
-	
+	private static final String DSS_JOBDESC_ENDPOINT="DSS_JOBDESC_ENDPOINT";
 	
 	
 	static Logger log = Logger.getLogger(WICIConfigurationFactory.class.getName());
@@ -116,6 +116,7 @@ public class WICIConfigurationFactory
 		String jwtToken = environmentMap.get(JWT_TOKEN).toString();
 		String dssServiceEnv = environmentMap.get(DSS_SERVICE_ENV).toString();
 		String dsssubmitAPPEndpont = environmentMap.get(DSS_SUBMITAPP_ENDPOINT).toString();
+		String jobDescEndpoint = environmentMap.get(DSS_JOBDESC_ENDPOINT).toString();
 		conf.setDssEndPoint(dssEndPoint);
 		
 		log.info("jksPath -> "+jksconfigurationMap.get(JKSFileName));
@@ -137,12 +138,13 @@ public class WICIConfigurationFactory
 		conf.setJwtToken(jwtToken);
 		conf.setDssserviceEnv(dssServiceEnv);
 		conf.setDsssubmitAppEndPoint(dsssubmitAPPEndpont);
+		conf.setJobDescEndPoint(jobDescEndpoint);
 		
 		/*conf.setShareserviceEnabled(sharedservicflag);*/
 		
 		log.info(sMethod + "---Jks Details  " + conf.getJksPath()   +"======"+conf.getJksPassword()+ "===="+conf.getJksTlsVersion()+"====="+conf.getDssTmxEndPoint()+"======"+conf.getDssEmailEndPoint()+"==========="+conf.getDssDIIEndPoint()+"============="+conf.getJwtToken());
 		
-		
+		log.info(sMethod + "---JobDesc Endpoint  " + conf.getJobDescEndPoint());
 		
 		return conf;
 	}

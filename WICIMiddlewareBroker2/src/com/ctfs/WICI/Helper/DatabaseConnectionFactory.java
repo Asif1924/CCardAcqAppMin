@@ -22,6 +22,18 @@ public class DatabaseConnectionFactory
 		return dataSource.getConnection();
 	}
 	
+	public Connection getOracleDatabaseConnectionForHealthCheck() throws SQLException, NamingException
+	{
+		String sMethod = this.getClass().getName() + "[getOracleDatabaseConnectionForHealthCheck] ";
+		//log.info(sMethod);
+
+		// Set up DB connection
+		javax.naming.Context ctx = new javax.naming.InitialContext();
+		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/WICIDataSource");
+
+		return dataSource.getConnection();
+	}
+	
 	public Connection getOracleTCTSalesDatabaseConnection() throws SQLException, NamingException
 	{
 		String sMethod = this.getClass().getName() + "[getOracleTCTSalesDatabaseConnection] ";

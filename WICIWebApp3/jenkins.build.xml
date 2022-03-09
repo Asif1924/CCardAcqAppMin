@@ -309,6 +309,7 @@ load:
         <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.css.file}">
             <fileset dir="WebContent" includes="**/app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/>
             <fileset dir="WebContent" includes="**/app/view/ext/jQMProgressBar/jQMProgressBar.css"/>
+            <fileset dir="WebContent" includes="**/app/view/ext/select2/select2.css"/>
             <fileset dir="WebContent" includes="**/app/view/css/${css.filename}"/>
         </concat>
         <echo message="Concatenated css built."/>
@@ -361,6 +362,7 @@ load:
         <echo file="${lib.dir}/${css.include.files.debug}">
             &lt;link rel="stylesheet" type="text/css" href="app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/&gt;
             &lt;link rel="stylesheet" type="text/css" href="app/view/ext/jQMProgressBar/jQMProgressBar.css"/&gt;
+            &lt;link rel="stylesheet" type="text/css" href="app/view/ext/select2/select2.css"/&gt;
             &lt;link rel="stylesheet" type="text/css" href="app/view/css/${css.filename}"/&gt;
         </echo>
         <echo message="List of CSS includes created."/>
@@ -382,6 +384,7 @@ load:
         <echo message="Concatenating CSS files..."/>
         <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.css.file}">
             <fileset dir="WebContent" includes="**/app/view/ext/${jquery.mobile.version}/${jquery.mobile.css.file}"/>
+            <fileset dir="WebContent" includes="**/app/view/ext/select2/select2.css"/>
             <fileset dir="WebContent" includes="**/app/view/css/${css.filename}"/>
         </concat>
         <echo message="CSS files concatenated."/>

@@ -7,19 +7,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ctfs.wicimobile.models.WICICardmemberModel;
+import com.newrelic.agent.android.NewRelic;
+import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.device.ZebraIllegalArgumentException;
 import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
 import com.zebra.sdk.printer.FieldDescriptionData;
+import com.zebra.sdk.printer.PrinterStatus;
 import com.zebra.sdk.printer.ZebraPrinter;
 
 import android.content.Context;
@@ -27,13 +32,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 
 public class WICIStoreRecallPrintHelper {
 	
 	private static final String LOG_TAG = "WICIStoreRecallPrintHelper";
-
+	private static final int MAXIMUM_WAIT_COUNTER = 2;
 	public final static String StoreRecallFilePath = "srtemplates/";
 	private String _storageDrive = "E:";
 	private JSONObject printTemplateConfig = null;
@@ -233,23 +239,148 @@ public class WICIStoreRecallPrintHelper {
 	    }
 
 	    private void storeFileOnPrinter(Context context, ZebraPrinter printer, String prnName, int prnVersion) 
-	    		throws ConnectionException, IOException/*, ZebraPrinterLanguageUnknownException*/{
+	    		throws ConnectionException, IOException/*, ZebraPrinterLanguageUnknownException*/, URISyntaxException{
 	    	String SMethod = "storeFileOnPrinter() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
+	    	// Get printer connection
+	        Connection  connection = printer.getConnection();
+	    	
 	        sendFileWithSignatureCommand(context, printer, prnName);
-	        sendVersionControlLabel(context, prnName, prnVersion, printer);
+	        //sendVersionControlLabel(context, prnName, prnVersion, printer);
+	        sendVersionControlLabel(context, prnName, prnVersion, connection, printer);
 	    }
 	    
 	    private void sendFileWithSignatureCommand(Context context, ZebraPrinter printer, String fileName) 
-	    		throws IOException, ConnectionException {
+	    		throws IOException, ConnectionException, URISyntaxException {
 	    	String SMethod = "sendFileWithSignatureCommand() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        createPRNWithSignature(context, fileName ,"TEMP_COPY.PRN");
-	        File filepath = context.getFileStreamPath("TEMP_COPY.PRN");
-	        printer.sendFileContents(filepath.getAbsolutePath());
+	    	// Get printer connection
+	        Connection  connection = printer.getConnection();
+	    	
+	        Uri fromName = Uri.parse(fileName);
+	    	sendOneLineAtATime(fromName, context, connection, printer);
+			/*
+			 * createPRNWithSignature(context, fileName ,"TEMP_COPY.PRN"); File filepath =
+			 * context.getFileStreamPath("TEMP_COPY.PRN");
+			 * printer.sendFileContents(filepath.getAbsolutePath());
+			 */
 	    }
+	    
+	    private boolean sendOneLineAtATime(Uri fromName, Context context, Connection printerConnection, ZebraPrinter printer) {
+	    	String SMethod = "sendOneLineAtATime() :: ";
+	    	Log.i(LOG_TAG, SMethod);
+	    	
+	        boolean foundSignatureCommand = false;
+	        InputStream inputStream = null;
+	        NewRelic.startInteraction("WICIStoreRecallPrintHelper");
+	        try {
+	            inputStream = context.getContentResolver().openInputStream(fromName);
+
+	            if (inputStream != null) {
+	                BufferedReader bufferedReader = new BufferedReader(
+	                        new InputStreamReader(Objects.requireNonNull(inputStream)));
+
+	                String receiveString = "";
+
+	                while ((receiveString = bufferedReader.readLine()) != null) {
+
+	                    if (receiveString.contains("SIGNATURE.GRF")) {
+	                        foundSignatureCommand = true;
+	                    } else if (receiveString.contains("Signature") && !foundSignatureCommand) {
+	                        //Get the Y-Coordinate
+	                        // ^FT154,1376^A0N,28,28^FH\^CI28^FN8"Signature"^FS^CI27
+	                        int commaPosition = receiveString.indexOf(",");
+	                        int carrotPositionPostComma = receiveString.indexOf("^", commaPosition);
+	                        String ycoordinateforsignature = receiveString.substring(commaPosition + 1, carrotPositionPostComma);
+	                        printerConnection.write(("^FO11," + ycoordinateforsignature + "^XGE:SIGNATURE.GRF,1,1^FS").getBytes());
+	                        foundSignatureCommand = true;
+	                    }
+	                    printerConnection.write(receiveString.getBytes());
+	                }
+
+	                inputStream.close();
+	                Log.i(LOG_TAG, SMethod + " InputStream closed.");
+	                waitForBluetoothDataTransferToComplete(printer);
+	                return true;
+
+	            } else {
+	                throw new IOException("inputStream is null");
+	            }
+	        } catch (Exception e) {
+	        	NewRelic.recordHandledException(e);
+	            return  false;
+	        }
+	    }
+
+	    private void sendVersionControlLabel(Context context, String parentPRNName, int prnVersion, Connection printerConnection, ZebraPrinter printer)
+	    		throws IOException, ConnectionException {
+	    	String SMethod = "sendVersionControlLabel() :: ";
+	    	Log.i(LOG_TAG, SMethod);
+	    	
+	        InputStream inputStream = context.getAssets().open(StoreRecallFilePath + _versionControlLabelName + ".prn");
+
+	        if ( inputStream != null ) {
+	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+	            String receiveString = "";
+
+	            while ( (receiveString = bufferedReader.readLine()) != null ) {
+	            		printerConnection.write(receiveString
+	                                                    .replace("#[Version]", String.valueOf(prnVersion))
+	                                                    .replace("#[FileName]", "V" + parentPRNName).getBytes());
+	            }
+
+	            inputStream.close();
+                waitForBluetoothDataTransferToComplete(printer);
+	        } else  {
+	            throw new IOException("inputStream is null");
+	        }	        
+	    }
+	    
+	    private boolean waitForBluetoothDataTransferToComplete(ZebraPrinter printer) {
+	    	String SMethod = "waitForBluetoothDataTransferToComplete() :: ";
+	    	Log.i(LOG_TAG, SMethod);
+	    	
+	        PrinterStatus status = null;
+	        boolean fileTransferComplete = false;
+	        int counter = 0;
+	        try {
+	            while (!fileTransferComplete) {
+
+	                try {
+	                    status = printer.getCurrentStatus();
+	                    Log.i(LOG_TAG, SMethod + " printer status : " + status);
+	                } catch (ConnectionException e) {
+	                    counter += 1;
+	                    Thread.sleep(50); // Pause for 50ms..
+	                    if (counter > MAXIMUM_WAIT_COUNTER) {
+	                    	NewRelic.recordHandledException(e);
+	                        return false;
+	                    }
+	                    Log.i(LOG_TAG, SMethod + " Exception : " + e);
+	                    continue;
+	                }
+
+	                if (!status.isReceiveBufferFull && !status.isPartialFormatInProgress) {
+	                    fileTransferComplete = true;
+	                } else {
+	                    counter += 1;
+	                    if (counter > MAXIMUM_WAIT_COUNTER) {
+	                        return false;
+	                    }
+	                    Thread.sleep(50); // Pause for 50ms
+	                }
+	            }
+	        } catch (InterruptedException e) {
+	        	NewRelic.recordHandledException(e);
+	            return false;
+	        }
+	        NewRelic.endInteraction("WICIStoreRecallPrintHelper");
+	        return true;
+	    }
+		    
 
 	    private void createPRNWithSignature(Context context, String fromFile, String toFile) throws IOException {
 	    	String SMethod = "createPRNWithSignature() :: ";

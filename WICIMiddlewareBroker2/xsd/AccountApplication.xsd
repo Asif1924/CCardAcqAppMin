@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- Revision History 2013-09-11 v1.11 Werner Tanzo US2292 - BMT Updates 
 	- insuranceCode Added/Removed - removed roadsideOnRequest references 2013-09-23 
 	v1.12 Jason LoStracco Gateway Fix - Merged WICI/BRB into v1.11 - AccountApplicationRequestType 
