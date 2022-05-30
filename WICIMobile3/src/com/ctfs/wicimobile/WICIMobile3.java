@@ -133,8 +133,12 @@ public class WICIMobile3 extends CordovaActivity
 		        .setPositiveButton(R.string.runtime_permission_error_ok_button, new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int which) { 
 		            	alertDialog.dismiss();
+		            	// VZE-606
+		            	ExitActivity.exitApplication(WICIMobile3.this);
 		            }
 		         }).show();
+		    	alertDialog.setCancelable(false);
+		    	alertDialog.setCanceledOnTouchOutside(false);
 		    }
 	    }
 	    return;

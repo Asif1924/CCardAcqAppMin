@@ -672,7 +672,7 @@ public class WICIDBHelper
 			connection = connectToDB(false);
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, loginInfo.getEmployerID());
-			preparedStatement.setString(2, loginInfo.getAgentID());
+			preparedStatement.setString(2, loginInfo.getAgentID().toUpperCase());
 			preparedStatement.setString(3, loginInfo.getUserLocation());
 			preparedStatement.setString(4, loginInfo.getApkVersion());
 			preparedStatement.setString(5, loginInfo.getBuildSerial());
@@ -793,7 +793,7 @@ public class WICIDBHelper
 		String sMethod = "[checkAgentPreLoggedin] ";
 		log.info(sMethod + "::Called::");
 
-		String newAgentID = loginInfo.getAgentID();
+		String newAgentID = loginInfo.getAgentID().toUpperCase().trim();
 		String newMfgSerial = loginInfo.getMfgSerial().toUpperCase().trim();
 		String agentID = "", mfgSerial = "";
 		log.info(sMethod + "::newAgentID:: " + newAgentID + " ::newMfgSerial:: " + newMfgSerial);
@@ -852,7 +852,7 @@ public class WICIDBHelper
 		String sMethod = "[getLoggedinDate] ";
 		log.info(sMethod + "::Called::");
 		
-		String sql = "SELECT MAX(LOGINDATE) FROM " + WICI_TAB_LST_TABLE + " WHERE AGENTID = ? ORDER BY LOGINDATE DESC";
+		String sql = "SELECT MAX(LOGINDATE) FROM " + WICI_TAB_LST_TABLE + " WHERE UPPER(AGENTID) = ? ORDER BY LOGINDATE DESC";
 		log.info(sMethod + ":: SQL :: " + sql);
 
 		Connection connection = null;

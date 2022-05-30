@@ -130,11 +130,11 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         // US3960
         $(refs.grossHouseholdIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossHouseholdIncome')));
 
-		$(refs.housingpayment).html(activationItems.getFormatedCurrency(activationItems.getModel('personalData2_Address').get('housingpayment')));
+		$(refs.housingpayment).html(activationItems.getModel('personalData2_Address').get('housingpayment'));
 
     	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
 		if(activationItems.getModel('financialData').get('jobDescSuccessFlag')) {
-			var jobDesc_Text = document.getElementById("select2-finEmpInfo_JobDescription_SelectField-container").innerText;
+			var jobDesc_Text = $('#finEmpInfo_JobDescription_Input_TextField').val();
 			console.log(logPrefix + sMethod + jobDesc_Text);
 			$(refs.summary_JobDescription).html(jobDesc_Text);
 		}
@@ -287,7 +287,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			// US3960
 			$(refs.grossHouseholdIncome).html(activationItems.getFormatedCurrency(activationItems.getModel('financialData').get('grossHouseholdIncome')));
 			setTimeout(function() {
-                var jobDesc_Text = document.getElementById("select2-finEmpInfo_JobDescription_SelectField-container").innerText;
+                var jobDesc_Text = $('#finEmpInfo_JobDescription_Input_TextField').val();
 				console.log("subscribe(translatorFinished) : " + jobDesc_Text);
 				$(refs.summary_JobDescription).html(jobDesc_Text);
             },100);
@@ -296,7 +296,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			console.log(refs.housingpayment + 'subscribe(translatorFinished)');
 
         	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
-			$(refs.housingpayment).html(activationItems.getFormatedCurrency(activationItems.getModel('personalData2_Address').get('housingpayment')));
+			$(refs.housingpayment).html(activationItems.getModel('personalData2_Address').get('housingpayment'));
 		});
         $(refs.icon).click(function() {
             togglePromoCode();

@@ -8,7 +8,7 @@
 	    <br>
 		<br>
 		<div class="overlay" id="idExpiryDateErrorMessageDialog-container">
-  			<div class="handoutTabToCustomerpopup">
+  			<div class="handoutTabToCustomerpopup_chooseProduct">
 	            <center><p class="text-center green_text" data-translationKey="expiryDate_error_title"></p></center>
     			<p class="text-center green_text" data-translationKey="expiryDate_error_message"></p>
     			<div>      				
@@ -195,7 +195,7 @@
 	                    </td>
 	                    <td class="fieldValuesBottomCell">
 	                        <!--<input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" data-role='datebox' data-options='{"mode":"datebox", "useNewStyle":false, "dialogEnable":true, "dialogForce":true}' tabindex=9/> -->
-	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" type="date" tabindex=11></input>
+	                        <input class="fieldValuesTextField" id="personalData_DateOfBirth_TextField" min="1800-01-01" max="3000-12-31" type="date" tabindex=11></input>
 	                    </td>
 	                </tr>
 	            </table>
@@ -430,7 +430,7 @@
 	                        <span data-translationKey="personalData_Address_MonthlyPayment"></span>
 	                    </td>
 	                    <td class="fieldValuesTopCell">
-	                        <input class="fieldValuesTextField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="8" id="personalData_Address_MonthlyPayment_TextField" tabindex=18 type='tel' max="9999" min="0" />
+	                        <input class="fieldValuesTextField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="8" id="personalData_Address_MonthlyPayment_TextField" tabindex=18 type='tel' max="999999" min="0" />
 	                    </td>
 	                </tr>
 

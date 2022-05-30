@@ -370,11 +370,9 @@ WICI.LoginScreenController = function(app) {
         createFlips();
        // showAndHideOtherStaffMember();
         $(refs.loginButtonID).click(function() {
-        	//VZE-442
+        	//VZE-442 & VZE-553
         	if(app.deviceInfoHelper.getDeviceInfo().MfgSerial == "UNKNOWN" ||
-    		app.deviceInfoHelper.getDeviceInfo().MfgSerial == "SCOOBY" ||
-    			app.deviceInfoHelper.getDeviceInfo().BuildSerial == "unknown" ||
-    				app.deviceInfoHelper.getDeviceInfo().BuildSerial == "123213123213"){
+    		app.deviceInfoHelper.getDeviceInfo().MfgSerial == "SCOOBY"){
    	                   messageDialog.printerError(translator.translateKey("loginScreen_Device_serial_number_error_message"),translator.translateKey("loginScreen_Device_serial_number_message"), translator.translateKey("loginScreen_Device_serial_number_error_title"), $.noop);
             }
             // VZE-442
@@ -416,8 +414,8 @@ WICI.LoginScreenController = function(app) {
     }
     
     function employeeNumberFieldHandler() {
-    	
-    	if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS"]) != '-1' ){
+    	//VZE-522
+    	if( $.inArray( $(refs.retailNetWork ).val(), [ "MARKS", "SPORTS","PHL"]) != '-1' ){
     		 $(refs.employeeNumberRowId).show();
     		 $(refs.employeeNumberRowIdOtherStaffMember).show();
     		 $.each(model.data, function(index, item) {
@@ -426,7 +424,7 @@ WICI.LoginScreenController = function(app) {
 					 $(refs.employeeNumberId).val(model.get('tempEmpNumberID'));
 				}
 				if(validateOtherStaff) {
-					console.log( "[ \"MARKS\", \"SPORTS\"] for all retailNetWork :: Flipstaff is enable and showing :: " );
+					console.log( "[ \"MARKS\", \"SPORTS\",\"PHL\"] for all retailNetWork :: Flipstaff is enable and showing :: " );
 					if(item.name == "employeeNumberIdOtherStaffMember") {
 						 item.validation.canBeEmpty = false;
 						 $(refs.employeeNumberIdOtherStaffMember).val(model.get('tempEmpNumberID'));

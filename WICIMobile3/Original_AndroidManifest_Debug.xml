@@ -83,7 +83,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+    		android:name="ExitActivity"
+    		android:theme="@android:style/Theme.NoDisplay"
+    		android:autoRemoveFromRecents="true"/>
         <activity android:name="mobi.pdf417.activity.Pdf417ScanActivity">
             <intent-filter>
                 <action android:name="mobi.pdf417.activity.Pdf417ScanActivity" />

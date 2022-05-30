@@ -15,6 +15,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         'H': '',
     };
 	var jobDescListResponse = null; 
+	var jobDescListArray = null;
 
     this.show = show;
     this.init = init;
@@ -24,7 +25,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     var refs = {
         // US3621
-        jobDescription : '#finEmpInfo_JobDescription_SelectField',
+    	jobDescription : '#finEmpInfo_JobDescription_Input_TextField',
         jobDescriptionOtherArea : '#finEmpInfo_JobDescriptionOtherArea',
         jobDescriptionOther	:	'#finEmpInfo_JobDescription_TextField',
 		employmentType : '#finEmpInfo_EmplType_TextField',
@@ -77,6 +78,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             { name : 'jobDescriptionOther',  value : null,  validation : { type : 'presence', 		message : '', group : [ 1 ] } },
 			{ name : 'employmentTypeDSS', 	 value : null, 	validation : null },
 			{ name : 'jobDescSuccessFlag', 	 value : null, 	validation : null, notField: true },
+			{ notField: true, name: 'englishValue', value: null },
+			{ notField: true, name: 'frenchValue', value: null },
+			{ notField: true, name: 'storedValue', value: null },
 			{ name : 'cardVISAMCAMEX', 		 value : null,  validation : null },
 			{ name : 'cardBankLoan', 		 value : null,  validation : null },
 			{ name : 'cardStoreCard', 		 value : null,  validation : null },
@@ -106,6 +110,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         bindEvents();
         alignI_icon();
         var currentModel = activationItems.getModel(model.name);
+        var currentFocus;
 
         if (!currentModel) {
             activationItems.addModel(model);
@@ -125,9 +130,12 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
-
-		$("#select2-finEmpInfo_JobDescription_SelectField-container").val(model.get('jobDescription'));
-		$(refs.jobDescription + " [value='" + model.get('jobDescription') + "']").attr("selected", "selected");
+        if(app.translator.getCurrentLanguage() === "en"){
+        	 $(refs.jobDescription).val(model.get('englishValue'));
+        }else{
+        	 $(refs.jobDescription).val(model.get('frenchValue'));
+        }
+        closeAllLists($(refs.jobDescription));
         $(refs.jobCategory).val(model.get('jobCategory'));
         $(refs.employerName).val(model.get('employerName'));
         $(refs.employerCity).val(model.get('employerCity'));
@@ -185,7 +193,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         if (!(emplType in  prepopulatedTypes)) {
             model.set('jobCategory', $(refs.jobCategory).val());
-			model.set('jobDescription', $(refs.jobDescription).val());
+            model.set('jobDescription', model.get('storedValue'));
 			model.set('jobDescriptionOther', $(refs.jobDescriptionOther).val().toUpperCase());
             model.set('employerName', $(refs.employerName).val().toUpperCase());
             model.set('employerCity', $(refs.employerCity).val().toUpperCase());
@@ -227,9 +235,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         if(!argResponse.error) {
         	try {
 				model.set('jobDescSuccessFlag', true);
-				initializeJobDescSearchField();
 				jobDescListResponse = argResponse;
-        		populateJobDescription(jobDescListResponse);
+				jobDescListArray = argResponse;
         	} catch (e) {
         		console.log(logPrefix + sMethod + "Exception : " + e);
         	}
@@ -238,7 +245,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			displayJobDescriptionOtherField(false);
 		}
     }
-    
+   
     function retrieveJobDescriptionFailure(argResponse) {
     	var sMethod = "retrieveJobDescriptionFailure(argResponse)";
         console.log(logPrefix + sMethod);
@@ -302,14 +309,11 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			model.set('jobDescription', 'Other');
 	        var jobDescription = model.get('jobDescription');
 	
-	        var optTempl = '<option value="' + "Other" + '">'
-	                + translator.translateKey('finEmpInfoJobDesc_Other') + '</option>';
-			console.log(logPrefix + sMethod + optTempl);
-	        controlRef.append(optTempl);
-			$(refs.jobDescription).addClass('fieldValuesTextField');
+	        $(refs.jobDescriptionOther).val(translator.translateKey('finEmpInfoJobDesc_Other'));
+			$(refs.jobDescriptionOther).addClass('fieldValuesTextField');
 	
 	        if (jobDescription) {
-	            $(refs.jobDescription + " [value='" + jobDescription + "']").attr("selected", "selected");
+	            $(refs.jobDescription).val(jobDescription);
 				$(refs.jobDescription).prop('disabled', 'disabled');
 	        }
 		}
@@ -320,7 +324,6 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		var sMethod = 'hideJobDescriptionOtherField() ';
         console.log(logPrefix + sMethod);
 
-		$(refs.jobDescription).removeClass('fieldValuesTextField');
 		$(refs.jobDescriptionOther).val(null);
 		$(refs.jobDescriptionOtherArea).hide();
 		$.each(model.data, function(index, item) {
@@ -336,36 +339,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
   			sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
 		});
 	}
-	//---------------------------------------------------------------------------------------
-	function populateJobDescription(jobDescListResponse) {
-        var sMethod = 'populateJobDescription() ';
-        console.log(logPrefix + sMethod + JSON.stringify(jobDescListResponse.data.jobDescriptionList));
-
-		var jobDescription = model.get('jobDescription');
-		
-		var controlRef = $(refs.jobDescription);
-	    controlRef.empty();
 	
-		var jobDesc_null = '<option value="' + null + '" ' + '>' + " " + '</option>';
-		controlRef.append(jobDesc_null);
-	
-	    $.each(jobDescListResponse.data.jobDescriptionList, function(index, item) {
-			if(app.translator.getCurrentLanguage() === "en") {
-				var optTempl = '<option value="' + item.storedValue + '">'
-	             	+ translator.translateKey(item.englishDescription) + '</option>';
-			} else {
-				var optTempl = '<option value="' + item.storedValue + '">'
-	                + translator.translateKey(item.frenchDescription) + '</option>';
-			}
-	        controlRef.append(optTempl);
-	    });
-
-		if (jobDescription) {
-			$("#select2-finEmpInfo_JobDescription_SelectField-container").val(jobDescription);
-            $(refs.jobDescription + " [value='" + jobDescription + "']").attr("selected", "selected");
-        }
-    }
-
     function populateEmplTypes(doNotClear) {
         var sMethod = 'populateEmplTypes() ';
         console.log(logPrefix + sMethod);
@@ -526,8 +500,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         $(refs.employerPhone).val(null);
         $(refs.months_Slider).val(null);
         $(refs.years_Slider).val(null);
-        //$(refs.jobTitle_SelectField).empty();
-    	//$(refs.jobDescription).val(null);
+    	$(refs.jobDescription).val(null);
     }
 
     function onHiredStatusClick() {
@@ -633,24 +606,40 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             console.log(refs.jobCategory + '::change');
             model.set("jobCategory", $(refs.jobCategory).val());
         });
-        
-		$(refs.jobDescription).on("change", function() {
+               
+        $(refs.jobDescription).live("input", function(e) {
+          console.log(refs.jobDescription + '::input');
+          $(refs.jobDescription).addClass('fieldValuesTextField');
+          populatejobDescriptionList($(refs.jobDescription));      
+  	  });
+       
+     $(refs.jobDescription).on("change", function() {
        	 	console.log(refs.jobDescription + '::change');
-       	 	model.set('jobDescription', $(refs.jobDescription).val());
-			if($(refs.jobDescription).val().toUpperCase() == "OTHER") {
-				displayJobDescriptionOtherField(true);
-			} else {
+       	 	if($(refs.jobDescription).val()){
+       	 	   model.set('jobDescription',model.get('storedValue'));
+       	 	}else{
+       	 	   model.set('englishValue', "");
+               model.set('frenchValue', "");
+               model.set('storedValue', "");
+       	 	   model.set('jobDescription',$(refs.jobDescription).val());
+       	 	}
+       	 	
+			if($(refs.jobDescription).val() == "Other") {
+				jobDescriptionOtherField(model.get('englishValue'));
+			}else if($(refs.jobDescription).val() == "Autre"){
+				jobDescriptionOtherField(model.get('frenchValue'));
+			}else {
 				hideJobDescriptionOtherField();
 			}
-        });
-
-		$(refs.jobDescriptionOther).live('paste, input', function(e) {
+      });
+	  $(refs.jobDescriptionOther).live('paste, input', function(e) {
             var self = $(this);
             setTimeout(function() {
                 if(self.val().length > 19) {
                     self.val(self.val().substring(0, 19));
                 }
             },100);
+            closeAllLists();
         });
 
         $.subscribe('translatorFinished', function() {
@@ -662,7 +651,18 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			populateJobCategories();
             $(refs.jobCategory).val(model.get("jobCategory"));
             alignI_icon();
-			populateJobDescription(jobDescListResponse);
+            populatejobDescriptionList($(refs.jobDescription));
+            if(app.translator.getCurrentLanguage() === "en"){
+            	if($(refs.jobDescription).val() !=''){
+            		$(refs.jobDescription).val(model.get('englishValue'));
+            		closeAllLists();
+            	}
+            }else{
+            	if($(refs.jobDescription).val() !=''){
+            		$(refs.jobDescription).val(model.get('frenchValue'));
+            		closeAllLists();
+            	}
+            }
         });
 
         $(refs.employmentType).on("change", function() {
@@ -670,17 +670,116 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             model.set("employmentType", $(refs.employmentType).val());
             // US4636
             model.set('jobCategory', null);
-            model.set('jobDescription', null);
 			model.set('jobDescriptionOther', null);
-			$("#select2-finEmpInfo_JobDescription_SelectField-container").empty();
+			// VZE-566
+			model.set('jobDescription', null);
 			$(refs.jobDescriptionOther).val(null);
-			$(refs.jobDescription + " [value='" + null + "']").attr("selected", "selected");
+			$(refs.jobDescription).val(null);
             $('#financialScreen_infomation_phone').hide();
             updateEmploymentType(true);
 			if(!model.get('jobDescSuccessFlag')) {
 				displayJobDescriptionOtherField(false);
 			}
         });
+    }
+    
+    function populatejobDescriptionList(jdInput){
+    	var sMethod = 'populatejobDescriptionList(jdInput) ';
+        console.log(logPrefix + sMethod + "jdInput : " + jdInput);
+        console.log(logPrefix + sMethod +  JSON.stringify(jobDescListArray.data.jobDescriptionList));
+        var a, b, i;
+        var val= jdInput.val();
+        var enValue;
+        var frValue;
+        var stValue;
+	      //close any already open lists of autocompleted values
+	      closeAllLists();
+	      if (!val) { return false;}
+	      currentFocus = -1;
+	      //create a DIV element that will contain the items (values):
+	      a = document.createElement("DIV");
+	      a.setAttribute("id", "jobDescription" + "autocomplete-list");
+	      a.setAttribute("class", "autocomplete-items");
+	      //append the DIV element as a child of the autocomplete container:
+	      const menu = document.querySelector("#finEmpInfo_JobDescription_Input_TextField");
+	      menu.parentNode.appendChild(a);
+	      //this.parentNode.appendChild(a);
+	      //for each item in the array.
+	      console.log("jobDescription :: "+  JSON.stringify(jobDescListArray.data.jobDescriptionList));
+	      const filteredDataEnglish = jobDescListArray.data.jobDescriptionList.filter(item => item.englishDescription.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()));
+	      const filteredDataFrench = jobDescListArray.data.jobDescriptionList.filter(item => item.frenchDescription.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()));
+	      console.log("jobDescription :: filteredDataEnglish : " + JSON.stringify(filteredDataEnglish));
+	      console.log("jobDescription :: filteredDataFrench : " + JSON.stringify(filteredDataFrench));
+	      if(app.translator.getCurrentLanguage() === "en"){
+	    	  //English JD
+	    	  for (i = 0; i < filteredDataEnglish.length; i++){
+	  	          //create a DIV element for each matching element:
+	  	          b = document.createElement("DIV");
+	  	          //make the matching letters bold:
+	  	          b.innerHTML += filteredDataEnglish[i].englishDescription;
+	  	          //insert a input field that will hold the current array item's value:
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].englishDescription + "'>";
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].frenchDescription + "'>";
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].storedValue + "'>";
+	  	          //execute a function when someone clicks on the item value (DIV element):
+	  	          b.addEventListener("click", function(e) {
+	  	          //insert the value for the autocomplete text field:
+	  	              enValue = filteredDataEnglish[$(this).index()].englishDescription;
+	  	              frValue = filteredDataEnglish[$(this).index()].frenchDescription;
+	  	              stValue = filteredDataEnglish[$(this).index()].storedValue;
+	  	              model.set('englishValue', enValue);
+	  	              model.set('frenchValue', frValue);
+	  	              model.set('storedValue', stValue);
+	  	              $(refs.jobDescription).val(enValue);
+	  	              jobDescriptionOtherField(enValue);
+	  	              model.set('jobDescription', stValue);
+	  	              //close the list of autocompleted values,
+	  	              // (or any other open lists of autocompleted values:*/
+	  	              closeAllLists();
+	  	          });
+	  	          a.appendChild(b);
+	    	  }
+	      }else{
+	    	  // French JD
+	    	  for (i = 0; i < filteredDataFrench.length; i++){
+	  	          //create a DIV element for each matching element:
+	  	          b = document.createElement("DIV");
+	  	          //make the matching letters bold:
+	  	          b.innerHTML += filteredDataFrench[i].frenchDescription;
+	  	          //insert a input field that will hold the current array item's value:
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].englishDescription + "'>";
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].frenchDescription + "'>";
+	  	          b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].storedValue + "'>";
+	  	          //execute a function when someone clicks on the item value (DIV element):
+	  	          b.addEventListener("click", function(e) {
+	  	          //insert the value for the autocomplete text field:
+	  	              enValue = filteredDataFrench[$(this).index()].englishDescription;
+	  	              frValue = filteredDataFrench[$(this).index()].frenchDescription;
+	  	              stValue = filteredDataFrench[$(this).index()].storedValue;
+	  	              model.set('englishValue', enValue);
+	  	              model.set('frenchValue', frValue);
+	  	              model.set('storedValue', stValue);
+	  	              $(refs.jobDescription).val(frValue);
+	  	              jobDescriptionOtherField(frValue);
+	  	              model.set('jobDescription', stValue);
+	  	              //close the list of autocompleted values,
+	  	              // (or any other open lists of autocompleted values:*/
+	  	              closeAllLists();
+	  	          });
+	  	          a.appendChild(b);
+	    	  }
+	      }
+    }
+    //--------------------------------------------------------------------------------------------
+    function  jobDescriptionOtherField(jobDescValue){
+    	sMethod = "jobDescriptionOtherField(jobDescValue)";
+    	console.log(sMethod + "jobDescValue :: " + jobDescValue);
+   	    console.log(refs.jobDescription + '::value ' + $(refs.jobDescription).val());
+		if(jobDescValue == "Other" || jobDescValue == "Autre") {
+			displayJobDescriptionOtherField(true);
+		} else {
+			hideJobDescriptionOtherField();
+		}
     }
  	// ---------------------------------------------------------------------------------------
 	function alignI_icon() {
@@ -754,15 +853,12 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             
             if (rez.length > 0) {
                 var errStrArr = [];
-                $.each(rez, function(index, item) {
-					if(item.name == "jobDescription") {
-						console.log(logPrefix + sMethod + "jobDescription error");
-						item.uiid = ".select2-selection.select2-selection--single";
-					}
-					console.log(logPrefix + sMethod + " item.uiid :: " + item.uiid);
-                    errStrArr.push(translator.translateKey(item.err));
-                });
-
+                if(!$(refs.jobDescription).val()){
+					console.log(logPrefix + sMethod + "jobDescription error");
+					
+					errStrArr.push({name: 'jobDescription', err: '', uiid: refs.jobDescription});
+				}
+                rez = rez.concat(errStrArr);
                 app.validationDecorator.applyErrAttribute(rez);
                 return;
             }
@@ -890,5 +986,18 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
              $(options[i]).css('display', '');
         }
     }
+    //VZE-566
+    function closeAllLists(elmnt) {
+	    /*close all autocomplete lists in the document,
+	    except the one passed as an argument:*/
+    	var sMethod = "closeAllLists()";
+    	console.log(logPrefix + sMethod);
+	    var x = document.getElementsByClassName("autocomplete-items");
+	    for (var i = 0; i < x.length; i++) {
+	      if (elmnt != x[i] && elmnt != $(refs.jobDescription)) {
+	      x[i].parentNode.removeChild(x[i]);
+	    }
+	  }
+	}
 
  };

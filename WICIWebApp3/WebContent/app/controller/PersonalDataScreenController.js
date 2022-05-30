@@ -181,7 +181,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     		{notField: true, name: 'canadaPostProvince', 	value: null },
     		{notField: true, name: 'canadaPostPostalcode', 	value: null },
             {name: 'house',             value: null, validation: {type: 'presence',     message: '', group: [3]} },
-            {name: 'housingpayment',    value: null, validation: {type: 'format',       message: '', group: [3], matcher: /^[0-9\,]{1,4}$/} },
+            {name: 'housingpayment',    value: null, validation: {type: 'format',       message: '', group: [3], matcher: /^[0-9]{1,6}/} },
             {name: 'years',             value: null, validation: {type: 'presence',     message: '', group: [5]} },
             {name: 'months',            value: null, validation: {type: 'presence',     message: '', group: [5]} },
             
@@ -321,7 +321,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     }
     // ---------------------------------------------------------------------------------------
     function setUIElementsMasks() {
-        $(refs.housingpayment).autoNumeric('init', {aSign:' $ ',vMin:'0.00', vMax:'9999.99', mDec:'0', wEmpty: 'sign'});
+    	// VZE-554
+        $(refs.housingpayment).autoNumeric('init', {aSign:'',vMin:'0.00', vMax:'999999.99', mDec:'0',aSep: ''});
         $(refs.years).durationControl('createControl');
         $(refs.months).durationControl('createControl');
         $(refs.years).autoNumeric('init', {aSign:'',vMin:'0', vMax:'100', mDec:'0'});
@@ -434,7 +435,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		} else {
 			currModel.set('province',       $(refs.province).val());
 		}
-        currModel.set('housingpayment', $(refs.housingpayment).val().replace(/,/g,'').replace(' $ ','').replace('.',','));
+        // VZE-554
+        currModel.set('housingpayment', $(refs.housingpayment).val());
         currModel.set('years',          $(refs.years).val());
         currModel.set('months',         $(refs.months).val());
         

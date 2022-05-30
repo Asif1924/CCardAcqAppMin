@@ -57,7 +57,7 @@ public class AccountApplicationRequestTypeConverter
                     String retailNetwork = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") : null;
                     String program = (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") != null ? (argCreditCardApplicationData.getModel(MODEL_CHOOSE_PRODUCT)).get("agencyProgram") : null;
                     String storeNumber = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("locationFieldID") : "0";
-                    
+                    populatedAccountApplicationRequest.setUserBanner(retailNetwork);
                     if(retailNetwork != null) {
                     	if(retailNetwork.equals("GAS") && !("E".equalsIgnoreCase((argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("employerID")))) {
                     		 populatedAccountApplicationRequest.setChannelIndicator("GB");
@@ -384,7 +384,7 @@ public class AccountApplicationRequestTypeConverter
 					employerPhone = "";
 					howLongYears = 0;
 					howLongMonthes = 0;
-					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
+					employerCity = "";
 				} else if(emplStatus.equalsIgnoreCase("HOMEMAKER")) {
 					emplStatus = "HOMEMAKER";
 					jobDescription = "HOMEMAKER";
@@ -393,7 +393,7 @@ public class AccountApplicationRequestTypeConverter
 					employerPhone = "";
 					howLongYears = 0;
 					howLongMonthes = 0;
-					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
+					employerCity = "";
 				} else if(emplStatus.equalsIgnoreCase("UNEMPLOYED")) {
 					emplStatus = "UNEMPLOYED";
 					jobDescription = "UNEMPLOYED";
@@ -402,7 +402,7 @@ public class AccountApplicationRequestTypeConverter
 					employerPhone = "";
 					howLongYears = 0;
 					howLongMonthes = 0;
-					employerCity = argCreditCardData.getModel(MODEL_PERSONAL_DATA2_ADDRESS).get("city");
+					employerCity = "";
 				}
 				argAccAppRequest.setEmploymentStatus(emplStatus);
 				argAccAppRequest.setJobDescription(jobDescription);
@@ -586,6 +586,10 @@ public class AccountApplicationRequestTypeConverter
 				outletProvince = model.get("outletProvince");
 				argAccAppRequest.setStoreNumber(model.get("locationFieldIDADM"));
 				argAccAppRequest.setBusinessStoreNo(model.get("businessStoreNumber"));
+				
+				// VZE-436
+				argAccAppRequest.setUserEmployerId(agency);
+				//argAccAppRequest.setUserBanner("MARKS");
 				
 				/*WICIDBHelper wicidbHelper = new WICIDBHelper();
 				String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
