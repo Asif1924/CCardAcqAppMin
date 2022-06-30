@@ -1,12 +1,15 @@
 package com.ctfs.wicimobile.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.text.format.Time;
-import android.util.Log;
-
 import com.ctfs.wicimobile.enums.ServerResponseStatus;
+
+import android.util.Log;
 
 public class WICICardmemberModel {
     private String _cardType; 
@@ -19,18 +22,19 @@ public class WICICardmemberModel {
     private String _creditLimit;
     private String _apr;
     private String _cashAPR;
-    private String _signture;
+    private String _signature;
     private ServerResponseStatus _responseStatus; 
     private String _province;
     private String _correspondenceLanguage;
     private String _creditProtectorYesNo;
-	private String _identityWatchYesNo;
-
+	private String _completeLifeDisability; // VZE-400
+	private String _cpProductTrademarkMD; // VZE-673
+    private String _cpProductTrademarkCPCMC; // VZE-673
+    private String _cpProductTrademarkCPLMC; // VZE-673
 	private String _todayDate;
 	private String _storeNumber;
 	private String _employeeId;
-	// US5240 -  Printout updates
-	private String _adrsuiteunit;
+	private String _adrsuiteunit; // US5240 -  Printout updates
 	private String _adrstreetnumber;
 	private String _adraddressline1;
 	private String _adrcity;
@@ -38,6 +42,7 @@ public class WICICardmemberModel {
 	private String _adrpostalcode;
 	private String _retailNetwork;
 	private Boolean _performStoreRecallPrint;
+	private Boolean _isEmailEntered;
 		
 	public WICICardmemberModel(){
         _cardType = "";
@@ -50,12 +55,15 @@ public class WICICardmemberModel {
         _creditLimit = "";
         _apr = "";
         _cashAPR = "";
-        _signture = "";     
+        _signature = "";     
         _responseStatus = ServerResponseStatus.DECLINED;
         _province = "";
         _correspondenceLanguage = "";
         _creditProtectorYesNo = "N";
-        _identityWatchYesNo = "N";
+        _completeLifeDisability = "";
+        _cpProductTrademarkMD= "";
+        _cpProductTrademarkCPCMC= "";
+        _cpProductTrademarkCPLMC= "";
         _todayDate = "";
     	_storeNumber = "";
     	_employeeId = "";
@@ -67,6 +75,7 @@ public class WICICardmemberModel {
     	_adrpostalcode = "";
     	_retailNetwork = "";
     	_performStoreRecallPrint = false;
+    	_isEmailEntered = false;
     }   
     
     public void initializeModel(JSONArray source) {
@@ -83,24 +92,28 @@ public class WICICardmemberModel {
             _creditLimit = source.getString(7);
             _apr = source.getString(8);
             _cashAPR = source.getString(9);
-            _signture = source.getString(10);
+            _signature = source.getString(10);
             _responseStatus = ServerResponseStatus.valueOf(source.getString(11));
             _province = source.getString(12);
             _correspondenceLanguage = source.getString(13);
             _creditProtectorYesNo = source.getString(14);
-            _identityWatchYesNo = source.getString(15);
-            _storeNumber = source.getString(16);
-            _todayDate = source.getString(17);
-            _employeeId = source.getString(18);
-            _adrsuiteunit = source.getString(19);
-            _adrstreetnumber = source.getString(20);
-            _adraddressline1 = source.getString(21);
-            _adrcity = source.getString(22);
-            _adrprovince = source.getString(23);
-            _adrpostalcode = source.getString(24);
-            _retailNetwork = source.getString(25);
-            _performStoreRecallPrint = source.getString(26).equalsIgnoreCase("Y");
-            Log.i("WICICardmemberModel", "_performStoreRecallPrint : " + _performStoreRecallPrint + source.getString(26) );
+            _completeLifeDisability = source.getString(15); // VZE-400
+            _cpProductTrademarkMD = source.getString(16); // VZE-673
+            _cpProductTrademarkCPCMC= source.getString(17); // VZE-673
+            _cpProductTrademarkCPLMC= source.getString(18); // VZE-673
+            _storeNumber = source.getString(19);
+            _todayDate = source.getString(20);
+            _employeeId = source.getString(21);
+            _adrsuiteunit = source.getString(22);
+            _adrstreetnumber = source.getString(23);
+            _adraddressline1 = source.getString(24);
+            _adrcity = source.getString(25);
+            _adrprovince = source.getString(26);
+            _adrpostalcode = source.getString(27);
+            _retailNetwork = source.getString(28);
+            _performStoreRecallPrint = source.getString(29).equalsIgnoreCase("Y");
+            _isEmailEntered = source.getBoolean(30);
+             Log.i("WICICardmemberModel", "_performStoreRecallPrint : " + _performStoreRecallPrint + source.getString(29) );
         } catch (JSONException e) {            
             e.printStackTrace();
         }
@@ -231,20 +244,16 @@ public class WICICardmemberModel {
     public void setCashAPR(String cashAPR) {
         this._cashAPR = cashAPR;
     }
-    /**
-     * @return the _signture
-     */
-    public String getSignture() {
-        return _signture;
-    }
-    /**
-     * @param signture the _signture to set
-     */
-    public void setSignture(String signture) {
-        this._signture = signture;
-    }
 
-    /**
+    public String getSignature() {
+		return _signature;
+	}
+
+	public void setSignature(String signature) {
+		this._signature = signature;
+	}
+
+	/**
      * @return the ResponseStatus
      */
     public ServerResponseStatus getResponseStatus() {
@@ -293,39 +302,57 @@ public class WICICardmemberModel {
 	/**
 	 * @param _creditProtectorYesNo
 	 */
-	public void setCreditProtectorYesNo(String _creditProtectorYesNo) {
-		this._creditProtectorYesNo = _creditProtectorYesNo;
-	}
-	
-    
-    /**
-     * @return Y if selected Identity Watch Classic or 
-     * 		   N if not selected
-     */
-    public String getIdentityWatchYesNo() {
-		return _identityWatchYesNo;
+	public void setCreditProtectorYesNo(String creditProtectorYesNo) {
+		this._creditProtectorYesNo = creditProtectorYesNo;
 	}
 
-	/**
-	 * @param _identityWatchYesNo
-	 */
-	public void setIdentityWatchYesNo(String _identityWatchYesNo) {
-		this._identityWatchYesNo = _identityWatchYesNo;
+	public String getCompleteLifeDisability() {
+		return _completeLifeDisability;
 	}
-	
-	
-	
+
+	public void setCompleteLifeDisability(String completeLifeDisability) {
+		this._completeLifeDisability = completeLifeDisability;
+	}
+	// VZE-673
+	public String getCPProductTrademarkMD() {
+		return _cpProductTrademarkMD;
+	}
+	public void setCPProductTrademarkMD(String cpProductTrademarkMD) {
+		this._cpProductTrademarkMD = cpProductTrademarkMD;
+	}
+    
+	public String getCPProductTrademarkCPCMC() {
+		return _cpProductTrademarkCPCMC;
+	}
+
+	public void setCPProductTrademarkCPCMC(String cpProductTrademarkCPCMC) {
+		this._cpProductTrademarkCPCMC = cpProductTrademarkCPCMC;
+	}
+	public String getCPProductTrademarkCPLMC() {
+		return _cpProductTrademarkCPLMC;
+	}
+
+	public void setCPProductTrademarkCPLMC(String cpProductTrademarkCPLMC) {
+		this._cpProductTrademarkCPLMC = cpProductTrademarkCPLMC;
+	}
 	/**
      * @return the _todate 
      * US3159 Fix for INC0052924 WICI - Date Issued On Printouts Is Off By 1 Month
      */
     public String getTodayDate() {
-    	
-    	 
-    	Time today = new Time(Time.getCurrentTimezone());
-    	today.setToNow(); 
-    	    	
-    	return _todayDate.isEmpty() || _todayDate.equalsIgnoreCase("")? (today.month + 1)  + "/" + today.monthDay + "/" + today.year + " " + today.format("%k:%M") : _todayDate ;
+		/*
+		 * Time today = new Time(Time.getCurrentTimezone()); today.setToNow();
+		 * 
+		 * return _todayDate.isEmpty() || _todayDate.equalsIgnoreCase("")? (today.month
+		 * + 1) + "/" + today.monthDay + "/" + today.year + " " + today.format("%k:%M")
+		 * : _todayDate ;
+		 */
+    	SimpleDateFormat dtf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar calendar = Calendar.getInstance();
+
+        Date dateObj = calendar.getTime();
+        String formattedDate = dtf.format(dateObj);
+        return formattedDate;
 	}
 
 	/**
@@ -426,5 +453,13 @@ public class WICICardmemberModel {
 
 	public void setPerformStoreRecallPrint(Boolean _performStoreRecallPrint) {
 		this._performStoreRecallPrint = _performStoreRecallPrint;
+	}
+	
+	public Boolean getIsEmailEntered() {
+		return _isEmailEntered;
+	}
+
+	public void setIsEmailEntered(Boolean _isEmailEntered) {
+		this._isEmailEntered = _isEmailEntered;
 	}
 }

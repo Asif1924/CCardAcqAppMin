@@ -502,49 +502,22 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     function printFile() {
         var sMethod = 'printFile() ';
         console.log(logPrefix + sMethod);
+
         var isDevice = new WICI.DeviceDetectionHelper().any();
         var respAn = new WICI.PollingResponseAnalyzer();
          
-        /*
-        if(model.get('appStatus') == "APPROVED") {
-        	app.printerErrorTriggerActionService.stop();        
-            app.printerErrorTriggerActionService
-            .setActionMethod(function() {
-            	console.log(logPrefix + sMethod + " printerErrorTriggerActionService :: setActionMethod");
-            	console.log(logPrefix + sMethod + "printerErrorShowDialogFlag : " + translator.translateKey("printerErrorShowDialogFlag"));
-            	console.log(logPrefix + sMethod + " printFileBottomErrorFlag : " + printFileBottomErrorFlag
-            									+ " printFileErrorFlag : " + printFileErrorFlag + " rePrintFlag : " + rePrintFlag);
-            	if((printFileBottomErrorFlag || printFileErrorFlag) && !rePrintFlag) {
-            		new WICI.LoadingIndicatorController().hide();
-                	if(translator.translateKey("printerErrorShowDialogFlag") == "Y") {
-                		messageDialog.printerError(translator.translateKey("printScreen_PrinterError_ExceptionOrMessage"), translator.translateKey("printScreen_PrinterError_Message")
-                        		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
-                	}
-                	app.printerErrorTriggerActionService.stop();
-            	} else {
-            		app.printerErrorTriggerActionService.stop();
-            	}
-            });        
-            app.printerErrorTriggerActionService.start();
-        }
-        */
-        
-        if( isDevice ){
+        if(isDevice){
             if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
                 showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
-
                 return;
             }
 
-            try
-            {
+            try {
             	if(model.get('appStatus') == "APPROVED" && inPrintDebugMode && preprintPrinterStatus != 'Ready To Print'){
             		messageDialog.printerError(preprintPrinterStatus, translator.translateKey("printScreen_Pre_PrinterError_Message")
                     		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
             	}
             	
-                new WICI.LoadingIndicatorController().show();
-
                 // Get application server response                
                 //var applicationResponse = activationItems.getAccountApplicationResponse().data;
                 var applicationResponseData = respAn.getData(activationItems.getAccountApplicationResponse());
@@ -562,21 +535,22 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
                 console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
                 
-                app.zebraPrinterWrapper.printFileBottom(
-					translator,
-                    activationItems,
-                    applicationResponseData,
-                    printFileBottomSuccess,
-                    printFileBottomFailure);
-            }
-            catch (error){
+				var email = activationItems.getModel('contactInfoScreen').get('email');
+				console.log(logPrefix + sMethod + "email :: " + email);
+				
+				if(email == '' && model.get('appStatus') == "APPROVED") {
+					console.log(logPrefix + sMethod + "email not entered. No print");
+					//app.zebraPrinterWrapper.printFileBottom(translator, activationItems, applicationResponseData, printFileBottomSuccess, printFileBottomFailure);
+				} else {
+					new WICI.LoadingIndicatorController().show();
+					console.log(logPrefix + sMethod + "email entered. Single prn print");
+					app.zebraPrinterWrapper.printFile(translator, activationItems, applicationResponseData, printFileSuccess, printFileFailure);					
+				}
+            } catch (error) {
                 console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
                 new WICI.LoadingIndicatorController().hide();
-                //printFileFailure();
-                //messageDialog = app.messageDialog;
-                //messageDialog.error(error, "Print File Failed");
             }
-        }else{
+        } else {
             var applicationResponse = respAn.getWICIResponse(activationItems.getAccountApplicationResponse());
         	messageDialog.info("Receipt printed status = " + respAn.getAppStatus(applicationResponse), "Web Printer");
         	printFileSuccess();
@@ -590,18 +564,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         var isDevice = new WICI.DeviceDetectionHelper().any();
         var respAn = new WICI.PollingResponseAnalyzer();
         
-        if( isDevice ){
+        if(isDevice){
             if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
                 showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
-
                 return;
             }
 
-            try
-            {
-                new WICI.LoadingIndicatorController().show();
-
-                if( fromPendScreen ) {
+            try {
+                if(fromPendScreen) {
                 	console.log(logPrefix + sMethod + "argPendScreenInfo :: " + JSON.stringify(argPendScreenInfo));
                     console.log(logPrefix + sMethod + "argPendScreenInfo activationItemsFromServer :: " + JSON.stringify(argPendScreenInfo.activationItemsFromServer));
                     console.log(logPrefix + sMethod + "argPendScreenInfo accountApplicationResponse :: " + JSON.stringify(argPendScreenInfo.accountApplicationResponse));
@@ -634,13 +604,17 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 console.log(logPrefix + sMethod + "activationItems :: " + JSON.stringify(activationItems));
                 console.log(logPrefix + sMethod + "applicationResponseData :: " + JSON.stringify(applicationResponseData));
                 
-                // US5240
-                app.zebraPrinterWrapper.printFileBottom(
-					translator, 
-                    activationItems,
-                    applicationResponseData,
-                    rePrintFileBottomSuccess,
-                    rePrintFileBottomFailure);
+                var email = activationItems.getModel('contactInfoScreen').get('email');
+				console.log(logPrefix + sMethod + "email :: " + email);
+				
+				if(email == '' && model.get('appStatus') == "APPROVED") {
+					console.log(logPrefix + sMethod + "email not entered. No print");
+					//app.zebraPrinterWrapper.printFileBottom(translator, activationItems, applicationResponseData, rePrintFileBottomSuccess, rePrintFileBottomFailure);
+				} else {
+					new WICI.LoadingIndicatorController().show();
+					console.log(logPrefix + sMethod + "email entered. Single prn print");
+					app.zebraPrinterWrapper.printFile(translator, activationItems, applicationResponseData, rePrintFileSuccess, rePrintFileFailure);					
+				}
             }
             catch (error){
                 console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
@@ -800,22 +774,14 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
         
         // US5240
         if(model.get('appStatus') == "APPROVED") {
-        	
         	if(inPrintDebugMode && result != 'Ready To Print'){
 		        new WICI.LoadingIndicatorController().hide();
-			
         		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
                 		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
-				
 	        	new WICI.LoadingIndicatorController().show();
         	}
         	
-        	app.zebraPrinterWrapper.printFile(
-					translator,
-                    activationItems,
-                    applicationResponseData,
-                    printFileSuccess,
-                    printFileFailure);
+        	app.zebraPrinterWrapper.printFile(translator, activationItems, applicationResponseData, printFileSuccess, printFileFailure);
         } else {
         	new WICI.LoadingIndicatorController().hide();
         	
@@ -828,9 +794,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
                 	messageDialog.confirm(translator.translateKey("printResponseStatusMsg"), printConfirmationYes, printConfirmationNo, translator.translateKey("printResponseStatusTitle"));
                 }
             }
-        	
         }
-
     }
     //---------------------------------------------------------------------------------------
     function printFileBottomFailure(result) {
@@ -956,12 +920,7 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 	    	new WICI.LoadingIndicatorController().show();
     	}
     	
-        app.zebraPrinterWrapper.printFile(
-				translator,
-                activationItems,
-                applicationResponseData,
-                rePrintFileSuccess,
-                rePrintFileFailure);
+        app.zebraPrinterWrapper.printFile(translator, activationItems, applicationResponseData, rePrintFileSuccess, rePrintFileFailure);
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileBottomFailure(result) {
@@ -984,25 +943,6 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
     		messageDialog.printerError(result, translator.translateKey("printScreen_PrinterError_Message")
             		, translator.translateKey("printScreen_PrinterError_Title"), $.noop);
     	}
-    	
-        /*if(activationItems.getModel('loginScreen').get('locationFieldID') >= 1000 &&
- 				activationItems.getModel('loginScreen').get('locationFieldID') <= 2010) {
-        	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
-            	// No reprint OMX/Z coupon for gas store
-        		new WICI.LoadingIndicatorController().hide();
-        	} else {
-        		printCoupon();
-        	}
-        } else if(activationItems.getModel('loginScreen').get('locationFieldID') == 500 ) {
-        	if(model.get('respCardType') == "OMX" || model.get('respCardType') == "OMZ") {
-            	// No reprint OMX/Z coupon for OOS store
-        		new WICI.LoadingIndicatorController().hide();
-        	} else {
-        		printCoupon();
-        	}
-        } else {
-        	printCoupon();
-        }*/
     }
     //---------------------------------------------------------------------------------------
     function rePrintFileFailure(result) {
@@ -1272,21 +1212,5 @@ WICI.PrintDemoScreenController = function(activationItems, argTranslator, argMes
 	          homePhoneDisplayAttemptCheck();
 	      }
 	  }
-      
 }
-// US4282 Ends
-    
-    /*function precheckPrinterStatusSuccess(result) {
-    	 var sMethod = 'precheckPrinterStatusSuccess() ';
-         console.log(logPrefix + sMethod + " Result:" + result);
-         preprintPrinterStatus = result;
-    }
-    
-    function precheckPrinterStatusFailure(result) {
-   	 var sMethod = 'precheckPrinterStatusFailure() ';
-        console.log(logPrefix + sMethod + " Result:" + result);
-        
-        console.log(logPrefix + sMethod + " Likely exception is :" + result);
-        preprintPrinterStatus = result;
-   }*/
 };

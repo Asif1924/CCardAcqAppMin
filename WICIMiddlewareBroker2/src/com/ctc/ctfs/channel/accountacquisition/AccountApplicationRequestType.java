@@ -8,6 +8,7 @@ public class AccountApplicationRequestType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String externalReferenceId;
+	private String applicationReferenceID;
 	private String storeNumber;
 
 	private String agentId;
@@ -29,6 +30,14 @@ public class AccountApplicationRequestType implements Serializable {
 	private String triangleRewardFlag;
 
 	private byte[] controlConfirmationSignature;
+
+	public String getApplicationReferenceID() {
+		return applicationReferenceID;
+	}
+
+	public void setApplicationReferenceID(String applicationReferenceID) {
+		this.applicationReferenceID = applicationReferenceID;
+	}
 
 	public byte[] getControlConfirmationSignature() {
 		return controlConfirmationSignature;
@@ -236,6 +245,25 @@ public class AccountApplicationRequestType implements Serializable {
 	private String insuranceDateSigned;
 	private String insuranceSignature;
 	private byte[] insuranceSignatureCP;
+	private String insurance_CPType_Offered;
+	private String insurance_CPType_Selected;
+	
+	public String getInsurance_CPType_Offered() {
+		return insurance_CPType_Offered;
+	}
+
+	public void setInsurance_CPType_Offered(String insurance_CPType_Offered) {
+		this.insurance_CPType_Offered = insurance_CPType_Offered;
+	}
+
+	public String getInsurance_CPType_Selected() {
+		return insurance_CPType_Selected;
+	}
+
+	public void setInsurance_CPType_Selected(String insurance_CPType_Selected) {
+		this.insurance_CPType_Selected = insurance_CPType_Selected;
+	}
+
 	public byte[] getInsuranceSignatureCP() {
 		return insuranceSignatureCP;
 	}

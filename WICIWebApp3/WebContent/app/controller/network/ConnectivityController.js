@@ -267,6 +267,51 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
 	//---------------------------------------------------------------------------------------
+    this.CheckCPEligibility = function(dateOfBirth,jobCategory,jobStatus,province,productCode,jobDescription,correlationID,argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'CheckCPEligibility() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+    
+		var requestParams = {
+			"dateOfBirth": dateOfBirth,
+			"jobCategory": jobCategory,
+			"jobStatus": jobStatus,
+	      	"province": province,
+	      	"productCode" : productCode,
+	      	"jobDescription" : jobDescription,
+			"correlationID" : correlationID,
+		};
+		
+		console.log(logPrefix + sMethod + JSON.stringify(requestParams));
+		
+		connRequestBuilder.setHttpType("POST");
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("RTDM Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("RTDM");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.CheckCPEligibility,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.RTDMCALL_REQUEST_INTERVAL
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+	//---------------------------------------------------------------------------------------
     this.TMXEmailage = function(loginId,storePostCode,mfgSerial,phoneNumber,phone_Type,emailAddress,
     		firstName,lastName,birthDate,province,postCode,city,addressline1,suiteunit,addressline2,sin,argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'TMXEmailage() ';

@@ -28,12 +28,11 @@ public class AccountApplicationRequestTypeConverter
 	private static final String MODEL_MOBILEPAYMENTS_SCREEN = "mobilePaymentsScreen";
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
-	private static final String ASC_ECTM="9977"; //New Asc added for US4926 - Instant Issuance WICI - TSYS Enstream Integration //ASC_ECTM="2277"; //ASC_ECTM="3377";  
-												 // US5244 - Bill 134 - New ASCs
+	
 	private static final String ASC_DEFAULT="9977"; // US5244 - Bill 134 - New ASCs
-	private static final String ASC_FMR="9989";
-	private static final String ASC_STORE_STAFF_QC="9991";
-	private static final String ASC_STORE_STAFF_ROC="9990";
+	private static final String ASC_FMR="9990";
+	private static final String ASC_STORE_STAFF_QC="9993";
+	private static final String ASC_STORE_STAFF_ROC="9992";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
 	
@@ -50,8 +49,10 @@ public class AccountApplicationRequestTypeConverter
                     //com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
                     AccountApplicationRequestType populatedAccountApplicationRequest = new AccountApplicationRequestType();
 
-                    GUIDGenerator guidGenerator = new GUIDGenerator();
-                    populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
+                    //GUIDGenerator guidGenerator = new GUIDGenerator();
+                    //populatedAccountApplicationRequest.setExternalReferenceId(guidGenerator.getGUIDAsString());
+                    String applicationReferenceID = (argCreditCardApplicationData.getModel(MODEL_CONTACTINFO_SCREEN)).get("applicationReferenceID") != null ? (argCreditCardApplicationData.getModel(MODEL_CONTACTINFO_SCREEN)).get("applicationReferenceID") : null;
+                    populatedAccountApplicationRequest.setExternalReferenceId(applicationReferenceID);
                     populatedAccountApplicationRequest.setTabSerialId(tabSerialNum);
                     
                     String retailNetwork = (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") != null ? (argCreditCardApplicationData.getModel(MODEL_LOGIN_SCREEN)).get("retailNetWork") : null;
@@ -167,15 +168,6 @@ public class AccountApplicationRequestTypeConverter
                     return populatedAccountApplicationRequest;
     }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public AccountApplicationContactInfo createAccountApplicationContactInfo(CreditCardApplicationData argCreditCardApplicationData) {
 		
 		String sMethod = "[createAccountApplicationContactInfo()]";
@@ -188,66 +180,51 @@ public class AccountApplicationRequestTypeConverter
 		return populatedAccountApplicationContactInfo;
 	}
 
-    private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
-    {
-                    String sMethod = "[OptionalProductsModel()]";
-                    log.info(sMethod);
-                    ImageUtils imageUtil = new ImageUtils();
-                    BaseModel model;
-                    try
-                    {
-                                    model = argCreditCardData.getModel(MODEL_OPTIONAL_PRODUCTS_MODEL);
-                                    if (model == null)
-                                    {
-                                                    return;
-                                    }
+    private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
+    	String sMethod = "[OptionalProductsModel()]";
+        log.info(sMethod);
+        
+        ImageUtils imageUtil = new ImageUtils();
+        BaseModel model;
+        try {
+        	model = argCreditCardData.getModel(MODEL_OPTIONAL_PRODUCTS_MODEL);
+            if (model == null) {
+            	return;
+            }
+            argAccAppRequest.setInsuranceCode(model.get("insuranceCode"));
 
-                                    //argAccAppRequest.setInsuranceAgreedFlag(model.get("insuranceAgreedFlag"));
-                                    //argAccAppRequest.setInsuranceAgreedFlag_CP(model.get("optionalProduct_CP_AcceptBox"));
-                                    //argAccAppRequest.setInsuranceAgreedFlag_IW(model.get("optionalProduct_IW_AcceptBox"));
+            if (("Y").equalsIgnoreCase(model.get("optionalProducts_CPC_AcceptBox")) || 
+    		   ("Y").equalsIgnoreCase(model.get("optionalProducts_CPLD_AcceptBox"))) {
+            	argAccAppRequest.setInsuranceAgreedFlag("Y");
+            	argAccAppRequest.setInsuranceSignatureFlag("Y");
+            	argAccAppRequest.setInsuranceDateSigned(model.get("signDate"));
+            } else {
+            	argAccAppRequest.setInsuranceAgreedFlag("N");
+            	argAccAppRequest.setInsuranceSignatureFlag("N");
+            }
                                     
-                                    argAccAppRequest.setInsuranceCode(model.get("insuranceCode"));
-
-                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_CP_AcceptBox")) || 
-                                    		("Y").equalsIgnoreCase(model.get("optionalProduct_IW_AcceptBox"))) {
-                                    	argAccAppRequest.setInsuranceAgreedFlag("Y");
-                                    	argAccAppRequest.setInsuranceSignatureFlag("Y");
-                                    	argAccAppRequest.setInsuranceDateSigned(model.get("signDate"));
-                                    	
-                                    } else {
-                                    	argAccAppRequest.setInsuranceAgreedFlag("N");
-                                    	argAccAppRequest.setInsuranceSignatureFlag("N");
-                                    }
-                                    
-                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_CP_AcceptBox")))
-                                    {
-                                                    // (AA): This decoding is necessary before setting the value
-                                                    // because
-                                                    // apparently, the XSD takes care of BASE64 Encoding
-                                                    // argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
-                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature_CP"));
-                                                    argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
-                                    }
-                                    
-                                    if (("Y").equalsIgnoreCase(model.get("optionalProduct_IW_AcceptBox")))
-                                    {
-                                                    // (AA): This decoding is necessary before setting the value
-                                                    // because
-                                                    // apparently, the XSD takes care of BASE64 Encoding
-                                                    // argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
-                                                    byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature_IW"));
-                                                    argAccAppRequest.setInsuranceSignatureIW(decodedBase64Image);
-                                    }
-                                    
-                    }
-                    catch (Exception e)
-                    {
-                                    log.warning(sMethod + " Exception: " + e.getMessage());
-                                    e.printStackTrace();
-                    }
+            if (("Y").equalsIgnoreCase(model.get("optionalProducts_CPC_AcceptBox"))) {
+            	// (AA): This decoding is necessary before setting the value
+            	// because
+            	// apparently, the XSD takes care of BASE64 Encoding
+            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+            	byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature_CPC"));
+            	argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
+            }
+            if (("Y").equalsIgnoreCase(model.get("optionalProducts_CPLD_AcceptBox"))) {
+            	// (AA): This decoding is necessary before setting the value
+            	// because
+            	// apparently, the XSD takes care of BASE64 Encoding
+            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+            	byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature_CPLD"));
+            	argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
+            }
+        } catch (Exception e) {
+        	log.warning(sMethod + " Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    
 	private void populateSignatureModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
 		String sMethod = "[SignatureModel()]";
@@ -350,18 +327,14 @@ public class AccountApplicationRequestTypeConverter
 		}
 	}
 
-	private void populateFinancialDataModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
-	{
+	private void populateFinancialDataModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
 		String sMethod = "[FinancialDataModel()]";
 		log.info(sMethod);
 
 		BaseModel model;
-		try
-		{
+		try {
 			model = argCreditCardData.getModel(MODEL_FINANCIAL_DATA);
-			if (model != null)
-			{
-
+			if (model != null) {
 				String emplStatus = model.get("employmentTypeDSS");
 				String jobDescription = model.get("jobDescription");
 				if(jobDescription.equalsIgnoreCase("OTHER")) {
@@ -375,8 +348,7 @@ public class AccountApplicationRequestTypeConverter
 				String employerCity = model.get("employerCity");
 				int howLongYears = model.getInt("howLongYears");
 				int howLongMonthes = model.getInt("howLongMonthes");
-				if (emplStatus.equalsIgnoreCase("RETIRED"))
-				{
+				if (emplStatus.equalsIgnoreCase("RETIRED")) {
 					emplStatus = "RETIRED";
 					jobDescription = "RETIRED";
 					emplCategory = "RETIRED";
@@ -428,10 +400,11 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setSavingsAccountFlag(model.get("cardSavingsAcct"));
 
 				argAccAppRequest.setSin(model.get("sin"));
+				argAccAppRequest.setInsurance_CPType_Offered(model.get("insurance_CPType_Offered"));
+				argAccAppRequest.setInsurance_CPType_Selected(model.get("insurance_CPType_Selected"));
 			}
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			log.warning(sMethod + " Exception: " + e.getMessage());
 			e.printStackTrace();
 		}

@@ -17,23 +17,16 @@ public class WICIConfiguration
 	String dsssubmitAppEndPoint;
 	String shareserviceEnabled;
 	String jobDescEndPoint;
+	String cpEligibilityEndPoint;
 	
 	
-	/**
-	 * @return the jobDescEndPoint
-	 */
 	public String getJobDescEndPoint() {
 		return jobDescEndPoint;
 	}
 
-
-	/**
-	 * @param jobDescEndPoint the jobDescEndPoint to set
-	 */
 	public void setJobDescEndPoint(String jobDescEndPoint) {
 		this.jobDescEndPoint = jobDescEndPoint;
 	}
-
 
 	public String getShareserviceEnabled() {
 		return shareserviceEnabled;
@@ -171,5 +164,12 @@ public class WICIConfiguration
 		this.dssserviceEnv = dssserviceEnv;
 	}
 
-	
+	public String getCpEligibilityEndPoint() {
+		return cpEligibilityEndPoint;
+	}
+
+	public void setCpEligibilityEndPoint(String cpEligibilityEndPoint) {
+		this.cpEligibilityEndPoint = cpEligibilityEndPoint;
+	}
+
 }

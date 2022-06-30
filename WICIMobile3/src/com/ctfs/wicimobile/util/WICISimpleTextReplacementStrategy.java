@@ -20,7 +20,10 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
 			String apr, 
 			String cashAPR,
 			String creditProtectorYesNo, 
-			String identityWatchYesNo,
+			String completeOrLifeDisability,
+			String cpProductTradmarkMD, // VZE-673
+			String cpProductTradmarkCPCMC, // VZE-673
+			String cpProductTradmarkCPLMC,  // VZE-673
 			String aptNumber,
 			String streetNumber,
 			String streetName,
@@ -49,14 +52,17 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
         _mappingTable.put("#[CouponNextDate]", getCouponNextDateTimeStamp());
         _mappingTable.put("#[CouponNextTwoWeeksDate]", getCouponNextTwoWeeksDateTimeStamp());
         _mappingTable.put("#[CPYesNo]", creditProtectorYesNo);
-        _mappingTable.put("#[IWYesNo]", identityWatchYesNo);
-        // US5240
         _mappingTable.put("#[AptNumber]", aptNumber);
         _mappingTable.put("#[StreetNum]", streetNumber);
         _mappingTable.put("#[StreetName]", streetName);
         _mappingTable.put("#[City]", city);
         _mappingTable.put("#[Province]", province);
         _mappingTable.put("#[PostalCode]", postalCode);
+        _mappingTable.put("#[CPOffered]", completeOrLifeDisability);
+        _mappingTable.put("#[CPMD]", cpProductTradmarkMD);
+        _mappingTable.put("#[CPCMC]", cpProductTradmarkCPCMC);
+        _mappingTable.put("#[CPLMC]", cpProductTradmarkCPLMC);
+        
     }
 
     @Override
@@ -74,7 +80,6 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
     }
     
     private Locale getCurrentLocale() {
-    	
     	Locale currentLocale = null;
     	if (_correspondenceLanguage != null) {
     		if (_correspondenceLanguage.equalsIgnoreCase("F")) {
@@ -92,7 +97,6 @@ public class WICISimpleTextReplacementStrategy implements ReplacementStrategy {
     }
     
     private String applyDecimalFormat(String value) {
-		
     	if (_correspondenceLanguage.equalsIgnoreCase("F")) {
    			value = value.replace('.', ',');
     	}

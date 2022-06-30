@@ -45,6 +45,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			{ name: 'email', value: null, validation: { type: 'email', message: 'personalData1_validation_email', canBeEmpty: (($(refs.email).val() !== '') || ($(refs.email).val() !== null)) ? false : true, group: [1] } },
 			{ name: 'receiveEmail', value: null, validation: { type: 'presence', message: 'personalData1_validation_ReceiveEmail', group: [2] } },
 			{ name: 'estmt_consent', value: null, validation: { type: 'presence', message: 'personalData1_validation_ReceiveEmail', group: [2] } },
+			{ name: 'applicationReferenceID', value: null, validation: null },
 		]
 	});
 	this.innerModel = model;
@@ -65,6 +66,8 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		disableCheckBox();
 		alignI_icon();
 		restoreCreditCardData();
+		model.set('applicationReferenceID', generateGUID().toUpperCase());
+		console.log(logPrefix + sMethod + " GUID :: " + model.get('applicationReferenceID'));
 	}
 	// ---------------------------------------------------------------------------------------
 	function syncUserData() {
@@ -122,6 +125,15 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			model.set('estmt_consent', 'N');
 		}
 		console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
+	}
+	// ---------------------------------------------------------------------------------------
+	function generateGUID() {
+		var sMethod = "generateGUID()";
+		console.log(logPrefix + sMethod);
+		
+	    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+	    	(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	  	);
 	}
 	// ---------------------------------------------------------------------------------------
 	function restoreCreditCardData() {

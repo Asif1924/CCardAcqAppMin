@@ -127,16 +127,39 @@ public class ReceiptCustomerInfo
 	public void setAddressPostalCode(String addressPostalCode) {
 		this.addressPostalCode = addressPostalCode;
 	}
+	public String getInsurance_CPType_Offered() {
+		return insurance_CPType_Offered;
+	}
+	public void setInsurance_CPType_Offered(String insurance_CPType_Offered) {
+		this.insurance_CPType_Offered = insurance_CPType_Offered;
+	}
+	public String getInsurance_CPType_Selected() {
+		return insurance_CPType_Selected;
+	}
+	public void setInsurance_CPType_Selected(String insurance_CPType_Selected) {
+		this.insurance_CPType_Selected = insurance_CPType_Selected;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	String requestedProductType;
 	String firstName;
 	String middleInitial;
 	String lastName;
 	String applicantSignature;
+	
+	String email;
 
 	String province;
 	String preferredLanguage;
 	
 	String insuranceCode;
+	String insurance_CPType_Offered;
+	String insurance_CPType_Selected;
 	String creditProtector;
 	String identityWatch;
 	String storeNumber;
@@ -148,7 +171,5 @@ public class ReceiptCustomerInfo
 	String addressCity;
 	String addressProvince;
 	String addressPostalCode;
-	
-
 	
 }

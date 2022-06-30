@@ -854,17 +854,16 @@
 				<span class="pageSubTitle" data-translationKey="breadCrumbItem_OptionalProducts"></span>
 				<br>
 				<br>
- 				<!-- <table id="summary_SelectedProductTable" class="stretchThisTable"> -->
-			<!--  Start Protector Advantage case -->
-	               <!-- {{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_PA')==='Y' }}
+				<!--  Start Credit Protector Life and Disability case -->
+	            {{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_CPLD')==='Y' }}
+					<table id="summary_SelectedProductTable" class="stretchThisTable">
 		                <tbody>
-
 			                <tr class="fieldRow">
 			                    <td class="fieldLabelsTopCell fieldCellSize33">
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_PA"></span>
+									<span data-translationKey="summary_OptProds_ProdName_CPLD"></span>
 			                    </td>
 			                </tr>
 
@@ -873,7 +872,7 @@
 			                        <span data-translationKey="summary_OptProds_Signature"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell">
-			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_PA') } class="signatureSummary" />
+			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSignature_CPLD') } class="signatureSummary" />
 
 			                    </td>
 			                </tr>
@@ -896,11 +895,11 @@
 			                    </td>
 			                </tr>
 		                </tbody>
-					 {{/if}} -->
-					<!-- </table> -->
-			<!--  End Protector Advantage case -->
-			<!--  Start Credit Protector case -->
-				{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_CP')==='Y' }}
+					   </table>
+					 {{/if}}
+			<!--  End Credit Protector Life and Disability case -->
+			<!--  Start Credit Protector Complete case -->
+				{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_CPC')==='Y' }}
 				 <table id="summary_SelectedProductTable" class="stretchThisTable">
 		                <tbody>
 
@@ -909,7 +908,7 @@
 			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_CP"></span>
+									<span data-translationKey="summary_OptProds_ProdName_CPC"></span>
 			                    </td>
 			                </tr>
 
@@ -918,7 +917,7 @@
 			                        <span data-translationKey="summary_OptProds_Signature"></span>
 			                    </td>
 			                    <td class="fieldLabelsCell">
-			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_CP') } class="signatureSummary" />
+			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSignature_CPC') } class="signatureSummary" />
 
 			                    </td>
 			                </tr>
@@ -943,56 +942,8 @@
 		                </tbody>
 		                </table> 
 					{{/if}}	
-			<!--  End Credit Protector case -->
+			<!--  End Credit Protector Complete case -->
 			      <br>
-			<!--  Start Identity watch case -->
-			      
-					{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_IW')==='Y' }}
-					 <table id="summary_SelectedProductTable" class="stretchThisTable">
-		                <tbody>
-
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsTopCell fieldCellSize33">
-			                        <span data-translationKey="summary_OptProds_ProductSelected"></span>
-			                    </td>
-			                    <td class="fieldLabelsCell fieldValuesTopCell">
-									<span data-translationKey="summary_OptProds_ProdName_IW"></span>
-			                    </td>
-			                </tr>
-
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsCell fieldCellSize33">
-			                        <span data-translationKey="summary_OptProds_Signature"></span>
-			                    </td>
-			                    <td class="fieldLabelsCell">
-			                        <img src=${activationItems.getModel('OptionalProductsModel').get('userSingnature_IW') } class="signatureSummary" />
-
-			                    </td>
-			                </tr>
-
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsCell fieldCellSize33">
-			                        <span data-translationKey="summary_OptProds_Accept"></span>
-			                    </td>
-			                    <td class="fieldLabelsCell">
-			                        <span data-translationKey="yes"></span>
-			                    </td>
-			                </tr>
-
-			                <tr class="fieldRow">
-			                    <td class="fieldLabelsBottomCell fieldCellSize33">
-			                        <span data-translationKey="summary_OptProds_SignDate"></span>
-			                    </td>
-			                    <td id="signDate_id_4" class="fieldLabelsCell fieldValuesBottomCell">
-			                        ${activationItems.getFormatedDate(activationItems.getModel('signatureModel').get('signDate'))}
-			                    </td>
-			                </tr>
-		                </tbody>
-		               </table>
-					{{/if}}
-				
-			<!--  End Identity Watch case -->
-			<br>
 			<!--  Start Not this time  case -->
 					{{if activationItems.getModel('OptionalProductsModel').get('optionalProducts_NA')==='Y' }}
 					<table id="summary_SelectedProductTable" class="stretchThisTable">

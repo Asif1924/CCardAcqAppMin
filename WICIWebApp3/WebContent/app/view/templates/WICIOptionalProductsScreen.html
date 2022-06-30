@@ -1,568 +1,405 @@
-<script id="WICIOptionalProductsScreen-template"
-	type="text/x-jquery-tmpl"> 
+<script id="WICIOptionalProductsScreen-template" type="text/x-jquery-tmpl"> 
 <div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents">
 	<br> <br>
 	<center>
 		<span id="OPClickHere" class="pageTitle"
 			data-translationKey="optionalProducts_PageTitle"></span>
 	</center>
-<br>
-
+	<br>
 </div>
 
+<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents_CPC_Title">
+	<div id="title_1" class="title">
+		<center>
+			<div class="credit_prot_division_cpc">
+				<img class="red_icon" src="app/images/red_icon.png" >
+				<span data-translationKey="optionalProducts_CPC_title"class="credit_prot"></span>
+			</div>
+		</center>
+		<div class="title_arrow_cpc">
+			<img class="red_arrow" src="app/images/red_arrow.png" >
+		</div>
+	</div>
+</div>
 
-<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents_CP_Title">
-<div id="title_1" class="title">
+<br>
+<div class="ScreenLayout_OptionalProducts align_center" id="OptionalProductsScreen_PageContents_CPC_Details">
+	<div id="section_1" class="section wrapper_padding">
+		<p class="bold" data-translationKey="optionalProducts_CPC_Helps_cover"></p>
+		<ul>
+			<li data-translationKey="optionalProducts_CPC_LI_Involuntary"></li>		
+		 	<li data-translationKey="optionalProducts_CPC_LI_Total"></li>
+		    <li data-translationKey="optionalProducts_CPC_LI_Terminal"></li>		
+		</ul>
+		<img src="app/images/red_separator.png" alt="Red separator" />
+		<br><br>
+		<p class="fontWith17" data-translationKey="optionalProducts_CPC_text_monthly"></p>		
+		<h3 class="bold fontWith31" data-translationKey="optionalProducts_CPC_text_for_every" ></h3>		
+		<p class="fontWith17" data-translationKey="optionalProducts_CPC_text_average"></p>		
+		<h4 data-translationKey="optionalProducts_CPC_text_bill"></h4>		
+		<h4 data-translationKey="optionalProducts_CPC_text_available"></h4>
+		<h4 data-translationKey="optionalProducts_CPC_text_interest"></h4>
+	</div>
+</div>
+
+<div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents_CPLD_Title">
+	<div id="title_1" class="title">
 		<center>
 			<div class="credit_prot_division">
 				<img class="red_icon" src="app/images/red_icon.png" >
-				<span data-translationKey="optionalProducts_CP_title"class="credit_prot"></span>
+				<span data-translationKey="optionalProducts_CPLD_title"class="credit_prot"></span>
 			</div>
 		</center>
 		<div class="title_arrow">
 			<img class="red_arrow" src="app/images/red_arrow.png" >
 		</div>
-</div>
+	</div>
 </div>
 
 <br>
-<div class="ScreenLayout_OptionalProducts align_center" id="OptionalProductsScreen_PageContents_CP_Details">
-		<div id="section_1" class="section wrapper_padding">
-		        <p class="bold" data-translationKey="optionalProducts_CP_Helps_cover"></p>
-		                <ul >
-		                	<li data-translationKey="optionalProducts_CP_LI_Involuntary"></li>		
-		                    <li data-translationKey="optionalProducts_CP_LI_Total"></li>
-		                    <li data-translationKey="optionalProducts_CP_LI_Terminal"></li>		
-		                    <li data-translationKey="optionalProducts_CP_LI_Dismemberment"></li>		
-		                    <li data-translationKey="optionalProducts_CP_LI_Life"></li>
-		                </ul>
-		                     <p class="optionalProductQuebecText" data-translationKey="optionalProducts_CP_LI_These_coverage"></p>
-						<img src="app/images/red_separator.png" alt="Red separator" />
-						<br><br>
-		
-		                <p class="fontWith17" data-translationKey="optionalProducts_CP_text_monthly"></p>		
-		                <h3 class="bold fontWith31" data-translationKey="optionalProducts_CP_text_for_every" ></h3>		
-		                <p class="fontWith17" data-translationKey="optionalProducts_CP_text_average"></p>		
-		                <p class="small" data-translationKey="optionalProducts_CP_text_average_info"></p>		
-		                <h4 data-translationKey="optionalProducts_CP_text_bill"></h4>		
-		                <h4 data-translationKey="optionalProducts_CP_text_available"></h4>
-		                <h4 data-translationKey="optionalProducts_CP_text_interest"></h4>
-		</div>
+<div class="ScreenLayout_OptionalProducts align_center" id="OptionalProductsScreen_PageContents_CPLD_Details">
+	<div id="section_1" class="section wrapper_padding">
+		<p class="bold" data-translationKey="optionalProducts_CPLD_Helps_cover"></p>
+		<ul>
+		 	<li data-translationKey="optionalProducts_CPLD_LI_Total"></li>
+		    <li data-translationKey="optionalProducts_CPLD_LI_Life"></li>
+		</ul>
+		<img src="app/images/red_separator.png" alt="Red separator" />
+		<br><br>
+		<p class="fontWith17" data-translationKey="optionalProducts_CPLD_text_monthly"></p>
+		<h3 class="bold fontWith31" data-translationKey="optionalProducts_CPLD_text_for_every" ></h3>		
+		<p class="fontWith17" data-translationKey="optionalProducts_CPLD_text_average"></p>		
+		<h4 data-translationKey="optionalProducts_CPLD_text_bill"></h4>		
+		<h4 data-translationKey="optionalProducts_CPLD_text_available"></h4>
+	</div>
 </div>
-<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
-<!-- UAT 39 - CP Revitalization, Missed Requirement -->
-<!-- US4083 - Code changes Reverted //-->
 
+<div class="ScreenLayout" id="OptionalProductsScreen_PageContents">
+<!-- VZE-398 - New Insurance added //-->
 	<div id="optionalProductsList">
 		<center>
 			<table class="stretchThisTable grayTableNoBorder tableWithPaddingTopAndBottom20  elementWithFontSize12" id="optionalProductsTable">
                <thead class="height0">     
                 <tr>
-                        <td colspan="2"class="op_fieldLabelsCell fieldLabelsCellWithTopAlign elementWithTop5">
-                         <span data-translationKey="optionalProducts_TableTitle"></span>
-                       </td>
+                	<td colspan="2"class="op_fieldLabelsCell fieldLabelsCellWithTopAlign elementWithTop5">
+                    	<span data-translationKey="optionalProducts_TableTitle"></span>
+                    </td>
                 </tr>
                </thead>
                <tbody>
-					<!-- Start Protection Advantage  -->
-					<!-- <tr id="optionalProductsProtectionAdvantageItem">
+					<!-- Start Credit Protector Life & Disability  -->
+					<tr id="optionalProductsCreditProtectorLifeAndDisabilityItem">
 						<td class="op_table_radio_td">
-						        
-							     <div class="wiciCheckBox">
-                                            <input id="optionalProducts_PA_CheckField" type="checkbox" name="additionalInformation_OptionalProducts"/>
-						                    <label for="optionalProducts_PA_CheckField"></label> 
-					             </div>
+							<div class="wiciCheckBox">
+                            	<input id="optionalProducts_CPLD_CheckField" type="checkbox" name="additionalInformation_OptionalProducts"/>
+						    	<label for="optionalProducts_CPLD_CheckField"></label> 
+					        </div>
 				       </td>
-					  <td class="op_table_title_td">
-						         <div class="section_3_copy">
-					                  <div class="section_3_copy_inner">
-						               <h4 data-translationKey="OP_PA_title" class="elementWithBoldFont"></h4>
-						                    <ul> -->
-							                  <!--  <li data-translationKey="OP_PA_Rule_li_1_not_available"></li> -->
-							                <!--  <li data-translationKey="OP_PA_Rule_li_2_available"></li>
-							                  <li data-translationKey="OP_PA_Rule_li_3_Enrolment_in"></li>
-						                    </ul>
-					                 </div>
-				                </div>
+					   <td class="op_table_title_td">
+					   		<div class="section_3_copy">
+					        	<div class="section_3_copy_inner">
+						        	<h4 data-translationKey="OP_CPLD_title" class="elementWithBoldFont"></h4>
+						            <ul>
+							        	<li data-translationKey="OP_CPLD_Rule_li_1_available"></li>
+						            </ul>
+					             </div>
+				             </div>
 						<br>
 					   </td>
-					</tr> -->
-                 <!--   <tr id="lineSeparatorForPA">
+					</tr>
+                    <tr id="lineSeparatorForCPLD">
                          <td   class="paddingTopAndBottom2 op_table_radio_td"></td>
-                          <td class="paddingTopAndBottom2 op_table_title_td">
+                         <td class="paddingTopAndBottom2 op_table_title_td">
 							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-                          </td>
-                    </tr> -->
-					<!-- <tr id="optionalProducts_PA_Table">
-						<td class="op_table_title_td" colspan="2" id="optionalProducts_PA_Area">
-							<div class="elementWithRightMargin15">
-								<div id="additionalInformation_OptionalProducts_PA_Table"
-									class="privacyArea">
-									<div class="paddingLeft60"> -->
-											                <!-- PA tearms and condition start  -->
-											<!-- <br>
-					                         <p data-translationKey="PA_offer_details_title_bold" class="offer_details_title bold"><span data-translationKey="PA_offer_details_title_small" class="offer_details_title_small"></span></p>
-					                         <br>
-					                         <p data-translationKey="PA_offer_details_title_2_bold" class="offer_details_title_2 bold"></p>
-					                         <p data-translationKey="PA_optional_covarage" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                         <p data-translationKey="PA_Credit_Protector_p_1" class="withoutPadding_p"></p>
-					                         <p data-translationKey="PA_Credit_Protector_p_2" class="bold withoutPadding_p"></p>
-					                         <p data-translationKey="PA_Credit_Protector_p_3_terminal_illness" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                         <p data-translationKey="Pa_Credit_Protector_P_coverages" class="withoutPadding_p" ></p>
-					                         <p data-translationKey="PA_Creadit_Protector_P_benifits" class="withoutPadding_p" ></p>
-					                         <p data-translationKey="PA_Credit_Protector_P_Terminal" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                         <ul class="style_ul_without_padding">
-						                         <li data-translationKey="PA_Credit_Protector_LI_1"></li>
-						                         <li data-translationKey="PA_Credit_Protector_LI_2"></li>
-						                         <li data-translationKey="PA_Credit_Protector_LI_3"></li>
-					                         </ul>
-					                         <p data-translationKey="PA_Credit_Protector_Life_n_Di" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                         <ul class="style_ul_without_padding">
-						                         <li data-translationKey="PA_UL_LI_2_1"></li>
-						                         <li data-translationKey="PA_UL_LI_2_2"></li>
-						                         <li data-translationKey="PA_UL_LI_2_3"></li>
-						                         <li data-translationKey="PA_UL_LI_2_4"></li>
-					                        </ul>
-					                        <p data-translationKey="PA_p_Involuntary" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                        <p data-translationKey="PA_P_quality_for_benifits" class="withoutPadding_p"></p>
-					                        <p data-translationKey="PA_P_To_be_eligible" class="withoutPadding_p"></p>
-					                        <p data-translationKey="PA_P_YOU_QUALIFY_FOR" class="withoutPadding_p"></p>
-					                        <p data-translationKey="PA_P_Involuntary_Unemployment" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_LI_MAY_COVER_YOU"></li>
-					                        </ul>
-					                        <p data-translationKey="PA_P_Total_Disability" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_P_MAY_COVER_YOU_DISABLED"></li>
-					                        </ul>
-					                        <p class="offer_details_title_3 bold withoutPadding_p" data-translationKey="PA_P_Pricing"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_UL_LI_MONTHLY_PREMIUM"></li>
-						                        <li data-translationKey="PA_LI_AT_AGE"></li>
-						                        <li data-translationKey="PA_LI_DEPENDING_HOW"></li>
-						                        <li data-translationKey="PA_LI_YOU_DO_NOT"></li>
-						                        <li class="style_ul">
-							                         <ul class="style_ul">
-								                          <li data-translationKey="PA_LI_1_IF_YOU_HAVE_NOT"></li><br>
-								                          <li data-translationKey="PA_LI_1_HAVE_NOT_CARRIED"></li><br>
-								                          <li data-translationKey="PA_LI_1_IF_YOUR_AVERAGE"></li>
-								                          <li data-translationKey="PA_LI_PRICE_EXAMPLE"></li>
-								                          <li>
-									              <table class="op_table labelPadingLeft15">
-										                  <thead class="bold">
-											              <tr>
-												              <th data-translationKey="PA_TABLE_TD_AVERAGE_DAILY" class="text_align td_padding_offer_details"></th>
-												              <th data-translationKey="PA_TABLE_TD_PREMIUM" class="text_align "></th>
-											              </tr>
-										                  </thead>
-										                  <tbody>
-											              <tr>
-												              <td data-translationKey="PA_TABLE_TD_150" class="text_align"></td>
-												              <td data-translationKey="PA_TABLE_TD_165" class="text_align"></td>
-											              </tr>
-											              <tr>
-												              <td data-translationKey="PA_TABLE_TD_575" class="text_align"></td>
-												              <td data-translationKey="PA_TABLE_TD_633" class="text_align"></td>
-											              </tr>
-											              <tr>
-												              <td data-translationKey="PA_TABLE_TD_825" class="text_align"></td>
-												              <td data-translationKey="PA_TABLE_TD_907" class="text_align"></td>
-											              </tr>
-											              <tr>
-												              <td data-translationKey="PA_TABLE_TD_975" class="text_align"></td>
-												              <td data-translationKey="PA_TABLE_TD_1073" class="text_align"></td>
-											              </tr>
-										                  </tbody>
-										                  <tfoot>
-											              <tr>
-												              <td colspan="2" data-translationKey="PA_TABLE_TD_PLUS_APP_TAX"></td>
-											              </tr>
-										                  </tfoot>
-									               </table>
-								                   </li>
-							                     </ul>
-						                        </li>
-					                         </ul>
-					                        <p data-translationKey="PA_HOW_TO_MAKE_A_CLAIM" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_LI_you_are_always"></li>
-						                        <li data-translationKey="PA_LI_call_the_insurer"></li>
-					                        </ul>
-					                        <p data-translationKey="PA_P_terms_of_agreement" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_LI_if_you_enrol_today"></li>
-						                        <li><span class="bold" data-translationKey="PA_LI_the_insurance_end"></span></li>
-							                    <li class="style_ul"><ul class="style_ul">
-								                   <li data-translationKey="PA_Li_when_the_canadian_tire"></li>
-								                   <li data-translationKey="PA_Li_the_accoount_become"></li>
-								                   <li data-translationKey="PA_Li_one_or_more_off"></li>
-								                   <li data-translationKey="PA_Li_your_life"></li>
-								                   <li data-translationKey="PA_Li_the_date_the_primary"></li>
-								                   <li data-translationKey="PA_Li_or_when_you_request"></li>
-							                    </ul>
-						                       </li>
-					                        </ul>
-					                       <p data-translationKey="PA_P_Fulfillment" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                       <ul class="style_ul_without_padding">
-						                       <li data-translationKey="PA_ul_Li_A_welcome_package"></li>
-					                       </ul>
-					                       <p data-translationKey="PA_P_eligibility_requirment" class="withoutPadding_p"></p>
-					                       <p data-translationKey="PA_P_Cancellation" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                       <ul class="style_ul_without_padding">
-						                       <li data-translationKey="PA_Li_you_can_cancel_this_1"></li>
-						                       <li data-translationKey="PA_Li_you_can_cancel_this_2"></li>
-						                       <li data-translationKey="PA_Li_you_can_cancel_this_3"></li>
-					                       </ul>
-					                       <br>
-					                       <p data-translationKey="PA_P_Enrolling_you_agree_this" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                       <ul class="style_ul_without_padding">
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_1"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_2"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_3"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_4"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_5"></li>
-						                       <li  data-translationKey="PA_P_Enrolling_you_agree_this_6"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_7"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_8"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_9"></li>
-						                       <li  data-translationKey="PA_P_Enrolling_you_agree_this_10"></li>
-						                       <li  data-translationKey="PA_P_Enrolling_you_agree_this_11"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_12"></li>
-					                       </ul>
-					                       
-					                       <p data-translationKey="PA_P_identity_watch_disclosure" class="offer_details_title_2 bold"></p>
-					                       <p data-translationKey="PA_P_the_iw_program" class="withoutPadding_p" ></p>
-					                       <p data-translationKey="PA_P_eligiblity" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_the_subscription" class="withoutPadding_p"></p>
-					                       <p data-translationKey="PA_P_when_you_enrole" class="withoutPadding_p"></p>
-					                       <p data-translationKey="PA_P_benefits_are_available" class="withoutPadding_p"></p> -->
-					                       <!-- lost and stolen -->
-					                   <!--    <p data-translationKey="PA_P_lost_stolen" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_this_service_will_assests" class="withoutPadding_p"></p> -->
-					                       <!-- Ends -->
-					                       
-					                       <!-- Online data -->
-					                      <!-- <p data-translationKey="PA_P_Online_data_backup" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_Data_bak_up_desc" class="withoutPadding_p"></p> -->
-					                       <!-- ends -->
-					                       
-					                       <!-- CC theft rewads -->
-					                       
-					                      <!-- <p data-translationKey="PA_CC_theft_reward" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_CC_theft_desc" class="withoutPadding_p"></p> -->
-					                       <!-- ends -->
-					                       
-					                       
-					                     <!--  <p data-translationKey="PA_P_identity_fraud" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_this_service" class="withoutPadding_p"></p>
-					                       
-					                       <p data-translationKey="PA_P_computer_tune_up" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_you_are_eligible_to" class="withoutPadding_p"></p>
-					                       
-					                       <p data-translationKey="PA_P_rebound" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_this_service_allows_you" class="withoutPadding_p"></p>
-					                       
-					                       <p data-translationKey="PA_P_price" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_subscription_fee" class="withoutPadding_p" ></p>
-					                       <p data-translationKey="PA_P_Cancellation"  class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_cancellation_by_customer" class="withoutPadding_p"><span class="bold"></p>
-					                       <p data-translationKey="PA_P_cancellation_by_Aimia" class="withoutPadding_p"><span class="bold"></p>
-					                       <p data-translationKey="PA_P_other" class="offer_details_title_3 bold"></p>
-					                       <p data-translationKey="PA_P_Iw_is_an_optiona_product" class="withoutPadding_p" ></p>
-					                     
-					                       <p data-translationKey="PA_P_please_read_iw" class="withoutPadding_p"></p>
-										   <br><br> -->
-										<!--</div>
-										
-										
-							</div>
-                        </div>
-                           
-                           <div class="warningDIV" id="warningDIVPA" name="warningDIVPA">
-											<center>
-											<p class="warningHeader" id="warningHeaderPA" name="warningHeaderPA"><span data-translationKey="optionalProducts_CP_WarningHeader"/></p>
-										    </center>
-										<div class="warningText signatureCredentialsContainer" id="warningTextPA" name="warningTextPA">
-											<p>
-												<span data-translationKey="optionalProducts_SignatureAgreement_CP_subTitle" />
-											</p>
-											<p>
-												<span data-translationKey="optionalProducts_PAProducts" />
-											</p>
-											<p>
-												<span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDatePA">
-											</p>
-										</div>
-											<center>
-												<div class="signatureContainer sugnatureFixes">
-													<div class="signatureBorder"
-													id="optionalProductsScreen_PA_SingnatureContainer">
-														<div class="signature" id="signature_PA"/>
-													</div>
-												</div>
-												<br> <span id="signature_Reset_Button1" class="button grayflat sigResetButton proceedButtonWidth"> <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
-												</span>
-											</center>
-											<div class="signatureCredentialsContainer">
-												<label id="signatureScreen_UserName">${ClientName}</label> <br>
-												<div class="agreementBoxContainerEX" style="display: table" id="optionalProduct_PA_AcceptBox_Area">
-													<div class="rightContaier">
-														<div class="wiciCheckBox">
-															<input type="checkbox" id="optionalProducts_PA_Agreement">
-															<label for="optionalProducts_PA_Agreement"></label>
-														</div>
-													</div>
-													<div class="leftContainer  opCheckBoxLabel" style="padding-top: 0; display: table-cell; vertical-align: middle;">
-														<label data-translationkey="optionalProducts_TermsAndConditions_16_CP"></label>
-													</div>
-											</div>
-										</div>
-										</div> -->
-										<!-- /ALTERED -->
-                                      <!--  <br>
-                                       
-                                        <br> -->
-									<!-- </div>  -->
-                                     <!--   <br>
-                                         <br>
-
-						</td>
-						</tr>
-					</div> -->
-					<!-- End Protection Advantage  -->
-
-					<!-- Start Credit Protector    -->
-					<div>
-						<tr id="optionalProductsCreditProtectorItem">
-							<td class=" op_table_radio_td">
-                                            <div class="wiciCheckBox">
-								                <input id="optionalProducts_YesNoTextField" type="checkbox" name="additionalInformation_OptionalProducts" />
-                                                <label for="optionalProducts_YesNoTextField"></label>
-                                           </div>
-							</td>
-							<td class="op_table_title_td">
-							               <div class="section_3_copy">
-					                         <div class="section_3_copy_inner">
-						                           <h4 data-translationKey="OP_CP_title"></h4>
-						                      <ul>
-							                        <!-- <li data-translationKey="OP_CP_Li_1_not_sk"></li>  -->
-							                         <li data-translationKey="OP_CP_Li_1_availbale"></li>
-						                     </ul>
-					                        </div>
-				                         </div>
-							</td>
-						</tr>
-					<tr  class="fieldRow">
-                  <tr id="lineSeparatorForCP">
-                     <td   class="paddingTopAndBottom2 op_table_radio_td"></td>
-                     <td   class="paddingTopAndBottom2 op_table_title_td">
-							<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
-                     </td>
-                  </tr>
-						<tr id="optionalProducts_CP_Table">
-							<td class="op_table_title_td"
-								id="optionalProducts_CP_Area" colspan="2">
-								<div class="elementWithRightMargin15">
-									<div id="additionalInformation_OptionalProducts_CP_Table"
-										class="privacyArea">
-										<div class="paddingLeft60">
-											          <!-- CP content starts  -->
-											          <a href="#" id="cpOptionalProduct" class="optionalProductCP"></a>
-                                                      <br>
-										        <!-- <br>
-					                         <p data-translationKey="OP_CP_P_bold" class="offer_details_title bold"><span  data-translationKey="OP_CP_P_small" class="offer_details_title_small"></span></p>
-					                         <br>
-					                         <p data-translationKey="OP_CP_disclosure" class="offer_details_title_2 bold"></p>
-					                         <p  data-translationKey="OP_CP_coverage" class="offer_details_title_3 bold"></p>
-					                         <p data-translationKey="OP_CP_creator_group" class="withoutPadding_p"></p>
-					                         <p data-translationKey="OP_CP_P_may_cover" class="bold withoutPadding_p"></p>
-					                         <p data-translationKey="PA_Credit_Protector_p_3_terminal_illness" class="offer_details_title_3 bold"></p>
-					                         <p data-translationKey="OP_CP_P_these_coverage" class="withoutPadding_p" ></p>
-					                         <p data-translationKey="OP_CP_P_if_you_qualify" class="withoutPadding_p"></p>
-					                         <p data-translationKey="PA_Credit_Protector_P_Terminal" class="offer_details_title_3 bold"></p>
-					                         <ul class="style_ul_without_padding">
-						                        <li data-translationKey="OP_CP_Li_1_may_cover_your"></li>
-						                        <li data-translationKey="OP_CP_li_2_you_or_your_spouse"></li>
-						                        <li data-translationKey="OP_CP_Li_3_in_the_event"></li>
-					                         </ul class="style_ul_without_padding">
-					                         <p  data-translationKey="OP_CP_P_life_and_dismemberment" class="offer_details_title_3 bold"></p>
-					                         <ul class="style_ul_without_padding">
-						                        <li data-translationKey="OP_CP_Li_2_1_may_cover"></li>
-						                        <li data-translationKey="OP_CP_Li_2_2_you_or_your"></li>
-						                        <li data-translationKey="OP_CP_Li_2_3_to_be"></li>
-						                        <li data-translationKey="OP_CP_Li_2_4_At_age"></li>
-					                         </ul>
-					                              <p data-translationKey="OP_CP_P_involuntary" class="offer_details_title_3 bold"></p>
-					                              <p data-translationKey="OP_CP_P_INVO_if_you_qualify" class="withoutPadding_p"></p>
-					                              <p data-translationKey="OP_CP_P_both_the_coverage"  class="withoutPadding_p"></p>
-					                              <p data-translationKey="OP_CP_P_qualify_for_benifits" class="withoutPadding_p" ></p>
-					                              <p data-translationKey="OP_CP_Li_InvoluntaryUnemployment" class="offer_details_title_3 bold"></p>
-					                         <ul class="style_ul_without_padding">
-						                         <li data-translationKey="OP_CP_P_may_cover_you_if"></li>
-					                         </ul>
-					                              <p  data-translationKey="OP_CP_Li_TotalDisability" class="offer_details_title_3 bold"></p>
-					                         <ul class="style_ul_without_padding">
-						                         <li data-translationKey="OP_CP_Li_total_diasability"></li>
-					                         </ul>
-					                         <p data-translationKey="PA_P_Pricing" class="offer_details_title_3 bold"></p>
-					                         <ul class="style_ul_without_padding">
-						                         <li data-translationKey="OP_CP_Li_3_1_monthly"></li>
-						                         <li data-translationKey="OP_CP_Li_3_2_at_age_80"></li>
-						                         <li data-translationKey="OP_CP_Li_3_3_depending"></li>
-						                         <li data-translationKey="PA_LI_YOU_DO_NOT"></li>
-						                         <li class="style_ul">
-							                     <ul class="style_ul">
-								                     <li data-translationKey="OP_CP_Li_4_1_if_you_have"></li><br>
-								                     <li data-translationKey="OP_CP_Li_4_2_have_not_carried"></li><br>
-								                     <li data-translationKey="OP_CP_Li_4_3_your_average"></li>
-								                     <li data-translationKey="PA_LI_PRICE_EXAMPLE"></li>
-								                     <li>
-									                <table class="op_table">
-										            <thead class="bold">
-											        <tr>
-												         <td data-translationKey="PA_TABLE_TD_AVERAGE_DAILY" class="text_align td_padding_offer_details"></td>
-												         <td data-translationKey="PA_TABLE_TD_PREMIUM" class="text_align"></td>
-											        </tr>
-										            </thead>
-										            <tbody>
-											        <tr>
-												        <td data-translationKey="PA_TABLE_TD_150" class="text_align"></td>
-												        <td data-translationKey="PA_TABLE_TD_165" class="text_align"></td>
-											        </tr>
-											        <tr>
-												        <td data-translationKey="PA_TABLE_TD_575" class="text_align"></td>
-												        <td data-translationKey="PA_TABLE_TD_633" class="text_align"></td>
-											        </tr>
-											        <tr>
-												        <td data-translationKey="PA_TABLE_TD_825" class="text_align"></td>
-												        <td data-translationKey="PA_TABLE_TD_907" class="text_align"></td>
-											         </tr>
-											         <tr>
-												         <td data-translationKey="PA_TABLE_TD_975" class="text_align"></td>
-												         <td data-translationKey="PA_TABLE_TD_1073" class="text_align"></td>
-											         </tr>
-										            </tbody>
-										            <tfoot>
-											        <tr>
-												        <td colspan="2" data-translationKey="PA_TABLE_TD_PLUS_APP_TAX"></td>
-											        </tr>
-										            </tfoot>
-									               </table>
-								                   </li>
-							                   </ul>
-						                       </li>
-					                        </ul>
-					                        <p data-translationKey="PA_HOW_TO_MAKE_A_CLAIM" class="offer_details_title_3 bold"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="PA_LI_you_are_always"></li>
-						                        <li data-translationKey="OP_CP_call_the_insurance"></li>
-					                        </ul>
-					                             <p data-translationKey="PA_P_terms_of_agreement" class="offer_details_title_3 bold"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="OP_CP_Li_5_if_you_enroll_today"></li>
-						                        <li><span class="bold" data-translationKey="PA_LI_the_insurance_end"></span></li>
-							                   <li class="style_ul"> <ul class="style_ul">
-								                   <li data-translationKey="OP_CP_Li_6_1_when"></li>
-								                   <li data-translationKey="OP_CP_Li_6_2_the_account"></li>
-								                   <li data-translationKey="OP_CP_Li_6_3_one_or_more"></li>
-								                   <li data-translationKey="OP_CP_Li_6_4_your_life"></li>
-								                   <li data-translationKey="OP_CP_Li_6_5_the_date"></li>
-								                   <li data-translationKey="OP_CP_Li_6_6_or_when_you"></li>
-							                    </ul>
-						                       </li>
-					                        </ul>
-					                        <p data-translationKey="PA_P_Fulfillment" class="offer_details_title_3 bold"></p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="OP_CP_Li_welcome_package" class="withoutPadding_p"></li>
-					                        </ul>
-					                        <p data-translationKey="OP_CP_Li_eligibility_requirement" class="withoutPadding_p"></p>
-					                        <p data-translationKey="PA_P_Cancellation" class="offer_details_title_3 bold">Cancellation</p>
-					                        <ul class="style_ul_without_padding">
-						                        <li data-translationKey="OP_CP_Li_7_1_you_can_cancel"></li>
-						                        <li data-translationKey="OP_CP_Li_7_2"></li>
-						                        <li data-translationKey="OP_CP_Li_7_3"></li>
-					                        </ul>
-											 <br>
-											 <p data-translationKey="PA_P_Enrolling_you_agree_this" class="offer_details_title_3 bold withoutPadding_p"></p>
-					                       <ul class="style_ul_without_padding">
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_1"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_2"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_3"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_4"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_5"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_6"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_7"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_8"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_9"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_10"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_11"></li>
-						                       <li   data-translationKey="PA_P_Enrolling_you_agree_this_12"></li>
-					                       </ul> -->
-											 
-										  <!-- CP contents ends here-->       
-											</div>
-                                            <div class="warningDIV" id="warningDIVCP" name="warningDIVCP">
-												<center>
-												<p class="warningHeader" id="warningHeaderCP" name="warningHeaderCP"><span data-translationKey="optionalProducts_CP_WarningHeader"/></p>
-											</center>
-											<div class="warningText signatureCredentialsContainer" id="warningTextCP" name="warningTextCP">
-											<p>
-												<span data-translationKey="optionalProducts_SignatureAgreement_CP_subTitle" />
-											</p>
-											<p>
-												<span class="elementWithTop17 elementWithBoldFont" data-translationKey="optionalProducts_CPProducts" />
-											</p>
-                                             <!-- VZE-87 -->
-                                               <div class="agreementBoxContainerEX" style="display: table" id="optionalProduct_CP_AcceptBox_Area">
-												<div class="rightContaier">
-													<div class="wiciCheckBox">
-														<input type="checkbox" id="optionalProducts_CP_Agreement"> 
-                                                        <label for="optionalProducts_CP_Agreement"></label>
-												    </div>
-											    </div>
-											    <div class="leftContainer  opCheckBoxLabel" style="padding-top: 0; display: table-cell; vertical-align: middle;">
-												     <label data-translationkey="optionalProducts_TermsAndConditions_16_CP"></label>
-											    </div>
-											 <!-- VZE-87 -->
-											<p>
-												<!-- <span data-translationKey="sigScreen_Date" /><label id="optionalProducts_SignDateCP"> -->
-											</p>
-											</div>
-
+                         </td>
+                    </tr>
+					<tr id="optionalProducts_CPLD_Table">
+						<td class="op_table_title_td" colspan="2" id="optionalProducts_CPLD_Area">
+							<div class="elementWithRightMargin15 cpc_area_bg_grey">
+								<div class="privacyArea">
+									<div class="paddingLeft30 op_paddingBottom10 cpc_bg_white">
 										<br>
-										<center>
-											<div class="signatureContainer sugnatureFixes">
-												<div class="signatureBorder"
-													id="optionalProductsScreen_CP_SingnatureContainer">
-													<div class="signature" id="signature_CP" />
-												</div>
-											</div>
-											<br> <span id="signature_Reset_Button2"
-												class="button grayflat sigResetButton proceedButtonWidth"> <span
-												class="buttonText"
-												data-translationKey="signatureScreen_Reset_Button_Label"></span>
-											</span>
-										</center>
+					                    <p data-translationKey="OP_CPLD_P_bold"></p>
+					                    <p data-translationKey="OP_CPLD_disclosure" class="bold cpc_insurance_disclosure_title"></p>
 										<br>
-										<div class="signatureCredentialsContainer">
-										<label id="signatureScreen_UserName">${ClientName}</label>
-											</div>
-											</div>
-                                           <br>
-										</div>
-                                        <br>
-                                        <br>
-										
+					                    <p data-translationKey="OP_CPLD_coverage" class="offer_details_title_3 bold"></p>
+										<p data-translationKey="OP_CPLD_important" class="offer_details_title_2 bold"></p>
+					                    <p data-translationKey="OP_CPLD_creator_group1" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_creator_group2" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_creator_group3" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_creator_group4" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_creator_group5" class="withoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_premium" class="offer_details_title_2 bold"></p>
+										<p data-translationKey="OP_CPLD_premium_p" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_eligibility" class="offer_details_title_2 bold"></p>
+										<p data-translationKey="OP_CPLD_eligibility_p" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_benefits" class="offer_details_title_2 bold"></p>
+										<p data-translationKey="OP_CPLD_insurer" class="OP_WithoutPadding_p"></p>
+					                    <ul class="op_style_ul_without_padding">
+						                	<li data-translationKey="OP_CPLD_insurer_para1"></li>
+						                    <li data-translationKey="OP_CPLD_insurer_para2"></li>
+					                    </ul>
+					                    <p data-translationKey="OP_CPLD_monthly_benefits_p" class="OP_WithoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_monthly_benefits_20_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+					                    <p data-translationKey="OP_CPLD_monthly_benefits_10_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+										<p data-translationKey="OP_CPLD_outstanding_p" class="OP_WithoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_initail_benefit_p"  class="OP_WithoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_all_p" class="OP_WithoutPadding_p" ></p>
+										<p data-translationKey="OP_CPLD_life_coverage" class="offer_details_title_2 bold"></p>
+					                    <p data-translationKey="OP_CPLD_life_coverage_para1" class="withoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_life_coverage_para2" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_life_coverage_para3" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_claim_procedures" class="offer_details_title_2 bold"></p>
+					                    <p data-translationKey="OP_CPLD_claim_procedures_para1" class="withoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_claim_procedures_para2" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_claim_procedures_para3" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_termination" class="offer_details_title_2 bold"></p>
+					                    <p data-translationKey="OP_CPLD_termination_para1" class="withoutPadding_p"></p>
+					                    <p data-translationKey="OP_CPLD_termination_para2" class="withoutPadding_p"></p>
+					                    <ul class="op_style_ul_without_padding">
+						                	<li data-translationKey="OP_CPLD_termination_list1"></li>
+						                    <li data-translationKey="OP_CPLD_termination_list2"></li>
+						                    <li data-translationKey="OP_CPLD_termination_list3"></li>
+						                    <li data-translationKey="OP_CPLD_termination_list4"></li>
+						                    <li data-translationKey="OP_CPLD_termination_list5"></li>
+						                    <li data-translationKey="OP_CPLD_termination_list6"></li>
+					                    </ul>
+										<p data-translationKey="OP_CPLD_creditor" class="offer_details_title_2 bold"></p>
+					                    <p data-translationKey="OP_CPLD_creditor_para1" class="withoutPadding_p"></p>
+										<p data-translationKey="OP_CPLD_Enrolling_you_agree_this" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                    <ul class="op_style_ul_without_padding op_paddingLeft30">
+						                	<li data-translationKey="OP_CPLD_Enrolling_you_agree_this_1"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_2"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_3"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_4"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_5"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_6"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_7"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_8"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_9"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_10"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_11"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_12"></li>
+						                    <li data-translationKey="OP_CPLD_Enrolling_you_agree_this_13"></li>
+					                    </ul>
+										<br>
+										<p data-translationKey="OP_CPLD_liketoenroll" class="offer_details_title_3 bold"></p>
+										<p data-translationKey="OP_CPLD_consentyesorno" class="offer_details_title_3 bold"></p>
+										<br>
 									</div>
+									<br><br>
+                            		<div class="warningDIV" id="warningDIVCPLD" name="warningDIVCPLD">
+									<center>
+										<p class="warningHeader" id="warningHeaderCPLD" name="warningHeaderCPLD"><span data-translationKey="optionalProducts_CPLD_WarningHeader"/></p>
+									</center>
+									<div class="warningText signatureCredentialsContainer" id="warningTextCPLD" name="warningTextCPLD">
+										<p><span data-translationKey="optionalProducts_SignatureAgreement_CPLD_subTitle" /></p>
+										<p><span data-translationKey="optionalProducts_CPLDProduct" /></p>
+									</div>
+									<div class="signatureCredentialsContainer">
+										<div class="agreementBoxContainerEX" style="display: table" id="optionalProduct_CPLD_AcceptBox_Area">
+											<div class="rightContaier op_padding">
+												<div class="wiciCheckBox">
+													<input type="checkbox" id="optionalProducts_CPLD_Agreement">
+													<label for="optionalProducts_CPLD_Agreement"></label>
+												</div>
+											</div>
+											<div class="leftContainer opCheckBoxLabel_CLD warningText1" style="display: table-cell; vertical-align: middle;">
+												<div class="warningText1" id="warningText1CPLD" name="warningText1CPLD">
+													<p data-translationKey="optionalProducts_TermsAndConditions_16_CPLD" class="offer_details_title_4 bold lineHeight"></p>
+													<br>
+													<p data-translationKey="optionalProducts_TermsAndConditions_16_CPLD_1" class="offer_details_title_4 bold lineHeight"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<center>
+										<div class="signatureContainer sugnatureFixes">
+										<div class="signatureBorder" id="optionalProductsScreen_CPLD_SingnatureContainer">
+											<div class="signature" id="signature_CPLD"/></div>
+										</div>
+										<br> 
+										<span id="signature_Reset_Button1" class="button grayflat sigResetButton proceedButtonWidth"> <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span></span>
+									</center>
 								</div>
+                            <br><br>
 							</td>
 						</tr>
 					</div>
+					<!-- End Credit Protector Life & Disability  -->
 
-					<!-- End Credit Protector    -->
+					<!-- Start Credit Protector Complete    -->
+					<div>
+						<tr id="optionalProductsCreditProtectorCompleteItem">
+							<td class=" op_table_radio_td">
+                            	<div class="wiciCheckBox">
+							 		<input id="optionalProducts_CPC_YesNoTextField" type="checkbox" name="additionalInformation_OptionalProducts" />
+                             		<label for="optionalProducts_CPC_YesNoTextField"></label>
+                            	</div>
+							</td>
+							<td class="op_table_title_td">
+								<div class="section_3_copy">
+					            	<div class="section_3_copy_inner">
+						            	<h4 data-translationKey="OP_CPC_title"></h4>
+						            	<ul>
+							         		<li data-translationKey="OP_CPC_Li_1_available"></li>
+						            	</ul>
+					                </div>
+				                </div>
+							</td>
+						</tr>
+						<tr  class="fieldRow">
+                  		<tr id="lineSeparatorForCPC">
+                     		<td class="paddingTopAndBottom2 op_table_radio_td">
+							</td>
+                     		<td class="paddingTopAndBottom2 op_table_title_td">
+								<table id="optionalProducts_SelectedProductTable" class="stretchThisTable"/>
+                     		</td>
+                  		</tr>
+						<tr id="optionalProducts_CPC_Table">
+							<td class="op_table_title_td" id="optionalProducts_CPC_Area" colspan="2">
+								<div class="elementWithRightMargin15 cpc_area_bg_grey">
+									<div class="privacyArea">
+										<div class="paddingLeft30 op_paddingBottom10 cpc_bg_white">
+										     <br>
+					                         <p data-translationKey="OP_CPC_P_bold"></p>
+					                         <p data-translationKey="OP_CPC_disclosure" class="bold cpc_insurance_disclosure_title"></p>
+											 <br>
+					                         <p data-translationKey="OP_CPC_coverage" class="offer_details_title_3 bold"></p>
+											 <p data-translationKey="OP_CPC_important" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_creator_group1" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_creator_group2" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_creator_group3" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_creator_group4" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_creator_group5" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_premium" class="offer_details_title_2 bold"></p>
+											 <p data-translationKey="OP_CPC_premium_p" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_eligibility" class="offer_details_title_2 bold"></p>
+											 <p data-translationKey="OP_CPC_eligibility_p" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_benefits" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_paybenefits_p" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_employed" class="offer_details_title_3 bold op_paddingLeft10"></p>
+					                         <p data-translationKey="OP_CPC_youmust_p" class="OP_WithoutPadding_p op_paddingLeft27"></p>
+					                         <ul class="op_style_ul_without_padding">
+						                        <li data-translationKey="OP_CPC_Li_1_employed"></li>
+						                        <li data-translationKey="OP_CPC_li_2_experience"></li>
+						                        <li data-translationKey="OP_CPC_Li_3_remain"></li>
+					                         </ul class="style_ul_without_padding">
+					                         <p data-translationKey="OP_CPC_or" class="offer_details_title_2 bold op_paddingLeft26"></p>
+					                         <p data-translationKey="OP_CPC_selfemployed" class="offer_details_title_3 bold op_paddingLeft10"></p>
+					                         <p data-translationKey="OP_CPC_youmust_p" class="OP_WithoutPadding_p op_paddingLeft27"></p>
+					                         <ul class="op_style_ul_without_padding">
+						                        <li data-translationKey="OP_CPC_Li_2_1_selfemployed"></li>
+						                        <li data-translationKey="OP_CPC_Li_2_2_experience"></li>
+						                        <li data-translationKey="OP_CPC_Li_2_3_remain"></li>
+					                         </ul>
+					                         <p data-translationKey="OP_CPC_monthly_benefits_p" class="OP_WithoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_monthly_benefits_20_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+					                         <p data-translationKey="OP_CPC_monthly_benefits_10_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+											 <p data-translationKey="OP_CPC_outstanding_p" class="OP_WithoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_initail_benefit_p"  class="OP_WithoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_all_p" class="OP_WithoutPadding_p" ></p>
+					                         <p data-translationKey="OP_CPC_no_p" class="OP_WithoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_totaldisability" class="offer_details_title_2 bold"></p>
+											 <p data-translationKey="OP_CPC_insurer" class="OP_WithoutPadding_p"></p>
+					                         <ul class="op_style_ul_without_padding">
+						                        <li data-translationKey="OP_CPC_Li_1_were"></li>
+						                        <li data-translationKey="OP_CPC_Li_2_unable"></li>
+						                        <li data-translationKey="OP_CPC_Li_3_regular"></li>
+					                         </ul>
+					                         <p data-translationKey="OP_CPC_monthly_2_benefits_p" class="OP_WithoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_monthly_2_benefits_20_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+					                         <p data-translationKey="OP_CPC_monthly_2_benefits_10_p" class="OP_WithoutPadding_p op_paddingLeft10"></p>
+											 <p data-translationKey="OP_CPC_2_outstanding_p" class="OP_WithoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_2_initail_benefit_p"  class="OP_WithoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_2_all_p" class="OP_WithoutPadding_p" ></p>
+											 <p data-translationKey="OP_CPC_life_coverage" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_life_coverage_para1" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_life_coverage_para2" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_life_coverage_para3" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_claim_procedures" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_claim_procedures_para1" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_claim_procedures_para2" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_claim_procedures_para3" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_termination" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_termination_para1" class="withoutPadding_p"></p>
+					                         <p data-translationKey="OP_CPC_termination_para2" class="withoutPadding_p"></p>
+					                         <ul class="op_style_ul_without_padding">
+						                        <li data-translationKey="OP_CPC_termination_list1"></li>
+						                        <li data-translationKey="OP_CPC_termination_list2"></li>
+						                        <li data-translationKey="OP_CPC_termination_list3"></li>
+						                        <li data-translationKey="OP_CPC_termination_list4"></li>
+						                        <li data-translationKey="OP_CPC_termination_list5"></li>
+						                        <li data-translationKey="OP_CPC_termination_list6"></li>
+					                         </ul>
+											 <p data-translationKey="OP_CPC_creditor" class="offer_details_title_2 bold"></p>
+					                         <p data-translationKey="OP_CPC_creditor_para1" class="withoutPadding_p"></p>
+											 <p data-translationKey="OP_CPC_Enrolling_you_agree_this" class="offer_details_title_3 bold withoutPadding_p"></p>
+					                         <ul class="op_style_ul_without_padding op_paddingLeft30">
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_1"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_2"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_3"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_4"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_5"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_6"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_7"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_8"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_9"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_10"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_11"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_12"></li>
+						                        <li data-translationKey="OP_CPC_Enrolling_you_agree_this_13"></li>
+					                         </ul>
+											 <br>
+											 <p data-translationKey="OP_CPC_liketoenroll" class="offer_details_title_3 bold"></p>
+											 <p data-translationKey="OP_CPC_consentyesorno" class="offer_details_title_3 bold"></p>
+											</div>
+											<br><br>
+                                            <div class="warningDIV" id="warningDIVCPC" name="warningDIVCPC">
+												<center>
+													<p class="warningHeader" id="warningHeaderCPC" name="warningHeaderCPC"><span data-translationKey="optionalProducts_CPC_WarningHeader"/></p>
+												</center>
+												<div class="warningText signatureCredentialsContainer" id="warningTextCPC" name="warningTextCPC">
+													<p><span data-translationKey="optionalProducts_SignatureAgreement_CPC_subTitle"/></p>
+													<p><span class="elementWithTop17 elementWithBoldFont" data-translationKey="optionalProducts_CPCProducts"/></p>
+                                            	
+                                            		<div class="agreementBoxContainerEX" style="display: table" id="optionalProducts_CPC_AcceptBox_Area">
+														<div class="rightContaier op_padding">
+															<div class="wiciCheckBox">
+																<input type="checkbox" id="optionalProducts_CPC_Agreement"> 
+                                                        		<label for="optionalProducts_CPC_Agreement"></label>
+												    		</div>
+											    		</div>
+											    		<div class="leftContainer opCheckBoxLabel_CLD" style="display: table-cell; vertical-align: middle;">
+															<div class="warningText1" id="warningText1CPC" name="warningText1CPC">
+													 			<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC" class="offer_details_title_4 bold lineHeight"></p>
+																<br>
+													 			<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC_1" class="offer_details_title_4 bold lineHeight"></p>
+											    			</div>
+														</div>
+													</div>
+												</div>
+												<br>
+												<center>
+													<div class="signatureContainer sugnatureFixes">
+														<div class="signatureBorder" id="optionalProductsScreen_CPC_SignatureContainer">
+															<div class="signature" id="signature_CPC" />
+														</div>
+													</div>
+													<br> 
+													<span id="signature_Reset_Button2" class="button grayflat sigResetButton proceedButtonWidth"> 
+														<span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+													</span>
+												</center>
+										</div>
+                                        <br><br>
+							</td>
+						</tr>
+					<br>
+					</div>
+					<!-- End Credit Protector Complete   -->
 
-					<!-- Start CIdentity Watch Classic    -->
-					<!-- End Identity Watch Classic    -->
 					<!-- Start No Do not Enrol me -->
 					<div id="optionalProductsNACheckFieldItem">
 						<tr>
@@ -597,16 +434,27 @@
 	<br>
 	<!-- Radio button optional products ends -->
 	
-			<footer class="op_wrapper_footer">
-		          <p data-translationkey="OP_FT_there_are_op_offfers" class="withoutPadding_p"></p><br>
-		          <p data-translationkey="OP_FT_business_product" class="withoutPadding_p"></p><br>
-		         <!--<p data-translationkey="OP_FT_business_name" class="withoutPadding_p"></p>-->
-		          <p data-translationkey="OP_FT_unless" class="withoutPadding_p"></p><br>
-		          <p data-translationkey="OP_FT_CP" class="withoutPadding_p"></p><br>
-		          <p data-translationkey="OP_FT_assurant" class="withoutPadding_p"></p><br>
-		          <p data-translationkey="OP_FT_mastercard" class="withoutPadding_p"></p>
+			<footer id="op_cp_footer_termsandconditions_cpc" class="op_wrapper_footer">
+		    	<p data-translationkey="OP_CPC_FT_there_are_op_offfers" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPC_FT_business_product" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPC_FT_unless" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPC_FT_CP" class="withoutPadding_p"></p><br>
+				<p data-translationkey="OP_CPC_FT_license" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPC_FT_assurant" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPC_FT_mastercard" class="withoutPadding_p"></p><br>
+				<p data-translationkey="OP_CPC_FT_TCPC" class="withoutPadding_p"></p>
 	        </footer>
-			<!-- No enrole me ends -->
+
+			<footer id="op_cp_footer_termsandconditions_cpld" class="op_wrapper_footer">
+		    	<p data-translationkey="OP_CPLD_FT_there_are_op_offfers" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPLD_FT_business_product" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPLD_FT_unless" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPLD_FT_CP" class="withoutPadding_p"></p><br>
+				<p data-translationkey="OP_CPLD_FT_license" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPLD_FT_assurant" class="withoutPadding_p"></p><br>
+		        <p data-translationkey="OP_CPLD_FT_mastercard" class="withoutPadding_p"></p><br>
+				<p data-translationkey="OP_CPLD_FT_TCPC" class="withoutPadding_p"></p>
+	        </footer>
 	<br>
 	<center>
 		<span id="optionalProducts_ProceedButton"

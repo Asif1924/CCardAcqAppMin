@@ -147,6 +147,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		{ notField: true, name : 'expiryDateYear', value : null, validation : { type : 'idExpiryDate', message : '', group: [ 1 ] } },
 		{ notField: true, name: 'scanFlag', value: null },
 		{ notField: true, name: 'response', value: null },
+		{ notField: true, name: 'prev_birthDate', value: null },
 		{ name: 'DSAScore',  		value: null, validation: null },
 		{ name: 'treatmentCode',  	value: null, validation: null },
 		{ name: 'tmxProfileID',  	value: null, validation: null },
@@ -167,6 +168,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             {name: 'city',         value: null, validation: {type: 'city',         message: '', group: [3]} },
             {name: 'province',     value: null, validation: {type: 'presence',     message: '', group: [3]} },
             {name: 'postalcode',   value: null, validation: {type: 'postal',       message: '', group: [3]} },
+			{notField: true, name: 'prev_province', 		value: null },
+			{notField: true, name: 'editedCPFlag', 			value: null },
             {notField: true, name: 'scannedSuitunit', 		value: null },
             {notField: true, name: 'scannedStrtNoAndName', 	value: null },
             {notField: true, name: 'scannedAddressline1', 	value: null },
@@ -2969,8 +2972,43 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             currModel.set('DSAScore', '');
             currModel.set('treatmentCode', '');
             currModel.set('tmxProfileID', '');
-        	flow.next();
+			storeUpdatedValueFlag();
+        	flowNext();
         }
+    }
+
+	function storeUpdatedValueFlag() {
+		var sMethod = 'storeUpdatedValue() :: ';
+		
+		console.log(logPrefix + sMethod + " previous values :: " + models.personalDataModel.get('prev_birthDate')
+					 + " " +models.addressModel.get('prev_province'));
+		console.log(logPrefix + sMethod + " current values :: " + models.personalDataModel.get('birthDate')
+					 + " " + models.addressModel.get('province'));
+		// First time page loads
+		if(models.personalDataModel.get('prev_birthDate') == null && models.addressModel.get('prev_province') == null) {
+			models.addressModel.set('editedCPFlag', false);
+			console.log(logPrefix + sMethod + " First time page loads : " + models.addressModel.get('editedCPFlag'));
+		} else if(models.personalDataModel.get('prev_birthDate') != models.personalDataModel.get('birthDate') || 
+					models.addressModel.get('prev_province') != models.addressModel.get('province')) {
+			models.addressModel.set('editedCPFlag', true);
+			console.log(logPrefix + sMethod +" Value changes in model : " + models.addressModel.get('editedCPFlag'));
+		} else if(models.personalDataModel.get('prev_birthDate') == models.personalDataModel.get('birthDate') || 
+					models.addressModel.get('prev_province') == models.addressModel.get('province')) {
+			models.addressModel.set('editedCPFlag', false);
+			console.log(logPrefix + sMethod +" Value not changed : " + models.addressModel.get('editedCPFlag'));
+		}
+	} 
+
+	function flowNext() {
+		var sMethod = 'flowNext() :: ';
+		
+		console.log(logPrefix + sMethod + models.personalDataModel.get('birthDate') + 
+			+ " " + models.addressModel.get('province'));
+		models.personalDataModel.set('prev_birthDate', models.personalDataModel.get('birthDate'));
+		models.addressModel.set('prev_province', models.addressModel.get('province'));
+		console.log(logPrefix + sMethod + models.personalDataModel.get('prev_birthDate') + 
+			+ " " + models.addressModel.get('prev_province'));
+        flow.next();
     }
     
     function showAddressFieldsError() {
@@ -3013,13 +3051,16 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 currModel.set('DSAScore', argResponse.data.fpsTrustscore);
                 currModel.set('treatmentCode', argResponse.data.requestResult);
                 currModel.set('tmxProfileID', argResponse.data.tmxProfileID);
-                flow.next();
+				storeUpdatedValueFlag();
+                flowNext();
         	} catch (e) {
         		console.log(logPrefix + sMethod + "Exception : " + e);
-        		flow.next();
+				storeUpdatedValueFlag();
+        		flowNext();
         	}
         } else {
-        	flow.next();
+			storeUpdatedValueFlag();
+        	flowNext();
         }
     }
     
@@ -3032,7 +3073,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         currModel.set('DSAScore', '');
         currModel.set('treatmentCode', '');
         currModel.set('tmxProfileID', '');
-        flow.next();
+		storeUpdatedValueFlag();
+        flowNext();
     }
 
     function selectDOBFileld() {

@@ -14,30 +14,29 @@ import com.zebra.sdk.printer.ZebraPrinter;
 public class WICIReplacementHelper {
     List<ReplacementStrategy> _replacementStrategies;
     
-    public WICIReplacementHelper (WICICardmemberModel carmemberModel, Context context, ZebraPrinter printer) {
-        if (carmemberModel == null){
-            throw new IllegalArgumentException("carmemberModel could not be null");
+    public WICIReplacementHelper (WICICardmemberModel cardmemberModel, Context context, ZebraPrinter printer) {
+        if (cardmemberModel == null){
+            throw new IllegalArgumentException("cardmemberModel could not be null");
         }        
         
         _replacementStrategies = new ArrayList<ReplacementStrategy>();
-        
-        _replacementStrategies.add(new WICICardReplacementStrategy(carmemberModel.getCardType()));
-        _replacementStrategies.add(new WICICardTermsReplacementStrategy(carmemberModel.getCardType()));
-        _replacementStrategies.add(new WICIAccountShopingReplacementStrategy(carmemberModel.getCardType()));
+        _replacementStrategies.add(new WICICardReplacementStrategy(cardmemberModel.getCardType()));
+        _replacementStrategies.add(new WICICardTermsReplacementStrategy(cardmemberModel.getCardType()));
+        _replacementStrategies.add(new WICIAccountShopingReplacementStrategy(cardmemberModel.getCardType()));
                 
         // US3692
-        String cryptedAccountNumber = carmemberModel.getAccountNumber();
-        String maskedPAN = carmemberModel.getMaskedPAN();
+        String cryptedAccountNumber = cardmemberModel.getAccountNumber();
+        String maskedPAN = cardmemberModel.getMaskedPAN();
         String accountNumber = "";
         int offset = 0;
-        String retailNetwork = carmemberModel.getRetailNetwork();
+        String retailNetwork = cardmemberModel.getRetailNetwork();
 
         if (cryptedAccountNumber != null && !cryptedAccountNumber.isEmpty()) {
         	// UAT204
         	if("4111111111111111".equals(cryptedAccountNumber))
         		accountNumber = cryptedAccountNumber;
         	else
-        		accountNumber = DecryptAccountNumber (context,cryptedAccountNumber);
+        		accountNumber = DecryptAccountNumber(context,cryptedAccountNumber);
         	
 	        if((Integer.parseInt(accountNumber.substring(offset, offset + 1).toString().trim()) == 5 && accountNumber.length() == 16 && (maskedPAN == null || maskedPAN.isEmpty()))) {
 	        	Log.i(" WICIReplacementHelper ", " 5 : 16 ");
@@ -45,7 +44,7 @@ public class WICIReplacementHelper {
 	        } else if((Integer.parseInt(accountNumber.substring(offset, offset + 2).toString().trim()) == 73 && accountNumber.length() == 15 && (maskedPAN != null || !maskedPAN.isEmpty()))) {
 	        	Log.i(" WICIReplacementHelper ", " 73 : 15 ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy(accountNumber, context));
-	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(carmemberModel.getMaskedPAN(), context));
+	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy(cardmemberModel.getMaskedPAN(), context));
 	        } else if(("NS".equalsIgnoreCase(retailNetwork)) && "4111111111111111".equals(cryptedAccountNumber) ) {
 	        	Log.i(" WICIReplacementHelper ", " NS ");
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("4111111111111111", context));
@@ -53,30 +52,26 @@ public class WICIReplacementHelper {
 	        	_replacementStrategies.add(new WICIAccountNumberReplacementStrategy("731111111111111", context));
 	        	_replacementStrategies.add(new WICIMaskedPANReplacementStrategy("411111XXXXXX1111", context));
 	        }
-	        
         }
-     
         Log.i(" accountNumber ", accountNumber);     
                 
-        _replacementStrategies.add(new WICIExpiryDateReplacementStrategy(carmemberModel.getExpiryDate()));
-        _replacementStrategies.add(new WICITodayPlus30DaysReplacementStrategy(carmemberModel.getExpiryDate())); // VZE-478 Only used for Marks and Sports store coupon prints.
-        _replacementStrategies.add(new WICICreditLimitReplacementStrategy(carmemberModel.getCorrespondenceLanguage(), carmemberModel.getCreditLimit()));
-        if(carmemberModel.getPerformStoreRecallPrint()) {
-        	_replacementStrategies.add(new WICISimpleTextReplacementStrategy(carmemberModel.getCorrespondenceLanguage(), carmemberModel.getFirstName(), carmemberModel.getMiddleInitial(), 
-                    carmemberModel.getLastName(), carmemberModel.getApr()+'%', carmemberModel.getCashAPR()+'%', carmemberModel.getCreditProtectorYesNo(), carmemberModel.getIdentityWatchYesNo(),
-                    carmemberModel.getAdrsuiteunit(), carmemberModel.getAdrstreetnumber(), carmemberModel.getAdraddressline1(), carmemberModel.getAdrcity(),
-                    carmemberModel.getAdrprovince(), carmemberModel.getAdrpostalcode()));
+        _replacementStrategies.add(new WICIExpiryDateReplacementStrategy(cardmemberModel.getExpiryDate()));
+        _replacementStrategies.add(new WICITodayPlus30DaysReplacementStrategy(cardmemberModel.getExpiryDate())); // VZE-478 Only used for Marks and Sports store coupon prints.
+        _replacementStrategies.add(new WICICreditLimitReplacementStrategy(cardmemberModel.getCorrespondenceLanguage(), cardmemberModel.getCreditLimit()));
+        if(cardmemberModel.getPerformStoreRecallPrint()) {
+        	_replacementStrategies.add(new WICISimpleTextReplacementStrategy(cardmemberModel.getCorrespondenceLanguage(), cardmemberModel.getFirstName(), cardmemberModel.getMiddleInitial(), 
+                    cardmemberModel.getLastName(), cardmemberModel.getApr()+'%', cardmemberModel.getCashAPR()+'%', cardmemberModel.getCreditProtectorYesNo(), cardmemberModel.getCompleteLifeDisability(),
+                    cardmemberModel.getCPProductTrademarkMD(),cardmemberModel.getCPProductTrademarkCPCMC(),cardmemberModel.getCPProductTrademarkCPLMC(),cardmemberModel.getAdrsuiteunit(), cardmemberModel.getAdrstreetnumber(), cardmemberModel.getAdraddressline1(), cardmemberModel.getAdrcity(),
+                    cardmemberModel.getAdrprovince(), cardmemberModel.getAdrpostalcode()));
         } else {
-        	_replacementStrategies.add(new WICISimpleTextReplacementStrategy(carmemberModel.getCorrespondenceLanguage(), carmemberModel.getFirstName(), carmemberModel.getMiddleInitial(), 
-                    carmemberModel.getLastName(), carmemberModel.getApr(), carmemberModel.getCashAPR(), carmemberModel.getCreditProtectorYesNo(), carmemberModel.getIdentityWatchYesNo(),
-                    carmemberModel.getAdrsuiteunit(), carmemberModel.getAdrstreetnumber(), carmemberModel.getAdraddressline1(), carmemberModel.getAdrcity(),
-                    carmemberModel.getAdrprovince(), carmemberModel.getAdrpostalcode()));
+        	_replacementStrategies.add(new WICISimpleTextReplacementStrategy(cardmemberModel.getCorrespondenceLanguage(), cardmemberModel.getFirstName(), cardmemberModel.getMiddleInitial(), 
+                    cardmemberModel.getLastName(), cardmemberModel.getApr(), cardmemberModel.getCashAPR(), cardmemberModel.getCreditProtectorYesNo(), cardmemberModel.getCompleteLifeDisability(),
+                    cardmemberModel.getCPProductTrademarkMD(),cardmemberModel.getCPProductTrademarkCPCMC(),cardmemberModel.getCPProductTrademarkCPLMC(),cardmemberModel.getAdrsuiteunit(), cardmemberModel.getAdrstreetnumber(), cardmemberModel.getAdraddressline1(), cardmemberModel.getAdrcity(),
+                    cardmemberModel.getAdrprovince(), cardmemberModel.getAdrpostalcode()));
         }
-        _replacementStrategies.add(new WICISignatureReplacementStrategy(carmemberModel.getSignture(), printer)); 
-        _replacementStrategies.add(new WICIPrintoutAddReplacementStrategy(carmemberModel.getTodayDate(),carmemberModel.getStoreNumber())); 
-            
+        _replacementStrategies.add(new WICISignatureReplacementStrategy(cardmemberModel.getSignature(), printer)); 
+        _replacementStrategies.add(new WICIPrintoutAddReplacementStrategy(cardmemberModel.getTodayDate(),cardmemberModel.getStoreNumber())); 
     } 
-    	
     
     public String applyReplacement(String source) {
         // Go through all replacementStrategies and apply replacement logic
@@ -85,7 +80,6 @@ public class WICIReplacementHelper {
                 source = replacementStrategy.applyReplacement(source);
             }    
         }                
-        
         return source;
     }
     

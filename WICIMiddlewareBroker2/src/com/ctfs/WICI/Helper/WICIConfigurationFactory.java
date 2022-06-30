@@ -9,7 +9,6 @@ import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 
 public class WICIConfigurationFactory
 {
-	
 	private static final String CONFIGURATION_PROPERTIES="WICI_ENVIRONMENT_CONFIGURATION";
 	private static final String WEBSERVICES_ENDPOINT_SHAREDSERVICES="WEBSERVICES_ENDPOINT_SHAREDSERVICES";
 	private static final String ACCOUNTAPPLICATION_DELAY="WEBSERVICES_ACCOUNTAPPLICATION_DELAY";
@@ -17,20 +16,18 @@ public class WICIConfigurationFactory
 	private static final String DSS_ADDRESS_ENDPOINT="DSS_ADDRESS_ENDPOINT";
 	private static final String DSS_TMX_ENDPOINT="DSS_TMX_ENDPOINT";
 	private static final String DSS_EMAIL_ENDPOINT="DSS_EMAIL_ENDPOINT";
+	private static final String DSS_CP_ELIGIBILITY_ENDPOINT="DSS_CP_ELIGIBILITY_ENDPOINT";
 	
 	private static final String JKSConfig ="JKSConfig";
 	private static final String JKSFileName ="JKSFileName";
 	private static final String JKSPassword ="JKSPassword";
 	private static final String TLSVersion ="TLSVersion";
 	
-	
 	private static final String DSS_DII_ENDPOINT ="DSS_DII_ENDPOINT";
 	private static final String JWT_TOKEN ="JWT_TOKEN";
 	private static final String DSS_SERVICE_ENV ="DSS_SERVICE_ENV";
 	private static final String DSS_SUBMITAPP_ENDPOINT ="DSS_SUBMITAPP_ENDPOINT";
-	//private static final String SHAREDSERVICE_ON ="SHAREDSERVICE_ON";
 	private static final String DSS_JOBDESC_ENDPOINT="DSS_JOBDESC_ENDPOINT";
-	
 	
 	static Logger log = Logger.getLogger(WICIConfigurationFactory.class.getName());
 
@@ -42,11 +39,9 @@ public class WICIConfigurationFactory
 		WICIConfiguration conf = new WICIConfiguration();
 		QName serviceName = new QName("http://web.sharedservices.ctfs.com/SharedWebServices/", "SharedWebServices");
 				
-		   	    
 		ApplicationConfiguration.readApplicationConfiguration();
 		Map environmentMap = ApplicationConfiguration.getCategoryKeys(CONFIGURATION_PROPERTIES);
 		log.info("Back end pointed to "+ environmentMap.get(WEBSERVICES_ENDPOINT_SHAREDSERVICES));
-			
 			
 		String webservicesEndPoint = environmentMap.get(WEBSERVICES_ENDPOINT_SHAREDSERVICES).toString();// getEndpointFromConfigurationFile();
 		String accountApplicationDelay = environmentMap.get(ACCOUNTAPPLICATION_DELAY).toString();//getAccountApplicationDelayFromConfigurationFile();
@@ -54,12 +49,9 @@ public class WICIConfigurationFactory
 		conf.setWebservicesEndpoint(webservicesEndPoint);
 		conf.setServiceName(serviceName);
 
-		try
-		{
+		try {
 			conf.setAccountApplicationDelay(Integer.parseInt(accountApplicationDelay));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.warning(sMethod + "---error setting AccountApplicationDelay: " + e.getMessage());
 		}
 
@@ -69,8 +61,7 @@ public class WICIConfigurationFactory
 		return conf;
 	}
 	
-	public WICIConfiguration readOutletTypeIdConfiguration(String retailNetwork)
-	{
+	public WICIConfiguration readOutletTypeIdConfiguration(String retailNetwork) {
 		String sMethod = this.getClass().getName() + "[readOutletTypeIdConfiguration] ";
 		log.info(sMethod + " ::::::: " + retailNetwork);
 		
@@ -81,15 +72,13 @@ public class WICIConfigurationFactory
 		log.info("Outlet type id CT :: "+ environmentMap.get(retailNetwork));
 						
 		String outletTypeId = environmentMap.get(retailNetwork).toString();// getOUTLET_TYPE_ID();
-		
 		conf.setOutletTypeId(outletTypeId);
 
 		log.info(sMethod + "--- Outlet type id " + conf.getOutletTypeId());
 		return conf;
 	}
 	
-	public WICIConfiguration createDASSEndPointConfiguration()
-	{
+	public WICIConfiguration createDASSEndPointConfiguration() {
 		String sMethod = this.getClass().getName() + "[createDASSEndPointConfiguration] ";
 		log.info(sMethod);
 
@@ -105,9 +94,7 @@ public class WICIConfigurationFactory
 		log.info(JWT_TOKEN + " -> "+ environmentMap.get(JWT_TOKEN));
 		log.info(DSS_SERVICE_ENV + " -> "+ environmentMap.get(DSS_SERVICE_ENV));
 		log.info(DSS_SUBMITAPP_ENDPOINT + " -> "+ environmentMap.get(DSS_SUBMITAPP_ENDPOINT));
-		
-		/*log.info(SHAREDSERVICE_ON + " -> "+ environmentMap.get(SHAREDSERVICE_ON));*/
-		
+		log.info(DSS_CP_ELIGIBILITY_ENDPOINT + " -> "+ environmentMap.get(DSS_CP_ELIGIBILITY_ENDPOINT));
 		
 		String dssEndPoint = environmentMap.get(DSS_ADDRESS_ENDPOINT).toString();
 		String tmxEndPoint = environmentMap.get(DSS_TMX_ENDPOINT).toString();
@@ -117,6 +104,7 @@ public class WICIConfigurationFactory
 		String dssServiceEnv = environmentMap.get(DSS_SERVICE_ENV).toString();
 		String dsssubmitAPPEndpont = environmentMap.get(DSS_SUBMITAPP_ENDPOINT).toString();
 		String jobDescEndpoint = environmentMap.get(DSS_JOBDESC_ENDPOINT).toString();
+		String cPEligibilityEndpoint = environmentMap.get(DSS_CP_ELIGIBILITY_ENDPOINT).toString();
 		conf.setDssEndPoint(dssEndPoint);
 		
 		log.info("jksPath -> "+jksconfigurationMap.get(JKSFileName));
@@ -126,9 +114,7 @@ public class WICIConfigurationFactory
 		String jksPath = jksconfigurationMap.get(JKSFileName).toString();
 		String jksPassword = jksconfigurationMap.get(JKSPassword).toString();
 		String jksTlsVersion = jksconfigurationMap.get(TLSVersion).toString();
-		/*String sharedservicflag = environmentMap.get(SHAREDSERVICE_ON).toString();
-		log.info("sharedservicflag -> "+sharedservicflag);
-		*/conf.setDssEndPoint(dssEndPoint);
+		conf.setDssEndPoint(dssEndPoint);
 		conf.setJksPath(jksPath);
 		conf.setJksPassword(jksPassword);
 		conf.setJksTlsVersion(jksTlsVersion);
@@ -139,16 +125,12 @@ public class WICIConfigurationFactory
 		conf.setDssserviceEnv(dssServiceEnv);
 		conf.setDsssubmitAppEndPoint(dsssubmitAPPEndpont);
 		conf.setJobDescEndPoint(jobDescEndpoint);
-		
-		/*conf.setShareserviceEnabled(sharedservicflag);*/
+		conf.setCpEligibilityEndPoint(cPEligibilityEndpoint);
 		
 		log.info(sMethod + "---Jks Details  " + conf.getJksPath()   +"======"+conf.getJksPassword()+ "===="+conf.getJksTlsVersion()+"====="+conf.getDssTmxEndPoint()+"======"+conf.getDssEmailEndPoint()+"==========="+conf.getDssDIIEndPoint()+"============="+conf.getJwtToken());
-		
 		log.info(sMethod + "---JobDesc Endpoint  " + conf.getJobDescEndPoint());
 		
 		return conf;
 	}
-	
-	
 	
 }

@@ -337,6 +337,39 @@ border: 0px;
   padding-left: 80px;
 }
 
+.OP_WithoutPadding_p{
+  padding: 3px;
+  margin: 0px;
+}
+.op_style_ul_without_padding{
+  padding-left: 30px;
+  padding-top: 0px;
+  margin:5px 0 0 0;
+}
+.op_padding {
+	padding: 6px;
+}
+.op_paddingLeft5 {
+	padding-left: 5px;
+}
+.op_paddingLeft10 {
+	padding-left: 10px;
+}
+.op_paddingLeft11 {
+	padding-left: 11px;
+}
+.op_paddingLeft27 {
+	padding-left: 27px;
+}
+.op_paddingLeft26 {
+	padding-left: 26px;
+}
+.op_paddingLeft30 {
+	padding-left: 30px;
+}
+.op_paddingBottom10 {
+	padding-bottom: 10px;
+}
 
 .width100 {
   width: 100%
@@ -704,6 +737,14 @@ border: 0px;
 .title_arrow img {
     display: block;
     margin: -22px auto;
+	@media(max-width: 790px){
+		margin: -14px auto;
+	}
+}
+
+.title_arrow_cpc img {
+    display: block;
+    margin: -22px auto;
 }
 
 .red_icon {
@@ -714,7 +755,16 @@ border: 0px;
 .credit_prot_division {
     display: table;
     position: relative;
-    line-height: 32px;
+	line-height: 32px;
+	@media(max-width: 790px){
+		line-height: 13px;
+	}
+}
+
+.credit_prot_division_cpc {
+	display: table;
+    position: relative;
+	line-height: 32px;
 }
 
 .credit_prot {
@@ -2270,19 +2320,19 @@ tr {
   /* US4989 starts */
   // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
-   #omxCardChooseProduct {
-    background-image: #{inline_image("chooseProduct_OMX_EN_V1.png")};
+  #omxCardChooseProduct {
+    background-image: #{inline_image("WICI_OMX_OMP_Eng_FMR.png")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #omxCardChooseProduct.en_card {
-    background-image: #{inline_image("chooseProduct_OMX_EN_V1.png")};
+    background-image: #{inline_image("WICI_OMX_OMP_Eng_FMR.png")};
   }
 
   #omxCardChooseProduct.fr_card {
-    background-image: #{inline_image("chooseProduct_OMX_FR_V1.png")};
+    background-image: #{inline_image("WICI_OMX_OMP_Fr_FMR.png")};
   }
   .omxCardChooseProduct {
     background-size: 100% 100%;
@@ -2297,21 +2347,50 @@ tr {
     margin-bottom: 15px;
  }
  
+/* VZE-577 */
+#omxCardChooseProduct_CSR {
+    background-image: #{inline_image("WICI_OMX_OMP_Eng_Employee_Screen.png")};
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+  }
+
+  #omxCardChooseProduct_CSR.en_card {
+    background-image: #{inline_image("WICI_OMX_OMP_Eng_Employee_Screen.png")};
+  }
+
+  #omxCardChooseProduct_CSR.fr_card {
+    background-image: #{inline_image("WICI_OMX_OMP_Fr_Employee_Screen.png")};
+  }
+  .omxCardChooseProduct_CSR {
+    background-size: 100% 100%;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 0px;
+    margin: 0px auto;
+    outline-style: none;
+    height: 1200px;
+    max-width: 1200px;
+    margin-bottom: 15px;
+ }
+ /* VZE-577 */
+ 
  // SupplementaryCard
  
   #suppCard_OMX {
-    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.jpg")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #suppCard_OMX.en_card {
-    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_EN.jpg")};
   }
 
   #suppCard_OMX.fr_card {
-    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_FR.png")};
+    background-image: #{inline_image("SuppCardScreen_OMX_OMZ_FR.jpg")};
   }
   
   .supplementaryCardImage {
@@ -2327,18 +2406,18 @@ tr {
 }
  
  #suppCard_OMP_OMR {
-    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.jpg")};
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
   }
 
   #suppCard_OMP_OMR.en_card {
-    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_EN.jpg")};
   }
 
   #suppCard_OMP_OMR.fr_card {
-    background-image: #{inline_image("SuppCardScreen_OMP_OMR_FR.png")};
+    background-image: #{inline_image("SuppCardScreen_OMP_OMR_FR.jpg")};
   }
  
  
@@ -2967,6 +3046,9 @@ text-align: center;
   overflow: hidden;
   margin: 0;
   padding: 0;
+}
+#opColorBlue {
+	color: blue;
 }
 // US5391 : Remove OMR from card selection page
 #creditCardProductList li {
@@ -3804,6 +3886,26 @@ body.ui-mobile-viewport { overflow-x: visible; }
     margin-bottom: 10px;
     min-height: 150px;
 }
+
+.csr_cantireAgreement_P p{
+    font-family: Arial;
+    color: #636466;
+    padding : .1px;
+    font-size: 12pt;
+    margin-left: 27px;
+}
+
+.csr_cantireAgreement_UL ul li{
+    font-family: Arial;
+    color: #636466;
+    padding : .1px;
+    font-size: 12pt;
+    margin-left: 27px;
+}
+
+.csr_cantireAgreement_marginLeft{
+    margin-left: -25px;
+}
 .wiciCheckBox label {
   cursor: pointer;
   position: absolute;
@@ -3916,13 +4018,49 @@ input[type="text"]::placeholder {
   bottom: 23px;
 }
 
-.opCheckBoxLabel
-{
+.lineHeight:first-line {
+    line-height:100% !important;
+}
+
+.opCheckBoxLabel {
   padding-top: 15px;
   padding-left: 10px;
   position: inherit;
 }
 
+.opCheckBoxLabel_CLD {
+  padding-top: 8px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  position: inherit;
+}
+.cpc_area_bg_grey {
+	background-color: #f7f7f7;
+    padding: 0 50px 0 50px;
+}
+.cpc_bg_white {
+	background-color: #ffffff;
+}
+.cpc_insurance_disclosure_title {
+	background-color: #5a5656;
+    color: white;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+	padding: 15pt;
+	text-shadow: 0 0 #5a5656;
+	font-size: 18pt;
+    margin: 0.25em 0 0;
+}
+.cpc_mandatory_disclosure {
+	font-size: 20pt;
+    color: #f31717;
+    margin: 0;
+}
+
+.cpc_mandatory_disclosure_subtitle {
+	font-size: 10pt;
+    color: grey;
+}
 .sugnatureFixes
 {
   height: 200px;
@@ -4016,8 +4154,8 @@ div.ui-slider-switch
 
 /*  Start Optional page - related styles */
 
-.paddingLeft60 {
-  padding-left: 60px;
+.paddingLeft30 {
+  padding-left: 30px;
 }
 
 .elementWithTop5 {
@@ -4313,6 +4451,16 @@ div.ui-slider-switch
   text-align:left;
   font-size: 12pt;
 }
+.warningText1{
+  color: red;
+  text-align:left;
+  font-size: 12pt;
+}
+.warningText1Cleared{
+  color: black;
+  text-align:left;
+  font-size: 12pt;
+}
 
 .sigResetButton{
   height:20px !important;
@@ -4590,9 +4738,12 @@ p.offer_details_title_2 {
 }
 p.offer_details_title_3 {
     font-size: 12pt;
-    margin: .25em 0 0 0;
+    margin: 0.25em 0 0 0;
 }
-
+p.offer_details_title_4 {
+    font-size: 12pt;
+    margin: -0.3em 0 0 0;
+}
 .offer_details .underline {
     border-bottom: 1px solid #8b8b8b;
 }
@@ -4603,6 +4754,39 @@ p.offer_details_title_3 {
       border: 0;
   }
 }
+/* VZE-528 */
+.csr_chooseProduct{
+    width: 70%;
+    border:1px solid #CCCCCC;
+    border-radius: 0px;
+    margin-left: 27px;
+    
+    tr td:first-child{
+       border-left: 1px solid #CCCCCC;
+    }
+    tr td{
+       border: 1px solid #CCCCCC;
+    }
+    tr th{
+       border: 1px solid #CCCCCC;
+    }
+}
+
+.csr_borderLeft{
+   border-left: 1px solid #CCCCCC;
+}
+
+.csr_chooseProductTrTd{
+   /*border:1px solid #CCCCCC;*/
+  /* border-radius: 0px; */
+   height: 0px;
+   text-align: center;
+}
+
+.csr_borderLeftTDWhite{
+   border-left: solid 1px #636466;
+}
+
 .offer_details table thead td:last-child {
     padding-left: 15px;
 }
@@ -4710,7 +4894,7 @@ p.offer_details_title_3 {
 }
 
 .withoutPadding_p{
-  padding:0px;
+  padding: 3px;
   margin: 0px;
   padding-top:5px;
 
@@ -4757,7 +4941,9 @@ p.offer_details_title_3 {
 }
 .link_style{
     text-decoration: underline;
- 
+}
+.OP_link_style {
+    color: blue;
 }
 .radio_sup{
   top: -0.5em;
@@ -4765,6 +4951,22 @@ p.offer_details_title_3 {
   line-height: 0;
   position: relative;
   vertical-align: baseline;
+}
+
+.radio_CPC_RegSup{
+	top: -0.5em;
+	font-size: 75%;
+  	line-height: 3;
+  	position: relative;
+  	vertical-align: baseline;
+}
+
+.radio_CPC_TradeSup{
+	top: -0.3em;
+	font-size: 75%;
+  	line-height: 3;
+  	position: relative;
+  	vertical-align: baseline;
 }
  
 .optionaProduct_cp_iw_sup{

@@ -305,7 +305,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function assembleCardContentsAndDisclaimerHTML() {
         clearDescriptionAreas();
-        $("#CC_OMC-template").tmpl().appendTo("#cardDescriptionArea");
+        $("#CC_OMC-template").tmpl({
+        	activationItems: activationItems,
+       }).appendTo("#cardDescriptionArea");
         $("#CC_Legal_OMC-template").tmpl().appendTo(
             "#chooseProductScreen_disclaimerArea");
     }
@@ -696,13 +698,23 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
         
         // Choose what card to display: English or French.
-        if (app.translator.getCurrentLanguage() === "en") {
-            $("#omxCardChooseProduct").removeClass("fr_card");
-            $("#omxCardChooseProduct").addClass("en_card");
-        } else {
-            $("#omxCardChooseProduct").removeClass("en_card");
-            $("#omxCardChooseProduct").addClass("fr_card");
-        }
+        if(loginModel.get('employerID').toUpperCase() === 'E'){
+        	if (app.translator.getCurrentLanguage() === "en") {
+        		$("#omxCardChooseProduct_CSR").removeClass("fr_card");
+                $("#omxCardChooseProduct_CSR").addClass("en_card");
+        	}else{
+        		$("#omxCardChooseProduct_CSR").removeClass("en_card");
+                $("#omxCardChooseProduct_CSR").addClass("fr_card");
+        	}
+    	}else{
+    		if (app.translator.getCurrentLanguage() === "en") {
+    			$("#omxCardChooseProduct").removeClass("fr_card");
+                $("#omxCardChooseProduct").addClass("en_card");
+        	}else{
+        		$("#omxCardChooseProduct").removeClass("en_card");
+                $("#omxCardChooseProduct").addClass("fr_card");
+        	}
+    	}
     }
     //----------------------------------------------------------------------------------------
     function loadCSRWorkflowOMC() {
@@ -885,8 +897,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function showOMC() {
         clearDescriptionAreas();
 
-        $("#CC_OMC-template").tmpl().appendTo("#cardDescriptionArea");
-        $("#CC_Legal_OMC-template").tmpl().appendTo(
+        $("#CC_OMC-template").tmpl({activationItems: activationItems,}).appendTo("#cardDescriptionArea");
+        $("#CC_Legal_OMC-template").tmpl({activationItems: activationItems,}).appendTo(
             "#chooseProductScreen_disclaimerArea");
         showCOCD();
 
@@ -896,8 +908,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function showOMX() {
         clearDescriptionAreas();
-        $("#CC_OMC-template").tmpl().appendTo("#cardDescriptionArea");
-        $("#CC_Legal_OMC-template").tmpl().appendTo(
+        $("#CC_OMC-template").tmpl({activationItems: activationItems,}).appendTo("#cardDescriptionArea");
+        $("#CC_Legal_OMC-template").tmpl({activationItems: activationItems,}).appendTo(
             "#chooseProductScreen_disclaimerArea");
         showCOCD();
         updatePageTranslation();

@@ -81,12 +81,21 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			{ notField: true, name: 'englishValue', value: null },
 			{ notField: true, name: 'frenchValue', value: null },
 			{ notField: true, name: 'storedValue', value: null },
+			{ notField: true, name: 'insurance_CPType_Available', value: null },
+			{ name : 'insurance_CPType_Offered',  value: null, validation: null},
+			{ name : 'insurance_CPType_Selected', value: null, validation: null},
+			{ name : 'cpEligibilityCheck_Counter', 		 value : null,  validation : null },
 			{ name : 'cardVISAMCAMEX', 		 value : null,  validation : null },
 			{ name : 'cardBankLoan', 		 value : null,  validation : null },
 			{ name : 'cardStoreCard', 		 value : null,  validation : null },
 			{ name : 'cardChequingAcct', 	 value : null,  validation : null },
 			{ name : 'cardGasCard', 		 value : null,  validation : null },
 			{ name : 'cardSavingsAcct', 	 value : null,  validation : null },
+			{ notField:true,  name: 'prev_employmentType', 	validation : null, value: null },
+			{ notField:true,  name: 'prev_jobCategory', 	validation : null, value: null },
+			{ notField:true,  name: 'prev_jobDescription', 	validation : null, value: null },
+			{ notField:true,  name: 'prev_jobDescriptionOther', validation : null, value: null },
+			{ notField:true,  name: 'insuranceSelected', 	validation : null, value: null },
         ]
     });
     this.innerModel = model;
@@ -124,6 +133,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		retrieveJobDescription();
         restoreCreditCardData();
         setUIElementsMasks();
+		if(model.get('insurance_CPType_Available') == null) {
+			model.set('insurance_CPType_Available', "TBD");
+		}
     }
 
     // ---------------------------------------------------------------------------------------
@@ -151,11 +163,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         }
         $(refs.sin).val(model.get('sin'));
 		if(model.get('jobDescription') == "Other") {
-			displayJobDescriptionOtherField(true);
-			$(refs.jobDescriptionOther).val(model.get('jobDescriptionOther'));
+			displayJobDescriptionOtherField(false);
 		}
     }
-
     // ---------------------------------------------------------------------------------------
     function syncUserData() {
         var sMethod = 'syncUserData() ';
@@ -193,7 +203,15 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         if (!(emplType in  prepopulatedTypes)) {
             model.set('jobCategory', $(refs.jobCategory).val());
-            model.set('jobDescription', model.get('storedValue'));
+            if($(refs.jobDescription).val() == "Other"){
+        		model.set('jobDescription', "Other");
+        	}else{
+        		if(model.get('storedValue')){
+        			model.set('jobDescription', model.get('storedValue'));
+        		}else{
+        			model.set('jobDescription', $(refs.jobDescription).val());
+        		}
+        	}
 			model.set('jobDescriptionOther', $(refs.jobDescriptionOther).val().toUpperCase());
             model.set('employerName', $(refs.employerName).val().toUpperCase());
             model.set('employerCity', $(refs.employerCity).val().toUpperCase());
@@ -228,8 +246,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     }
     
     function retrieveJobDescriptionSuccess(argResponse) {
-    	var sMethod = "retrieveJobDescriptionSuccess(argResponse)";
-        console.log(logPrefix + sMethod + JSON.stringify(argResponse));
+    	var sMethod = "retrieveJobDescriptionSuccess()";
+        console.log(logPrefix + sMethod );
         
         new WICI.LoadingIndicatorController().hide();
         if(!argResponse.error) {
@@ -295,8 +313,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 	function displayJobDescriptionOtherField(jobDescflag) {
 		var sMethod = 'displayJobDescriptionOtherField() ';
         console.log(logPrefix + sMethod);
-
-		$(refs.jobDescriptionOtherArea).show();
+        $(refs.jobDescriptionOtherArea).show();
 		$.each(model.data, function(index, item) {
             if(item.name == "jobDescriptionOther") {
          		item.validation.canBeEmpty = false;
@@ -304,20 +321,17 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         });
 		
 		if(!jobDescflag) {
-			var controlRef = $(refs.jobDescription);
-	        controlRef.empty();
-			model.set('jobDescription', 'Other');
-	        var jobDescription = model.get('jobDescription');
-	
+			model.set('jobDescription', "other");
+			model.set('jobDescriptionOther', translator.translateKey('finEmpInfoJobDesc_Other'));
+	        $(refs.jobDescription).val(translator.translateKey('finEmpInfoJobDesc_Other'));
 	        $(refs.jobDescriptionOther).val(translator.translateKey('finEmpInfoJobDesc_Other'));
-			$(refs.jobDescriptionOther).addClass('fieldValuesTextField');
-	
-	        if (jobDescription) {
-	            $(refs.jobDescription).val(jobDescription);
-				$(refs.jobDescription).prop('disabled', 'disabled');
-	        }
+			$(refs.jobDescription).addClass('fieldValuesTextField');
 		}
-
+		if(!model.get('jobDescSuccessFlag')){
+			$(refs.jobDescription).prop('disabled', 'disabled');
+		}else{
+			$(refs.jobDescription).removeAttr('disabled');
+		}
 	}
 	//---------------------------------------------------------------------------------------
 	function hideJobDescriptionOtherField() {
@@ -363,14 +377,12 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         	updateEmploymentType();
         }
     }
-
     // ---------------------------------------------------------------------------------------
     function show() {
         $screenContainer.show();
         translator.run("FinancialScreen");
         app.selectorReduceHelper.init();
     }
-
     // ---------------------------------------------------------------------------------------
     function setUIElementsMasks() {
         // Set phone fields mask
@@ -417,12 +429,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             placeholder : ""
         });
     }
-
     // ---------------------------------------------------------------------------------------
     function hide() {
         $screenContainer.hide();
     }
-
     // ---------------------------------------------------------------------------------------
     function createView() {
         $screenContainer.empty();
@@ -434,9 +444,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         $screenContainer.addClass("breadcrumbPadding");
         $('#financialScreen_infomation_phone').hide();
     }
-
     // ---------------------------------------------------------------------------------------
-
     function assembleNavigationBarAtTop() {
         $("#pageHeader-template").template("pageHeader");
         $.tmpl("pageHeader", {
@@ -446,7 +454,6 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             "settingsButtonId" : "FinancialScreen_SettingsButton"
         }).appendTo("#FinancialScreen");
     }
-
     // ---------------------------------------------------------------------------------------
     function assembleNavigationBarAtBottom(){
         $("#pageFooter-template").template("pageFooter");
@@ -553,7 +560,6 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     }
 
     function onPrepopulatedStatusClick(category, title) {
-
         var addressModel = activationItems.getModel('personalData2_Address');
         var _title = translator.translateKey(title);
         model.set('jobCategory', category);
@@ -590,10 +596,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         // US3960
         $(refs.tdGrossHouseholdIncomeLable).addClass('withBorderTop');
         $(refs.tdGrossHouseholdIncomeValue).addClass('withBorderTop');
-
     }
     // ---------------------------------------------------------------------------------------
-
     function bindEvents() {
         $('.FinancialScreen_NextButton').click(function() {
             showNextScreen();
@@ -608,15 +612,17 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         });
                
         $(refs.jobDescription).live("input", function(e) {
-          console.log(refs.jobDescription + '::input');
-          $(refs.jobDescription).addClass('fieldValuesTextField');
-          populatejobDescriptionList($(refs.jobDescription));      
-  	  });
+          	console.log(refs.jobDescription + '::input');
+          	$(refs.jobDescription).addClass('fieldValuesTextField');
+          	populatejobDescriptionList($(refs.jobDescription));      
+  	  	});
        
-     $(refs.jobDescription).on("change", function() {
+     	$(refs.jobDescription).on("change", function() {
        	 	console.log(refs.jobDescription + '::change');
-       	 	if($(refs.jobDescription).val()){
-       	 	   model.set('jobDescription',model.get('storedValue'));
+       	 	if(model.get('jobDescSuccessFlag')){
+       	 		if($(refs.jobDescription).val()){
+        	 	   model.set('jobDescription',model.get('storedValue'));
+        	 	}
        	 	}else{
        	 	   model.set('englishValue', "");
                model.set('frenchValue', "");
@@ -631,8 +637,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			}else {
 				hideJobDescriptionOtherField();
 			}
-      });
-	  $(refs.jobDescriptionOther).live('paste, input', function(e) {
+      	});
+	  	$(refs.jobDescriptionOther).live('paste, input', function(e) {
             var self = $(this);
             setTimeout(function() {
                 if(self.val().length > 19) {
@@ -776,7 +782,8 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     	console.log(sMethod + "jobDescValue :: " + jobDescValue);
    	    console.log(refs.jobDescription + '::value ' + $(refs.jobDescription).val());
 		if(jobDescValue == "Other" || jobDescValue == "Autre") {
-			displayJobDescriptionOtherField(true);
+			$(refs.jobDescriptionOther).val(translator.translateKey('finEmpInfoJobDesc_Other'));
+			displayJobDescriptionOtherField(false);
 		} else {
 			hideJobDescriptionOtherField();
 		}
@@ -852,13 +859,6 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
            //}
             
             if (rez.length > 0) {
-                var errStrArr = [];
-                if(!$(refs.jobDescription).val()){
-					console.log(logPrefix + sMethod + "jobDescription error");
-					
-					errStrArr.push({name: 'jobDescription', err: '', uiid: refs.jobDescription});
-				}
-                rez = rez.concat(errStrArr);
                 app.validationDecorator.applyErrAttribute(rez);
                 return;
             }
@@ -868,19 +868,188 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             }
         }
         if (checkGrossAnnualIncome(model.get('grossIncome')) && checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
-            flowNext();
+			cpEligibilityConditionCheck();
         }
 
+    }
+    // US3960
+    function grossAnnualHouseholdIncome(){   
+		var sMethod = "grossAnnualHouseholdIncome() :: "; 	
+        if (checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
+            cpEligibilityConditionCheck();
+        }
+    }
+	function cpEligibilityConditionCheck() {
+		var sMethod = "checkCPEligibility() :: ";
+    	console.log(logPrefix + sMethod);
+
+		if(preCheckConditions()) {
+			console.log(logPrefix + sMethod + " previous values :: " + model.get('prev_employmentType') + " " + model.get('prev_jobCategory') + " "
+				 + model.get('prev_jobDescription') + " " + model.get('prev_jobDescriptionOther'));
+			console.log(logPrefix + sMethod + " current values :: " + model.get('employmentTypeDSS') + " " + model.get('jobCategory') + " "
+				 + model.get('jobDescription') + " " + model.get('jobDescriptionOther'));
+			// First time page loads, then call CP Check eligibility
+			if(model.get('prev_employmentType') == null && model.get('prev_jobCategory') == null &&
+				model.get('prev_jobDescription') == null && model.get('prev_jobDescriptionOther') == null) {
+				model.set('cpEligibilityCheck_Counter', getCPCheckCounter() + 1);
+				console.log(logPrefix + sMethod + " First time page loads : " + model.get('cpEligibilityCheck_Counter'));
+				checkCPEligibility(checkCPEligibilitySuccess, checkCPEligibilityFailure);
+			} else if(model.get('prev_employmentType') != model.get('employmentTypeDSS') || model.get('prev_jobCategory') != model.get('jobCategory') ||
+				model.get('prev_jobDescription') != model.get('jobDescription') || model.get('prev_jobDescriptionOther') != model.get('jobDescriptionOther') ||
+				activationItems.getModel('personalData2_Address').get('editedCPFlag')) {
+				model.set('insurance_CPType_Available', "TBD");
+				model.set('cpEligibilityCheck_Counter', getCPCheckCounter() + 1);
+				console.log(logPrefix + sMethod +" Value changes in model : " + model.get('cpEligibilityCheck_Counter'));
+				if(model.get('insurance_CPType_Available') == "TBD") {
+					checkCPEligibility(checkCPEligibilitySuccess, checkCPEligibilityFailure);						
+				} else {
+					flowNext();
+				}	
+			} else {
+				flowNext();
+			}
+		} else {
+			// These conditions are not eligible for Insurance
+			model.set('insurance_CPType_Available', "NONE");
+			model.set('insurance_CPType_Offered', "");
+			model.set('insurance_CPType_Selected', "");
+			flowNext();
+		}
+	} 
+	// ---------------------------------------------------------------------------------------
+	function checkCPEligibility(argSuccessCB, argFailureCB) {
+    	var sMethod = "checkCPEligibility() :: ";
+    	console.log(logPrefix + sMethod);
+    	
+		var dateOfBirth = activationItems.getModel('personalData').get('birthDate'),
+		jobCategory = model.get('jobCategory'),
+		jobStatus = model.get('employmentTypeDSS'),
+		province = activationItems.getModel('personalData2_Address').get('province'),
+		productCode = activationItems.getModel('chooseProductModel').get('productCard'),
+		jobDescription = "",
+		correlationID = activationItems.getModel('contactInfoScreen').get('applicationReferenceID');
+		if(model.get('jobDescription') == "Other") {
+			jobDescription = model.get('jobDescriptionOther');
+		} else {
+			jobDescription = model.get('jobDescription');
+		}
+    	new WICI.LoadingIndicatorController().show();
+    	connectivityController.CheckCPEligibility(dateOfBirth,jobCategory,jobStatus,province,productCode,jobDescription,correlationID,argSuccessCB,argFailureCB);
     }
     
-    // US3960
-    function grossAnnualHouseholdIncome(){    	
-        if (checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
-            flowNext();
-        }
+    function checkCPEligibilitySuccess(argResponse) {
+    	var sMethod = "checkCPEligibilitySuccess(argResponse)";
+        console.log(logPrefix + sMethod + JSON.stringify(argResponse));
+        
+        new WICI.LoadingIndicatorController().hide();
+		if(!argResponse.error) {
+        	try {
+				model.set('insurance_CPType_Available', argResponse.data.cpType);
+				model.set('insurance_CPType_Offered', argResponse.data.cpType);
+        	} catch (e) {
+        		console.log(logPrefix + sMethod + "Exception : " + e);
+        	}
+        } else if(argResponse.error){
+			model.set('insurance_CPType_Available', "NONE");
+			model.set('insurance_CPType_Offered', "ERROR");
+			model.set('insurance_CPType_Selected', "");
+		}
+		flowNext();
+    }
+   
+    function checkCPEligibilityFailure(argResponse) {
+    	var sMethod = "checkCPEligibilityFailure(argResponse)";
+        console.log(logPrefix + sMethod);
+        
+        new WICI.LoadingIndicatorController().hide();
+		model.set('insurance_CPType_Available', "NONE");
+		model.set('insurance_CPType_Offered', "ERROR");
+		model.set('insurance_CPType_Selected', "");
+		flowNext();
     }
 
+	function getCPCheckCounter() {
+    	var sMethod = 'getCPCheckCounter() ';
+    	console.log(logPrefix + sMethod);
+
+    	var counter = 0;
+    	try {
+    		if (model.get('cpEligibilityCheck_Counter') !== null && model.get('cpEligibilityCheck_Counter') !=='') {
+    			counter = parseInt(model.get('cpEligibilityCheck_Counter'));
+    		}
+    	} catch(ex) {
+        	console.log(logPrefix + sMethod + " Exception: " + ex);
+    	}
+        return counter;
+    }
+
+	function preCheckConditions() {
+		var sMethod = 'preCheckConditions() ';
+        console.log(logPrefix + sMethod);
+
+		var enableOP = false;
+	   	if( activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E") {
+	    	enableOP = true;
+	    }
+	    console.log(logPrefix + sMethod + activationItems.getModel('loginScreen').get('outletProvince'));
+	    if( activationItems.getModel('loginScreen').get('outletProvince') != null){
+	    	if (activationItems.getModel('loginScreen') .get('outletProvince') === 'SK' || activationItems.getModel('loginScreen') .get('outletProvince') === 'MB') {
+	 			if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() === 'K') {
+	 				enableOP = true;
+	 			} else {
+	 				enableOP = false;
+	 			}
+	 		}
+			if (activationItems.getModel('loginScreen') .get('outletProvince') === 'YT') {
+				enableOP = false;
+	    	}
+			if (activationItems.getModel('loginScreen') .get('outletProvince')  === 'AB') {
+				enableOP = false;
+			}
+			if (activationItems.getModel('loginScreen') .get('outletProvince') === 'QC') {
+				if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() === 'C' || activationItems.getModel('loginScreen').get('employerID') === 'K') {
+					enableOP= true;
+				} else {
+					enableOP= false;
+				}
+			}
+	    }   	 
+		if (activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('placeofissue') != null && activationItems.getModel('personalData').get('placeofissue') === 'YT'){
+			 if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== 'E') {
+				 enableOP= true;
+			 }
+	    }
+		if ( activationItems.getModel('personalData2_Address') != null && activationItems.getModel('personalData2_Address').get('province') != null && activationItems.getModel('personalData2_Address').get('province') === 'YT') {
+			if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
+				 enableOP= true;
+			}
+		}
+		if (activationItems.getModel('personalData') != null){
+			var personalDataModel = activationItems.getModel('personalData');
+		    console.log(" age "+personalDataModel.get('age'));
+		    if(personalDataModel.get('age') > 76) {
+		        enableOP= false;
+		    }
+		}
+		if(model.get('employmentTypeDSS') == "UNEMPLOYED") {
+	    	enableOP = false;
+	    }
+	    console.log(logPrefix + sMethod + " enableOP :: " + enableOP);
+    	return enableOP;
+	} 
+	
     function flowNext() {
+		var sMethod = 'flowNext() :: ';
+		
+		var empType = model.get('employmentTypeDSS'), jobCat = model.get('jobCategory'),
+		jobDesc = model.get('jobDescription'), jobDescOt = model.get('jobDescriptionOther');
+		console.log(logPrefix + sMethod + empType + " " + jobCat + " " + jobDesc + " " + jobDescOt);
+		model.set('prev_employmentType', empType);
+        model.set('prev_jobCategory', jobCat);
+		model.set('prev_jobDescription', jobDesc);
+        model.set('prev_jobDescriptionOther', jobDescOt);
+		console.log(logPrefix + sMethod + model.get('prev_employmentType') + " " + model.get('prev_jobCategory')
+		 + " " + model.get('prev_jobDescription') + " " + model.get('prev_jobDescriptionOther'));
         flow.next();
     }
 

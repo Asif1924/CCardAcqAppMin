@@ -12,12 +12,10 @@ import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.NameValue;
 
-public class ReceiptCustomerInfoHelper
-{
+public class ReceiptCustomerInfoHelper {
 	static Logger log = Logger.getLogger(ReceiptCustomerInfoHelper.class.getName());
 
-	public ReceiptCustomerInfo getCustomerInformationPortionOfReceipt(String argAccountApplicationRequestXML)
-	{
+	public ReceiptCustomerInfo getCustomerInformationPortionOfReceipt(String argAccountApplicationRequestXML) {
 		String sMethod = this.getClass().getName() + "[getCustomerInformationPortionOfReceipt] ";
 		log.info(sMethod);
 
@@ -35,7 +33,10 @@ public class ReceiptCustomerInfoHelper
 		String preferredLanguage = aaRequest.getPreferedLanguage();
 
 		String insuranceCode = aaRequest.getInsuranceCode();
+		String insurance_CPType_Offered = aaRequest.getInsurance_CPType_Offered();
+		String insurance_CPType_Selected = aaRequest.getInsurance_CPType_Selected();
 		String storeNumber = aaRequest.getStoreNumber();
+		String email = aaRequest.getCurrentEmailAddress();
 		
 		// US5240
 		// CurrentAddressLine1 contains Street Number, Street Name and Suite/Apt unit formatted
@@ -47,12 +48,16 @@ public class ReceiptCustomerInfoHelper
 		populatedCustomerInformationOfReceipt.setFirstName(validateNotNullString(firstName));
 		populatedCustomerInformationOfReceipt.setMiddleInitial(validateNotNullString(middleInitial));
 		populatedCustomerInformationOfReceipt.setLastName(validateNotNullString(lastName));
+		
+		populatedCustomerInformationOfReceipt.setEmail(email);
 
 		populatedCustomerInformationOfReceipt.setApplicantSignature( (applicantSignatureByteArray!=null) ? validateNotNullString(new String(Base64.encodeBase64(applicantSignatureByteArray))) : "" );
 		populatedCustomerInformationOfReceipt.setProvince( (currentProvince!=null) ? validateNotNullString(currentProvince.toString()) : "" );
 		populatedCustomerInformationOfReceipt.setPreferredLanguage(validateNotNullString(preferredLanguage));
 		
 		populatedCustomerInformationOfReceipt.setInsuranceCode(validateNotNullString(insuranceCode));
+		populatedCustomerInformationOfReceipt.setInsurance_CPType_Offered(insurance_CPType_Offered);
+		populatedCustomerInformationOfReceipt.setInsurance_CPType_Selected(insurance_CPType_Selected);
 		populatedCustomerInformationOfReceipt.setCreditProtector(validateNotNullString(prepareCreditProtectorYesNo(validateNotNullString(insuranceCode), preferredLanguage)));
 		populatedCustomerInformationOfReceipt.setIdentityWatch(validateNotNullString(prepareIdentityWatchYesNo(validateNotNullString(insuranceCode), preferredLanguage)));
 
@@ -81,88 +86,98 @@ public class ReceiptCustomerInfoHelper
 		return addressLine1.substring(addressLine1.indexOf(' ')+1);
 	}
 
-	private String validateNotNullString( String argValue ){
+	private String validateNotNullString( String argValue ) {
 		return (argValue!=null) ? argValue : "";
 	}
 	
-	private String prepareCreditProtectorYesNo(String insuranceCode, String language)
-	{
+	private String prepareCreditProtectorYesNo(String insuranceCode, String language) {
 		String sMethod = this.getClass().getName() + "[prepareCreditProtectorYesNo] ";
 		log.info(sMethod);
 
 		String returnValue = "";
-
-		if ("W4".endsWith(insuranceCode) || "CP".equalsIgnoreCase(insuranceCode))
-		{
-			if ("E".equalsIgnoreCase(language))
-			{
+		if ("W4".endsWith(insuranceCode) || "CP".equalsIgnoreCase(insuranceCode)) {
+			if ("E".equalsIgnoreCase(language)) {
 				returnValue = "Yes";
 			}
-			else
-			{
+			else {
 				returnValue = "Oui";
 			}
-		}
-		else
-		{
-			if ("E".equalsIgnoreCase(language))
-			{
+		} else {
+			if ("E".equalsIgnoreCase(language)) {
 				returnValue = "No";
-			}
-			else
-			{
+			} else {
 				returnValue = "Non";
 			}
 		}
 		return returnValue;
 	}
 
-	private String prepareIdentityWatchYesNo(String insuranceCode, String language)
-	{
+	private String prepareIdentityWatchYesNo(String insuranceCode, String language) {
 		String sMethod = this.getClass().getName() + "[prepareIdentityWatchYesNo] ";
 		log.info(sMethod);
+		
 		String returnValue = "";
-		if ("W4".equalsIgnoreCase(insuranceCode) || "IL".equalsIgnoreCase(insuranceCode))
-		{
-			if ("E".equalsIgnoreCase(language))
-			{
+		if ("W4".equalsIgnoreCase(insuranceCode) || "IL".equalsIgnoreCase(insuranceCode)) {
+			if ("E".equalsIgnoreCase(language)) {
 				returnValue = "Yes";
-			}
-			else
-			{
+			} else {
 				returnValue = "Oui";
 			}
-		}
-		else
-		{
-			if ("E".equalsIgnoreCase(language))
-			{
+		} else {
+			if ("E".equalsIgnoreCase(language)) {
 				returnValue = "No";
-			}
-			else
-			{
+			} else {
 				returnValue = "Non";
 			}
 		}
 		return returnValue;
 	}
 
-	public CreditCardApplicationData convertToCreditCardApplicationDataForPrintout(ReceiptCustomerInfo customerInformationPortionOfReceipt)
-	{
+	public CreditCardApplicationData convertToCreditCardApplicationDataForPrintout(ReceiptCustomerInfo customerInformationPortionOfReceipt) {
 		CreditCardApplicationData populatedCCAData = new CreditCardApplicationData();
 		
 		buildChooseProductModel(customerInformationPortionOfReceipt, populatedCCAData);
+		buildContactInfoModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildPersonalDataModel(customerInformationPortionOfReceipt, populatedCCAData);
 		// US5240
 		buildPersonalAddressDataModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildSignatureModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildOptionalProductsModel(customerInformationPortionOfReceipt, populatedCCAData);
 		buildLoginScreenModel(customerInformationPortionOfReceipt, populatedCCAData);
+		buildFinancialDataModel(customerInformationPortionOfReceipt, populatedCCAData);
 		return populatedCCAData;
 	}
-	private void buildPersonalAddressDataModel(
-			ReceiptCustomerInfo customerInformationPortionOfReceipt,
-			CreditCardApplicationData populatedCCAData) {
+	
+	private void buildContactInfoModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
+		BaseModel contactInfoModel = new BaseModel();
+		contactInfoModel.model = "contactInfoScreen";
+		
+		NameValue nvPair = new NameValue();
+		nvPair.name = "email";
+		nvPair.value = customerInformationPortionOfReceipt.getEmail() != null ? customerInformationPortionOfReceipt.getEmail() : "";
+		contactInfoModel.data.add(nvPair);
+		
+		populatedCCAData.models.add(contactInfoModel);
+	}
+	
+	private void buildFinancialDataModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
+		BaseModel financialDataModel = new BaseModel();
+		financialDataModel.model = "financialData";
+		
+		NameValue nvPair = new NameValue();
+		nvPair.name = "insurance_CPType_Offered";
+		nvPair.value = customerInformationPortionOfReceipt.getInsurance_CPType_Offered() != null ? customerInformationPortionOfReceipt.getInsurance_CPType_Offered() : "";
+		financialDataModel.data.add(nvPair);
+		
+		nvPair = new NameValue();
+		nvPair.name = "insurance_CPType_Selected";
+		nvPair.value = customerInformationPortionOfReceipt.getInsurance_CPType_Selected() != null ? customerInformationPortionOfReceipt.getInsurance_CPType_Selected() : "";
+		financialDataModel.data.add(nvPair);
+		
+		populatedCCAData.models.add(financialDataModel);
+	}
+	
+	private void buildPersonalAddressDataModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel personalDataAddressModel = new BaseModel();
 		personalDataAddressModel.model = "personalData2_Address";
 		
@@ -199,8 +214,7 @@ public class ReceiptCustomerInfoHelper
 		populatedCCAData.models.add(personalDataAddressModel);
 	}
 
-	private void buildLoginScreenModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
-	{
+	private void buildLoginScreenModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel loginScreen = new BaseModel();
 		loginScreen.model = "loginScreen";
 		
@@ -211,20 +225,18 @@ public class ReceiptCustomerInfoHelper
 		
 		populatedCCAData.models.add(loginScreen);
 	}
-	private void buildOptionalProductsModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
-	{
+	private void buildOptionalProductsModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel optionalProductsModel = new BaseModel();
 		optionalProductsModel.model = "OptionalProductsModel";
 		
 		NameValue nvPair = new NameValue();
 		nvPair.name = "insuranceCode";
-		nvPair.value = customerInformationPortionOfReceipt.getInsuranceCode();
+		nvPair.value = customerInformationPortionOfReceipt.getInsuranceCode() != null ? customerInformationPortionOfReceipt.getInsuranceCode() : "";
 		optionalProductsModel.data.add(nvPair);
 		
 		populatedCCAData.models.add(optionalProductsModel);
 	}
-	private void buildSignatureModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
-	{
+	private void buildSignatureModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel signatureModel = new BaseModel();
 		signatureModel.model = "signatureModel";
 		
@@ -235,8 +247,7 @@ public class ReceiptCustomerInfoHelper
 				
 		populatedCCAData.models.add(signatureModel);
 	}
-	private void buildPersonalDataModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
-	{
+	private void buildPersonalDataModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel personalDataModel = new BaseModel();
 		personalDataModel.model = "personalData";
 		
@@ -262,8 +273,7 @@ public class ReceiptCustomerInfoHelper
 					
 		populatedCCAData.models.add(personalDataModel);
 	}
-	private void buildChooseProductModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData)
-	{
+	private void buildChooseProductModel(ReceiptCustomerInfo customerInformationPortionOfReceipt, CreditCardApplicationData populatedCCAData) {
 		BaseModel chooseProductModel = new BaseModel();
 		chooseProductModel.model = "chooseProductModel";
 		

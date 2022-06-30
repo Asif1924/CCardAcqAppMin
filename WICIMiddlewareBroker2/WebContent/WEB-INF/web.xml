@@ -118,6 +118,13 @@
 		<servlet-name>RetrieveJobDescriptionServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.RetrieveJobDescriptionServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>CheckCPEligibilityServlet</display-name>
+		<servlet-name>CheckCPEligibilityServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.CheckCPEligibilityServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>/AddressLookup</url-pattern>
@@ -173,6 +180,10 @@
 	<servlet-mapping>
 		<servlet-name>RetrieveJobDescriptionServlet</servlet-name>
 		<url-pattern>/RetrieveJobDescriptionServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckCPEligibilityServlet</servlet-name>
+		<url-pattern>/CheckCPEligibility</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

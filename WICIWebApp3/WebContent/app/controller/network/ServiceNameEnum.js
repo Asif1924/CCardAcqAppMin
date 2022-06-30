@@ -15,5 +15,6 @@ WICI.ServiceNameEnum = {
 		InstantIssuance							:	"InstantIssuance",
 		TMXProfile								:	"TMXProfile",
 		AbbreviateCityname						:	"AbbreviateCity",
-		RetrieveJobDescription					:	"RetrieveJobDescriptionServlet"
+		RetrieveJobDescription					:	"RetrieveJobDescriptionServlet",
+		CheckCPEligibility						:	"CheckCPEligibility",
 };

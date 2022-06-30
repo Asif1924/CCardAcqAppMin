@@ -67,7 +67,8 @@ WICI.ZebraPrinterController = function () {
         console.log(activationItems.getModel('personalData').get('correspondence'));
         console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
         console.log('--------------------');
-        var respCardType, retailNetwork = '', performStoreRecallPrint = 'N', 
+        var respCardType, retailNetwork = '', performStoreRecallPrint = 'N',
+			isEmailEntered = activationItems.getModel('contactInfoScreen').get('email') == '' ? false : true, 
 			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
 			//storeRecallPrintStores = JSON.parse(WICI.dictionary_en.storeRecallPrintStores);
         	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
@@ -78,6 +79,7 @@ WICI.ZebraPrinterController = function () {
 		}
 		
 		console.log(logPrefix + sMethod + " performStoreRecallPrint :: " + performStoreRecallPrint);
+		console.log(logPrefix + sMethod + " isEmailEntered :: " + isEmailEntered);
 		
         if(app.getDemoMode()) {
         	respCardType = activationItems.getModel('chooseProductModel').get('productCard');
@@ -113,9 +115,11 @@ WICI.ZebraPrinterController = function () {
                          applicationResponse.appStatus,
                          activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                          activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
-                         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                         //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-						 "", // VZE-401
+                         prepareCreditProtectorYesNo(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('financialData').get('insurance_CPType_Selected'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                         prepareCreditProtectCPCorCPLD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-400
+                         prepareCPProductNamesTrademarksMD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                         prepareCPProductNamesTrademarksCPCMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                         prepareCPProductNamesTrademarksCPLMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
                          activationItems.getModel('loginScreen').get('locationFieldID'),
                          "",
                          activationItems.getModel('loginScreen').get('employerID'),
@@ -126,7 +130,8 @@ WICI.ZebraPrinterController = function () {
                          "",
                          "",
                          retailNetwork ? retailNetwork : "",
-						 performStoreRecallPrint ? performStoreRecallPrint : ""]);
+						 performStoreRecallPrint ? performStoreRecallPrint : "",
+						 isEmailEntered]);
         	} else {
         		cordova.exec(successCallback,
                         failureCallback,
@@ -146,9 +151,11 @@ WICI.ZebraPrinterController = function () {
                          applicationResponse.appStatus,
                          activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                          activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
-                         prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                         //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-						 "", // VZE-401
+                         prepareCreditProtectorYesNo(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('financialData').get('insurance_CPType_Selected'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                         prepareCreditProtectCPCorCPLD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-400
+                         prepareCPProductNamesTrademarksMD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                         prepareCPProductNamesTrademarksCPCMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                         prepareCPProductNamesTrademarksCPLMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
                          activationItems.getModel('loginScreen').get('locationFieldID'),
                          "",
                          activationItems.getModel('loginScreen').get('employerID'),
@@ -159,7 +166,8 @@ WICI.ZebraPrinterController = function () {
                          activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
                          activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
                          retailNetwork ? retailNetwork : "",
-						 performStoreRecallPrint ? performStoreRecallPrint : ""]);
+						 performStoreRecallPrint ? performStoreRecallPrint : "",
+						 isEmailEntered]);
         	}
             
         } catch (err) {
@@ -175,7 +183,8 @@ WICI.ZebraPrinterController = function () {
           console.log(activationItems.getModel('personalData').get('correspondence'));
           console.log(activationItems.getModel('OptionalProductsModel').get('insuranceCode'));
           console.log('--------------------');
-          var respCardType, retailNetwork = '', performStoreRecallPrint = 'N', 
+          var respCardType, retailNetwork = '', performStoreRecallPrint = 'N',
+			isEmailEntered = activationItems.getModel('contactInfoScreen').get('email') == '' ? false : true, 
 			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
 			//storeRecallPrintStores = JSON.parse(WICI.dictionary_en.storeRecallPrintStores);
           	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
@@ -219,9 +228,11 @@ WICI.ZebraPrinterController = function () {
                    applicationResponse.appStatus,
                    activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                    activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
-                   prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                   //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-				   "", // VZE-401
+                   prepareCreditProtectorYesNo(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('financialData').get('insurance_CPType_Selected'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                   prepareCreditProtectCPCorCPLD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-400
+                   prepareCPProductNamesTrademarksMD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                   prepareCPProductNamesTrademarksCPCMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                   prepareCPProductNamesTrademarksCPLMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
                    activationItems.getModel('loginScreen').get('locationFieldID'),
                    "",
                    activationItems.getModel('loginScreen').get('employerID'),
@@ -232,7 +243,8 @@ WICI.ZebraPrinterController = function () {
                    activationItems.getModel('personalData2_Address').get('province') ? activationItems.getModel('personalData2_Address').get('province') : "",
                    activationItems.getModel('personalData2_Address').get('postalcode') ? activationItems.getModel('personalData2_Address').get('postalcode') : "",
                    retailNetwork ? retailNetwork : "",
-				   performStoreRecallPrint ? performStoreRecallPrint : ""]);
+				   performStoreRecallPrint ? performStoreRecallPrint : "",
+				   isEmailEntered]);
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }
@@ -252,6 +264,7 @@ WICI.ZebraPrinterController = function () {
           console.log('--------------------');
 
 		  var retailNetwork = '', performStoreRecallPrint = 'N', 
+			isEmailEntered = activationItems.getModel('contactInfoScreen').get('email') == '' ? false : true,
 			storeNumber = activationItems.getModel('loginScreen').get('locationFieldIDADM'),
           	storeRecallPrintStores = JSON.parse(translator.translateKey("storeRecallPrintStores"));
 			
@@ -285,9 +298,11 @@ WICI.ZebraPrinterController = function () {
                    "DECLINED",
                    activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
                    activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
-                   prepareCreditProtectorYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
-                   //prepareIdentityWatchYesNo(activationItems.getModel('OptionalProductsModel').get('insuranceCode'), activationItems.getModel('personalData').get('correspondence')),//identityWatchYesNo
-				   "", // VZE-401
+                   prepareCreditProtectorYesNo(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('financialData').get('insurance_CPType_Selected'), activationItems.getModel('personalData').get('correspondence')),//creditProtectoryYesNo
+                   prepareCreditProtectCPCorCPLD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-400
+                   prepareCPProductNamesTrademarksMD(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                   prepareCPProductNamesTrademarksCPCMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
+                   prepareCPProductNamesTrademarksCPLMC(activationItems.getModel('financialData').get('insurance_CPType_Offered'), activationItems.getModel('personalData').get('correspondence')), // VZE-673
                    activationItems.getModel('loginScreen').get('locationFieldID'),
                    "",
                    activationItems.getModel('loginScreen').get('employerID'),
@@ -298,7 +313,8 @@ WICI.ZebraPrinterController = function () {
                    "",
                    "",
 				   activationItems.getModel('loginScreen').get('retailNetWork'),
-				   performStoreRecallPrint ? performStoreRecallPrint : ""]);             
+				   performStoreRecallPrint ? performStoreRecallPrint : "",
+				   isEmailEntered]);             
           } catch (err) {
               console.log(logPrefix + sMethod + "::Initiate ERROR::" + err);
           }
@@ -360,43 +376,81 @@ WICI.ZebraPrinterController = function () {
            }
         };
        //---------------------------------------------------------------------------------------
-       function prepareCreditProtectorYesNo(insuranceCode, language) {
-    	   console.log('prepareCreditProtectorYesNo');
-    	   if ((insuranceCode == "W4")
-    		   || (insuranceCode == "CP")) {
-    		   console.log('prepareCreditProtectorYesNoy');
-    		   if(language == "E"){
+       function prepareCreditProtectorYesNo(offered, selected, language) {
+		  if(offered == "CP_Complete" || offered == "CP_LifeDisability") {
+			if (selected == "CP_Complete" || selected == "CP_LifeDisability") {
+    		   if(language == "E") {
     			   return "Yes";
     		   } else {
     			   return "Oui";
     		   }
-
-    	   } else {
-    		   console.log('prepareCreditProtectorYesNon');
-    		   if(language == "E"){
+    	    } else {
+    		   if(language == "E") {
     			   return "No";
     		   } else {
     			   return "Non";
     		   }
-    	   };
-       };
-       function prepareIdentityWatchYesNo(insuranceCode, language) {
-    	   console.log('prepareIdentityWatchYesNo');
-    	   if ((insuranceCode == "W4")
-    		   || (insuranceCode == "IL")) {
-    		   console.log('prepareIdentityWatchYesNoy');
-    		   if(language == "E"){
-    			   return "Yes";
+    	    }
+		  } else {
+			   return "";
+		  }
+       }
+       //---------------------------------------------------------------------------------------
+	   // VZE-400
+       function prepareCreditProtectCPCorCPLD(offered, language) {
+    	   if (offered == "CP_Complete") {
+    		   if(language == "E") {
+    			   return "Triangle® Credit Protector Complete™";
     		   } else {
-    			   return "Oui";
+    			   return "Triangle   Couverture-crédit complète";
+    		   }
+    	   } else if(offered == "CP_LifeDisability") {
+    		   if(language == "E") {
+    			   return "Triangle® Credit Protector Life & Disability™";
+    		   } else {
+    			   return "Triangle   Couverture-crédit - Assurance-vie et invalidité";
     		   }
     	   } else {
-    		   console.log('prepareIdentityWatchYesNon');
-    		   if(language == "E"){
-    			   return "No";
-    		   } else {
-    			   return "Non";
-    		   }
-    	   };
-       };
+				return "";
+		   }
+       }
+      //---------------------------------------------------------------------------------------
+	   // VZE-673
+       function prepareCPProductNamesTrademarksMD(offered, language) {
+    	   if (offered == "CP_Complete") {
+    		   if(language !== "E") {
+    			   return "MD";
+    		   } 
+    	   } else if(offered == "CP_LifeDisability") {
+    		   if(language !== "E") {
+    			   return "MD";
+    		   } 
+    	   } else {
+				return "";
+		   }
+       }
+     //---------------------------------------------------------------------------------------
+	   // VZE-673
+       function prepareCPProductNamesTrademarksCPCMC(offered, language) {
+    	   if (offered == "CP_Complete") {
+    		   if(language !== "E") {
+    			   return "MC";
+    		   } 
+    	   }  else {
+				return "";
+		   }
+       }
+       
+     //---------------------------------------------------------------------------------------
+	   // VZE-673
+       function prepareCPProductNamesTrademarksCPLMC(offered, language) {
+    	   if(offered == "CP_LifeDisability") {
+    		   if(language !== "E") {
+    			   return "MC";
+    		   } 
+    	   } else {
+				return "";
+		   }
+       }
+       
 };

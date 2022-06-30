@@ -3,7 +3,11 @@
 
     <!-- US4989 start -->
       <center>
-        <a href="#" id="omxCardChooseProduct" class="omxCardChooseProduct"></a>
+        {{if activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E"}}
+			<a href="#" id="omxCardChooseProduct" class="omxCardChooseProduct"></a>
+        {{else}}
+			<a href="#" id="omxCardChooseProduct_CSR" class="omxCardChooseProduct_CSR"></a>
+        {{/if}}
       </center>
     <!-- US4989 ends -->
         

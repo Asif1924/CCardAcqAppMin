@@ -34,34 +34,27 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 		log.info(sMethod + " action = " + action);
 		log.info(sMethod + " retrievalToken = " + retrievalToken);
 		log.info(sMethod + " phone = " + phone);
-
 		
 		WICIResponse accountApplicationResponse = null;
 
-		if ("retrieve".equalsIgnoreCase(action.toLowerCase()))
-		{
+		if ("retrieve".equalsIgnoreCase(action.toLowerCase())) {
 			accountApplicationResponse = retrieveAccountApplicationResponse(transactionID);
-		}
-		else if ("purge".equalsIgnoreCase(action.toLowerCase()))
-		{
+		} else if ("purge".equalsIgnoreCase(action.toLowerCase())) {
 			//As per Jody
 			//accountApplicationResponse = purgeAccountApplication(transactionID);
-		}
-		else if ("retrievepend".equalsIgnoreCase(action.toLowerCase()))
-		{
+		} else if ("retrievepend".equalsIgnoreCase(action.toLowerCase())) {
 			accountApplicationResponse = retrievePendingAccountApplicationResponse(retrievalToken, phone);
 		}
 
 		boolean isRetrievable = new WICIDBHelper().isApprovedAppRetrievable(transactionID, retrievalToken, phone);
-		if(!isRetrievable){
+		if(!isRetrievable) {
 			accountApplicationResponse = new WICIObjectsHelper().createUnretrievableResponse();
 		}
 		
 		requestMediator.processHttpResponse(accountApplicationResponse);
 	}
 
-	private WICIResponse retrievePendingAccountApplicationResponse(String argRetrievalToken, String argPhone)
-	{
+	private WICIResponse retrievePendingAccountApplicationResponse(String argRetrievalToken, String argPhone) {
 		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[retrievePendingAccountApplicationResponse] retrievalToken=" + argRetrievalToken + ", phone=" + argPhone;
 		log.info(sMethod);
 
@@ -69,8 +62,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 		
 		WICIResponse pendRetrieveResponse = null;
 
-		try
-		{
+		try {
 			String transID = new WICIDBHelper().getTransactionIDForApprovedApp(argRetrievalToken, argPhone);
 						
 			//Attempt to update the retrieval count if this transaction is approved already
@@ -88,28 +80,22 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			String printedResponse = gson.toJson(pendRetrieveResponse, WICIResponse.class);				
 			log.info(sMethod + "\n::Pend Retrieve Response: \n" + printedResponse);
 			
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.warning(e.getMessage());
-
 			pendRetrieveResponse = new WICIResponse(true, AppConstants.PEND_RETRIEVE_ACCOUNTAPPLICATION_REQUEST_FAILED, accountApplicationSubmissionResponse);
 		}
 
 		return pendRetrieveResponse;
 	}
 
-	private WICIResponse retrieveAccountApplicationResponse(String argTransactionID)
-	{
+	private WICIResponse retrieveAccountApplicationResponse(String argTransactionID) {
 		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[retrieveAccountApplicationResponse] argTransactionID=" + argTransactionID;
 		log.info(sMethod);
 
 		AccountApplicationSubmissionResponse accountApplicationSubmissionResponse = new AccountApplicationSubmissionResponse();
 		WICIResponse retrieveResponse = null;
-
 		
-		try
-		{
+		try {
 			new WICIDBHelper().updateRetrievalCountForApprovedApp(argTransactionID);
 			
 			// Get account application response
@@ -121,37 +107,29 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			String printedResponse = gson.toJson(retrieveResponse, WICIResponse.class);	
 			
 			log.info(sMethod + "\n::Retrieve Response: \n" + printedResponse);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.warning(e.getMessage());
-
 			retrieveResponse = new WICIResponse(true, AppConstants.RETRIEVE_ACCOUNTAPPLICATION_REQUEST_FAILED, accountApplicationSubmissionResponse);
 		}
 
 		return retrieveResponse;
 	}
 
-	private WICIResponse purgeAccountApplication(String argTransactionID)
-	{
+	private WICIResponse purgeAccountApplication(String argTransactionID) {
 		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[purgeAccountApplication] argTransactionID=" + argTransactionID;
 		log.info(sMethod);
 
 		WICIResponse purgeResponse = null;
 
-		try
-		{
+		try {
 			// Delete account application response
 			WICIDBHelper wicidbHelper = new WICIDBHelper();
 			int rowsAffected = wicidbHelper.deleteAccountApplicationData(argTransactionID);
 
 			// Form response for client
 			purgeResponse = new WICIResponse(false, AppConstants.PURGE_REQUEST_SUCCESS, rowsAffected);
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
-
 			// Form response for client
 			purgeResponse = new WICIResponse(false, AppConstants.PURGE_REQUEST_FAILED, ex.getMessage());
 		}

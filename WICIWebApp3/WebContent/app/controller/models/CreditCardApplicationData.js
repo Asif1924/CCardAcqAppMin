@@ -60,23 +60,16 @@ WICI.CreditCardApplicationData = function() {
 		'OTHE' : 'supCardRequest_Other'
 	};
 
-	// US4282
 	var homePhone = null;
 	var mobilePhone = null;
-	// US4797
 	var consentGranted = null;
-	
 	var respCardType = null;
-	
 	var accountApplicationResponse = null;
 	var newAccountApplicationResponse = null;
 
 	var provincesList = new WICI.IdTypesProvincesList();
-
 	var personalDataIdTypesList = new WICI.IdTypesList();
-
 	var jobCategorysList = new WICI.JobCategoriesList;
-	
 	var jobTitlesList = new WICI.JobTitlesList();
 
 	var queueModel = new WICI.BaseModel({
@@ -468,7 +461,7 @@ WICI.CreditCardApplicationData = function() {
     	models = [queueModel];
     	//accountApplicationResponse=null;
     };
-
+	// ---------------------------------------------------------------
     this.clearToLoginScreen = function()
     {
     	console.log("clearToLoginScreen");
@@ -479,6 +472,31 @@ WICI.CreditCardApplicationData = function() {
     		models = [queueModel];
     		this.addModel(loginScreenModel);
     		//accountApplicationResponse=null;
+    	}
+    };
+	// ---------------------------------------------------------------
+	this.clearToSignatureScreen = function()
+    {
+    	console.log("clearToLoginScreen");
+    	if(models.length > 0)
+    	{
+    		var loginScreenModel = this.getModel('loginScreen');
+			var chooseProductModel = this.getModel('chooseProductModel');
+			var contactInfoScreen = this.getModel('contactInfoScreen');
+			var personalData = this.getModel('personalData');
+			var personalData2_Address = this.getModel('personalData2_Address');
+			var financialData = this.getModel('financialData');
+			var supCardRequestData = this.getModel('supCardRequestData');
+			var signatureModel = this.getModel('signatureModel');
+    		models = [queueModel];
+    		this.addModel(loginScreenModel);
+			this.addModel(chooseProductModel);
+			this.addModel(contactInfoScreen);
+			this.addModel(personalData);
+			this.addModel(personalData2_Address);
+			this.addModel(financialData);
+			this.addModel(supCardRequestData);
+			this.addModel(signatureModel);
     	}
     };
 	// ---------------------------------------------------------------

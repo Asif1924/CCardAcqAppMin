@@ -450,7 +450,7 @@ public class WICIStoreRecallPrintHelper {
 	    	String SMethod = "sendSignatureImageToPrinter() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        String imageString = cardmemberModel.getSignture();
+	        String imageString = cardmemberModel.getSignature();
 
 	        if (imageString == null || imageString.isEmpty()) {
 	            throw new NullPointerException("pngSource could not be null or empty");

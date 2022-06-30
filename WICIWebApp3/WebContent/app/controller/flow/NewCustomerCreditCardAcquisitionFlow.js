@@ -54,38 +54,39 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			'screenConstructor' : WICI.SignatureScreenController,
 			'transitionOut' : function() {
 				var employerID = activationItems.getModel('loginScreen').get('employerID').toUpperCase();
-				var showOPProducts = enableOptionalProduct(activationItems);
-				console.log(" showOPProducts in creditCardAcquisitionFlow   "+showOPProducts);
-				if (employerID === 'E' || !showOPProducts ) {
+				var insurance_CPType_Available = activationItems.getModel('financialData').get('insurance_CPType_Available').toUpperCase();
+				//console.log("NewCustomerCreditCardAcquisitionFlow :: insurance_CPType_Available : " + insurance_CPType_Available);
+				
+				if (employerID === 'E' || insurance_CPType_Available == "NONE") {
+					//console.log("NewCustomerCreditCardAcquisitionFlow :: insurance_CPType_Available : E login OR OP None");
 					var model = new WICI.BaseModel({
 				    	name: 'OptionalProductsModel', 
 				        data: [
-							{ notField: true, name: 'optionalProducts_PA',     value: 'N' },
-							{ notField: true, name: 'optionalProducts_CP',     value: 'N' },
-							{ notField: true, name: 'optionalProducts_IW',     value: 'N' },
-							{ notField: true, name: 'optionalProducts_NA',     value: 'Y' }
+							{ notField: true, name: 'optionalProducts_CPLD',     value: 'N' },
+							{ notField: true, name: 'optionalProducts_CPC',      value: 'N' },
+							{ notField: true, name: 'optionalProducts_NA',       value: 'Y' }
 		                ]
 				    });		
 					var optionalProductsScreenModel = activationItems.getModel(model.name);
-					//console.log(' current model '+  optionalProductsScreenModel);
+					//console.log("NewCustomerCreditCardAcquisitionFlow :: optionalProductsScreenModel : " + optionalProductsScreenModel);
 					
-			        if (!optionalProductsScreenModel) {
+			        if(!optionalProductsScreenModel) {
 			            activationItems.addModel(model);
-			           //console.log(' current model  not available '+  activationItems);
-			            
 			        } else {
-			        	optionalProductsScreenModel.set('optionalProducts_CP',  'N');
-			        	optionalProductsScreenModel.set('optionalProducts_NA',  'Y');
-			        	optionalProductsScreenModel.set('optionalProducts_NA',  'Y');
-			        	optionalProductsScreenModel.set('optionalProduct_CP_AcceptBox',  false);
-			        	optionalProductsScreenModel.set('userSingnature_CP',  null);
-			        	optionalProductsScreenModel.set('userSingnatureNative_CP',  null);
+			        	optionalProductsScreenModel.set('optionalProducts_CPC',  'N');
+			        	optionalProductsScreenModel.set('optionalProducts_CPC_AcceptBox',  false);
+			        	optionalProductsScreenModel.set('userSignature_CPC',  null);
+			        	optionalProductsScreenModel.set('userSignatureNative_CPC',  null);
+						optionalProductsScreenModel.set('optionalProducts_CPLD',  'N');
+						optionalProductsScreenModel.set('optionalProducts_CPLD_AcceptBox',  false);
+			        	optionalProductsScreenModel.set('userSignature_CPLD',  null);
+			        	optionalProductsScreenModel.set('userSignatureNative_CPLD',  null);
+			        	optionalProductsScreenModel.set('optionalProducts_NA',  'Y');						
 			        	optionalProductsScreenModel.set('optionalProducts_CheckArea',  false);
 			        	optionalProductsScreenModel.set('insuranceAgreedFlag',  'N');
 			        	optionalProductsScreenModel.set('signDate',  null);
 			        	optionalProductsScreenModel.set('insuranceCode',  null);
 			            model = optionalProductsScreenModel;
-			          // console.log(' update cp for YT '+  model);
 			        }
 			        
 			        if(activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === 'Y' && 
@@ -105,10 +106,31 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 				        } else {
 				        	mobilePaymentsModel = currentModel;
 				        }
-
 						return 'Page8';
 			        }
 					return 'Page7';
+				} else if(insurance_CPType_Available == "CP_COMPLETE" || insurance_CPType_Available == "CP_LIFEDISABILITY") {
+					activationItems.clearToSignatureScreen();
+			        if(activationItems.getModel('contactInfoScreen').get('primaryLandline_CheckField') === 'Y' && 
+							activationItems.getModel('contactInfoScreen').get('secondaryLandline_CheckField') === 'Y') {
+			        	var mobilePaymentsModel = new WICI.BaseModel({
+					    	name: 'mobilePaymentsScreen',
+					        data: [
+								{ notField: true, name: 'mobilePhone',     value: false },
+								{ notField: true, name: 'androidPayCheckField',     value: false },
+								{ notField: true, name: 'applePaycheckField',     value: false },
+								{ notField: true, name: 'noThanksCheckField',     value: 'N' }
+			                ]
+					    });
+						var currentModel = activationItems.getModel(mobilePaymentsModel.name);
+				        if (!currentModel) {
+				            activationItems.addModel(mobilePaymentsModel);
+				        } else {
+				        	mobilePaymentsModel = currentModel;
+				        }
+						return 'Page6';
+			        }
+					return 'Page6';
 				}
 				return 'Page6';
 			}
@@ -132,13 +154,10 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 			            activationItems.addModel(model);
 			        } else {
 			            model = currentModel;
-			           
 			        }
-
 					return 'Page8';
 				}
 				return 'Page7';	
-				//return 'Page7';
 			},
 		},
 		'Page7' : {
@@ -168,115 +187,6 @@ WICI.NewCustomerCreditCardAcquisitionFlow = function(activationItems, translate,
 	};
 
 	builtFlow = new WICI.FlowController(activationItems, rules.defaultBackOut, screensDefinitions, rules.defaultFinish, rules.defaultFinish, translate, messageDialog);
-
 	return builtFlow;
-	
-	
-	  function enableOptionalProduct (activationItems) {
-	    	
-	    	var enableOPProduct = false;
-	    	    	   	
-	    	if( activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E")
-	    	{
-	    		enableOPProduct = true;
-	    	}
-	    	
-	    	console.log(activationItems.getModel('loginScreen').get('outletProvince'))
-	    	
-	    	if( activationItems.getModel('loginScreen').get('outletProvince') != null){
-	    	
-	    	 if (activationItems.getModel('loginScreen') .get('outletProvince') === 'SK' || activationItems.getModel('loginScreen') .get('outletProvince') === 'MB') {
-	 			if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() === 'K') {
-	 				
-	 				enableOPProduct = true;
-	 				
-	 			} else {
-	 				enableOPProduct = false;
-	 				
-	 			}
-	 		}
-	    	 // US5451
-			 if ( activationItems.getModel('loginScreen') .get('outletProvince') === 'YT')
-				 {
-				 if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== 'E') {
-					 enableOPProduct = false;
-				 }
-			   
-	    	 }
-			 
-			if (activationItems.getModel('loginScreen') .get('outletProvince')  === 'AB') {
-				if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() === 'J') {
-					enableOPProduct = true;
-				} else {
-					enableOPProduct = false;
-				}
-			}
-
-			if (activationItems.getModel('loginScreen') .get('outletProvince') === 'QC') {
-				if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() === 'C' || activationItems.getModel('loginScreen').get('employerID') === 'K') {
-					enableOPProduct= true;
-				} else {
-					enableOPProduct= false;
-				}
-			}
-	    	 
-	    	}   	 
-	    	 
-	    	 
-			 
-			 if (activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('placeofissue') != null && activationItems.getModel('personalData').get('placeofissue') === 'YT'){
-				 
-				 if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== 'E') {
-					 enableOPProduct= false;
-				 }
-			   
-		     }
-			 
-			 if ( activationItems.getModel('personalData2_Address') != null && activationItems.getModel('personalData2_Address').get('province') != null && activationItems.getModel('personalData2_Address').get('province') === 'YT')
-				
-				 {
-				 if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
-					 enableOPProduct= false;
-				 }
-			   
-		     }
-			 if (activationItems.getModel('personalData') != null){
-			 var personalDataModel = activationItems.getModel('personalData');
-		        console.log(" age "+personalDataModel.get('age'));
-		        if(personalDataModel.get('age') > 76) {
-		        	enableOPProduct= false;
-		        }
-			 }
-	    	
-	    	 console.log(enableOPProduct);
-	    	 
-	    	 return enableOPProduct;
-	    	
-	    }
-	  function checkYoukonAddress(activationItems){
-	    	
-	    	if (activationItems.getModel('chooseProductModel').get('province') === 'YT'
-				|| activationItems.getModel("personalData").get('placeofissue') === 'YT'
-				|| activationItems.getModel("personalData2_Address").get('province') === 'YT') {
-			 if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
-				 activationItems.getModel('OptionalProductsModel').set('optionalProducts_NA',  'Y');
-				 console.log( " checkYoukonAddress    "+  activationItems.getModel('OptionalProductsModel').get('optionalProducts_NA'));
-				 console.log( " checkYoukonAddress cp   "+  activationItems.getModel('OptionalProductsModel').get('optionalProducts_CP'));
-				 
-				 activationItems.getModel('OptionalProductsModel').set('optionalProducts_CP',  'N');
-				 
-				 console.log( " after setting cp    "+  activationItems.getModel('OptionalProductsModel').get('optionalProducts_CP'));
-				 
-				 
-			 }
-		 }
-	    	
-	    }
-	
-	
-	
-	
-	
-	
 };
 

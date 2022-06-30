@@ -53,6 +53,7 @@ public class WICIFileHelper {
         String correspondenceLanguage = cardmemberModel.getCorrespondenceLanguage();  
         String retailNetwork = cardmemberModel.getRetailNetwork();
         Boolean performStoreRecallPrint = cardmemberModel.getPerformStoreRecallPrint();
+        Boolean isEmailEntered = cardmemberModel.getIsEmailEntered();
         
         // Get printer connection
         Connection  connection = printer.getConnection();
@@ -124,6 +125,9 @@ public class WICIFileHelper {
 		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 		        } else if(isBottomFile) {
 		        	templateFileName = templateFileName + PrintOutMockupBottomsuffix;
+		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
+		        } else if(isEmailEntered) {
+		        	templateFileName = templateFileName;
 		        	Log.i(LOG_TAG, "templateFileName : " + templateFileName);
 		        } else {
 		        	templateFileName = templateFileName + PrintOutMockupTopsuffix;

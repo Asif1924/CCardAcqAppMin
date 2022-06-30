@@ -35,14 +35,11 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String sMethod = this.getClass().getName() + "[InitAccountApplicationServlet] ";
 		log.info(sMethod);
 
-		try
-		{
+		try {
 			InitialContext ctx = new InitialContext();
 			accountApplicationWorkManager = (com.ibm.websphere.asynchbeans.WorkManager) ctx.lookup("wm/default");
 			log.info("Work Manager " + accountApplicationWorkManager);
-		}
-		catch (NamingException e)
-		{
+		} catch (NamingException e) {
 			e.printStackTrace(System.out);
 		}
 	}
@@ -61,8 +58,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		}
 	}
 
-	private void queueAccountApplicationRequest(WICIServletMediator requestMediator) throws Exception
-	{
+	private void queueAccountApplicationRequest(WICIServletMediator requestMediator) throws Exception {
 		String sMethod = this.getClass().getName() + "[queueAccountApplicationRequest] ";
 		log.info(sMethod);
 		log.info(sMethod + " requestMediator : " + requestMediator);
@@ -82,8 +78,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		}
 		DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData,serialNumber);
 		
-		if (!dbInsertionResponse.isError())
-		{
+		if (!dbInsertionResponse.isError()) {
 			//transactionID = (String) dbInsertionResponse.getData();
 			transactionID = (String) dbInsertionResponse.getAccountApplicationRequestType().getExternalReferenceId();
 			WICIResponse databaseResponse = new WICIResponse(false, AppConstants.QUEUE_REQUEST_SUBMIT, transactionID);
@@ -94,31 +89,23 @@ public class InitAccountApplicationServlet extends WICIServlet
 
 			AccountApplicationRequestThread concurrentAccountApplicationRequest = new AccountApplicationRequestThread(transactionID, incomingCreditCardApplicationData, aaObject);
 
-			try
-			{
+			try {
 				WorkItem managedAccountApplicationThread = accountApplicationWorkManager.startWork(concurrentAccountApplicationRequest);
 				ArrayList<WorkItem> managedThreads = new ArrayList<WorkItem>();
 				managedThreads.add(managedAccountApplicationThread);
 				accountApplicationWorkManager.join(managedThreads, WorkManager.JOIN_AND, 4000);
-			}
-			catch (WorkException e)
-			{
+			} catch (WorkException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
-			catch (IllegalArgumentException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else
-		{	
+		} else {	
 			// Update response
 			requestMediator.processHttpResponse(dbInsertionResponse);
 		}
 	}
 
-	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData,String tabSerialNum)
-	{
+	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData,String tabSerialNum) {
 		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
 		log.info(sMethod);
 		
@@ -138,14 +125,13 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String sec_lastName = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastNameOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("lastNameOtherStaffMember") : EMPTY_STRING;
 		String sec_employee_number = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") != null ? ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employeeNumberIdOtherStaffMember") : EMPTY_STRING;;
 
-		
-		
-		
-		
 		String unitNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("suiteunit");
 		String streetNumber= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("streetnumber");
 		String streetName= ((BaseModel) incomingCreditCardApplicationData.getModel("personalData2_Address")).get("addressline1");
 		
+		String applicationReferenceID = ((BaseModel) incomingCreditCardApplicationData.getModel("contactInfoScreen")).get("applicationReferenceID");
+		
+		log.info(sMethod + " applicationReferenceID from tablet request :: " + applicationReferenceID);
 		
 		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
 		
@@ -158,8 +144,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
 		String currentTelephone = aaContactInfo.getPrimaryPhone();
 		
-		try
-		{
+		log.info(sMethod + " transactionID from requestConverter :: " + transactionID);
+		
+		try {
 			if (employerId != null && employerId.equalsIgnoreCase("E")
 					|| !authfieldCheckEnable) {
 				wicidbHelper.insertAccountApplicationData(transactionID,
@@ -168,13 +155,9 @@ public class InitAccountApplicationServlet extends WICIServlet
 				wicidbHelper.insertAccountApplicationData(transactionID,(employerId + userID), requestData, retrievalToken,currentTelephone,consentGranted,unitNumber,streetNumber,streetName,aaObject,employerId, null, null, retailNetWork,longitude,latitude,sec_firstName,sec_lastName,sec_employee_number);
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.warning(sMethod + "---Problem inserting the requestData into table=" + e.getMessage());
-
 			databaseResponse = new DatabaseResponse(true, "INSERT_FAILED", e.getMessage(),aaObject);
-
 			e.printStackTrace();
 		}
 		

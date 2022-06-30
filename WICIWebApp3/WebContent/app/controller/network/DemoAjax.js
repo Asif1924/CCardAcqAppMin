@@ -42,6 +42,9 @@ WICI.DemoAjax = function() {
 		case WICI.ServiceNameEnum.RetrieveJobDescription:
 			response = WICI.Demo_RetrieveJobDescription;
 			break;
+		case WICI.ServiceNameEnum.CheckCPEligibility:
+			response = WICI.Demo_CheckCPEligibility;
+			break;
 		default:
 			console.log(logPrefix + sMethod
 					+ " ERROR!!! service name is not supported by DemoAjax!");
@@ -189,6 +192,15 @@ WICI.Demo_TMXProfile = {
 			"tmxProfileID": "9cac5adf-2692-4ecf-ad88-b07054dca6c8"
 		}
 	};
+WICI.Demo_CheckCPEligibility = {
+		"error": false,
+		"msg": "",
+		"data": {
+			"cpType": "CP_Complete",
+			"enhancementId": "7CRP",
+			"planId": "01"
+		}
+	};
 	
 WICI.Demo_RetrieveJobDescription = {
 	 	"error": false,
@@ -207,17 +219,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Concepteur d’accessoires",
 	 			"storedValue": "Accessory Designer"
 	 		}, {
-	 			"englishDescription": "Account Director",
-	 			"frenchDescription": "Directeur des comptes",
-	 			"storedValue": "Account Director"
-	 		}, {
 	 			"englishDescription": "Account Executive",
 	 			"frenchDescription": "Chargé de compte",
 	 			"storedValue": "Account Executive"
-	 		}, {
-	 			"englishDescription": "Account Manager",
-	 			"frenchDescription": "Directeur de comptes",
-	 			"storedValue": "Account Manager"
 	 		}, {
 	 			"englishDescription": "Account Rep",
 	 			"frenchDescription": "Représentant de compte",
@@ -238,14 +242,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Accounting Director",
 	 			"frenchDescription": "Directeur comptable",
 	 			"storedValue": "Accounting Director"
-	 		}, {
-	 			"englishDescription": "Accounts Payable",
-	 			"frenchDescription": "Comptes fournisseurs",
-	 			"storedValue": "Accounts Payable"
-	 		}, {
-	 			"englishDescription": "Accounts Receivable",
-	 			"frenchDescription": "Comptes client",
-	 			"storedValue": "Accounts Receivable"
 	 		}, {
 	 			"englishDescription": "Actor",
 	 			"frenchDescription": "Acteur",
@@ -351,10 +347,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Artisan",
 	 			"storedValue": "Artisan"
 	 		}, {
-	 			"englishDescription": "Assembler",
-	 			"frenchDescription": "Monteur",
-	 			"storedValue": "Assembler"
-	 		}, {
 	 			"englishDescription": "Assessor",
 	 			"frenchDescription": "Évaluateur",
 	 			"storedValue": "Assessor"
@@ -370,10 +362,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Assistant Coach",
 	 			"frenchDescription": "Entraîneur adjoint",
 	 			"storedValue": "Assistant Coach"
-	 		}, {
-	 			"englishDescription": "Assistant Dean",
-	 			"frenchDescription": "Vice-doyen",
-	 			"storedValue": "Assistant Dean"
 	 		}, {
 	 			"englishDescription": "Assistant Director",
 	 			"frenchDescription": "Directeur adjoint",
@@ -418,10 +406,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Auto Service Tech",
 	 			"frenchDescription": "Technicien du centre-auto",
 	 			"storedValue": "Auto Service Tech"
-	 		}, {
-	 			"englishDescription": "Bailiff",
-	 			"frenchDescription": "Huissier",
-	 			"storedValue": "Bailiff"
 	 		}, {
 	 			"englishDescription": "Baker",
 	 			"frenchDescription": "Boulanger",
@@ -471,10 +455,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Responsable des boissons",
 	 			"storedValue": "Beverage Manager"
 	 		}, {
-	 			"englishDescription": "Biologist",
-	 			"frenchDescription": "Biologiste",
-	 			"storedValue": "Biologist"
-	 		}, {
 	 			"englishDescription": "Blaster",
 	 			"frenchDescription": "Dynamiteur",
 	 			"storedValue": "Blaster"
@@ -486,10 +466,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Boilermaker",
 	 			"frenchDescription": "Chaudronnier",
 	 			"storedValue": "Boilermaker"
-	 		}, {
-	 			"englishDescription": "Book Editor",
-	 			"frenchDescription": "Éditeur de livres",
-	 			"storedValue": "Book Editor"
 	 		}, {
 	 			"englishDescription": "Bookkeeper",
 	 			"frenchDescription": "Comptable",
@@ -511,26 +487,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Stratège de marque",
 	 			"storedValue": "Brand Strategist"
 	 		}, {
-	 			"englishDescription": "Bricklayer",
-	 			"frenchDescription": "Briqueteur",
-	 			"storedValue": "Bricklayer"
-	 		}, {
-	 			"englishDescription": "Broadcast Tech",
-	 			"frenchDescription": "Technicien de diffusion",
-	 			"storedValue": "Broadcast Tech"
-	 		}, {
-	 			"englishDescription": "Broadcaster",
-	 			"frenchDescription": "Diffuseur",
-	 			"storedValue": "Broadcaster"
-	 		}, {
-	 			"englishDescription": "Broiler Cook",
-	 			"frenchDescription": "Rôtisseur",
-	 			"storedValue": "Broiler Cook"
-	 		}, {
-	 			"englishDescription": "Broker",
-	 			"frenchDescription": "Courtier",
-	 			"storedValue": "Broker"
-	 		}, {
 	 			"englishDescription": "Budget Analyst",
 	 			"frenchDescription": "Analyste du budget",
 	 			"storedValue": "Budget Analyst"
@@ -538,10 +494,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Builder Commercial",
 	 			"frenchDescription": "Entrepreneur commercial",
 	 			"storedValue": "Builder Commercial"
-	 		}, {
-	 			"englishDescription": "Builder Residential",
-	 			"frenchDescription": "Entrepreneur résidentiel",
-	 			"storedValue": "Builder Residential"
 	 		}, {
 	 			"englishDescription": "Building Inspector",
 	 			"frenchDescription": "Inspecteur des bâtiments",
@@ -571,10 +523,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Commis-débarrasseur",
 	 			"storedValue": "Busser"
 	 		}, {
-	 			"englishDescription": "Butcher",
-	 			"frenchDescription": "Boucher",
-	 			"storedValue": "Butcher"
-	 		}, {
 	 			"englishDescription": "By-law Officer",
 	 			"frenchDescription": "Agent d’application des règlements",
 	 			"storedValue": "By-law Officer"
@@ -590,10 +538,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "COO",
 	 			"frenchDescription": "Directeur des opérations",
 	 			"storedValue": "COO"
-	 		}, {
-	 			"englishDescription": "Cabinet Maker",
-	 			"frenchDescription": "Ébéniste",
-	 			"storedValue": "Cabinet Maker"
 	 		}, {
 	 			"englishDescription": "Cable / TV Tech",
 	 			"frenchDescription": "Technicien câble/TV",
@@ -631,10 +575,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Caissier",
 	 			"storedValue": "Cashier"
 	 		}, {
-	 			"englishDescription": "Casting Director",
-	 			"frenchDescription": "Directeur de distribution",
-	 			"storedValue": "Casting Director"
-	 		}, {
 	 			"englishDescription": "Caterer",
 	 			"frenchDescription": "Traiteur",
 	 			"storedValue": "Caterer"
@@ -651,22 +591,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Opérateur de tronçonneuse",
 	 			"storedValue": "Chain Saw Operator"
 	 		}, {
-	 			"englishDescription": "Chauffeur",
-	 			"frenchDescription": "Conducteur",
-	 			"storedValue": "Chauffeur"
-	 		}, {
-	 			"englishDescription": "Chef",
-	 			"frenchDescription": "Chef",
-	 			"storedValue": "Chef"
-	 		}, {
-	 			"englishDescription": "Chemist",
-	 			"frenchDescription": "Chimiste",
-	 			"storedValue": "Chemist"
-	 		}, {
-	 			"englishDescription": "Chief HR Officer",
-	 			"frenchDescription": "Directeur des RH",
-	 			"storedValue": "Chief HR Officer"
-	 		}, {
 	 			"englishDescription": "Chief Info Officer",
 	 			"frenchDescription": "Directeur de l’information",
 	 			"storedValue": "Chief Info Officer"
@@ -678,14 +602,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Chief Operating Officer",
 	 			"frenchDescription": "Chef de l’exploitation",
 	 			"storedValue": "Chief Operating Off"
-	 		}, {
-	 			"englishDescription": "Chief People Officer",
-	 			"frenchDescription": "Chef du personnel",
-	 			"storedValue": "Chief People Office"
-	 		}, {
-	 			"englishDescription": "Chief Records Officer",
-	 			"frenchDescription": "Chef des dossiers",
-	 			"storedValue": "Chief Records Offic"
 	 		}, {
 	 			"englishDescription": "Chief Risk Officer",
 	 			"frenchDescription": "Chef de la gestion des risques",
@@ -711,21 +627,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Directeur de la photographie",
 	 			"storedValue": "Cinematographer"
 	 		}, {
-	 			"englishDescription": "Claims Adjuster",
-	 			"frenchDescription": "Expert en sinistres",
-	 			"storedValue": "Claims Adjuster"
-	 		}, {
 	 			"englishDescription": "Claims Examiner",
 	 			"frenchDescription": "Inspecteur des réclamations",
 	 			"storedValue": "Claims Examiner"
-	 		}, {
-	 			"englishDescription": "Cleaner",
-	 			"frenchDescription": "Nettoyeur",
-	 			"storedValue": "Cleaner"
-	 		}, {
-	 			"englishDescription": "Clerk",
-	 			"frenchDescription": "Préposé",
-	 			"storedValue": "Clerk"
 	 		}, {
 	 			"englishDescription": "Climatologist",
 	 			"frenchDescription": "Climatologue",
@@ -742,14 +646,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Collector",
 	 			"frenchDescription": "Encaisseur",
 	 			"storedValue": "Collector"
-	 		}, {
-	 			"englishDescription": "Colourist",
-	 			"frenchDescription": "Coloriste",
-	 			"storedValue": "Colourist"
-	 		}, {
-	 			"englishDescription": "Comedian",
-	 			"frenchDescription": "Comédien",
-	 			"storedValue": "Comedian"
 	 		}, {
 	 			"englishDescription": "Commentator",
 	 			"frenchDescription": "Commentateur",
@@ -787,10 +683,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Responsable de la conformité",
 	 			"storedValue": "Compliance Officer"
 	 		}, {
-	 			"englishDescription": "Composer",
-	 			"frenchDescription": "Compositeur",
-	 			"storedValue": "Composer"
-	 		}, {
 	 			"englishDescription": "Computer Animator",
 	 			"frenchDescription": "Animateur par ordinateur",
 	 			"storedValue": "Computer Animator"
@@ -806,18 +698,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Concept Artist",
 	 			"frenchDescription": "Artiste conceptuel",
 	 			"storedValue": "Concept Artist"
-	 		}, {
-	 			"englishDescription": "Concrete Finisher",
-	 			"frenchDescription": "Cimentier-finisseur",
-	 			"storedValue": "Concrete Finisher"
-	 		}, {
-	 			"englishDescription": "Concrete Maker",
-	 			"frenchDescription": "Cimentier",
-	 			"storedValue": "Concrete Maker"
-	 		}, {
-	 			"englishDescription": "Conductor",
-	 			"frenchDescription": "Chef",
-	 			"storedValue": "Conductor"
 	 		}, {
 	 			"englishDescription": "Conference Planner",
 	 			"frenchDescription": "Planificateur de conférences",
@@ -835,10 +715,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Coordinateur de la construction",
 	 			"storedValue": "Construction Coordi"
 	 		}, {
-	 			"englishDescription": "Construction Engineer",
-	 			"frenchDescription": "Ingénieur en construction",
-	 			"storedValue": "Construction Engine"
-	 		}, {
 	 			"englishDescription": "Construction Manager",
 	 			"frenchDescription": "Chef de la construction",
 	 			"storedValue": "Construction Manage"
@@ -847,33 +723,13 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Gestionnaire des contrats",
 	 			"storedValue": "Contract Manager"
 	 		}, {
-	 			"englishDescription": "Contractor",
-	 			"frenchDescription": "Entrepreneurs",
-	 			"storedValue": "Contractor"
-	 		}, {
-	 			"englishDescription": "Controller",
-	 			"frenchDescription": "Contrôleur",
-	 			"storedValue": "Controller"
-	 		}, {
-	 			"englishDescription": "Cook",
-	 			"frenchDescription": "Cuisinier",
-	 			"storedValue": "Cook"
-	 		}, {
 	 			"englishDescription": "Coordinator",
 	 			"frenchDescription": "Coordonnateur",
 	 			"storedValue": "Coordinator"
 	 		}, {
-	 			"englishDescription": "Copy Editor",
-	 			"frenchDescription": "Réviseur",
-	 			"storedValue": "Copy Editor"
-	 		}, {
 	 			"englishDescription": "Copy Writer",
 	 			"frenchDescription": "Rédacteur",
 	 			"storedValue": "Copy Writer"
-	 		}, {
-	 			"englishDescription": "Coroner",
-	 			"frenchDescription": "Coroner",
-	 			"storedValue": "Coroner"
 	 		}, {
 	 			"englishDescription": "Corp Affairs Manager",
 	 			"frenchDescription": "Responsable des affaires commerciales",
@@ -883,25 +739,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Agent correctionnel",
 	 			"storedValue": "Correctional Office"
 	 		}, {
-	 			"englishDescription": "Cosmetologist",
-	 			"frenchDescription": "Cosmétologue",
-	 			"storedValue": "Cosmetologist"
-	 		}, {
-	 			"englishDescription": "Counter Server",
-	 			"frenchDescription": "Serveur",
-	 			"storedValue": "Counter Server"
-	 		}, {
 	 			"englishDescription": "Courier",
 	 			"frenchDescription": "Messager",
 	 			"storedValue": "Courier"
-	 		}, {
-	 			"englishDescription": "Court Clerk",
-	 			"frenchDescription": "Greffier",
-	 			"storedValue": "Court Clerk"
-	 		}, {
-	 			"englishDescription": "Court Officer",
-	 			"frenchDescription": "Huissier",
-	 			"storedValue": "Court Officer"
 	 		}, {
 	 			"englishDescription": "Court Reporter",
 	 			"frenchDescription": "Sténographe judiciaire",
@@ -927,21 +767,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Autorisateur de crédit",
 	 			"storedValue": "Credit Authorizer"
 	 		}, {
-	 			"englishDescription": "Credit Counselor",
-	 			"frenchDescription": "Conseiller en crédit",
-	 			"storedValue": "Credit Counselor"
-	 		}, {
 	 			"englishDescription": "Credit Risk Manager",
 	 			"frenchDescription": "Gestionnaire de risque",
 	 			"storedValue": "Credit Risk Manager"
-	 		}, {
-	 			"englishDescription": "Crew Member",
-	 			"frenchDescription": "Membre de l’équipe",
-	 			"storedValue": "Crew Member"
-	 		}, {
-	 			"englishDescription": "Crop Inspector",
-	 			"frenchDescription": "Inspecteur de récolte",
-	 			"storedValue": "Crop Inspector"
 	 		}, {
 	 			"englishDescription": "Crossing Guard",
 	 			"frenchDescription": "Brigadier",
@@ -958,10 +786,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Cust Service Rep",
 	 			"frenchDescription": "Représentant du service client",
 	 			"storedValue": "Cust Service Rep"
-	 		}, {
-	 			"englishDescription": "Custodian",
-	 			"frenchDescription": "Détenteur",
-	 			"storedValue": "Custodian"
 	 		}, {
 	 			"englishDescription": "Customs Broker",
 	 			"frenchDescription": "Courtier en douane",
@@ -987,17 +811,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Personnel de garderie",
 	 			"storedValue": "Daycare Staff"
 	 		}, {
-	 			"englishDescription": "Dean",
-	 			"frenchDescription": "Doyen",
-	 			"storedValue": "Dean"
-	 		}, {
 	 			"englishDescription": "Deckhand",
 	 			"frenchDescription": "Matelot",
 	 			"storedValue": "Deckhand"
-	 		}, {
-	 			"englishDescription": "Delivery Driver",
-	 			"frenchDescription": "Livreur",
-	 			"storedValue": "Delivery Driver"
 	 		}, {
 	 			"englishDescription": "Dental Assistant",
 	 			"frenchDescription": "Assistant dentaire",
@@ -1019,14 +835,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Thérapeute dentaire",
 	 			"storedValue": "Dental Therapist"
 	 		}, {
-	 			"englishDescription": "Dentist",
-	 			"frenchDescription": "Dentiste",
-	 			"storedValue": "Dentist"
-	 		}, {
-	 			"englishDescription": "Denturists",
-	 			"frenchDescription": "Denturologiste",
-	 			"storedValue": "Denturists"
-	 		}, {
 	 			"englishDescription": "Design Director",
 	 			"frenchDescription": "Directeur de la conception",
 	 			"storedValue": "Design Director"
@@ -1034,22 +842,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Design Strategist",
 	 			"frenchDescription": "Responsable de la stratégie de conception",
 	 			"storedValue": "Design Strategist"
-	 		}, {
-	 			"englishDescription": "Designer",
-	 			"frenchDescription": "Styliste",
-	 			"storedValue": "Designer"
-	 		}, {
-	 			"englishDescription": "Detective",
-	 			"frenchDescription": "Détective",
-	 			"storedValue": "Detective"
-	 		}, {
-	 			"englishDescription": "Developer",
-	 			"frenchDescription": "Développeur",
-	 			"storedValue": "Developer"
-	 		}, {
-	 			"englishDescription": "Dietitian",
-	 			"frenchDescription": "Diététiste",
-	 			"storedValue": "Dietitian"
 	 		}, {
 	 			"englishDescription": "Digital Strategist",
 	 			"frenchDescription": "Responsable de la stratégie numérique",
@@ -1059,17 +851,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Responsable de la salle à manger",
 	 			"storedValue": "Dining Room Manager"
 	 		}, {
-	 			"englishDescription": "Direct Salesperson",
-	 			"frenchDescription": "Vendeur direct",
-	 			"storedValue": "Direct Salesperson"
-	 		}, {
-	 			"englishDescription": "Director",
-	 			"frenchDescription": "Directeur",
-	 			"storedValue": "Director"
-	 		}, {
-	 			"englishDescription": "Dishwasher",
-	 			"frenchDescription": "Plongeur",
-	 			"storedValue": "Dishwasher"
+	 			"englishDescription": "Disability Pension",
+	 			"frenchDescription": "Rente d’invalidité",
+	 			"storedValue": "Disability Pension"
 	 		}, {
 	 			"englishDescription": "Dispatcher",
 	 			"frenchDescription": "Répartiteur",
@@ -1087,18 +871,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Débardeur",
 	 			"storedValue": "Dock Worker"
 	 		}, {
-	 			"englishDescription": "Doctor",
-	 			"frenchDescription": "Médecin",
-	 			"storedValue": "Doctor"
-	 		}, {
-	 			"englishDescription": "Driller",
-	 			"frenchDescription": "Foreur",
-	 			"storedValue": "Driller"
-	 		}, {
-	 			"englishDescription": "Driver",
-	 			"frenchDescription": "Conducteur",
-	 			"storedValue": "Driver"
-	 		}, {
 	 			"englishDescription": "Driving Instructor",
 	 			"frenchDescription": "Moniteur de conduite automobile",
 	 			"storedValue": "Driving Instructor"
@@ -1111,10 +883,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Préposé au nettoyage à sec",
 	 			"storedValue": "Dry Cleaning Attend"
 	 		}, {
-	 			"englishDescription": "Drywall Finisher",
-	 			"frenchDescription": "Finisseur de cloisons sèches",
-	 			"storedValue": "Drywall Finisher"
-	 		}, {
 	 			"englishDescription": "Drywall Installer",
 	 			"frenchDescription": "Installateur de cloisons sèches",
 	 			"storedValue": "Drywall Installer"
@@ -1123,21 +891,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Plâtrier de cloisons sèches",
 	 			"storedValue": "Drywall Plasterer"
 	 		}, {
-	 			"englishDescription": "EMT",
-	 			"frenchDescription": "ÉCD",
-	 			"storedValue": "EMT"
-	 		}, {
-	 			"englishDescription": "Ecologist",
-	 			"frenchDescription": "Écologiste",
-	 			"storedValue": "Ecologist"
-	 		}, {
 	 			"englishDescription": "Economic Analyst",
 	 			"frenchDescription": "Analyste économique",
 	 			"storedValue": "Economic Analyst"
-	 		}, {
-	 			"englishDescription": "Economist",
-	 			"frenchDescription": "Économiste",
-	 			"storedValue": "Economist"
 	 		}, {
 	 			"englishDescription": "Editor",
 	 			"frenchDescription": "Rédacteur",
@@ -1163,14 +919,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Mécanicien électrique",
 	 			"storedValue": "Electrical Mechanic"
 	 		}, {
-	 			"englishDescription": "Electrician",
-	 			"frenchDescription": "Électricien",
-	 			"storedValue": "Electrician"
-	 		}, {
-	 			"englishDescription": "Electrologist",
-	 			"frenchDescription": "Électrolyste",
-	 			"storedValue": "Electrologist"
-	 		}, {
 	 			"englishDescription": "Elevator Builder",
 	 			"frenchDescription": "Constructeur d’ascenseurs",
 	 			"storedValue": "Elevator Builder"
@@ -1182,14 +930,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Emergency Med Tech",
 	 			"frenchDescription": "Technicien d’urgence médicale",
 	 			"storedValue": "Emergency Med Tech"
-	 		}, {
-	 			"englishDescription": "Employment Counsellor",
-	 			"frenchDescription": "Conseiller en emploi",
-	 			"storedValue": "Employment Counsell"
-	 		}, {
-	 			"englishDescription": "Engineer",
-	 			"frenchDescription": "Ingénieur",
-	 			"storedValue": "Engineer"
 	 		}, {
 	 			"englishDescription": "Entertainer",
 	 			"frenchDescription": "Animateur",
@@ -1207,10 +947,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Essayiste",
 	 			"storedValue": "Essayist"
 	 		}, {
-	 			"englishDescription": "Esthetician",
-	 			"frenchDescription": "Esthéticien",
-	 			"storedValue": "Esthetician"
-	 		}, {
 	 			"englishDescription": "Estimator",
 	 			"frenchDescription": "Estimateur",
 	 			"storedValue": "Estimator"
@@ -1227,17 +963,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Adjoint administratif",
 	 			"storedValue": "Executive Assistant"
 	 		}, {
-	 			"englishDescription": "Executive Chef",
-	 			"frenchDescription": "Premier chef",
-	 			"storedValue": "Executive Chef"
-	 		}, {
 	 			"englishDescription": "Executive Director",
 	 			"frenchDescription": "Directeur général",
 	 			"storedValue": "Executive Director"
-	 		}, {
-	 			"englishDescription": "Expediter",
-	 			"frenchDescription": "Expéditeur",
-	 			"storedValue": "Expediter"
 	 		}, {
 	 			"englishDescription": "Exterminator",
 	 			"frenchDescription": "Exterminateur",
@@ -1275,10 +1003,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Employé d’installation",
 	 			"storedValue": "Facility Worker"
 	 		}, {
-	 			"englishDescription": "Factory Worker",
-	 			"frenchDescription": "Employé d’usine",
-	 			"storedValue": "Factory Worker"
-	 		}, {
 	 			"englishDescription": "Family Counsellor",
 	 			"frenchDescription": "Conseiller familial",
 	 			"storedValue": "Family Counsellor"
@@ -1294,10 +1018,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Farm Worker",
 	 			"frenchDescription": "Travailleur agricole",
 	 			"storedValue": "Farm Worker"
-	 		}, {
-	 			"englishDescription": "Farmer",
-	 			"frenchDescription": "Fermier",
-	 			"storedValue": "Farmer"
 	 		}, {
 	 			"englishDescription": "Fashion Designer",
 	 			"frenchDescription": "Créateur de mode",
@@ -1331,22 +1051,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Planificateur financier",
 	 			"storedValue": "Financial Planner"
 	 		}, {
-	 			"englishDescription": "Finisher",
-	 			"frenchDescription": "Finisseur",
-	 			"storedValue": "Finisher"
-	 		}, {
-	 			"englishDescription": "Fire Chief",
-	 			"frenchDescription": "Chef des pompiers",
-	 			"storedValue": "Fire Chief"
-	 		}, {
-	 			"englishDescription": "Firefighter",
-	 			"frenchDescription": "Pompier",
-	 			"storedValue": "Firefighter"
-	 		}, {
-	 			"englishDescription": "Fisherman",
-	 			"frenchDescription": "Pêcheur",
-	 			"storedValue": "Fisherman"
-	 		}, {
 	 			"englishDescription": "Fishing Master",
 	 			"frenchDescription": "Capitaine de pêche",
 	 			"storedValue": "Fishing Master"
@@ -1359,17 +1063,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Gérant de centre de conditionnement physique",
 	 			"storedValue": "Fitness Centre Mana"
 	 		}, {
-	 			"englishDescription": "Fitness Instructor",
-	 			"frenchDescription": "Instructeur en conditionnement physique",
-	 			"storedValue": "Fitness Instructor"
-	 		}, {
 	 			"englishDescription": "Fitness Trainer",
 	 			"frenchDescription": "Entraîneur en conditionnement physique",
 	 			"storedValue": "Fitness Trainer"
-	 		}, {
-	 			"englishDescription": "Fitter",
-	 			"frenchDescription": "Monteur",
-	 			"storedValue": "Fitter"
 	 		}, {
 	 			"englishDescription": "Flight Attendant",
 	 			"frenchDescription": "Agent de bord",
@@ -1387,14 +1083,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Créateur floral",
 	 			"storedValue": "Floral Designer"
 	 		}, {
-	 			"englishDescription": "Florist",
-	 			"frenchDescription": "Fleuriste",
-	 			"storedValue": "Florist"
-	 		}, {
-	 			"englishDescription": "Flying Instructor",
-	 			"frenchDescription": "Instructeur de vol",
-	 			"storedValue": "Flying Instructor"
-	 		}, {
 	 			"englishDescription": "Food / Drink Server",
 	 			"frenchDescription": "Serveur de restauration",
 	 			"storedValue": "Food / Drink Server"
@@ -1403,21 +1091,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Contremaître",
 	 			"storedValue": "Foreman"
 	 		}, {
-	 			"englishDescription": "Forest Engineers",
-	 			"frenchDescription": "Ingénieur forestier",
-	 			"storedValue": "Forest Engineers"
-	 		}, {
 	 			"englishDescription": "Forest Planners",
 	 			"frenchDescription": "Planificateur forestier",
 	 			"storedValue": "Forest Planners"
-	 		}, {
-	 			"englishDescription": "Forest Technician",
-	 			"frenchDescription": "Technicien forestier",
-	 			"storedValue": "Forest Technician"
-	 		}, {
-	 			"englishDescription": "Foresters",
-	 			"frenchDescription": "Forestier",
-	 			"storedValue": "Foresters"
 	 		}, {
 	 			"englishDescription": "Forestry Worker",
 	 			"frenchDescription": "Travailleur forestier",
@@ -1451,25 +1127,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Directeur funéraire",
 	 			"storedValue": "Funeral Director"
 	 		}, {
-	 			"englishDescription": "Furrier",
-	 			"frenchDescription": "Fourreur",
-	 			"storedValue": "Furrier"
-	 		}, {
-	 			"englishDescription": "Game Developer",
-	 			"frenchDescription": "Développeur de jeux",
-	 			"storedValue": "Game Developer"
-	 		}, {
-	 			"englishDescription": "Garbage Collector",
-	 			"frenchDescription": "Éboueur",
-	 			"storedValue": "Garbage Collector"
-	 		}, {
 	 			"englishDescription": "Gas Fitter",
 	 			"frenchDescription": "Monteur d’installation au gaz",
 	 			"storedValue": "Gas Fitter"
-	 		}, {
-	 			"englishDescription": "Gas Station Attendant",
-	 			"frenchDescription": "Pompiste",
-	 			"storedValue": "Gas Station Attenda"
 	 		}, {
 	 			"englishDescription": "Gas Technician",
 	 			"frenchDescription": "Technicien gazier",
@@ -1483,17 +1143,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Ouvrier général",
 	 			"storedValue": "General Labourer"
 	 		}, {
-	 			"englishDescription": "Geoscientist",
-	 			"frenchDescription": "Géoscientifique",
-	 			"storedValue": "Geoscientist"
-	 		}, {
 	 			"englishDescription": "Geospaticial Analyst",
 	 			"frenchDescription": "Analyste géospatial",
 	 			"storedValue": "Geospaticial Analys"
-	 		}, {
-	 			"englishDescription": "Glazier",
-	 			"frenchDescription": "Vitrier",
-	 			"storedValue": "Glazier"
 	 		}, {
 	 			"englishDescription": "Graphic Artist",
 	 			"frenchDescription": "Graphiste",
@@ -1510,10 +1162,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Greenhouse Worker",
 	 			"frenchDescription": "Travailleur de serre",
 	 			"storedValue": "Greenhouse Worker"
-	 		}, {
-	 			"englishDescription": "Groomer",
-	 			"frenchDescription": "Toiletteur",
-	 			"storedValue": "Groomer"
 	 		}, {
 	 			"englishDescription": "Grounds Technician",
 	 			"frenchDescription": "Technicien de terrain",
@@ -1546,22 +1194,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "HR Coordinator",
 	 			"frenchDescription": "Coordonnateur des RH",
 	 			"storedValue": "HR Coordinator"
-	 		}, {
-	 			"englishDescription": "HR Director",
-	 			"frenchDescription": "Directeur des RH",
-	 			"storedValue": "HR Director"
-	 		}, {
-	 			"englishDescription": "HR Manager",
-	 			"frenchDescription": "Chef des RH",
-	 			"storedValue": "HR Manager"
-	 		}, {
-	 			"englishDescription": "Hairdresser",
-	 			"frenchDescription": "Coiffeur",
-	 			"storedValue": "Hairdresser"
-	 		}, {
-	 			"englishDescription": "Hairstylist",
-	 			"frenchDescription": "Styliste",
-	 			"storedValue": "Hairstylist"
 	 		}, {
 	 			"englishDescription": "Handyman",
 	 			"frenchDescription": "Homme à tout faire",
@@ -1599,18 +1231,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Dresseur de chevaux",
 	 			"storedValue": "Horse Trainer"
 	 		}, {
-	 			"englishDescription": "Host / Hostess",
-	 			"frenchDescription": "Hôte/hôtesse",
-	 			"storedValue": "Host / Hostess"
-	 		}, {
-	 			"englishDescription": "Hotel Clerk",
-	 			"frenchDescription": "Commis d’hôtel",
-	 			"storedValue": "Hotel Clerk"
-	 		}, {
-	 			"englishDescription": "Hotel Staff",
-	 			"frenchDescription": "Personnel d’hôtel",
-	 			"storedValue": "Hotel Staff"
-	 		}, {
 	 			"englishDescription": "Housekeeper",
 	 			"frenchDescription": "Gouvernante",
 	 			"storedValue": "Housekeeper"
@@ -1631,17 +1251,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Importateur/Exportateur",
 	 			"storedValue": "Importer / Exporter"
 	 		}, {
-	 			"englishDescription": "Industrial Designer",
-	 			"frenchDescription": "Concepteur industriel",
-	 			"storedValue": "Industrial Designer"
-	 		}, {
 	 			"englishDescription": "Industrial Mechanic",
 	 			"frenchDescription": "Mécanicien industriel",
 	 			"storedValue": "Industrial Mechanic"
-	 		}, {
-	 			"englishDescription": "Influencer",
-	 			"frenchDescription": "Influenceur",
-	 			"storedValue": "Influencer"
 	 		}, {
 	 			"englishDescription": "Information Analyst",
 	 			"frenchDescription": "Analyste d’information",
@@ -1654,14 +1266,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Information Coordinator",
 	 			"frenchDescription": "Coordonnateur d’information",
 	 			"storedValue": "Information Coordin"
-	 		}, {
-	 			"englishDescription": "Inspector",
-	 			"frenchDescription": "Inspecteur",
-	 			"storedValue": "Inspector"
-	 		}, {
-	 			"englishDescription": "Instructor",
-	 			"frenchDescription": "Instructeur",
-	 			"storedValue": "Instructor"
 	 		}, {
 	 			"englishDescription": "Insulator",
 	 			"frenchDescription": "Calorifugeur",
@@ -1691,17 +1295,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Architecte d’intérieur",
 	 			"storedValue": "Interior Designer"
 	 		}, {
-	 			"englishDescription": "Interpreter",
-	 			"frenchDescription": "Interprète",
-	 			"storedValue": "Interpreter"
-	 		}, {
 	 			"englishDescription": "Inventory Counter",
 	 			"frenchDescription": "Commis d’inventaire",
 	 			"storedValue": "Inventory Counter"
-	 		}, {
-	 			"englishDescription": "Investigator",
-	 			"frenchDescription": "Enquêteur",
-	 			"storedValue": "Investigator"
 	 		}, {
 	 			"englishDescription": "Investment Banker",
 	 			"frenchDescription": "Banquier d’affaires",
@@ -1711,18 +1307,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Représentant en investissement",
 	 			"storedValue": "Investment Rep"
 	 		}, {
-	 			"englishDescription": "Ironworker",
-	 			"frenchDescription": "Serrurier",
-	 			"storedValue": "Ironworker"
-	 		}, {
-	 			"englishDescription": "Janitor",
-	 			"frenchDescription": "Concierge",
-	 			"storedValue": "Janitor"
-	 		}, {
-	 			"englishDescription": "Jeweller",
-	 			"frenchDescription": "Bijoutier",
-	 			"storedValue": "Jeweller"
-	 		}, {
 	 			"englishDescription": "Jewellery Designer",
 	 			"frenchDescription": "Créateur de bijoux",
 	 			"storedValue": "Jewellery Designer"
@@ -1731,17 +1315,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Réparateur de bijoux",
 	 			"storedValue": "Jewellery Repairer"
 	 		}, {
-	 			"englishDescription": "Joiners",
-	 			"frenchDescription": "Menuisier",
-	 			"storedValue": "Joiners"
-	 		}, {
 	 			"englishDescription": "Journalist",
 	 			"frenchDescription": "Journaliste",
 	 			"storedValue": "Journalist"
-	 		}, {
-	 			"englishDescription": "Judge",
-	 			"frenchDescription": "Juge",
-	 			"storedValue": "Judge"
 	 		}, {
 	 			"englishDescription": "Justice of Peace",
 	 			"frenchDescription": "Juge de paix",
@@ -1751,14 +1327,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Aide de cuisine",
 	 			"storedValue": "Kitchen Helper"
 	 		}, {
-	 			"englishDescription": "Kitchen Manager",
-	 			"frenchDescription": "Chef de cuisine",
-	 			"storedValue": "Kitchen Manager"
-	 		}, {
-	 			"englishDescription": "LPN",
-	 			"frenchDescription": "Infirmier/Infirmière",
-	 			"storedValue": "LPN"
-	 		}, {
 	 			"englishDescription": "Lab Assistant",
 	 			"frenchDescription": "Assistant de laboratoire",
 	 			"storedValue": "Lab Assistant"
@@ -1766,10 +1334,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Lab Technician",
 	 			"frenchDescription": "Technicien de laboratoire",
 	 			"storedValue": "Lab Technician"
-	 		}, {
-	 			"englishDescription": "Labourer",
-	 			"frenchDescription": "Ouvrier",
-	 			"storedValue": "Labourer"
 	 		}, {
 	 			"englishDescription": "Land Surveyor",
 	 			"frenchDescription": "Arpenteur",
@@ -1803,10 +1367,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Administrateur de loisirs",
 	 			"storedValue": "Leisure Admin"
 	 		}, {
-	 			"englishDescription": "Leisure Service Manager",
-	 			"frenchDescription": "Directeur de service de loisirs",
-	 			"storedValue": "Leisure Service Man"
-	 		}, {
 	 			"englishDescription": "Letter Carrier",
 	 			"frenchDescription": "Facteur",
 	 			"storedValue": "Letter Carrier"
@@ -1818,10 +1378,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Library Assistant",
 	 			"frenchDescription": "Adjoint bibliothécaire",
 	 			"storedValue": "Library Assistant"
-	 		}, {
-	 			"englishDescription": "Library Clerk",
-	 			"frenchDescription": "Commis de bibliothèque",
-	 			"storedValue": "Library Clerk"
 	 		}, {
 	 			"englishDescription": "Lifeguard",
 	 			"frenchDescription": "Maître-nageur",
@@ -1859,21 +1415,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Gestionnaire d’emplacement",
 	 			"storedValue": "Location Manager"
 	 		}, {
-	 			"englishDescription": "Locksmith",
-	 			"frenchDescription": "Serrurier",
-	 			"storedValue": "Locksmith"
-	 		}, {
 	 			"englishDescription": "Locomotive Engineer",
 	 			"frenchDescription": "Mécanicien de locomotive",
 	 			"storedValue": "Locomotive Engineer"
-	 		}, {
-	 			"englishDescription": "Lodging Staff",
-	 			"frenchDescription": "Personnel d’hébergement",
-	 			"storedValue": "Lodging Staff"
-	 		}, {
-	 			"englishDescription": "Logger",
-	 			"frenchDescription": "Bûcheron",
-	 			"storedValue": "Logger"
 	 		}, {
 	 			"englishDescription": "Logistics Coordinator",
 	 			"frenchDescription": "Coordonnateur de la logistique",
@@ -1894,14 +1438,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Lyricist",
 	 			"frenchDescription": "Parolier",
 	 			"storedValue": "Lyricist"
-	 		}, {
-	 			"englishDescription": "MRI Tech",
-	 			"frenchDescription": "Technicien en IRM",
-	 			"storedValue": "MRI Tech"
-	 		}, {
-	 			"englishDescription": "Machine Fitter",
-	 			"frenchDescription": "Monteur",
-	 			"storedValue": "Machine Fitter"
 	 		}, {
 	 			"englishDescription": "Machine Operator",
 	 			"frenchDescription": "Opérateur de machine",
@@ -1935,10 +1471,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Directeur, Banque",
 	 			"storedValue": "Manager Banking"
 	 		}, {
-	 			"englishDescription": "Manager Credit Risk",
-	 			"frenchDescription": "Directeur, Risques de crédit",
-	 			"storedValue": "Manager Credit Risk"
-	 		}, {
 	 			"englishDescription": "Manager Facilities",
 	 			"frenchDescription": "Directeur, installations",
 	 			"storedValue": "Manager Facilities"
@@ -1954,10 +1486,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Manager Retail",
 	 			"frenchDescription": "Directeur, Vente au détail",
 	 			"storedValue": "Manager Retail"
-	 		}, {
-	 			"englishDescription": "Manager Sales",
-	 			"frenchDescription": "Directeur, Ventes",
-	 			"storedValue": "Manager Sales"
 	 		}, {
 	 			"englishDescription": "Marina Manager",
 	 			"frenchDescription": "Directeur, Marina",
@@ -2055,10 +1583,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Messager",
 	 			"storedValue": "Messenger"
 	 		}, {
-	 			"englishDescription": "Meteorologist",
-	 			"frenchDescription": "Météorologue",
-	 			"storedValue": "Meteorologist"
-	 		}, {
 	 			"englishDescription": "Milliner",
 	 			"frenchDescription": "Chapelier",
 	 			"storedValue": "Milliner"
@@ -2071,10 +1595,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Directeur des opérations minières",
 	 			"storedValue": "Mining Manager"
 	 		}, {
-	 			"englishDescription": "Model",
-	 			"frenchDescription": "Modèle",
-	 			"storedValue": "Model"
-	 		}, {
 	 			"englishDescription": "Mortgage Agent",
 	 			"frenchDescription": "Agent hypothécaire",
 	 			"storedValue": "Mortgage Agent"
@@ -2082,14 +1602,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Mortgage Consultant",
 	 			"frenchDescription": "Conseiller en prêts hypothécaires",
 	 			"storedValue": "Mortgage Consultant"
-	 		}, {
-	 			"englishDescription": "Mortician",
-	 			"frenchDescription": "Entrepreneur de pompes funèbres",
-	 			"storedValue": "Mortician"
-	 		}, {
-	 			"englishDescription": "Motel Staff",
-	 			"frenchDescription": "Personnel de motel",
-	 			"storedValue": "Motel Staff"
 	 		}, {
 	 			"englishDescription": "Motion Pictures Worker",
 	 			"frenchDescription": "Travailleur de films",
@@ -2099,18 +1611,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Déménageur",
 	 			"storedValue": "Mover"
 	 		}, {
-	 			"englishDescription": "Music Producer",
-	 			"frenchDescription": "Producteur de musique",
-	 			"storedValue": "Music Producer"
-	 		}, {
-	 			"englishDescription": "Musician",
-	 			"frenchDescription": "Musicien",
-	 			"storedValue": "Musician"
-	 		}, {
-	 			"englishDescription": "Nanny",
-	 			"frenchDescription": "Nounou",
-	 			"storedValue": "Nanny"
-	 		}, {
 	 			"englishDescription": "Network Analyst",
 	 			"frenchDescription": "Analyste réseau",
 	 			"storedValue": "Network Analyst"
@@ -2118,10 +1618,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Notary",
 	 			"frenchDescription": "Notaire",
 	 			"storedValue": "Notary"
-	 		}, {
-	 			"englishDescription": "Nurse",
-	 			"frenchDescription": "Infirmier",
-	 			"storedValue": "Nurse"
 	 		}, {
 	 			"englishDescription": "Nurse Aide",
 	 			"frenchDescription": "Aide-soignant",
@@ -2142,14 +1638,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Nutritional Coach",
 	 			"frenchDescription": "Coach nutritionnel",
 	 			"storedValue": "Nutritional Coach"
-	 		}, {
-	 			"englishDescription": "Nutritionist",
-	 			"frenchDescription": "Nutritionniste",
-	 			"storedValue": "Nutritionist"
-	 		}, {
-	 			"englishDescription": "Obstetrician",
-	 			"frenchDescription": "Obstétricien",
-	 			"storedValue": "Obstetrician"
 	 		}, {
 	 			"englishDescription": "Occupation Therapy",
 	 			"frenchDescription": "Ergothérapeute",
@@ -2187,14 +1675,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Chef de l’exploitation",
 	 			"storedValue": "Operations Manager"
 	 		}, {
-	 			"englishDescription": "Optician",
-	 			"frenchDescription": "Opticien",
-	 			"storedValue": "Optician"
-	 		}, {
-	 			"englishDescription": "Optometrist",
-	 			"frenchDescription": "Optométriste",
-	 			"storedValue": "Optometrist"
-	 		}, {
 	 			"englishDescription": "Orderly",
 	 			"frenchDescription": "Aide-soignant",
 	 			"storedValue": "Ordery"
@@ -2227,10 +1707,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "PAB / Préposé aux bénéficiaires",
 	 			"storedValue": "PSW"
 	 		}, {
-	 			"englishDescription": "Painter",
-	 			"frenchDescription": "Peintre",
-	 			"storedValue": "Painter"
-	 		}, {
 	 			"englishDescription": "Pantry cook",
 	 			"frenchDescription": "Pâtissier",
 	 			"storedValue": "Pantry cook"
@@ -2246,10 +1722,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Parole Officer",
 	 			"frenchDescription": "Agent de libération conditionnelle",
 	 			"storedValue": "Parole Officer"
-	 		}, {
-	 			"englishDescription": "Parts Associate",
-	 			"frenchDescription": "Employé du comptoir des pièces",
-	 			"storedValue": "Parts Associate"
 	 		}, {
 	 			"englishDescription": "Party Planner",
 	 			"frenchDescription": "Planificateur de réceptions",
@@ -2295,10 +1767,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Artiste interprète",
 	 			"storedValue": "Performer"
 	 		}, {
-	 			"englishDescription": "Personal Advisor",
-	 			"frenchDescription": "Conseiller personnel",
-	 			"storedValue": "Personal Advisor"
-	 		}, {
 	 			"englishDescription": "Personal Banker",
 	 			"frenchDescription": "Banquier personnel",
 	 			"storedValue": "Personal Banker"
@@ -2323,10 +1791,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Technicien de pharmacie",
 	 			"storedValue": "Pharmacy Technician"
 	 		}, {
-	 			"englishDescription": "Phlebotomist",
-	 			"frenchDescription": "Phlébotomiste",
-	 			"storedValue": "Phlebotomist"
-	 		}, {
 	 			"englishDescription": "Photographer",
 	 			"frenchDescription": "Photographe",
 	 			"storedValue": "Photographer"
@@ -2339,85 +1803,21 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Physiothérapeute",
 	 			"storedValue": "Physical Therapist"
 	 		}, {
-	 			"englishDescription": "Physician",
-	 			"frenchDescription": "Médecin",
-	 			"storedValue": "Physician"
-	 		}, {
 	 			"englishDescription": "Physician Assistant",
 	 			"frenchDescription": "Médecin adjoint",
 	 			"storedValue": "Physician Assistant"
-	 		}, {
-	 			"englishDescription": "Physicist",
-	 			"frenchDescription": "Physicien",
-	 			"storedValue": "Physicist"
 	 		}, {
 	 			"englishDescription": "Physiotherapist",
 	 			"frenchDescription": "Physiothérapeute",
 	 			"storedValue": "Physiotherapist"
 	 		}, {
-	 			"englishDescription": "Pilot",
-	 			"frenchDescription": "Pilote",
-	 			"storedValue": "Pilot"
-	 		}, {
 	 			"englishDescription": "Pipefitter",
 	 			"frenchDescription": "Tuyauteur",
 	 			"storedValue": "Pipefitter"
 	 		}, {
-	 			"englishDescription": "Plant Manager",
-	 			"frenchDescription": "Directeur d’usine",
-	 			"storedValue": "Plant Manager"
-	 		}, {
-	 			"englishDescription": "Plumber",
-	 			"frenchDescription": "Plombier",
-	 			"storedValue": "Plumber"
-	 		}, {
-	 			"englishDescription": "Police Officer",
-	 			"frenchDescription": "Policier",
-	 			"storedValue": "Police Officer"
-	 		}, {
-	 			"englishDescription": "Politician",
-	 			"frenchDescription": "Politicien",
-	 			"storedValue": "Politician"
-	 		}, {
-	 			"englishDescription": "Porter",
-	 			"frenchDescription": "Porteur",
-	 			"storedValue": "Porter"
-	 		}, {
-	 			"englishDescription": "Portfolio Manager",
-	 			"frenchDescription": "Directeur de portefeuille",
-	 			"storedValue": "Portfolio Manager"
-	 		}, {
-	 			"englishDescription": "Postal Worker",
-	 			"frenchDescription": "Postier",
-	 			"storedValue": "Postal Worker"
-	 		}, {
-	 			"englishDescription": "Potter",
-	 			"frenchDescription": "Potier",
-	 			"storedValue": "Potter"
-	 		}, {
-	 			"englishDescription": "Power Line Worker",
-	 			"frenchDescription": "Monteur de lignes électriques",
-	 			"storedValue": "Power Line Worker"
-	 		}, {
 	 			"englishDescription": "Preacher",
 	 			"frenchDescription": "Prédicateur",
 	 			"storedValue": "Preacher"
-	 		}, {
-	 			"englishDescription": "President",
-	 			"frenchDescription": "Président",
-	 			"storedValue": "President"
-	 		}, {
-	 			"englishDescription": "Priest",
-	 			"frenchDescription": "Prêtre",
-	 			"storedValue": "Priest"
-	 		}, {
-	 			"englishDescription": "Principal",
-	 			"frenchDescription": "Directeur",
-	 			"storedValue": "Principal"
-	 		}, {
-	 			"englishDescription": "Printing Press Oper",
-	 			"frenchDescription": "Imprimeur",
-	 			"storedValue": "Printing Press Oper"
 	 		}, {
 	 			"englishDescription": "Probation Officer",
 	 			"frenchDescription": "Agent de probation",
@@ -2427,29 +1827,13 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Responsable des achats",
 	 			"storedValue": "Procurement Officer"
 	 		}, {
-	 			"englishDescription": "Producer",
-	 			"frenchDescription": "Producteur",
-	 			"storedValue": "Producer"
-	 		}, {
 	 			"englishDescription": "Production Designer",
 	 			"frenchDescription": "Chef décorateur",
 	 			"storedValue": "Production Designer"
 	 		}, {
-	 			"englishDescription": "Production Editor",
-	 			"frenchDescription": "Éditeur de production",
-	 			"storedValue": "Production Editor"
-	 		}, {
-	 			"englishDescription": "Professor",
-	 			"frenchDescription": "Professeur",
-	 			"storedValue": "Professor"
-	 		}, {
 	 			"englishDescription": "Project Analyst",
 	 			"frenchDescription": "Analyste de projet",
 	 			"storedValue": "Project Analyst"
-	 		}, {
-	 			"englishDescription": "Project Manager",
-	 			"frenchDescription": "Chef de projet",
-	 			"storedValue": "Project Manager"
 	 		}, {
 	 			"englishDescription": "Property Manager",
 	 			"frenchDescription": "Gestionnaire immobilier",
@@ -2459,10 +1843,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Psychiatre",
 	 			"storedValue": "Psychiatrist"
 	 		}, {
-	 			"englishDescription": "Psychologist",
-	 			"frenchDescription": "Psychologue",
-	 			"storedValue": "Psychologist"
-	 		}, {
 	 			"englishDescription": "Public Works Manager",
 	 			"frenchDescription": "Gestionnaire de travaux publics",
 	 			"storedValue": "Public Works Manage"
@@ -2470,10 +1850,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Public Works Worker",
 	 			"frenchDescription": "Employé de travaux publics",
 	 			"storedValue": "Public Works Worker"
-	 		}, {
-	 			"englishDescription": "Publicist",
-	 			"frenchDescription": "Publiciste",
-	 			"storedValue": "Publicist"
 	 		}, {
 	 			"englishDescription": "Purchasing Agent",
 	 			"frenchDescription": "Préposé aux achats",
@@ -2523,49 +1899,17 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Opérateur ferroviaire",
 	 			"storedValue": "Railway Operator"
 	 		}, {
-	 			"englishDescription": "Rancher",
-	 			"frenchDescription": "Éleveur",
-	 			"storedValue": "Rancher"
-	 		}, {
 	 			"englishDescription": "Real Estate Agent",
 	 			"frenchDescription": "Agent immobilier",
 	 			"storedValue": "Real Estate Agent"
-	 		}, {
-	 			"englishDescription": "Real Estate Broker",
-	 			"frenchDescription": "Courtier immobilier",
-	 			"storedValue": "Real Estate Broker"
-	 		}, {
-	 			"englishDescription": "Real Estate Developer",
-	 			"frenchDescription": "Promoteur immobilier",
-	 			"storedValue": "Real Estate Develop"
-	 		}, {
-	 			"englishDescription": "Receptionist",
-	 			"frenchDescription": "Réceptionniste",
-	 			"storedValue": "Receptionist"
-	 		}, {
-	 			"englishDescription": "Record Producer",
-	 			"frenchDescription": "Producteur de disques",
-	 			"storedValue": "Record Producer"
-	 		}, {
-	 			"englishDescription": "Recording Tech",
-	 			"frenchDescription": "Technicien d’enregistrement",
-	 			"storedValue": "Recording Tech"
 	 		}, {
 	 			"englishDescription": "Records Mngt Manager",
 	 			"frenchDescription": "Gestionnaire d’enregistrement",
 	 			"storedValue": "Records Mngt Manage"
 	 		}, {
-	 			"englishDescription": "Records Mngt Supervisor",
-	 			"frenchDescription": "Superviseur d’enregistrement",
-	 			"storedValue": "Records Mngt Superv"
-	 		}, {
 	 			"englishDescription": "Recreation Admin",
 	 			"frenchDescription": "Administrateur des loisirs",
 	 			"storedValue": "Recreation Admin"
-	 		}, {
-	 			"englishDescription": "Recruiter",
-	 			"frenchDescription": "Recruteur",
-	 			"storedValue": "Recruiter"
 	 		}, {
 	 			"englishDescription": "Referee",
 	 			"frenchDescription": "Arbitre",
@@ -2607,10 +1951,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Coordonnateur de recherche",
 	 			"storedValue": "Research Coordinato"
 	 		}, {
-	 			"englishDescription": "Researcher",
-	 			"frenchDescription": "Chercheur",
-	 			"storedValue": "Researcher"
-	 		}, {
 	 			"englishDescription": "Residential Installer",
 	 			"frenchDescription": "Installateur résidentiel",
 	 			"storedValue": "Residential Install"
@@ -2651,10 +1991,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Employé de vente au détail",
 	 			"storedValue": "Retail Worker"
 	 		}, {
-	 			"englishDescription": "Reverend",
-	 			"frenchDescription": "Révérend",
-	 			"storedValue": "Reverend"
-	 		}, {
 	 			"englishDescription": "Ridesharing Driver",
 	 			"frenchDescription": "Chauffeur de covoiturage",
 	 			"storedValue": "Ridesharing Driver"
@@ -2666,10 +2002,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Road Worker",
 	 			"frenchDescription": "Ouvrier de la route",
 	 			"storedValue": "Road Worker"
-	 		}, {
-	 			"englishDescription": "Roofer",
-	 			"frenchDescription": "Couvreur",
-	 			"storedValue": "Roofer"
 	 		}, {
 	 			"englishDescription": "Safety Officer",
 	 			"frenchDescription": "Responsable de la sécurité",
@@ -2687,37 +2019,13 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Conseiller aux ventes",
 	 			"storedValue": "Sales Consultant"
 	 		}, {
-	 			"englishDescription": "Sales Director",
-	 			"frenchDescription": "Directeur des ventes",
-	 			"storedValue": "Sales Director"
-	 		}, {
-	 			"englishDescription": "Sales Engineer",
-	 			"frenchDescription": "Ingénieur des ventes",
-	 			"storedValue": "Sales Engineer"
-	 		}, {
-	 			"englishDescription": "Sales Manager",
-	 			"frenchDescription": "Directeur des ventes",
-	 			"storedValue": "Sales Manager"
-	 		}, {
-	 			"englishDescription": "Sales Person",
-	 			"frenchDescription": "Vendeur",
-	 			"storedValue": "Sales Person"
-	 		}, {
 	 			"englishDescription": "Sales Rep",
 	 			"frenchDescription": "Représentant des ventes",
 	 			"storedValue": "Sales Rep"
 	 		}, {
-	 			"englishDescription": "Sales Telemarketing",
-	 			"frenchDescription": "Télévendeur",
-	 			"storedValue": "Sales Telemarketing"
-	 		}, {
 	 			"englishDescription": "Salesperson Retail",
 	 			"frenchDescription": "Vendeur au détail",
 	 			"storedValue": "Salesperson Retail"
-	 		}, {
-	 			"englishDescription": "Sanitation Worker",
-	 			"frenchDescription": "Éboueur",
-	 			"storedValue": "Sanitation Worker"
 	 		}, {
 	 			"englishDescription": "Scaffolder",
 	 			"frenchDescription": "Échafaudeur",
@@ -2727,21 +2035,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Planificateur",
 	 			"storedValue": "Scheduler"
 	 		}, {
-	 			"englishDescription": "Scientist",
-	 			"frenchDescription": "Scientifique",
-	 			"storedValue": "Scientist"
-	 		}, {
 	 			"englishDescription": "Screener",
 	 			"frenchDescription": "Agent de sûreté",
 	 			"storedValue": "Screener"
-	 		}, {
-	 			"englishDescription": "Sculptor",
-	 			"frenchDescription": "Sculpteur",
-	 			"storedValue": "Sculptor"
-	 		}, {
-	 			"englishDescription": "Seamstress",
-	 			"frenchDescription": "Couturier",
-	 			"storedValue": "Seamstress"
 	 		}, {
 	 			"englishDescription": "Secretary",
 	 			"frenchDescription": "Secrétaire",
@@ -2750,10 +2046,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Securities Agent",
 	 			"frenchDescription": "Agent de titres",
 	 			"storedValue": "Securities Agent"
-	 		}, {
-	 			"englishDescription": "Securities Dealer",
-	 			"frenchDescription": "Courtier de titres",
-	 			"storedValue": "Securities Dealer"
 	 		}, {
 	 			"englishDescription": "Security Admin",
 	 			"frenchDescription": "Administrateur de sécurité",
@@ -2766,14 +2058,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Security Architect",
 	 			"frenchDescription": "Architecte, Sécurité",
 	 			"storedValue": "Security Architect"
-	 		}, {
-	 			"englishDescription": "Security Consultant",
-	 			"frenchDescription": "Conseiller en sécurité",
-	 			"storedValue": "Security Consultant"
-	 		}, {
-	 			"englishDescription": "Security Engineer",
-	 			"frenchDescription": "Ingénieur en sécurité",
-	 			"storedValue": "Security Engineer"
 	 		}, {
 	 			"englishDescription": "Security Guard",
 	 			"frenchDescription": "Agent de sécurité",
@@ -2791,10 +2075,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Vice-président principal",
 	 			"storedValue": "Senior VP"
 	 		}, {
-	 			"englishDescription": "Server",
-	 			"frenchDescription": "Serveur",
-	 			"storedValue": "Server"
-	 		}, {
 	 			"englishDescription": "Service Rep",
 	 			"frenchDescription": "Représentant du service",
 	 			"storedValue": "Service Rep"
@@ -2803,29 +2083,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Décorateur de plateau",
 	 			"storedValue": "Set Decorator"
 	 		}, {
-	 			"englishDescription": "Set Dresser",
-	 			"frenchDescription": "Ensemblier",
-	 			"storedValue": "Set Dresser"
-	 		}, {
-	 			"englishDescription": "Sheet Metal Worker",
-	 			"frenchDescription": "Tôlier",
-	 			"storedValue": "Sheet Metal Worker"
-	 		}, {
-	 			"englishDescription": "Shelf Stocker",
-	 			"frenchDescription": "Gondolier",
-	 			"storedValue": "Shelf Stocker"
-	 		}, {
-	 			"englishDescription": "Sheriff",
-	 			"frenchDescription": "Shérif",
-	 			"storedValue": "Sheriff"
-	 		}, {
 	 			"englishDescription": "Shingler",
 	 			"frenchDescription": "Poseur de bardeaux",
 	 			"storedValue": "Shingler"
-	 		}, {
-	 			"englishDescription": "Shoe Repairer",
-	 			"frenchDescription": "Cordonnier",
-	 			"storedValue": "Shoe Repairer"
 	 		}, {
 	 			"englishDescription": "Shoemaker",
 	 			"frenchDescription": "Fabricant de chaussures",
@@ -2838,10 +2098,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Site Superintendent",
 	 			"frenchDescription": "Surintendant de site",
 	 			"storedValue": "Site Superintendent"
-	 		}, {
-	 			"englishDescription": "Site Supervisor",
-	 			"frenchDescription": "Superviseur de site",
-	 			"storedValue": "Site Supervisor"
 	 		}, {
 	 			"englishDescription": "Skidder Operator",
 	 			"frenchDescription": "Opérateur de débusqueuse",
@@ -2863,49 +2119,21 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Architecte logiciel",
 	 			"storedValue": "Software Architect"
 	 		}, {
-	 			"englishDescription": "Software Designer",
-	 			"frenchDescription": "Concepteur de logiciels",
-	 			"storedValue": "Software Designer"
-	 		}, {
-	 			"englishDescription": "Software Engineer",
-	 			"frenchDescription": "Ingénieur logiciel",
-	 			"storedValue": "Software Engineer"
-	 		}, {
 	 			"englishDescription": "Soldier",
 	 			"frenchDescription": "Soldat",
 	 			"storedValue": "Soldier"
-	 		}, {
-	 			"englishDescription": "Songwriter",
-	 			"frenchDescription": "Compositeur",
-	 			"storedValue": "Songwriter"
 	 		}, {
 	 			"englishDescription": "Sonographer",
 	 			"frenchDescription": "Échographiste",
 	 			"storedValue": "Sonographer"
 	 		}, {
-	 			"englishDescription": "Sous Chef",
-	 			"frenchDescription": "Sous-chef",
-	 			"storedValue": "Sous Chef"
-	 		}, {
 	 			"englishDescription": "Spa Staff",
 	 			"frenchDescription": "Personnel de spa",
 	 			"storedValue": "Spa Staff"
 	 		}, {
-	 			"englishDescription": "Speech Pathologist",
-	 			"frenchDescription": "Orthophoniste",
-	 			"storedValue": "Speech Pathologist"
-	 		}, {
-	 			"englishDescription": "Sports Official",
-	 			"frenchDescription": "Officiel de sport",
-	 			"storedValue": "Sports Official"
-	 		}, {
 	 			"englishDescription": "Sports Operator",
 	 			"frenchDescription": "Opérateur sportif",
 	 			"storedValue": "Sports Operator"
-	 		}, {
-	 			"englishDescription": "Sprinkler Installer",
-	 			"frenchDescription": "Monteur de gicleurs",
-	 			"storedValue": "Sprinkler Installer"
 	 		}, {
 	 			"englishDescription": "Statistician",
 	 			"frenchDescription": "Statisticien",
@@ -2935,10 +2163,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Magasinier",
 	 			"storedValue": "Storekeeper"
 	 		}, {
-	 			"englishDescription": "Structural Engineer",
-	 			"frenchDescription": "Ingénieur de structure",
-	 			"storedValue": "Structural Engineer"
-	 		}, {
 	 			"englishDescription": "Subway Operator",
 	 			"frenchDescription": "Opérateur de métro",
 	 			"storedValue": "Subway Operator"
@@ -2947,10 +2171,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Surintendant",
 	 			"storedValue": "Superintendent"
 	 		}, {
-	 			"englishDescription": "Supervisor",
-	 			"frenchDescription": "Superviseur",
-	 			"storedValue": "Supervisor"
-	 		}, {
 	 			"englishDescription": "Supply Chain Analyst",
 	 			"frenchDescription": "Analyste, Chaîne d’approvisionnement",
 	 			"storedValue": "Supply Chain Analys"
@@ -2958,22 +2178,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Supply Chain Manager",
 	 			"frenchDescription": "Chef, Chaîne d’approvisionnement",
 	 			"storedValue": "Supply Chain Manage"
-	 		}, {
-	 			"englishDescription": "Support Worker",
-	 			"frenchDescription": "Employé de soutien",
-	 			"storedValue": "Support Worker"
-	 		}, {
-	 			"englishDescription": "Surgeon",
-	 			"frenchDescription": "Chirurgien",
-	 			"storedValue": "Surgeon"
-	 		}, {
-	 			"englishDescription": "Surgical Tech",
-	 			"frenchDescription": "Technicien en chirurgie",
-	 			"storedValue": "Surgical Tech"
-	 		}, {
-	 			"englishDescription": "Surveyor",
-	 			"frenchDescription": "Géomètre",
-	 			"storedValue": "Surveyor"
 	 		}, {
 	 			"englishDescription": "Systems Analyst",
 	 			"frenchDescription": "Analyste de systèmes",
@@ -3031,41 +2235,13 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Aide d’enseignement",
 	 			"storedValue": "Teaching Assistant"
 	 		}, {
-	 			"englishDescription": "Team Leader",
-	 			"frenchDescription": "Chef d’équipe",
-	 			"storedValue": "Team Leader"
-	 		}, {
-	 			"englishDescription": "Tech Support",
-	 			"frenchDescription": "Soutien technique",
-	 			"storedValue": "Tech Support"
-	 		}, {
 	 			"englishDescription": "Technical Analyst",
 	 			"frenchDescription": "Analyste technique",
 	 			"storedValue": "Technical Analyst"
 	 		}, {
-	 			"englishDescription": "Technical Sales",
-	 			"frenchDescription": "Ventes techniques",
-	 			"storedValue": "Technical Sales"
-	 		}, {
 	 			"englishDescription": "Technician",
 	 			"frenchDescription": "Mécanicien",
 	 			"storedValue": "Technician"
-	 		}, {
-	 			"englishDescription": "Technologist",
-	 			"frenchDescription": "Technicien",
-	 			"storedValue": "Technologist"
-	 		}, {
-	 			"englishDescription": "Telemarketer",
-	 			"frenchDescription": "Télévendeur",
-	 			"storedValue": "Telemarketer"
-	 		}, {
-	 			"englishDescription": "Telephone Operator",
-	 			"frenchDescription": "Téléphoniste",
-	 			"storedValue": "Telephone Operator"
-	 		}, {
-	 			"englishDescription": "Tester",
-	 			"frenchDescription": "Testeur",
-	 			"storedValue": "Tester"
 	 		}, {
 	 			"englishDescription": "Therapist",
 	 			"frenchDescription": "Thérapeute",
@@ -3074,10 +2250,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Ticket Agent",
 	 			"frenchDescription": "Agent de billetterie",
 	 			"storedValue": "Ticket Agent"
-	 		}, {
-	 			"englishDescription": "TikToker",
-	 			"frenchDescription": "Influenceur sur TikTok",
-	 			"storedValue": "TikToker"
 	 		}, {
 	 			"englishDescription": "Tilesetter",
 	 			"frenchDescription": "Carreleur",
@@ -3098,10 +2270,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Tooling Inspector",
 	 			"frenchDescription": "Inspecteur d’outillage",
 	 			"storedValue": "Tooling Inspector"
-	 		}, {
-	 			"englishDescription": "Tour Guide",
-	 			"frenchDescription": "Guide touristique",
-	 			"storedValue": "Tour Guide"
 	 		}, {
 	 			"englishDescription": "Town Planner",
 	 			"frenchDescription": "Urbaniste",
@@ -3175,10 +2343,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Guide de voyage",
 	 			"storedValue": "Travel Guide"
 	 		}, {
-	 			"englishDescription": "Treasurer",
-	 			"frenchDescription": "Trésorier",
-	 			"storedValue": "Treasurer"
-	 		}, {
 	 			"englishDescription": "Truck Driver",
 	 			"frenchDescription": "Conducteur de camion",
 	 			"storedValue": "Truck Driver"
@@ -3199,14 +2363,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Technicien en échographie",
 	 			"storedValue": "Ultrasound Tech"
 	 		}, {
-	 			"englishDescription": "Underwriter",
-	 			"frenchDescription": "Souscripteur",
-	 			"storedValue": "Underwriter"
-	 		}, {
-	 			"englishDescription": "Upholsterer",
-	 			"frenchDescription": "Rembourreur",
-	 			"storedValue": "Upholsterer"
-	 		}, {
 	 			"englishDescription": "Urban Planner",
 	 			"frenchDescription": "Urbaniste",
 	 			"storedValue": "Urban Planner"
@@ -3214,10 +2370,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Utility Operator",
 	 			"frenchDescription": "Opérateur de services publics",
 	 			"storedValue": "Utility Operator"
-	 		}, {
-	 			"englishDescription": "Valet",
-	 			"frenchDescription": "Voiturier",
-	 			"storedValue": "Valet"
 	 		}, {
 	 			"englishDescription": "Vendor Analyst",
 	 			"frenchDescription": "Analyste de vente",
@@ -3235,10 +2387,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Vétérinaire",
 	 			"storedValue": "Veterinarian"
 	 		}, {
-	 			"englishDescription": "Vice President",
-	 			"frenchDescription": "Vice-président",
-	 			"storedValue": "Vice President"
-	 		}, {
 	 			"englishDescription": "Vice Principal",
 	 			"frenchDescription": "Directeur adjoint",
 	 			"storedValue": "Vice Principal"
@@ -3255,14 +2403,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Artiste visuel",
 	 			"storedValue": "Visual Artist"
 	 		}, {
-	 			"englishDescription": "Waiter",
-	 			"frenchDescription": "Serveur",
-	 			"storedValue": "Waiter"
-	 		}, {
-	 			"englishDescription": "Waitress",
-	 			"frenchDescription": "Serveuse",
-	 			"storedValue": "Waitress"
-	 		}, {
 	 			"englishDescription": "Warehouse Assistant",
 	 			"frenchDescription": "Assistant d’entrepôt",
 	 			"storedValue": "Warehouse Assistant"
@@ -3274,10 +2414,6 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Warehouse Picker",
 	 			"frenchDescription": "Ramasseur d’entrepôt",
 	 			"storedValue": "Warehouse Picker"
-	 		}, {
-	 			"englishDescription": "Warehouse Supervisor",
-	 			"frenchDescription": "Superviseur de l’entrepôt",
-	 			"storedValue": "Warehouse Superviso"
 	 		}, {
 	 			"englishDescription": "Watch Repairer",
 	 			"frenchDescription": "Réparateur de montres",
@@ -3291,21 +2427,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Animation Web",
 	 			"storedValue": "Web Animator"
 	 		}, {
-	 			"englishDescription": "Web Designer",
-	 			"frenchDescription": "Concepteur Web",
-	 			"storedValue": "Web Designer"
-	 		}, {
-	 			"englishDescription": "Web Developer",
-	 			"frenchDescription": "Développeur Web",
-	 			"storedValue": "Web Developer"
-	 		}, {
 	 			"englishDescription": "Wedding Planner",
 	 			"frenchDescription": "Planificateur de mariage",
 	 			"storedValue": "Wedding Planner"
-	 		}, {
-	 			"englishDescription": "Welder",
-	 			"frenchDescription": "Soudeur",
-	 			"storedValue": "Welder"
 	 		}, {
 	 			"englishDescription": "Wharf Worker",
 	 			"frenchDescription": "Employé de quai",
@@ -3315,13 +2439,9 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"frenchDescription": "Acheteur en gros",
 	 			"storedValue": "Wholesale Buyer"
 	 		}, {
-	 			"englishDescription": "Wine Steward",
-	 			"frenchDescription": "Sommelier",
-	 			"storedValue": "Wine Steward"
-	 		}, {
-	 			"englishDescription": "Woodworker",
-	 			"frenchDescription": "Menuisier",
-	 			"storedValue": "Woodworker"
+	 			"englishDescription": "Workers Compensation",
+	 			"frenchDescription": "Indemnité pour accident du travail",
+	 			"storedValue": "Workers Comp"
 	 		}, {
 	 			"englishDescription": "Workspace Manager",
 	 			"frenchDescription": "Gestionnaire de l’espace de travail",
@@ -3346,11 +2466,7 @@ WICI.Demo_RetrieveJobDescription = {
 	 			"englishDescription": "Youth Worker",
 	 			"frenchDescription": "Travailleur jeunesse",
 	 			"storedValue": "Youth Worker"
-	 		}, {
-	 			"englishDescription": "Youtuber",
-	 			"frenchDescription": "YouTubeur",
-	 			"storedValue": "Youtuber"
 	 		}]
-	 	}
+  }
 };
 	
