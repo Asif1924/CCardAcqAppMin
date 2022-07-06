@@ -377,7 +377,14 @@ public class AccountApplicationRequestTypeConverter
 					employerCity = "";
 				}
 				argAccAppRequest.setEmploymentStatus(emplStatus);
-				argAccAppRequest.setJobDescription(jobDescription);
+				if (jobDescription != null && !"".equals(jobDescription) && jobDescription.length()>19)
+				{
+					argAccAppRequest.setJobDescription(jobDescription.substring(0,19));
+				}
+				else
+				{
+					argAccAppRequest.setJobDescription(jobDescription);
+				}
 				argAccAppRequest.setJobCategory(emplCategory);
 				argAccAppRequest.setEmployerName(employerName);
 				argAccAppRequest.setEmployerTelephoneNumber(employerPhone);

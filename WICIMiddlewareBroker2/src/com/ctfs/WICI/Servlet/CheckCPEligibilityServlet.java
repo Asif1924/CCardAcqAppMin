@@ -64,10 +64,20 @@ public class CheckCPEligibilityServlet extends WICIServlet {
 				checkCPEligibilityRequest.setJobStatus(jobStatus);
 			}
 			
-			if(jobStatus.equalsIgnoreCase("RETIRED")) {
+			if(jobStatus.equalsIgnoreCase("RETIRED")) 
+			{
 				checkCPEligibilityRequest.setJobDescription("RETIRED");
-			} else {
-				checkCPEligibilityRequest.setJobDescription(jobDescription);
+			} 
+			else 
+			{
+				if (jobDescription != null && !"".equals(jobDescription) && jobDescription.length()>19)
+				{
+					checkCPEligibilityRequest.setJobDescription(jobDescription.substring(0,19));
+				}
+				else
+				{
+					checkCPEligibilityRequest.setJobDescription(jobDescription);
+				}
 			}
 			
 			WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
