@@ -4,7 +4,7 @@
 	 	<br>
 		<br>
 		<span class="pageSubTitle" data-translationKey="summary_Status_SubTitle"></span>
-		<span class="pageSubTitle" data-translationKey="summary_Status_NotReady" id="summary_Status_NotReady"></span>
+		<!--<span class="pageSubTitle" data-translationKey="summary_Status_NotReady" id="summary_Status_NotReady"></span> -->
 		<span class="pageSubTitle" data-translationKey="summary_Status_Ready" id="summary_Status_Ready"></span>
 	 	<br>
 	 	<br>
@@ -45,11 +45,25 @@
 		</center>
 		<br>
 		<br>
+		<div class="overlay" id="useCaseFour-container">
+  			<div class="handoutTabToCustomerpopup_chooseProduct">
+				{{if activationItems.getModel("financialData").get('summary_insurance_CPType_Available') == "CP_Complete" }}
+    				<p class="text-left normal_text" data-translationKey="summary_UseCaseFourDialogContentCPC"></p>
+				{{else activationItems.getModel("financialData").get('summary_insurance_CPType_Available') == "CP_LifeDisability" }}
+					<p class="text-left normal_text" data-translationKey="summary_UseCaseFourDialogContentCPLD"></p>
+				{{/if}}
+				<center class="retrieveAppPadding">
+					<div>      				
+	      				<button class="dialog-btn-ok" id="useCaseFourOk" data-translationKey="summary_UseCaseFourDialogOk"></button>
+    				</div>
+				</center>
+  			</div>
+		</div>
 		<!--<center>//-->
 			<!--
-	summary_SelectProduct_Card							:	"Card",
-	summary_SelectProduct_PromoCode						:	"Promo Code",
-	summary_SelectProduct_Province						:	"Province",
+				summary_SelectProduct_Card							:	"Card",
+				summary_SelectProduct_PromoCode						:	"Promo Code",
+				summary_SelectProduct_Province						:	"Province",
 			//-->
 			<div id="summary_SelectedProduct_Area" >
 				<span class="pageSubTitle" data-translationKey="summary_SelectProduct_SubTitle"></span>
@@ -571,6 +585,7 @@
 			               			<span id="summary_JobDescription"></span>
 			               		{{/if}}
 							{{else}}
+			                 	<!-- ${activationItems.getModel('financialData').get('jobCategory')} -->
 			                 	<span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
 			                {{/if}}
 			            </td>
@@ -1003,10 +1018,22 @@
 			<br>
 			<br>
 			<div>
-            <span id="summary_SubmitButton" class="button grayflat applyButtonWidth">
-            	<span class="buttonText" data-translationKey="summary_SubmitButton"></span>
-			</span>
+            	<span id="summary_SubmitButton" class="button grayflat applyButtonWidth">
+            		<span class="buttonText" data-translationKey="summary_SubmitButton"></span>
+				</span>
+			</div>	
+			<br>		
+			<div>
+            	<span id="summary_DupeSubmitButton" class="button grayflat applyButtonWidth">
+            		<span class="buttonText" data-translationKey="summary_DupeSubmitButton"></span>
+				</span>
+			</div>
 			<br>
+			<div>
+            	<span id="summary_TestSubmitButton" class="button grayflat applyButtonWidth">
+            		<span class="buttonText" data-translationKey="summary_TestSubmitButton"></span>
+				</span>
+			</div>
 			<br>
 			<div class="logoIcon logoIconUnclicked"></div>
         </center>

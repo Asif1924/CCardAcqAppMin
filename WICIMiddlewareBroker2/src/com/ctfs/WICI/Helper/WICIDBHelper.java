@@ -1256,8 +1256,7 @@ public class WICIDBHelper
 	}
 	
 	
-	public String getTransactionIDForApprovedApp( String argToken, String argPhone )
-	{
+	public String getTransactionIDForApprovedApp( String argToken, String argPhone ) {
 		String sMethod = "[getTransactionIDForApprovedApp] ";
 		log.info(sMethod + "::Called::");
 
@@ -1270,10 +1269,8 @@ public class WICIDBHelper
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
-		try
-		{
+		try {
 			connection = connectToDB(false);
-			
 			preparedStatement = connection.prepareStatement(sql);
 			
 			preparedStatement.setString(1, argToken);
@@ -1281,23 +1278,51 @@ public class WICIDBHelper
 			preparedStatement.setMaxRows(1);
 			resultSet = preparedStatement.executeQuery();			
 
-			while (resultSet.next())
-			{
+			while (resultSet.next()) {
 				transID = resultSet.getString("TRANSACTION_ID");
 			}
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
-		}
-		finally
-		{
+		} finally {
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
 		return transID;
 	}
 	
+	public String getDuplicateTransactionIDWithUserId(String argTrasID, String argUserID) {
+		String sMethod = "[getDuplicateTransactionIDWithUserId] ";
+		log.info(sMethod + "::Called::");
+
+		String transID = "";
+		String sql = "SELECT TRANSACTION_ID FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND USER_ID = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectToDB(false);
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, argTrasID);
+			preparedStatement.setString(2, argUserID);
+			preparedStatement.setMaxRows(1);
+			resultSet = preparedStatement.executeQuery();			
+
+			while (resultSet.next()) {
+				transID = resultSet.getString("TRANSACTION_ID");
+			}
+		} catch (Exception ex) {
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		} finally {
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return transID;
+	}
 	
 	public Integer getRetrievalCountForApprovedApp( String argToken, String argPhone )
 	{

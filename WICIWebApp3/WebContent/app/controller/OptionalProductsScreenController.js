@@ -104,6 +104,7 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         restoreCreditCardData();
 		var insurance_CPType_Available = activationItems.getModel("financialData").get('insurance_CPType_Available').toUpperCase();
 		console.log(logPrefix + sMethod + " insurance_CPType_Available :: " + insurance_CPType_Available);
+		console.log(logPrefix + sMethod + " insuranceUsecase :: " + activationItems.getModel("financialData").get('insuranceUsecase'));
 		
 		if(insurance_CPType_Available == "CP_COMPLETE") {
 			hideCPLD_Content();
@@ -121,6 +122,11 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 		
         // To ensure the DIVS are styled based on the checkbox state on navigation into the page
         toggleAllWarningDIVs();
+
+		if(activationItems.getModel("financialData").get('insuranceUsecase') == "USECASE_THREE") {
+			activationItems.getModel("financialData").set('insuranceUsecase', null);
+			$("#useCaseThree-container").show();
+		}
     }
 
     //---------------------------------------------------------------------------------------
@@ -137,13 +143,15 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
         model.set('optionalProducts_CPC', $(refs.optionalProducts_CPC).is(':checked') ? 'Y' : 'N');
         model.set('optionalProducts_NA', $(refs.optionalProducts_NA).is(':checked') ? 'Y' : 'N');
         // Save CPLD stuff
-        model.set('optionalProducts_CPLD_AcceptBox',   $(refs.optionalProducts_CPLD_Agreement).is(':checked') ? 'Y' : 'N');
+		model.set('optionalProducts_CPLD_AcceptBox',   $(refs.optionalProducts_CPLD_Agreement).is(':checked') ? 'Y' : 'N');
+        
         if (model.get('optionalProducts_CPLD') == 'Y') {
             model.set('userSignature_CPLD',  $(refs.signature_CPLD).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CPLD).jSignature('getData', 'image').join(',') : null );
             model.set('userSignatureNative_CPLD',  $(refs.signature_CPLD).jSignature('getData', 'native'));
         }
         // Save CPC stuff
-        model.set('optionalProducts_CPC_AcceptBox',   $(refs.optionalProducts_CPC_Agreement).is(':checked') ? 'Y' : 'N');
+		model.set('optionalProducts_CPC_AcceptBox',   $(refs.optionalProducts_CPC_Agreement).is(':checked') ? 'Y' : 'N');
+		
         if (model.get('optionalProducts_CPC') == 'Y') {
             model.set('userSignature_CPC',  $(refs.signature_CPC).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature_CPC).jSignature('getData', 'image').join(',') : null );
             model.set('userSignatureNative_CPC',  $(refs.signature_CPC).jSignature('getData', 'native'));
@@ -306,6 +314,10 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             showPrevScreen();
         });
 
+		$("#useCaseThreeOk").click(function(){
+			$("#useCaseThree-container").hide();
+        });
+
         $(refs.proceedButton).click(function(){
             console.log("optionalProducts_ProceedButton.click");
             showNextScreen();
@@ -324,7 +336,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
             //  US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
 			if($(refs.optionalProducts_CPLD).is(':checked')){
 				if(loginModel.get('employerID').toUpperCase() !== 'E' && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
-            			messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
+					$screenContainer.addClass('stop-htmlscroll');
+					messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
                 			handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
             	}	 
 			}
@@ -343,7 +356,8 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
 			// US5108 : WICI - Update to QC Distribution Guide pop-up - on radio button state change
             if($(refs.optionalProducts_CPC).is(':checked')){
                 if(loginModel.get('employerID').toUpperCase() !== 'E' && activationItems.getModel("chooseProductModel").get('province').toUpperCase() === 'QC') {
-                          	messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
+                	$screenContainer.addClass('stop-htmlscroll');      	
+                	messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"),
                				    handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
                }
             }
@@ -621,12 +635,14 @@ WICI.OptionalProductsScreenController = function(activationItems, argTranslator,
     function handleHandoutpromptsNo() {
         var sMethod = 'handleHandoutpromptsNo()';
         console.log(logPrefix + sMethod);
+        $screenContainer.addClass('stop-htmlscroll');
         messageDialog.qcDistributionGuide(translator.translateKey("optionalProductScreen_Handoutprompts_YesNo_Message"), 
         		handleHandoutpromptsYes, handleHandoutpromptsNo,  translator.translateKey("optionalProductScreen_Handoutprompts_Title"));
     }
     // ---------------------------------------------------------------------------------------    
     function handleHandoutpromptsYes() {
     	QcEnrollAgree = false;
+    	$screenContainer.removeClass('stop-htmlscroll');
         var sMethod = 'handleHandoutpromptsYes()';
         // console.log(logPrefix + QcEnrollAgree);
         console.log(logPrefix + sMethod);

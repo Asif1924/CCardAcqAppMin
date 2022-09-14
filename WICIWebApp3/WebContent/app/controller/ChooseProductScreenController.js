@@ -119,8 +119,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
         app.setAddressLine2Flag(translator.translateKey("addressLine2Flag"));
 		app.setNewStylePrintFlag(translator.translateKey("newStylePrintFlag"));
+		app.setTestSubmitButtonEnableFlag(translator.translateKey("testSubmitButtonEnableFlag"));
         console.log(logPrefix + sMethod + " AddressLine2Flag :: " + app.getAddressLine2Flag()
-										+ " NewStylePrintFlag :: " + app.getNewStylePrintFlag());
+										+ " NewStylePrintFlag :: " + app.getNewStylePrintFlag()
+										+ " testSubmitButtonEnableFlag :: " + app.getTestSubmitButtonEnableFlag());
         
         var retailNetwork = loginModel.get('retailNetWork');
         var employerID = loginModel.get('employerID').toUpperCase();
@@ -670,7 +672,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     //----------------------------------------------------------------------------------------
 	function showHandoutTabToCustomer_dialog() {
 		$("#handoutTabToCustomerDialog-container").show();
-        
 	}
 	//---VZE-108-------------------------------------------------------------------------------------
 	function show_dialog() {

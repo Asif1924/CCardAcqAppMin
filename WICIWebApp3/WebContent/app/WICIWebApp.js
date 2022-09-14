@@ -67,6 +67,9 @@ WICI.WICIWebApp = function() {
 	this.getNewStylePrintFlag = function(){return newStylePrintFlag;};
     this.setNewStylePrintFlag = function(bValue){newStylePrintFlag = bValue;};
 
+	this.getTestSubmitButtonEnableFlag = function(){return testSubmitButtonEnable;};
+    this.setTestSubmitButtonEnableFlag = function(bValue){testSubmitButtonEnable = bValue;};
+
     this.language = null;
 
     this.apkVersionHelper = null;
@@ -168,7 +171,7 @@ WICI.WICIWebApp = function() {
 
         if (WICI.debuggingMode) {
             // to be able to login at debugging mode
-            app.apkVersionHelper.getAPKVersion = function() {return "1.1.1228.0.1228";}
+            app.apkVersionHelper.getAPKVersion = function() {return "1.1.1264.0.1264";}
             app.deviceInfoHelper.getDeviceInfo = function() {return {MfgSerial : "SCOOBY" , BuildSerial : "123213123213"};}
             // US3827
             WICI.AppConfig.defaultPrinterMacAddress = "ac:3f:a4:::";

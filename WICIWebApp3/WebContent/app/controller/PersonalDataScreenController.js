@@ -712,19 +712,29 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             if(!$(refs.addressline1).val().toUpperCase() && !validator.addressLine($(refs.addressline1).val().toUpperCase())){
 	            postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
 	        }else{
-	               var regex = new RegExp(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/);
-	               var isValid = $(refs.addressline1).val().toUpperCase().match(regex);
-	               if(isValid){
-	                    var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
-	                    $.each(poBoxArray, function (index, item) {
-	                      if($(refs.addressline1).val().toLowerCase().includes(item.toLowerCase())){
-	                    	  $('#contactInfomation_infomation_button').show();
-	                    	  postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
-	                      }
-	                    });
-	               }else{
-	                    postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
-	               }
+	            		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); // ^[A-Za-z0-9.'/&-]{4,40}$
+	    	            var isValid = $(refs.addressline1).val().toUpperCase().match(regex);
+	    	            if(isValid){
+	    	            	var addressline1Value=$(refs.addressline1).val().substring(0,8);
+	    	            	if(!addressline1Value.includes(" ")){
+	    	            		postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	    	            	}else{
+	    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+		    	                $.each(poBoxArray, function (index, item) {
+		    	                	if($(refs.addressline1).val().toLowerCase().includes(item.toLowerCase())){
+		    	                    	$('#contactInfomation_infomation_button').show();
+		    	                    	postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+		    	                    }
+		    	                });
+	    	            	}
+	    	            } else{
+							// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
+							if($.inArray($(refs.addressline1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL']) != -1) {
+								// Do Nothing. Bypass these values, since valid.
+							} else{
+	    	            		postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	    	            	}
+	    	            }
             }
             if($(refs.addressline2).val() && !validator.addressLine($(refs.addressline2).val().toUpperCase()))
             	postrez.push({name: 'addressline2', err: '', uiid: refs.addressline2});
@@ -933,19 +943,31 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             if(!$(refs.addressline1_prev).val().toUpperCase() && !validator.addressLine($(refs.addressline1_prev).val().toUpperCase())){
 	            postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
 	        }else{
-	        	var regex = new RegExp(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/);
-	               var isValid = $(refs.addressline1_prev).val().toUpperCase().match(regex);
-	               if(isValid){
-	                    var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
-	                    $.each(poBoxArray, function (index, item) {
-	                      if($(refs.addressline1_prev).val().toLowerCase().includes(item.toLowerCase())){
-	                    	  $('#personalInfo_pre_year_informationButton').show();
-	                    	  postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
-	                      }
-	                    });
-	               }else{
-	                    postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
-	               }
+	        	// WIIC-17
+		            		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); 
+		    	            var isValid = $(refs.addressline1_prev).val().toUpperCase().match(regex);
+		    	            if(isValid){
+		    	            	var addressline1Value=$(refs.addressline1_prev).val().substring(0,8);
+		    	            	if(!addressline1Value.includes(" ")){
+		    	            		postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+		    	            	}else{
+		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+			    	                $.each(poBoxArray, function (index, item) {
+			    	                	if($(refs.addressline1_prev).val().toLowerCase().includes(item.toLowerCase())){
+			    	                    	$('#personalInfo_pre_year_informationButton').show();
+			    	                    	postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+			    	                    }
+			    	                });
+		    	            	}
+		    	            } else{
+		    	            	// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
+		    	            	if($.inArray($(refs.addressline1_prev).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL']) != -1) {
+									// Do Nothing. Bypass these values, since valid.
+								} else{
+		    	            		postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+		    	            	}
+		    	            }
+		            	
             }
             if($(refs.addressline2_prev).val() && !validator.addressLine($(refs.addressline2_prev).val().toUpperCase()))
             	postrez.push({name: 'addressline2_prev', err: '', uiid: refs.addressline2_prev});

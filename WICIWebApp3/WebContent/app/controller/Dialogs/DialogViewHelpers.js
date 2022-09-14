@@ -10,12 +10,14 @@ WICI.DialogViewHelper = function() {
 		$.mobile.changePage('#' + MESSAGE_DIALOG_ID, 'pop', true, true);
 		$('body').bind('touchmove', function(e){e.preventDefault();});
 		$('body').addClass('stop-scrolling');
+		$('html').addClass('stop-htmlscroll');
 	}
 
 	function removeDialog(){
 		$("#" + MESSAGE_DIALOG_ID).remove();
 		$('body').unbind('touchmove');
 		$('body').removeClass('stop-scrolling');
+		$('html').removeClass('stop-htmlscroll');
 	}
 
 	function getMessageDialogId () {

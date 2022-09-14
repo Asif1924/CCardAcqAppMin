@@ -35,57 +35,49 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 			throws ServletException, IOException {
 		String sMethod = this.getClass().getName() + "[doPost] ";
 		log.info(sMethod);
-         retriveJobDescriptionFromDSS(requestMediator);
+        retriveJobDescriptionFromDSS(requestMediator);
 	}
 
 	private void retriveJobDescriptionFromDSS(WICIServletMediator requestMediator) {
-		
 		String sMethod = this.getClass().getName() + "[retriveJobDescriptionFromDSS] ";
 		log.info(sMethod);
+		
 		WICIResponse tableResponse = new WICIResponse();
-		 JobDescriptionOutput dssjobDescriptionResponse = new JobDescriptionOutput();
+		JobDescriptionOutput dssjobDescriptionResponse = new JobDescriptionOutput();
 		try {
-			 WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+			WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
 			if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
-				
 				dssjobDescriptionResponse = retriveJobDescriptionHttpClientCall();
-			}
-			else{
-				
+			} else{
 				dssjobDescriptionResponse = retriveJobDescriptionHttpsClientCall();
 			}
 			
-			if(dssjobDescriptionResponse != null && dssjobDescriptionResponse.getJobDescriptionList() != null  ){
+			if(dssjobDescriptionResponse != null && dssjobDescriptionResponse.getJobDescriptionList() != null && dssjobDescriptionResponse.getJobCategoryList() != null){
 				tableResponse.setData(dssjobDescriptionResponse);
-			}
-			else{
+			} else {
 				tableResponse.setError(true);
 				tableResponse.setMsg("Failure");	
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			tableResponse.setError(true);
 			tableResponse.setMsg("Failure");
 		}
-		 log.info(sMethod + " the formated response to wici  "+tableResponse);
+		log.info(sMethod + " the formated response to wici  "+tableResponse);
 		requestMediator.processHttpResponse(tableResponse);
 	}
 
 	
-	private JobDescriptionOutput  retriveJobDescriptionHttpsClientCall(){
-	   
-		CloseableHttpClient httpClient= null;
-		
+	private JobDescriptionOutput retriveJobDescriptionHttpsClientCall(){
+		 CloseableHttpClient httpClient= null;
 		 String  responseContent = null;
 		 JobDescriptionOutput jobDescriptionResponse = new JobDescriptionOutput();
 		 String sMethod = this.getClass().getName() + "[retriveJobDescriptionHttpsClientCall] ";
 		 log.info(sMethod);
 		 try{
-		
-			 HttpClientHelper secureClient = new HttpClientHelper();
-			 httpClient = secureClient.getHttpSecureClient();
-			 WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
+			HttpClientHelper secureClient = new HttpClientHelper();
+			httpClient = secureClient.getHttpSecureClient();
+			WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
 			HttpPost post = new HttpPost(conf.getJobDescEndPoint());
 			ObjectMapper mapper = new ObjectMapper();
 			JsonWrapper jsonWrapper = new JsonWrapper(mapper);
@@ -127,32 +119,24 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 	    	        
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        log.info(sMethod + "retriveJobDescription status code :::: " + statusCode);
-	        if (statusCode != 200) 
-	        {    
+	        if (statusCode != 200) {    
 	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
-	        jobDescriptionResponse = jsonWrapper.deserialize(responseContent,
-	        		JobDescriptionOutput.class);
+	        jobDescriptionResponse = jsonWrapper.deserialize(responseContent, JobDescriptionOutput.class);
 	        
 	        if( jobDescriptionResponse != null ){
 	        	log.info(sMethod + "jobDescriptionResponse Response "+ jobDescriptionResponse.getJobDescriptionList());
-	        	
 	        }
 	        
-	     }catch(Exception e){
+	     } catch(Exception e){
 	    	e.printStackTrace();
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
-	    	
-	    }
-	    finally
-	    {
-	    	
-	   	httpClient.getConnectionManager().shutdown();
+	    	log.warning(sMethod + "::Exception::" + e.getMessage());
+	    } finally {
+	    	httpClient.getConnectionManager().shutdown();
 	    }
 	    return jobDescriptionResponse;
-		 
 	}
 
 }

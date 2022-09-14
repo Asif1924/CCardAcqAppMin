@@ -1,6 +1,22 @@
 <script id="WICIOptionalProductsScreen-template" type="text/x-jquery-tmpl"> 
 <div class="ScreenLayout_OptionalProducts" id="OptionalProductsScreen_PageContents">
 	<br> <br>
+
+	<div class="overlay" id="useCaseThree-container">
+  		<div class="handoutTabToCustomerpopup_chooseProduct">
+			{{if activationItems.getModel('financialData').get('insurance_CPType_Available') == "CP_Complete"}}
+    			<p class="text-left normal_text" data-translationKey="optionalProducts_UseCaseThreeDialogContentCPC"></p>
+			{{else activationItems.getModel('financialData').get('insurance_CPType_Available') == "CP_LifeDisability" }}
+				<p class="text-left normal_text" data-translationKey="optionalProducts_UseCaseThreeDialogContentCPLD"></p>
+			{{/if}}
+			<center class="retrieveAppPadding">
+			<div>      				
+      			<button class="dialog-btn-ok" id="useCaseThreeOk" data-translationKey="optionalProducts_UseCaseThreeDialogOk"></button>
+    		</div>
+			</center>
+  		</div>
+	</div>
+
 	<center>
 		<span id="OPClickHere" class="pageTitle"
 			data-translationKey="optionalProducts_PageTitle"></span>
@@ -13,7 +29,7 @@
 		<center>
 			<div class="credit_prot_division_cpc">
 				<img class="red_icon" src="app/images/red_icon.png" >
-				<span data-translationKey="optionalProducts_CPC_title"class="credit_prot"></span>
+				<span data-translationKey="optionalProducts_CPC_title" class="credit_prot"></span>
 			</div>
 		</center>
 		<div class="title_arrow_cpc">
@@ -365,19 +381,21 @@
 													<p><span class="elementWithTop17 elementWithBoldFont" data-translationKey="optionalProducts_CPCProducts"/></p>
                                             	
                                             		<div class="agreementBoxContainerEX" style="display: table" id="optionalProducts_CPC_AcceptBox_Area">
-														<div class="rightContaier op_padding">
-															<div class="wiciCheckBox">
-																<input type="checkbox" id="optionalProducts_CPC_Agreement"> 
-                                                        		<label for="optionalProducts_CPC_Agreement"></label>
-												    		</div>
-											    		</div>
-											    		<div class="leftContainer opCheckBoxLabel_CLD" style="display: table-cell; vertical-align: middle;">
-															<div class="warningText1" id="warningText1CPC" name="warningText1CPC">
-													 			<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC" class="offer_details_title_4 bold lineHeight"></p>
-																<br>
-													 			<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC_1" class="offer_details_title_4 bold lineHeight"></p>
+														<div class="agreementBoxContainerEX" style="display: table" id="optionalProducts_CPC_AcceptBox_Area">
+															<div class="rightContaier op_padding">
+																<div class="wiciCheckBox">
+																	<input type="checkbox" id="optionalProducts_CPC_Agreement"> 
+                                                        			<label for="optionalProducts_CPC_Agreement"></label>
+												    			</div>
 											    			</div>
-														</div>
+											    			<div class="leftContainer opCheckBoxLabel_CLD" style="display: table-cell; vertical-align: middle;">
+																<div class="warningText1" id="warningText1CPC" name="warningText1CPC">
+													 				<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC" class="offer_details_title_4 bold lineHeight"></p>
+																	<br>
+													 				<p data-translationKey="optionalProducts_TermsAndConditions_16_CPC_1" class="offer_details_title_4 bold lineHeight"></p>
+											    				</div>
+															</div>
+														</div>														
 													</div>
 												</div>
 												<br>

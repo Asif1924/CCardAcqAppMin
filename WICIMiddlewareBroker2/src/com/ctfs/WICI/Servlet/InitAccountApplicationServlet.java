@@ -16,11 +16,13 @@ import com.ctfs.WICI.Helper.ExternalReferenceIdHelper;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.AccountApplicationContactInfo;
+import com.ctfs.WICI.Model.AccountApplicationSubmissionResponse;
 import com.ctfs.WICI.Model.AuthfieldValue;
 import com.ctfs.WICI.Servlet.Model.BaseModel;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.DatabaseResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
+import com.google.gson.Gson;
 import com.ibm.websphere.asynchbeans.WorkException;
 import com.ibm.websphere.asynchbeans.WorkItem;
 import com.ibm.websphere.asynchbeans.WorkManager;
@@ -64,47 +66,104 @@ public class InitAccountApplicationServlet extends WICIServlet
 		log.info(sMethod + " requestMediator : " + requestMediator);
 		
 		String transactionID = "";
-		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);	
+		String duplicateTransID = null;
+		String agentID = null;
+		String serialNumber=null;
 		
+		CreditCardApplicationData incomingCreditCardApplicationData = new CreditCardApplicationData(requestMediator);	
 		AuthorizationHelper authorizationHelper = new AuthorizationHelper();
-
+		WICIDBHelper wicidbHelper = new WICIDBHelper();
+		
 		AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
 
 		//US3125 - Sep 16th 2014 Release consentGranted
 		log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
-		String serialNumber=null;
 		if (values.getMfgSerial() != null) {
 			serialNumber = values.getMfgSerial().toUpperCase();
 		}
-		DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData,serialNumber);
 		
-		if (!dbInsertionResponse.isError()) {
-			//transactionID = (String) dbInsertionResponse.getData();
-			transactionID = (String) dbInsertionResponse.getAccountApplicationRequestType().getExternalReferenceId();
-			WICIResponse databaseResponse = new WICIResponse(false, AppConstants.QUEUE_REQUEST_SUBMIT, transactionID);
-			final AccountApplicationRequestType aaObject = dbInsertionResponse.getAccountApplicationRequestType();
-			
-			// Update response
-			requestMediator.processHttpResponse(databaseResponse);
-
-			AccountApplicationRequestThread concurrentAccountApplicationRequest = new AccountApplicationRequestThread(transactionID, incomingCreditCardApplicationData, aaObject);
-
-			try {
-				WorkItem managedAccountApplicationThread = accountApplicationWorkManager.startWork(concurrentAccountApplicationRequest);
-				ArrayList<WorkItem> managedThreads = new ArrayList<WorkItem>();
-				managedThreads.add(managedAccountApplicationThread);
-				accountApplicationWorkManager.join(managedThreads, WorkManager.JOIN_AND, 4000);
-			} catch (WorkException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-		} else {	
-			// Update response
-			requestMediator.processHttpResponse(dbInsertionResponse);
+		String userID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("agentID");
+		String employerID = ((BaseModel) incomingCreditCardApplicationData.getModel("loginScreen")).get("employerID");
+		
+		if (employerID != null && employerID.equalsIgnoreCase("E")) {
+			agentID = userID;
+		} else {
+			agentID = employerID + userID;
 		}
-	}
+		
+		String applicationReferenceID = ((BaseModel) incomingCreditCardApplicationData.getModel("contactInfoScreen")).get("applicationReferenceID");
+		duplicateTransID = wicidbHelper.getDuplicateTransactionIDWithUserId(applicationReferenceID, agentID);
+		log.info(sMethod + "\n:: Agent ID & Application ReferenceID from Tablet Request :: \n" + agentID + " :: " + applicationReferenceID);
+		log.info(sMethod + "\n:: Duplicate Transaction ID :: \n" + duplicateTransID);
+		
+		if(duplicateTransID != null && duplicateTransID.equalsIgnoreCase(applicationReferenceID)) {
+			AccountApplicationSubmissionResponse accountApplicationSubmissionResponse = new AccountApplicationSubmissionResponse();
+			WICIResponse retrieveResponse = null;
+			
+			try {
+				// Get account application response
+				accountApplicationSubmissionResponse.setTransactionState(AppConstants.QUEUE_REQUEST_PENDING);
+				
+				String responseDataString = "{\"error\":false,\"msg\":\"\",\"data\":{\"appStatus\":\"PENDING\",\"queueName\":\"PREFIX\"}}";
+				
+				Gson gson = new Gson();
+				WICIResponse responseData = gson.fromJson(responseDataString, WICIResponse.class);								
+				accountApplicationSubmissionResponse.setResponseData(responseData);
+				String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(duplicateTransID);
+				
+				accountApplicationSubmissionResponse.setRetrievalToken(retrievalToken);
+				//AccountApplicationContactInfo aaContactInfo = new AccountApplicationRequestTypeConverter().createAccountApplicationContactInfo(incomingCreditCardApplicationData);
+				//String currentTelephone = aaContactInfo.getPrimaryPhone();
+				//accountApplicationSubmissionResponse.setCurrentTelephone(currentTelephone);
+				//accountApplicationSubmissionResponse.setConsentGranted(resultSet.getString("CONSENT_GRANTED"));
+				accountApplicationSubmissionResponse.setExternalReferencId(duplicateTransID);
 
+				retrieveResponse = new WICIResponse(false, accountApplicationSubmissionResponse.getTransactionState(), accountApplicationSubmissionResponse);
+				//For logging purposes only
+				Gson gson1 = new Gson();
+				String printedResponse = gson1.toJson(retrieveResponse, WICIResponse.class);	
+				
+				log.info(sMethod + "\n::Duplicate Submission Response: \n" + printedResponse);
+				
+				requestMediator.processHttpResponse(retrieveResponse);
+			} catch (Exception e) {
+				log.warning(e.getMessage());
+				retrieveResponse = new WICIResponse(true, AppConstants.RETRIEVE_ACCOUNTAPPLICATION_REQUEST_FAILED, accountApplicationSubmissionResponse);
+				
+				requestMediator.processHttpResponse(retrieveResponse);
+			}
+		} else {
+			DatabaseResponse dbInsertionResponse = insertIntoTable(incomingCreditCardApplicationData,serialNumber);
+			
+			if (!dbInsertionResponse.isError()) {
+				//transactionID = (String) dbInsertionResponse.getData();
+				transactionID = (String) dbInsertionResponse.getAccountApplicationRequestType().getExternalReferenceId();
+				WICIResponse databaseResponse = new WICIResponse(false, AppConstants.QUEUE_REQUEST_SUBMIT, transactionID);
+				final AccountApplicationRequestType aaObject = dbInsertionResponse.getAccountApplicationRequestType();
+				
+				// Update response
+				requestMediator.processHttpResponse(databaseResponse);
+
+				AccountApplicationRequestThread concurrentAccountApplicationRequest = new AccountApplicationRequestThread(transactionID, incomingCreditCardApplicationData, aaObject);
+
+				try {
+					WorkItem managedAccountApplicationThread = accountApplicationWorkManager.startWork(concurrentAccountApplicationRequest);
+					ArrayList<WorkItem> managedThreads = new ArrayList<WorkItem>();
+					managedThreads.add(managedAccountApplicationThread);
+					accountApplicationWorkManager.join(managedThreads, WorkManager.JOIN_AND, 4000);
+				} catch (WorkException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				}
+			} else {	
+				// Update response
+				requestMediator.processHttpResponse(dbInsertionResponse);
+			}
+		}
+		
+	}
+	
 	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData,String tabSerialNum) {
 		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
 		log.info(sMethod);

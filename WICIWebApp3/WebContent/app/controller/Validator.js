@@ -145,7 +145,16 @@ WICI.Validator = function() {
         }
         return regexMatch(/^[A-Z0-9,_'-.~@\[\]\}\{\)\(\/\\ ]{1,30}$/, value.trim());
     };
-
+	//---------------------------------------------------------------------------------------
+    this.jobDescriptionOther = function(value) {
+        // length:19
+        // value:
+        // A-Z 0-9
+        if(value===null){
+            return false;
+        }
+        return regexMatch(/^[A-Z0-9]{0,19}$/, value.trim());
+    };
     //---------------------------------------------------------------------------------------
     this.phone= function(value) {
     	

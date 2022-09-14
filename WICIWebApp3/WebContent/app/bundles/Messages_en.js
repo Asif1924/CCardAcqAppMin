@@ -8,6 +8,7 @@ WICI.dictionary_en =  {
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
 	newStylePrintFlag	                                :   "N",
+	testSubmitButtonEnableFlag	                        :   "Y",
 	storeRecallPrintStores								:	"{\"stores\":[]}",
 
 	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
@@ -662,6 +663,10 @@ WICI.dictionary_en =  {
 
 	//........................NEW ITEMS ..............................
 
+	optionalProducts_UseCaseThreeDialogContentCPC		:	"Based on your changes, you are eligible for Triangle<sup>&reg;</sup> Credit Protector Complete<sup>TM</sup>. This plan will be presented to you on the next page.",
+	optionalProducts_UseCaseThreeDialogContentCPLD		:	"Based on your changes, you are eligible for Triangle<sup>&reg;</sup> Credit Protector Life & Disability<sup>TM</sup>. This plan will be presented to you on the next page.",
+	optionalProducts_UseCaseThreeDialogOk				:	"OK",
+	
 	optionalProducts_Proceed							: 	"PROCEED TO CONFIRMATION",
 	optionalProducts_PageTitle						    :	"Here is an optional product<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> available for <br>Your Canadian Tire Bank issued credit card",
 
@@ -789,7 +794,7 @@ WICI.dictionary_en =  {
 	optionalProductScreen_Handoutprompts_Title			:	"IMPORTANT",
 	optionalProductQCYES                                :   "Yes",
 	optionalProductQCNO                                 :   "No",
-	optionalProductScreen_Handoutprompts_YesNo_Message	:	"The Distribution Guide must be given to all customers that enrol in Credit Protector while in the province of Quebec. Have you given the applicant the Distribution Guide?",
+	optionalProductScreen_Handoutprompts_YesNo_Message	:	"The Summary & Fact Sheet must be given to all customers that enrol in any Triangle Credit Protector product while in the province of Quebec. Have you given the applicant the Summary & Fact Sheet?",
 	optionalProductScreen_Handoutprompts_Ok_Message		:	"All applicants that enrol in  Credit Protector must be given a Distribution Guide before proceeding.",
 	
 	//-------US4131 Start --------------
@@ -1260,8 +1265,14 @@ WICI.dictionary_en =  {
 	 // Signature screen END ................................................................
 
      // Summary screen START ..............................................................
+	summary_UseCaseFourDialogContentCPC					:	"Based on your changes, you are not eligible for Triangle<sup>&reg;</sup> Credit Protector Complete<sup>TM</sup> and it will be removed from your credit card application.",
+	summary_UseCaseFourDialogContentCPLD				:	"Based on your changes, you are not eligible for Triangle<sup>&reg;</sup> Credit Protector Life & Disability<sup>TM</sup> and it will be removed from your credit card application.",
+	summary_UseCaseFourDialogOk							:	"OK",
+	
 	summary_PageTitle                                 	:   "Please review and confirm the information provided is accurate as this will help us process your application today!",
 	summary_SubmitButton                              	:   "SUBMIT APPLICATION",
+	summary_DupeSubmitButton							:   "DUPLICATE APP SUBMISSION",
+	summary_TestSubmitButton                            :   "TEST APP SUBMISSION",
 	summary_SubmitApplicationError						:	"Application submission failed. Please try again.",
 
 	summary_Status_SubTitle								:	"STATUS: ",
@@ -1353,7 +1364,9 @@ WICI.dictionary_en =  {
 	summary_Months										:	"Months",
 
 	summary_submitError									:	"Unfortunately, we could not submit your application at this time. No additional submission attempts will be permitted. Please abandon the current application and complete a new paper application.<br>We apologize for the inconvenience.",
+	summary_submitUpdatedError							:	"<b>Oops, looks like the application didn’t submit correctly. Please re-submit by tapping “Submit Application”.</b>",
 	summary_submitInitError								:	"Unfortunately, the application could not be submitted due to a back-end issue. Please try again.",
+	summary_submit3AttemptError							:	"<b>Oops! Looks like the application didn’t submit correctly. Please contact the help desk for further assistance.</b><br><br>Canadian Tire: 1-866-899-3025<br>Mark’s / L’Équipeur : 1-888-670-6674<br>Sport Chek / Atmosphere : 1-866-217-1105<br>Sports Experts: 1-877-939-7272",
 
 	summary_dataIntegrity_Error							:	"Unfortunately, the application could not be submitted due to an internal issue. Please try again.",
 

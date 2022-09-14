@@ -9,6 +9,7 @@ WICI.dictionary_fr =  {
 	printerErrorShowDialogFlag						  :							"Y",	
 	addressLine2Flag	                              :    						"Y",
 	newStylePrintFlag	                              :    						"N",
+	testSubmitButtonEnableFlag	                      :   						"Y",
 	storeRecallPrintStores							  :							"{\"stores\":[]}",
 	
 	accents											  :							'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
@@ -675,6 +676,10 @@ WICI.dictionary_fr =  {
 	//................................................................
 
 	//........................NEW ITEMS ..............................
+	
+	optionalProducts_UseCaseThreeDialogContentCPC		:	"Selon vos modifications, vous êtes admissible à l’assurance Triangle<sup>MD</sup> Couverture-crédit complète<sup>MC</sup> Ce programme vous sera présenté à la page suivante.",
+	optionalProducts_UseCaseThreeDialogContentCPLD		:	"Selon vos modifications, vous êtes admissible à l’assurance Triangle<sup>MD</sup> Couverture-crédit - Assurance-vie et invalidité<sup>MC</sup> Ce programme vous sera présenté à la page suivante.",
+	optionalProducts_UseCaseThreeDialogOk				:	"OK",
 
 	optionalProducts_Proceed                           :   "PASSER À LA CONFIRMATION",
 	optionalProducts_PageTitle                         :   "Voici un produit facultatif offert<span class=\"optionaProduct_header_sup\">&#8224;&#8224;</span> par votre carte<br> de crédit émise par la Banque Canadian Tire",
@@ -1068,9 +1073,9 @@ WICI.dictionary_fr =  {
 	
 	// US3981
 	optionalProductScreen_Handoutprompts_Title			:	"IMPORTANT",
-	optionalProductQCYES                                :   "OUI",
-	optionalProductQCNO                                 :   "NON",
-	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Le Guide de distribution doit être remis à tous les clients qui souscrivent Couverture-crédit dans la province du Québec. Avez-vous remis le guide de distribution au client?",
+	optionalProductQCYES                                :   "Oui",
+	optionalProductQCNO                                 :   "Non",
+	optionalProductScreen_Handoutprompts_YesNo_Message	:	"Le sommaire et la fiche de renseignements doivent être remis à tous les clients qui s'inscrivent à un produit d’assurance Triangle Couverture-crédit au Québec. Avez-vous remis le sommaire et la fiche de renseignements au demandeur?",
 	optionalProductScreen_Handoutprompts_Ok_Message		:	"Avant de continuer, tous les demandeurs souscrivant à l’assurance Couverture-crédit doivent recevoir un guide de distribution.",
 
 	
@@ -1504,8 +1509,14 @@ WICI.dictionary_fr =  {
 	     // Signature screen END ................................................................
 
 	     // Summary screen START ..............................................................
+	summary_UseCaseFourDialogContentCPC				  :							"Selon vos modifications, vous n'êtes pas admissible pour l’assurance Triangle<sup>MD</sup> Couverture-crédit complète<sup>MC</sup>  et sera retiré de votre demande de carte de crédit.",
+	summary_UseCaseFourDialogContentCPLD			  :							"Selon vos modifications, vous n'êtes pas admissible pour l’assurance Triangle<sup>MD</sup> Couverture-crédit Assurance-vie et invalidité<sup>MC</sup> et sera retiré de votre demande de carte de crédit.",
+	summary_UseCaseFourDialogOk						  :							"OK",
+	
 	summary_PageTitle                                 :                         "Veuillez vérifier et confirmer l'exactitude des renseignements fournis pour faciliter le traitement de votre demande!",
 	summary_SubmitButton                              :                         "SOUMETTRE LA DEMANDE",
+	summary_DupeSubmitButton						  :   						"DUPLICATE APP SUBMISSION",
+	summary_TestSubmitButton                          :                         "TEST APP SUBMISSION",
 	summary_SubmitApplicationError                    :                         "La demande n'a pu être envoyée. Veuillez essayer de nouveau.",
 
 	summary_Status_SubTitle                           :                         "ÉTAT : ",
@@ -1597,7 +1608,9 @@ WICI.dictionary_fr =  {
 	summary_Months                                    :                         "Mois",
 
 	summary_submitError                               :                         "Malheureusement, votre demande n'a pu être envoyée Aucune tentative d'envoi supplémentaire ne sera permise. Veuillez abandonner la demande en cours et remplir un formulaire imprimé de demande. Nous sommes désolés de cet inconvénient.",
+	summary_submitUpdatedError                        :                         "<b>Oups, il semble que la demande n'ait pas été soumise correctement. Veuillez la soumettre à nouveau en appuyant sur « Soumettre la demande ».</b>",
 	summary_submitInitError							  :							"Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème de back-end. S'il vous plaît essayer à nouveau.",
+	summary_submit3AttemptError						  :							"<b>Oups! La demande n'a pas été soumise correctement. Veuillez communiquer avec l’équipe de soutien pour obtenir de l’aide.</b><br><br>Canadian Tire : 1 866 899-3025<br>Mark’s / L’Équipeur : 1 888 670-6674<br>Sport Chek / Atmosphere : 1 866 217-1105<br>Sports Experts : 1 877 939-7272",
 
 	summary_dataIntegrity_Error						  :						    "Malheureusement, la demande ne pouvait pas être soumise en raison d'un problème interne. S'il vous plaît essayer à nouveau.",
 

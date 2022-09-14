@@ -75,15 +75,23 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             { name : 'grossHouseholdIncome', value : null, 	validation : { type : 'format', 		message : '', canBeEmpty : true, /*matcher : /\d+/,*/ group : [ 2 ] } },
             { name : 'sin', 				 value : null, 	validation : { type : 'sin', 			message : '', canBeEmpty : true, group : [ 2 ] } },
 			{ name : 'jobDescription', 		 value : null,  validation : { type : 'presence', 		message : '', group : [ 1 ] } },
-            { name : 'jobDescriptionOther',  value : null,  validation : { type : 'presence', 		message : '', group : [ 1 ] } },
+            { name : 'jobDescriptionOther',  value : null,  validation : { type : 'jobDescriptionOther',message : '', group : [ 1 ] } },
 			{ name : 'employmentTypeDSS', 	 value : null, 	validation : null },
-			{ name : 'jobDescSuccessFlag', 	 value : null, 	validation : null, notField: true },
+			{ name : 'jobDescNCatSuccessFlag', 	 value : null, 	validation : null, notField: true },
+			//WICI-9
+           /* { notField: true, name: 'englishValueJC', value: null },
+            { notField: true, name: 'frenchValueJC', value: null },
+            { notField: true, name: 'storedValueJC', value: null }, */
+            //WICI-9
 			{ notField: true, name: 'englishValue', value: null },
 			{ notField: true, name: 'frenchValue', value: null },
 			{ notField: true, name: 'storedValue', value: null },
 			{ notField: true, name: 'insurance_CPType_Available', value: null },
 			{ name : 'insurance_CPType_Offered',  value: null, validation: null},
 			{ name : 'insurance_CPType_Selected', value: null, validation: null},
+			{ notField: true, name : 'prev_insurance_CPType_Available',  value: null, validation: null},
+			{ notField: true, name : 'summary_insurance_CPType_Available',  value: null, validation: null},
+			{ name : 'insuranceUsecase',  value: null, validation: null},
 			{ name : 'cpEligibilityCheck_Counter', 		 value : null,  validation : null },
 			{ name : 'cardVISAMCAMEX', 		 value : null,  validation : null },
 			{ name : 'cardBankLoan', 		 value : null,  validation : null },
@@ -130,6 +138,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         populateEmplTypes();
         populateJobCategories();
 		hideJobDescriptionOtherField();
+		//retrieveJobDescriptionAndJobCategory();
 		retrieveJobDescription();
         restoreCreditCardData();
         setUIElementsMasks();
@@ -142,13 +151,20 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     function restoreCreditCardData() {
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
+        // WICI-9
+      /*  if(app.translator.getCurrentLanguage() === "en"){
+                $(refs.jobCategory).val(model.get('englishValueJC'));
+        }else{
+                $(refs.jobCategory).val(model.get('frenchValueJC'));
+        }*/
+        // WICI-9
+        $(refs.jobCategory).val(model.get('jobCategory'));
         if(app.translator.getCurrentLanguage() === "en"){
         	 $(refs.jobDescription).val(model.get('englishValue'));
         }else{
         	 $(refs.jobDescription).val(model.get('frenchValue'));
         }
         closeAllLists($(refs.jobDescription));
-        $(refs.jobCategory).val(model.get('jobCategory'));
         $(refs.employerName).val(model.get('employerName'));
         $(refs.employerCity).val(model.get('employerCity'));
         $(refs.employerPhone).val(model.get('employerPhone'));
@@ -202,9 +218,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		}
 
         if (!(emplType in  prepopulatedTypes)) {
-            model.set('jobCategory', $(refs.jobCategory).val());
-            if($(refs.jobDescription).val() == "Other"){
-        		model.set('jobDescription', "Other");
+            model.set('jobCategory', $(refs.jobCategory).val()); 
+           // WICI-9: model.set('jobCategory', model.get('storedValueJC'));
+            if($(refs.jobDescription).val() == "Other" || $(refs.jobDescription).val() == "Autre"){
+        		model.set('jobDescription', $(refs.jobDescriptionOther).val().toUpperCase());
         	}else{
         		if(model.get('storedValue')){
         			model.set('jobDescription', model.get('storedValue'));
@@ -218,7 +235,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             model.set('employerPhone', $(refs.employerPhone).val().replace(/-/g, ''));
             model.set('howLongMonthes', $(refs.months_Slider).val());
             model.set('howLongYears', $(refs.years_Slider).val());
-        }
+        }/* WICI-9 : else{
+        	updateEmploymentType(true);
+        }*/
         model.set('grossIncome', $(refs.grossIncome).val().replace(/,/g, '').replace(' $ ', '').replace('.', ','));
         // US3960
         model.set('grossHouseholdIncome', $(refs.grossHouseholdIncome).val().replace(/,/g, '').replace(' $ ', '').replace('.', ','));
@@ -233,7 +252,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
         console.log(logPrefix + sMethod + ' model data: ' + model.toString());
     }
-	// ---------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------
 	function retrieveJobDescription() {
 		invokeRetrieveJobDescription(retrieveJobDescriptionSuccess, retrieveJobDescriptionFailure);
 	}
@@ -252,14 +271,14 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         new WICI.LoadingIndicatorController().hide();
         if(!argResponse.error) {
         	try {
-				model.set('jobDescSuccessFlag', true);
+				model.set('jobDescNCatSuccessFlag', true);
 				jobDescListResponse = argResponse;
 				jobDescListArray = argResponse;
         	} catch (e) {
         		console.log(logPrefix + sMethod + "Exception : " + e);
         	}
         } else {
-			model.set('jobDescSuccessFlag', false);
+			model.set('jobDescNCatSuccessFlag', false);
 			displayJobDescriptionOtherField(false);
 		}
     }
@@ -269,9 +288,51 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
         
         new WICI.LoadingIndicatorController().hide();
-		model.set('jobDescSuccessFlag', false);
+		model.set('jobDescNCatSuccessFlag', false);
         displayJobDescriptionOtherField(false);
     }
+    // ---------------------------------------------------------------------------------------
+   /* WICI-9  
+    
+    // ---------------------------------------------------------------------------------------
+	function retrieveJobDescriptionAndJobCategory() {
+		invokeRetrieveJobDescriptionAndJobCategory(retrieveJobDescriptionAndJobCategorySuccess, retrieveJobDescriptionAndJobCategoryFailure);
+	}
+	function invokeRetrieveJobDescriptionAndJobCategory(argSuccessCB, argFailureCB) {
+    	var sMethod = "invokeRetrieveJobDescriptionAndJobCategory() :: ";
+    	console.log(logPrefix + sMethod);
+    	
+    	new WICI.LoadingIndicatorController().show();
+    	connectivityController.RetrieveJobDescription(argSuccessCB,argFailureCB);
+    }
+    
+    function retrieveJobDescriptionAndJobCategorySuccess(argResponse) {
+    	var sMethod = "retrieveJobDescriptionAndJobCategoryFailure()";
+        console.log(logPrefix + sMethod );
+        
+        new WICI.LoadingIndicatorController().hide();
+        if(!argResponse.error) {
+        	try {
+				model.set('jobDescNCatSuccessFlag', true);
+				jobDescListResponse = argResponse;
+				jobDescListArray = argResponse;
+        	} catch (e) {
+        		console.log(logPrefix + sMethod + "Exception : " + e);
+        	}
+        } else {
+			model.set('jobDescNCatSuccessFlag', false);
+			displayJobDescriptionOtherField(false);
+		}
+    }
+   
+    function retrieveJobDescriptionAndJobCategoryFailure(argResponse) {
+    	var sMethod = "retrieveJobDescriptionAndJobCategoryFailure()";
+        console.log(logPrefix + sMethod);
+        
+        new WICI.LoadingIndicatorController().hide();
+		model.set('jobDescNCatSuccessFlag', false);
+        displayJobDescriptionOtherField(false);
+    } */
     // ---------------------------------------------------------------------------------------
     function populateJobCategories() {
         var sMethod = 'populateJobCategories() ';
@@ -308,7 +369,117 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         if (emplType in emplTypesWithDefaults) {
             hideSelectOptions(refs.jobCategory);
         }
-    }    
+    }  
+    // ---------------------------------------------------------------------------------------
+   /* WICI-9 
+    function populateJobCategories(jcInput) {
+        var sMethod = 'populateJobCategories()';
+        console.log(logPrefix + sMethod);
+        console.log(logPrefix + sMethod + "jcInput : " + jcInput);
+        console.log(logPrefix + sMethod + "jobCategoryListArray : " + JSON.stringify(jobDescListArray.data.jobCategoryList));
+        var a, b, i;
+        var val= jcInput.val();
+        var enValue;
+        var frValue;
+        var controlRef = $(refs.jobCategory);
+        var stValue;
+        //close any already open lists of autocompleted values
+        closeAllLists();
+        controlRef.empty();
+        if (!val) { return false;}
+              currentFocus = -1;
+              //create a DIV element that will contain the items (values):
+              a = document.createElement("DIV");
+              a.setAttribute("id", "jobCategory" + "autocomplete-list");
+              a.setAttribute("class", "autocomplete-items");
+              //append the DIV element as a child of the autocomplete container:
+              const menu = document.querySelector("#finEmpInfo_JobCategory_SelectField");
+              menu.parentNode.appendChild(a);
+              //this.parentNode.appendChild(a);
+              //for each item in the array.
+              var otherObj = {"englishDescription":"Other","frenchDescription":"Autre","storedValue":"OTHER"};
+              var jobCategoryArrayList = jobDescListArray.data.jobCategoryList.filter(item => item.storedValue !="OTHER");
+              jobCategoryArrayList.push(otherObj);
+             
+              console.log("jobCategoryArrayList : :"+  JSON.stringify(jobCategoryArrayList));
+              const filteredDataEnglish = jobCategoryArrayList.filter(item => item.englishDescription.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()));
+              const filteredDataFrench = jobCategoryArrayList.filter(item => item.frenchDescription.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()));
+              console.log("jobCategory :: filteredDataEnglish : " + JSON.stringify(filteredDataEnglish));
+              console.log("jobCategory :: filteredDataFrench : " + JSON.stringify(filteredDataFrench));
+              if(app.translator.getCurrentLanguage() === "en"){
+                      //English JD
+                      //filteredDataEnglish.length;
+                      for (i = 0; i <filteredDataEnglish.length; i++){
+                            //create a DIV element for each matching element:
+                            b = document.createElement("DIV");
+                            //make the matching letters bold:
+                            b.innerHTML += filteredDataEnglish[i].englishDescription;
+                            var elementHeight = (10*47);
+                           
+                            a.setAttribute("max-height", elementHeight + "px");
+                            //insert a input field that will hold the current array item's value:
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].englishDescription + "'>";
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].frenchDescription + "'>";
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataEnglish[i].storedValue + "'>";
+                            //execute a function when someone clicks on the item value (DIV element):
+                            b.addEventListener("click", function(e) {
+                            //insert the value for the autocomplete text field:
+                                enValue = filteredDataEnglish[$(this).index()].englishDescription;
+                                frValue = filteredDataEnglish[$(this).index()].frenchDescription;
+                                stValue = filteredDataEnglish[$(this).index()].storedValue;
+                                model.set('englishValueJC', enValue);
+                                model.set('frenchValueJC', frValue);
+                                model.set('storedValueJC', stValue);
+                                $(refs.jobCategory).val(enValue);
+                                model.set('jobCategory', stValue);
+                                //close the list of autocompleted values,
+                                // (or any other open lists of autocompleted values:
+                                closeAllLists();
+                            });
+                            a.appendChild(b);
+                      }
+              }else{
+                      // French JD
+                      for (i = 0; i < filteredDataFrench.length; i++){
+                            //create a DIV element for each matching element:
+                            b = document.createElement("DIV");
+                            //make the matching letters bold:
+                            b.innerHTML += filteredDataFrench[i].frenchDescription;
+                            //insert a input field that will hold the current array item's value:
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].englishDescription + "'>";
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].frenchDescription + "'>";
+                            b.innerHTML += "<input type='hidden' value='" + filteredDataFrench[i].storedValue + "'>";
+                            //execute a function when someone clicks on the item value (DIV element):
+                            b.addEventListener("click", function(e) {
+                            //insert the value for the autocomplete text field:
+                                enValue = filteredDataFrench[$(this).index()].englishDescription;
+                                frValue = filteredDataFrench[$(this).index()].frenchDescription;
+                                stValue = filteredDataFrench[$(this).index()].storedValue;
+                                model.set('englishValueJC', enValue);
+                                model.set('frenchValueJC', frValue);
+                                model.set('storedValueJC', stValue);
+                                $(refs.jobCategory).val(frValue);
+                                model.set('jobCategory', stValue);
+                                //close the list of autocompleted values,
+                                // (or any other open lists of autocompleted values:
+                                closeAllLists();
+                            });
+                            a.appendChild(b);
+                      }
+         }
+        
+        
+        var emplType, emplTypesWithDefaults;
+        emplType = model.get('employmentType');
+        emplTypesWithDefaults = {
+            H : '',
+            U : '',
+            R : ''
+        };
+        if (emplType in emplTypesWithDefaults) {
+            hideSelectOptions(refs.jobCategory);
+        }
+    }    */
 	//---------------------------------------------------------------------------------------
 	function displayJobDescriptionOtherField(jobDescflag) {
 		var sMethod = 'displayJobDescriptionOtherField() ';
@@ -322,12 +493,12 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		
 		if(!jobDescflag) {
 			model.set('jobDescription', "other");
-			model.set('jobDescriptionOther', translator.translateKey('finEmpInfoJobDesc_Other'));
+			model.set('jobDescriptionOther', $(refs.jobDescriptionOther).val());
 	        $(refs.jobDescription).val(translator.translateKey('finEmpInfoJobDesc_Other'));
-	        $(refs.jobDescriptionOther).val(translator.translateKey('finEmpInfoJobDesc_Other'));
+	        $(refs.jobDescriptionOther).val(" ");
 			$(refs.jobDescription).addClass('fieldValuesTextField');
 		}
-		if(!model.get('jobDescSuccessFlag')){
+		if(!model.get('jobDescNCatSuccessFlag')){
 			$(refs.jobDescription).prop('disabled', 'disabled');
 		}else{
 			$(refs.jobDescription).removeAttr('disabled');
@@ -538,11 +709,16 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         blankDetails();
 
         if(!!category && !!categoryTranslationKey) {
-        	$(refs.jobCategory).val(category);
+            $(refs.jobCategory).val(category);
             $(refs.jobCategory).trigger('change');
             model.set('jobCategory', category);
             $(refs.jobCategory + " [value='" + category + "']").attr("selected", "selected");
             hideSelectOptions(refs.jobCategory, category);
+        	/* WICI-9 $(refs.jobCategory).val(category);
+            $(refs.jobCategory).trigger('change');
+            model.set('jobCategory', category);
+           // $(refs.jobCategory + " [value='" + category + "']").attr("selected", "selected");
+            hideSelectOptions(refs.jobCategory, category);  */
         }
 
         $(refs.tdGrossIncomeLable).addClass('fieldLabelsCell');
@@ -561,7 +737,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 
     function onPrepopulatedStatusClick(category, title) {
         var addressModel = activationItems.getModel('personalData2_Address');
-        var _title = translator.translateKey(title);
+        var _title = translator.translateKey(title).toUpperCase();
         model.set('jobCategory', category);
         model.set('employerName', _title);
 		console.log("onPrepopulatedStatusClick() :: jobCategory : " + model.get('jobCategory') + ' :: employerName : ' + model.get('employerName'));
@@ -605,11 +781,24 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         $('.FinancialScreen_PrevButton').click(function() {
             showPrevScreen();
         });
-
-        $(refs.jobCategory).on("change", function() {
+         $(refs.jobCategory).on("change", function() {
             console.log(refs.jobCategory + '::change');
             model.set("jobCategory", $(refs.jobCategory).val());
         });
+      /* WICI-9  $(refs.jobCategory).live("input", function(e) {
+            console.log(refs.jobCategory + '::change');
+            populateJobCategories($(refs.jobCategory));
+            if(model.get('jobDescNCatSuccessFlag')){
+                 if($(refs.jobCategory).val()){
+                   model.set('jobCategory',model.get('storedValueJC'));
+                 }
+            }else{
+                   model.set('englishValueJC', "");
+                   model.set('frenchValueJC', "");
+                   model.set('storedValueJC', "");
+                   model.set('jobCategory',model.get('storedValueJC'));
+            }
+        }); */
                
         $(refs.jobDescription).live("input", function(e) {
           	console.log(refs.jobDescription + '::input');
@@ -619,7 +808,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
        
      	$(refs.jobDescription).on("change", function() {
        	 	console.log(refs.jobDescription + '::change');
-       	 	if(model.get('jobDescSuccessFlag')){
+       	 	if(model.get('jobDescNCatSuccessFlag')){
        	 		if($(refs.jobDescription).val()){
         	 	   model.set('jobDescription',model.get('storedValue'));
         	 	}
@@ -638,13 +827,11 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 				hideJobDescriptionOtherField();
 			}
       	});
+
 	  	$(refs.jobDescriptionOther).live('paste, input', function(e) {
-            var self = $(this);
-            setTimeout(function() {
-                if(self.val().length > 19) {
-                    self.val(self.val().substring(0, 19));
+                if($(refs.jobDescriptionOther).val().length > 19) {
+                	$(refs.jobDescriptionOther).val($(refs.jobDescriptionOther).val().trim().substring(0, 19));
                 }
-            },100);
             closeAllLists();
         });
 
@@ -654,21 +841,36 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             $(refs.employmentType).val(model.get("employmentType"));           
             populateEmplTypes(true);
             $(refs.employmentType).val(model.get("employmentType"));
-			populateJobCategories();
+          /* WICI-9   populateJobCategories($(refs.jobCategory));
+            populatejobDescriptionList($(refs.jobDescription));
+            // WICI-9
+            if(app.translator.getCurrentLanguage() === "en"){
+            	if($(refs.jobCategory).val() !=''){
+                $(refs.jobCategory).val(model.get('englishValueJC'));
+            	}
+            }else{
+            	if($(refs.jobCategory).val() !=''){
+                $(refs.jobCategory).val(model.get('frenchValueJC'));
+            	}
+            }
+            // WICI-9
+            alignI_icon();
+            populatejobDescriptionList($(refs.jobDescription));
+            */
+            populateJobCategories();
             $(refs.jobCategory).val(model.get("jobCategory"));
             alignI_icon();
             populatejobDescriptionList($(refs.jobDescription));
             if(app.translator.getCurrentLanguage() === "en"){
             	if($(refs.jobDescription).val() !=''){
             		$(refs.jobDescription).val(model.get('englishValue'));
-            		closeAllLists();
             	}
             }else{
             	if($(refs.jobDescription).val() !=''){
             		$(refs.jobDescription).val(model.get('frenchValue'));
-            		closeAllLists();
             	}
             }
+            closeAllLists();
         });
 
         $(refs.employmentType).on("change", function() {
@@ -679,13 +881,13 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			model.set('jobDescriptionOther', null);
 			// VZE-566
 			model.set('jobDescription', null);
-			$(refs.jobDescriptionOther).val(null);
-			$(refs.jobDescription).val(null);
+		//	$(refs.jobDescriptionOther).val(null);
+		//	$(refs.jobDescription).val(null);
             $('#financialScreen_infomation_phone').hide();
-            updateEmploymentType(true);
-			if(!model.get('jobDescSuccessFlag')) {
+			if(!model.get('jobDescNCatSuccessFlag')) {
 				displayJobDescriptionOtherField(false);
 			}
+			updateEmploymentType(true);
         });
     }
     
@@ -782,7 +984,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     	console.log(sMethod + "jobDescValue :: " + jobDescValue);
    	    console.log(refs.jobDescription + '::value ' + $(refs.jobDescription).val());
 		if(jobDescValue == "Other" || jobDescValue == "Autre") {
-			$(refs.jobDescriptionOther).val(translator.translateKey('finEmpInfoJobDesc_Other'));
+			$(refs.jobDescriptionOther).val(" ");
 			displayJobDescriptionOtherField(false);
 		} else {
 			hideJobDescriptionOtherField();
@@ -828,7 +1030,57 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             }else{
             	$('#financialScreen_infomation_phone').hide();
             }
+            // WICI-42
+            var emplType = $(refs.employmentType).val();
+            if (!(emplType in  prepopulatedTypes)){
+            	var rezJobDes = [];
+               /* var  rezJobCat = []; */
+                console.log("showNextScreen :: " + JSON.stringify(jobDescListArray.data.jobDescriptionList));
+                const filteredJobDesDataEnglish = jobDescListArray.data.jobDescriptionList.filter(item => item.englishDescription == ($(refs.jobDescription).val().trim()));
+      	        const filteredJobDesDataFrench = jobDescListArray.data.jobDescriptionList.filter(item => item.frenchDescription == ($(refs.jobDescription).val().trim()));
+      	      /*  const filteredJobCatDataEnglish = jobDescListArray.data.jobCategoryList.filter(item => item.englishDescription == ($(refs.jobCategory).val().trim()));
+    	        const filteredJobCatDataFrench = jobDescListArray.data.jobCategoryList.filter(item => item.frenchDescription == ($(refs.jobCategory).val().trim())); */
+    	        
+                // Job Description 
+    	        if(app.translator.getCurrentLanguage() === "en"){
+                	// English language 
+                	if(filteredJobDesDataEnglish.length == 0 || filteredJobDesDataEnglish < 0){
+                		rezJobDes.push(refs.jobDescription);
+                    	$(refs.jobDescription).addClass('errorField');
+                    	app.validationDecorator.focusControl(refs.jobDescription);
+                	}
+                	
+                }else{
+                	// French language 
+                	if(filteredJobDesDataFrench.length == 0 || filteredJobDesDataFrench < 0){
+                		rezJobDes.push(refs.jobDescription);
+                    	$(refs.jobDescription).addClass('errorField');
+                    	app.validationDecorator.focusControl(refs.jobDescription);
+                	}
+                	
+                }
+               /* // Job Category 
+                if(app.translator.getCurrentLanguage() === "en"){
+                	// English language rezJobDes
+                	if(filteredJobCatDataEnglish.length == 0 || filteredJobCatDataEnglish < 0){
+                		rezJobCat.push(refs.jobCategory);
+                    	$(refs.jobCategory).addClass('errorField');
+                    	app.validationDecorator.focusControl(refs.jobCategory);
+                	}
+                	
+                }else{
+                	// French language 
+                	if(filteredJobCatDataFrench.length == 0 || filteredJobCatDataFrench < 0){
+                		rezJobCat.push(refs.jobCategory);
+                    	$(refs.jobCategory).addClass('errorField');
+                    	app.validationDecorator.focusControl(refs.jobCategory);
+                	}
+                	
+                } */
+            }
             
+           
+            //WICI-42
             // group 2 validation only
             //if (employmentType == 'R' || employmentType == 'H' || employmentType == 'U') {
             //    rez = model.validate(2);
@@ -866,6 +1118,19 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
             	  app.validationDecorator.applyErrAttribute(rezPhone);
                  return;
             }
+            var emplType = $(refs.employmentType).val();
+            if (!(emplType in  prepopulatedTypes)){
+	            if(rezJobDes.length > 0){
+	                 app.validationDecorator.applyErrAttribute(rezJobDes );
+	                 return;
+	                	
+	            }
+	           /* if(rezJobCat.length > 0){
+	                app.validationDecorator.applyErrAttribute(rezJobCat );
+	                return;
+	                	
+	            } */
+           }    
         }
         if (checkGrossAnnualIncome(model.get('grossIncome')) && checkGrossAnnualHouseholdIncome(model.get('grossHouseholdIncome'))) {
 			cpEligibilityConditionCheck();
@@ -913,6 +1178,21 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			model.set('insurance_CPType_Available', "NONE");
 			model.set('insurance_CPType_Offered', "");
 			model.set('insurance_CPType_Selected', "");
+			if(model.get('prev_insurance_CPType_Available') == null) {
+				model.set('prev_insurance_CPType_Available', "NONE");
+			}
+			if(model.get('prev_insurance_CPType_Available') != null) { 
+				if(model.get('prev_insurance_CPType_Available') != "NONE" && (model.get('prev_insurance_CPType_Available') == "CP_Complete" || model.get('prev_insurance_CPType_Available') == "CP_LifeDisability") && 
+					model.get('insurance_CPType_Available') == "NONE") {
+					model.set('insuranceUsecase', "USECASE_FOUR");
+					model.set('summary_insurance_CPType_Available', model.get('prev_insurance_CPType_Available'));
+				} else if(model.get('prev_insurance_CPType_Available') == "NONE" && model.get('insurance_CPType_Available') == "NONE") {
+					model.set('insuranceUsecase', null);
+				}
+			}
+			console.log(logPrefix + sMethod + " previous insurance Available :: " + model.get('prev_insurance_CPType_Available') +
+					 " insurance Available :: " + model.get('insurance_CPType_Available') + 
+					 	" insurance Usecase :: " + model.get('insuranceUsecase'));
 			flowNext();
 		}
 	} 
@@ -938,7 +1218,7 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
     }
     
     function checkCPEligibilitySuccess(argResponse) {
-    	var sMethod = "checkCPEligibilitySuccess(argResponse)";
+    	var sMethod = "checkCPEligibilitySuccess()";
         console.log(logPrefix + sMethod + JSON.stringify(argResponse));
         
         new WICI.LoadingIndicatorController().hide();
@@ -946,25 +1226,66 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
         	try {
 				model.set('insurance_CPType_Available', argResponse.data.cpType);
 				model.set('insurance_CPType_Offered', argResponse.data.cpType);
-        	} catch (e) {
+				if(model.get('prev_insurance_CPType_Available') == null) {
+					model.set('prev_insurance_CPType_Available', argResponse.data.cpType);
+				}
+				// First time insurance selected check. Only second time this will execute
+				if(model.get('prev_insurance_CPType_Available') != null) {
+					// Previous is not NONE and previous is different from available, then USECASE_THREE
+					if(model.get('prev_insurance_CPType_Available') != "NONE" && model.get('prev_insurance_CPType_Available') != model.get('insurance_CPType_Available')) {
+						model.set('insuranceUsecase', "USECASE_THREE");
+					}
+					// Previous is not NONE and previous is same as available, then no use case 
+					else if(model.get('prev_insurance_CPType_Available') != "NONE" && model.get('prev_insurance_CPType_Available') == model.get('insurance_CPType_Available')) {
+						model.set('insuranceUsecase', null);
+					}
+				}
+        	} catch(e) {
         		console.log(logPrefix + sMethod + "Exception : " + e);
         	}
-        } else if(argResponse.error){
+        } else if(argResponse.error) {
 			model.set('insurance_CPType_Available', "NONE");
 			model.set('insurance_CPType_Offered', "ERROR");
 			model.set('insurance_CPType_Selected', "");
+			if(model.get('prev_insurance_CPType_Available') == null) {
+				model.set('prev_insurance_CPType_Available', "NONE");
+			}
+			if(model.get('prev_insurance_CPType_Available') != null) {
+				if(model.get('prev_insurance_CPType_Available') != "NONE" && (model.get('prev_insurance_CPType_Available') == "CP_Complete" || model.get('prev_insurance_CPType_Available') == "CP_LifeDisability") && 
+					model.get('insurance_CPType_Available') == "NONE") {
+					model.set('insuranceUsecase', "USECASE_FOUR");
+					model.set('summary_insurance_CPType_Available', model.get('prev_insurance_CPType_Available'));
+				} else if(model.get('prev_insurance_CPType_Available') == "NONE" && model.get('insurance_CPType_Available') == "NONE") {
+					model.set('insuranceUsecase', null);
+				}
+			}
 		}
+		console.log(logPrefix + sMethod + " previous insurance Available :: " + model.get('prev_insurance_CPType_Available') +
+					 " insurance Available :: " + model.get('insurance_CPType_Available') + 
+					 	" insurance Usecase :: " + model.get('insuranceUsecase'));
 		flowNext();
     }
    
     function checkCPEligibilityFailure(argResponse) {
-    	var sMethod = "checkCPEligibilityFailure(argResponse)";
+    	var sMethod = "checkCPEligibilityFailure()";
         console.log(logPrefix + sMethod);
         
         new WICI.LoadingIndicatorController().hide();
 		model.set('insurance_CPType_Available', "NONE");
 		model.set('insurance_CPType_Offered', "ERROR");
 		model.set('insurance_CPType_Selected', "");
+		if(model.get('prev_insurance_CPType_Available') != null) {
+			if(model.get('prev_insurance_CPType_Available') != "NONE" && (model.get('prev_insurance_CPType_Available') == "CP_Complete" || model.get('prev_insurance_CPType_Available') == "CP_LifeDisability") && 
+					model.get('insurance_CPType_Available') == "NONE") {
+				model.set('insuranceUsecase', "USECASE_FOUR");
+				model.set('summary_insurance_CPType_Available', model.get('prev_insurance_CPType_Available'));
+			} else if(model.get('prev_insurance_CPType_Available') == "NONE" && model.get('insurance_CPType_Available') == "NONE") {
+				model.set('insuranceUsecase', null);
+			}
+		}
+		console.log(logPrefix + sMethod + " previous insurance Available :: " + model.get('prev_insurance_CPType_Available') +
+					 " insurance Available :: " + model.get('insurance_CPType_Available') + 
+					 	" insurance Usecase :: " + model.get('insuranceUsecase'));
 		flowNext();
     }
 
@@ -1042,14 +1363,17 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		var sMethod = 'flowNext() :: ';
 		
 		var empType = model.get('employmentTypeDSS'), jobCat = model.get('jobCategory'),
-		jobDesc = model.get('jobDescription'), jobDescOt = model.get('jobDescriptionOther');
-		console.log(logPrefix + sMethod + empType + " " + jobCat + " " + jobDesc + " " + jobDescOt);
+		jobDesc = model.get('jobDescription'), jobDescOt = model.get('jobDescriptionOther'),
+		insAvailable = model.get('insurance_CPType_Available');
+		console.log(logPrefix + sMethod + empType + " " + jobCat + " " + jobDesc + " " + jobDescOt + " " + insAvailable);
 		model.set('prev_employmentType', empType);
         model.set('prev_jobCategory', jobCat);
 		model.set('prev_jobDescription', jobDesc);
         model.set('prev_jobDescriptionOther', jobDescOt);
+		model.set('prev_insurance_CPType_Available', insAvailable);
 		console.log(logPrefix + sMethod + model.get('prev_employmentType') + " " + model.get('prev_jobCategory')
-		 + " " + model.get('prev_jobDescription') + " " + model.get('prev_jobDescriptionOther'));
+		 + " " + model.get('prev_jobDescription') + " " + model.get('prev_jobDescriptionOther') + " " + model.get('prev_insurance_CPType_Available')
+		 + " " + model.get('summary_insurance_CPType_Available'));
         flow.next();
     }
 
@@ -1165,7 +1489,9 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 	    for (var i = 0; i < x.length; i++) {
 	      if (elmnt != x[i] && elmnt != $(refs.jobDescription)) {
 	      x[i].parentNode.removeChild(x[i]);
-	    }
+	    }/*else if(elmnt != x[i] && elmnt != $(refs.jobCategory)){
+            x[i].parentNode.removeChild(x[i]);
+        } */
 	  }
 	}
 

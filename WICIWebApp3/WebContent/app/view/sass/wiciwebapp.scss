@@ -67,7 +67,7 @@ html,body {
 }
 
 .autocomplete-items {
-  max-height: 300px;
+  max-height: 405px;
   overflow-y: auto;
    /* prevent horizontal scrollbar */
   overflow-x: hidden;
@@ -105,6 +105,9 @@ html,body {
 }
 .green_text{
 	color : #188e02;
+}
+.normal_text{
+    color : #333333;
 }
 
 /* Create a custom checkbox */
@@ -4147,6 +4150,9 @@ div.ui-slider-switch
   height: 100% !important;
   overflow: hidden;
 }
+.stop-htmlscroll{
+overflow: hidden !important;
+}
 .fieldLabelsCellWithTopAlign{
   vertical-align: top;
 }
@@ -5489,6 +5495,10 @@ padding-top:5px;
 
 .tooltip:hover .tooltipCityNametext {
   visibility: visible;
+}
+
+.QccancelDialog .ui-header .ui-btn{
+display:none;
 }
       
   /*

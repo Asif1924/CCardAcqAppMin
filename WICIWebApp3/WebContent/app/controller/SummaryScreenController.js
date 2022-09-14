@@ -20,6 +20,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 
     var refs = {
         submitBtn   			:   '#summary_SubmitButton',
+		dupeSubmitBtn   		:   '#summary_DupeSubmitButton',
+		testSubmitButton		:	'#summary_TestSubmitButton',
         prevBtn     			:   '.summaryScreen_PrevButton',
         //nextBtn				:	"#summaryScreen_NextButton",
         summaryStatusNotReady	:	'#summary_Status_NotReady',
@@ -42,13 +44,17 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		summary_JobDescription	:	"#summary_JobDescription"
     };
     var submitButtonEnabled = false;
+	var testSubmitButtonEnabled = false;
+	var dupeSubmitButtonEnabled = false;
+	var pollStartedFlag = false;
 
     var dataFields = [];
-    dataFields.push({notField:true, name: 'submitFailed_Counter',  value: null, validation: null });
+    dataFields.push({notField:true, name: 'submitFailed_Counter',  value: null, validation: null },
+					{notField:true, name: 'submitCounter',  	   value: null, validation: null });
     checkedElements = [];
     var itemsToSet = {};
 
-    if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E") {
+    if(activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== "E") {
         refs.summaryAgentID = "#summaryAgentIDTextField";
         dataFields.push({
                     name: 'summaryAgentID',
@@ -108,7 +114,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         createView();
         disableSubmitButton();
         bindEvents();
-                var currentModel = activationItems.getModel(model.name);
+        var currentModel = activationItems.getModel(model.name);
 
 		if (!currentModel) {
             activationItems.addModel(model);
@@ -119,9 +125,15 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         connectivityController = new WICI.ConnectivityController(new WICI.ConnectionStatus(), messageDialog, translator, WICI.AppConfig.ConnectivityConfig);
         connectivityController.init();
 
-        //updateSubmitBtnState();
-        permanentlyEnableSubmitButton();
-        
+		if(app.getTestSubmitButtonEnableFlag() == "Y") {
+			//$(refs.submitBtn).hide();
+			$(refs.testSubmitButton).hide();
+		} else {
+			$(refs.dupeSubmitBtn).hide();
+			$(refs.testSubmitButton).hide();
+		}
+		$(refs.prevBtn).show();
+		
         checkExpiryDateField();
         showHideAddressLine2();
 
@@ -133,54 +145,24 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		$(refs.housingpayment).html(activationItems.getModel('personalData2_Address').get('housingpayment'));
 
     	$(refs.nameTitle).html(activationItems.getNameTitleByValue(activationItems.getModel('personalData').get('title')));
-		if(activationItems.getModel('financialData').get('jobDescSuccessFlag')) {
+		if(activationItems.getModel('financialData').get('jobDescNCatSuccessFlag')) {
 			var jobDesc_Text = $('#finEmpInfo_JobDescription_Input_TextField').val();
 			console.log(logPrefix + sMethod + jobDesc_Text);
 			$(refs.summary_JobDescription).html(jobDesc_Text);
 		}
     	
+		console.log(logPrefix + sMethod + " insuranceUsecase :: " + activationItems.getModel("financialData").get('insuranceUsecase'));
+		console.log(logPrefix + sMethod + " summary Ins available :: " + activationItems.getModel("financialData").get('summary_insurance_CPType_Available'));
         // US4698 - Enable bluetooth on click of submit application
         // WICI.BluetothHelper.toggle();
-
+		if(activationItems.getModel("financialData").get('insuranceUsecase') == "USECASE_FOUR") {
+			activationItems.getModel("financialData").set('insuranceUsecase', null);
+			$("#useCaseFour-container").show();
+		}
+		model.set('submitCounter', 0);
     }
 
-    function permanentlyEnableSubmitButton(){
-		$(refs.summaryStatusReady).show();
-		$(refs.summaryStatusNotReady).hide();
-    }
     //---------------------------------------------------------------------------------------
-	function updateSubmitBtnState() {
-		var sMethod = 'updateSubmitBtnState() ';
-		console.log(logPrefix + sMethod);
-
-		$(refs.summaryStatusNotReady).show();
-		$(refs.summaryStatusReady).hide();
-
-		clearInterval(isAliveInterval);
-
-		isAliveInterval = setInterval(function() {
-			console.log(logPrefix + sMethod + " isAlive:" + app.isAliveService.isAlive());
-
-			if(!app.isAliveService.isAlive()){
-				$(refs.submitBtn).addClass('grayflat');
-				$(refs.submitBtn).removeClass('greenflat');
-
-				$(refs.summaryStatusReady).hide();
-				$(refs.summaryStatusNotReady).show();
-			}
-			else{
-				$(refs.submitBtn).addClass('greenflat');
-				$(refs.submitBtn).removeClass('grayflat');
-
-				$(refs.summaryStatusReady).show();
-				$(refs.summaryStatusNotReady).hide();
-			}
-
-
-		}, WICI.AppConfig.ConnectivityConfig.SUBMIT_BTN_CHECK_INTERVAL);
-	}
-
-    // ---------------------------------------------------------------------------------------
     function show() {
         $screenContainer.show();
         translator.run('SummaryScreen');
@@ -197,7 +179,6 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 
 		app.isAliveService.stop();
 		clearInterval(isAliveInterval);
-
         $screenContainer.hide();
     }
     //---------------------------------------------------------------------------------------
@@ -256,12 +237,24 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         var sMethod = 'bindEvents() ';
         console.log(logPrefix + sMethod);
 
+		$("#useCaseFourOk").click(function(){
+			$("#useCaseFour-container").hide();
+        });
+
         $(refs.prevBtn).click(function() {
             showPrevScreen();
         });
 
         $(refs.submitBtn).click(function() {
             initiateAccountApplicationProcess();
+        });
+
+        $(refs.dupeSubmitBtn).click(function() {
+            initiateDupeAccountApplicationProcess();
+        });
+
+        $(refs.testSubmitButton).click(function() {
+            initiateTestAccountApplicationProcess();
         });
 
         $.subscribe("translatorFinished",function(){
@@ -354,6 +347,58 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         for (var item in itemsToSet) {
             $(itemsToSet[item]).on('input', updateSubmitState);
         }
+		if(app.getTestSubmitButtonEnableFlag() == "Y") {
+			for (var item in itemsToSet) {
+            	$(itemsToSet[item]).on('input', updateTestSubmitState);
+        	}
+			for (var item in itemsToSet) {
+            	$(itemsToSet[item]).on('input', updateDupeSubmitState);
+        	}
+		}
+    }
+	//---------------------------------------------------------------------------------------
+    function disableDupeSubmitButton(){
+        $(refs.dupeSubmitBtn).removeClass("greenflat");
+        $(refs.dupeSubmitBtn).addClass("grayflat");
+        $(refs.dupeSubmitBtn).prop("disabled",true);
+        dupeSubmitButtonEnabled = false;
+    }
+    //---------------------------------------------------------------------------------------
+    function enableDupeSubmitButton(){
+        $(refs.dupeSubmitBtn).removeClass("grayflat");
+        $(refs.dupeSubmitBtn).addClass("greenflat");
+        $(refs.dupeSubmitBtn).prop("disabled",false);
+        dupeSubmitButtonEnabled = true;
+    }
+    //---------------------------------------------------------------------------------------
+    function updateDupeSubmitState() {
+        if (checkInputsNotEmpty()) {
+            enableDupeSubmitButton();
+        } else {
+            disableDupeSubmitButton();
+        }
+    }
+	//---------------------------------------------------------------------------------------
+    function disableTestSubmitButton(){
+        $(refs.testSubmitButton).removeClass("greenflat");
+        $(refs.testSubmitButton).addClass("grayflat");
+        $(refs.testSubmitButton).prop("disabled",true);
+        testSubmitButtonEnabled = false;
+    }
+    //---------------------------------------------------------------------------------------
+    function enableTestSubmitButton(){
+        $(refs.testSubmitButton).removeClass("grayflat");
+        $(refs.testSubmitButton).addClass("greenflat");
+        $(refs.testSubmitButton).prop("disabled",false);
+        testSubmitButtonEnabled = true;
+    }
+    //---------------------------------------------------------------------------------------
+    function updateTestSubmitState() {
+        if (checkInputsNotEmpty()) {
+            enableTestSubmitButton();
+        } else {
+            disableTestSubmitButton();
+        }
     }
     //---------------------------------------------------------------------------------------
     function disableSubmitButton(){
@@ -394,13 +439,13 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		clearInterval(isAliveInterval);
     }
     // ---------------------------------------------------------------------------------------
-    function initiateAccountApplicationProcess() {
-        var sMethod = 'initiateAccountApplicationProcess() ';
+	function initiateDupeAccountApplicationProcess() {
+        var sMethod = 'initiateDupeAccountApplicationProcess() ';
         console.log(logPrefix + sMethod);
-        
+
         syncUserData();
-        if (app.validationsOn) {
-            if (!submitButtonEnabled) {
+        if(app.validationsOn) {
+            if(!dupeSubmitButtonEnabled) {
                 return;
             }
             app.validationDecorator.clearErrArrtibute();
@@ -413,35 +458,107 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
             }
         }
 
+		if ($(refs.dupeSubmitBtn).hasClass('grayflat')) {
+			console.log(logPrefix + sMethod	+ " Click on disabled Submitt btn detected!");
+			return;
+		}
+		
+        try{
+            if(getErrorsCounter() >= getMaxSubmissionRetries()) {
+            	messageDialog.error(translator.translateKey('summary_submit3AttemptError'));
+            	$(refs.dupeSubmitBtn).addClass('grayflat');
+            	return;
+            }
+
+			if(dupeSubmitButtonEnabled) {
+				model.set('submitCounter', getSubmitCounter() + 1);
+			}
+			
+			if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
+				// VZE-478
+				if($.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), ["MARKS", "SPORTS"]) != '-1') {
+					printCoupon();
+				}
+        		connectivityController.initAccountApplication(activationItems,successDupeInitActivate,failedDupeInitActivate);
+        	} else {
+        		showMessageForDataValidationIssue();
+        	}
+			
+			console.log(logPrefix + sMethod + " submitCounter : " + model.get('submitCounter'));
+			hideBackButton();
+        } catch(Ex){
+        	// US5294 : WICI - Debug Mode          	
+        	if(isDebugMode){
+                messageDialog.error(Ex,translator.translateKey('errorDialog_defaultTitle'),$.noop);
+            }
+        	console.log(logPrefix + sMethod + " Exception: " + Ex);
+        	failedDupeInitActivate();
+        }		
+	}
+	// ---------------------------------------------------------------------------------------
+	function initiateTestAccountApplicationProcess() {
+        var sMethod = 'initiateTestAccountApplicationProcess() ';
+        console.log(logPrefix + sMethod);
+
+		connectivityController.initAccountApplication(activationItems, successDupeInitActivate, failedDupeInitActivate);
+	}
+	// ---------------------------------------------------------------------------------------
+    function initiateAccountApplicationProcess() {
+        var sMethod = 'initiateAccountApplicationProcess() ';
+        console.log(logPrefix + sMethod);
+        
+        syncUserData();
+        if(app.validationsOn) {
+            if(!submitButtonEnabled) {
+                return;
+            }
+            app.validationDecorator.clearErrArrtibute();
+            var rez = [];
+            rez = model.validate(1);
+            //--------------------------------------------------------------------
+            if (rez.length > 0) {
+                app.validationDecorator.applyErrAttribute(checkedElements);
+                return;
+            }
+        }
+
+		if(pollStartedFlag) {
+			disableSubmitButton();
+		}
+
 		if ($(refs.submitBtn).hasClass('grayflat')) {
 			console.log(logPrefix + sMethod	+ " Click on disabled Submitt btn detected!");
 			return;
 		}
-
-        //mapEmploymentType();
-
+		
+		new WICI.LoadingIndicatorController().show();
+		
         try{
-
-            if(getErrorsCounter() >= getMaxSubmissionRetries())
-            {
-            	messageDialog.error(translator.translateKey('summary_submitError'));
+            if(getErrorsCounter() >= getMaxSubmissionRetries()) {
+				new WICI.LoadingIndicatorController().hide();
+            	messageDialog.error(translator.translateKey('summary_submit3AttemptError'));
             	$(refs.submitBtn).addClass('grayflat');
             	return;
             }
 
-        	new WICI.LoadingIndicatorController().show();
-
-        	if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
+			if(submitButtonEnabled) {
+				model.set('submitCounter', getSubmitCounter() + 1);
+			}
+			
+			if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
 				// VZE-478
 				if($.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), ["MARKS", "SPORTS"]) != '-1') {
 					printCoupon();
 				}
         		connectivityController.initAccountApplication(activationItems,successInitActivate,failedInitActivate);
-        	}else{
+        	} else {
         		showMessageForDataValidationIssue();
         	}
-        }
-        catch(Ex){
+			
+			console.log(logPrefix + sMethod + " submitCounter : " + model.get('submitCounter'));
+			hideBackButton();
+			//disableSubmitButton();
+        } catch(Ex){
         	// US5294 : WICI - Debug Mode          	
         	if(isDebugMode){
                 messageDialog.error(Ex,translator.translateKey('errorDialog_defaultTitle'),$.noop);
@@ -450,37 +567,10 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	failedInitActivate();
         }
     }
-    
-    // US3462
-    //---------------------------------------------------------------------------------------
-   /* old code - back end issues  fix -  function printCoupon() {
-        var sMethod = 'printCoupon() ';
-        console.log(logPrefix + sMethod);
-        var isDevice = new WICI.DeviceDetectionHelper().any();
-        
-        if( isDevice ){
-        
-            if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {
-                showPrinterSetupAccountProfileDialog (setupPrinterMacAddress);
-                return;
-            }
-            new WICI.LoadingIndicatorController().show();
-            try {                
-                
-                app.zebraPrinterWrapper.printCoupon(
-                    activationItems,
-                    printFileSuccess,
-                    printFileFailure);
-            }
-            catch (error){
-                console.log(logPrefix + sMethod +"::[ERROR]::[" + error +"]");
-            }
-        }else{
-        	// Web print
-        }
-        return;
-    }*/
-    
+	//---------------------------------------------------------------------------------------
+	function hideBackButton() {
+		$(refs.prevBtn).hide();
+	}
     //---------------------------------------------------------------------------------------
 	function printCoupon() {
 		var sMethod = 'printCoupon() ';
@@ -489,16 +579,13 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			var isDevice = new WICI.DeviceDetectionHelper().any();
 
 			if (isDevice) {
-
 				if (!app.zebraPrinterWrapper.verifyPrinterMacAddress()) {
 					app.accountProfileHelper.showNoPrinterSetupWarning ();	
 					return;
 				}
 				new WICI.LoadingIndicatorController().show();
-
 				app.zebraPrinterWrapper.printCoupon(translator, activationItems,
 						printFileSuccess, printFileFailure);
-
 			} else {
 				// Web print
 			}
@@ -511,8 +598,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		}
 		return;
     }
-    
-  //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
     function printFileSuccess(result) {
         var sMethod = 'printFileSuccess() ';
         console.log(logPrefix + sMethod);
@@ -528,28 +614,35 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     	messageDialog.info(translator.translateKey("summary_dataIntegrity_Error"),"InitAccountApplication",$.noop);
     }
 
-    function successInitActivate( argResponse ){
+    function successInitActivate(argResponse){
         var sMethod = 'successInitActivate() ';
-        console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
-
-        //if( !argResponse.error ){
-        //AA (01/03/2015)
-        //We are using the ResponseAnalyzer here on the InitAccountApplication response, but
-        //only for checking if the response is in error and nothing more, since most of the 
-        //public methods of the ResponseAnalzyer were designed mainly for checking the 
-        //AccountApplication response and not necessarily the InitAccountApplication response, we
-        //are safe to use it here in this manner
-        if( !respAn.isErrorResponse(argResponse) ){ 
-            var requestParams = {
-               	transactionID	:	argResponse.data,
-               	action			:	"retrieve"
-            };
-            pollingController = new WICI.PollingController(connectivityController, requestParams, pollResponseReceived, pollFailed, "INSESSION",$.noop,null);
-            pollingController.startPolling();
-            //console.log("QueueTransactionID from Middleware:" + QueueTransactionID);
-            console.log("QueueTransactionID from Middleware:" + requestParams.transactionID);
-        }
-        else
+		console.log(logPrefix + sMethod + JSON.stringify(argResponse));
+        //console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
+		
+		disableSubmitButton();
+        if(!respAn.isErrorResponse(argResponse)){
+			if(respAn.isPendingResponse(argResponse)) {
+				new WICI.LoadingIndicatorController().hide();
+		    	activationItems.setAccountApplicationResponse(argResponse);
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
+		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
+		    	if( respAn.isNewResponseType(argResponse))
+		    		console.log(logPrefix + sMethod + "New Pending Page Response: RetrievalToken=" + respAn.getRetrievalToken(argResponse) );
+		    	hide();
+		    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
+		    	app.navigationController.adhocPendingScreen.show();
+			} else {
+				pollStartedFlag = true;
+				var requestParams = {
+               		transactionID	:	argResponse.data,
+               		action			:	"retrieve"
+            	};
+            	pollingController = new WICI.PollingController(connectivityController, requestParams, pollResponseReceived, pollFailed, "INSESSION",$.noop,null);
+            	pollingController.startPolling();
+            	console.log("QueueTransactionID from Middleware:" + requestParams.transactionID);
+			}
+        } else
         	failedInitActivate( argResponse );
     }
 
@@ -558,8 +651,76 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         if(argResponse)
         	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
 
+		pollStartedFlag = false;
+		enableSubmitButton();
         new WICI.LoadingIndicatorController().hide();
-    	messageDialog.info(translator.translateKey("summary_submitInitError"),"InitAccountApplication",$.noop);
+ 		if(!respAn.isErrorResponse(argResponse)){
+			if(respAn.isPendingResponse(argResponse)) {
+		    	activationItems.setAccountApplicationResponse(argResponse);
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
+		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
+		    	if( respAn.isNewResponseType(argResponse))
+		    		console.log(logPrefix + sMethod + "New Pending Page Response: RetrievalToken=" + respAn.getRetrievalToken(argResponse) );
+		    	hide();
+		    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
+		    	app.navigationController.adhocPendingScreen.show();
+			}
+		} else {
+			messageDialog.info(translator.translateKey("summary_submitUpdatedError"),"InitAccountApplication",$.noop);
+		}
+    }
+
+	function successDupeInitActivate(argResponse){
+        var sMethod = 'successDupeInitActivate() ';
+		console.log(logPrefix + sMethod + JSON.stringify(argResponse));
+		
+		new WICI.LoadingIndicatorController().hide();
+		
+		if(app.getTestSubmitButtonEnableFlag() == "Y") {
+			//$(refs.submitBtn).hide();
+			$(refs.dupeSubmitBtn).hide();
+			$(refs.testSubmitButton).show();
+		}
+		
+        if(!respAn.isErrorResponse(argResponse)) {
+			if(respAn.isPendingResponse(argResponse)) {
+		    	activationItems.setAccountApplicationResponse(argResponse);
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
+		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
+		    	if( respAn.isNewResponseType(argResponse))
+		    		console.log(logPrefix + sMethod + "New Pending Page Response: RetrievalToken=" + respAn.getRetrievalToken(argResponse) );
+		    	hide();
+		    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
+		    	app.navigationController.adhocPendingScreen.show();
+			}
+        } else
+        	failedInitActivate( argResponse );
+    }
+
+    function failedDupeInitActivate( argResponse ){
+        var sMethod = 'failedDupeInitActivate() ';
+        if(argResponse)
+        	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
+
+        new WICI.LoadingIndicatorController().hide();
+
+		if(!respAn.isErrorResponse(argResponse)){
+			if(respAn.isPendingResponse(argResponse)) {
+		    	activationItems.setAccountApplicationResponse(argResponse);
+		    	activationItems.setNewAccountApplicationResponse(argResponse);
+		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
+		    	if( respAn.isNewResponseType(argResponse))
+			    	console.log(logPrefix + sMethod + "New Pending Page Response: RetrievalToken=" + respAn.getRetrievalToken(argResponse) );
+		    	hide();
+		    	app.navigationController.adhocPendingScreen = new WICI.PendingScreenController(activationItems, translator, messageDialog);
+		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
+		    	app.navigationController.adhocPendingScreen.show();
+			}
+		} else {
+			messageDialog.info(translator.translateKey("summary_submitUpdatedError"),"InitAccountApplication",$.noop);
+		}
     }
 
     function pollResponseReceived( argResponse ){
@@ -568,18 +729,10 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         if(argResponse)
         	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+ JSON.stringify(argResponse.data));
         
-        if( respAn.isValidResponse(argResponse) )
+        if(respAn.isValidResponse(argResponse))
         	successActivate(argResponse);
         else
         	failedActivate(argResponse);
-        /*
-        if( argResponse && !_.isEmpty(argResponse) && !argResponse.error && argResponse.data ){
-        	if( argResponse.data.appStatus==="PENDING" || argResponse.data.appStatus==="APPROVED" || argResponse.data.appStatus==="DECLINED"){
-        		successActivate(argResponse);
-        	}                    	
-        }else
-        	failedActivate(argResponse);
-        */
     }
 
     function pollFailed(argResponse){
@@ -597,27 +750,20 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	console.log(logPrefix + sMethod + " isError:" + argResponse.error+ " msg:"+argResponse.msg+ " data: "+argResponse.data);
         new WICI.LoadingIndicatorController().hide();
 		
-        //if ( argResponse && !_.isEmpty(argResponse) && !argResponse.error) {
-        if ( respAn.isValidResponse(argResponse) ) {
-
-		    //if( argResponse.data.appStatus==="APPROVED" || argResponse.data.appStatus==="DECLINED"){
-		    if( respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) || (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse)) ){
-		    	//activationItems.setAccountApplicationResponse(argResponse);
+        if (respAn.isValidResponse(argResponse)) {
+		    if(respAn.isApprovedResponse(argResponse) || respAn.isDeclinedResponse(argResponse) || (WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse))){
 		    	activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
 		    	activationItems.setNewAccountApplicationResponse(argResponse);		    	
 		    	
 		    	var pendScreenInfo = { isPendToApproved:false,fromPendScreen:false,activationItemsFromServer:respAn.getActivationItems(argResponse),accountApplicationResponse:argResponse };
 		    	app.navigationController.adhocPrintDemoScreen = new WICI.PrintDemoScreenController(activationItems, argTranslator, argMessageDialog, pendScreenInfo);
 		    	app.navigationController.adhocPrintDemoScreen.init(flow);
-		    	// app.navigationController.adhocPrintDemoScreen.show();
 		    	flow.next();
 		    	return;
 		    }
 		    
-		    //if( argResponse.data.appStatus==="PENDING" ){
-		    if( !WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse) ){
+		    if(!WICI.AppConfig.PendingFeature.TreatPendsLikeDeclines && respAn.isPendingResponse(argResponse)){
 		    	activationItems.setAccountApplicationResponse(argResponse);
-		    	//activationItems.setAccountApplicationResponse(respAn.getWICIResponse(argResponse));
 		    	activationItems.setNewAccountApplicationResponse(argResponse);
 		    	console.log(logPrefix + sMethod + "Pending Page logic here: AppStatus=" + respAn.getAppStatus(argResponse));
 		    	if( respAn.isNewResponseType(argResponse))
@@ -627,7 +773,6 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 		    	app.navigationController.adhocPendingScreen.init(flow,"INSESSION",null,argResponse);
 		    	app.navigationController.adhocPendingScreen.show();
 		    }
-		    	
 		} else {
 	        messageDialog.error(translator.translateKey("summary_SubmitApplicationError"));
 		}
@@ -651,14 +796,12 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         console.log("--error count=" + getErrorsCounter());
 
         if (getErrorsCounter() >= getMaxSubmissionRetries()) {
-        	messageDialog.error(translator.translateKey('summary_submitError'));
+        	messageDialog.error(translator.translateKey('summary_submit3AttemptError'));
         	$(refs.submitBtn).addClass('grayflat');
         	$(refs.submitBtn).removeClass('greenflat');
         } else if (!respAn.isWithinRetrievalThreshold(argResponse)){
         	messageDialog.error(translator.translateKey("pendingScreen_RetrieveFailed"));
         } else {
-        	// messageDialog.error(translator.translateKey("summary_SubmitApplicationError"));
-        	
         	// US3626        	        	    	
         	new WICI.LoadingIndicatorController().hide();
             hide();
@@ -672,7 +815,6 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         	app.navigationController.adhocPrintDemoScreen.init(flow);
         	app.navigationController.adhocPrintDemoScreen.show();
         	return;
-            
         }
     }
 
@@ -695,7 +837,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     }
 
     function getErrorsCounter() {
-    	var sMethod = 'getMaxSubmissionRetries() ';
+    	var sMethod = 'getErrorsCounter() ';
     	console.log(logPrefix + sMethod);
     	var counter = 0;
     	try {
@@ -711,6 +853,16 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
     	}
         return counter;
     }
+
+	function getSubmitCounter() {
+    	var sMethod = 'getSubmitCounter() ';
+    	console.log(logPrefix + sMethod);
+    	var counter = 0;
+    	if (model.get('submitCounter') !== null && model.get('submitCounter') !== '') {
+    		counter = parseInt(model.get('submitCounter'));
+    	}
+        return counter;
+    }	
 
     // US4364
     function showExpiryDatePersonalData(){
