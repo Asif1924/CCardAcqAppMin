@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class AccountApplicationRequestType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -76,12 +79,13 @@ public class AccountApplicationRequestType implements Serializable {
 
 	private String placeOfIssue;
 
+	@JsonProperty("DSAScore")
 	private String DSAScore;
 
 	private String treatmentCode;
 
 	private String tmxProfileId;
-
+	@JsonProperty("PIISource")
 	private String PIISource;
 
 	private String preferedLanguage;
@@ -1200,7 +1204,7 @@ public class AccountApplicationRequestType implements Serializable {
 	public void setTmxProfileId(String tmxProfileId) {
 		this.tmxProfileId = tmxProfileId;
 	}
-
+	@JsonProperty("PIISource")
 	public String getPIISource() {
 		return PIISource;
 	}
