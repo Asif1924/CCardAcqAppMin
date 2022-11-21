@@ -28,6 +28,10 @@ html,body {
   }
 }
 
+.trainingContentImages{
+   width:80%;
+   overflow: scroll;
+}
 #WICIWebAppMainPage {
   background-color: #FFFFFF;
   background-image: none;
@@ -198,7 +202,10 @@ html,body {
   width:600px;
   max-width: 90%;
 }
-
+.marginForLanguage{
+  margin-right: 20px;
+  margin-top: 20px;
+}
 /*VZE-107 */
 .signatureFixCustomer{
    width: 700px;
@@ -2050,6 +2057,13 @@ tr {
   font-size: 16pt;
 
   padding-left: 15px;
+}
+.training_title{
+  font-color: #5E5D5D;
+  width:50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 16pt;
 }
 .op_fieldLabelsCell{
   @include border-radius(0);

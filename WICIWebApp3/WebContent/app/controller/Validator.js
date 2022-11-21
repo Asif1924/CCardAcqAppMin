@@ -62,6 +62,11 @@ WICI.Validator = function() {
         return empty(value) || regexMatch(/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/, value.trim());
 
     };
+  
+    this.emailAttest= function(value) {
+        return regexMatch(/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/, value.trim());
+
+    };    
 
     this.moreThanZero = function(value) {
         return value > 0;
@@ -150,10 +155,10 @@ WICI.Validator = function() {
         // length:19
         // value:
         // A-Z 0-9
-        if(value===null){
+        if(value===null || value === '' || !value ){
             return false;
         }
-        return regexMatch(/^[A-Z0-9]{0,19}$/, value.trim());
+        return regexMatch(/^[A-Z0-9 ]{0,19}$/, value.trim());
     };
     //---------------------------------------------------------------------------------------
     this.phone= function(value) {

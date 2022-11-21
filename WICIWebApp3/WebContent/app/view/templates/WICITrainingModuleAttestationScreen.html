@@ -1,0 +1,98 @@
+<script id="AttestTrainingScreen-template" type="text/x-jquery-tmpl">
+    <div class="ScreenLayout" id="AttestTrainingScreen_PageContents">    		
+        <center>
+             <center>
+                <div class="wrapLoginTable">
+                    <table id="trainingModuleTable" class="loginTableWidth">
+                        <tr class="fieldRow">
+                            <td class="fieldLabelsTopCell fieldSize55">
+                                <span data-translationKey="loginScreen_Location_Number"></span>
+                            </td>
+                            <td class="fieldValuesCell">
+                                <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField2" type="text" maxlength="5" tabindex=2/>
+                            </td>
+                        </tr>
+                        <tr class="fieldRow ">
+                            <td class="fieldLabelsCell fieldSize55">
+                                <span data-translationKey="loginScreen_First_Name"></span>
+                            </td>
+                            <td class="fieldValuesCell">
+                                <input class="fieldValuesTextField upperCaseField" id="firstNameTextField2" maxlength="30" type="text" tabindex=3/>
+                            </td>
+                        </tr>
+                        <tr class="fieldRow">
+                            <td class="fieldLabelsBottomCell fieldSize55">
+                                <span data-translationKey="loginScreen_Last_Name"></span>
+                            </td>
+                            <td class="fieldValuesCell">
+                                <input class="fieldValuesTextField upperCaseField" id="lastNameTextField2" maxlength="30" type="text" tabindex=4/>
+                            </td>
+                        </tr>
+                         <tr class="fieldRow hidden" id="employeeNumberID_Row">
+                            <td class="fieldLabelsBottomCell fieldSize55">
+                                <span data-translationKey="loginScreen_EmployeeNumberID_Label"></span>
+                            </td>
+                            <td class="fieldValuesCell">
+                                <input class="fieldValuesTextField" id="employeeNumberIDTextField2" type="tel" maxlength="9" tabindex=2/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+            </center>
+                <br>
+                <center>
+                    <div id="attest_training_completion">
+                            <br>
+                            <center>
+                                <div class="signatureTitle">
+                                    <span class="signatureTitleFont" data-translationKey="loginScreen_signatureBox_title"></span>
+                                </div>
+                            </center>
+                            <br>
+                            <div class="signatureContainer sugnatureFixesLogine">
+                                <div class="signatureBorder" id="attestScreen_SingnatureContainer">
+                                    <div class="signature" id="signatureOfTrainee"/></div>
+                                </div>
+                                <br>
+                                <span id="signature_Reset_Button_attest_Screen" class="button grayflat sigResetButton proceedButtonWidth"> 
+                                    <span class="buttonText" data-translationKey="signatureScreen_Reset_Button_Label"></span>
+                                </span>
+                            </div>
+                        </center>
+                <br>
+                    <center>
+			               <div id="OtherStaff_TitleAreaYesNO" class="wrapLoginTable">
+	                           <table id="titleTable" class="stretchThisTable" >
+	                             <tr >
+	                                 <td class="fieldLabelsSingleCellYesNo">
+	                                      <span data-translationKey="attestscreen_toggleTitle"></span>
+	                                 </td>                    
+	                            </tr>
+	                          </table>
+			              </div>
+			              <br>
+                    </center>
+                 <center>
+                    <table id="employeeEmailArea" class="wrapLoginTable">
+                        <tr class="fieldRow ">
+                            <td class="fieldLabelsCell fieldSize55" style="border-radius: 11px 0 0 11px;">
+                                <span data-translationKey="employee_email"></span>
+                            </td>
+                            <td class="fieldValuesCell">
+                                <input class="fieldValuesTextField" id="EmailAddress_TextField" type='email' maxlength="60" tabindex=3/>
+                            </td>
+                        </tr>
+                    </table>
+                 </center>
+
+               <br>
+
+
+         <span id="attestTrainingScreen_next" class="button greenflat loginButtonWidth">
+               <span class="buttonText" data-translationKey="traningScreen_attest_button_label"></span>
+         </span>
+         <br>
+        </center>  			
+	</div>		
+</script>

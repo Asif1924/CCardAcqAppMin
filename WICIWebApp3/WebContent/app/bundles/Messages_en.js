@@ -4,6 +4,10 @@ WICI.dictionary_en =  {
 	version												:	"39",
 	yes 												: 	"Yes",
 	no 													: 	"No",
+	yesEn 												: 	"Yes",
+	noEn 												: 	"No",
+    yesFr 												:	"Oui",
+	noFr                                 				:	"Non",
 	cancel  											:  	"Cancel",
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
@@ -31,7 +35,7 @@ WICI.dictionary_en =  {
 	settings_chooseProductButton						: 	"Abandon Application",
 	settings_printerSetupButton							: 	"Printer Setup",
 	settings_testPrintButton							:	"Test Print",
-	settings_retrieveButton 								: 	"Retrieve Application",
+	settings_retrieveButton 							: 	"Retrieve Application",
 	settings_reEstablishWifiButton  					:   "Re-establish WIFI connection",
 	settings_reEstablishWifiSuccess  					:   "WIFI Profile Re-created",
 	settings_reEstablishWifiFailure  					:   "Failed to re-create the WIFI Profile",
@@ -42,7 +46,6 @@ WICI.dictionary_en =  {
 	infoDialog_noPrinterSetupped                        :   "A printer needs to be setup. Please inform your administrator.",
 
 	errorDialog_defaultTitle 							: 	"Error",
-
 	errorDialog_noticeTitle 							: 	"Attention",
 
 	incorrect_Apk_Version_Dialog						: 	"Your application is out of date and requires an update. The application will close automatically. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
@@ -82,21 +85,53 @@ WICI.dictionary_en =  {
     loginScreen_First_Name		 						: 	"Employee First Name",
     loginScreen_Last_Name		 						: 	"Employee Last Name",
 	loginScreen_Button_Label 							: 	"LOG IN",
+	// WICI-83
+	startTraining_Button_label                         :   "START TRAINING",
+	finishTraining_Button_label                         :   "FINISH TRAINING",
+
+	// WICI - training module 
+	trainingScreen_Location_Number 						: 	"Store or Location No.",
+	trainingScreen_Location_First_Name		 			: 	"Employee First Name",
+	trainingScreen_Location_Last_Name		 			: 	"Employee Last Name",
+	traningScreen_attest_button_label                   :   "ATTEST",
+    // WICI training module 
+	loginScreen_AttestionFailedMessage                  :   "You are unable to proceed without completed training. <br>Please ensure NAME and STORE NUMBER must match exact values entered during training attestation. ",
+	loginScreen_AttestionFailedMessage_DialogTitle		:	"Training Error",
+	attestationScreen_ConfirmDialogAttestationDone		:   "Congratulations! You have completed the training.",
+	attestationScreen_ConfirmDialogTitle				:	"Confirmation",
+
+	// WICI - training module 	
 	// VZE-442
-	loginScreen_Device_serial_number_error_title        :    "Error",
-	loginScreen_Device_serial_number_error_message      : "<p><b>Device Serial Number Can Not Be Retrieved</b></p>",
-	loginScreen_Device_serial_number_message      :    "To fix this issue, check the &quot;Alternative Process to re-apply &quot;WICI Custom Settings-Profile&quot; included in the Triangle Instant Credit Guide.",
+	loginScreen_Device_serial_number_error_title        :	"Error",
+	loginScreen_Device_serial_number_error_message      :	"<p><b>Device Serial Number Can Not Be Retrieved</b></p>",
+	loginScreen_Device_serial_number_message      		:	"To fix this issue, check the &quot;Alternative Process to re-apply &quot;WICI Custom Settings-Profile&quot; included in the Triangle Instant Credit Guide.",
 	// VZE-442
+	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
 
 	loginScreen_Dialog_ErrorTitle						:	"Login Error",
 	loginScreen_FailureMessage							:	"Login Failed. Please Try Again.",
 	dictionary_loading_error 							:  	"Application content cannot be loaded. Please wait 15 minutes within acceptable WIFI range before starting the application and trying again. If the problem persists, please call your Administrator.",
+
 	// US4744
 	loginScreen_IncorrectUserNamaAndPassword            :   "Please check your user name and password",
+
 	// US5413
 	loginScreen_signatureBox_title     	                :    "Please sign to confirm you have completed the necessary training",
 	loginscreen_toggleTitle                             :    "Did another staff member generate the lead for you?",
 	
+	// WICI-83 Training 
+	loginScreen_Training_title                         :    "Training is available. To review training content, or login to take applications, please use the switch below.",
+	loginScreen_AppModule                              :    "APPS",
+	loginScreen_TrainingModule                         :    "TRAINING",
+    loginScreen_AppModule1                              :    "APPLIS",
+	loginScreen_TrainingModule1                         :    "FORMATION",
+	loginScreen_TrainingButton                         :    "TRAINING",
+	attestTrainning_Button_label                        :    "ATTEST",
+	startTrainingModuleScreenTitle                     :  "You are about to start your training. <br> Please click the button when you are ready",
+	attestscreen_toggleTitle                           :  "By signing, you attest that you have completed training for Store Staff (version November 2022).",
+	employee_email                                     :  "Employee Email",
+	// WICI-83 Trainning 
+
 	// US4231
 	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage	:	"Login Failed. Please Contact your administrator.",
 
@@ -116,8 +151,8 @@ WICI.dictionary_en =  {
 	chooseProduct_ChooseOneOfTheCreditCards 			: 	"CHOOSE ONE OF THE FOLLOWING CREDIT CARDS",
     chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
     chooseProduct_OptionsMasterCard 					: 	"Triangle<sup>&trade;</sup> <br> Mastercard<sup>&reg;</sup> <br> \n <p>Triangle Rewards<sup>&trade;</sup></p>",
-   //US4590
-   // chooseProduct_Triangle_Rewards 					    : 	"Triangle  Rewards<sup>&trade;</sup>",
+   	//US4590
+   	//chooseProduct_Triangle_Rewards 					    : 	"Triangle  Rewards<sup>&trade;</sup>",
 	chooseProduct_GasAdvantageMasterCard 				: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	chooseProduct_CashAdvantageMasterCard				: 	"Cash Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	chooseProduct_NoSpecificCard						:	"card",
@@ -135,9 +170,7 @@ WICI.dictionary_en =  {
 	chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_QC_And_FMR_AllProvince         :  "By signing below:",
 	chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_QC_And_FMR_AllProvince         :  "I understand that submitting the application will lead to a credit check.",
     chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_QC_And_FMR_AllProvince         :  "I verify that I have been provided the Legal Information handout.",
-    chooseProduct_Customer_signatureBoxDialog_IAgree            :  "I AGREE",
-		
-		
+    chooseProduct_Customer_signatureBoxDialog_IAgree            		:  "I AGREE",
 	 
 	// VZE-107
 
@@ -146,8 +179,7 @@ WICI.dictionary_en =  {
 
 	// US4194
 	program_Marks_PromoCode 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
-	program_Marks_PromoCode_QC 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",
-	
+	program_Marks_PromoCode_QC 							:   "{\"FMR\":[{\"Marks Store\":[{\"MWW80\":\"MWW80\"}]}]}",	
 	//US4433
 	program_FGL_ProgramCode_intercept                   :    "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\" \"}]}]}",
 	program_PC_ProgramCode_FMR		                    :    "{\"FMR\":[{\"Party City Intercept\":[{\"Party City Intercept\":\" \"}]}]}",
@@ -1220,7 +1252,6 @@ WICI.dictionary_en =  {
 	Partner_Locations		                            :   'Partner Locations',
 	Party_City				                            :   'Party City',
 	
-	loginScreen_EmployeeNumberID_Label                  :    'Employee Number',
 	
 	// Signature screen START ................................................................
 
@@ -1325,6 +1356,7 @@ WICI.dictionary_en =  {
 	summary_FinEmp_SIN									:	"Social Insurance Number",
 
 	summary_FinEmp_JobDescription						:	"Job Description",
+	summary_FinEmp_JobDescriptionOther					:	"Job Description (Other)",
 	summary_FinEmp_JobCategory							:	"Job Category",
 	summary_FinEmp_EmpName								:	"Employer Name",
 	summary_FinEmp_EmpCity								:	"Employer City",

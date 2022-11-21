@@ -79,6 +79,7 @@ WICI.WICIWebApp = function() {
     this.agencyPromoCode = null;
     this.hardwareEventsController = null;
     this.flowController = null;
+    this.trainingFlowController = null;
     this.translationExtender = null;
     this.selectorReduceHelper = null;
     //---------------------------------------------------------------------------------------

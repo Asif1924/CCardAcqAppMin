@@ -32,7 +32,7 @@
                             </td>
                             <td class="fieldValuesTopCell">
                                 <!--<input class="fieldValuesTextField upperCaseField" id="userIDTextField" type="text" maxlength="20" tabindex=1/>//-->
-                                <input class="fieldValuesTextField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="employerIDTextField" type="text" maxlength="1" tabindex=1/>
+                                <input class="fieldValuesTextField upperCaseField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="employerIDTextField"  type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="1" tabindex=1/>
                             </td>
                         </tr>
                         <tr class="fieldRow" id="retail_DropDown_Row">
@@ -40,7 +40,7 @@
                                 <span data-translationKey="loginScreen_RetailNetWork_Label"></span>
                             </td>
                             <td class="fieldValuesCell">
-                                <select id="retailNetWorkId" class="fieldValuesTextField" tabindex=1></select>
+                                <select id="retailNetWorkId" class="fieldValuesTextField" tabindex=2></select>
 					   
                             </td>
                         </tr>
@@ -49,7 +49,7 @@
                                 <span data-translationKey="loginScreen_Location_Number"></span>
                             </td>
                             <td class="fieldValuesCell">
-                                <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField" type="text" maxlength="5" tabindex=2/>
+                                <input class="fieldValuesTextField upperCaseField" id="locationNumberTextField" type="text" maxlength="5" tabindex=3/>
                             </td>
                         </tr>
                         <tr class="fieldRow hidden">
@@ -92,7 +92,7 @@
                                 <span data-translationKey="loginScreen_EmployeeNumberID_Label"></span>
                             </td>
                             <td class="fieldValuesCell">
-                                <input class="fieldValuesTextField" id="employeeNumberIDTextField" type="tel" maxlength="9" tabindex=2/>
+                                <input class="fieldValuesTextField" id="employeeNumberIDTextField" type="tel" maxlength="9" tabindex=3/>
                             </td>
                         </tr>
                     </table>
@@ -118,6 +118,33 @@
 				    </div>			
 					</center>
                     <br>
+
+                    <!-- WICI-83 Training //-->                    
+                    <center>
+                        <div id="mode_slider_area">
+                            <span class="training_title" data-translationKey="loginScreen_Training_title"></span>
+                            <br>
+                            <br>
+                            <div class ="hidden">
+                                <select id="mode_slider" data-role="slider">
+                                    <option  id="app_mode" value="APP" selected></option>
+                                    <option  id="training_mode" value="TRAINING" ></option>
+                                </select>
+                                <br>
+                                <br>
+                            </div>
+                           <div class ="hidden" >
+                                <select id="mode_slider_Fr" data-role="slider" >
+                                    <option  id="app_mode1" value="APP" selected></option>
+                                    <option  id="training_mode1" value="TRAINING" ></option>
+                                </select>
+                                 <br>
+                                <br>
+                            </div>
+ 						</div>
+ 					 </center>
+                    <!-- WICI-83 Tranning //-->
+
                     <center>
 			               <div id="OtherStaff_TitleAreaYesNO" >
 	                           <table id="titleTable" class="stretchThisTable" >
@@ -125,12 +152,20 @@
 	                                 <td class="fieldLabelsSingleCellYesNo">
 	                                      <span data-translationKey="loginscreen_toggleTitle"></span>
 	                                 </td>
-	                                 <td class="fieldValuesOneCellFlipYesNo fieldValuesCellFlipYesNo">
-	                                        <select name="flipStaffMember" id="flipStaffMember" data-role="slider">
-								                        <option id="flipStaffMember_no" value="N">No</option>
-								                        <option id="flipStaffMember_yes" value="Y">Yes</option>
+	                               	  <td class="fieldValuesOneCellFlipYesNo fieldValuesCellFlipYesNo hidden">
+                                            
+	                                        <select id="flipStaffMember" data-role="slider">
+								                        <option id="flipStaffMember_no" value="N" selected></option>
+								                        <option id="flipStaffMember_yes" value="Y"></option>
 							                </select> 
-	                                 </td>	                    
+	                                 </td>   
+                                    <td class="fieldValuesOneCellFlipYesNo fieldValuesCellFlipYesNo hidden">
+                                            
+	                                        <select id="flipStaffMember1" data-role="slider">
+								                        <option id="flipStaffMember_no1" value="N" selected></option>
+								                        <option id="flipStaffMember_yes1" value="Y"></option>
+							                </select> 
+	                                 </td>                  
 	                            </tr>
 	                          </table>
 			              </div>
@@ -171,6 +206,12 @@
                 </span>
                 <br>
             </center>
+            <center>
+                <span id="loginScreen_TrainingButton" class="button greenflat loginButtonWidth">
+                    <span class="buttonText" data-translationKey="loginScreen_TrainingButton"></span>
+                </span>
+                <br>
+            </center>            
         </div>
         <br>
         <br>

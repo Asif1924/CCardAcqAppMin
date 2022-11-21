@@ -17,10 +17,110 @@ describe("LoginResponseHelper Test", function() {
 	//Max Retrieve Feature //01/14/2015
 	var newLoginResponseWithPendRetrievalConfig = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user a23","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user a23","roles":"[FMR]","checkLocation":{"message":"SUCCESS","outletName":"ASSOCIATE STORE     ","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Pending4City","outletProvince":"ON","outletPostal":"L5M0M2"},"dictionaryInfo":{"LatestDictionaryVersion":"1","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"pendRetrievalConfig":{"MaxRetrievalsForApproved":"2"}}};
 	
+	//Check Attestation List and effective date
+	var c86LoginResponseWithAttestationDateAndList = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user Easifalli","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user Easifalli","roles":"[\"FMR\"]","enableEnstreamAuth":true,"isDebugMode":false,"checkLocation":{"message":"SUCCESSFUL Authentication and authorization for user..","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3","CTFSStoreNo":"100","businessStoreNumber":""},"dictionaryInfo":{"LatestDictionaryVersion":"145","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"trainingModuleEffectiveDate":"2022-12-1","checkAttestation_List":"CT|PC"}}
+	var c86CheckAttestationIsToday = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user Easifalli","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user Easifalli","roles":"[\"FMR\"]","enableEnstreamAuth":true,"isDebugMode":false,"checkLocation":{"message":"SUCCESSFUL Authentication and authorization for user..","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3","CTFSStoreNo":"100","businessStoreNumber":""},"dictionaryInfo":{"LatestDictionaryVersion":"145","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"trainingModuleEffectiveDate":"2022-10-29","checkAttestation_List":"CT|PC"}}
+	
+	var loginResponse_c86CheckAttestation_Dec_1_2022 = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user Easifalli","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user Easifalli","roles":"[\"FMR\"]","enableEnstreamAuth":true,"isDebugMode":false,"checkLocation":{"message":"SUCCESSFUL Authentication and authorization for user..","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3","CTFSStoreNo":"100","businessStoreNumber":""},"dictionaryInfo":{"LatestDictionaryVersion":"145","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"trainingModuleEffectiveDate":"2022-12-1","checkAttestation_List":"CT|PC"}}	
+	var loginResponse_c86CheckAttestation_PastDate_Dec_1_2019 = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user Easifalli","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user Easifalli","roles":"[\"FMR\"]","enableEnstreamAuth":true,"isDebugMode":false,"checkLocation":{"message":"SUCCESSFUL Authentication and authorization for user..","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3","CTFSStoreNo":"100","businessStoreNumber":""},"dictionaryInfo":{"LatestDictionaryVersion":"145","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"trainingModuleEffectiveDate":"2019-12-1","checkAttestation_List":"CT|PC"}}	
+	var loginResponse_c86CheckAttestation_CrazyFutureDate_Dec_1_2050 = {"error":false,"msg":"SUCCESSFUL Authentication and authorization for user Easifalli","data":{"statusCode":"200","LTPAToken":"FakeToken","message":"SUCCESSFUL Authentication and authorization for user Easifalli","roles":"[\"FMR\"]","enableEnstreamAuth":true,"isDebugMode":false,"checkLocation":{"message":"SUCCESSFUL Authentication and authorization for user..","outletNumber":"100","outletStreet":"911 Central Ave N","outletCity":"Swiftcurrent             ","outletProvince":"SK","outletPostal":"S9H3V3","CTFSStoreNo":"100","businessStoreNumber":""},"dictionaryInfo":{"LatestDictionaryVersion":"145","DictionaryURLEnglish":"blah","DictionaryURLFrench":"blah","OlderDictionaryAllowable":true},"trainingModuleEffectiveDate":"2050-12-1","checkAttestation_List":"CT|PC"}}	
+
+	
 	beforeEach(function() {
 		sut = new WICI.LoginResponseHelper();
 	});	
 
+	////////////////////C86 Training Module
+	//c86 tests //10/29/2022
+	it(" will extract the TrainingModule Effective Date", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.getTrainingModuleEffectiveDate()).not.toEqual(null);
+		expect(sut.getTrainingModuleEffectiveDate()).toEqual("2022-12-1");		
+	});
+
+	//These tests shows that we can combine the getTrainingModuleEffectiveDate with hasAttestationDateOccurred
+	// - actual effective date - Dec 1 2022
+	it(" can determine that TrainingModule Effective Date from LoginResponse has not yet passed - Dec 1 2022", function() {		
+		sut.setLoginResponseObject(loginResponse_c86CheckAttestation_Dec_1_2022);
+		expect(sut.hasAttestationDateOccurred(sut.getTrainingModuleEffectiveDate())).not.toEqual(true);
+	});
+
+	// - crazy future date - Dec 1 2050
+	it(" can determine that TrainingModule Effective Date from LoginResponse is way in the future and not yet passed - Dec 1 2050", function() {		
+		sut.setLoginResponseObject(loginResponse_c86CheckAttestation_CrazyFutureDate_Dec_1_2050);
+		expect(sut.hasAttestationDateOccurred(sut.getTrainingModuleEffectiveDate())).not.toEqual(true);
+	});
+	
+	// - date in the past - Dec 1 2019
+	it(" can determine that TrainingModule Effective Date from LoginResponse has passed - Dec 1 2019", function() {		
+		sut.setLoginResponseObject(loginResponse_c86CheckAttestation_PastDate_Dec_1_2019);
+		expect(sut.hasAttestationDateOccurred(sut.getTrainingModuleEffectiveDate())).toEqual(true);
+	});
+
+	//These test shows that you can pass in any date to the hasAttestationDateOccurred
+	// - actual effective date - Dec 1 2022
+	it(" can determine that TrainingModule Effective Date injected has not yet passed - Dec 1 2022", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);
+		var setAttestationEffectiveDate = "2022-12-1";	
+		expect(sut.hasAttestationDateOccurred(setAttestationEffectiveDate)).not.toEqual(true);
+	});
+	
+	// - actual effective date - Dec 1 2050
+	it(" can determine that TrainingModule Effective Date injected is way in the future and not yet passed - Dec 1 2050", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);
+		var setAttestationEffectiveDate = "2050-12-1";	
+		expect(sut.hasAttestationDateOccurred(setAttestationEffectiveDate)).not.toEqual(true);
+	});	
+	
+	// - date in the past - Dec 1 2019
+	it(" can determine that TrainingModule Effective Date injected has passed", function() {		
+		sut.setLoginResponseObject(c86CheckAttestationIsToday);
+		var setAttestationEffectiveDate = "2019-12-1";		
+		expect(sut.hasAttestationDateOccurred(setAttestationEffectiveDate)).toEqual(true);
+	});
+	
+	// - today's date - Oct 29 2022 - this will fail for other dates
+	it(" can determine that TrainingModule Effective Date injected with today's date will pass", function() {		
+		sut.setLoginResponseObject(c86CheckAttestationIsToday);
+		var setAttestationEffectiveDate = "2022-10-29";		
+		expect(sut.hasAttestationDateOccurred(setAttestationEffectiveDate)).toEqual(true);
+	});	
+
+	///////Check Attestation List
+	it(" will extract the CheckAttestation List", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.getCheckAttestationList()).not.toEqual(null);
+		expect(sut.getCheckAttestationList()).toEqual("CT|PC");
+	});
+
+	it(" will extract the CheckAttestation List as an array", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.getCheckAttestationList()).not.toEqual(null);
+		expect(sut.getCheckAttestationListAsArray()).toEqual(["CT","PC"]);		
+	});
+
+	it(" isRetailNetworkInCheckAttestationList will return true if Retail Network in CheckAttestationList", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.isRetailNetworkInCheckAttestationList("CT")).toEqual(true);		
+	});
+
+	it(" isRetailNetworkInCheckAttestationList will return true if PARTY CITY in CheckAttestationList", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.isRetailNetworkInCheckAttestationList("PC")).toEqual(true);		
+	});
+
+	it(" isRetailNetworkInCheckAttestationList will return false if BLAHBLAH in CheckAttestationList", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.isRetailNetworkInCheckAttestationList("BLAHBLAH")).toEqual(false);		
+	});
+
+	it(" isRetailNetworkInCheckAttestationList will return false if Retail Network NOT in CheckAttestationList", function() {		
+		sut.setLoginResponseObject(c86LoginResponseWithAttestationDateAndList);		
+		expect(sut.isRetailNetworkInCheckAttestationList("SOME BS RETAILER")).toEqual(false);		
+	});
+
+
+	/////////////////////////////////////////////////////
 	it(" will confirm that a successful authentication and authorization can be determined by status code 200, LTPA TOKEN exists and no error", function() {
 		//.loginSuccessful makes a decision based on several rules which will determine if the login is good or bad
 		sut.setLoginResponseObject(epamfmr_Successful_AUTHENTICATE_and_AUTHORIZE_ResponseObject);		
@@ -77,8 +177,7 @@ describe("LoginResponseHelper Test", function() {
 		expect(sut.loginSuccessful()).toEqual(true);
 	});	
 	
-	it(" will extract the Dictionary config info from the login response object", function() {
-		
+	it(" will extract the Dictionary config info from the login response object", function() {		
 		sut.setLoginResponseObject(loginWithDDDResponse);		
 		expect(sut.getLatestDictionaryInfo()).not.toEqual(null);
 		

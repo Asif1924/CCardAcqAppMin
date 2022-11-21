@@ -193,8 +193,8 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		$("#suppCard_infomation_cityName").hide();
 	}
 	function createFlips() {
-		$(refs.flipSupplementaryCard_no + ","+ refs.flipSameAddress_no).text(translator.translateKey("no"));
-		$(refs.flipSupplementaryCard_yes + ","+ refs.flipSameAddress_yes).text(translator.translateKey("yes"));
+		$(refs.flipSupplementaryCard_no + ","+ refs.flipSameAddress_no).text(translator.translateKey("no")).slider().slider("refresh");
+		$(refs.flipSupplementaryCard_yes + ","+ refs.flipSameAddress_yes).text(translator.translateKey("yes")).slider().slider("refresh");
 		$(refs.flipCardYesNo).slider();
 		$(refs.flipSameAddress).slider();
 	}

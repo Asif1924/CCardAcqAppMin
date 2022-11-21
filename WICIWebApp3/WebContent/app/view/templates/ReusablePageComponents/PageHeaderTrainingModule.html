@@ -1,0 +1,21 @@
+<script id="pageHeaderTrainingModule-template" type="text/x-jquery-tmpl">
+	<header class="pageHeader">           
+		{{if previousButtonId}}
+			<a href="#" data-theme="r" data-role="button" class="${previousButtonId} pageNavigationButton previous ui-btn ui-btn-icon-left ui-corner-left ui-btn-up-r">
+				<span class="buttonAltText"></span>
+				<!--<span class="buttonAltTextLabel" data-translationKey="pageHeader_previous"></span> -->
+			</a>
+		{{/if}}
+
+		<div class="pageHeader-right-button-group">
+            {{if languageButtonId}}
+			<div class="flipAlignRight marginForLanguage">
+            	<select  data-role="slider" id="${languageButtonId}">
+                	<option value="E" selected>En</option>
+                	<option value="F">Fr</option>
+            	</select>
+        	</div>
+          {{/if}}
+		</div>
+	</header>
+</script>

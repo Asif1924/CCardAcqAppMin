@@ -34,6 +34,16 @@ public class AuthorizationHelper
 		log.info(sMethod);
 
 		AuthfieldValue authfieldValue = getAuthfieldValue(request);
+		
+		
+       if( authfieldValue.getMfgSerial() == null || authfieldValue.getBuildSerial() == null ){
+			
+			log.info(sMethod + " skip the authorizedTablet Validation ::mfgSerial=" + authfieldValue.getMfgSerial() + ", buildSerial=" + authfieldValue.getBuildSerial());
+			
+			return true;
+			
+		}
+		
 
 		log.info(sMethod + "::mfgSerial=" + authfieldValue.getMfgSerial() + ", buildSerial=" + authfieldValue.getBuildSerial());
 

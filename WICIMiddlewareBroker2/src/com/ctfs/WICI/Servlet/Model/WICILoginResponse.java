@@ -4,13 +4,7 @@ import com.ctfs.WICI.Model.DictionaryInfo;
 
 public class WICILoginResponse
 {
-	@Override
-	public String toString() {
-		return "WICILoginResponse [statusCode=" + statusCode + ", LTPAToken="
-				+ LTPAToken + ", message=" + message + ", roles=" + roles
-				+ ", roleId=" + roleId + ", enableEntreamAuth=" + enableEnstreamAuth + ", isDebugMode=" + isDebugMode + ", checkLocation=" + checkLocation
-				+ ", dictionaryInfo=" + dictionaryInfo + "]";
-	}
+	
 
 	String statusCode;
 	String LTPAToken;
@@ -24,8 +18,17 @@ public class WICILoginResponse
 	boolean isDebugMode;
 	WICICheckLocationResponse checkLocation;
 	DictionaryInfo dictionaryInfo;
+	String trainingModuleEffectiveDate;
+	String checkAttestation_List;
 	
-	
+	public String getCheckAttestation_List() {
+		return checkAttestation_List;
+	}
+
+	public void setCheckAttestation_List(String checkAttestation_List) {
+		this.checkAttestation_List = checkAttestation_List;
+	}
+
 	public String getAgentId() {
 		return agentId;
 	}
@@ -139,6 +142,29 @@ public class WICILoginResponse
 	public void setDebugMode(boolean isDebugMode) {
 		this.isDebugMode = isDebugMode;
 	}
+
+	public String getTrainingModuleEffectiveDate() {
+		return trainingModuleEffectiveDate;
+	}
+
+	public void setTrainingModuleEffectiveDate(String trainingModuleEffectiveDate) {
+		this.trainingModuleEffectiveDate = trainingModuleEffectiveDate;
+	}
+
+	@Override
+	public String toString() {
+		return "WICILoginResponse [statusCode=" + statusCode + ", LTPAToken="
+				+ LTPAToken + ", message=" + message + ", roles=" + roles
+				+ ", roleId=" + roleId + ", password=" + password
+				+ ", enrollmentDate=" + enrollmentDate + ", agentId=" + agentId
+				+ ", enableEnstreamAuth=" + enableEnstreamAuth
+				+ ", isDebugMode=" + isDebugMode + ", checkLocation="
+				+ checkLocation + ", dictionaryInfo=" + dictionaryInfo
+				+ ", trainingModuleEffectiveDate="
+				+ trainingModuleEffectiveDate + ", checkAttestation_List="
+				+ checkAttestation_List + "]";
+	}
+
 
 
 }

@@ -25,6 +25,10 @@ import static com.ctfs.WICI.AppConstants.*;
 public class LoginServlet extends WICIServlet
 {
 	private static final long serialVersionUID = 1L;
+	
+    static final String CONFIGNAME_WICITRAININGMODULE_EFFECTIVEDATE = "WICITRAININGMODULE_EFFECTIVEDATE";
+	static final String CONFIGNAME_CHECKATTESTATION_LIST = "CHECKATTESTATION_LIST";
+	
 	static Logger log = Logger.getLogger(LoginServlet.class.getName());	
 	WICIObjectsHelper requestHelper = new WICIObjectsHelper();
 
@@ -77,7 +81,6 @@ public class LoginServlet extends WICIServlet
 			AuthorizationHelper authorizationHelper = new AuthorizationHelper();
 
 			AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
-
 			//US3125 - Sep 16th 2014 Release
 			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
 			
@@ -88,9 +91,11 @@ public class LoginServlet extends WICIServlet
 			Boolean employerIDValid = employerIDCodeValidator.validateCode(employerID);
 			log.info("Employer Id Valid returned value :: " + employerIDValid);
 			String roleId=null;
+			String trainingModuleEffectiveDate = null;
+			String checkAttestation_List = null;
+			
 			// US4231
-			
-			
+
 			
 			if(employerID != "" && employerID != null) {
 				if (!"E".equalsIgnoreCase(employerID.toUpperCase())) {
@@ -124,6 +129,22 @@ public class LoginServlet extends WICIServlet
 							loginResponse.setMessage(LOGIN_FAILED);
 							loginResponse.setStatusCode(LOGIN_FAILED_CD);
 						}
+						
+						trainingModuleEffectiveDate = wicidbHelper
+								.getConfigValueByConfigName(CONFIGNAME_WICITRAININGMODULE_EFFECTIVEDATE);
+
+						if (trainingModuleEffectiveDate != null) {
+
+							loginResponse.setTrainingModuleEffectiveDate(trainingModuleEffectiveDate);
+
+						}
+						checkAttestation_List = wicidbHelper
+								.getConfigValueByConfigName(CONFIGNAME_CHECKATTESTATION_LIST);
+
+						if (checkAttestation_List != null) {
+							loginResponse.setCheckAttestation_List(checkAttestation_List);
+						}
+						
 					}
 				}				
 			}			
@@ -160,6 +181,18 @@ public class LoginServlet extends WICIServlet
 					logonInfo.setEmployerID(employerID);
 					logonInfo.setMfgSerial(values.getMfgSerial());
 					logonInfo.setUserLocation(userLocation);
+					
+					trainingModuleEffectiveDate = wicidbHelper.getConfigValueByConfigName(CONFIGNAME_WICITRAININGMODULE_EFFECTIVEDATE);
+					
+					if(trainingModuleEffectiveDate != null ){
+						loginResponse.setTrainingModuleEffectiveDate(trainingModuleEffectiveDate);
+					}
+					
+					checkAttestation_List = wicidbHelper.getConfigValueByConfigName(CONFIGNAME_CHECKATTESTATION_LIST);
+					
+					if(checkAttestation_List != null ){
+						loginResponse.setCheckAttestation_List(checkAttestation_List);
+					}
 					
 					if(wicidbHelper.deviceWithThisMfgSerialNumberExists(values.getMfgSerial())) {
 						boolean loggedIn = false;

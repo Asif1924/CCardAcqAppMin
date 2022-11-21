@@ -132,6 +132,9 @@ WICI.BaseModel = function(config) {
             case 'email':
                 isError=!validator.emailAddress(value);
                 break;
+            case 'emailAttest':
+                isError=!validator.emailAttest(value);
+                break;                
             case 'phone':
                 isError=!validator.phone(value);
                 break;
@@ -150,6 +153,9 @@ WICI.BaseModel = function(config) {
                 break;
             case 'employerName':
                 isError=!validator.employerName(value);
+                break;
+			case 'jobDescriptionOther':
+                isError=!validator.jobDescriptionOther(value);
                 break;
             case 'jobTitle':
                 isError=!validator.jobTitle(value);

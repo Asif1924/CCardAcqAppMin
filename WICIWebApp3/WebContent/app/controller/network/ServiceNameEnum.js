@@ -17,4 +17,7 @@ WICI.ServiceNameEnum = {
 		AbbreviateCityname						:	"AbbreviateCity",
 		RetrieveJobDescription					:	"RetrieveJobDescriptionServlet",
 		CheckCPEligibility						:	"CheckCPEligibility",
+		SaveTrainingAttestation                 :   "SaveTrainingAttestation",
+		CheckTrainingAttestation                :   "CheckTrainingAttestation",
+		RetrieveTrainingContent                 :   "RetrieveTrainingContent",		
 };

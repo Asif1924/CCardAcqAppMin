@@ -11,6 +11,11 @@ WICI.LoginResponseHelper = function() {
 	this.incorrectApkVersion = incorrectApkVersion;
 	this.getLatestDictionaryInfo = getLatestDictionaryInfo;
 	this.getPendRetrievalConfig = getPendRetrievalConfig;
+	this.getTrainingModuleEffectiveDate = getTrainingModuleEffectiveDate;
+	this.hasAttestationDateOccurred = hasAttestationDateOccurred;
+	this.getCheckAttestationList = getCheckAttestationList;
+	this.getCheckAttestationListAsArray = getCheckAttestationListAsArray;
+	this.isRetailNetworkInCheckAttestationList = isRetailNetworkInCheckAttestationList;
 	this.getMsg = getMsg;
 	
 	function setLoginResponseObject( argLoginResponseObject ){
@@ -55,6 +60,34 @@ WICI.LoginResponseHelper = function() {
 	
 	function getPendRetrievalConfig(){
 		return loginResponseObject.data.pendRetrievalConfig;
+	}
+	function getTrainingModuleEffectiveDate(){
+		return loginResponseObject.data.trainingModuleEffectiveDate;
+	}
+	
+	function toDate(dateStr) {
+  		var parts = dateStr.split("-");
+  		return new Date(parts[0], parts[1] - 1, parts[2]);
+	}
+	
+	function hasAttestationDateOccurred( argTrainingEffectiveDate ){
+		var today = new Date();
+		var trainingModuleEffectiveDate = toDate(argTrainingEffectiveDate);
+		return (today >= trainingModuleEffectiveDate);
+	}
+	//getCheckAttestationList
+	function getCheckAttestationList(){
+		return loginResponseObject.data.checkAttestation_List;
+	}
+	
+	//getCheckAttestationListAsArray
+	function getCheckAttestationListAsArray(){
+		//return loginResponseObject.data.checkAttestation_List;
+		return loginResponseObject.data.checkAttestation_List.split("|");
+	}
+	
+	function isRetailNetworkInCheckAttestationList(argRetailNetwork){
+		return ($.inArray(argRetailNetwork.toUpperCase(), getCheckAttestationListAsArray()) != '-1');
 	}
 	
 };

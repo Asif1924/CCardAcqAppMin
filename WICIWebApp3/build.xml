@@ -79,6 +79,48 @@ The project name will be used to generate your .zip archive and .war file
         </union>
     </target>
 
+    <target name="init.js.list.mock.cordova">
+        <union id="js.include.base">
+            <fileset dir="WebContent" includes="app/lib/*.js"/>
+            <fileset dir="WebContent" includes="app/namespaceExists.js"/>
+            <fileset dir="WebContent" includes="app/view/ext/jquery-1.7.1.js"/>
+
+            <fileset dir="WebContent" includes="app/view/ext/jquery.tmpl.js"/>
+            <fileset dir="WebContent" includes="app/view/ext/jquery.tmplPlus.js"/>
+
+            <fileset dir="WebContent" includes="app/view/ext/jSignature/jSignature.js"/>
+
+            <fileset dir="WebContent" includes="app/view/ext/${jquery.mobile.version}/${jquery.mobile.js.file}"/>
+            <fileset dir="WebContent" includes="app/view/ext/jquery.jsonp-2.3.0.js"/>
+
+            <fileset dir="WebContent" includes="app/view/ext/jquery.currency.js"/>
+            <fileset dir="WebContent" includes="app/view/ext/jquery.scrollto.js"/>
+
+            <fileset dir="WebContent" includes="app/view/ext/*.js"/>
+
+            <fileset dir="WebContent" includes="app/*.js"/>
+            <fileset dir="WebContent" includes="app/conf/connectionDetails.js"/>
+            <fileset dir="WebContent" includes="**/controller/**/*.js"/>
+            <fileset dir="WebContent" includes="app/view/js/*.js"/>
+            <fileset dir="WebContent" includes="app/bundles/*.js"/>
+        </union>
+        <!-- cordova.js must be included first -->
+        <!-- PhoneGap   Android //-->
+<!--         for debug begin  -->
+		<union id="js.include.debug.mock.cordova.android">
+             <fileset dir="${basedir}" includes="mocklibs/cordova.js"/>  
+        </union>
+        <union id="js.include.debug.mock.cordova">
+            <union refid="js.include.debug.mock.cordova.android"/>
+            <union refid="js.include.base"/>
+        </union>
+<!--         for debug  end  -->
+        <union id="js.include.mock.cordova">
+        	<union refid="js.include.debug.mock.cordova.android"/>
+            <union refid="js.include.base"/>
+        </union>    	
+    </target>	
+	
     <target name="clean" description="clean up">
         <echo message="Deleting ${build.dir} directory..."/>
         <delete dir="${build.dir}"/>
@@ -152,8 +194,8 @@ load:
     </target>
 
     <!--May need this in the future//-->
-    <!--<target name="js.test.unit" description="unit test" depends="js.test.configure">//-->
-    <target name="js.test.unit" description="unit test">
+    <target name="js.test.unit" description="unit test" depends="js.test.configure">
+    <!--<target name="js.test.unit" description="unit test">//-->
         <echo message="Running JS Unit Tests..."/>
     	<echo message="Browser path... ${browser.path}"/> 
         <delete dir="${js.test.unit.report.dir}"/>
@@ -196,7 +238,7 @@ load:
         </copy>
         <echo message="Development files deployed."/>
     </target>
-
+	
     <target name="deploy.production" description="Deploy Production Version to Application Server">
         <echo message="Deploying ${deploy.content.production} (Production) to Local Middleware..."/>
         <delete dir="${deployed.webcontent.dir}"/>
@@ -209,6 +251,18 @@ load:
         <echo message="Production WebContent deployed."/>
     </target>
 
+	<!--${production.output.dir.war.file}/${thisWebapp.name}.war//-->
+    <target name="deploy.production.war.local.tomcat" description="Deploy Production WAR to Local Tomcat">
+        <echo message="Deploying ${production.output.dir.war.file}/${thisWebapp.name}.war to Local Tomcat..."/>
+        <copy overwrite="true" todir="${local.tomcat.path}">
+            <fileset dir="${production.output.dir.war.file}">
+                <include name="**/${thisWebapp.name}.war"/>
+            </fileset>
+        </copy>
+        <echo message="Production WAR deployed to Local Tomcat"/>
+    </target>
+	
+	
     <target name="create.debug.output">
         <echo message="Copying Debug files to output folder..."/>
         <copy todir="${debug.output.dir}">
@@ -220,6 +274,7 @@ load:
                 <include name="**/*.jpg"/>
                 <include name="**/*.js"/>
                 <include name="**/*.css"/>
+            	<include name="**/*.pdf"/>
             </fileset>
         </copy>
         <echo message="Debug files copied."/>
@@ -240,6 +295,7 @@ load:
                 <include name="**/*.png"/>
                 <include name="**/*.gif"/>
                 <include name="**/*.jpg"/>
+            	<include name="**/*.pdf"/>
             </fileset>
         </copy>
         <!-- Copy jQuery Mobile CSS images//-->
@@ -265,6 +321,41 @@ load:
         <echo message="Production Output Files Created."/>
     </target>
 
+    <target name="create.production.output.mock.cordova" depends="minify.for.production">
+        <echo message="Creating Production Output Files..."/>
+        <!-- Copy index.html//-->
+        <copy todir="${production.output.dir}">
+            <fileset dir="${concatenated.dir}">
+                <include name="**/*.html"/>
+            </fileset>
+        </copy>
+        <!-- Copy Project images//-->
+        <copy todir="${production.output.images.dir}">
+            <fileset dir="WebContent/app/images">
+                <include name="**/*.ico"/>
+                <include name="**/*.png"/>
+                <include name="**/*.gif"/>
+                <include name="**/*.jpg"/>
+            	<include name="**/*.pdf"/>
+            </fileset>
+        </copy>
+        <!-- Copy jQuery Mobile CSS images//-->
+        <copy todir="${production.output.images.dir}">
+            <fileset dir="WebContent/app/view/ext/${jquery.mobile.version}/images">
+                <include name="**/*.ico"/>
+                <include name="**/*.png"/>
+                <include name="**/*.gif"/>
+            </fileset>
+        </copy>
+        <!-- Copy Translation Files//-->
+        <copy todir="${production.output.dir}/app/bundles">
+            <fileset dir="WebContent/app/bundles">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+        <echo message="Production Output Files Created."/>
+    </target>	
+	
     <target name="post.processing.production.output">
         <echo message="Placing all images in one location and updating references.."/>
         <replace file="${production.output.dir}/app/${css.filename}" token="../../images/" value="images/"/>
@@ -299,6 +390,7 @@ load:
             WICI.middlewareName         = "${middleware.name}";
             WICI.webservicesEndpoint    = "${webservices.endpoint}";
             WICI.webservicesIP          = "${webservices.IP}";
+        	WICI.dictionaryCMSURL       = "${dictionary.cms.url}";
         </echo>
         <echo message="Global Connection Details File Generated."/>
     </target>
@@ -328,6 +420,20 @@ load:
         <echo message="Concatenated Javascript Files Built."/>
     </target>
 
+    <target name="js.production.concat.mock.cordova" depends="init,create.dirs,generate.connection.details,init.js.list.mock.cordova">
+        <echo message="Concatenating JavaScript files..."/>
+        <pathconvert pathsep="${line.separator}" dirsep="/" property="jsfiles" refid="js.include.mock.cordova">
+        </pathconvert>
+        <echo>
+            ${jsfiles}
+        </echo>
+        <echo message="${js.include.mock.cordova}"/>
+        <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.js.file}">
+            <union refid="js.include.mock.cordova"/>
+        </concat>
+        <echo message="Concatenated Javascript Files Built."/>
+    </target>	
+	
     <target name="html.production.reconstitute" depends="init,create.dirs" description="Reconstitute production index.html">
         <echo message="Reconstituting index.html..."/>
         <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.index.html.file}">
@@ -355,7 +461,24 @@ load:
 
         <echo message="List of Javascript includes created."/>
     </target>
+	
+    <target name="produce.js.list.mock.cordova" depends="init,create.dirs,generate.connection.details,init.js.list.mock.cordova">
+        <echo message="Creating list of Javascript includes for debug version of index.html..."/>
 
+        <pathconvert pathsep="" dirsep="/" property="basedir.corrected">
+            <path location="WebContent"/>
+        </pathconvert>
+        <pathconvert pathsep="${line.separator}" dirsep="/" property="jsfiles" refid="js.include.debug.mock.cordova">
+        </pathconvert>
+        <echo file="${js.include.files.debug}">
+            ${jsfiles}
+        </echo>
+        <replace token="${basedir.corrected}/" value="" file="${js.include.files.debug}"/>
+        <replaceregexp match="^(.*)$" replace="${js.script.wrap.expression}" byline="true" file="${js.include.files.debug}"/>
+
+        <echo message="List of Javascript includes created."/>
+    </target>	
+	
     <target name="produce.css.list">
         <echo message="Creating list of CSS includes for debug version of index.html..."/>
         <echo file="${lib.dir}/${css.include.files.debug}">
@@ -397,7 +520,17 @@ load:
         <echo message="Android Javascript Files Concatenated."/>
     </target>
 
+    <target name="js.concat.mock.cordova" depends="init,create.dirs,produce.js.list.mock.cordova">
+        <echo message="Concatenating Android JavaScript Files..."/>
+        <concat outputencoding="UTF8" encoding="UTF8" fixlastline="true" destfile="${concatenated.js.file}">
+            <union refid="js.include.mock.cordova"/>
+        </concat>
+        <echo message="Android Javascript Files Concatenated."/>
+    </target>
+	
+	
     <target name="minify.for.production" depends="init,create.dirs">
+    	<!--Someone bastardized my process//-->
         <echo message="Minifying css and js for Production..."/>
         <!--available file="${lib.dir}/YUIAnt.jar" property="YUIANT_AVAILABLE"/>
         <fail unless="YUIANT_AVAILABLE" message="Run jar target to generate the required task"/>
@@ -506,6 +639,10 @@ load:
     </target>
 
     <!--Build Targets //-->
+
+	<target name="2022.build.debug.no.tests.mock.cordova.create.war.file,deploy.production.war.local.tomcat" depends="2022.build.debug.no.tests.mock.cordova.create.war.file" description="Easy build debug no tests, Mock cordova, create debug WAR file, deploy to Tomcat locally"/>	
+	<target name="2022.build.debug.no.tests.mock.cordova.create.war.file" depends="2022.build.debug.no.tests.mock.cordova,create.production.war.file" description="Easy build debug no tests, Mock cordova, create debug WAR file"/>	
+    <target name="2022.build.debug.no.tests.mock.cordova" depends="set.version.number,css.concat,js.concat.mock.cordova,html.debug.reconstitute,create.debug.output,css.production.concat,js.production.concat.mock.cordova,html.production.reconstitute,create.production.output.mock.cordova,post.processing.production.output" description="Easy build debug no tests, Mock cordova"/>
 	
     <target name="build.all.no.tests" depends="set.version.number,css.concat,js.concat,html.debug.reconstitute,create.debug.output,css.production.concat,js.production.concat,html.production.reconstitute,create.production.output,post.processing.production.output" description="build all with no tests"/>
     <target name="build.all.test" depends="js.test.unit,build.all.no.tests" description="build all with tests"/>

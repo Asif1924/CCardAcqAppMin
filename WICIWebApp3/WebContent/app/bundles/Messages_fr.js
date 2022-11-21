@@ -1,146 +1,178 @@
 ensureNamespaceExists();
 
 WICI.dictionary_fr =  {
-	version											:							"39",
-	yes 											: 							"Oui",
-	no                                 				  :                         "Non",
-	cancel  										  : 						"Annuler",
+	version												:		"39",
+	yes 												:		"Oui",
+	no                                 				  	:	    "Non",
+    yesEn 												:   	"Yes",
+	noEn 												:   	"No",
+	yesFr 												:		"Oui",
+	noFr                                 				:	    "Non",
+	cancel  										  	:	"Annuler",
+	printerErrorShowDialogFlag						  	:		"Y",	
+	addressLine2Flag	                              	:		"Y",
+	newStylePrintFlag	                              	:		"N",
+	testSubmitButtonEnableFlag	                      	:		"Y",
+	storeRecallPrintStores							  	:		"{\"stores\":[]}",
 	
-	printerErrorShowDialogFlag						  :							"Y",	
-	addressLine2Flag	                              :    						"Y",
-	newStylePrintFlag	                              :    						"N",
-	testSubmitButtonEnableFlag	                      :   						"Y",
-	storeRecallPrintStores							  :							"{\"stores\":[]}",
+	accents											  	:		'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
+	accents_out										  	:		"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
 	
-	accents											  :							'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
-	accents_out										  :							"AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg",
-	
-	app_loading                                       :                         "Chargement... ",
-	backButtonPrompt_message                          :                         "Les renseignements recueillis dans cette demande seront supprimés de façon permanente et ne pourront être conservés. Êtes-vous certain(e) de vouloir continuer?",
-	backButtonPrompt_title                            :                         "Quitter la demande",
+	app_loading                                       	:	  "Chargement... ",
+	backButtonPrompt_message                          	:	  "Les renseignements recueillis dans cette demande seront supprimés de façon permanente et ne pourront être conservés. Êtes-vous certain(e) de vouloir continuer?",
+	backButtonPrompt_title                            	:	  "Quitter la demande",
 
+	connectionError_unableToConnect                   	:	  "Impossible de se connecter au serveur du système principal. Veuillez réessayer dans quelques minutes.",
+	connectionError_networkDown                       	:	  "Vous avez perdu votre connexion. Pour rétablir la connexion, veuillez consulter le « Processus alternatif de reconnexion au réseau Wifi » dans le Guide sur le programme Crédit immédiat Triangle.",
 
-	connectionError_unableToConnect                   :                         "Impossible de se connecter au serveur du système principal. Veuillez réessayer dans quelques minutes.",
-	connectionError_networkDown                       :                         "Vous avez perdu votre connexion. Pour rétablir la connexion, veuillez consulter le « Processus alternatif de reconnexion au réseau Wifi » dans le Guide sur le programme Crédit immédiat Triangle.",
-
-	confirmDialog_defaultTitle                        :                         "Confirmer",
-	confirmDialog_yes                                 :                         "Oui",
-	confirmDialog_no                                  :                         "Non",
+	confirmDialog_defaultTitle                        	:	  "Confirmer",
+	confirmDialog_yes                                 	:	  "Oui",
+	confirmDialog_no                                  	:	  "Non",
 	
+	settings 			                              	:	  "Paramètres",
+	settings_logOutButton                             	:	  "Déconnexion ",
+	settings_chooseProductButton                      	:	  "Annuler demande de carte",
+	settings_chooseProductButton                      	:	  "Annuler demande de carte",
+	settings_printerSetupButton                       	:	  "Configuration de l'imprimante",
+	settings_testPrintButton						  	:		"Impression d'essai",
+	settings_retrieveButton 						  	:	"Retrouver demande",
+	settings_reEstablishWifiButton  				  	:	  "Re-établir la connexion WIFI",
+	settings_reEstablishWifiSuccess  				  	:	  "Profil WIFI Re-créé",
+	settings_reEstablishWifiFailure  				  	:	  "Échec recréer le profil WIFI",
+	settings_manageRepsButton						  	:		"Gérer les représentants",
+
+	infoDialog_NoProduct								:	"fr_No products available for this store location. Please verify that store number is correct and try again",
+	infoDialog_defaultTitle                           	:	  "Information",
+	infoDialog_noPrinterSetupped                      	:	  "Une imprimante doit être configurée. Veuillez aviser votre administrateur.",
+
+	errorDialog_defaultTitle                          	:	  "Erreur",
+	errorDialog_noticeTitle                           	:	  "Attention",
+
+	incorrect_Apk_Version_Dialog					  	:	"Votre application nécessite une mise à jour. L'application va se fermer automatiquement. S'il vous plaît attendez 15 minutes en proximité acceptable du réseau WIFI avant de redémarer l'application. Si le problème persiste, appelez votre administrateur.",
+	unauthorized_Device								  	:	"Cet appareil n'est pas autorisée. L'application se fermera automatiquement.",
+
 	// US4282 starts
-	homePhoneMessage_Title                            :                         "Requisition de réimpression", 
-	homePhoneInputTitle_one                          :                         "Veuillez saisir le numéro de téléphone résidentiel ",
-	homePhoneInputTitle_two                          :                         "du client pour réimprimer une carte temporaire",
-	homePhoneConfirmButton                           :                         "Valider",
+	homePhoneMessage_Title                            	:	  "Requisition de réimpression", 
+	homePhoneInputTitle_one                          	:	  "Veuillez saisir le numéro de téléphone résidentiel ",
+	homePhoneInputTitle_two                          	:	  "du client pour réimprimer une carte temporaire",
+	homePhoneConfirmButton                           	:	  "Valider",
 	// US4282 ends
 
-	settings 			                              :                         "Paramètres",
-	settings_logOutButton                             :                         "Déconnexion ",
-	settings_chooseProductButton                      :                         "Annuler demande de carte",
-	settings_chooseProductButton                      :                         "Annuler demande de carte",
-	settings_printerSetupButton                       :                         "Configuration de l'imprimante",
-	settings_testPrintButton						  :							"Impression d'essai",
-	settings_retrieveButton 						  : 						"Retrouver demande",
-	settings_reEstablishWifiButton  				  :                         "Re-établir la connexion WIFI",
-	settings_reEstablishWifiSuccess  				  :                         "Profil WIFI Re-créé",
-	settings_reEstablishWifiFailure  				  :                         "Échec recréer le profil WIFI",
-	settings_manageRepsButton						  :							"Gérer les représentants",
+	addressLookup_failedMessage                       	:	  "Échec de la recherche d'adresse. Veuillez essayer de nouveau.",
+	addressLookup_noResults                           	:	  "Aucun résultat. Veuillez essayer de nouveau.",
+	addressLookup_multipleItemsExist                  	:	  "Il existe plusieurs noms de rues. Sélectionnez ci-dessous",
 
-	infoDialog_defaultTitle                           :                         "Information",
-	infoDialog_noPrinterSetupped                      :                         "Une imprimante doit être configurée. Veuillez aviser votre administrateur.",
+	messageDialog_ok                                  	:	  "OUI",
+	pageHeader_next                                   	:	  "Suivant",
+	pageHeader_previous                               	:	  "Retour",
+	messageDialog_Close								  	:		"Fermer",
 
-	errorDialog_defaultTitle                          :                         "Erreur",
-	errorDialog_noticeTitle                           :                         "Attention",
-
-	incorrect_Apk_Version_Dialog					  : 						"Votre application nécessite une mise à jour. L'application va se fermer automatiquement. S'il vous plaît attendez 15 minutes en proximité acceptable du réseau WIFI avant de redémarer l'application. Si le problème persiste, appelez votre administrateur.",
-	unauthorized_Device								  : 						"Cet appareil n'est pas autorisée. L'application se fermera automatiquement.",
-
-
-	addressLookup_failedMessage                       :                         "Échec de la recherche d'adresse. Veuillez essayer de nouveau.",
-	addressLookup_noResults                           :                         "Aucun résultat. Veuillez essayer de nouveau.",
-	addressLookup_multipleItemsExist                  :                         "Il existe plusieurs noms de rues. Sélectionnez ci-dessous",
-
-	messageDialog_ok                                  :                         "OUI",
-
-	pageHeader_next                                   :                         "Suivant",
-	pageHeader_previous                               :                         "Retour",
-	messageDialog_Close								  :							"Fermer",
-
-	breadCrumbItem_ProductSelection	   				  :							"Choix de produit",
-	breadCrumbItem_ApplicantInfo					  :							"Données d'appl",
+	breadCrumbItem_ProductSelection	   				  	:		"Choix de produit",
+	breadCrumbItem_ApplicantInfo					  	:		"Données d'appl",
 	// US4637
-	breadCrumbItem_EmailInfo						  :							"Pour nous joindre",	
-	breadCrumbItem_FinancialAndEmploymentInfo		  :   						"Emploi et situation financière",
-	breadCrumbItem_SupplementaryCard				  :  						"Carte additionnelle",
-	breadCrumbItem_OptionalProducts					  :  						"Produit facultatif",
-	breadCrumbItem_MobilePayments					  :	             			"Paiements mobiles",
-	breadCrumbItem_Confirmation						  :	             			"Confirmation",
+	breadCrumbItem_EmailInfo						  	:		"Pour nous joindre",	
+	breadCrumbItem_FinancialAndEmploymentInfo		  	:		"Emploi et situation financière",
+	breadCrumbItem_SupplementaryCard				  	:	"Carte additionnelle",
+	breadCrumbItem_OptionalProducts					  	:	"Produit facultatif",
+	breadCrumbItem_MobilePayments					  	:		"Paiements mobiles",
+	breadCrumbItem_Confirmation						  	:		"Confirmation",
 
-	loginScreen_UserID_Label                          :                         "Code d'utilisateur",
-	loginScreen_EmployerID_Label                      :                         "Code d'employeur",
-	loginScreen_RetailNetWork_Label                                             :"Réseau de détail",
-	loginScreen_AgentID_Label                         :                         "Numéro du représentant",
-	loginScreen_Location_Number                       :                         "Numéro de magasin ou d'emplacement",
-    loginScreen_First_Name		 					  : 	                    "Prénom de l'employé",
-    loginScreen_Last_Name		 					  : 	                    "Nom de famille de l'employé",
-    // VZE-442
-	loginScreen_Device_serial_number_error_title      :                         "Erreur",
-	loginScreen_Device_serial_number_error_message      : "<p><b>Le numéro de série de l’appareil ne peut pas être récupéré</b></p>",
-	loginScreen_Device_serial_number_message      :    "Pour résoudre ce problème, consultez le &laquo; Processus alternatif pour refaire une demande &raquo; dans la rubrique &laquo; Paramètres de profil personnalisés &raquo; incluse dans le Guide sur le programme Crédit immédiat Triangle.",
+	loginScreen_UserID_Label                          	: 	"Code d'utilisateur",
+	loginScreen_EmployerID_Label                      	: 	"Code d'employeur",
+	loginScreen_RetailNetWork_Label                   	:	"Réseau de détail",
+	loginScreen_AgentID_Label                         	: 	"Numéro du représentant",
+	loginScreen_Location_Number                       	: 	"Numéro de magasin ou d'emplacement",
+    loginScreen_First_Name		 					  	: 	"Prénom de l'employé",
+    loginScreen_Last_Name		 					  	: 	"Nom de famille de l'employé",
+	loginScreen_Button_Label                          	:  	"CONNEXION",
+	// WICI-83
+	startTraining_Button_label                        	:   "COMMENCER LA FORMATION",
+	finishTraining_Button_label                       	:   "TERMINER LA FORMATION",
+
+	// WICI training module 
+	trainingScreen_Location_Number						: 	"Numéro de magasin ou d'emplacement",
+	trainingScreen_Location_First_Name		 			: 	"Prénom de l'employé",
+	trainingScreen_Location_Last_Name		 			: 	"Nom de famille de l'employé",
+	traningScreen_attest_button_label                   :   "ATTESTER",
+    // WICI training module 
+	loginScreen_AttestionFailedMessage                  :   "Vous ne pouvez pas continuer sans avoir terminé la formation.<br>Veuillez vous assurer que le NOM et le NUMÉRO DE MAGASIN correspondent à des valeurs exactes saisies lors de l'attestation de formation.",
+	loginScreen_AttestionFailedMessage_DialogTitle		:	"Erreur de formation",
+	attestationScreen_ConfirmDialogAttestationDone		:   "Félicitations! Vous avez terminé la formation.",
+	attestationScreen_ConfirmDialogTitle				:	"Confirmation",
+
+	// WICI - training module 	
 	// VZE-442
-	loginScreen_Button_Label                          :                          "CONNEXION",
-	loginScreen_EmployeeNumberID_Label                  :                       "Numéro d'employé",
+	loginScreen_Device_serial_number_error_title 		:	"Erreur",
+	loginScreen_Device_serial_number_error_message      :	"<p><b>Le numéro de série de l’appareil ne peut pas être récupéré</b></p>",
+	loginScreen_Device_serial_number_message      		:	"Pour résoudre ce problème, consultez le &laquo; Processus alternatif pour refaire une demande &raquo; dans la rubrique &laquo; Paramètres de profil personnalisés &raquo; incluse dans le Guide sur le programme Crédit immédiat Triangle.",
+	// VZE-442
+	loginScreen_EmployeeNumberID_Label                  : 	"Numéro d'employé",
 
-	loginScreen_Dialog_ErrorTitle                     :                         "Erreur de connexion",
-	loginScreen_FailureMessage                        :                         "La connexion a échoué. Veuillez essayer de nouveau. ",
-	dictionary_loading_error 						  : 						"Le contenu de la demande ne peut pas être affiché. Veuillez attendre 15 minutes à portée acceptable du réseau WIFI avant de lancer la demande, puis réessayez. Si le problème persiste, veuillez appeler votre administrateur.",
+	loginScreen_Dialog_ErrorTitle                     	:		"Erreur de connexion",
+	loginScreen_FailureMessage                        	: 	"La connexion a échoué. Veuillez essayer de nouveau. ",
+	dictionary_loading_error 						  	:		"Le contenu de la demande ne peut pas être affiché. Veuillez attendre 15 minutes à portée acceptable du réseau WIFI avant de lancer la demande, puis réessayez. Si le problème persiste, veuillez appeler votre administrateur.",
+
 	// US4744
-	loginScreen_IncorrectUserNamaAndPassword          :                         "SVP vérifier votre nom d’utilisateur et votre mot de passe.",
-	loginScreen_signatureBox_title     	              :    "Veuillez signer pour confirmer que vous avez terminé la formation requise",
-	loginscreen_toggleTitle                           :    "Est-ce qu'un autre membre du personnel vous a référé le client?",
+	loginScreen_IncorrectUserNamaAndPassword          	:	"SVP vérifier votre nom d’utilisateur et votre mot de passe.",
+
+	// US5413
+	loginScreen_signatureBox_title     	              	:    "Veuillez signer pour confirmer que vous avez terminé la formation requise",
+	loginscreen_toggleTitle                           	:    "Est-ce qu'un autre membre du personnel vous a référé le client?",
+
+	// WICI-83 Training 
+	loginScreen_Training_title							:	"Une formation est disponible. Pour consulter le contenu de la formation, ou vous connecter pour prendre des demandes, veuillez utiliser le bouton à bascule ci-dessous.",
+	loginScreen_AppModule                               :	"APPS",
+	loginScreen_TrainingModule                         	:    "TRAINING",
+	loginScreen_AppModule1                              :    "APPLIS",
+	loginScreen_TrainingModule1                         :    "FORMATION",
+	loginScreen_TrainingButton                         	:    "FORMATION",
+	attestTrainning_Button_label                       	:	"ATTESTER",
+	startTrainingModuleScreenTitle                     	:	"Vous êtes sur le point de commencer votre formation.<br>Veuillez cliquer sur le bouton lorsque vous serez prêt.",
+	attestscreen_toggleTitle                           	:	"En signant, vous attestez que vous avez suivi la formation pour les employés de magasin (version de novembre 2022)",
+	employee_email                                     :  "fr_Employee Email",
+	// WICI-83 Trainning 
 	
 	// US4231
-	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage:							"La connexion a échoué. Veuillez contacter votre administrateur.",
+	loginScreen_BlackLstEmpIDAgtIDLookup_FailedMessage	:		"La connexion a échoué. Veuillez contacter votre administrateur.",
 
-	loginScreen_UserLookupDialog_NormalTitle          :                         "Renseignements sur l'adresse",
-	loginScreen_UserLookupDialog_ErrorTitle           :                         "Erreur d'adresse",
-	loginScreen_UserLookup_ConfirmMessage             :                         "Est-ce la bonne adresse?",
-	loginScreen_UserLookup_FailedMessage              :                         "Adresse non trouvée, veuillez réessayer ",
-	loginScreen_DemoModeAlert 						  :   						"Vous entrez dans\n LE MODE DÉMO\n Êtes-vous certain?",
-
-	loginScreen_EmployerIDLookup_FailedMessage        :                         "Code d'employeur invalide. Veuillez corriger et essayer de nouveau",
-	chooseProduct_HandoutTabToCustomerDialogRetrieve  :							"Récupérer la demande",
-	chooseProduct_PrinterConnected					  :							"L’imprimante est connectée.",
-	chooseProduct_PrinterNotConnected				  :							"L’imprimante n’est pas connectée. Veuillez vous assurer que l'imprimante est en marche, <br>à portée de main et que Bluetooth est connecté avant de procéder à l'application.",
-	loginScreen_Login_Details_In_Use				  :							"Échec de connexion. Votre nom d'utilisateur est courrament en utilisation. SVP contacter votre superviseur pour plus d'information.",
+	loginScreen_UserLookupDialog_NormalTitle          	:	  "Renseignements sur l'adresse",
+	loginScreen_UserLookupDialog_ErrorTitle           	:	  "Erreur d'adresse",
+	loginScreen_UserLookup_ConfirmMessage             	:	  "Est-ce la bonne adresse?",
+	loginScreen_UserLookup_FailedMessage              	:	  "Adresse non trouvée, veuillez réessayer ",
+	loginScreen_DemoModeAlert 						  	:		"Vous entrez dans\n LE MODE DÉMO\n Êtes-vous certain?",
+	
+	loginScreen_EmployerIDLookup_FailedMessage        	:	  "Code d'employeur invalide. Veuillez corriger et essayer de nouveau",
+	chooseProduct_HandoutTabToCustomerDialogRetrieve  	:		"Récupérer la demande",
+	chooseProduct_PrinterConnected					  	:		"L’imprimante est connectée.",
+	chooseProduct_PrinterNotConnected				  	:		"L’imprimante n’est pas connectée. Veuillez vous assurer que l'imprimante est en marche, <br>à portée de main et que Bluetooth est connecté avant de procéder à l'application.",
+	loginScreen_Login_Details_In_Use				  	:		"Échec de connexion. Votre nom d'utilisateur est courrament en utilisation. SVP contacter votre superviseur pour plus d'information.",
 
 	// US3766
-	chooseProduct_ChooseOneOfTheCreditCards           :                         "CHOISISSEZ L'UNE DES CARTES DE CRÉDIT SUIVANTES",
-    chooseProduct_CanadianTireOptionsMC 			  :                     	"<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong>",
-	chooseProduct_OptionsMasterCard                   :                         "<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong> <br><br> \n  Recompenses Triangle<sup style='font-size: .5em;'>MC</sup> ",
-	 //US4590
-  //  chooseProduct_Triangle_Rewards 					  : 						"Triangle &nbsp;&nbsp;  Rewards<sup>&trade;</sup>",
-	chooseProduct_GasAdvantageMasterCard              :                         "Carte Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
-	chooseProduct_CashAdvantageMasterCard             :                         "Carte Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Remise<sup style='font-size: .5em;'>MD</sup>",
-	chooseProduct_NoSpecificCard					  :							"carte",
+	chooseProduct_ChooseOneOfTheCreditCards           	:	  "CHOISISSEZ L'UNE DES CARTES DE CRÉDIT SUIVANTES",
+    chooseProduct_CanadianTireOptionsMC 			  	:	"<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong>",
+	chooseProduct_OptionsMasterCard                   	:	  "<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong> <br><br> \n  Recompenses Triangle<sup style='font-size: .5em;'>MC</sup> ",
+	//US4590
+  	//chooseProduct_Triangle_Rewards 					:	"Triangle &nbsp;&nbsp;  Rewards<sup>&trade;</sup>",
+	chooseProduct_GasAdvantageMasterCard              	:	  "Carte Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
+	chooseProduct_CashAdvantageMasterCard             	:	  "Carte Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Remise<sup style='font-size: .5em;'>MD</sup>",
+	chooseProduct_NoSpecificCard					  	:		"carte",
 	
 	// VZE-107
 	chooseProduct_Customer_signatureBoxDialog_title         :  "Signature du client requise",
+	
 	// CSR and ROC Province
 	chooseProduct_Customer_signatureBoxDialog_Content_CSR_ROC       :  "Vous êtes sur le point de demander une Mastercard de la Banque Canadian Tire. Si vous possédez déjà une Mastercard de la Banque Canadian Tire et que votre demande de carte de crédit est approuvée, il s’agira d’un nouveau compte.",
-	chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_ROC :  "En signant ci-dessous :",
-	chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_ROC :  "Je comprends que cette demande donnera lieu à une vérification de crédit.",
-	chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_ROC :  "Je confirme que je maîtrise la tablette et je souhaite remplir le formulaire de demande.",
+	chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_ROC 	:  "En signant ci-dessous :",
+	chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_ROC 	:  "Je comprends que cette demande donnera lieu à une vérification de crédit.",
+	chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_ROC 	:  "Je confirme que je maîtrise la tablette et je souhaite remplir le formulaire de demande.",
 	// CSR With QC province && FMR with All Province 
-	chooseProduct_Customer_signatureBoxDialog_Content_CSR_QC_And_FMR_AllProvince          :  "Vous êtes sur le point de demander une Mastercard de la Banque Canadian Tire. Si vous possédez déjà une Mastercard de la Banque Canadian Tire et que votre demande de carte de crédit est approuvée, il s’agira d’un nouveau compte.",
-	chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_QC_And_FMR_AllProvince         :  "En signant ci-dessous :",
-	chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_QC_And_FMR_AllProvince         :  "Je comprends que cette demande donnera lieu à une vérification de crédit.",
-    chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_QC_And_FMR_AllProvince         :  "Je confirme que j'ai reçu le document d'information juridique.",
-
-	chooseProduct_Customer_signatureBoxDialog_IAgree    :  "J’ACCEPTE",
+	chooseProduct_Customer_signatureBoxDialog_Content_CSR_QC_And_FMR_AllProvince         :  "Vous êtes sur le point de demander une Mastercard de la Banque Canadian Tire. Si vous possédez déjà une Mastercard de la Banque Canadian Tire et que votre demande de carte de crédit est approuvée, il s’agira d’un nouveau compte.",
+	chooseProduct_Customer_signatureBoxDialog_ListTitle_CSR_QC_And_FMR_AllProvince       :  "En signant ci-dessous :",
+	chooseProduct_Customer_signatureBoxDialog_ListItem1_CSR_QC_And_FMR_AllProvince       :  "Je comprends que cette demande donnera lieu à une vérification de crédit.",
+    chooseProduct_Customer_signatureBoxDialog_ListItem2_CSR_QC_And_FMR_AllProvince       :  "Je confirme que j'ai reçu le document d'information juridique.",
+	chooseProduct_Customer_signatureBoxDialog_IAgree    			:  "J’ACCEPTE",
 		 
     // VZE-107
-	
 
 	// US3920
 	program_PromoCode								  : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\"Blank\"},{\"Ouverture officielle\":\"4023\"},{\"Autre\":\"\"}],\"Événements en magasin\":[{\"Journées Triangle\":\"OMCDY\"},{\"Autre\":\"\"}],\"Événements DPCT\":[{\"Programme d’événement de l’Est\":\"5200\"},{\"Programme d’événement de l’Ouest\":\"4024\"}],\"Régional DCTP\":[{\"Programme régional de l’Est\":\"4022\"},{\"Programme régional de l’Ouest\":\"4029\"}],\"Campus\":[{\"Autre\":\"\"}]}]}",
@@ -151,14 +183,13 @@ WICI.dictionary_fr =  {
 	//US4433
 	program_FGL_ProgramCode_intercept                 : "{\"FMR\":[{\"Intercept\":[{\"Intercept\":\" \"}]}]}",
 	program_PC_ProgramCode_FMR		                  : "{\"FMR\":[{\"Party City Intercept\":[{\"Party City Intercept\":\" \"}]}]}",
-	program_PC_ProgramCode_CSR		                  : "{\"FMR\":[{\"Party City Staff\":[{\"Party City Staff\":\" \"}]}]}",
-	
+	program_PC_ProgramCode_CSR		                  : "{\"FMR\":[{\"Party City Staff\":[{\"Party City Staff\":\" \"}]}]}",	
 	// US3767
-	chooseProduct_PromoCode_Other					  :							"Code promotionnel (Autre)",
+	chooseProduct_PromoCode_Other					  :		"Code promotionnel (Autre)",
 
-	chooseProduct_PromoCode                           :                         "Code promotionnel",
-	chooseProduct_Program							  :							"Programme ",
-	chooseProduct_Province                            :                         "Province",
+	chooseProduct_PromoCode                           : 	"Code promotionnel",
+	chooseProduct_Program							  :		"Programme ",
+	chooseProduct_Province                            : 	"Province",
     //------------------ VZE- 108 Starts ---------------------
 	
 	chooseProduct_received_and_reviewed                 : "J’ai reçu et examiné une copie de la Déclaration sur le coût du crédit relativement aux demandes de carte de crédit.  Je comprends également qu'un exemplaire est disponible en ligne à l'adresse www.ctfs.com/informationsjuridiques.",
@@ -1568,6 +1599,7 @@ WICI.dictionary_fr =  {
 	summary_FinEmp_SIN                                :                         "Numéro d'assurance sociale",
 
 	summary_FinEmp_JobDescription                     :                         "Description du travail",
+	summary_FinEmp_JobDescriptionOther                :                         "Description du travail (Autre)",
 	summary_FinEmp_JobCategory                        :                         "Catégorie d'emploi",
 	summary_FinEmp_EmpName                            :                         "Nom de l'employeur",
 	summary_FinEmp_EmpCity                            :                         "Ville de l'employeur",

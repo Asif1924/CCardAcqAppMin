@@ -12,16 +12,18 @@ import static com.ctfs.WICI.AppConstants.UPDATE_AGENT_FOUND;
 import java.io.Reader;
 import java.io.StringReader;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.naming.NamingException;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.ctc.ctfs.channel.accountacquisition.AccountApplicationRequestType;
 import com.ctc.ctfs.channel.webicuserlocation.WebICCheckLocationRequest;
@@ -34,10 +36,13 @@ import com.ctfs.WICI.Model.LoginInfo;
 import com.ctfs.WICI.Model.PendingApplicationDatabaseUpdateException;
 import com.ctfs.WICI.Model.PendingApplicationRetrievalException;
 import com.ctfs.WICI.Model.ReceiptCustomerInfo;
+import com.ctfs.WICI.Model.TrainingAttestationRequest;
+import com.ctfs.WICI.Model.TrainingAttestationResponse;
 import com.ctfs.WICI.Model.WICIDSSAddressResponse;
 import com.ctfs.WICI.Servlet.Model.CreditCardApplicationData;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationRequest;
 import com.ctfs.WICI.Servlet.Model.PendAccountApplicationResponse;
+import com.ctfs.WICI.Servlet.Model.RetrieveTrainingContent;
 import com.ctfs.WICI.Servlet.Model.WICICheckLocationResponse;
 import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
@@ -64,10 +69,12 @@ public class WICIDBHelper
 	public static final String CTFS_WICI_USER_INFO = "WICI_USER_INFO";
 	public static final String CTFS_WICI_USER_ROLES ="WICI_USER_ROLES";
 	public static final String WICI_BROKER_HEALTH_TABLE ="WICI_BROKER_HEALTH";
-	
+	public static final String WICI_TRAINING_CONTENT_TABLE ="WICI_TRAINING_CONTENT";
+	public static final String WICI_TRAINING_ATTESTATION = "WICI_TRAINING_ATTESTATION";
 
 	static final String CONFIG_NAME_APPROVED_APK_VERSION = "APPROVED_APK_VERSION";
-// AUTHFIELD_CHECK_ENABLED
+	
+	// AUTHFIELD_CHECK_ENABLED
 	static final String TRANSACTION_TYPE = "ACCOUNTAPPLICATION";
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yy");
 	
@@ -2614,6 +2621,233 @@ public class WICIDBHelper
 		
 	}
 
+	public RetrieveTrainingContent retrieveTrainingContentVersion() throws SQLException
+	{
+		String sMethod = "[retrieveTrainingContentVersion] ";
+
+		// Create sql statement
+		String sql = "SELECT * FROM " + WICI_TRAINING_CONTENT_TABLE + " WHERE TRAINING_CONTENT_VERSION = (SELECT MAX(TRAINING_CONTENT_VERSION) FROM " + WICI_TRAINING_CONTENT_TABLE + ") AND ACTIVATEDATE = (SELECT MAX(ACTIVATEDATE) FROM " + WICI_TRAINING_CONTENT_TABLE + ") ORDER BY ACTIVATEDATE DESC ";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		RetrieveTrainingContent trainingContent = null;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+
+			// Get only the first row from the table
+			preparedStatement.setMaxRows(1);
+
+			// Execute a query
+			resultSet = preparedStatement.executeQuery();
+			log.info(sMethod +"::ResultSet ::"+resultSet);
+
+			// Extract data from result set
+			while (resultSet!= null & resultSet.next())
+			{
+				log.info(sMethod +"::Entered inside the loop ::");
+				// Retrieve valid trainingContent info
+				trainingContent = new RetrieveTrainingContent();
+				
+				//BASE64Encoder encoder = new BASE64Encoder();
+				byte[] contentEn =  resultSet.getBytes("TRAINING_CONTENT_EN");
+				byte[] contentFr =  resultSet.getBytes("TRAINING_CONTENT_FR");
+				
+				byte[] encodeTrainingContentEn = Base64.encodeBase64(contentEn);
+				byte[] encodeTrainingContentFr = Base64.encodeBase64(contentFr);
+				
+				trainingContent.setTrainingContentEn(encodeTrainingContentEn);
+				trainingContent.setTrainingContentFr(encodeTrainingContentFr);
+				trainingContent.setTrainingContentId(resultSet.getInt("TRAINING_CONTENT_ID"));
+				trainingContent.setTrainingContentVersion(resultSet.getInt("TRAINING_CONTENT_VERSION"));
+				trainingContent.setActivateDate(resultSet.getTimestamp("ACTIVATEDATE"));
+				
+				log.info(sMethod +"::RetrieveTrainingContent Data::"+trainingContent.toString());
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+		
+		log.info(sMethod +"::Excuted Successfully::");
+		return trainingContent;
+	}
+	
+	
+	public boolean saveTrainingAttestationData(TrainingAttestationRequest request) throws SQLException
+	{
+		String sMethod = "[saveTrainingAttestationData] ";
+		log.info(sMethod + "::Called with parameters "+request);
+
+		String sql = null;
+
+		if (request.getEmployeeNumber() != null
+				&& !request.getEmployeeNumber().isEmpty()) {
+
+			sql = "INSERT INTO "
+					+ WICI_TRAINING_ATTESTATION
+					+ "(USERNAME, STORELOCATION_NUMBER, FIRSTNAME, LASTNAME,  SIGNATURE ,TRAINING_CONTENT_VERSION , ATTESTATION_DATE, EMPLOYEENUMBER) VALUES(?,? ,? ,? ,? ,?, ?, ?)";
+
+		} else {
+
+			sql = "INSERT INTO "
+					+ WICI_TRAINING_ATTESTATION
+					+ "(USERNAME,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, SIGNATURE , TRAINING_CONTENT_VERSION , ATTESTATION_DATE) VALUES(?, ?, ?, ?, ?, ?, ?)";
+		}
+		 log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean inserted = false;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, request.getUserName());
+			preparedStatement.setString(2, request.getStoreLocationNumber());
+			preparedStatement.setString(3, request.getFirstName());
+			preparedStatement.setString(4, request.getLastName());
+			preparedStatement.setBytes(5, request.getSignature());
+			preparedStatement.setInt(6 ,Integer.parseInt(request.getTrainingContentVersion()));
+			preparedStatement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
+			
+			if ( request.getEmployeeNumber() != null && !request.getEmployeeNumber().isEmpty()){
+				preparedStatement.setString(8, request.getEmployeeNumber());	
+			}
+			
+			int result =  preparedStatement.executeUpdate();
+			 connection.commit();
+			 inserted =  result > 0 ?  true : false;
+			
+		}catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			ex.printStackTrace();
+			
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return inserted;
+		
+		}
+	
+
+	public TrainingAttestationResponse getTrainingAttestationData(String userName) throws SQLException
+	{
+		String sMethod = "[getTrainingAttestationData] ";
+		log.info(sMethod + "::Called with parameter userName:" + userName);
+
+		TrainingAttestationResponse trainingAttestationResponse = null;
+
+		String sql = "SELECT SIGNATURE, ATTESTATION_DATE FROM " + WICI_TRAINING_ATTESTATION + " WHERE USERNAME = ? ";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		byte[] signature = null;
+		byte[] encodeSignature = null;
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userName);
+
+			resultSet = preparedStatement.executeQuery();
+
+			trainingAttestationResponse = new TrainingAttestationResponse();
+
+			while (resultSet != null && resultSet.next())
+			{
+				signature = resultSet.getBytes("SIGNATURE");
+				
+				 encodeSignature = Base64.encodeBase64(signature);
+				trainingAttestationResponse.setSignature(encodeSignature);
+				trainingAttestationResponse.setAttestationDate(resultSet.getTimestamp("ATTESTATION_DATE"));
+			}
+			
+			log.info("signature "  +encodeSignature + " attestationDate " +trainingAttestationResponse.getAttestationDate());
+			
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			ex.printStackTrace();
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return trainingAttestationResponse;
+	}
+	
+	
+	
+
+	public String getConfigValueByConfigName(String configName) throws SQLException
+	{
+		String sMethod = "[getConfigValueByConfigName] ";
+		
+		// Create sql statement
+		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE  CONFIG_NAME = ?";
+
+		log.info(sMethod + "::SQL::" + sql);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String configValue = null;
+
+		try
+		{
+			connection = connectToDB(false);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, configName);
+			preparedStatement.setMaxRows(1);
+
+			// Execute a query
+			resultSet = preparedStatement.executeQuery();
+			// Extract data from result set
+			while ( resultSet!= null && resultSet.next())
+			{
+				configValue = resultSet.getString("CONFIG_VALUE");
+			}
+		}
+		catch (Exception ex)
+		{
+			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			ex.printStackTrace();
+		}
+		finally
+		{
+			DisposeBDResources(connection, preparedStatement, resultSet);
+		}
+
+		return configValue;
+	}
+	
+	
 	
 	
 	

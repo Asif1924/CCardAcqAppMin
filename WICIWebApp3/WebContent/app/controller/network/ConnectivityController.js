@@ -233,6 +233,128 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
     //---------------------------------------------------------------------------------------
+    this.SaveTrainingAttestation = function(argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'SaveTrainingAttestation() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+
+		//This re assignment will prevent the version from being null
+		//in the case where the training content is loaded from the 
+		//app
+		argTrainingContentVersion = argTrainingContentVersion || "1";
+
+		var requestParams = {
+			"storeLocationNumber": argStoreLocationNumber,
+			"firstName": argFirstName,
+			"lastName": argLastName,
+			"singnature" : argSignature,
+	      	"employeeNumber": argEmployeeNumber,
+	      	"trainingContentVersion" : argTrainingContentVersion
+		};
+		
+		console.log(logPrefix + sMethod + JSON.stringify(requestParams));
+		
+		connRequestBuilder.setHttpType( "POST" );
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("Login Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("Login");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.SaveTrainingAttestation,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString()
+			},
+			argSuccessCallback,
+			$.noop,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };	
+	//---------------------------------------------------------------------------------------
+    this.CheckTrainingAttestation = function(argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'CheckTrainingAttestation() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+
+		var requestParams = {
+			"storeLocationNumber": argStoreLocationNumber,
+			"firstName": argFirstName,
+			"lastName": argLastName,
+		};
+		
+		console.log(logPrefix + sMethod + JSON.stringify(requestParams));
+		
+		connRequestBuilder.setHttpType( "POST" );
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("Login Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("Login");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.CheckTrainingAttestation,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString()
+			},
+			argSuccessCallback,
+			$.noop,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+	//---------------------------------------------------------------------------------------
+    this.RetrieveTrainingContent = function(argSuccessCallback, argFailureCallback, offlineCallback) {
+    	var sMethod = 'RetrieveTrainingContent() ';
+        console.log(logPrefix + sMethod);
+        
+    	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
+    
+		var requestParams = {};
+		connRequestBuilder.setHttpType("POST");
+		connRequestBuilder.setParams(requestParams);
+
+		var wrappedErrorCallback = function(jqXHR, textStatus, errorThrown) {
+    		if (sessionLiveCheck(jqXHR)) {
+    			console.log("TMXEmailage Error Response: " + textStatus + "\n" + errorThrown);
+    			argFailureCallback();
+			} else {
+				connectivityErrors.hideLoadingScreenAndShowUnableToConnectError("TMX");
+        	}
+    	};
+
+		AJAXrequest(
+			{
+				serviceName: serviceNameEnum.RetrieveTrainingContent,
+				httpVerb: connRequestBuilder.getHttpType(),
+				requestParams: connRequestBuilder.getParamString(),
+				callTimeout : WICI.AppConfig.ConnectivityConfig.RETRIEVE_TRAINING_CONTENT_INTERVAL
+			},
+			argSuccessCallback,
+			wrappedErrorCallback,
+			$.noop,
+			$.noop,
+			offlineCallback
+		);
+    };
+	//---------------------------------------------------------------------------------------
     this.RetrieveJobDescription = function(argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'RetrieveJobDescription() ';
         console.log(logPrefix + sMethod);

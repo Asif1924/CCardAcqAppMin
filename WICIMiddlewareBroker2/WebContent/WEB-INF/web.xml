@@ -125,6 +125,27 @@
 		<servlet-name>CheckCPEligibilityServlet</servlet-name>
 		<servlet-class>com.ctfs.WICI.Servlet.CheckCPEligibilityServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>RetrieveTrainingContentServlet</display-name>
+		<servlet-name>RetrieveTrainingContentServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.RetrieveTrainingContentServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SaveAttestationServlet</display-name>
+		<servlet-name>SaveAttestationServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.SaveAttestationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>CheckAttestationServlet</display-name>
+		<servlet-name>CheckAttestationServlet</servlet-name>
+		<servlet-class>com.ctfs.WICI.Servlet.CheckAttestationServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddressLookup</servlet-name>
 		<url-pattern>/AddressLookup</url-pattern>
@@ -184,6 +205,18 @@
 	<servlet-mapping>
 		<servlet-name>CheckCPEligibilityServlet</servlet-name>
 		<url-pattern>/CheckCPEligibility</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RetrieveTrainingContentServlet</servlet-name>
+		<url-pattern>/RetrieveTrainingContent</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SaveAttestationServlet</servlet-name>
+		<url-pattern>/SaveTrainingAttestation</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckAttestationServlet</servlet-name>
+		<url-pattern>/CheckTrainingAttestation</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

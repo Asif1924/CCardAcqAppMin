@@ -325,6 +325,7 @@ WICI.FlowController = function(activationItems, backOutFlowCallback, screensDefi
 		forceExitFlow();
         activationItems.clearAllModels();        
         app.init();
+		app.setDemoMode(false);
 	}
 	this.logOut = logOut;
 	

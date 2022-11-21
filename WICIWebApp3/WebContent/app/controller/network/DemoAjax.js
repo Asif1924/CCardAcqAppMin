@@ -63,26 +63,29 @@ WICI.DemoAjax = function() {
 };
 
 WICI.Demo_Login = {
-	"error" : false,
-	"msg" : "SUCCESSFUL Authentication and authorization for user epamfmr",
-	"data" : {
-		"statusCode" : "200",
-		"LTPAToken" : "LtpaToken2\u003dKKVEycPUafb+23A7QAHpyWxKvuUfCIcgZu2BfqVGeauJvUqk35jmx34G3m0c8y+Vcln+6bgj0VtoNSn5ayWUsGQftWKM9EBCejecU7vIVS6PeV19jIezB++5jxCZsmnEw8kwjrOaIR0GqhtsbSPYkjqVU4p7TW5FmsF3uoo1n9xPyLk2Kh7xZRchZ4UpEhexe7fd3fjCnot+MvtLJDn2CUaxeNMHOR00+DUfeglstJHeWCdX7uc9eH/mu+kKRl6gHtPGlkSXEhMc8p3BDgj4hT4AZyBOYaQ33p4XNvZ2iuycwReVFw3U9JSELkL/zTriNk2DsV46dgazhKe14xEoFr/Ztti8JH9lBpU/BKQ0E9Ac8C1tPRd6TQPYLnoyuT9k+1DvoKwW7oJjFnexk6uBJiM2qFphzsUTu8O59vkva4EFHBSIMhxF8r5Pw9f54Ln+jtZpsgjhYTGTweyAgKR4xRiDcB12LBPpFYpcmF0rSPddbMcD76lBXUWqVrWWHnoSy0d0q3c+aDa+nmDxQxBtulflCfHb3joMnlUJRCo1U6K+m1Afzxbomh+u4/4wH9GKZnm/bY5s5C8fdjrF61lLXNek8IvPu3l1wJKUwMJ712TLQk7aY33kOmTRZVzWl7jRbUDlWq88LJGQLlnomyYuk+65d817tXqxdjCxGjEVi/jyrCNA6u/KeWVuWKq2oVGwxtX8KhQm7veSFzwYne/+DdSBzD5Vh7mNKyZDU2ySOEo\u003d; Path\u003d/",
-		"message" : "SUCCESSFUL Authentication and authorization for user epamfmr",
-		"roles" : "[\"FMR\",\"WICI-ADMIN\"]",
-		"enableEnstreamAuth": true,
-		"isDebugMode": true,
-		"checkLocation" : {
-			"message" : "SUCCESS",
-			"outletName" : "DEMO STORE ",
-			"outletNumber" : "1",
-			"outletStreet" : "100 Demo Street ",
-			"outletCity" : "Oakville ",
-			"outletProvince" : "QC",
-			"outletPostal" : "L6L0C6",
-			"CTFSStoreNo" : "4398",
+		"error" : false,
+		"msg" : "SUCCESSFUL Authentication and authorization for user epamfmr",
+		"data" : {
+			"statusCode" : "200",
+			"LTPAToken" : "LtpaToken2\u003dKKVEycPUafb+23A7QAHpyWxKvuUfCIcgZu2BfqVGeauJvUqk35jmx34G3m0c8y+Vcln+6bgj0VtoNSn5ayWUsGQftWKM9EBCejecU7vIVS6PeV19jIezB++5jxCZsmnEw8kwjrOaIR0GqhtsbSPYkjqVU4p7TW5FmsF3uoo1n9xPyLk2Kh7xZRchZ4UpEhexe7fd3fjCnot+MvtLJDn2CUaxeNMHOR00+DUfeglstJHeWCdX7uc9eH/mu+kKRl6gHtPGlkSXEhMc8p3BDgj4hT4AZyBOYaQ33p4XNvZ2iuycwReVFw3U9JSELkL/zTriNk2DsV46dgazhKe14xEoFr/Ztti8JH9lBpU/BKQ0E9Ac8C1tPRd6TQPYLnoyuT9k+1DvoKwW7oJjFnexk6uBJiM2qFphzsUTu8O59vkva4EFHBSIMhxF8r5Pw9f54Ln+jtZpsgjhYTGTweyAgKR4xRiDcB12LBPpFYpcmF0rSPddbMcD76lBXUWqVrWWHnoSy0d0q3c+aDa+nmDxQxBtulflCfHb3joMnlUJRCo1U6K+m1Afzxbomh+u4/4wH9GKZnm/bY5s5C8fdjrF61lLXNek8IvPu3l1wJKUwMJ712TLQk7aY33kOmTRZVzWl7jRbUDlWq88LJGQLlnomyYuk+65d817tXqxdjCxGjEVi/jyrCNA6u/KeWVuWKq2oVGwxtX8KhQm7veSFzwYne/+DdSBzD5Vh7mNKyZDU2ySOEo\u003d; Path\u003d/",
+			"message" : "SUCCESSFUL Authentication and authorization for user epamfmr",
+			"roles" : "[\"FMR\",\"WICI-ADMIN\"]",
+			"enableEnstreamAuth": true,
+			"isDebugMode": true,
+			"checkLocation" : {
+				"message" : "SUCCESS",
+				"outletName" : "DEMO STORE ",
+				"outletNumber" : "1",
+				"outletStreet" : "100 Demo Street ",
+				"outletCity" : "Oakville ",
+				"outletProvince" : "QC",
+				"outletPostal" : "L6L0C6",
+				"CTFSStoreNo" : "4398",
+			},
+            "trainingModuleEffectiveDate":"2022-12-1",
+			"checkAttestation_List":"CT|PC"
 		}
-	}
+
 };
 
 WICI.Demo_LookupResponse = {

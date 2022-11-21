@@ -573,23 +573,33 @@
 	                         ${activationItems.getModel('financialData').get('sin')}
 	                    </td>
 	                </tr>
-	                <tr class="fieldRow">
+					<tr class="fieldRow">
 			            <td class="fieldLabelsCell fieldCellSize33">
 			                <span data-translationKey="summary_FinEmp_JobDescription"></span>
 			            </td>
 			            <td class="fieldLabelsCell">
-			            	{{if activationItems.getModel('financialData').get('employmentType') !='R' && activationItems.getModel('financialData').get('employmentType') !='U' && activationItems.getModel('financialData').get('employmentType') !='H'}}			            		
-			               		{{if activationItems.getModel('financialData').get('jobDescription').toUpperCase() == "OTHER" }}
-			               			${activationItems.getModel('financialData').get('jobDescriptionOther')}
-			               		{{else}}
-			               			<span id="summary_JobDescription"></span>
-			               		{{/if}}
+			            	{{if activationItems.getModel('financialData').get('employmentType') !='R' && activationItems.getModel('financialData').get('employmentType') !='U' && activationItems.getModel('financialData').get('employmentType') !='H'}}			            					               		
+			               		<span id="summary_JobDescription"></span>			               		
 							{{else}}
-			                 	<!-- ${activationItems.getModel('financialData').get('jobCategory')} -->
 			                 	<span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
 			                {{/if}}
 			            </td>
 			        </tr>
+					{{if activationItems.getModel('financialData').get('jobDescriptionTemp').toUpperCase() == "OTHER" || activationItems.getModel('financialData').get('jobDescriptionTemp').toUpperCase() == "AUTRE" }}
+					<tr class="fieldRow">
+			            <td class="fieldLabelsCell fieldCellSize33">
+			                <span data-translationKey="summary_FinEmp_JobDescriptionOther"></span>
+			            </td>
+			            <td class="fieldLabelsCell">
+			            	{{if activationItems.getModel('financialData').get('employmentType') !='R' && activationItems.getModel('financialData').get('employmentType') !='U' && activationItems.getModel('financialData').get('employmentType') !='H'}}			            		
+			               		${activationItems.getModel('financialData').get('jobDescriptionOther')}
+							{{else}}			                 	
+			                 	<span data-translationKey=${activationItems.getJobCategoryNameByValue(activationItems.getModel('financialData').get('jobCategory'))}></span>
+			                {{/if}}
+			            </td>
+			        </tr>					
+					{{/if}}
+	                
 			        <tr class="fieldRow">
 			       		{{if  activationItems.getModel('financialData').get('employmentType')=='R' || activationItems.getModel('financialData').get('employmentType')=='U' || activationItems.getModel('financialData').get('employmentType')=='H'}}
 	                    	<td class="fieldLabelsBottomCell fieldCellSize33">
