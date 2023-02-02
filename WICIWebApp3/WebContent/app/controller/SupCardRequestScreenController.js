@@ -421,7 +421,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		    	            	if(!addressline1Value.includes(" ")){
 		    	            		postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
 		    	            	}else{
-		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale"];
 			    	                $.each(poBoxArray, function (index, item) {
 			    	                	if($(refs.addressLine1).val().toLowerCase().includes(item.toLowerCase())){
 			    	                    	$('#suppCardInfo_infomation_button').show();
@@ -802,18 +802,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
         var rezAge =[];
         console.log(logPrefix + sMethod + "Age :: " + age);
         
-        if(age < 16 || age > 120){
-           var item = model.getItemByName('birthDate');
-           var itemName =  item === null ? '' : item.name;
-           var itemuiid = model.refs == null ? '' : model.refs[item.name];
-           var tempRez  = {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
-           rezAge.push(tempRez);
-           app.validationDecorator.focusControl(refs.birthDate);
-           if (rezAge.length > 0) {
-                app.validationDecorator.applyErrAttribute(rezAge);
-                return;
-           }
-        }
+        
         
 		var isValidationError = false;
 		if (app.validationsOn) {
@@ -827,6 +816,18 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 
 			if (model.get('cardYesNo') == 'Y') {
 				rez1 = model.validate(1);
+				if(age < 16 || age > 120){
+			           var item = model.getItemByName('birthDate');
+			           var itemName =  item === null ? '' : item.name;
+			           var itemuiid = model.refs == null ? '' : model.refs[item.name];
+			           var tempRez  = {name: itemName, err: 'personalData_DOB_18YearsError', uiid: itemuiid};
+			           rezAge.push(tempRez);
+			           /*app.validationDecorator.focusControl(refs.birthDate);
+			           if (rezAge.length > 0) {
+			                app.validationDecorator.applyErrAttribute(rezAge);
+			                return;
+			           }*/
+			    }
 				var supMobile = app.validationDecorator.phoneValidation($(refs.phone).val() , refs.phone,false );
 				if ($(refs.phone).val() === '') {
 					$('#sup_infomation_phone').show();
@@ -843,8 +844,9 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	                	rez.push({name: 'supStreetAddress', err: '', uiid: refs.supStreetAddress});
 	                }
 				}
-
+                  
 				rez = rez.concat(rez1, rez2);
+				rez = rez.concat(rez,rezAge);
 				
 				var validator = new WICI.Validator();
                 if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {

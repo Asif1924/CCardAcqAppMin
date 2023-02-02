@@ -20,6 +20,10 @@ WICI.BreadcrumbsHelper = (function () {
 		 	if ( activationItems.getModel('loginScreen') .get('outletProvince') === 'YT') {
 				enableOPProduct = false;
     	 	}
+    	 	// Discontinue NBO Feb 1 2023
+		 	if ( activationItems.getModel('loginScreen') .get('outletProvince') === 'NB') {
+				enableOPProduct = false;
+    	 	}
 		 	if (activationItems.getModel('loginScreen') .get('outletProvince')  === 'AB') {
 				enableOPProduct = false;
 		 	}
@@ -41,6 +45,17 @@ WICI.BreadcrumbsHelper = (function () {
 				 enableOPProduct= true;
 			 }
 	    }
+		// Discontinue NBO Feb 1 2023
+		if (activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('placeofissue') != null && activationItems.getModel('personalData').get('placeofissue') === 'NB'){
+			 if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== 'E') {
+				 enableOPProduct= true;
+			 }
+	    }
+		if (activationItems.getModel('personalData2_Address') != null && activationItems.getModel('personalData2_Address').get('province') != null && activationItems.getModel('personalData2_Address').get('province') === 'NB') {
+			 if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
+				 enableOPProduct= false;
+			 }
+	    }
 		if (activationItems.getModel('personalData') != null) {
 			var personalDataModel = activationItems.getModel('personalData');
 	        console.log(" age "+personalDataModel.get('age'));
@@ -51,7 +66,7 @@ WICI.BreadcrumbsHelper = (function () {
 		if(activationItems.getModel('financialData') != null && activationItems.getModel('financialData').get('insurance_CPType_Available').toUpperCase() == "NONE") {
 			enableOPProduct= false;
 		}
-    	console.log(enableOPProduct);
+    	console.log("enableOPProduct :: " +enableOPProduct);
     	return enableOPProduct;
     }
     

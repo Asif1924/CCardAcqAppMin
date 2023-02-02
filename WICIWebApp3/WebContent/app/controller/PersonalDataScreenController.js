@@ -719,7 +719,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 	    	            	if(!addressline1Value.includes(" ")){
 	    	            		postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
 	    	            	}else{
-	    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+	    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale"];
 		    	                $.each(poBoxArray, function (index, item) {
 		    	                	if($(refs.addressline1).val().toLowerCase().includes(item.toLowerCase())){
 		    	                    	$('#contactInfomation_infomation_button').show();
@@ -951,7 +951,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		    	            	if(!addressline1Value.includes(" ")){
 		    	            		postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
 		    	            	}else{
-		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale"];
+		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale"];
 			    	                $.each(poBoxArray, function (index, item) {
 			    	                	if($(refs.addressline1_prev).val().toLowerCase().includes(item.toLowerCase())){
 			    	                    	$('#personalInfo_pre_year_informationButton').show();

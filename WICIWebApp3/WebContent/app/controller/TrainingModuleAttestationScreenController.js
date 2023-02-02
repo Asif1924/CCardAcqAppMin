@@ -248,7 +248,8 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         $(refs.attestButtonId).click(function () {
             console.log(logPrefix + sMethod + "finishButtonId : click attest ");
             console.log("clicked attest");
-            invokeSaveAttestation(storeLocationNumber, fistName, lastName, ($(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null), employeerNumberID, contentVersion, handleSuccessfulAttestTrainingRequest, failedAttestTraining);
+            var signatureData = $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null;
+            invokeSaveAttestation(storeLocationNumber, fistName, lastName, signatureData, employeerNumberID, contentVersion, handleSuccessfulAttestTrainingRequest, failedAttestTraining);
             //showNextScreen();
         });
 
@@ -298,7 +299,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         }
         $.when(messageDialog.info(translator.translateKey("attestationScreen_ConfirmDialogAttestationDone"),translator.translateKey("attestationScreen_ConfirmDialogTitle"), $.noop)).then(finishAttestationFlow());        
     }
-
+ 
     // ---------------------------------------------------------------------------------------
     function failedAttestTraining(argResponse) {
         var sMethod = 'handleSuccessfulAttestTrainingRequest() ';

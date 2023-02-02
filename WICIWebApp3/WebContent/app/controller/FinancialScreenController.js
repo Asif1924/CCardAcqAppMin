@@ -1124,6 +1124,10 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 			if (activationItems.getModel('loginScreen') .get('outletProvince') === 'YT') {
 				enableOP = false;
 	    	}
+			//Discontinue NBO Feb 1 2023
+			if (activationItems.getModel('loginScreen') .get('outletProvince') === 'NB') {
+				enableOP = false;
+	    	}
 			if (activationItems.getModel('loginScreen') .get('outletProvince')  === 'AB') {
 				enableOP = false;
 			}
@@ -1143,6 +1147,17 @@ WICI.FinancialScreenController = function(activationItems, argTranslator,
 		if ( activationItems.getModel('personalData2_Address') != null && activationItems.getModel('personalData2_Address').get('province') != null && activationItems.getModel('personalData2_Address').get('province') === 'YT') {
 			if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
 				 enableOP= true;
+			}
+		}
+		//Discontinue NBO Feb 1 2023
+		if (activationItems.getModel('personalData') != null && activationItems.getModel('personalData').get('placeofissue') != null && activationItems.getModel('personalData').get('placeofissue') === 'NB'){
+			 if (activationItems.getModel('loginScreen').get('employerID').toUpperCase() !== 'E') {
+				 enableOP= true;
+			 }
+	    }
+		if ( activationItems.getModel('personalData2_Address') != null && activationItems.getModel('personalData2_Address').get('province') != null && activationItems.getModel('personalData2_Address').get('province') === 'NB') {
+			if (activationItems.getModel('loginScreen').get('employerID') !== 'E') {
+				 enableOP= false;
 			}
 		}
 		if (activationItems.getModel('personalData') != null){

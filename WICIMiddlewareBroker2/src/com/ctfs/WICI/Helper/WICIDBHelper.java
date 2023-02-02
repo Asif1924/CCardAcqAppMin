@@ -2668,7 +2668,7 @@ public class WICIDBHelper
 				trainingContent.setTrainingContentVersion(resultSet.getInt("TRAINING_CONTENT_VERSION"));
 				trainingContent.setActivateDate(resultSet.getTimestamp("ACTIVATEDATE"));
 				
-				log.info(sMethod +"::RetrieveTrainingContent Data::"+trainingContent.toString());
+				log.info(sMethod +"::RetrieveTrainingContent Data retrieved successfully");
 			}
 		}
 		catch (Exception ex)

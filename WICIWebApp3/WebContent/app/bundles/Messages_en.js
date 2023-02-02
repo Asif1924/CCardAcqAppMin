@@ -12,7 +12,7 @@ WICI.dictionary_en =  {
 	printerErrorShowDialogFlag						    :	"Y",
 	addressLine2Flag	                                :   "Y",
 	newStylePrintFlag	                                :   "N",
-	testSubmitButtonEnableFlag	                        :   "Y",
+	testSubmitButtonEnableFlag	                        :   "N",
 	storeRecallPrintStores								:	"{\"stores\":[]}",
 
 	accents												:	'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
@@ -62,7 +62,7 @@ WICI.dictionary_en =  {
 	addressLookup_noResults								:	"No results found. Please Try Again.",
 	addressLookup_multipleItemsExist					:	"Multiple street names exist. Please select below",
 
-	messageDialog_ok 									: 	"Ok",
+	messageDialog_ok 									: 	"OK",
 	pageHeader_next 									: 	"Next",
 	pageHeader_previous 								: 	"Back",
 	messageDialog_Close									:	"Close",
@@ -149,8 +149,8 @@ WICI.dictionary_en =  {
 	
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards 			: 	"CHOOSE ONE OF THE FOLLOWING CREDIT CARDS",
-    chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
-    chooseProduct_OptionsMasterCard 					: 	"Triangle<sup>&trade;</sup> <br> Mastercard<sup>&reg;</sup> <br> \n <p>Triangle Rewards<sup>&trade;</sup></p>",
+    chooseProduct_CanadianTireOptionsMC 			    : 	"Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+    chooseProduct_OptionsMasterCard 					: 	"Triangle<sup>&reg;</sup> <br> Mastercard<sup>&reg;</sup> <br> \n <p>Triangle Rewards<sup>&trade;</sup></p>",
    	//US4590
    	//chooseProduct_Triangle_Rewards 					    : 	"Triangle  Rewards<sup>&trade;</sup>",
 	chooseProduct_GasAdvantageMasterCard 				: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
@@ -599,7 +599,7 @@ WICI.dictionary_en =  {
 	sigScreen_Date										:	"Date: ",
 	sigScreen_ProceedToConfirmation						:	"PROCEED TO NEXT PAGE",
 	sigScreen_ChooseCardRightForYou                     :   "Choose the card that's right for you:",
-	sigScreen_OMZCard_Note                              :   "<p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'><b>Please note the Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> and Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup></p> <p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'>have the same fees, grace period and minimum payment formula.</b></p>",
+	sigScreen_OMZCard_Note                              :   "<p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'><b>Please note the Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup> and Triangle<sup>&reg;</sup> World Elite Mastercard<sup>&reg;</sup></p> <p style='-webkit-margin-before: 0px; -webkit-margin-after: 0px;'>have the same fees, grace period and minimum payment formula.</b></p>",
 	
 	sigScreen_WorldEliteCard_text                       :	"<p style='-webkit-margin-before: 0em; -webkit-margin-after: 0.3em; webkit-margin-start: 1em; '><strong>I would like to switch my <br> application to the Triangle<sup>&trade;</sup><br>World Elite Mastercard.<sup>&reg;</sup></strong></p>",
 	sigScreen_WorldEliteCard_text1                       :	"<strong>application to the Triangle<sup>&trade;</sup></strong> <br>",
@@ -609,8 +609,8 @@ WICI.dictionary_en =  {
 	sigScreen_WorldEliteCard_Note_text2                   :	" You meet the minimum <br> ",
 	sigScreen_WorldEliteCard_Note_text3                   :	" income requirement<br>",
 	sigScreen_WorldEliteCard_Note_text4                   :  " ",
-    sigScreen_TriangleCard_text                         :   "<p><strong>I'll stick with the</strong> <br>Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup><br></p>", 
-    sigScreen_TriangleCard_text1                        :   "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+    sigScreen_TriangleCard_text                         :   "<p><strong>I'll stick with the</strong> <br>Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup><br></p>", 
+    sigScreen_TriangleCard_text1                        :   "Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 
 	ProvincesList_null									:	'Please select...',
     IdTypesList_null									:	'Please select...',
@@ -1266,7 +1266,7 @@ WICI.dictionary_en =  {
 	// signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash advances and related fees) and 21.99% for cash advances and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash advances and related fees.",
     signatureScreen_License1_2                          :   "with annual interest rates of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>22.99%</strong></span> for cash transactions and related fees,  if I reside outside of Quebec, or annual interest rates of <span style=\"font-size: 12pt;\";><strong>19.99%</strong></span> for all charges (excluding cash transactions and related fees) and <span style=\"font-size: 12pt;\";><strong>21.99%</strong></span> for cash transactions and related fees if I reside in Quebec.",
 	signatureScreen_License2							:	"If I am not approved for the Card at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99% for cash transactions and related fees, you may, without further notice to me, treat this as a separate application for the same Card at an annual interest rate of 25.99% for all types of charges, including cash transactions and related fees.",
-	signatureScreen_License2_OMZ						:	"<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may still issue me a Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99& for cash transactions and related fees.</b>",
+	signatureScreen_License2_OMZ						:	"<b>If I am not approved for the Card at the above rates, Canadian Tire Bank may still issue me a Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup> at an annual interest rate of 19.99% for all charges (excluding cash transactions and related fees) and 22.99& for cash transactions and related fees.</b>",
 	// signatureScreen_License3							:	"The Card is issued by Canadian Tire Bank (\"CTB\").",
 	// US3766
 	signatureScreen_License4							:	'Canadian Tire Bank may collect, use and share personal information about me for the purposes described in the "Canadian Tire Privacy Charter" including marketing and selling by way of email, telephone, automatic dialing-announcing device or other form of telecommunication.',
@@ -1277,7 +1277,7 @@ WICI.dictionary_en =  {
 	signatureScreen_License8							:	"If I provide you with my Social Insurance Number, you may use it to identify me, including with credit reporting agencies.",
 	signatureScreen_License9							:	"I have read and understood this application and I have received a brochure containing additional disclosure relating to this application.",
 	signatureScreen_License10							:	"I agree that if approved, and if I provided an email address in this application, you can provide me with my Initial Disclosure Statement by way of an email to such address.",
-	sigworldElite_MasterCardNote_1                      :  " <b>Please note that the Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>can impose higher card acceptance costs on merchants.</b>",
+	sigworldElite_MasterCardNote_1                      :  " <b>Please note that the Triangle<sup>&reg;</sup> World Elite Mastercard<sup>&reg;</sup>can impose higher card acceptance costs on merchants.</b>",
 
 	signatureScreen_Reset_Button_Label             		:    "Clear Signature",
 	// VZE-88
@@ -1665,11 +1665,11 @@ WICI.dictionary_en =  {
 	personalData_No								        : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData1_validation_ReceiveEmail				: 'Select valid interest by Email',
 	summary_TellAboutYourself_Email_Consent             : "E-mail Marketing Consent?",
-	signature_OptionsMasterCard 					    : "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard 					    : "Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
 	// VZE-3 WICI Bank Rates changes
-	signature_OptionsMasterCard_withoutSuperScript 		: "Triangle Mastercard",
-	signature_OptionsMasterCard_Dupconvence_text        : "Thanks for applying for a Triangle Mastercard!",
-	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard_withoutSuperScript 		: "Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
+	signature_OptionsMasterCard_Dupconvence_text        : "Thanks for applying for a Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>!",
+	signature_World_ELiteMasterCard 					: 	"Triangle<sup>&reg;</sup> World Elite Mastercard<sup>&reg;</sup>",
 	// VZE-3 WICI Bank Rate changes
 	signature_World_ELiteMasterCard_withoutSuperScript 	: 	"Triangle World Elite Mastercard",
 	signature_GasAdvantageMasterCard 					: 	"Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup>",
@@ -1678,9 +1678,9 @@ WICI.dictionary_en =  {
 	signature_GasAdvantageMasterCard1_withoutSuperScript					:	"Gas Advantage Mastercard",
 	signature_CashAdvantageMasterCard					: 	"Cash Advantage Mastercard",
 	// US5147  WICI - Updated Signature Box
-    signature_OptionsMasterCard_CreditCard 				: "Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup> credit card",
+    signature_OptionsMasterCard_CreditCard 				: "Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup> credit card",
 	signature_OptionsMasterCard_Dupconvence_text        : "Thanks for applying for a Triangle Mastercard!",
-	signature_World_ELiteMasterCard_CreditCard 			: "Triangle<sup>&trade;</sup> World Elite Mastercard<sup>&reg;</sup> credit card",
+	signature_World_ELiteMasterCard_CreditCard 			: "Triangle<sup>&reg;</sup> World Elite Mastercard<sup>&reg;</sup> credit card",
 	signature_GasAdvantageMasterCard_CreditCard 		: "Gas Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup> credit card",
 	signature_CashAdvantageMasterCard_CreditCard		: "Cash Advantage<sup>&reg;</sup> Mastercard<sup>&reg;</sup> credit card",
 	
@@ -1698,7 +1698,7 @@ WICI.dictionary_en =  {
     legal_omc_second_chapter_ectm                       : "<sup>2</sup> Minimum fuel purchase may be required. Rate may vary by location. See local gas bars for details." ,
     legal_omc_fourth_chapter_ectm		                :" † Cash advance fee: $4.00. Interest is charged on cash advances from the day you receive the advance until the day you repay the advance and all interest accrued.",
     personalData_CTMField                               : "Triangle  Rewards<sup>&trade;</sup> Account Number (formerly My Canadian Tire Money<sup>&reg;</sup>) ",
-    personalData_CTMAccountText                         : "If you are already a Member, please enter your Triangle  Rewards<sup>&trade;</sup> Account Number. If you are approved for the credit card that you are applying for, your Triangle  Rewards<sup>&trade;</sup> Account will be linked to your new Triangle<sup>&trade;</sup> Mastercard<sup>&reg;</sup>. If left blank, Triangle  Rewards<sup>&trade;</sup> Account Number will be assigned to you.",
+    personalData_CTMAccountText                         : "If you are already a Member, please enter your Triangle  Rewards<sup>&trade;</sup> Account Number. If you are approved for the credit card that you are applying for, your Triangle  Rewards<sup>&trade;</sup> Account will be linked to your new Triangle<sup>&reg;</sup> Mastercard<sup>&reg;</sup>. If left blank, Triangle  Rewards<sup>&trade;</sup> Account Number will be assigned to you.",
     
     personalData_Scan_TextField                         : "<b> Why are we scanning your licence?</b>  We scan your driver’s licence to automatically and accurately capture select information required to complete a credit card application.  This includes your name, address, date of birth, driver’s licence number and expiry date.",
     

@@ -295,7 +295,7 @@ WICI.TrainingModuleScreensController = function(activationItems, argTranslator,a
         }	
         //var blob = new Blob(byteArrays, { type: "application/pdf" });
         //var blob = new Blob(byteArrays, { type: "image/png" });//image/jpeg
-        var blob = new Blob(byteArrays, { type: "image/jpeg" });//image/jpeg
+        var blob = new Blob(byteArrays, { type: "image/png" });//image/jpeg
 		var  blobURL = URL.createObjectURL(blob);
  		$(refs.pdf).attr('src', blobURL,'_system', 'location=yes');
 	    $(refs.nextButtonId).show();

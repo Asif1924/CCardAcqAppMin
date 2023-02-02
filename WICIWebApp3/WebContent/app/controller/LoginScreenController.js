@@ -1140,11 +1140,19 @@ WICI.LoginScreenController = function (app) {
             console.log( logPrefix + sMethod + "isRetailNetworkInCheckAttestationList? " + loginHelper.isRetailNetworkInCheckAttestationList($(refs.retailNetWork).val()) );
             if( ($(refs.employerID).val().toUpperCase()==='E') && loginHelper.hasAttestationDateOccurred( loginHelper.getTrainingModuleEffectiveDate() ) && loginHelper.isRetailNetworkInCheckAttestationList($(refs.retailNetWork).val())){
                 console.log(logPrefix + sMethod+"Invoke CheckAttestation");
-                new WICI.LoadingIndicatorController().hide();
                 new WICI.LoadingIndicatorController().show();
                 //alert("Invoke CheckAttestation");
-                invokeCheckTrainingAttestation($(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(),handleSuccessfulCheckAttestTrainingRequest, failedCheckAttestTraining);
-                return;
+                if (app.getDemoMode()) {
+                		new WICI.LoadingIndicatorController().hide();
+                    	model.set('isDebugMode', argResponse.data.isDebugMode);
+                        model.set('locationFieldID', $(refs.businessStoreNo).val().toUpperCase());
+                        respondToUserLocationLookup(argResponse);
+                    
+                }else{
+                	new WICI.LoadingIndicatorController().hide();
+                	invokeCheckTrainingAttestation($(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(),handleSuccessfulCheckAttestTrainingRequest, failedCheckAttestTraining);
+                    return;
+                }
             }else{                
                 console.log(logPrefix + sMethod+"Continue Login...");
                 if (argResponse.data.isDebugMode != null) {

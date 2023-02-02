@@ -12,7 +12,7 @@ WICI.dictionary_fr =  {
 	printerErrorShowDialogFlag						  	:		"Y",	
 	addressLine2Flag	                              	:		"Y",
 	newStylePrintFlag	                              	:		"N",
-	testSubmitButtonEnableFlag	                      	:		"Y",
+	testSubmitButtonEnableFlag	                      	:		"N",
 	storeRecallPrintStores							  	:		"{\"stores\":[]}",
 	
 	accents											  	:		'ÀÁÂÃÄÅĄĀāàáâãäåąßÒÓÔÕÕÖØŐòóôőõöøĎďDŽdžÈÉÊËĘèéêëęðÇçČčĆćÐÌÍÎÏĪìíîïīÙÚÛÜŰùűúûüĽĹŁľĺłÑŇŃňñńŔŕŠŚŞšśşŤťŸÝÿýŽŻŹžżźđĢĞģğ',
@@ -62,7 +62,7 @@ WICI.dictionary_fr =  {
 	addressLookup_noResults                           	:	  "Aucun résultat. Veuillez essayer de nouveau.",
 	addressLookup_multipleItemsExist                  	:	  "Il existe plusieurs noms de rues. Sélectionnez ci-dessous",
 
-	messageDialog_ok                                  	:	  "OUI",
+	messageDialog_ok                                  	:	  "D’accord",
 	pageHeader_next                                   	:	  "Suivant",
 	pageHeader_previous                               	:	  "Retour",
 	messageDialog_Close								  	:		"Fermer",
@@ -149,8 +149,8 @@ WICI.dictionary_fr =  {
 
 	// US3766
 	chooseProduct_ChooseOneOfTheCreditCards           	:	  "CHOISISSEZ L'UNE DES CARTES DE CRÉDIT SUIVANTES",
-    chooseProduct_CanadianTireOptionsMC 			  	:	"<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong>",
-	chooseProduct_OptionsMasterCard                   	:	  "<strong>Carte Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MC</sup></strong> <br><br> \n  Recompenses Triangle<sup style='font-size: .5em;'>MC</sup> ",
+    chooseProduct_CanadianTireOptionsMC 			  	:	"<strong> Mastercard<sup style='font-size: .5em;'>MD</sup></strong>  <strong>Triangle<sup style='font-size: .5em;'>MD</sup></strong>",
+	chooseProduct_OptionsMasterCard                   	:	  "<strong> Mastercard<sup style='font-size: .5em;'>MD</sup></strong> <br> <strong>Triangle<sup style='font-size: .5em;'>MD</sup></strong> <br><br> \n  Recompenses Triangle<sup style='font-size: .5em;'>MD</sup> ",
 	//US4590
   	//chooseProduct_Triangle_Rewards 					:	"Triangle &nbsp;&nbsp;  Rewards<sup>&trade;</sup>",
 	chooseProduct_GasAdvantageMasterCard              	:	  "Carte Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
@@ -310,7 +310,7 @@ WICI.dictionary_fr =  {
 	overview_InterestRates						:	"<p>Pour les résidents du Québec : Les taux de crédit correspondent aux taux d’intérêt annuels indiqués dans le tableau ci-dessus.</p>",
 	// US3381
 	overview_EffectiveDate						:	"Renseignements en vigueur le <b>1 juin 2021.</b>",
-	 overview_Triangle_world_ELite_MasterCardNote :	"<b>Veuillez noter que  World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup> peut imposer des frais d'acceptation de cartes plus élevés aux commerçants.</b>",
+	 overview_Triangle_world_ELite_MasterCardNote :	"<b>Veuillez noter que  World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup> peut imposer des frais d'acceptation de cartes plus élevés aux commerçants.</b>",
 	  
     overview_CostOfCreditDisclosure_ChooseProduct_Right1 :"<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.</p><p><b>Si vous résidez ailleurs qu’au Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p> <p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22,99 %</strong></span></p><p><b>Pour la carte Mastercard Avantage Essence uniquement :</b>  Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom aux taux d’intérêt annuels suivants : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25,99 %</strong></span> pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27,99 %</strong></span> pour les transactions au comptant et les frais afférents.</p><p><b>Si vous êtes un résident du Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span></p><p><b>Pour la carte Mastercard Avantage Essence uniquement :</b> Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom au taux d’intérêt annuel suivant : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span> pour toutes les transactions.</p>",
    overview_CostOfCreditDisclosure_ChooseProduct_Right1_OMX	:	"<p>Les taux d’intérêt ci-dessous seront en vigueur à compter de la date d’ouverture de votre compte.</p><p><b>Si vous résidez ailleurs qu’au Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant (avances de fonds, transferts de solde, chèques de commodité, transferts de fonds, achats de chèques de voyage et transactions liées aux jeux de hasard) et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>22,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b>  Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom aux taux d’intérêt annuels suivants : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>25,99 %</strong></span> pour toutes les transactions (à l’exception des transactions au comptant et des frais afférents) et <span style=\"font-size: 12pt; font-weight: bold;\";><strong>27,99 %</strong></span> pour les transactions au comptant et les frais afférents.</p><p><b>Si vous êtes un résident du Québec :</b></p><p>Tous les débits portés à votre compte (à l’exception des transactions au comptant et des frais afférents) — <span style=\"font-size: 12pt; font-weight: bold;\";><strong>19,99 %</strong></span></p><p>Transactions au comptant et les frais afférents – <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span></p><p><b>Pour la carte Mastercard Triangle uniquement :</b> Si votre demande de carte aux taux susmentionnés n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte à votre nom au taux d’intérêt annuel suivant : <span style=\"font-size: 12pt; font-weight: bold;\";><strong>21,99 %</strong></span> pour toutes les transactions.</p>",
@@ -572,22 +572,22 @@ WICI.dictionary_fr =  {
 
 	sigScreen_Title                                   :                         "SIGNATURE",
 	sigScreen_ChooseCardRightForYou                     :    "Choisissez la carte qui répond le mieux à vos besoins :", 
-	sigScreen_OMZCard_Note                              :   "<p><b>Veuillez noter que la carte Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup> et World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup><br> ont les mêmes frais, période de grâce et formule de paiement minimal.</b> </p>",
+	sigScreen_OMZCard_Note                              :   "<p><b>Veuillez noter que la  Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup> et World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup><br> ont les mêmes frais, période de grâce et formule de paiement minimal.</b> </p>",
 	sigScreen_Date                                    :                         "Date : ",
 	sigScreen_ProceedToConfirmation					  : 						"PASSER À LA PAGE SUIVANTE",
 	
-	sigScreen_WorldEliteCard_text                       :	"<strong><p style='-webkit-margin-before: 0em; -webkit-margin-start: 0.5em; -webkit-margin-after: 0.3em; '>J’aimerais changer ma demande<br> pour la carte World Elite <br>Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup><strong></p>",
+	sigScreen_WorldEliteCard_text                       :	"<strong><p style='-webkit-margin-before: 0em; -webkit-margin-start: 0.5em; -webkit-margin-after: 0.3em; '>J’aimerais changer ma demande<br> pour la carte World Elite <br>Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup><strong></p>",
 	sigScreen_WorldEliteCard_text1                       :	"<strong><p>la carte World Elite Mastercard<sup style='font-size: .5em;'>MD</sup></strong></p> <br>",
-	sigScreen_WorldEliteCard_text2                       :	"<strong><p>Triangle<sup style='font-size: .5em;'>MC</sup><strong></p><br>",
+	sigScreen_WorldEliteCard_text2                       :	"<strong><p>Triangle<sup style='font-size: .5em;'>MD</sup><strong></p><br>",
 	sigScreen_WorldEliteCard_Note_text                   :	"<strong> Pensez-y si : </strong> <br>",
 	sigScreen_WorldEliteCard_Note_text1                   :	"Vous avez une excellente  <br>",
 	sigScreen_WorldEliteCard_Note_text2                   :	"cote de crédit  <br> ",
 	sigScreen_WorldEliteCard_Note_text3                   :	"Vous répondez au<br>",
 	sigScreen_WorldEliteCard_Note_text4                   :	"critère minimal de revenu<br>",
-    sigScreen_TriangleCard_text                         :   "<p><strong>Je vais garder la </strong> <br>carte Mastercard<sup style='font-size: .5em;'>MD</sup>  Triangle<sup style='font-size: .5em;'>MC</sup></p>", 
+    sigScreen_TriangleCard_text                         :   "<p><strong>Je vais garder la </strong> <br> Mastercard<sup style='font-size: .5em;'>MD</sup>  Triangle<sup style='font-size: .5em;'>MD</sup></p>", 
     sigScreen_TriangleCard_text1                        :   "Mastercard<sup style='font-size: .5em;'>MD</sup>  Triangle<sup style='font-size: .5em;'>MC</sup> ",
     signature_World_ELiteMasterCard 					: 	"World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
-    sigworldElite_MasterCardNote_1                      :	"<b>Veuillez noter que la carte World Elite  Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup> peut imposer aux commerçants des frais d’acceptation plus élevés.</b>",
+    sigworldElite_MasterCardNote_1                      :	"<b>Veuillez noter que la carte World Elite  Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup> peut imposer aux commerçants des frais d’acceptation plus élevés.</b>",
  
 
 	ProvincesList_null                                :"Veuillez sélectionner...",
@@ -1913,12 +1913,12 @@ WICI.dictionary_fr =  {
 	personalData_No								    	: "&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
 	personalData1_validation_ReceiveEmail				:"Sélectionnez intérêt légitime par e-mail",
 	summary_TellAboutYourself_Email_Consent             : "Abonnement aux courriels de marketing?",
-	signature_OptionsMasterCard 					    : "Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
+	signature_OptionsMasterCard 					    : "Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>",
 	// VZE-3 WICI Bank Rates changes
-	signature_OptionsMasterCard_withoutSuperScript 		: "de crédit Mastercard Triangle",
-	signature_OptionsMasterCard_Dupconvence_text        : "Merci d’avoir présenté une demande de carte Mastercard Triangle!",
+	signature_OptionsMasterCard_withoutSuperScript 		: "de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>",
+	signature_OptionsMasterCard_Dupconvence_text        : "Merci d’avoir présenté une demande de  Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>!",
 	// VZE-3 WICI Bank Rate changes
-	signature_World_ELiteMasterCard_withoutSuperScript 	: 	"de crédit World Elite Mastercard Triangle",
+	signature_World_ELiteMasterCard_withoutSuperScript 	: 	"de crédit World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>",
 	signature_GasAdvantageMasterCard 					:  "Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
 	signature_GasAdvantageMasterCard1					:  "Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
 	// VZE-3 WICI Bank Rate changes
@@ -1929,8 +1929,8 @@ WICI.dictionary_fr =  {
     
    	// US5147 WICI - Updated Signature Box    
     // new key 
-    signature_OptionsMasterCard_CreditCard 				: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
-    signature_World_ELiteMasterCard_CreditCard 			: "Carte de crédit World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>",
+    signature_OptionsMasterCard_CreditCard 				: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>",
+    signature_World_ELiteMasterCard_CreditCard 			: "Carte de crédit World Elite Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>",
     signature_GasAdvantageMasterCard_CreditCard 		: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Essence<sup style='font-size: .5em;'>MD</sup>",
     signature_CashAdvantageMasterCard_CreditCard		: "Carte de crédit Mastercard<sup style='font-size: .5em;'>MD</sup> Avantage Remise<sup style='font-size: .5em;'>MD</sup>",
 
@@ -1940,7 +1940,7 @@ WICI.dictionary_fr =  {
     legal_omc_fourth_chapter_ectm		                : "† Frais d’avances de fonds : 4 $. Des frais d’intérêt sont imputés sur les avances de fonds à compter de la date d’obtention de l’avance, et ce, jusqu’à la date du remboursement de celle-ci et de tous les intérêts courus.",
     personalData_CTMField                               : "Numéro de compte de recompences Triangle<sup style='font-size: .5em;'>MC</sup>  (autrefois Mon Argent Canadian Tire<sup style='font-size: .5em;'>MD</sup>)",
 
-    personalData_CTMAccountText                         : "Veuillez entrer votre numéro de compte Récompenses Triangle<sup style='font-size: .5em;'>MC</sup> si vous êtes déjà membre du programme. Si votre demande de carte de crédit est approuvée, votre compte Récompenses Triangle<sup style='font-size: .5em;'>MC</sup> sera associé à votre nouvelle carte Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MC</sup>. Un numéro de compte Récompenses Triangle<sup style='font-size: .5em;'>MC</sup> vous sera attribué si vous laissez ce champ vide.",
+    personalData_CTMAccountText                         : "Veuillez entrer votre numéro de compte Récompenses Triangle<sup style='font-size: .5em;'>MD</sup> si vous êtes déjà membre du programme. Si votre demande de carte de crédit est approuvée, votre compte Récompenses Triangle<sup style='font-size: .5em;'>MC</sup> sera associé à votre nouvelle  Mastercard<sup style='font-size: .5em;'>MD</sup> Triangle<sup style='font-size: .5em;'>MD</sup>. Un numéro de compte Récompenses Triangle<sup style='font-size: .5em;'>MD</sup> vous sera attribué si vous laissez ce champ vide.",
     // personalData_ReceiveEmail                           : "J'aimerais recevoir des renseignements sur les offres, promotions, concours, cadeaux, événements, coupons et autres renseignements ayant trait aux produits et services qui pourraient m'intéresser, par courriel, messagerie texte (sous réserve des frais standards de données et de messagerie texte) et autre messagerie électronique de La Société Canadian Tire Limitée (la « Société Canadian Tire »), des Services Financiers Canadian Tire Limitée (les « SFCT »), de la Banque Canadian Tire (la « BCT »), y compris de leurs divisions commerciales respectives exploitées en vertu des marques Canadian Tire, du programme Mon Argent  Canadian Tire, de l'Académie des conducteurs de Canadian Tire<span class=\"MD\"><sup></sup></span>, des Services résidentiels de Canadian Tire<span class=\"MD\"><sup></sup></span> et de l'Assistance routière Canadian Tire<span class=\"MD\"><sup></sup></span>, ainsi que d'autres membres du groupe de la Société Canadian Tire, des SFCT et de la BCT ou de leurs partenaires de marketing. Vous pouvez communiquer avec la Société Canadian Tire, les SFCT et la BCT à la C.P. 2000, Welland (Ontario)  L3B 5S3 ou à l'adresse serviceclientele@canadiantire.ca. Je comprends que je peux retirer mon consentement en tout temps.",
     // UAT 25 - Jul 22, CP Revitalization
     // Old code
@@ -1952,7 +1952,7 @@ WICI.dictionary_fr =  {
     signatureScreen_License7a                           : "Je deviendrai automatiquement membre du programme Recompenses Triangle<sup style='font-size: .5em;'>MC</sup> si je ne le suis pas déjà, même si ma demande de carte n'est pas approuvée.",
     signatureScreen_License7b                           : "Je serai lié par les modalités du programme Recompenses Triangle<sup style='font-size: .5em;'>MC</sup>  décrites à l'adresse triangle.com.",
     signatureScreen_License7b_OMX                       : "Je serai lié par les modalités du programme Recompenses Triangle<sup style='font-size: .5em;'>MC</sup>",
-    signatureScreen_License2_OMZ                        : "<b>Si ma demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte Mastercard Triangle<sup style='font-size: .5em;'>MC</sup> à mon nom portant un taux d’intérêt annuel de 19,99% pour toutes les transactions, à l’exception des transactions au comptant et des frais afférents et 22,99% pour des transactions au comptant et des frais afférents.</b>",
+    signatureScreen_License2_OMZ                        : "<b>Si ma demande de carte à ce taux n’est pas approuvée, il se peut que la Banque Canadian Tire accepte d’émettre une carte Mastercard Triangle<sup style='font-size: .5em;'>MD</sup> à mon nom portant un taux d’intérêt annuel de 19,99% pour toutes les transactions, à l’exception des transactions au comptant et des frais afférents et 22,99% pour des transactions au comptant et des frais afférents.</b>",
     // Old code
     // optionalProducts_ProtectionAdvantage_Text   		:	"<br><i>(non disponible pour les résidents de la Saskatchewan)</i><br>Adhésion à la fois à Couverture-crédit<span class=\"MD\"><sup></sup></span>** / Couverture-crédit – Âge d'or<span class=\"MD\"><sup></sup></span>** <strong>et</strong> Surveillance d'identité Classique<span class=\"MC\"><sup></sup></span>. Comprend la couverture et les avantages des deux produits facultatifs, comme indiqué précédemment.",
     // UAT 12 - CP Revitalization 
