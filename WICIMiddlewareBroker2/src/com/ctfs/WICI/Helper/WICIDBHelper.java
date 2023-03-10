@@ -1801,7 +1801,7 @@ public class WICIDBHelper
 						
 						checkLocationResponse.setMessage(message);
 						checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
-						//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+						checkLocationResponse.setOutletName(rs.getString("OTLT_TYPE_ID"));
 						checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
 						checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
 						checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
@@ -1821,7 +1821,7 @@ public class WICIDBHelper
 							
 							checkLocationResponse.setMessage(message);
 							checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
-							//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+							checkLocationResponse.setOutletName(rs.getString("OTLT_TYPE_ID"));
 							checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
 							checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
 							checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
@@ -1844,7 +1844,7 @@ public class WICIDBHelper
 					
 					checkLocationResponse.setMessage(message);
 					checkLocationResponse.setOutletCity(rs.getString("OTLT_ADDR_CITY_NAM"));
-					//checkLocationResponse.setOutletName(rs.getString("OUTLET_TYPE_NAM"));
+					checkLocationResponse.setOutletName(rs.getString("OTLT_TYPE_ID"));
 					checkLocationResponse.setOutletNumber(String.valueOf(sale_otlt_nbr));
 					checkLocationResponse.setOutletPostal(rs.getString("OTLT_ADDR_PSTL_CD"));
 					checkLocationResponse.setOutletProvince(rs.getString("OTLT_ADDR_PROV_CD"));
@@ -2692,19 +2692,20 @@ public class WICIDBHelper
 
 		String sql = null;
 
-		if (request.getEmployeeNumber() != null
-				&& !request.getEmployeeNumber().isEmpty()) {
+//		if (request.getEmployeeNumber() != null
+//				&& !request.getEmployeeNumber().isEmpty()) {
 
-			sql = "INSERT INTO "
-					+ WICI_TRAINING_ATTESTATION
-					+ "(USERNAME, STORELOCATION_NUMBER, FIRSTNAME, LASTNAME,  SIGNATURE ,TRAINING_CONTENT_VERSION , ATTESTATION_DATE, EMPLOYEENUMBER) VALUES(?,? ,? ,? ,? ,?, ?, ?)";
+			sql = "INSERT INTO WICI_TRAINING_ATTESTATION "
+					+ "(USERNAME, STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, SIGNATURE, TRAINING_CONTENT_VERSION, ATTESTATION_DATE, "
+					+ " EMPLOYEENUMBER, OUTLET_TYPE_ID, BUSINESS_STORE_NMBR)"
+					+ " VALUES(?, ? ,? ,? ,? ,?, ?, ?, ?, ?)";
 
-		} else {
-
-			sql = "INSERT INTO "
-					+ WICI_TRAINING_ATTESTATION
-					+ "(USERNAME,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, SIGNATURE , TRAINING_CONTENT_VERSION , ATTESTATION_DATE) VALUES(?, ?, ?, ?, ?, ?, ?)";
-		}
+//		} else {
+//
+//			sql = "INSERT INTO "
+//					+ WICI_TRAINING_ATTESTATION
+//					+ "(USERNAME,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, SIGNATURE , TRAINING_CONTENT_VERSION , ATTESTATION_DATE,  OUTLET_TYPE_ID, BUSINESS_STORE_NMBR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//		}
 		 log.info(sMethod + "::SQL::" + sql);
 
 		Connection connection = null;
@@ -2717,17 +2718,37 @@ public class WICIDBHelper
 			connection = connectToDB(false);
 
 			preparedStatement = connection.prepareStatement(sql);
+			log.info("USERNAME -> 1 -> "+request.getUserName());
+			
 			preparedStatement.setString(1, request.getUserName());
+			
+			log.info("STORELOCATION_NUMBER -> 2 -> "+request.getStoreLocationNumber());
 			preparedStatement.setString(2, request.getStoreLocationNumber());
+			
+			log.info("FIRSTNAME -> 3 -> "+request.getFirstName());
 			preparedStatement.setString(3, request.getFirstName());
+			
+			log.info("LASTNAME -> 4 -> "+request.getLastName());
 			preparedStatement.setString(4, request.getLastName());
+			
+			log.info("SIGNATURE -> 5 -> "+request.getSignature());
 			preparedStatement.setBytes(5, request.getSignature());
+			
+			log.info("TRAINING_CONTENT_VERSION -> 6 -> "+Integer.parseInt(request.getTrainingContentVersion()));
 			preparedStatement.setInt(6 ,Integer.parseInt(request.getTrainingContentVersion()));
+			
+			log.info("ATTESTATION_DATE -> 7 -> "+new Timestamp(System.currentTimeMillis()));
 			preparedStatement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
 			
-			if ( request.getEmployeeNumber() != null && !request.getEmployeeNumber().isEmpty()){
-				preparedStatement.setString(8, request.getEmployeeNumber());	
-			}
+			log.info("EMPLOYEENUMBER -> 8 -> "+request.getEmployeeNumber());
+			preparedStatement.setString(8, request.getEmployeeNumber());	
+			
+			//WICI-154
+			log.info("OUTLET_TYPE_ID -> 9 -> "+Integer.parseInt(request.getOutletTypeId()));
+			preparedStatement.setInt(9, Integer.parseInt(request.getOutletTypeId()));
+			
+			log.info("BUSINESS_STORE_NMBR -> 10 -> "+Integer.parseInt(request.getBusinessStoreNumber()));
+			preparedStatement.setInt(10, Integer.parseInt(request.getBusinessStoreNumber()));
 			
 			int result =  preparedStatement.executeUpdate();
 			 connection.commit();
@@ -2756,7 +2777,7 @@ public class WICIDBHelper
 
 		TrainingAttestationResponse trainingAttestationResponse = null;
 
-		String sql = "SELECT SIGNATURE, ATTESTATION_DATE FROM " + WICI_TRAINING_ATTESTATION + " WHERE USERNAME = ? ";
+		String sql = "SELECT SIGNATURE,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, ATTESTATION_DATE, OUTLET_TYPE_ID FROM " + WICI_TRAINING_ATTESTATION + " WHERE USERNAME = ? ";
 
 		log.info(sMethod + "::SQL::" + sql);
 
@@ -2783,6 +2804,10 @@ public class WICIDBHelper
 				 encodeSignature = Base64.encodeBase64(signature);
 				trainingAttestationResponse.setSignature(encodeSignature);
 				trainingAttestationResponse.setAttestationDate(resultSet.getTimestamp("ATTESTATION_DATE"));
+				trainingAttestationResponse.setStoreLocationNumber(resultSet.getString("STORELOCATION_NUMBER"));
+				trainingAttestationResponse.setFirstName(resultSet.getString("FIRSTNAME"));
+				trainingAttestationResponse.setLastName(resultSet.getString("LASTNAME"));
+				trainingAttestationResponse.setRetailNetwork(resultSet.getString("OUTLET_TYPE_ID"));
 			}
 			
 			log.info("signature "  +encodeSignature + " attestationDate " +trainingAttestationResponse.getAttestationDate());

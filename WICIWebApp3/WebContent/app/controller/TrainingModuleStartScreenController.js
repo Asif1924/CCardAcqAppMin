@@ -47,6 +47,7 @@ WICI.TrainingModuleStartScreenController = function (activationItems, argTransla
             { name: 'firstName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,9}/, canBeEmpty: true } },
+            //{ notField: true, name: 'retailNetWork', value: null, validation: { type: 'presence', message: 'RetailNetWork is not selected', group: [1], canBeEmpty: true } },
         ]
     });
     this.innerModel = model;

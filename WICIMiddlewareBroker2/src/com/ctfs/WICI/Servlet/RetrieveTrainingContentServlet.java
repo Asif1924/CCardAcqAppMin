@@ -34,7 +34,8 @@ public class RetrieveTrainingContentServlet extends WICIServlet{
 			WICIDBHelper dbHelper = new WICIDBHelper();
 			
 			trainingContentResponse = dbHelper.retrieveTrainingContentVersion();
-			log.info(sMethod +"::RetrieveTrainingContent response:::"+trainingContentResponse);
+			//Tejas - Do not print the below line.  It is writing more than 10MB logs into the log file.  We are losing out on important information in the logs.
+			//log.info(sMethod +"::RetrieveTrainingContent response:::"+trainingContentResponse);
 			
 			if (trainingContentResponse!= null) {
 				

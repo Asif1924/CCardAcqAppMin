@@ -31,6 +31,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
     var storeLocationNumber = "";
     var employeerNumberID = "";
     var contentVersion = "";
+    var retailNetWork = "";
 
 
     this.syncUserData = syncUserData;
@@ -100,6 +101,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         fistName = activationItems.getModel('loginScreen').get('firstName').toUpperCase();
         lastName = activationItems.getModel('loginScreen').get('lastName').toUpperCase();
         storeLocationNumber = activationItems.getModel('loginScreen').get('businessStoreNo');
+        retailNetWork = activationItems.getModel('loginScreen').get('retailNetWork');
         contentVersion = activationItems.getModel('trainingModuleScreen').get('trainingContentVersion');
 
         $(refs.businessStoreNo).replaceWith(storeLocationNumber);
@@ -249,7 +251,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
             console.log(logPrefix + sMethod + "finishButtonId : click attest ");
             console.log("clicked attest");
             var signatureData = $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null;
-            invokeSaveAttestation(storeLocationNumber, fistName, lastName, signatureData, employeerNumberID, contentVersion, handleSuccessfulAttestTrainingRequest, failedAttestTraining);
+            invokeSaveAttestation(retailNetWork,storeLocationNumber, fistName, lastName, signatureData, employeerNumberID, contentVersion, handleSuccessfulAttestTrainingRequest, failedAttestTraining);
             //showNextScreen();
         });
 
@@ -353,10 +355,10 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         }
     }
     //---------------------------------------------------------------------------------------
-    function invokeSaveAttestation(argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback) {
+    function invokeSaveAttestation(argRetailNetwork,argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback) {
         var sMethod = 'invokeSaveAttestation() ';
         console.log(logPrefix + sMethod);
-        connectivityController.SaveTrainingAttestation(argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback);
+        connectivityController.SaveTrainingAttestation(argRetailNetwork,argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback);
     }
 
     // ---------------------------------------------------------------------------------------

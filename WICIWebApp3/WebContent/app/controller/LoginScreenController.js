@@ -1001,10 +1001,10 @@ WICI.LoginScreenController = function (app) {
     }
 
     // ---------------------------------------------------------------------------------------
-    function invokeCheckTrainingAttestation(argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback) {
+    function invokeCheckTrainingAttestation(argRetailNetwork, argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback) {
    	 var sMethod = 'invokeCheckTrainingAttestation() ';
         console.log(logPrefix + sMethod);
-        connectivityController.CheckTrainingAttestation(argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback);
+        connectivityController.CheckTrainingAttestation(argRetailNetwork,argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback);
     }
 
     // ---------------------------------------------------------------------------------------    
@@ -1150,7 +1150,7 @@ WICI.LoginScreenController = function (app) {
                     
                 }else{
                 	new WICI.LoadingIndicatorController().hide();
-                	invokeCheckTrainingAttestation($(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(),handleSuccessfulCheckAttestTrainingRequest, failedCheckAttestTraining);
+                	invokeCheckTrainingAttestation($(refs.retailNetWork).val(),$(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(),handleSuccessfulCheckAttestTrainingRequest, failedCheckAttestTraining);
                     return;
                 }
             }else{                

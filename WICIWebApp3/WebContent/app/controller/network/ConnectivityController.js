@@ -233,7 +233,7 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };
     //---------------------------------------------------------------------------------------
-    this.SaveTrainingAttestation = function(argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
+    this.SaveTrainingAttestation = function(argRetailNetwork,argStoreLocationNumber, argFirstName, argLastName, argSignature, argEmployeeNumber, argTrainingContentVersion, argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'SaveTrainingAttestation() ';
         console.log(logPrefix + sMethod);
         
@@ -245,6 +245,7 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		argTrainingContentVersion = argTrainingContentVersion || "1";
 
 		var requestParams = {
+			"retailNetwork" : argRetailNetwork,
 			"storeLocationNumber": argStoreLocationNumber,
 			"firstName": argFirstName,
 			"lastName": argLastName,
@@ -281,13 +282,14 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 		);
     };	
 	//---------------------------------------------------------------------------------------
-    this.CheckTrainingAttestation = function(argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback, offlineCallback) {
+    this.CheckTrainingAttestation = function(argRetailNetwork,argStoreLocationNumber, argFirstName, argLastName,argSuccessCallback, argFailureCallback, offlineCallback) {
     	var sMethod = 'CheckTrainingAttestation() ';
         console.log(logPrefix + sMethod);
         
     	var connectivityErrors = new WICI.ConnectivityControllerErrors(messageDialog, translate);
 
 		var requestParams = {
+			"retailNetwork" : argRetailNetwork,
 			"storeLocationNumber": argStoreLocationNumber,
 			"firstName": argFirstName,
 			"lastName": argLastName,

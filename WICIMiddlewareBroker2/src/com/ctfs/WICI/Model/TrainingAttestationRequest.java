@@ -19,6 +19,9 @@ public class TrainingAttestationRequest implements Serializable {
 	private String employeeNumber;
 	private String userName;
 	private byte[] signature;
+	private String outletTypeId;
+	private String businessStoreNumber;
+	
 	
 	
 	public String getStoreLocationNumber() {
@@ -57,14 +60,7 @@ public class TrainingAttestationRequest implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	@Override
-	public String toString() {
-		return "TrainingAttetationRequest [storeLocationNumber="
-				+ storeLocationNumber + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", trainingContentVersion="
-				+ trainingContentVersion + ", employeeNumber=" + employeeNumber
-				+ ", userName=" + userName + "]";
-	}
+	
 	public byte[] getSignature() {
 		return signature;
 	}
@@ -72,6 +68,36 @@ public class TrainingAttestationRequest implements Serializable {
 		this.signature = signature;
 	}
 	
+	public String getOutletTypeId() {
+		return outletTypeId;
+	}
+	public void setOutletTypeId(String outletTypeId) {
+		this.outletTypeId = outletTypeId;
+	}
+	public String getBusinessStoreNumber() {
+		return businessStoreNumber;
+	}
+	public void setBusinessStoreNumber(String businessStoreNumber) {
+		this.businessStoreNumber = businessStoreNumber;
+	}
+	public String toString() {
+		return "TrainingAttestationRequest [storeLocationNumber=" + storeLocationNumber + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", trainingContentVersion=" + trainingContentVersion + ", employeeNumber="
+				+ employeeNumber + ", userName=" + userName + ", signature="
+				+ (signature != null ? arrayToString(signature, signature.length) : null) + "]";
+	}
+	private String arrayToString(Object array, int len) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("[");
+		for (int i = 0; i < len; i++) {
+			if (i > 0)
+				buffer.append(", ");
+			if (array instanceof byte[])
+				buffer.append(((byte[]) array)[i]);
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
 	
 	
 	

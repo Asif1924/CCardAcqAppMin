@@ -7,10 +7,14 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.ctfs.WICI.Helper.LoginInvocationHelper;
+import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.TrainingAttestationRequest;
 import com.ctfs.WICI.Model.TrainingAttestationResponse;
+import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
+import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 
 public class SaveAttestationServlet extends WICIServlet {
@@ -43,10 +47,13 @@ public class SaveAttestationServlet extends WICIServlet {
 		String employeeNumber = requestMediator.searchElementInsidePostRequestBody("employeeNumber") != null ? requestMediator.searchElementInsidePostRequestBody("employeeNumber") : EMPTY_STRING;
 		String signature = requestMediator.searchElementInsidePostRequestBody("singnature") != null ? requestMediator.searchElementInsidePostRequestBody("singnature") : EMPTY_STRING;
 		String trainingContentVersion = requestMediator.searchElementInsidePostRequestBody("trainingContentVersion") != null ? requestMediator.searchElementInsidePostRequestBody("trainingContentVersion") : EMPTY_STRING;
-		
-		log.info(sMethod + "TAB Request Params  " + "storeLocationNumber === "+storeLocationNumber+ "  firstName === "+firstName +"  lastName === "+lastName+ " employeeNumber  "+employeeNumber +" signature  "+signature+" trainingContentVersion  "+trainingContentVersion);
+		//WICI-154 --start
+		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
+		//WICI-154 --end
+		log.info(sMethod + "TAB Request Params  " + "storeLocationNumber === "+storeLocationNumber+ "  firstName === "+firstName +"  lastName === "+lastName+ " employeeNumber  "+employeeNumber +" signature  "+signature+" trainingContentVersion  "+trainingContentVersion+" retailNetwork  "+retailNetwork);
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		WICIResponse appResponse = new WICIResponse();
+		
 		boolean attestationExits = false;
 		
 		try {
@@ -55,7 +62,34 @@ public class SaveAttestationServlet extends WICIServlet {
 		
 		log.info(sMethod + "attestationSingnature  "+decodedBase64Image);
 		
+		//WICI-154 --start
+		String derivedUserID = employeeNumber;
+		WICILoginResponse loginResponse = new WICILoginResponse();
+		LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
+		loginResponse = loginInvocationHelper.checkLocation(retailNetwork, storeLocationNumber, derivedUserID);
 		
+		log.info(sMethod + ":: retailNetwork :: " + retailNetwork);
+		
+		String outletTypeId = loginResponse.getCheckLocation().getOutletName();
+		log.info(sMethod + " outletTypeId id: "+ outletTypeId);
+		//Business store number
+		String businessStoreNumber = loginResponse.getCheckLocation().getBusinessStoreNumber();
+		log.info(sMethod + " businessStoreNumber "+ businessStoreNumber);
+		
+		if (businessStoreNumber == null || businessStoreNumber.isEmpty()) {
+			// search based on the store location number
+			businessStoreNumber = loginResponse.getCheckLocation().getOutletNumber();
+			log.info(sMethod + " businessStoreNumber "+ loginResponse.getCheckLocation().getOutletNumber());
+		}
+		//CT Sale outlet number
+		String ctSaleOutletNumber = loginResponse.getCheckLocation().getOutletNumber();
+		log.info(sMethod + " ctSaleOutletNumber "+ ctSaleOutletNumber);
+		
+		if(!ctSaleOutletNumber.isEmpty() && ctSaleOutletNumber != null){
+			storeLocationNumber = ctSaleOutletNumber;
+		}
+		
+		//WICI-154 --end
 		TrainingAttestationRequest trainingAttestationRequest = new TrainingAttestationRequest();
 		trainingAttestationRequest.setStoreLocationNumber(storeLocationNumber);
 		trainingAttestationRequest.setFirstName(firstName);
@@ -63,6 +97,9 @@ public class SaveAttestationServlet extends WICIServlet {
 		trainingAttestationRequest.setEmployeeNumber(employeeNumber);
 		trainingAttestationRequest.setSignature(decodedBase64Image);
 		trainingAttestationRequest.setTrainingContentVersion(trainingContentVersion);
+		trainingAttestationRequest.setOutletTypeId(outletTypeId);
+		trainingAttestationRequest.setBusinessStoreNumber(businessStoreNumber);
+		
 		
 		   appResponse.setError(true);
 		
@@ -122,5 +159,4 @@ public class SaveAttestationServlet extends WICIServlet {
 		}
 
 	}
-	
 }

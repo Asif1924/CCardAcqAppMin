@@ -281,8 +281,15 @@ public class WICIServletMediator
 				}
 			}
 			String responseAsJsonString = gson.create().toJson(response, response.getClass());
-			
-			log.info(sMethod + "::tablet Response :: "+responseAsJsonString);
+			//Do not print response if it is the training content
+			if (responseAsJsonString.contains("Successfully fetched the RetrieveTrainingContent data from the Database"))
+			{
+				log.info(sMethod + "::Tablet Response :: Successfully fetched the RetrieveTrainingContent data from the Database");
+			}
+			else
+			{
+				log.info(sMethod + "::tablet Response :: "+responseAsJsonString);
+			}
 			
 			writer.append(responseAsJsonString);
 		}

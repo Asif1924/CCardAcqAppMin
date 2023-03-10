@@ -13,6 +13,10 @@ public class TrainingAttestationResponse implements Serializable {
 	
 	private byte[]  signature;
 	private Date attestationDate;
+	private String storeLocationNumber;
+	private String firstName;
+	private String lastName;
+	private String retailNetwork;
 	
 	public byte[] getSignature() {
 		return signature;
@@ -25,6 +29,30 @@ public class TrainingAttestationResponse implements Serializable {
 	}
 	public void setAttestationDate(Date attestationDate) {
 		this.attestationDate = attestationDate;
+	}
+	public String getStoreLocationNumber() {
+		return storeLocationNumber;
+	}
+	public void setStoreLocationNumber(String storeLocationNumber) {
+		this.storeLocationNumber = storeLocationNumber;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getRetailNetwork() {
+		return retailNetwork;
+	}
+	public void setRetailNetwork(String retailNetwork) {
+		this.retailNetwork = retailNetwork;
 	}
 
 }
