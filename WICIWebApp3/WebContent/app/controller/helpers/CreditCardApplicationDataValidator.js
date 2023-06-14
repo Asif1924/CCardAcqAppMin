@@ -26,7 +26,7 @@ WICI.CreditCardApplicationDataValidator = function(argOutgoingCCData) {
 	
 	this.signatureExists = function() {
 		var signatureModel = outgoingCCData.getModel('signatureModel');
-		return signatureModel.get('userSingnature') != null;
+		return signatureModel.get('userSignature') != null;
 	};
 
 	this.optionalProductsSignDateExists = function() {
@@ -36,7 +36,7 @@ WICI.CreditCardApplicationDataValidator = function(argOutgoingCCData) {
 
 	this.optionalProductsSignatureExists = function() {
 		var optionalProducts = outgoingCCData.getModel('OptionalProductsModel');
-		return optionalProducts.get('userSingnature') != null;
+		return optionalProducts.get('userSignature') != null;
 	};
 
 };

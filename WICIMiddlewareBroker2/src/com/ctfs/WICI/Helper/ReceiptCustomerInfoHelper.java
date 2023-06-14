@@ -241,7 +241,7 @@ public class ReceiptCustomerInfoHelper {
 		signatureModel.model = "signatureModel";
 		
 		NameValue nvPair = new NameValue();
-		nvPair.name = "userSingnature";
+		nvPair.name = "userSignature";
 		nvPair.value = customerInformationPortionOfReceipt.getApplicantSignature();
 		signatureModel.data.add(nvPair);
 				

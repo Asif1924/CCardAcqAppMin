@@ -24,6 +24,8 @@ WICI.LoginScreenController = function (app) {
     var attestTrainingDate = "";
     var isTrainingModuleFlag = false;
     var isTrainingSliderShowing = false;
+    var isTrainingButtonClicked = false;
+    var isTrainingButtonEnabled = false;
     var loginResponseObject = false;
 
     var latestDictionary = null; //dictionaryInfo
@@ -73,7 +75,7 @@ WICI.LoginScreenController = function (app) {
         // US5413
         signatureArea: '#signature_training_completion',
         signature: '#signatureOfStaffMember',
-        signature_trainee: '#loginScreen_SingnatureContainer',
+        signature_trainee: '#loginScreen_SignatureContainer',
         resetSignature: '#signature_Reset_Button_login_Screen',
 
         // WICI-83 
@@ -119,8 +121,8 @@ WICI.LoginScreenController = function (app) {
             { notField: true, name: 'enableEnstreamAuth', value: null, validation: null },
             { notField: true, name: 'printerMacAddress', value: null, validation: null },
             { notField: true, name: 'printerInRange', value: null, validation: null },
-            { notField: true, name: 'userSingnature', value: null, validation: { type: 'presence', message: 'signatureScreen_validation_signature' } },
-            { notField: true, name: 'userSingnatureNative', value: null, validation: null },
+            { notField: true, name: 'userSignature', value: null, validation: { type: 'presence', message: 'signatureScreen_validation_signature' } },
+            { notField: true, name: 'userSignatureNative', value: null, validation: null },
             { name: 'businessStoreNumber', value: null, validation: null },
             { name: 'isDebugMode', value: null, validation: null },
         ]
@@ -351,11 +353,11 @@ WICI.LoginScreenController = function (app) {
         if (!signatureControl) {
             // Restore signature
             //        	fixSignatureWidth();
-            if (model.get('userSingnatureNative')) {
+            if (model.get('userSignatureNative')) {
                 // Create signature object
                 signatureControl = $(refs.signature).jSignature({ 'signatureLine': true });
                 // Restore signature content
-                $(refs.signature).jSignature("setData", model.get('userSingnatureNative'), 'native');
+                $(refs.signature).jSignature("setData", model.get('userSignatureNative'), 'native');
                 // Apply some dependencies
                 onSignatureChaged();
             } else {
@@ -376,7 +378,7 @@ WICI.LoginScreenController = function (app) {
             $(refs.resetSignature).bind('click', onResetSignature1Clicked);
 
         }
-        model.set('userSingnatureNative', $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignatureNative', $(refs.signature).jSignature('getData', 'native'));
         if (isTrainingModule() && isTrainingModuleFlag) {
             validateTrainingModuleFields();
         }
@@ -435,8 +437,8 @@ WICI.LoginScreenController = function (app) {
             model.set('lastName', $(refs.lastName).val().toLowerCase());
 
             model.set('signature_trainee', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-            model.set('userSingnature', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-            model.set('userSingnatureNative', $(refs.signature).jSignature('getData', 'native'));
+            model.set('userSignature', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
+            model.set('userSignatureNative', $(refs.signature).jSignature('getData', 'native'));
         }
         console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
         if (validateOtherStaff) {
@@ -624,20 +626,18 @@ WICI.LoginScreenController = function (app) {
             //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
         });
         $(refs.trainingButtonID).click(function () {
-        	if($(refs.employerID).val().toUpperCase()==="" || $(refs.employerID).val().toUpperCase()===null){
-       		    $(refs.employerID).addClass('errorField');
-            	app.validationDecorator.focusControl(refs.employerID); 
-            	showGrayTrainingButton();
-            	return;
-       	     }else{
-       	    	generateAgentId();
-                syncUserData();
-                creditCardData = new WICI.CreditCardApplicationData();
-                creditCardData.addModel(model);
-                hide();
-                app.flowController = new WICI.TrainingFlow(creditCardData, translator, messageDialog);
-                app.flowController.start();
-       	     }
+        	if(isTrainingButtonEnabled){
+        		if($(refs.employerID).val().toUpperCase()==="" || $(refs.employerID).val().toUpperCase()===null){
+           		    $(refs.employerID).addClass('errorField');
+                	app.validationDecorator.focusControl(refs.employerID); 
+                	showGrayTrainingButton();
+                	return;
+           	     }else{
+           	    	isTrainingButtonClicked= true;
+           	    	generateAgentId();
+           	    	trainingButtonClickforLogin();
+           	     }
+        	}
         });
 
         $(refs.testPrintButtonID).click(new WICI.TestPrintHelper(translator, messageDialog).testPrint);
@@ -1138,7 +1138,33 @@ WICI.LoginScreenController = function (app) {
             console.log( logPrefix + sMethod + " hasAttestationOccurred? " + loginHelper.hasAttestationDateOccurred( loginHelper.getTrainingModuleEffectiveDate() ));
             console.log( logPrefix + sMethod + " getCheckAttestationListAsArray= " + loginHelper.getCheckAttestationListAsArray() );
             console.log( logPrefix + sMethod + "isRetailNetworkInCheckAttestationList? " + loginHelper.isRetailNetworkInCheckAttestationList($(refs.retailNetWork).val()) );
-            if( ($(refs.employerID).val().toUpperCase()==='E') && loginHelper.hasAttestationDateOccurred( loginHelper.getTrainingModuleEffectiveDate() ) && loginHelper.isRetailNetworkInCheckAttestationList($(refs.retailNetWork).val())){
+            if(($(refs.employerID).val().toUpperCase()==='E') && isTrainingModule() && isTrainingModuleFlag && isTrainingButtonClicked  ){
+            	var businessStoreNo;
+            	var ctfsStoreNo;
+            	if(argResponse.data.checkLocation && argResponse.data.checkLocation.businessStoreNumber){
+            		var businessStoreNo = argResponse.data.checkLocation.businessStoreNumber;
+            	}else{
+            		businessStoreNo = null;
+            	}
+            	if(argResponse.data.checkLocation && argResponse.data.checkLocation.CTFSStoreNo){
+            		 ctfsStoreNo = argResponse.data.checkLocation.CTFSStoreNo;
+            	}else{
+            		ctfsStoreNo = null;
+            	}
+            	if ((argResponse.data.checkLocation) && (businessStoreNo !== "" && businessStoreNo !== null) || ( ctfsStoreNo !== "" && ctfsStoreNo !== null)) {
+            		 // Allow user to take training
+            		 syncUserData();
+                     creditCardData = new WICI.CreditCardApplicationData();
+                     creditCardData.addModel(model);
+                     hide();
+                     new WICI.LoadingIndicatorController().hide();
+                     app.flowController = new WICI.TrainingFlow(creditCardData, translator, messageDialog);
+                     app.flowController.start();
+            	 }else{
+            		 //show error message :Location not found
+            		 handleLookupFailed();
+            	 }
+            }else if( ($(refs.employerID).val().toUpperCase()==='E') && loginHelper.hasAttestationDateOccurred( loginHelper.getTrainingModuleEffectiveDate() ) && loginHelper.isRetailNetworkInCheckAttestationList($(refs.retailNetWork).val())){
                 console.log(logPrefix + sMethod+"Invoke CheckAttestation");
                 new WICI.LoadingIndicatorController().show();
                 //alert("Invoke CheckAttestation");
@@ -1330,6 +1356,21 @@ WICI.LoginScreenController = function (app) {
             console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
         }
         return;
+    }
+    //---------------------------------------------------------------------------------------
+    function trainingButtonClickforLogin(){
+    	var sMethod = 'trainingButtonClickforLogin() ';
+        console.log(logPrefix + sMethod);
+    	 new WICI.LoadingIndicatorController().show();
+         try {
+             var isDevice = new WICI.DeviceDetectionHelper().any();
+                 model.set('printerMacAddress', false);
+                 model.set('printerInRange', false);
+                 invokeLogin($(refs.retailNetWork).val(), $(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);
+                 return;
+         } catch (error) {
+             console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+         }
     }
     //---------------------------------------------------------------------------------------
     function printTestFileSuccess(result) {
@@ -1553,9 +1594,9 @@ WICI.LoginScreenController = function (app) {
     function showGrayTrainingButton(){
     	var sMethod = 'showGrayTrainingButton() :: ';
         console.log(logPrefix + sMethod);
-        $(refs.trainingButtonID).unbind("click");
         $(refs.trainingButtonID).removeClass('greenflat');
         $(refs.trainingButtonID).addClass('grayflat');
+        isTrainingButtonEnabled = false;
     }
     //----------------------------------------------------------------------------------------
     function showGreenTrainingButton(){
@@ -1563,22 +1604,7 @@ WICI.LoginScreenController = function (app) {
         console.log(logPrefix + sMethod);
         $(refs.trainingButtonID).removeClass('grayflat');
         $(refs.trainingButtonID).addClass('greenflat');
-        $(refs.trainingButtonID).bind( "click", function() {
-        	if($(refs.employerID).val().toUpperCase()==="" || $(refs.employerID).val().toUpperCase()===null){
-       		    $(refs.employerID).addClass('errorField');
-            	app.validationDecorator.focusControl(refs.employerID); 
-            	showGrayTrainingButton();
-            	return;
-       	     }else{
-       	    	generateAgentId();
-                syncUserData();
-                creditCardData = new WICI.CreditCardApplicationData();
-                creditCardData.addModel(model);
-                hide();
-                app.flowController = new WICI.TrainingFlow(creditCardData, translator, messageDialog);
-                app.flowController.start(); 
-       	     }
-        	});
+        isTrainingButtonEnabled = true;
     }
     //-----------------------------------------------------------------------------------------
     function validateTrainingModuleFields() {

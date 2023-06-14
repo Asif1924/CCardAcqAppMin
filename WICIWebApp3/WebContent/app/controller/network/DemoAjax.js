@@ -129,7 +129,7 @@ WICI.Demo_PollAccountApplicationResponse = {
 					//"encryptedPan": "YZX5CmVEvNuH/6fS9/VfATc7n5UQ62M1rkcylq4/4WwLuDtTwqe4SkZOZItvw6nBjAOxtOAbbk5sm+/CRap54Nq5l8udmJE4bbbwi16RpLB1zJXdsKoBF+/HTRhCzs1urBE7nacdLnNYFuOmKIdSTevyBpbgbVfOhIXOdbizVZfvav2sywTaZmdqiADOt64YmT91T2q0/IDCIIxR/ln/ZC5jH8Y3kE54B6RFTqYlZTTH+oa558vyaCasZgSVgxl9Gj2rnlOuy3x/u4VIhH85YgObjvFJ2Daw+jPR8aOk2L2ycY6bSdZ6enNtZKX4JvXU5j5on+Rbaj0wRn4gykndSY5DS1/XfPSPq1+r4fRNW9jrSXvP+zITYRYzGp6HJ5aXM9mgq5ppmjzSLlPJPcXWPPlsmgY2nw7UUQg1DYUboBjgbnSHCAbd92uyBDCHkhE+PUc4Ol9Q1BrF/bqMMMUvID4EhGMm4IqPRZuj5n0mZ+4+ZN8nU8lcGXDidRq5kdqzrhLQLbAw2CYiaKb12Ec0NCVIYFQsX7Qh00jstOxQGjS+klC3jR1SOzyTGM6QHU+pbSiQ2MQJyxmZSuuIwm/BiIih0Ed3XQtaslRl/WbyGjVOfVO0Wyz+n0WYJzKsZxwrbNipr4y0cp5C6crvPL1T3qdI0DuHdiWMEbWbZFi6DhM\u003d",
 					"expiryDate": "1705",
 					"creditLimit": "5000",
-					"apr": "19.99",
+					"apr": "20.99",
 					"cashAPR": "22.99",
 					"appStatus": "APPROVED",
 					"customerValueInd": "1",
@@ -165,7 +165,7 @@ WICI.Demo_AccountApplication = {
 					"encryptedPan": "YZX5CmVEvNuH/6fS9/VfATc7n5UQ62M1rkcylq4/4WwLuDtTwqe4SkZOZItvw6nBjAOxtOAbbk5sm+/CRap54Nq5l8udmJE4bbbwi16RpLB1zJXdsKoBF+/HTRhCzs1urBE7nacdLnNYFuOmKIdSTevyBpbgbVfOhIXOdbizVZfvav2sywTaZmdqiADOt64YmT91T2q0/IDCIIxR/ln/ZC5jH8Y3kE54B6RFTqYlZTTH+oa558vyaCasZgSVgxl9Gj2rnlOuy3x/u4VIhH85YgObjvFJ2Daw+jPR8aOk2L2ycY6bSdZ6enNtZKX4JvXU5j5on+Rbaj0wRn4gykndSY5DS1/XfPSPq1+r4fRNW9jrSXvP+zITYRYzGp6HJ5aXM9mgq5ppmjzSLlPJPcXWPPlsmgY2nw7UUQg1DYUboBjgbnSHCAbd92uyBDCHkhE+PUc4Ol9Q1BrF/bqMMMUvID4EhGMm4IqPRZuj5n0mZ+4+ZN8nU8lcGXDidRq5kdqzrhLQLbAw2CYiaKb12Ec0NCVIYFQsX7Qh00jstOxQGjS+klC3jR1SOzyTGM6QHU+pbSiQ2MQJyxmZSuuIwm/BiIih0Ed3XQtaslRl/WbyGjVOfVO0Wyz+n0WYJzKsZxwrbNipr4y0cp5C6crvPL1T3qdI0DuHdiWMEbWbZFi6DhM\u003d",
 					"expiryDate": "1705",
 					"creditLimit": "5000",
-					"apr": "19.99",
+					"apr": "20.99",
 					"cashAPR": "22.99",
 					"appStatus": "APPROVED",
 					"customerValueInd": "1",
@@ -200,6 +200,7 @@ WICI.Demo_CheckCPEligibility = {
 		"msg": "",
 		"data": {
 			"cpType": "CP_Complete",
+			//"cpType": "CP_LifeDisability",
 			"enhancementId": "7CRP",
 			"planId": "01"
 		}

@@ -43,7 +43,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         attestButtonId: '#attestTrainingScreen_next',
         signatureArea: '#attest_training_completion',
         signature: '#signatureOfTrainee',
-        signature_trainee: '#attestScreen_SingnatureContainer',
+        signature_trainee: '#attestScreen_SignatureContainer',
         resetSignature: '#signature_Reset_Button_attest_Screen',
         atestScreenLanguage_choser: '#attestTrainingScreen_LanguageButton',
         emailArea: '#employeeEmailArea',
@@ -64,9 +64,9 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
             { name: 'lastName', value: null, validation: { type: 'format', message: '', matcher: /^[a-zA-Z]{1,30}$/, group: [2] } },
             { name: 'employeeNumberId', value: null, validation: { type: 'format', message: '', group: [1], matcher: /[1-9]{1,9}/, canBeEmpty: true } },
             { name: 'signature_trainee', value: null, validation: { type: 'presence', message: '', group: [2] } },
-            { name: 'userSingnatureAttest', value: null, validation: { type: 'presence', message: 'signatureScreen_validation_signature' } },
+            { name: 'userSignatureAttest', value: null, validation: { type: 'presence', message: 'signatureScreen_validation_signature' } },
             { name: 'saveAttestationFlag', value: null, validation: null, notField: true },
-            { name: 'userSingnatureNativeAttest', value: null, validation: null },
+            { name: 'userSignatureNativeAttest', value: null, validation: null },
             { name: 'attestTraining', value: null, validation: null }
         ]
     });
@@ -229,12 +229,12 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
 
     //---------------------------------------------------------------------------------------
     function signatureInit() {
-        if (model.get('userSingnatureNativeAttest')) {
+        if (model.get('userSignatureNativeAttest')) {
             signatureControl = $(refs.signature).jSignature({
                 'signatureLine': true
             });
             $(refs.signature).jSignature('setData',
-                model.get('userSingnatureNativeAttest'), 'native');
+                model.get('userSignatureNativeAttest'), 'native');
             onSignatureChaged();
         } else {
             // This is the part where jSignature is initialized.
@@ -317,8 +317,8 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         model.set('lastName', activationItems.getModel('loginScreen').get('lastName').toLowerCase());
         model.set('employeeNumberId', activationItems.getModel('loginScreen').get('employeeNumberId'));
         model.set('signature_trainee', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-        model.set('userSingnatureAttest', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-        model.set('userSingnatureNativeAttest', $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignatureAttest', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
+        model.set('userSignatureNativeAttest', $(refs.signature).jSignature('getData', 'native'));
         var sliderValue = $(refs.attestTrainingSlider + ' ' + 'option:selected').val();
         model.set('attestTraining', sliderValue);
         var emailValue = $(refs.email).val();
@@ -395,7 +395,7 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
             $(refs.resetSignature).addClass('blackflat');
             $(refs.resetSignature).bind('click', onResetSignature1Clicked);
         }
-        model.set('userSingnatureNativeAttest', $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignatureNativeAttest', $(refs.signature).jSignature('getData', 'native'));
         activateAttestButton();
     }
     //---------------------------------------------------------------------------------------

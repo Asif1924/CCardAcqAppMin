@@ -69,7 +69,6 @@ html,body {
   position: relative;
   display: inline-block;
 }
-
 .autocomplete-items {
   max-height: 405px;
   overflow-y: auto;
@@ -101,6 +100,189 @@ html,body {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.right_Align{
+ 	float: right; 
+ 	margin-right: 30px; 
+}
+
+  .switch {
+  color:black;
+  position: relative;
+  display: block;
+  vertical-align: top;
+  width: 180px;
+  height: 30px;
+  margin: 0 10px 10px 0;
+  border-radius: 18px;
+  cursor: pointer;
+  border-style: solid;
+ border-width: 3px;
+ border-color: #cdcdcd;
+-webkit-appearance: none;
+-webkit-box-shadow: 0px 0px 4px 1px #343232c7;
+ -moz-box-shadow: 0px 0px 4px 1px #343232c7;
+  	@include border-radius(18px);
+}
+
+.switchForBorder {
+  color:black;
+  position: relative;
+  display: block;
+  vertical-align: top;
+  width: 190px;
+  height: 35px;
+  padding: 3px;
+  margin: 0 10px 10px 0;
+  background: #343232f7;
+  border-radius: 18px;
+  border-color: black;
+  cursor: pointer;
+}
+
+/*==========================================================*/
+
+div.btn-container{
+	font-family: Helvetica, Arial, sans-serif;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+labelForToggle {
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #424242;
+	font-weight: 500;
+}
+.btn-color-mode-switch{
+	font-family: Arial, Helvetica, sans-serif;
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	border-radius: 18px;
+  	border-color: #cdcdcd;
+  	border-style: solid;
+ 	border-width: 2px;
+	-webkit-appearance: none;
+	-webkit-box-shadow: 0px 0px 2px 2px #343232c7;
+ 	-moz-box-shadow: 0px 0px 2px 2px #343232c7;
+  	@include border-radius(18px);
+}
+.btn-color-mode-switch > label.btn-color-mode-switch-inner{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	width: 180px;
+	height: 30px;
+	background: #F7F7F7;
+	border-radius: 26px;
+	border-color: black;
+	overflow: hidden;
+	position: relative;
+	transition: all 0.3s ease;
+	display: block;
+	opacity: 1;
+   
+}
+.btn-color-mode-switch > label.btn-color-mode-switch-inner:before{
+	font-family: Arial, Helvetica, sans-serif;
+	content: attr(data-on);
+	position: absolute;
+	font-size: 12px;
+	font-weight: 500;
+	top: 7px;
+	right: 20px;
+}
+
+.labelFont{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+    color: black;
+    font-weight: bold;
+}
+.btn-color-mode-switch > label.btn-color-mode-switch-inner:after{
+ 	text-align: center;
+	border-style: solid;
+    border-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    content: attr(data-off);
+    width: 94px;
+    height: 18px;
+    background: #F7F7F7;
+    position: absolute;
+    left: 0px;
+    border-color: #cdcdcd;
+    transition: all 0.3s ease;
+    border-radius: 26px;
+    -webkit-appearance: none;
+    padding: 5px 0px;
+	-webkit-box-shadow: 0px 0px 4px 1px #343232c7;
+  	-moz-box-shadow: 0px 0px 4px 1px #343232c7;
+  	@include border-radius(26px);
+}
+
+
+.btn-color-mode-switch > .alert{
+	font-family: Arial, Helvetica, sans-serif;
+	display: none;
+	background: #F7F7F7;
+	border: none;
+	color: #fff;
+}
+.btn-color-mode-switch input[type="checkbox"]{
+	font-family: Arial, Helvetica, sans-serif;
+	cursor: pointer;
+	width: 50px;
+	height: 30px;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	margin: 0px;
+}
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
+	background: #F7F7F7;
+	color: #000;
+}
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:after{
+	font-family: Arial, Helvetica, sans-serif;
+	content: attr(data-on);
+	left: 85px;
+	background: #F7F7F7;
+}
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before{
+	font-family: Arial, Helvetica, sans-serif;
+	content: attr(data-off);
+	right: auto;
+	left: 20px;
+}
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
+	/*background: #66BB6A; */
+ 	/*color: #fff;*/
+}
+.btn-color-mode-switch input[type="checkbox"]:checked ~ .alert{
+	font-family: Arial, Helvetica, sans-serif;
+	display: block;
+}
+/*mode preview*/
+.white-preview{
+	background: #F7F7F7;
+}
+.white-preview div.btn-container i.fa-sun-o{
+	color: #ffa500;
+	/*text-shadow: 0px 0px 16px #ffa500; */
+}
+.white-preview div.btn-container i.fa-moon-o{
+	color: #777;
+}
+
+
+ /*==========================================================*/
+
+
+
+
+ 
 
 /* VZE-566 */
 // VZE-161
@@ -210,6 +392,12 @@ html,body {
 .signatureFixCustomer{
    width: 700px;
    height: 200px;
+   max-width: 100%;
+} 
+
+.signatureFixCustomerChooseProduct{
+   width: 700px;
+   height: 150px;
    max-width: 100%;
 } 
 
@@ -1361,8 +1549,8 @@ border: 0px;
 
 /*VZE-107 */
 .popup_SignatureDialog_Red {
-    width: 60%;
-    left: 15%;
+    width: 90%;
+    left: auto;
     margin-left: 5%;
     border: 1px solid #ff0000;;
     color: black;
@@ -1375,8 +1563,8 @@ border: 0px;
     text-align: center;
 }
 .popup_SignatureDialog_Green {
-    width: 60%;
-    left: 15%;
+    width: 90%;
+    left: auto;
     margin-left: 5%;
     border: 1px solid #1e940a;
     color: black;
@@ -2338,6 +2526,7 @@ tr {
   // US5144 WICI - Updated Features & Benefits
   // chooseProduct 
   #omxCardChooseProduct {
+  	aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Eng_FMR.png")};
     background-repeat: no-repeat;
     background-position: center;
@@ -2345,13 +2534,16 @@ tr {
   }
 
   #omxCardChooseProduct.en_card {
+  	aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Eng_FMR.png")};
   }
 
   #omxCardChooseProduct.fr_card {
+  	aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Fr_FMR.png")};
   }
   .omxCardChooseProduct {
+  	aspect-ratio: 1/1;
     background-size: 100% 100%;
     display: block;
     text-decoration: none;
@@ -2359,13 +2551,14 @@ tr {
     border-radius: 0px;
     margin: 0px auto;
     outline-style: none;
-    height: 1200px;
-    max-width: 1200px;
+    height: 1300px;
+    max-width: 1300px;
     margin-bottom: 15px;
  }
  
 /* VZE-577 */
 #omxCardChooseProduct_CSR {
+	aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Eng_Employee_Screen.png")};
     background-repeat: no-repeat;
     background-position: center;
@@ -2373,13 +2566,16 @@ tr {
   }
 
   #omxCardChooseProduct_CSR.en_card {
+  	aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Eng_Employee_Screen.png")};
   }
 
   #omxCardChooseProduct_CSR.fr_card {
+    aspect-ratio: 1/1;
     background-image: #{inline_image("WICI_OMX_OMP_Fr_Employee_Screen.png")};
   }
   .omxCardChooseProduct_CSR {
+  	aspect-ratio: 1/1;
     background-size: 100% 100%;
     display: block;
     text-decoration: none;
@@ -2387,8 +2583,8 @@ tr {
     border-radius: 0px;
     margin: 0px auto;
     outline-style: none;
-    height: 1200px;
-    max-width: 1200px;
+    height: 1300px;
+    max-width: 1300px;
     margin-bottom: 15px;
  }
  /* VZE-577 */
@@ -2760,7 +2956,9 @@ tr {
   line-height: 22px;
   height: 72px;
 }
-
+.forntSize10{
+  font-size: 10pt;
+}
 .button:hover {
   text-decoration: none;
 }
@@ -5396,6 +5594,12 @@ padding-top:5px;
     display: inline-block;
 }
 
+.leftMargin60OP{
+ 	margin-left: 60px;
+}
+.borderRadius11{
+	border-radius: 11px;
+}
 .tooltip .tooltipphonetext {
   visibility: hidden;
   width: 260px;

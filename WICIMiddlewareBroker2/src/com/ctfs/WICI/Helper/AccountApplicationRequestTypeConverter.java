@@ -207,7 +207,7 @@ public class AccountApplicationRequestTypeConverter
             	// (AA): This decoding is necessary before setting the value
             	// because
             	// apparently, the XSD takes care of BASE64 Encoding
-            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSignature"));
             	byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature_CPC"));
             	argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
             }
@@ -215,7 +215,7 @@ public class AccountApplicationRequestTypeConverter
             	// (AA): This decoding is necessary before setting the value
             	// because
             	// apparently, the XSD takes care of BASE64 Encoding
-            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
+            	// argAccAppRequest.setInsuranceSignature(model.getBase64EncodedJPGByteArray("userSignature"));
             	byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature_CPLD"));
             	argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
             }
@@ -240,13 +240,13 @@ public class AccountApplicationRequestTypeConverter
 
 				// (AA): This decoding is necessary before setting the value
 				// because apparently, the XSD takes care of BASE64 Encoding
-				// argAccAppRequest.setApplicantSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
-				byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSingnature"));
+				// argAccAppRequest.setApplicantSignature(model.getBase64EncodedJPGByteArray("userSignature"));
+				byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature"));
 				argAccAppRequest.setApplicantSignature(decodedBase64Image);
 				
 				
 				//argAccAppRequest.setApplicantSignature(decodedBase64Image.toString());
-				//argAccAppRequest.setApplicantSignature(imageUtil.convertPNGDataURLToJPGByteString(model.get("userSingnature")));
+				//argAccAppRequest.setApplicantSignature(imageUtil.convertPNGDataURLToJPGByteString(model.get("userSignature")));
 				argAccAppRequest.setSignatureFlag("Y");
 				argAccAppRequest.setSignatureMatchFlag("Y");
 				argAccAppRequest.setDateSigned(model.get("signDate"));

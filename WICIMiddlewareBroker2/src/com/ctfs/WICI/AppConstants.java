@@ -1,5 +1,9 @@
 package com.ctfs.WICI;
 
+/**
+ * AppConstants class contains the constants that WICI apps needs
+ */
+
 public class AppConstants
 {
 

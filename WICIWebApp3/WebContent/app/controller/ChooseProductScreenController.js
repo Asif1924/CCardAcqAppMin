@@ -32,7 +32,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         agencyPromoCodeDropDown : '#promoCodeDropDown',
         // VZE-107
         signature:  '#chooseProductScreen_signature',
-        signature_customer : '#chooseProductScreen_SingnatureContainer',
+        signature_customer : '#chooseProductScreen_SignatureContainer',
         resetSignature: '#chooseProductScreen_signature_Reset_Button',
         // VZE-108
         costOfCredit_Checkbox: '#receive_CostOfCredit_CheckBox',
@@ -94,10 +94,10 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
            
         },
         //VZE-107
-        { notField: true, name: 'userSingnatureNative', value: null, validation: null},
+        { notField: true, name: 'userSignatureNative', value: null, validation: null},
         { name: 'controlConfirmation', value: null, validation: null},
         { name: 'signature_customer', value: null, validation: {type: 'presence', message: '', group: [2]}},
-        { notField: true, name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature', group: [2]}},
+        { notField: true, name: 'userSignature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature', group: [2]}},
         // VZE-108
         {name: 'costOfCreditAgreement',   value: null},
         {name: 'cardmemberAgreement',   value: null},
@@ -559,13 +559,13 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 			           var rez = model.validate(2);
 		               app.validationDecorator.applyErrAttribute(rez);
 		               $("#dialog_container_customer_signature").show();
-			           $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
-			           app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+			           $("#chooseProductScreen_SignatureContainer").addClass('errorField');
+			           app.validationDecorator.focusControl("#chooseProductScreen_SignatureContainer");
 		               if (rez.length > 0) {
 		                  return;
 		               }else{
 			             model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-			             model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			             model.set('userSignature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
 		                 hide_dialog();
 			             saveState();
 			             flow.next();
@@ -581,14 +581,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 			            var rez1 = model.validate(2);
 		                app.validationDecorator.applyErrAttribute(rez1);
 		                $("#dialog_container_customer_signature").show();
-			            $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
-			            app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+			            $("#chooseProductScreen_SignatureContainer").addClass('errorField');
+			            app.validationDecorator.focusControl("#chooseProductScreen_SignatureContainer");
 		                if (rez1.length > 0) {
 		                  return;
 		                }else{
 			              app.validationDecorator.focusControl("#ChooseProductScreen");
 			              model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-			              model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			              model.set('userSignature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
 		                  hide_dialog();
 		               }
 			         }
@@ -601,14 +601,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 			           var rez2 = model.validate(2);
 		               app.validationDecorator.applyErrAttribute(rez2);
 		               $("#dialog_container_customer_signature").show();
-			           $("#chooseProductScreen_SingnatureContainer").addClass('errorField');
-			           app.validationDecorator.focusControl("#chooseProductScreen_SingnatureContainer");
+			           $("#chooseProductScreen_SignatureContainer").addClass('errorField');
+			           app.validationDecorator.focusControl("#chooseProductScreen_SignatureContainer");
 		               if (rez2.length > 0) {
 		                  return;
 		               }else{
 			              app.validationDecorator.focusControl("#ChooseProductScreen");
 			              model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-			              model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+			              model.set('userSignature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
 		                  hide_dialog();
 		               }
 			         }
@@ -1106,8 +1106,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
        
         if(isCustomerSignatureDiloge){
 	         model.set('signature_customer',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-             model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-             model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+             model.set('userSignature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+             model.set('userSignatureNative',  $(refs.signature).jSignature('getData', 'native'));
              model.set('controlConfirmation',  'Y');
         }
 	    
@@ -1498,7 +1498,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var sMethod = "restoreCreditCardData()";
         console.log(logPrefix + sMethod);
         // VZE-107
-        /*model.set('userSingnatureNative', null);
+        /*model.set('userSignatureNative', null);
         $(refs.signature).jSignature('reset');
         $(refs.signature).jSignature ('setData',[], 'native');
         $(refs.resetSignature).removeClass('darkgrayflat');
@@ -1602,11 +1602,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function createSignatureControl() {
         if (!signatureControl) {
             // Restore signature
-            if (model.get('userSingnatureNative')) {
+            if (model.get('userSignatureNative')) {
                 // Create signature object
                 signatureControl = $(refs.signature).jSignature({'signatureLine': true});
                 // Restore signature content
-                $(refs.signature).jSignature("setData", model.get('userSingnatureNative'), 'native');
+                $(refs.signature).jSignature("setData", model.get('userSignatureNative'), 'native');
                 // Apply some dependencies
                 onSignatureChaged();
             } else {
@@ -1625,13 +1625,13 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             //isCustomerSignatureDiloge = true;
             $(refs.resetSignature).removeClass('grayflat');
             $(refs.resetSignature).addClass('blackflat');
-            $("#chooseProductScreen_SingnatureContainer").removeClass('errorField');
+            $("#chooseProductScreen_SignatureContainer").removeClass('errorField');
             $("#customerSignatureWarningDIV").removeClass("popup_SignatureDialog_Red").addClass("popup_SignatureDialog_Green");
 	   		$("#customerSignatureHeader").removeClass("chooseProduct_SignatureTitle_Red").addClass("chooseProduct_SignatureTitle_Green");
             $(refs.resetSignature).bind('click', onResetSignatureClicked);
             
         }
-        model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignatureNative',  $(refs.signature).jSignature('getData', 'native'));
         model.set('controlConfirmation', 'Y');
     }
     //---------------------------------------------------------------------------------------

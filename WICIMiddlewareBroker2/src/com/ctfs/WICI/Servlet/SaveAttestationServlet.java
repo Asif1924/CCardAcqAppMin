@@ -45,7 +45,7 @@ public class SaveAttestationServlet extends WICIServlet {
 		String firstName = requestMediator.searchElementInsidePostRequestBody("firstName") != null ? requestMediator.searchElementInsidePostRequestBody("firstName") : EMPTY_STRING;
 		String lastName = requestMediator.searchElementInsidePostRequestBody("lastName") != null ? requestMediator.searchElementInsidePostRequestBody("lastName") : EMPTY_STRING;
 		String employeeNumber = requestMediator.searchElementInsidePostRequestBody("employeeNumber") != null ? requestMediator.searchElementInsidePostRequestBody("employeeNumber") : EMPTY_STRING;
-		String signature = requestMediator.searchElementInsidePostRequestBody("singnature") != null ? requestMediator.searchElementInsidePostRequestBody("singnature") : EMPTY_STRING;
+		String signature = requestMediator.searchElementInsidePostRequestBody("signature") != null ? requestMediator.searchElementInsidePostRequestBody("signature") : EMPTY_STRING;
 		String trainingContentVersion = requestMediator.searchElementInsidePostRequestBody("trainingContentVersion") != null ? requestMediator.searchElementInsidePostRequestBody("trainingContentVersion") : EMPTY_STRING;
 		//WICI-154 --start
 		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
@@ -60,7 +60,7 @@ public class SaveAttestationServlet extends WICIServlet {
 			
 		byte[] decodedBase64Image = Base64.decodeBase64(signature);
 		
-		log.info(sMethod + "attestationSingnature  "+decodedBase64Image);
+		log.info(sMethod + "AttestationSignature = "+decodedBase64Image);
 		
 		//WICI-154 --start
 		String derivedUserID = employeeNumber;

@@ -111,18 +111,41 @@
 					</div>
 					<div class="leftContainer opCheckBoxLabel fontSize20" style="padding-top: 0; display: table-cell; vertical-align: middle;">
 						<label data-translationkey="contactInfo_Para3"></label>
+						<label  id="QC_I_Confirm1" data-translationkey="contactInfo_Para3_QC1"></label>
+						<label  id="QC_I_Confirm2" data-translationkey="contactInfo_Para3_QC2"></label>
 					</div>
 				</div>
 			</div>
-
-			<p class="fontSize25 bold paragraphAlignment"><span data-translationKey="contactInfo_Heading5"></span></p>
-
+            <br><br>
+			<!-- <p class="fontSize25 bold paragraphAlignment"><span data-translationKey="contactInfo_Heading5"></span></p> -->
+            <!-- WICI-170 --->
+				<center>
+			               <div>
+	                           <table id="titleTable_Language" class="stretchThisTable" >
+	                             <tr >
+	                                 <td id="title_eStatment_td"class="fieldLabelsSingleCellYesNo">
+	                                      <p id="eStatmenent_title" class="fontSize25 bold paragraphAlignment"><span></span></p>
+	                                  </td>
+	                               	  <td id="language_Slider_for_QC" class="fieldValuesOneCellFlipYesNo fieldValuesCellFlipYesNo">
+	                               	  <center>
+ 										<div class="btn-container">
+											<label class="switch btn-color-mode-switch labelForToggle">
+												<input id = "language_slider"  type="checkbox" name="color_mode"  value="1">
+												<label for="color_mode" data-off="FRANÇAIS" data-on="ENGLISH"  class="labelForToggle labelFont btn-color-mode-switch-inner"></label>
+											</label>
+										</div>
+										</center>
+	                                 </td>                                                      
+	                            </tr>
+	                          </table>
+			 </center>
+            <!-- WICI-170 --->
 			<table class="stretchThisTable borderZero" >
  	  			<div class="rightContaier align-vertical-middle-item">
-					<div class="receiveEstmt_CheckBox">
-						<p class="receiveEmail_TextArea bold" data-translationKey = "contactInfo_Para51"></p>
-						<p class="receiveEmail_TextArea" data-translationKey = "contactInfo_Para52"></p>
-					</div>
+						<div  id="bill96_text_QC" class="receiveEstmt_CheckBox">
+							<p  id="p1_QC" class="receiveEmail_TextArea bold" ></p>
+							<p  id="p2_QC" class="receiveEmail_TextArea" >
+					    </div>
 	    		</div>
 			</table>
 		

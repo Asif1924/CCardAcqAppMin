@@ -199,14 +199,24 @@ WICI.Validator = function() {
          }
          var isValid = regexMatch(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/, value.trim());
          if(isValid){
-               var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","CP","Cp","cP","cp","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale"];
-                  $.each(poBoxArray, function (index, item) {
+               var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site"];
+                	$.each(poBoxArray, function (index, item) {
                       if(value.toLowerCase().includes(item.toLowerCase())){
                           isPoBox = false;
                       }
-                  });
+                	});
+                
+                //WICI-229
+                var ruralRouteArray= ["CP ","RR ","PR "];
+          			$.each(ruralRouteArray, function (index, item) {
+	          			if(value.toLowerCase().startsWith(item.toLowerCase())){
+	          				 isPoBox = false;
+	          			}
+          			}); 
            return isPoBox;
-         }else{
+         }
+         else
+         {
             return false;
          }  
     };

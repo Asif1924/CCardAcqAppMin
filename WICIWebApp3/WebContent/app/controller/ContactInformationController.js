@@ -10,8 +10,9 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 	this.init = init;
 
 	var flow = null;
-
+	var loginModel = activationItems.getModel('loginScreen');
 	this.syncUserData = syncUserData;
+	var outletProvince;
 	var refs = {
 		email: '#contactInfo_EmailAddress_TextField',
 		receiveEmail: '#receiveEmail_CheckBox',
@@ -26,6 +27,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		primaryLandline_CheckField: '#primaryLandline_CheckField',
 		secondaryLandline_CheckField: '#secondaryLandline_CheckField',
 		secondaryMobile_CheckField: '#secondaryMobile_CheckField',
+		language_slider   :  '#language_slider',
 	};
 
 	var contactDataValidationMax = 2;
@@ -58,6 +60,7 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		flow = argFlow;
 		translator = argTranslator;
 		messageDialog = argMessageDialog;
+		outletProvince = getOutletProvince();
 		createView();
 		bindEvents();
 		initModel();
@@ -66,6 +69,10 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		disableCheckBox();
 		alignI_icon();
 		restoreCreditCardData();
+		createFlipsForLanguage();
+		bill96TextforQC();
+		hideLanguageSliderForROCandFr();
+		hideToogleforROC();
 		model.set('applicationReferenceID', generateGUID().toUpperCase());
 		console.log(logPrefix + sMethod + " GUID :: " + model.get('applicationReferenceID'));
 	}
@@ -125,6 +132,54 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			model.set('estmt_consent', 'N');
 		}
 		console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
+	}
+	//---------------------------------------------------------------------------------------
+	function getOutletProvince(){
+	    if (loginModel != null && loginModel.get('userLocationResponse') != null) {
+                var locationHelper = new WICI.UserLocationResponseHelper();
+                locationHelper.setUserLocationResponseObject(loginModel.get('userLocationResponse'));
+                outletProvince = locationHelper.getOutletProvince();
+        }
+        return outletProvince;
+	      
+	 }
+	//----------------------------------------------------------------------------------------
+	
+	function createFlipsForLanguage() {
+        var sMethod = 'createFlips() ';
+        console.log(logPrefix + sMethod);
+    }
+	//---------------------------------------------------------------------------------------
+	function bill96TextforQC(){
+		 if(app.translator.getCurrentLanguage() === "en" && outletProvince ==="QC" ){
+			$("#p1_QC").empty();
+			$("#p2_QC").empty();
+         	$("#p1_QC").html(WICI.dictionary_fr.contactInfo_Para51);
+  	       	$("#p2_QC").html(WICI.dictionary_fr.contactInfo_Para52);
+  	       	$("#eStatmenent_title").html(WICI.dictionary_fr.contactInfo_Heading5);
+  	       	$("#title_eStatment_td").removeClass("borderRadius11");
+         }else if(app.translator.getCurrentLanguage() === "fr" && outletProvince ==="QC" ){
+        	$("#p1_QC").empty();
+			$("#p2_QC").empty();
+         	$("#p1_QC").html(WICI.dictionary_fr.contactInfo_Para51);
+  	        $("#p2_QC").html(WICI.dictionary_fr.contactInfo_Para52);
+  	        $("#eStatmenent_title").html(WICI.dictionary_fr.contactInfo_Heading5);
+  	        $("#title_eStatment_td").addClass("borderRadius11");
+         }else if(app.translator.getCurrentLanguage() === "en"  || app.translator.getCurrentLanguage() === "fr" || outletProvince !== "QC"){
+        	 $("#p1_QC").empty();
+			 $("#p2_QC").empty();
+        	 $("#p1_QC").html(translator.translateKey("contactInfo_Para51"));
+   	         $("#p2_QC").html(translator.translateKey("contactInfo_Para52"));
+   	         $("#eStatmenent_title").html(translator.translateKey("contactInfo_Heading5"));
+   	         $("#title_eStatment_td").addClass("borderRadius11");
+         }else{
+        	 $("#p1_QC").empty();
+			 $("#p2_QC").empty();
+        	 $("#p1_QC").html(translator.translateKey("contactInfo_Para51"));
+   	         $("#p2_QC").html(translator.translateKey("contactInfo_Para52"));
+   	         $("#eStatmenent_title").html(translator.translateKey("contactInfo_Heading5"));
+   	         $("#title_eStatment_td").addClass("borderRadius11");
+         }
 	}
 	// ---------------------------------------------------------------------------------------
 	function generateGUID() {
@@ -209,6 +264,31 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		$.subscribe('translatorFinished', function(event) {
             console.log('translatorFinished' + '::change');
             alignI_icon();
+            hideToogleforROC();
+            hideLanguageSliderForROCandFr();
+            if(outletProvince ==="QC" ){
+			  $(refs.language_slider).attr('checked',false);
+			    $("#p1_QC").html(WICI.dictionary_fr.contactInfo_Para51);
+     	        $("#p2_QC").html(WICI.dictionary_fr.contactInfo_Para52);
+     	        $("#eStatmenent_title").html(WICI.dictionary_fr.contactInfo_Heading5);
+		    }
+            
+        });
+		
+		//createFlipsForLanguage();
+		$(refs.language_slider).change(function () {
+			 var controlRef = $("#bill96_text");
+		     controlRef.empty();
+		      var isChecked = $(this).is(':checked');		      
+            if (isChecked == false) {
+                $("#p1_QC").html(WICI.dictionary_fr.contactInfo_Para51);
+     	        $("#p2_QC").html(WICI.dictionary_fr.contactInfo_Para52);
+     	        $("#eStatmenent_title").html(WICI.dictionary_fr.contactInfo_Heading5);
+            } else {
+            	$("#p1_QC").html(WICI.dictionary_en.contactInfo_Para51);
+     	       	$("#p2_QC").html(WICI.dictionary_en.contactInfo_Para52);
+     	       	$("#eStatmenent_title").html(WICI.dictionary_en.contactInfo_Heading5);
+            }
         });
 	}
 	// ---------------------------------------------------------------------------------------
@@ -221,9 +301,51 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
         	$('#contactInfomation_infomation_phone').addClass('marginleft_i_icon_fr');
         }
 	}
+	function hideToogleforROC(){
+		var outletProvince = getOutletProvince();
+		if(outletProvince !=="QC"){
+			$('#language_Slider_for_QC').hide();
+		}
+	}
+	// ---------------------------------------------------------------------------------------
+	function hideLanguageSliderForROCandFr(){
+		var outletProvince = getOutletProvince();		
+		if(outletProvince =="QC"){
+			if(app.translator.getCurrentLanguage() === "en"){
+				// QC .. EN
+				$('#language_Slider_for_QC').show();
+				$("#bill96_text_QC").show();
+				$("#bill96_text").show();
+				$('#QC_I_Confirm1').show();
+				$('#QC_I_Confirm2').show();
+			}else{
+				// QC .. FR
+				$("#bill96_text").hide();
+				$('#language_Slider_for_QC').hide();
+				$('#QC_I_Confirm1').hide();
+				$('#QC_I_Confirm2').hide();
+			}
+		}else{
+			//outlet province : ROC
+			$("#bill96_text_QC").show();
+			$("#p1_QC").empty();
+			$("#p2_QC").empty();
+       	 	$("#p1_QC").html(translator.translateKey("contactInfo_Para51"));
+  	        $("#p2_QC").html(translator.translateKey("contactInfo_Para52"));
+  	        $("#eStatmenent_title").html(translator.translateKey("contactInfo_Heading5"));
+			$('#language_Slider_for_QC').hide();
+			$('#QC_I_Confirm1').hide();
+			$('#QC_I_Confirm2').hide();
+		}
+		
+	}
+	
+	// ---------------------------------------------------------------------------------------
 	function assemblePageHTML($element, templateName) {
 		$(templateName).tmpl({
 			activationItems: activationItems,
+			outletProvince: getOutletProvince(),
+			language_EN: translator.currentLanguageEnglish(),
 		}).appendTo($element);
 	}
 	// ---------------------------------------------------------------------------------------

@@ -249,7 +249,7 @@ WICI.ConnectivityController = function(connectionStatus, messageDialog, translat
 			"storeLocationNumber": argStoreLocationNumber,
 			"firstName": argFirstName,
 			"lastName": argLastName,
-			"singnature" : argSignature,
+			"signature" : argSignature,
 	      	"employeeNumber": argEmployeeNumber,
 	      	"trainingContentVersion" : argTrainingContentVersion
 		};

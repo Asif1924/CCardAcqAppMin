@@ -138,7 +138,7 @@
 		<ul>
 			<li>
 				<span data-translationKey="signatureScreen_License1" />
-				<!-- <span id="singnatureCardName" /> //-->
+				<!-- <span id="signatureCardName" /> //-->
 				{{if CardType === 'OMR' }}
 					<span data-translationKey="signature_CashAdvantageMasterCard" ></span>
 				{{else CardType === 'OMP' }}
@@ -195,7 +195,15 @@
 			<li><span data-translationKey="signatureScreen_License9"/></li>
 			<br>
 			<li><span data-translationKey="signatureScreen_License10"/></li>
-
+			<!-- QC province --->
+            {{if CardType === 'OMP' }}
+            <li id="newBulletForQC_1" class="hidden"><span data-translationKey="signatureScreen_License11_QC_OMP_1"/></li>
+			<li id="newBulletForQC_2" class="hidden"><span data-translationKey="signatureScreen_License11_QC_OMP_2"/></li>
+            {{else CardType === 'OMX' || CardType === 'OMZ' }}
+            <li id="newBulletForQC_OMX_1" class="hidden"><span data-translationKey="signatureScreen_License11_QC_OMX_1"/></li>
+			<li id="newBulletForQC_OMX_2" class="hidden"><span data-translationKey="signatureScreen_License11_QC_OMX_2"/></li>
+ 			{{/if}} 
+           <!-- QC province --->
 			<!--<br>//-->
 			<!--<br>//-->
 			<!--<li><span data-translationKey="signatureScreen_License4"/></li>//-->
@@ -242,7 +250,7 @@
         </center>
 
 			<!-- <div class="signatureContainer sugnatureFixes" >
-				<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
+				<div class="signatureBorder" id="signatureScreen_SignatureContainer">
 					<div class="signature" id="signature"/>
 				</div>
 			</div> -->
@@ -281,7 +289,7 @@
             <br/>
             <center>
             	<div class="signatureContainer sugnatureFixes" >
-                	<div class="signatureBorder" id="signatureScreen_SingnatureContainer">
+                	<div class="signatureBorder" id="signatureScreen_SignatureContainer">
                     	<div class="signature" id="signature"/>
                     </div>
                 </div>

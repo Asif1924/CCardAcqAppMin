@@ -26,13 +26,17 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
             acceptAgreement:  "#signatureScreen_AcceptAgreement",
             userAcceptAgreement: '#signatureScreen_AgreementBoxContainer',
             signDate:   '#signatureScreen_SignDate',
-            userSingnature: '#signatureScreen_SingnatureContainer',
-            singnatureCardName: '#singnatureCardName',
+            userSignature: '#signatureScreen_SignatureContainer',
+            signatureCardName: '#signatureCardName',
             signatureScreenOmcCard:"#signatureScreenOmcCard",
             signatureScreenOmzCard:"#signatureScreenOmzCard",
             signatureScreenProductCard:"#signatureScreenProductList",
             image: '#SignatureImage',
-            chartImage:'#omzChartImage'	
+            chartImage:'#omzChartImage'	,
+            text_for_QCProvince_1 : '#newBulletForQC_1',
+            text_for_QCProvince_2 : '#newBulletForQC_2',
+            text_for_QCProvince_OMX_1 : '#newBulletForQC_OMX_1',
+            text_for_QCProvince_OMX_2 :'#newBulletForQC_OMX_2'
     };
 	//---------------------------------------------------------------------------------------
     var model = new WICI.BaseModel({
@@ -40,8 +44,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         refs: refs,
         data:[
                 {name: 'userAcceptAgreement',   value: null, validation: {type: 'termsAndConditions', message: 'signatureScreen_validation_acceptAgreement'}},
-                {name: 'userSingnature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
-                {notField:true, name: 'userSingnatureNative', value: null, validation: null},
+                {name: 'userSignature', value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signature'}},
+                {notField:true, name: 'userSignatureNative', value: null, validation: null},
                 {notField:true, name: 'modelsData', value: null, validation: null},
                 {notField:true, name: 'sigcardSelection', value: false, validation: null},
                 {name: 'signDate',  value: null, validation: {type: 'presence', message: 'signatureScreen_validation_signDate'}}
@@ -68,6 +72,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		displayProductTitle();			
         restoreCreditCardData();        
         // US3766
+        addTextForQC();
         parseCardNameAndType();
         toggleWarningDIV();
         showOMXContent();
@@ -97,13 +102,51 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
 		}
 	}
 	//---------------------------------------------------------------------------------------
+	function getOutletProvince(){
+	    if (loginModel != null && loginModel.get('userLocationResponse') != null) {
+                var locationHelper = new WICI.UserLocationResponseHelper();
+                locationHelper.setUserLocationResponseObject(loginModel.get('userLocationResponse'));
+                outletProvince = locationHelper.getOutletProvince();
+        }
+        return outletProvince;
+	      
+	 }
+	//---------------------------------------------------------------------------------------
+	function addTextForQC(){
+		// WICI-172
+		var sMethod = 'addTextForQC() ';
+        console.log(logPrefix + sMethod);
+        var outletProvince = getOutletProvince();
+        if(outletProvince =="QC"){
+			if(app.translator.getCurrentLanguage() === "en"){
+				// QC .. EN
+				$(refs.text_for_QCProvince_1).removeClass("hidden");
+				$(refs.text_for_QCProvince_2).removeClass("hidden");
+				$(refs.text_for_QCProvince_OMX_1).removeClass("hidden");
+				$(refs.text_for_QCProvince_OMX_2).removeClass("hidden");
+			}else{
+				// QC .. FR
+				$(refs.text_for_QCProvince_1).addClass("hidden");
+				$(refs.text_for_QCProvince_2).addClass("hidden");
+				$(refs.text_for_QCProvince_OMX_1).addClass("hidden");
+				$(refs.text_for_QCProvince_OMX_2).addClass("hidden");
+			}
+		}else{
+			//outlet province : ROC
+			$(refs.text_for_QCProvince_1).addClass("hidden");
+			$(refs.text_for_QCProvince_2).addClass("hidden");
+			$(refs.text_for_QCProvince_OMX_1).addClass("hidden");
+			$(refs.text_for_QCProvince_OMX_2).addClass("hidden");
+		}		      
+	}
+	//---------------------------------------------------------------------------------------
 	function signatureInit() {
-		if (model.get('userSingnatureNative')) {
+		if (model.get('userSignatureNative')) {
 			signatureControl = $(refs.signature).jSignature({
 				'signatureLine' : true
 			});
 			$(refs.signature).jSignature('setData',
-					model.get('userSingnatureNative'), 'native');
+					model.get('userSignatureNative'), 'native');
 			onSignatureChaged();
 		} else {
 			// This is the part where jSignature is initialized.
@@ -218,6 +261,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         });
         $.subscribe('translatorFinished',function(e){
         	showSignatureDate();
+        	addTextForQC();
         });
         $.subscribe('translatorFinished',function(e){
             // VZE-88
@@ -274,6 +318,16 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         });
 	}
 	//---------------------------------------------------------------------------------------
+	function getOutletProvince(){
+	    if (loginModel != null && loginModel.get('userLocationResponse') != null) {
+                var locationHelper = new WICI.UserLocationResponseHelper();
+                locationHelper.setUserLocationResponseObject(loginModel.get('userLocationResponse'));
+                outletProvince = locationHelper.getOutletProvince();
+        }
+        return outletProvince;
+	      
+	 }
+	//---------------------------------------------------------------------------------------
 	function onSignatureChaged (e) {
 	    var sMethod = 'onSignatureChaged() ';
         console.log(logPrefix + sMethod);
@@ -283,7 +337,7 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
             $(refs.resetSignature).addClass('blackflat');
             $(refs.resetSignature).bind('click', onResetSignatureClicked);
         }
-        model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignatureNative',  $(refs.signature).jSignature('getData', 'native'));
 	}
 	//---------------------------------------------------------------------------------------
 	function onResetSignatureClicked () {
@@ -336,8 +390,8 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         var sMethod = 'syncUserData() ';
         console.log(logPrefix + sMethod);
         model.set('userAcceptAgreement',   $(refs.acceptAgreement).is(':checked') ? 'Y' : 'N');
-        model.set('userSingnature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
-        model.set('userSingnatureNative',  $(refs.signature).jSignature('getData', 'native'));
+        model.set('userSignature',  $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null );
+        model.set('userSignatureNative',  $(refs.signature).jSignature('getData', 'native'));
 
         model.set('signDate',   Date.now().toString('yyyy-MM-dd'));
         model.set('sigcardSelection',   model.get('sigcardSelection'));
@@ -376,12 +430,12 @@ WICI.SignatureScreenController = function(activationItems, argTranslator, argMes
         if(!dataEqual)
         {
         	model.set('userAcceptAgreement', 'N');
-        	model.set('userSingnature', null);
-        	model.set('userSingnatureNative', null);
+        	model.set('userSignature', null);
+        	model.set('userSignatureNative', null);
         }
 
         $(refs.acceptAgreement).prop('checked', model.get('userAcceptAgreement') === 'Y' ? true : false );
-    	var sign = model.get('userSingnature');
+    	var sign = model.get('userSignature');
 
     }
 	//---------------------------------------------------------------------------------------

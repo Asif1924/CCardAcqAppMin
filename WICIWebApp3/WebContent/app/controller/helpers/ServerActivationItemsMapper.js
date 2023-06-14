@@ -34,7 +34,7 @@ WICI.ServerActivationItemsMapper =  function () {
      applicationResponse.creditLimit ? applicationResponse.creditLimit : "",
      applicationResponse.apr ? applicationResponse.apr : "",
      applicationResponse.cashAPR ? applicationResponse.cashAPR : "",
-     activationItems.getModel('signatureModel').get('userSingnature'),
+     activationItems.getModel('signatureModel').get('userSignature'),
      applicationResponse.appStatus,
      activationItems.getModel('chooseProductModel').get('province') ? activationItems.getModel('chooseProductModel').get('province') : "",
      activationItems.getModel('personalData').get('correspondence') ? activationItems.getModel('personalData').get('correspondence') : "",
