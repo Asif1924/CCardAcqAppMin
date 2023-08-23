@@ -38,12 +38,27 @@ WICI.LocalStorageHelper =  function (window /*dependency injection for testing*/
             console.log("WARNING! Tried to set a vocabulary for an unsupported language");
         }
     }
+    
+    function setValue(key,value){
+    	return  window.localStorage.setItem(key,value);
+    }
+    
+    function getValue(key){
+    	return	window.localStorage.getItem(key);
+    }
+    
+    function removeValue(key){
+    	return	window.localStorage.removeItem(key);
+    }
 
     return {
         getVersion: _getItem.bind(null, WICI.AppConfig.localStorageKeys.version),
         setVersion: _setItem.bind(null, WICI.AppConfig.localStorageKeys.version),
         getVocabulary: getVocabulary,
-        setVocabulary: setVocabulary
+        setVocabulary: setVocabulary,
+        setValue: setValue,
+        getValue: getValue,
+        removeValue:removeValue
     };
 
 };

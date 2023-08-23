@@ -325,7 +325,13 @@ WICI.TrainingModuleAttestationScreenController = function (activationItems, argT
         console.log(logPrefix + sMethod + " emailValue : " + emailValue);
         model.set('email', emailValue);
         console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
-
+        //For Retaining values in login screen
+        WICI.LocalStorageHelper(window).setValue('businessStoreNo', activationItems.getModel('loginScreen').get('businessStoreNo'));
+        WICI.LocalStorageHelper(window).setValue('firstName', activationItems.getModel('loginScreen').get('firstName'));
+        WICI.LocalStorageHelper(window).setValue('lastName', activationItems.getModel('loginScreen').get('lastName'));
+        WICI.LocalStorageHelper(window).setValue('employeeNumberId', activationItems.getModel('loginScreen').get('employeeNumberId'));
+        WICI.LocalStorageHelper(window).setValue('retailNetWork', activationItems.getModel('loginScreen').get('retailNetWork'));
+        WICI.LocalStorageHelper(window).setValue('employerID', activationItems.getModel('loginScreen').get('employerID').toUpperCase());
     }
     // ---------------------------------------------------------------------------------------
 

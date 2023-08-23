@@ -166,6 +166,8 @@ WICI.LoginScreenController = function (app) {
         //hideRetailNetWorkData();
         // WIIC-83
         showHideTrainingModuleSlider();
+        populateTrainingValues();
+        
     }
     function createFlips() {
         var sMethod = 'createFlips() ';
@@ -394,6 +396,54 @@ WICI.LoginScreenController = function (app) {
         $(refs.resetSignature).addClass('grayflat');
         $(refs.resetSignature).unbind('click', onResetSignature1Clicked);
     }
+    
+    //---------------------------------------------------------------------------------------
+    function populateTrainingValues() {   	
+        var sMethod = 'populateTrainingValues()';
+        console.log(logPrefix + sMethod);
+        
+        if(WICI.LocalStorageHelper(window).getValue('employerID') == "E"){
+            $(refs.firstName).val(WICI.LocalStorageHelper(window).getValue('firstName').toLowerCase());
+            $(refs.lastName).val(WICI.LocalStorageHelper(window).getValue('lastName').toLowerCase());
+            $(refs.businessStoreNo).val(WICI.LocalStorageHelper(window).getValue('businessStoreNo'));
+            $(refs.retailNetWork).val(WICI.LocalStorageHelper(window).getValue('retailNetWork').toUpperCase());
+            $(refs.employerID).val(WICI.LocalStorageHelper(window).getValue('employerID'));
+            $(refs.employeeNumberId).val(WICI.LocalStorageHelper(window).getValue('employeeNumberId'));            
+            if($(refs.employeeNumberId).val() !== ""){
+            	$(refs.employeeNumberRowId).show();
+            	$(refs.employeeNumberRowIdOtherStaffMember).show();
+				$.each(model.data, function (index, item) {	               
+	                // Expand Employee Number field to 9 characters for Marks + FGL + PHL employee apps for retaining training login details post training completion(WICI-158).
+	                if (item.name == "agentID") {
+	                    item.validation.matcher = /^[a-zA-Z0-9]{1,9}$/;
+	                }
+            	}); 
+            }else{
+            	$(refs.employeeNumberRowId).hide();
+            	$(refs.employeeNumberRowIdOtherStaffMember).hide();
+            }
+            if(isTrainingModule() && isTrainingModuleFlag){
+            	$(refs.otheraStaffMemberToggleArea).hide();
+            }else{
+            	$(refs.otheraStaffMemberToggleArea).show();
+            }
+            showHideTrainingModuleSlider();
+            model.set('flipStaffYesNo', 'N');
+            $(refs.flipStaffMemberYesNo).val('N');
+            $(refs.flipStaffMemberYesNo1).val('N');
+            changeFormForEmployer();
+            validateNameFields = true;
+            $(refs.modeSliderComponent).show();
+            createTrainingModuleFlip();       
+           //clear Training Retained Values
+            WICI.LocalStorageHelper(window).removeValue('employerID');
+            WICI.LocalStorageHelper(window).removeValue('employeeNumberId');
+            WICI.LocalStorageHelper(window).removeValue('businessStoreNo');
+            WICI.LocalStorageHelper(window).removeValue('firstName');
+            WICI.LocalStorageHelper(window).removeValue('lastName');
+            WICI.LocalStorageHelper(window).removeValue('retailNetWork');          
+    	}           
+    }
     // ---------------------------------------------------------------------------------------
     function syncUserData() {
         var sMethod = 'syncUserData() ';
@@ -436,9 +486,9 @@ WICI.LoginScreenController = function (app) {
             model.set('firstName', $(refs.firstName).val().toLowerCase());
             model.set('lastName', $(refs.lastName).val().toLowerCase());
 
-            model.set('signature_trainee', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-            model.set('userSignature', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
-            model.set('userSignatureNative', $(refs.signature).jSignature('getData', 'native'));
+          //  model.set('signature_trainee', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
+          //  model.set('userSignature', $(refs.signature).jSignature('getData', 'native').length > 0 ? 'data:' + $(refs.signature).jSignature('getData', 'image').join(',') : null);
+          //  model.set('userSignatureNative', $(refs.signature).jSignature('getData', 'native'));
         }
         console.log(logPrefix + sMethod + "validateOtherStaff :: " + validateOtherStaff);
         if (validateOtherStaff) {
