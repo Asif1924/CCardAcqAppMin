@@ -51,8 +51,8 @@ public class ConfigurationReader
 	
 	public void loadConfiguration() throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.loadConfiguration()";
-		log.info(sMethod+ " Entry");
+		//String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.loadConfiguration()";
+		log.info("loadConfiguration Entry");
 		String errorReason = null;
 		try
 		{
@@ -79,13 +79,13 @@ public class ConfigurationReader
 		if (errorReason != null)
 			throw new ConfigurationException(errorReason);
 			
-		log.info(sMethod+ " Exit");
+		log.info("loadConfiguration Exit");
 	}
 		
 	public List getCategorys() throws ConfigurationException
 	{
 		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategorys()";
-		log.info(sMethod+ " Entry");
+		log.info("ConfigurationReader.getCategorys() Entry");
 		
 		if (configuration == null)
 			throw new ConfigurationException("Configuration has not been loaded");
@@ -99,15 +99,14 @@ public class ConfigurationReader
 			rc.add(keyName);
 		}
 		
-		log.info(sMethod+ " Exit");	
+		log.info("ConfigurationReader.getCategorys() Exit");	
 		
 		return rc;
 	}
 	
 	public boolean categoryExists(String category) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.categoryExists()";
-		log.info(sMethod+ " Entry");
+		log.info("ConfigurationReader.categoryExists() Entry");
 		
 		if (configuration == null)
 			throw new ConfigurationException("Configuration has not been loaded");
@@ -125,15 +124,14 @@ public class ConfigurationReader
 			}
 		}
 		
-		log.info(sMethod+ " Exit");	
+		log.info("ConfigurationReader.categoryExists() Exit");	
 		
 		return rc;
 	}
 	
 	public Map getCategoryKeys(String category) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategoryKeys()";
-		log.info(sMethod+ " Entry");
+		log.info("ConfigurationReader.getCategoryKeys() Entry");
 				
 		if (configuration == null)
 			throw new ConfigurationException("Configuration has not been loaded");
@@ -171,15 +169,14 @@ public class ConfigurationReader
 			}
 		}
 		
-		log.info(sMethod+ " Exit");
+		log.info("ConfigurationReader.getCategoryKeys() Exit");
 				
 		return rc;
 	}
 	
 	public String getCategoryKeyValue(String category, String key) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ConfigurationReader.getCategoryKeyValue()";
-		log.info(sMethod+ " Entry");
+		log.info("ConfigurationReader.getCategoryKeyValue() Entry");
 		
 		if (configuration == null)
 			throw new ConfigurationException("Configuration has not been loaded");
@@ -222,7 +219,7 @@ public class ConfigurationReader
 			throw new ConfigurationException("DOM navigation failure", e);		
 		}
 		
-		log.info(sMethod+ " Exit");
+		log.info("ConfigurationReader.getCategoryKeyValue() Exit");
 		
 		return rc;
 	}

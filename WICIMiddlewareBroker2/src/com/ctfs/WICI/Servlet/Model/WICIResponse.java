@@ -15,6 +15,8 @@ public class WICIResponse implements IResponse
 	
 	AccountApplicationSubmissionRequest accountApplicationSubmissionRequest;
 	
+	DatabaseResponse databaseResponse;
+	
 	public WICIResponse() {
 		this.error = false;
 		this.msg = "";
@@ -36,7 +38,8 @@ public class WICIResponse implements IResponse
 		this.consentGranted=consentGranted;
 		this.admAppId=admAppId;
 	}
-			
+		
+	
 	/**
 	 * @return the error
 	 */
@@ -139,6 +142,18 @@ public class WICIResponse implements IResponse
 	 */
 	public void setAdmAppId(String admAppId) {
 		this.admAppId = admAppId;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "WICIResponse [error=" + error + ", msg=" + msg + ", data="
+				+ data + ", consentGranted=" + consentGranted
+				+ ", transactionId=" + transactionId + ", enstreamResponse="
+				+ enstreamResponse + ", admAppId=" + admAppId
+				+ ", accountApplicationSubmissionRequest="
+				+ accountApplicationSubmissionRequest + "]";
 	}
 
 }

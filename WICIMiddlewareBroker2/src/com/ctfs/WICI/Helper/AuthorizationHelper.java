@@ -21,31 +21,26 @@ public class AuthorizationHelper
 
 	protected boolean isAuthfieldCheckEnabled()
 	{
-		String sMethod = this.getClass().getName() + "[isAuthfieldCheckEnabled] ";
-		log.info(sMethod);
-
+		log.info("AuthorizationHelper[isAuthfieldCheckEnabled] ");
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		return wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_AUTHFIELD_CHECK_ENABLED);
 	}
 
 	private boolean authorizedTablet(WICIServletMediator request) throws Exception
 	{
-		String sMethod = this.getClass().getName() + "[authorizedTablet] ";
-		log.info(sMethod);
+		log.info("AuthorizationHelper[authorizedTablet]");
 
 		AuthfieldValue authfieldValue = getAuthfieldValue(request);
 		
 		
        if( authfieldValue.getMfgSerial() == null || authfieldValue.getBuildSerial() == null ){
 			
-			log.info(sMethod + " skip the authorizedTablet Validation ::mfgSerial=" + authfieldValue.getMfgSerial() + ", buildSerial=" + authfieldValue.getBuildSerial());
-			
+			log.info("AuthorizationHelper[authorizedTablet] skip the authorizedTablet Validation ::mfgSerial=" + CWE117Fix.encodeCRLF(authfieldValue.getMfgSerial() != null ? authfieldValue.getMfgSerial() : null) + ", buildSerial=" + CWE117Fix.encodeCRLF(authfieldValue.getBuildSerial() != null ? authfieldValue.getBuildSerial() : null));
 			return true;
-			
 		}
 		
 
-		log.info(sMethod + "::mfgSerial=" + authfieldValue.getMfgSerial() + ", buildSerial=" + authfieldValue.getBuildSerial());
+		log.info("AuthorizationHelper[authorizedTablet]::mfgSerial=" + CWE117Fix.encodeCRLF(authfieldValue.getMfgSerial() != null ? authfieldValue.getMfgSerial() : null) + ", buildSerial=" + CWE117Fix.encodeCRLF(authfieldValue.getBuildSerial() != null ? authfieldValue.getBuildSerial() : null));
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		return wicidbHelper.isDeviceWhitelisted(authfieldValue.getMfgSerial(), authfieldValue.getBuildSerial());
@@ -53,24 +48,22 @@ public class AuthorizationHelper
 
 	public AuthfieldValue getAuthfieldValue(WICIServletMediator request) throws Exception
 	{
-		String sMethod = this.getClass().getName() + "[getAuthfieldValue] ";
-		log.info(sMethod);
-
+		log.info("AuthorizationHelper[getAuthfieldValue]");
 		AuthfieldValue authfieldValue = new AuthfieldValue();
 
 		if (request.getHttpMethodType() == HTTPMethodType.GET)
 		{
 			String mfgSerial = request.getRequestKVPairs().get("authfieldValue[MfgSerial]");
 			String buildSerial = request.getRequestKVPairs().get("authfieldValue[BuildSerial]");
-			log.info(sMethod + "::mfgSerial = " + mfgSerial);
-			log.info(sMethod + "::buildSerial = " + buildSerial);
+			log.info("getAuthfieldValue() ::mfgSerial = " + CWE117Fix.encodeCRLF(mfgSerial != null ? mfgSerial : null ));
+			log.info("getAuthfieldValue() ::buildSerial = " + CWE117Fix.encodeCRLF(buildSerial != null ? buildSerial : null));
 
 			authfieldValue.setMfgSerial(mfgSerial);
 			authfieldValue.setBuildSerial(buildSerial);
 		}
 		if (request.getHttpMethodType() == HTTPMethodType.POST)
 		{
-			log.info(sMethod + "===============In POST");
+			log.info(CWE117Fix.encodeCRLF("===============In POST"));
 
 			AccountApplicationPostRequest postRequest = null;
 
@@ -83,8 +76,8 @@ public class AuthorizationHelper
 
 			authfieldValue = postRequest.getAuthfieldValue();
 
-			log.info(sMethod + "::mfgSerial = " + authfieldValue.getMfgSerial());
-			log.info(sMethod + "::buildSerial = " + authfieldValue.getBuildSerial());
+			log.info("getAuthfieldValue()::mfgSerial = " + CWE117Fix.encodeCRLF(authfieldValue.getMfgSerial() != null ? authfieldValue.getMfgSerial() : null ));
+			log.info("getAuthfieldValue()::buildSerial = " + CWE117Fix.encodeCRLF(authfieldValue.getBuildSerial() != null ? authfieldValue.getBuildSerial() : null));
 		}
 
 		return authfieldValue;

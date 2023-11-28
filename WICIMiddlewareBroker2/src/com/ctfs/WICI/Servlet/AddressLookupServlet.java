@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 
 import com.ctfs.WICI.Helper.AddressLookupHelper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -38,20 +39,20 @@ public class AddressLookupServlet extends WICIServlet
 
 	private void invokeAddressLookup(WICIServletMediator requestMediator)
 	{
-		String sMethod = this.getClass().getName() + "[invokeAddressLookup] ";
+		
 		WICIDBHelper dbHelper = new WICIDBHelper();			
 		String city = requestMediator.searchElementInsidePostRequestBody("city") != null ? requestMediator.searchElementInsidePostRequestBody("city").trim() : EMPTY_STRING;
 		String postalCode = requestMediator.searchElementInsidePostRequestBody("postalCode") != null ? requestMediator.searchElementInsidePostRequestBody("postalCode").trim() : EMPTY_STRING;
 		String addressLine1 = requestMediator.searchElementInsidePostRequestBody("addressline1") != null ? requestMediator.searchElementInsidePostRequestBody("addressline1").trim() : EMPTY_STRING;
 		String addressLine2 = requestMediator.searchElementInsidePostRequestBody("addressline2") != null ? requestMediator.searchElementInsidePostRequestBody("addressline2") : EMPTY_STRING;
 		String province = requestMediator.searchElementInsidePostRequestBody("province") != null ? requestMediator.searchElementInsidePostRequestBody("province").trim() : EMPTY_STRING;
-		log.info(sMethod + "city=" + city + ", postalCode=" + postalCode +"addressLine1:: "+addressLine1+"addressLine2::"+addressLine2+"province ::: "+province);
+		log.info("AddressLookupServlet[invokeAddressLookup] city=" + CWE117Fix.encodeCRLF(city) + ", postalCode=" + CWE117Fix.encodeCRLF(postalCode) +"addressLine1:: "+CWE117Fix.encodeCRLF(addressLine1)+"addressLine2::"+CWE117Fix.encodeCRLF(addressLine2)+"province ::: "+CWE117Fix.encodeCRLF(province));
 		 
 		WICIDSSAddressInput dssInput = new WICIDSSAddressInput();
 		
 		if(addressLine1.isEmpty()){
 			
-			throw new IllegalArgumentException(" Invalid address Line1 "+addressLine1);
+			throw new IllegalArgumentException(" Invalid address Line1 "+CWE117Fix.encodeCRLF(addressLine1));
 		}
 		dssInput.setCity(transliterator(city));
 		dssInput.setPostalCode(postalCode);
@@ -61,7 +62,7 @@ public class AddressLookupServlet extends WICIServlet
         	dssInput.setAddressLine2(addressLine2);
 		}
 		
-        log.info("dss input :::: "+dssInput);
+        log.info("dss input :::: "+CWE117Fix.encodeCRLF(dssInput.toString()));
 		
 		WICIDSSAddressResponse dssResponse = new WICIDSSAddressResponse();
 		WICIResponse appResponse = new WICIResponse();
@@ -109,7 +110,7 @@ public class AddressLookupServlet extends WICIServlet
 			
 			if( conf != null && conf.getDssEndPoint() != null &&  conf.getDssserviceEnv() != null) {
 				
-				log.info(sMethod + "Address service Point to   " +conf.getDssserviceEnv()  + " Endpoint "+conf.getDssEndPoint() );
+				log.info("AddressLookupServlet[invokeAddressLookup] Address service Point to   " +CWE117Fix.encodeCRLF(conf.getDssserviceEnv())  + " Endpoint "+CWE117Fix.encodeCRLF(conf.getDssEndPoint()) );
 		
 				if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
 					
@@ -126,12 +127,12 @@ public class AddressLookupServlet extends WICIServlet
 			  
 			 if(dssResponse != null && dssResponse.getCity() != null && dssResponse.getCity().length() >=18 ){
 						
-						log.info(sMethod + " cityName from postalcode Resposne "+dssResponse.getCity());
+						log.info("AddressLookupServlet[invokeAddressLookup]  cityName from postalcode Resposne "+CWE117Fix.encodeCRLF(dssResponse.getCity()));
 						String abbrCityNameResponse =	dbHelper.retrieve13charABBRCityName(dssResponse);
 						
 						if(abbrCityNameResponse != null ){
 							dssResponse.setCity(abbrCityNameResponse);
-					    log.info(sMethod + " cityName from retrive13charABBCityName "+dssResponse.getCity());
+					    log.info("AddressLookupServlet[invokeAddressLookup]  cityName from retrive13charABBCityName "+CWE117Fix.encodeCRLF(dssResponse.getCity()));
 					    
 						appResponse.setData(dssResponse);
 						appResponse.setError(false);
@@ -143,7 +144,7 @@ public class AddressLookupServlet extends WICIServlet
 					appResponse.setError(false);
 					appResponse.setMsg(EMPTY_STRING);
 			 }
-			 log.info(" the final response broker to tablet  "+dssResponse);	
+			 log.info("the final response broker to tablet  "+CWE117Fix.encodeCRLF(dssResponse.toString()));	
 			
 		}
 		catch (Exception e)

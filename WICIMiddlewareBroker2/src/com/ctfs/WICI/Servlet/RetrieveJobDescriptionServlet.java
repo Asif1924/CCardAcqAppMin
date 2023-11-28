@@ -12,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.HttpClientHelper;
 import com.ctfs.WICI.Helper.JsonWrapper;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
@@ -33,14 +34,12 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 
 	protected void handleRequest(WICIServletMediator requestMediator)
 			throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doPost] ";
-		log.info(sMethod);
+		log.info("RetrieveJobDescriptionServlet[doPost]");
         retriveJobDescriptionFromDSS(requestMediator);
 	}
 
 	private void retriveJobDescriptionFromDSS(WICIServletMediator requestMediator) {
-		String sMethod = this.getClass().getName() + "[retriveJobDescriptionFromDSS] ";
-		log.info(sMethod);
+		log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionFromDSS]");
 		
 		WICIResponse tableResponse = new WICIResponse();
 		JobDescriptionOutput dssjobDescriptionResponse = new JobDescriptionOutput();
@@ -63,7 +62,7 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 			tableResponse.setError(true);
 			tableResponse.setMsg("Failure");
 		}
-		log.info(sMethod + " the formated response to wici  "+tableResponse);
+		log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionFromDSS] the formated response to wici  "+CWE117Fix.encodeCRLF(tableResponse.toString()));
 		requestMediator.processHttpResponse(tableResponse);
 	}
 
@@ -72,8 +71,7 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 		 CloseableHttpClient httpClient= null;
 		 String  responseContent = null;
 		 JobDescriptionOutput jobDescriptionResponse = new JobDescriptionOutput();
-		 String sMethod = this.getClass().getName() + "[retriveJobDescriptionHttpsClientCall] ";
-		 log.info(sMethod);
+		 log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpsClientCall]");
 		 try{
 			HttpClientHelper secureClient = new HttpClientHelper();
 			httpClient = secureClient.getHttpSecureClient();
@@ -86,16 +84,16 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 
 			int statusCode = response.getStatusLine().getStatusCode();
 			
-			log.info(sMethod + "retriveJobDescription status code :::: " + statusCode);
+			log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpsClientCall] retriveJobDescription status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			if (statusCode != 200) {
 				throw new RuntimeException("Failed with HTTP error code : "
-						+ statusCode);
+						+ CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			}
 			responseContent = EntityUtils.toString(response.getEntity());
 			jobDescriptionResponse = jsonWrapper.deserialize(responseContent,
 					JobDescriptionOutput.class);
 		        
-			log.info(sMethod + "jobDescriptionResponse  from DSS:::: " + jobDescriptionResponse);
+			log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpsClientCall] jobDescriptionResponse  from DSS:::: " + CWE117Fix.encodeCRLF(jobDescriptionResponse.toString()));
 		
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -105,7 +103,7 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 	
 	
 	public  JobDescriptionOutput  retriveJobDescriptionHttpClientCall(){
-		 String sMethod = this.getClass().getName()+  "[retriveJobDescriptionHttpClientCall] ";
+		 
 		 String  responseContent = null;
 		 JobDescriptionOutput jobDescriptionResponse = new JobDescriptionOutput();
          HttpClient   httpClient   = HttpClientBuilder.create().build();
@@ -118,21 +116,21 @@ public class RetrieveJobDescriptionServlet extends WICIServlet {
 	    	HttpResponse  response = httpClient.execute(post);
 	    	        
 	        int statusCode = response.getStatusLine().getStatusCode();
-	        log.info(sMethod + "retriveJobDescription status code :::: " + statusCode);
+	        log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpClientCall] retriveJobDescription status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        if (statusCode != 200) {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
 	        jobDescriptionResponse = jsonWrapper.deserialize(responseContent, JobDescriptionOutput.class);
 	        
 	        if( jobDescriptionResponse != null ){
-	        	log.info(sMethod + "jobDescriptionResponse Response "+ jobDescriptionResponse.getJobDescriptionList());
+	        	log.info("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpClientCall]jobDescriptionResponse Response "+ CWE117Fix.encodeCRLF(jobDescriptionResponse.getJobDescriptionList() != null? jobDescriptionResponse.getJobDescriptionList().toString(): null));
 	        }
 	        
 	     } catch(Exception e){
 	    	e.printStackTrace();
-	    	log.warning(sMethod + "::Exception::" + e.getMessage());
+	    	log.warning("RetrieveJobDescriptionServlet[retriveJobDescriptionHttpClientCall]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    } finally {
 	    	httpClient.getConnectionManager().shutdown();
 	    }

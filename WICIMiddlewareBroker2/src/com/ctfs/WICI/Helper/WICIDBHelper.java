@@ -87,8 +87,7 @@ public class WICIDBHelper
 		{
 			return mockedConnection;
 		}
-		String sMethod = "[connectToDB] ";
-		log.info(sMethod + "::Called::");
+		log.info("connectToDB::Called::");
 
 		log.info("Start connectToDB process...");
 
@@ -119,8 +118,7 @@ public class WICIDBHelper
 		{
 			return mockedConnection;
 		}
-		String sMethod = "[] ";
-		log.info(sMethod + "::Called::");
+		log.info("connectToTCTSalesDB()::Called::");
 
 		log.info("Start connectToTCTSalesDB process...");
 
@@ -138,8 +136,7 @@ public class WICIDBHelper
 		{
 			return mockedConnection;
 		}
-		String sMethod = "[] ";
-		log.info(sMethod + "::Called::");
+		log.info("connectToINETDB()::Called::");
 
 		log.info("Start connectToINETDB process...");
 
@@ -152,8 +149,7 @@ public class WICIDBHelper
 	
 	protected void closeDBConnection(Connection connection)
 	{
-		String sMethod = "[closeDBConnection] ";
-		log.info(sMethod + "::Called::");
+		log.info("closeDBConnection()::Called::");
 
 		// Close DB connection
 		try
@@ -166,14 +162,12 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closeDBConnection::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 	
 	protected void closeDBConnection(Connection connection, Boolean healthCheckCall)
 	{
-		String sMethod = "[closeDBConnection for health check call] ";
-		
 		// Close DB connection
 		try
 		{
@@ -185,14 +179,13 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closeDBConnection::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 
 	protected void closePreparedStatement(PreparedStatement preparedStatement)
 	{
-		String sMethod = "[closePreparedStatement] ";
-		log.info(sMethod + "::Called::");
+		log.info("::Called::");
 
 		// Close prepared statement
 		try
@@ -204,14 +197,12 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closePreparedStatement::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 	
 	protected void closePreparedStatement(PreparedStatement preparedStatement, Boolean healthCheckCall)
 	{
-		String sMethod = "[closePreparedStatement for health check call] ";
-		
 		// Close prepared statement
 		try
 		{
@@ -222,14 +213,13 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closePreparedStatement::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 
 	protected void closeResultSet(ResultSet resultSet)
 	{
-		String sMethod = "[closeResultSet] ";
-		log.info(sMethod + "::Called::");
+		log.info("closeResultSet::Called::");
 
 		// Close result set
 		try
@@ -241,14 +231,12 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closeResultSet::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 	
 	protected void closeResultSet(ResultSet resultSet, Boolean healthCheckCall)
 	{
-		String sMethod = "[closeResultSet for health check call] ";
-		
 		// Close result set
 		try
 		{
@@ -259,7 +247,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("closeResultSet for health check call::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 	}
 
@@ -285,15 +273,14 @@ public class WICIDBHelper
 
 	public IConfigurationTableEntity getApprovedAPKVersion(String apkVersion) throws SQLException
 	{
-		String sMethod = "[getApprovedAPKVersion] ";
-		log.info(sMethod + "::Called with parameter apkVersion:" + apkVersion);
+		log.info("[getApprovedAPKVersion]::Called with parameter apkVersion:" + CWE117Fix.encodeCRLF(apkVersion));
 
 		IConfigurationTableEntity configurationTableEntity = null;
 
 		// Create sql statement
 		String sql = "SELECT CONFIG_NAME, CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_VALUE = ? AND CONFIG_NAME = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getApprovedAPKVersion]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -325,7 +312,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getApprovedAPKVersion]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -341,8 +328,7 @@ public class WICIDBHelper
 
 	public DictionaryInfo getLatestDictionaryInfo() throws SQLException
 	{
-		String sMethod = "[getLatestDictionaryInfo] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getLatestDictionaryInfo]::Called::");
 
 		DictionaryInfo dictInfo = new DictionaryInfo();
 
@@ -366,7 +352,7 @@ public class WICIDBHelper
 				configName = resultSet.getString("CONFIG_NAME");
 				configValue = resultSet.getString("CONFIG_VALUE");
 				
-				log.info(sMethod + "::Called:: configName = " + configName + ", configValue = " + configValue);				
+				log.info("[getLatestDictionaryInfo]::Called:: configName = " + CWE117Fix.encodeCRLF(configName) + ", configValue = " + CWE117Fix.encodeCRLF(configValue));				
 				
 				if( configName.equals("OLDER_DICTIONARY_ALLOWABLE")) dictInfo.setOlderDictionaryAllowable(new Boolean(configValue));
 				if( configName.equals("DICTIONARY_VERSION")) dictInfo.setLatestDictionaryVersion(configValue);
@@ -376,7 +362,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getLatestDictionaryInfo]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			return dictInfo;
 		}
 		finally
@@ -389,13 +375,10 @@ public class WICIDBHelper
 
 	public boolean isDebugMode(String argMfgSerial, String argBuildSerial) throws SQLException
 	{
-		String sMethod = "[isDebugMode] ";
-		log.info(sMethod);
-
 		String sql = "SELECT * FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) IN (?,?) AND AUTHORIZED=1";
 		Integer debugMode = 0;
 		
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[isDebugMode]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -412,7 +395,7 @@ public class WICIDBHelper
 
 			if (resultSet.next())
 			{
-				log.info(sMethod + ":: Device Manufacturer Serial # " + argMfgSerial + " and Build Serial # " + argBuildSerial);
+				log.info("[isDebugMode] :: Device Manufacturer Serial # " + CWE117Fix.encodeCRLF(argMfgSerial) + " and Build Serial # " + CWE117Fix.encodeCRLF(argBuildSerial));
 				
 				debugMode = resultSet.getInt("DEBUG_MODE");
 				if(debugMode == 1)
@@ -423,7 +406,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("isDebugMode::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			return false;
 		}
 		finally
@@ -436,12 +419,12 @@ public class WICIDBHelper
 	
 	public boolean isDeviceWhitelisted(String argMfgSerial, String argBuildSerial) throws SQLException
 	{
-		String sMethod = "[isDeviceWhitelisted] ";
-		log.info(sMethod);
+		//String sMethod = "[isDeviceWhitelisted] ";
+		log.info("[isDeviceWhitelisted] ");
 
 		String sql = "SELECT * FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) IN (?,?) AND AUTHORIZED=1";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[isDeviceWhitelisted] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -458,13 +441,13 @@ public class WICIDBHelper
 
 			if (resultSet.next())
 			{
-				log.info(sMethod + ":: Device with Manufacturer Serial # of " + argMfgSerial + " and Build Serial # of " + argBuildSerial + " is whitelisted.");
+				log.info("[isDeviceWhitelisted] :: Device with Manufacturer Serial # of " + CWE117Fix.encodeCRLF(argMfgSerial) + " and Build Serial # of " + CWE117Fix.encodeCRLF(argBuildSerial) + " is whitelisted.");
 				return true;
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[isDeviceWhitelisted] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			return false;
 		}
 		finally
@@ -477,14 +460,14 @@ public class WICIDBHelper
 
 	public boolean isAuthfieldCheckEnabled(String config)
 	{
-		String sMethod = "[isAuthfieldCheckEnabled] ";
-		log.info(sMethod);
+		
+		log.info("[isAuthfieldCheckEnabled]");
 
 		boolean enabled = false;
 
 		String sql = "SELECT CONFIG_NAME, CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("isAuthfieldCheckEnabled]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -502,12 +485,12 @@ public class WICIDBHelper
 			while (resultSet.next())
 			{
 				enabled = new Boolean(resultSet.getString("CONFIG_VALUE"));
-				System.out.println("Enabled"+enabled);
+				System.out.println("Enabled"+CWE117Fix.encodeCRLF(String.valueOf(enabled)));
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("isAuthfieldCheckEnabled]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			enabled = false;
 		}
 		finally
@@ -520,15 +503,14 @@ public class WICIDBHelper
 	
 	public String getAirwatchDFNSearchPrefix()
 	{
-		String sMethod = "[getAirwatchDFNSearchPrefix] ";
-		log.info(sMethod + "::Called::");
+		log.info("getAirwatchDFNSearchPrefix::Called::");
 
 		String configValue = null;
 		final String configName = "'AirwatchDeviceFriendlyNameSearchPrefix'";
 
 		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = " + configName;
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("getAirwatchDFNSearchPrefix::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -548,7 +530,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("getAirwatchDFNSearchPrefix::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -560,18 +542,17 @@ public class WICIDBHelper
 
 	public void deEnrolWICIDevice(String argSerialNumber) throws SQLException
 	{
-		String sMethod = "[deEnrolWICIDevice] ";
-		log.info(sMethod + "::Called::");
+		log.info("deEnrolWICIDevice::Called::");
 
 		validateSerialNumber(argSerialNumber);
 
 		String serialNumberUpper = argSerialNumber.toUpperCase().trim();
 
-		log.info(sMethod + ":: DeEnrolling existing device with serial number of " + serialNumberUpper );
+		log.info("deEnrolWICIDevice:: DeEnrolling existing device with serial number of " + CWE117Fix.encodeCRLF(serialNumberUpper) );
 
 		String sql = "UPDATE " + WICI_WHITELIST_TABLE + " SET AUTHORIZED='0' WHERE UPPER(AUTHFIELD_VALUE)=?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("deEnrolWICIDevice::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -586,7 +567,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("deEnrolWICIDevice::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -596,8 +577,7 @@ public class WICIDBHelper
 
 	public void enrolWICIDevice(String argSerialNumber) throws Exception
 	{
-		String sMethod = "[enrolWICIDevice] ";
-		log.info(sMethod + "::Called::");
+		log.info("enrolWICIDevice::Called::");
 
 		validateSerialNumber(argSerialNumber);
 
@@ -606,7 +586,7 @@ public class WICIDBHelper
 		boolean updating = false;
 		String sql = "";
 
-		log.info(sMethod + ":: Enrolling existing device with serial number of " + serialNumberUpper );
+		log.info("enrolWICIDevice:: Enrolling existing device with serial number of " + CWE117Fix.encodeCRLF(serialNumberUpper) );
 		if (deviceWithThisSerialNumberExists(serialNumberUpper)){
 			sql = "UPDATE " + WICI_WHITELIST_TABLE + " SET AUTHORIZED='1' WHERE UPPER(AUTHFIELD_VALUE)=?";
 			updating = true;
@@ -616,7 +596,7 @@ public class WICIDBHelper
 			updating = false;
 		}
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("enrolWICIDevice::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -640,7 +620,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("enrolWICIDevice::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -650,8 +630,7 @@ public class WICIDBHelper
 
 	public void logonInfo(LoginInfo loginInfo) throws Exception
 	{
-		String sMethod = "[logonInfo] ";
-		log.info(sMethod + "::Called::");
+		log.info("[logonInfo]::Called::");
 
 		
 		String mfgSerial = loginInfo.getMfgSerial().toUpperCase().trim(); 
@@ -669,7 +648,7 @@ public class WICIDBHelper
 			updating = false;
 		}
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[logonInfo]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -698,7 +677,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[logonInfo]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -708,8 +687,7 @@ public class WICIDBHelper
 	
 	public boolean deviceWithThisMfgSerialNumberExists( String argMfgSerialNumber ) throws SQLException
 	{
-		String sMethod = "[deviceWithThisMfgSerialNumberExists] ";
-		log.info(sMethod + "::Called::");
+		log.info("deviceWithThisMfgSerialNumberExists::Called::");
 
 		validateMfgSerialNumber(argMfgSerialNumber);
 
@@ -717,7 +695,7 @@ public class WICIDBHelper
 
 		String sql = "SELECT MFG_SERIALNO FROM " + WICI_TAB_LST_TABLE + " WHERE UPPER(MFG_SERIALNO) = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[deviceWithThisMfgSerialNumberExists]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -733,13 +711,13 @@ public class WICIDBHelper
 
 			if (resultSet.next())
 			{
-				log.info(sMethod + ":: " + argMfgSerialNumber + " exists");
+				log.info("[deviceWithThisMfgSerialNumberExists] :: " + CWE117Fix.encodeCRLF(argMfgSerialNumber) + " exists");
 				deviceExists = true;
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[deviceWithThisMfgSerialNumberExists] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			deviceExists = false;
 		}
 		finally
@@ -752,13 +730,12 @@ public class WICIDBHelper
 	
 	public ITabListTableEntity retrieveLastLoggedinMfgserialNo( Timestamp argLastLoggedinDate ) throws SQLException
 	{
-		String sMethod = "[retrieveLastLoggedinMfgserialNo] ";
-		log.info(sMethod + "::Called::");
+		log.info("[retrieveLastLoggedinMfgserialNo] ::Called::");
 
 		ITabListTableEntity tabListTableEntity = null;
 			
 		String sql = "SELECT AGENTID, MFG_SERIALNO FROM "+ WICI_TAB_LST_TABLE + " WHERE LOGINDATE = ? ORDER BY LOGINDATE DESC";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -778,13 +755,13 @@ public class WICIDBHelper
 			{
 				tabListTableEntity.setAgentID(resultSet.getString("AGENTID"));
 				tabListTableEntity.setMfgSerialNo(resultSet.getString("MFG_SERIALNO"));
-				log.info(sMethod + " ::mfgSerial:: " + resultSet.getString("MFG_SERIALNO")
-						+ " ::agentId:: " + resultSet.getString("AGENTID"));
+				log.info(" [retrieveLastLoggedinMfgserialNo]::mfgSerial:: " + CWE117Fix.encodeCRLF(resultSet.getString("MFG_SERIALNO"))
+						+ " ::agentId:: " + CWE117Fix.encodeCRLF(resultSet.getString("AGENTID")));
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[retrieveLastLoggedinMfgserialNo]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -797,28 +774,27 @@ public class WICIDBHelper
 	@SuppressWarnings("deprecation")
 	public boolean checkAgentPreLoggedin(LoginInfo loginInfo) throws SQLException, ParseException {
 		
-		String sMethod = "[checkAgentPreLoggedin] ";
-		log.info(sMethod + "::Called::");
+		log.info("[checkAgentPreLoggedin]::Called::");
 
 		String newAgentID = loginInfo.getAgentID().toUpperCase().trim();
 		String newMfgSerial = loginInfo.getMfgSerial().toUpperCase().trim();
 		String agentID = "", mfgSerial = "";
-		log.info(sMethod + "::newAgentID:: " + newAgentID + " ::newMfgSerial:: " + newMfgSerial);
+		log.info("[checkAgentPreLoggedin]::newAgentID:: " + CWE117Fix.encodeCRLF(newAgentID) + " ::newMfgSerial:: " + CWE117Fix.encodeCRLF(newMfgSerial));
 
 		Timestamp lastLoggedinTimeStamp = getLoggedinDate(newAgentID);
-		log.info(sMethod + "::lastLoggedInDate:: " + lastLoggedinTimeStamp);
+		log.info("::lastLoggedInDate:: " + CWE117Fix.encodeCRLF(lastLoggedinTimeStamp != null ? lastLoggedinTimeStamp.toString(): null));
 		
 		ITabListTableEntity tabListTableEntity = retrieveLastLoggedinMfgserialNo(lastLoggedinTimeStamp);
 		
 		if(validateTabListTableEntity(tabListTableEntity)) {
 			agentID = tabListTableEntity.getAgentID();
 			mfgSerial = tabListTableEntity.getMfgSerialNo();
-			log.info(sMethod + " ::lastLoggedInMfgSerial:: " + mfgSerial + " ::lastLoggedInAgentID:: " + agentID);
+			log.info("[checkAgentPreLoggedin] ::lastLoggedInMfgSerial:: " + CWE117Fix.encodeCRLF(mfgSerial)+ " ::lastLoggedInAgentID:: " + CWE117Fix.encodeCRLF(agentID));
 		}
 		
 		long millis =  new java.util.Date().getTime();
 		java.sql.Timestamp currentDate = new java.sql.Timestamp(millis);
-		log.info(sMethod + "::currentDate:: " + currentDate);
+		log.info("::currentDate:: " + CWE117Fix.encodeCRLF(currentDate != null ? currentDate.toString(): null));
 		
 		boolean loggedIn = false;
 		
@@ -826,7 +802,7 @@ public class WICIDBHelper
 			if(currentDate.getYear() == lastLoggedinTimeStamp.getYear() && currentDate.getMonth() == lastLoggedinTimeStamp.getMonth()
 					&& currentDate.getDate() == lastLoggedinTimeStamp.getDate() && currentDate.getHours() == lastLoggedinTimeStamp.getHours()) {
 				int minutes = currentDate.getMinutes() - lastLoggedinTimeStamp.getMinutes();
-				log.info(sMethod + ":: minutes difference :: " + minutes);
+				log.info(":: minutes difference :: " + CWE117Fix.encodeCRLF(String.valueOf(minutes)));
 				if(minutes <= 5) {
 					loggedIn = true;
 				} else {
@@ -840,27 +816,23 @@ public class WICIDBHelper
 	
 	private boolean validateTabListTableEntity(ITabListTableEntity tabListTableEntity)
 	{
-		String sMethod = this.getClass().getName() + "[validateTabListTableEntity] ";
-		log.info(sMethod);
-
+		log.info("[validateTabListTableEntity] ");
 		return tabListTableEntity != null && validateStringParameter(tabListTableEntity.getAgentID()) && validateStringParameter(tabListTableEntity.getMfgSerialNo());
 	}
 
 	private boolean validateStringParameter(String value)
 	{
-		String sMethod = this.getClass().getName() + "[validateStringParameter] ";
-		log.info(sMethod);
+		log.info("[validateStringParameter]" );
 
 		return value != null && !value.isEmpty();
 	}
 	
 	private Timestamp getLoggedinDate( String argAgentID ) throws SQLException
 	{
-		String sMethod = "[getLoggedinDate] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getLoggedinDate]::Called::");
 		
 		String sql = "SELECT MAX(LOGINDATE) FROM " + WICI_TAB_LST_TABLE + " WHERE UPPER(AGENTID) = ? ORDER BY LOGINDATE DESC";
-		log.info(sMethod + ":: SQL :: " + sql);
+		log.info(":: SQL :: " + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -878,12 +850,12 @@ public class WICIDBHelper
 			if (resultSet.next())
 			{
 				lastLoggedInDate = resultSet.getTimestamp("MAX(LOGINDATE)");
-				log.info(sMethod + ":: login date :: " + lastLoggedInDate);
+				log.info("[getLoggedinDate]:: login date :: " + CWE117Fix.encodeCRLF(lastLoggedInDate != null ? lastLoggedInDate.toString() : null));
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getLoggedinDate]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -896,13 +868,11 @@ public class WICIDBHelper
 	// US4231
 	public boolean employerIdAgentIDExists( LoginInfo loginInfo ) throws SQLException
 	{
-		String sMethod = "[employerIdAgentIDExists] ";
-		log.info(sMethod + "::Called::");
-
+		log.info("[employerIdAgentIDExists]::Called::");
 		String employerId = loginInfo.getEmployerID().toUpperCase().trim();
 		String agentID = loginInfo.getAgentID().toUpperCase().trim();
 
-		log.info(sMethod + "::employerId:: " + employerId + " ::agentID:: " + agentID);
+		log.info("::employerId:: " + CWE117Fix.encodeCRLF(employerId) + " ::agentID:: " + CWE117Fix.encodeCRLF(agentID));
 		
 		validateEmployerIdAgentID(employerId, agentID);
 
@@ -910,7 +880,7 @@ public class WICIDBHelper
 
 		String sql = "SELECT * FROM " + WICI_BLACKLIST_TABLE + " WHERE UPPER(EMPLOYERID) = ?" + " AND UPPER(AGENTID) = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -927,13 +897,13 @@ public class WICIDBHelper
 
 			if (resultSet.next())
 			{
-				log.info(sMethod + ":: " + employerId + " and " + agentID + " exists");
+				log.info(":: " + CWE117Fix.encodeCRLF(employerId) + " and " + CWE117Fix.encodeCRLF(agentID) + " exists");
 				employerIdAgentIDExists = true;
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[employerIdAgentIDExists]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			employerIdAgentIDExists = false;
 		}
 		finally
@@ -946,8 +916,7 @@ public class WICIDBHelper
 	
 	private boolean deviceWithThisSerialNumberExists( String argSerialNumber ) throws SQLException
 	{
-		String sMethod = "[deviceWithThisSerialNumberExists] ";
-		log.info(sMethod + "::Called::");
+		log.info("[deviceWithThisSerialNumberExists] ::Called::");
 
 		validateSerialNumber(argSerialNumber);
 
@@ -955,7 +924,7 @@ public class WICIDBHelper
 
 		String sql = "SELECT AUTHFIELD_VALUE FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -971,13 +940,13 @@ public class WICIDBHelper
 
 			if (resultSet.next())
 			{
-				log.info(sMethod + ":: " + argSerialNumber + " exists");
+				log.info("[deviceWithThisSerialNumberExists]:: " + CWE117Fix.encodeCRLF(argSerialNumber) + " exists");
 				deviceExists = true;
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[deviceWithThisSerialNumberExists] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			deviceExists = false;
 		}
 		finally
@@ -1014,7 +983,7 @@ public class WICIDBHelper
 			preparedStatement.setString(7, agency);
 			preparedStatement.setString(8,serialNumber);
 			preparedStatement.setDate(9, getCurrentDateTime());
-			log.info("roleId"+roleId+"userName"+userName+"activatedflag"+activatedflag+"adminId"+adminId+"passKey"+passKey+"locale"+locale+"agency"+agency+"serialNumber"+serialNumber+"getCurrentDateTime()"+getCurrentDateTime());
+			log.info("roleId"+CWE117Fix.encodeCRLF(String.valueOf(roleId))+"userName"+CWE117Fix.encodeCRLF(userName)+"activatedflag"+CWE117Fix.encodeCRLF(activatedflag)+"adminId"+CWE117Fix.encodeCRLF(adminId)+"passKey"+CWE117Fix.encodeCRLF(passKey)+"locale"+CWE117Fix.encodeCRLF(locale)+"agency"+CWE117Fix.encodeCRLF(agency)+"serialNumber"+CWE117Fix.encodeCRLF(serialNumber)+"getCurrentDateTime()"+CWE117Fix.encodeCRLF(getCurrentDateTime() != null ? getCurrentDateTime().toString() : null));
 			preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1063,15 +1032,14 @@ public class WICIDBHelper
 	
 	public String insertAccountApplicationData(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork, String longitude, String latitude, String sec_firstName, String sec_lastName, String sec_employee_number) throws Exception
 	{
-		String sMethod = "[insertAccountApplicationData] ";
-		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
+		log.info("[insertAccountApplicationData]::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(transactionID) + ", TRANSACTION_STATE=" + CWE117Fix.encodeCRLF(AppConstants.QUEUE_REQUEST_SUBMIT) +", USER_ID=" + CWE117Fix.encodeCRLF(userID) + ", REQUEST_DATA=" + CWE117Fix.encodeCRLF(requestData) + ", RETRIEVAL_TOKEN=" + CWE117Fix.encodeCRLF(retrievalToken) + ", CURRENT_TELEPHONE=" +  CWE117Fix.encodeCRLF(currentTelephone)+ ",CONSENT_GRANTED="+CWE117Fix.encodeCRLF(consentGranted));
 
 		// Create sql statement
 		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
 				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK,LONGITUDE,LATITUDE,SEC_EMP_FIRST_NAME,SEC_EMP_LAST_NAME,SEC_EMP_NUMBER)"
 				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[insertAccountApplicationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 	
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1114,7 +1082,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[insertAccountApplicationData]::Raise EXCEPTION::" +  CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1128,15 +1096,14 @@ public class WICIDBHelper
 	
 	public String insertAccountApplicationDataDSS(String transactionID, String userID, String requestData, String retrievalToken, String currentTelephone,String consentGranted,String unitNumber,String streetNumber,String streetName,AccountApplicationRequestType accountApplicationRequestType,String employerId, String firstName, String lastName, String retailNetWork, String longitude, String latitude, String sec_firstName, String sec_lastName, String sec_employee_number) throws Exception
 	{
-		String sMethod = "[insertAccountApplicationData] ";
-		log.info(sMethod + "--Called with parameter TRANSACTION_ID=" + transactionID + ", TRANSACTION_STATE=" + AppConstants.QUEUE_REQUEST_SUBMIT +", USER_ID=" + userID + ", REQUEST_DATA=" + requestData + ", RETRIEVAL_TOKEN=" + retrievalToken + ", CURRENT_TELEPHONE=" + currentTelephone+ ",CONSENT_GRANTED="+consentGranted);
+		log.info("[insertAccountApplicationData]::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(transactionID) + ", TRANSACTION_STATE=" + CWE117Fix.encodeCRLF(AppConstants.QUEUE_REQUEST_SUBMIT) +", USER_ID=" + CWE117Fix.encodeCRLF(userID) + ", REQUEST_DATA=" + CWE117Fix.encodeCRLF(requestData) + ", RETRIEVAL_TOKEN=" + CWE117Fix.encodeCRLF(retrievalToken) + ", CURRENT_TELEPHONE=" + CWE117Fix.encodeCRLF(currentTelephone)+ ",CONSENT_GRANTED="+CWE117Fix.encodeCRLF(consentGranted));
 
 		// Create sql statement
 		String sql = "INSERT INTO " + WICIREQUESTQUEUETBL + "(TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_STATE, USER_ID, PROCESS_DATE, REQUEST_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED,UNIT_NUMBER,STREET_NUMBER," +
 				"STREET_NAME,CHANNEL_ID,CLIENT_PROD_CD,AGENCY_CD,PROMO_CD,STORE_ID,EMP_FIRST_NAME,EMP_LAST_NAME,RETAIL_NETWORK,LONGITUDE,LATITUDE,SEC_EMP_FIRST_NAME,SEC_EMP_LAST_NAME,SEC_EMP_NUMBER)"
 				+ "VALUES (?, ?, ?, ?,(SELECT SYS_EXTRACT_UTC(SYSTIMESTAMP)UTC_SYS FROM DUAL), ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[insertAccountApplicationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 	
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1179,7 +1146,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[insertAccountApplicationData]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1190,18 +1157,9 @@ public class WICIDBHelper
 		return transactionID;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public boolean isApprovedAppRetrievable( String argTransactionID, String argToken, String argPhone  ){
-		String sMethod = "[isApprovedAppRetrievable] ";
-		log.info(sMethod + "::Called::");
+		log.info("[isApprovedAppRetrievable]::Called::");
 		Integer retrievalCountForThisApp = null;
 		String maxRetrievalsForApprovedApps = getMaxRetrievalsForApprovedApps();
 		if( argTransactionID!=null || argTransactionID.equals(""))
@@ -1215,20 +1173,19 @@ public class WICIDBHelper
 		
 		int count = retrievalCountForThisApp.intValue();
 
-		log.info(sMethod + "::Comparing max(" + max + ") to count (" + count + "):: for transactionID=" + argTransactionID);
+		log.info("[isApprovedAppRetrievable]::Comparing max(" + CWE117Fix.encodeCRLF(String.valueOf(max)) + ") to count (" + CWE117Fix.encodeCRLF(String.valueOf(count)) + "):: for transactionID=" + CWE117Fix.encodeCRLF(argTransactionID));
 		
 		return count<=max;		
 	}
 	
 	public String getMaxRetrievalsForApprovedApps()
 	{
-		String sMethod = "[getMaxRetrievalsForApprovedApps] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getMaxRetrievalsForApprovedApps] ::Called::");
 
 		String maxRetrievalsForApproved = "";
 		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE CONFIG_NAME = 'MAX_RETRIEVALS_LIMIT'";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getMaxRetrievalsForApprovedApps]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1250,27 +1207,26 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
-		log.info(sMethod + "::Max Retrievals for Approved Apps = " + maxRetrievalsForApproved);
+		log.info("::Max Retrievals for Approved Apps = " + CWE117Fix.encodeCRLF(maxRetrievalsForApproved));
 
 		return maxRetrievalsForApproved;
 	}
 	
 	
 	public String getTransactionIDForApprovedApp( String argToken, String argPhone ) {
-		String sMethod = "[getTransactionIDForApprovedApp] ";
-		log.info(sMethod + "::Called::");
-
+		
+		log.info("[getTransactionIDForApprovedApp]::Called::");
 		String transID = "";
 		String sql = "SELECT TRANSACTION_ID FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getTransactionIDForApprovedApp]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1289,7 +1245,7 @@ public class WICIDBHelper
 				transID = resultSet.getString("TRANSACTION_ID");
 			}
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getTransactionIDForApprovedApp]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		} finally {
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
@@ -1298,13 +1254,12 @@ public class WICIDBHelper
 	}
 	
 	public String getDuplicateTransactionIDWithUserId(String argTrasID, String argUserID) {
-		String sMethod = "[getDuplicateTransactionIDWithUserId] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getDuplicateTransactionIDWithUserId] ::Called::");
 
 		String transID = "";
 		String sql = "SELECT TRANSACTION_ID FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND USER_ID = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getDuplicateTransactionIDWithUserId] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1323,7 +1278,7 @@ public class WICIDBHelper
 				transID = resultSet.getString("TRANSACTION_ID");
 			}
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		} finally {
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
@@ -1333,16 +1288,14 @@ public class WICIDBHelper
 	
 	public Integer getRetrievalCountForApprovedApp( String argToken, String argPhone )
 	{
-		String sMethod = "[getRetrievalCountForApprovedApp] ";
-		log.info(sMethod + "::Called with argToken = " + argToken);
-		log.info(sMethod + "::Called with argPhone = " + argPhone);
+		log.info("[getRetrievalCountForApprovedApp] ::Called with argToken = " +CWE117Fix.encodeCRLF(argToken));
+		log.info("[getRetrievalCountForApprovedApp] ::Called with argPhone = " + CWE117Fix.encodeCRLF(argPhone));
 
 		Integer retrievalCount = 0;
 		// US3436
 		// Update decline print to use max_retrieval configuration
 		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')" ;
-
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getRetrievalCountForApprovedApp] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1366,27 +1319,26 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
-		log.info(sMethod + "::RetrievalCount = " + retrievalCount);
+		log.info("::RetrievalCount = " + CWE117Fix.encodeCRLF(String.valueOf(retrievalCount)));
 		return retrievalCount;
 	}	
 	public Integer getRetrievalCountForApprovedApp( String argTransactionID )
 	{
-		String sMethod = "[getRetrievalCountForApprovedApp] ";
-		log.info(sMethod + "::Called with transactionID = " + argTransactionID);
+		log.info("[getRetrievalCountForApprovedApp] ::Called with transactionID = " + CWE117Fix.encodeCRLF(argTransactionID));
 
 		Integer retrievalCount = 0;
 		// US3436
 		// Update decline print to use max_retrieval configuration
 		String sql = "SELECT RETRIEVAL_COUNT FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')" ;
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getRetrievalCountForApprovedApp] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1409,22 +1361,21 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getRetrievalCountForApprovedApp] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
 			DisposeBDResources(connection, preparedStatement, resultSet);
 		}
 
-		log.info(sMethod + "::RetrievalCount = " + retrievalCount);
+		log.info("[getRetrievalCountForApprovedApp] ::RetrievalCount = " + CWE117Fix.encodeCRLF(String.valueOf(retrievalCount)));
 		return retrievalCount;
 	}
 	
 
 	public void updateRetrievalCountForApprovedApp(String argTransactionID) throws Exception
 	{
-		String sMethod = "[updateRetrievalCountForApprovedApp] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID);
+		log.info("::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(argTransactionID));
 
 		// Create sql statement
 		//update WICI_REQUESTQUEUE SET RETRIEVAL_COUNT=1 WHERE TRANSACTION_ID='D7BC4391-BA4C-47BA-9AA1-21231B9ED185' AND TRANSACTION_STATE='COMPLETE' AND RESPONSE_DATA LIKE '%APPROVED%'
@@ -1432,7 +1383,7 @@ public class WICIDBHelper
 		// Update decline print to use max_retrieval configuration
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RETRIEVAL_COUNT = ? WHERE TRANSACTION_ID = ? AND TRANSACTION_STATE='COMPLETE' AND (RESPONSE_DATA LIKE '%APPROVED%' OR RESPONSE_DATA LIKE '%DECLINE%')";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[updateRetrievalCountForApprovedApp]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1442,7 +1393,7 @@ public class WICIDBHelper
 			Integer currentRetrievalCount = getRetrievalCountForApprovedApp(argTransactionID);
 			int newValue = currentRetrievalCount.intValue() + 1;
 			
-			log.info(sMethod + "::Updating with new value = " + newValue );
+			log.info("[updateRetrievalCountForApprovedApp]::Updating with new value = " + CWE117Fix.encodeCRLF(String.valueOf(newValue)));
 			connection = connectToDB(false);
 
 			preparedStatement = connection.prepareStatement(sql);
@@ -1454,7 +1405,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[updateRetrievalCountForApprovedApp]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1466,13 +1417,12 @@ public class WICIDBHelper
 	
 	public String updateAccountApplicationData(String argTransactionID, String argAccountApplicationResponse, String argTransactionState,String appStatus) throws Exception
 	{
-		String sMethod = "[updateAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID + ", RESPONSE_DATA=" + argAccountApplicationResponse + ", TRANSACTION_STATE=" + argTransactionState);
+		log.info("::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(argTransactionID) + ", RESPONSE_DATA=" + CWE117Fix.encodeCRLF(argAccountApplicationResponse) + ", TRANSACTION_STATE=" + CWE117Fix.encodeCRLF(argTransactionState));
 
 		// Create sql statement
-		//String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?,STATUS =? WHERE TRANSACTION_ID = ?";
+		//String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?,STATUS =? WHERE TRANSACTION_ID = ?";)
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ? WHERE TRANSACTION_ID = ?";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[updateAccountApplicationData] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1495,7 +1445,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[updateAccountApplicationData] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1508,9 +1458,8 @@ public class WICIDBHelper
 
 	public PendAccountApplicationResponse updatePendingAccountApplicationData(PendAccountApplicationRequest argPAARequestObject) throws PendingApplicationDatabaseUpdateException
 	{
-		String sMethod = "[updatePendingAccountApplicationData] ";
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET RESPONSE_DATA = ?, TRANSACTION_STATE = ?, ADM_APP_ID = ?,STATUS = ? WHERE TRANSACTION_ID = ?";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[updatePendingAccountApplicationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		WICIResponse convertedRequestToResponse = new WICIObjectsHelper().convertPendAccountApplicationRequestToWICIResponse(argPAARequestObject);
 		Gson gson = new Gson();
@@ -1521,12 +1470,12 @@ public class WICIDBHelper
 		String transactionId = argPAARequestObject.getExternalReferenceId();
 		String appStatus=argPAARequestObject.getAppStatus();
 
-		log.info(sMethod + " Attempting to update with the following values: ");		
-		log.info(sMethod + " responseJSON= " + responseJSON);
-		log.info(sMethod + " transactionState= " + transactionState);
-		log.info(sMethod + " admAppId= " + admAppId);
-		log.info(sMethod + " transactionId= " + transactionId);
-		log.info(sMethod + " appStatus= " + appStatus);
+		log.info(" Attempting to update with the following values: ");		
+		log.info(" responseJSON= " + CWE117Fix.encodeCRLF(responseJSON));
+		log.info(" transactionState= " + CWE117Fix.encodeCRLF(transactionState));
+		log.info(" admAppId= " + CWE117Fix.encodeCRLF(admAppId));
+		log.info(" transactionId= " +CWE117Fix.encodeCRLF(transactionId));
+		log.info(" appStatus= " + CWE117Fix.encodeCRLF(appStatus));
 		
 		PendAccountApplicationResponse updateResponse = new PendAccountApplicationResponse();
 		updateResponse.setStatus(AppConstants.PEND_ACCOUNT_APPLICATION_REQUEST_UPDATE_FAILURE);
@@ -1553,7 +1502,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::EXCEPTION::" + ex.getMessage());
+			log.warning("::EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw new PendingApplicationDatabaseUpdateException(ex.getMessage());			
 		}
 		finally
@@ -1567,15 +1516,14 @@ public class WICIDBHelper
 	
 	public AccountApplicationSubmissionResponse retrievePendingApplicationData( String argRetrievalToken, String argPhoneNumber ) throws PendingApplicationRetrievalException
 	{
-		String sMethod = "[retrievePendingApplicationData] ";
 		argRetrievalToken=argRetrievalToken.toUpperCase();
-		log.info(sMethod + "::Called with parameter RETRIEVAL_TOKEN=" + argRetrievalToken + ", CURRENT_TELEPHONE=" + argPhoneNumber);
+		log.info("retrievePendingApplicationData[]::Called with parameter RETRIEVAL_TOKEN=" + CWE117Fix.encodeCRLF(argRetrievalToken) + ", CURRENT_TELEPHONE=" + CWE117Fix.encodeCRLF(argPhoneNumber));
 
 		AccountApplicationSubmissionResponse submissionResponse = new AccountApplicationSubmissionResponse();
 		
 		// Create sql statement
 		String sql = "SELECT REQUEST_DATA, RETRIEVAL_COUNT, TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN FROM " + WICIREQUESTQUEUETBL + " WHERE RETRIEVAL_TOKEN = ? AND CURRENT_TELEPHONE = ? AND TRANSACTION_STATE IN (?,?)";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("retrievePendingApplicationData[]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1628,7 +1576,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::EXCEPTION::" + ex.getMessage());
+			log.warning("retrievePendingApplicationData[]::EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw new PendingApplicationRetrievalException(ex.getMessage());
 		}
 		finally
@@ -1641,14 +1589,12 @@ public class WICIDBHelper
 	
 	public AccountApplicationSubmissionResponse retrieveAccountApplicationResponse(String argTransactionID) throws Exception
 	{
-		String sMethod = "[retrieveAccountApplicationResponse] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID + ", TRANSACTION_STATE IN (" + AppConstants.QUEUE_REQUEST_COMPLETE + ", " +AppConstants.QUEUE_REQUEST_PENDING + ")");
-
+		log.info("[retrieveAccountApplicationResponse]::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(argTransactionID )+ ", TRANSACTION_STATE IN (" + AppConstants.QUEUE_REQUEST_COMPLETE + ", " +AppConstants.QUEUE_REQUEST_PENDING + ")");
 		AccountApplicationSubmissionResponse submissionResponse = new AccountApplicationSubmissionResponse();
 		
 		// Create sql statement
 		String sql = "SELECT TRANSACTION_STATE, RESPONSE_DATA, RETRIEVAL_TOKEN, CURRENT_TELEPHONE, CONSENT_GRANTED FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ? AND TRANSACTION_TYPE = ? AND TRANSACTION_STATE IN ( ?,? )";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[retrieveAccountApplicationResponse]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1694,7 +1640,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("retrieveAccountApplicationResponse[]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1709,13 +1655,12 @@ public class WICIDBHelper
 	
 	public WICICheckLocationResponse retrieveUserLocation(
 			WebICCheckLocationRequest locationRequest) throws Exception {
-		String sMethod = "[retrieveUserLocation] ";
 
 		String retailNetwork = null;
 		if (locationRequest.getRetailNetwork() != null)
 			retailNetwork = locationRequest.getRetailNetwork();
 		
-		log.info(sMethod + ":: retailNetwork :: " + retailNetwork);
+		log.info("retrieveUserLocation:: retailNetwork :: " + CWE117Fix.encodeCRLF(retailNetwork));
 		
 		WICIConfiguration conf = new WICIConfigurationFactory().readOutletTypeIdConfiguration(retailNetwork);
 
@@ -1766,8 +1711,8 @@ public class WICIDBHelper
 		sqlNonPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE BUS_STORE_NUMBER = ? AND OTLT_TYPE_ID IN ("+outletTypeId+")";
 		sqlPartnerStore = "SELECT * FROM TCT_SALES_OUTLET WHERE CT_SALE_OTLT_NBR = ? AND OTLT_TYPE_ID IN ("+outletTypeId+")";
 		WICICheckLocationResponse checkLocationResponse = null;
-		log.info(sMethod + "::SQL::" + sql);
-		log.info(sMethod + "::SQL::" + outletTypeId);
+		log.info("retrieveUserLocation::SQL::" + CWE117Fix.encodeCRLF(sql));
+		log.info("retrieveUserLocation::SQL::" + CWE117Fix.encodeCRLF(outletTypeId));
 		int locationId = 0;
 		int sale_otlt_nbr = 0;
 		
@@ -1793,7 +1738,7 @@ public class WICIDBHelper
 						preparedStatement.setString(i, outletTypeIds[i]);
 					}
 					preparedStatement.setString(2, outletTypeId);*/
-					log.info(sMethod + "::SQL::" + sqlNonPartnerStore);
+					log.info("::SQL::" + CWE117Fix.encodeCRLF(sqlNonPartnerStore));
 					rs = preparedStatement.executeQuery();
 					if (rs.next()) {
 						checkLocationResponse = new WICICheckLocationResponse();
@@ -1813,7 +1758,7 @@ public class WICIDBHelper
 
 						preparedStatement.setInt(1, locationId);
 						//preparedStatement.setString(2, outletTypeId);
-						log.info(sMethod + "::SQL::" + sqlPartnerStore);
+						log.info("::SQL::" + CWE117Fix.encodeCRLF(sqlPartnerStore));
 						rs = preparedStatement.executeQuery();
 						if (rs.next()) {
 							checkLocationResponse = new WICICheckLocationResponse();
@@ -1854,7 +1799,7 @@ public class WICIDBHelper
 			}
 			
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		} finally {
 			DisposeBDResources(connection, preparedStatement, null);
@@ -1865,12 +1810,11 @@ public class WICIDBHelper
 	
 	public int deleteAccountApplicationData(String argTransactionID) throws Exception
 	{
-		String sMethod = "[deleteAccountApplicationData] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID);
+		log.info("::Called with parameter TRANSACTION_ID=" + CWE117Fix.encodeCRLF(argTransactionID));
 
 		// Create sql statement
 		String sql = "DELETE FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID=?";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[deleteAccountApplicationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -1890,7 +1834,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[deleteAccountApplicationData]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -1925,7 +1869,7 @@ public class WICIDBHelper
 			if (!rollId.equalsIgnoreCase(SUPER_ADMIN)) {
 				preparedStatement.setString(6, employerID.toUpperCase());
 			}
-			log.info("modifiedAdminId"+modifiedAdminId+"getCurrentDateTime()"+getCurrentDateTime()+"serialNumber"+serialNumber+"userName"+userName);
+			log.info("modifiedAdminId"+CWE117Fix.encodeCRLF(modifiedAdminId)+"getCurrentDateTime()"+CWE117Fix.encodeCRLF( getCurrentDateTime() != null ? getCurrentDateTime().toString() : null)+"serialNumber"+CWE117Fix.encodeCRLF(serialNumber)+"userName"+CWE117Fix.encodeCRLF(userName));
 			rowsAffected = preparedStatement.executeUpdate();
 			connection.commit();
 		}
@@ -1944,7 +1888,7 @@ public class WICIDBHelper
 		}else{
 			sql = "UPDATE " + CTFS_WICI_USER_INFO +" SET PASSKEY=?,MODIFIEDADMINID=?,MODIFIEDDATE=? WHERE UPPER(USERNAME)=? AND UPPER(AGENCY) = ?";	
 		}
-		log.info("userName"+userName+"modifiedId"+modifiedId+"passKey"+passKey+"employerID"+employerID);
+		log.info("userName"+CWE117Fix.encodeCRLF(userName)+"modifiedId"+CWE117Fix.encodeCRLF(modifiedId)+"passKey"+CWE117Fix.encodeCRLF(passKey)+"employerID"+CWE117Fix.encodeCRLF(employerID));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2015,8 +1959,8 @@ public class WICIDBHelper
 	{
 		String userNamePassKeyExists=null;
 		String  sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?" + " AND PASSKEY = ?"+ " AND UPPER(ACTIVATED) = ?";	
-		log.info("::SQL::" + sql);
-		log.info("userName" + userName+"passKey"+passKey+"agentID"+agentID);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
+		log.info("userName" + CWE117Fix.encodeCRLF(userName)+"passKey"+CWE117Fix.encodeCRLF(passKey)+"agentID"+CWE117Fix.encodeCRLF(agentID));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2051,7 +1995,7 @@ public class WICIDBHelper
 	public boolean isSuperAdmin(String agentID) throws Exception
 	{
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2084,7 +2028,7 @@ public class WICIDBHelper
 	public boolean isSuperAdminOrAdmin(String userName) throws Exception
 	{
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE USERNAME = ?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2100,7 +2044,7 @@ public class WICIDBHelper
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				roleId = Integer.parseInt(resultSet.getString("ROLEID"));
-				log.info("SuperAdminOrAdmin RoleId" + roleId);
+				log.info("SuperAdminOrAdmin RoleId" + CWE117Fix.encodeCRLF(String.valueOf(roleId)));
 			}
 			if (roleId == 1001 || roleId == 1002) {
 				isSuperAdminOrAdmin = true;
@@ -2119,7 +2063,7 @@ public class WICIDBHelper
 		int roleId=0;
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_ROLES
 				+ " WHERE UPPER(ROLENAME) = ?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2146,7 +2090,7 @@ public class WICIDBHelper
 	{
 		log.info("searchAgent...");
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?" + " AND UPPER(AGENCY) = ?" + " AND UPPER(ACTIVATED) =?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2157,7 +2101,7 @@ public class WICIDBHelper
 			return wiciLoginResponse;
 		}
 		String userRoleId=getUserRoleId(userName);
-		log.info("userRoleId"+userRoleId);
+		log.info("userRoleId"+CWE117Fix.encodeCRLF(userRoleId));
 		if (userRoleId != null && userRoleId.equalsIgnoreCase(rollId)) {
 			wiciLoginResponse.setMessage(AGENT_NOT_FOUND_MSG);
 			wiciLoginResponse.setStatusCode(AGENT_NOT_FOUND);
@@ -2217,7 +2161,7 @@ public class WICIDBHelper
 	public WICILoginResponse searchAnyAgent(String userName) throws Exception
 	{
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ? AND UPPER(ACTIVATED) =?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2262,7 +2206,7 @@ public class WICIDBHelper
 	public String getUserRoleId(String userName) throws Exception
 	{
 		String sql = "SELECT * FROM " + CTFS_WICI_USER_INFO + " WHERE UPPER(USERNAME) = ?";
-		log.info("::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2288,15 +2232,14 @@ public class WICIDBHelper
 
 	public AccountApplicationSubmissionRequest retrieveAccountApplicationRequest(
 			String argTransactionID) throws Exception {
-		String sMethod = "[retrieveAccountApplicationRequest] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID="
-				+ argTransactionID);
+		log.info("[retrieveAccountApplicationRequest]  ::Called with parameter TRANSACTION_ID="
+				+ CWE117Fix.encodeCRLF(argTransactionID));
 		AccountApplicationSubmissionRequest accountApplicationRequest= new AccountApplicationSubmissionRequest();
 
 		// Create sql statement
 		String sql = "SELECT  REQUEST_DATA, CONSENT_GRANTED, ADM_APP_ID, UNIT_NUMBER, STREET_NUMBER, STREET_NAME, TRANSACTION_STATE, RETAIL_NETWORK, AGENCY_CD FROM "
 				+ WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ?";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("retrieveAccountApplicationRequest ::SQL::" +CWE117Fix.encodeCRLF(sql));
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -2341,12 +2284,10 @@ public class WICIDBHelper
 	
 	public WICICheckLocationResponse retrieveUserLocationByHusky(
 			WebICCheckLocationRequest locationRequest) throws Exception {
-		String sMethod = "[retrieveUserLocationByHusky] ";
-
 		// Create sql statement
 		String sql = "SELECT * FROM TCT_PARTNER_STORE_LOC WHERE PARTNER_STORE_NUMBER = ?";
 		WICICheckLocationResponse checkLocationResponse = null;
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("retrieveUserLocationByHusky ::SQL::" + CWE117Fix.encodeCRLF(sql));
 		String locationId = null;
 //		String sale_otlt_nbr = null;
 		Connection connection = null;
@@ -2379,7 +2320,7 @@ public class WICIDBHelper
 				checkLocationResponse.setOutletStreet(rs.getString("OTLT_ADDR_STREET"));
 			}
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("retrieveUserLocationByHusky::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		} finally {
 			DisposeBDResources(connection, preparedStatement, null);
@@ -2392,12 +2333,11 @@ public class WICIDBHelper
 	
 	public String retrieve13charABBRCityName(
 			WICIDSSAddressResponse addressResponse) throws Exception {
-		String sMethod = "[retrieve13charABBRCityName] ";
-
+		
 		// Create sql statement
 		String sql = "SELECT * FROM  INST_CR.CITY_ABBR WHERE CITY_FULLNAME = ? AND  PROVINCE =?";
 		
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[retrieve13charABBRCityName] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 		
 		String city13CharName= null;
 		
@@ -2419,11 +2359,11 @@ public class WICIDBHelper
 				
 				city13CharName =(rs.getString("CITY_13CHAR_NAME"));
 				
-				log.info(sMethod + "::::" + city13CharName );
+				log.info("::::" + CWE117Fix.encodeCRLF(city13CharName) );
 				
 			}
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		} finally {
 			DisposeBDResources(connection, preparedStatement, null);
@@ -2442,7 +2382,7 @@ public class WICIDBHelper
 
 		String sql = "SELECT EMAIL FROM " + WICIREQUESTQUEUETBL + " WHERE TRANSACTION_ID = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2460,12 +2400,12 @@ public class WICIDBHelper
 			while (resultSet!= null && resultSet.next())
 			{
 				email= resultSet.getString("EMAIL").equalsIgnoreCase("Y")?true:false;
-				log.info(sMethod + "::EMAIL value::" + resultSet.getString("EMAIL") + " ::: flag "+email );
+				log.info("::EMAIL value::" + CWE117Fix.encodeCRLF(resultSet.getString("EMAIL")) + " ::: flag "+CWE117Fix.encodeCRLF(String.valueOf(email )));
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			email = false;
 		}
 		finally
@@ -2478,11 +2418,10 @@ public class WICIDBHelper
 	
 	public void updateApprovedEmailFlag(String argTransactionID) throws Exception
 	{
-		String sMethod = "[updateApprovedEmailFlag] ";
-		log.info(sMethod + "::Called with parameter TRANSACTION_ID=" + argTransactionID );
+		log.info("[updateApprovedEmailFlag] ::Called with parameter TRANSACTION_ID=" + argTransactionID );
 
 		String sql = "UPDATE " + WICIREQUESTQUEUETBL + " SET EMAIL = ? WHERE TRANSACTION_ID = ?";
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[updateApprovedEmailFlag] ::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2498,7 +2437,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[updateApprovedEmailFlag] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -2513,7 +2452,7 @@ public class WICIDBHelper
 /*	public boolean checkTabSerialNumberExistsAndAuthorized( String argSerialNumber ) throws SQLException
 	{
 		String sMethod = "[checkTabSerialNumberExistsAndAuthorized] ";
-		log.info(sMethod + "::Called::");
+		log.info("::Called::");
 
 		validateSerialNumber(argSerialNumber);
 
@@ -2521,7 +2460,7 @@ public class WICIDBHelper
 
 		String sql = "SELECT AUTHORIZED FROM " + WICI_WHITELIST_TABLE + " WHERE UPPER(AUTHFIELD_VALUE) = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + sql);
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2540,7 +2479,7 @@ public class WICIDBHelper
 			{
 				
 				authorized =(resultSet.getInt("AUTHORIZED"));
-				log.info(sMethod + "::  tabSerialNumber AuthorizedValue" + authorized);
+				log.info("::  tabSerialNumber AuthorizedValue" + authorized);
 				if(authorized == 1)
 					 serialNumberAuthorized = true;
 				else 
@@ -2552,7 +2491,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("::Raise EXCEPTION::" + ex.getMessage());
 			serialNumberAuthorized = false;
 		}
 		finally
@@ -2567,12 +2506,11 @@ public class WICIDBHelper
 	
 	
 	public HealthCheckRecord getHealthCheckRecord(String hostName)throws Exception {
-		String sMethod = "[getHealthCheckRecord]";
 		//log.info(sMethod);
 
 		String sql = "SELECT * FROM " + WICI_BROKER_HEALTH_TABLE + " WHERE SERVER = ?";
 		Boolean healthCheckCall = true;
-		//log.info(sMethod + "::SQL::" + sql);
+		//log.info("::SQL::" + sql);
 		//log.info("hostName: "+hostName);
 		String correctedHost=null;
 		if (hostName.length() > 14) {
@@ -2603,13 +2541,13 @@ public class WICIDBHelper
 				healthCheckRecord.setLtmEnabled(ltmEnabled);
 				healthCheckRecord.setGtmEnabled(gtmEnabled);
 				
-				//log.info(sMethod + "::ltmEnabled value::" + ltmEnabled );
-				//log.info(sMethod + "::gtmEnabled value::" + gtmEnabled );
+				//log.info("::ltmEnabled value::" + ltmEnabled );
+				//log.info("::gtmEnabled value::" + gtmEnabled );
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getHealthCheckRecord]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 		finally
@@ -2628,7 +2566,7 @@ public class WICIDBHelper
 		// Create sql statement
 		String sql = "SELECT * FROM " + WICI_TRAINING_CONTENT_TABLE + " WHERE TRAINING_CONTENT_VERSION = (SELECT MAX(TRAINING_CONTENT_VERSION) FROM " + WICI_TRAINING_CONTENT_TABLE + ") AND ACTIVATEDATE = (SELECT MAX(ACTIVATEDATE) FROM " + WICI_TRAINING_CONTENT_TABLE + ") ORDER BY ACTIVATEDATE DESC ";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2646,12 +2584,11 @@ public class WICIDBHelper
 
 			// Execute a query
 			resultSet = preparedStatement.executeQuery();
-			log.info(sMethod +"::ResultSet ::"+resultSet);
 
 			// Extract data from result set
 			while (resultSet!= null & resultSet.next())
 			{
-				log.info(sMethod +"::Entered inside the loop ::");
+				//log.info("[retrieveTrainingContentVersion] ::Entered inside the loop ::");
 				// Retrieve valid trainingContent info
 				trainingContent = new RetrieveTrainingContent();
 				
@@ -2668,12 +2605,12 @@ public class WICIDBHelper
 				trainingContent.setTrainingContentVersion(resultSet.getInt("TRAINING_CONTENT_VERSION"));
 				trainingContent.setActivateDate(resultSet.getTimestamp("ACTIVATEDATE"));
 				
-				log.info(sMethod +"::RetrieveTrainingContent Data retrieved successfully");
+				log.info("[retrieveTrainingContentVersion] ::RetrieveTrainingContent Data retrieved successfully");
 			}
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[retrieveTrainingContentVersion] ::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -2687,8 +2624,7 @@ public class WICIDBHelper
 	
 	public boolean saveTrainingAttestationData(TrainingAttestationRequest request) throws SQLException
 	{
-		String sMethod = "[saveTrainingAttestationData] ";
-		log.info(sMethod + "::Called with parameters "+request);
+		log.info("[saveTrainingAttestationData]::Called with parameters "+CWE117Fix.encodeCRLF(request != null ? request.toString() : null));
 
 		String sql = null;
 
@@ -2706,7 +2642,7 @@ public class WICIDBHelper
 //					+ WICI_TRAINING_ATTESTATION
 //					+ "(USERNAME,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, SIGNATURE , TRAINING_CONTENT_VERSION , ATTESTATION_DATE,  OUTLET_TYPE_ID, BUSINESS_STORE_NMBR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //		}
-		 log.info(sMethod + "::SQL::" + sql);
+		 log.info("[saveTrainingAttestationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2718,36 +2654,19 @@ public class WICIDBHelper
 			connection = connectToDB(false);
 
 			preparedStatement = connection.prepareStatement(sql);
-			log.info("USERNAME -> 1 -> "+request.getUserName());
 			
 			preparedStatement.setString(1, request.getUserName());
-			
-			log.info("STORELOCATION_NUMBER -> 2 -> "+request.getStoreLocationNumber());
 			preparedStatement.setString(2, request.getStoreLocationNumber());
 			
-			log.info("FIRSTNAME -> 3 -> "+request.getFirstName());
 			preparedStatement.setString(3, request.getFirstName());
-			
-			log.info("LASTNAME -> 4 -> "+request.getLastName());
 			preparedStatement.setString(4, request.getLastName());
-			
-			log.info("SIGNATURE -> 5 -> "+request.getSignature());
 			preparedStatement.setBytes(5, request.getSignature());
-			
-			log.info("TRAINING_CONTENT_VERSION -> 6 -> "+Integer.parseInt(request.getTrainingContentVersion()));
 			preparedStatement.setInt(6 ,Integer.parseInt(request.getTrainingContentVersion()));
-			
-			log.info("ATTESTATION_DATE -> 7 -> "+new Timestamp(System.currentTimeMillis()));
 			preparedStatement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
-			
-			log.info("EMPLOYEENUMBER -> 8 -> "+request.getEmployeeNumber());
 			preparedStatement.setString(8, request.getEmployeeNumber());	
 			
 			//WICI-154
-			log.info("OUTLET_TYPE_ID -> 9 -> "+Integer.parseInt(request.getOutletTypeId()));
 			preparedStatement.setInt(9, Integer.parseInt(request.getOutletTypeId()));
-			
-			log.info("BUSINESS_STORE_NMBR -> 10 -> "+Integer.parseInt(request.getBusinessStoreNumber()));
 			preparedStatement.setInt(10, Integer.parseInt(request.getBusinessStoreNumber()));
 			
 			int result =  preparedStatement.executeUpdate();
@@ -2756,7 +2675,7 @@ public class WICIDBHelper
 			
 		}catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[saveTrainingAttestationData]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			ex.printStackTrace();
 			
 		}
@@ -2772,14 +2691,13 @@ public class WICIDBHelper
 
 	public TrainingAttestationResponse getTrainingAttestationData(String userName) throws SQLException
 	{
-		String sMethod = "[getTrainingAttestationData] ";
-		log.info(sMethod + "::Called with parameter userName:" + userName);
+		log.info("[getTrainingAttestationData]::Called with parameter userName:" + CWE117Fix.encodeCRLF(userName));
 
 		TrainingAttestationResponse trainingAttestationResponse = null;
 
 		String sql = "SELECT SIGNATURE,STORELOCATION_NUMBER, FIRSTNAME, LASTNAME, ATTESTATION_DATE, OUTLET_TYPE_ID FROM " + WICI_TRAINING_ATTESTATION + " WHERE USERNAME = ? ";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getTrainingAttestationData]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2810,12 +2728,10 @@ public class WICIDBHelper
 				trainingAttestationResponse.setRetailNetwork(resultSet.getString("OUTLET_TYPE_ID"));
 			}
 			
-			log.info("signature "  +encodeSignature + " attestationDate " +trainingAttestationResponse.getAttestationDate());
-			
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getTrainingAttestationData]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			ex.printStackTrace();
 		}
 		finally
@@ -2831,12 +2747,11 @@ public class WICIDBHelper
 
 	public String getConfigValueByConfigName(String configName) throws SQLException
 	{
-		String sMethod = "[getConfigValueByConfigName] ";
 		
 		// Create sql statement
 		String sql = "SELECT CONFIG_VALUE FROM " + WICICONFIGTBL + " WHERE  CONFIG_NAME = ?";
 
-		log.info(sMethod + "::SQL::" + sql);
+		log.info("[getConfigValueByConfigName]::SQL::" + CWE117Fix.encodeCRLF(sql));
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -2861,7 +2776,7 @@ public class WICIDBHelper
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("[getConfigValueByConfigName]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			ex.printStackTrace();
 		}
 		finally

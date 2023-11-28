@@ -1,40 +1,32 @@
 ensureNamespaceExists();
 
-WICI.ChooseProductScreenController = function(activationItems, argTranslator,
-                                              argMessageDialog) {
+WICI.ChooseProductScreenController = function(activationItems, argTranslator, argMessageDialog) {
     var logPrefix = '[WICI.ChooseProductScreenController]::';
     var $screenContainer = $("#ChooseProductScreen");
     var translator = null;
     var messageDialog = null;
     var isDebugMode;
-    // VZE-107
     var signatureControl;
-    var isCustomerSignatureDiloge = false;
-    
+    var isCustomerSignatureDiloge = false;    
     this.show = show;
     this.init = init;
     this.hide = hide;
     var selectedProvince = "";
-
     var flow = null;
     var self = this;
-
     var loginModel = activationItems.getModel('loginScreen');
-
     this.syncUserData = syncUserData;
+
     var refs = {
         productCard : '#creditCardProductList',
         province : '#provinceTextField',
         applyButton : '#chooseProductScreen_ApplyNowButton',
         agencyProgram : '#programDropDown',
-        agencyPromoCode : '#promoCodeTextField',
-        // US3767
-        agencyPromoCodeDropDown : '#promoCodeDropDown',
-        // VZE-107
+        agencyPromoCode : '#promoCodeTextField',      
+        agencyPromoCodeDropDown : '#promoCodeDropDown',     
         signature:  '#chooseProductScreen_signature',
         signature_customer : '#chooseProductScreen_SignatureContainer',
-        resetSignature: '#chooseProductScreen_signature_Reset_Button',
-        // VZE-108
+        resetSignature: '#chooseProductScreen_signature_Reset_Button',        
         costOfCredit_Checkbox: '#receive_CostOfCredit_CheckBox',
         costOfCreditCheckbox_Area : '#receive_CostOfCredit_CheckBox_Area',
         cardmemberAgreement_Checkbox : '#cantireCard_Agreement_CheckBox',
@@ -114,8 +106,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         translator = argTranslator; // (AA)Dependency Injection Principle:
         // Allows for proper unit testing
         messageDialog = argMessageDialog; // (AA)Dependency Injection
-        // Principle: Allows for proper unit
-        // testing
+        // Principle: Allows for proper unit testing       
         isDebugMode = activationItems.getModel('loginScreen').get('isDebugMode');
         app.setAddressLine2Flag(translator.translateKey("addressLine2Flag"));
 		app.setNewStylePrintFlag(translator.translateKey("newStylePrintFlag"));
@@ -127,9 +118,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         var retailNetwork = loginModel.get('retailNetWork');
         var employerID = loginModel.get('employerID').toUpperCase();
 
-        updateOmpCardLanguage();
-        // US3766
-        updateOmrCardLanguage();
+		// WICI-236
+        // updateOmpCardLanguage();        
+        // updateOmrCardLanguage();
         // US4989
         updateOmxCardLanguage();
         
@@ -145,7 +136,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         }
         // US4433 For FGL store hide program  drop down and set the value 
         else if(retailNetwork == "SPORTS"){
-           	   hidePromoCodeDropDown();
+        	hidePromoCodeDropDown();
         }else {
         	// US3767
         	if(employerID !== 'E') {
@@ -153,6 +144,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	}        	
         }
 
+		// WICI-241
+		//getLocation();
         bindEvents();
         populateProgramsList();
         populateProvinces();
@@ -160,17 +153,18 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         //restoreCreditCardData();
         //showCOCD();
 
-        if(employerID === 'E' && retailNetwork == "CT") {
-            loadCSRWorkflowOMC();
+		// WICI-236
+		loadOMXCardOnlyWorkflow();
+        /*if(employerID === 'E' && retailNetwork == "CT") {
+            loadOMXCardOnlyWorkflow();
         } else if($.inArray(retailNetwork, ['MARKS', 'SPORTS', 'FGLFRN', 'PHL', 'NS', 'MRKFRN', 'OS', 'PRTNR', 'PC']) != -1) {
-            loadCSRWorkflowOMC();
-        }        
+            loadOMXCardOnlyWorkflow();
+        }*/        
 
         app.idleTimeService.start();
 
         app.logOutTriggerActionService.setActionMethod(function() {
-            console.log(logPrefix + sMethod
-                + " logOutTriggerActionService :: setActionMethod");
+            console.log(logPrefix + sMethod + " logOutTriggerActionService :: setActionMethod");
             try {
                 (new WICI.DialogCloseHelper()).closeAllDialogs();
 
@@ -191,11 +185,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             (new WICI.DialogCloseHelper()).closeAllDialogs();
             app.abandonApplicationTriggerActionService.stop();
             app.abandonApplicationTriggerActionService
-                .setActionMethod(function() {
-                    console
-                        .log(logPrefix
-                            + sMethod
-                            + " abandonApplicationTriggerActionService :: setActionMethod");
+                .setActionMethod(function() {                    
                     app.idleTimeService.setAbandoned();
                     flow.startApplication();
                 });
@@ -228,15 +218,36 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     // ---------------------------------------------------------------------------------------
     function show() {
         $screenContainer.show();
-
         updatePageTranslation();
         setFrenchCTMlogo();
-    
     }
     // ---------------------------------------------------------------------------------------
     function hide() {
         $screenContainer.hide();
     }
+	// ---------------------------------------------------------------------------------------
+	function getLocation() {	
+		var sMethod = 'getLocation() :: ';
+        console.log(logPrefix + sMethod);
+
+		app.geoLocationHelper = new WICI.GeoLocationHelper();
+        app.geoLocationHelper.getCoordinates(getLocationSuccess, getLocationFailure);        
+    }
+
+	function getLocationSuccess(coordinates) {
+        var sMethod = 'getLocationSuccess() ';
+        console.log(logPrefix + sMethod + " coordinates : " +coordinates);
+		var result = eval('('+coordinates+')' );
+		console.log(logPrefix + sMethod + " coordinates : " + result.longitude + " :: " + result.latitude);
+		
+		activationItems.getModel('loginScreen').set('longitude', result.longitude);
+		activationItems.getModel('loginScreen').set('latitude', result.latitude);				
+	}
+	
+	function getLocationFailure(result) {
+        var sMethod = 'getLocationFailure() ';
+        console.log(logPrefix + sMethod + " Exception is: " + result);  
+	}
     // ---------------------------------------------------------------------------------------
     function createView() {
         $screenContainer.empty();
@@ -247,9 +258,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         assembleCardContentsAndDisclaimerHTML();
         assembleNavigationBarAtBottom();
         updateOmxCardLanguage();
-        updateOmpCardLanguage();
+        // updateOmpCardLanguage();
         // US3766
-        updateOmrCardLanguage();
+        // updateOmrCardLanguage();
     }
     //----------------------------------------------------------------------------------------
     function updateOmpCardLanguage() {
@@ -300,9 +311,8 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 	        // US3767 
         	activationItems: activationItems,
             isNotEmployee: activationItems.getModel('loginScreen').get('employerID').toUpperCase !== 'E',
-            loginProvince : outletProvince
-            
-            } ).appendTo($element);
+            loginProvince : outletProvince            
+        }).appendTo($element);
     }
     // ---------------------------------------------------------------------------------------
     function assembleCardContentsAndDisclaimerHTML() {
@@ -315,11 +325,11 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     }
     // ---------------------------------------------------------------------------------------
     function bindEvents() {
-        $("#omcCard").click(omcHandler);
+        $("#omcCard").click(omxHandler);
         $.subscribe('translatorFinished',function(){
-            updateOmpCardLanguage();
+            // updateOmpCardLanguage();
             // US3766
-            updateOmrCardLanguage();
+            // updateOmrCardLanguage();
             populateProvinces();
             populateProgramsList();
             // US4989
@@ -344,14 +354,16 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         });
         
         // because Ontario is visible by default
-        bindOmpCardHandler();
+        // bindOmpCardHandler();
         $(refs.province).on("change", function() {
-            var str = this.value;
+			console.log(logPrefix + " province :: " + refs.province);
+			// WICI-236 Start
+            /*var str = this.value;
             if (str == "ON" || str == "QC" || str == "NB" || str == "NL" || str == "PE" || str == "NS") {
                 $("#ompCard").show();
                 bindOmpCardHandler();
             } else {
-            	loadCSRWorkflowOMC();
+            	loadOMXCardOnlyWorkflow();
                 $("#ompCard").hide();
                 if($("#ompCard").hasClass('creditCardSelectedBgColor')){
                     $("#ompCard").removeClass('creditCardSelectedBgColor');
@@ -360,18 +372,26 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 unBindOmpCardHandler();
                 
                 if(model.get('productCard') == "OMP") {
-                	showOMC();
+                	showOMX();
                 }
-            };
-
-            selectedProvince = $(refs.province).val();
+            };*/
+			
+            $("#ompCard").hide();
+            if($("#ompCard").hasClass('creditCardSelectedBgColor')){
+            	$("#ompCard").removeClass('creditCardSelectedBgColor');
+                deActivateApplyButton();
+            }
+            unBindOmpCardHandler();
+                
+            if(model.get('productCard') == "OMP") {
+            	showOMX();
+            }
             
             // US4194
             var controlRef = $(refs.agencyProgram);
             controlRef.empty();
             
-            var employerID = loginModel.get('employerID');       
-            var storeNumber = loginModel.get('locationFieldID');
+            var employerID = loginModel.get('employerID');
             var retailNetwork = loginModel.get('retailNetWork');
             var programObj;
             
@@ -512,15 +532,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     hidePromoCodeDropDown();
             	}        	
             }
-            
-            var program = model.get('agencyProgram');
-            if (program){
-            	console.log(program);
-                 // selectProgram(program, model.get('agencyPromoCode'));
-            }
-
-            // $(refs.agencyProgram).trigger("change");
-            
         });
 
         $(refs.agencyProgram).on("change", function(obj){
@@ -529,17 +540,9 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
        		model.set('agencyProgram', $(refs.agencyProgram).val());
        		populatePromoCode();
         });
-        // US3766                   
-//        $("#omrCard").click(function(){ 
-//        	console.log('omr');
-//        	model.set('productCard', 'OMR'); 
-//        	showOMR(); 
-//        	// Update selected card style 
-//        	updateSelectedCardStyle ($(this)); 
-//        });
+
         // US4989
-        $("#omcCard").click(function(){ 
-        	console.log('omc');
+        $("#omcCard").click(function(){
         	model.set('productCard', 'OMX'); 
         	showOMX(); 
         	updateOmxCardLanguage();
@@ -645,25 +648,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         
         $("#retrieveButton").click(function(){
         	app.flowController.retrieveClick();
-        });
-
-        // VZE-108
-       /*var outletProvince = getOutletProvince();
-       if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC") {
-	       	$.each(model.data, function(index, item) {
-    		 				console.log( " Store Staff - ROC | Display Legal, CMA and Triangle Rewards T&C's on Product Info Screen. " );
-    		 					if(item.name == "costOfCreditAgreement") {
-    		 						 item.validation.canBeEmpty = false;
-    		 					}
-    		 					if(item.name == "cardmemberAgreement") {
-    								 item.validation.canBeEmpty = false;
-    							}
-			                    if(item.name == "triangleRewardAgreement") {
-    								 item.validation.canBeEmpty = false;
-    							}
-    		});
-       }*/
-        
+        });              
     }
     //----------------------------------------------------------------------------------------
     function logout(){
@@ -680,8 +665,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         app.validationDecorator.focusControl("#ChooseProductScreen");
         isCustomerSignatureDiloge = true;
 		$("#handoutTabToCustomerDialog-container").hide(); 
-        $("#dialog_container_customer_signature").show();
-       
+        $("#dialog_container_customer_signature").show();       
         createSignatureControl();
 	}
 	//---VZE-108-------------------------------------------------------------------------------------
@@ -718,7 +702,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     	}
     }
     //----------------------------------------------------------------------------------------
-    function loadCSRWorkflowOMC() {
+    function loadOMXCardOnlyWorkflow() {
         $('.pageTitle').hide();
         $('.pageTitleCSR').show();
         $('#ompCard').parent().hide();
@@ -728,14 +712,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         $('#omcCard').parent().css('width', '100%');
         model.set('productCard', 'OMX');
         activateApplyButton();
-        showOMC();
+        showOMX();
         updateOmxCardLanguage();
     }
     // ----------ADDED by DPS
-    function omcHandler(needToUpdateButton) {
+    function omxHandler(needToUpdateButton) {
         console.log('omx');
         model.set('productCard', 'OMX');
-        showOMC();
+        showOMX();
 
         // Update selected card style
         if (needToUpdateButton) {
@@ -780,92 +764,15 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
 
         // If Apply button is disabled make it enabled
         if (isDisabled) {
-            showGreenAplyButton();
-            var employerID = loginModel.get('employerID');  
-
+            showGreenAplyButton(); 
             // Bind with click event
             $(refs.applyButton).bind("click", function() {
                 console.log("chooseProductScreen_ApplyNowButton.click");
-                showNextScreen();                
-                // US4571 starts
-                //testPrint();                
-                // US4571 ends 
-                // US4495 -Test Print at tablet login for FMR
-               /* if (employerID.toUpperCase() != "E") {
-                	testPrint();
-                }else{
-                	showNextScreen();
-                }*/
+                showNextScreen();               
             });
         };
     }
-    
-    //---------------------------------------------------------------------------------------
-    // US4495 -Test Print at tablet login for FMR
-    function testPrint() {
-		var sMethod = 'testPrint() ';
-		console.log(logPrefix + sMethod);
-		try {
-			var isDevice = new WICI.DeviceDetectionHelper().any();
-	
-			if (isDevice) {
-	
-				if (!app.zebraPrinterWrapper.verifyPrinterMacAddress()) {
-					app.accountProfileHelper.showNoPrinterSetupWarning ();	
-					return;
-				}
-				new WICI.LoadingIndicatorController().show();
-				app.zebraPrinterWrapper.testPrint(printTestFileSuccess, printTestFileFailure);
-	
-			} else {
-				// Web print
-				 new WICI.LoadingIndicatorController().hide();
-				 messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
-			}
-		} catch (error) {
-			if(isDebugMode){
-                messageDialog.error(error,translator.translateKey('errorDialog_defaultTitle'),$.noop);
-            }
-        	console.log(logPrefix + sMethod + " Exception: " + error);
-		}
-		return;
-	}
-    
-  //---------------------------------------------------------------------------------------
-  // US4495 
-	function printTestFileSuccess(result) {
-	    var sMethod = 'printTestFileSuccess() ';
-	    console.log(logPrefix + sMethod);
-	    
-	    new WICI.LoadingIndicatorController().hide();
-	    messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
-	}
-	//---------------------------------------------------------------------------------------
-	// US4495
-	function printTestFileFailure() {
-	    var sMethod = 'printTestFileFailure() ';
-	    console.log(logPrefix + sMethod);
-	    
-	    new WICI.LoadingIndicatorController().hide();
-	    messageDialog.confirm(translator.translateKey("testPrintStatusMsg"), testPrintConfirmationYes, testPrintConfirmationNo, translator.translateKey("printResponseStatusTitle"));
-	}
-	//---------------------------------------------------------------------------------------
-	// US4495
-    function testPrintConfirmationYes () {
-        var sMethod = 'testPrintConfirmationYes() ';
-        console.log(logPrefix + sMethod);
-        showNextScreen();
-    }
-    //---------------------------------------------------------------------------------------
-    // US4495
-    function testPrintConfirmationNo () {
-        var sMethod = 'testPrintConfirmationNo() ';
-        console.log(logPrefix + sMethod);
-        messageDialog.verifyTestPrint(translator.translateKey("testPrintVerifyPrinterMsg"),translator.translateKey("testPrintVerify_Title"),translator.translateKey("testPrintVerify_Contionue_Button"));
-        showNextScreen();
-    }
-  
-   // ---------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------
     function deActivateApplyButton() {
         // Check if apply button is disabled
         var isActive = $(refs.applyButton).hasClass('greenflat');
@@ -873,7 +780,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         // If Apply button is disabled make it enabled
         if (isActive) {
             showGrayAplyButton();
-
             // Unbind with click event
             $(refs.applyButton).unbind("click");
         };
@@ -893,18 +799,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         		activationItems: activationItems,
         }).appendTo("#cardDescriptionArea");
         updatePageTranslation();
-    }
-    // ---------------------------------------------------------------------------------------
-    function showOMC() {
-        clearDescriptionAreas();
-
-        $("#CC_OMC-template").tmpl({activationItems: activationItems,}).appendTo("#cardDescriptionArea");
-        $("#CC_Legal_OMC-template").tmpl({activationItems: activationItems,}).appendTo(
-            "#chooseProductScreen_disclaimerArea");
-        showCOCD();
-
-        updatePageTranslation();
-    }
+    }   
     // US4989
     // ---------------------------------------------------------------------------------------
     function showOMX() {
@@ -961,7 +856,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         console.log(logPrefix + sMethod);
 
         clearOutTheData();
-
         syncUserData();
 
         if (app.validationsOn) {
@@ -1005,45 +899,19 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 $.each(rez, function(index, item) {
                     errStrArr.push(translator.translateKey(item.err));
                 });
-                app.validationDecorator.applyErrAttribute(rez);
-                
+                app.validationDecorator.applyErrAttribute(rez);                
                 return;
-            }
-           
+            }          
         }
-       
-        // US3981       
-       	/*messageDialog.htmlConfirm(translator.translateKey("chooseProductScreen_Handoutprompts_YesNo_Message"), 
-           		handleHandoutpromptsYes, handleHandoutpromptsNo, translator.translateKey("chooseProductScreen_Handoutprompts_Title"));*/ 
        // VZE-107    		
        if(loginModel.get('employerID').toUpperCase() !== 'E'){
 	     show_dialog();
-       }else{
+       } else {
 	     saveState();
          flow.next();
-         app.abandonApplicationTriggerActionService.start();
-        
-       }             
-        
-        
+         app.abandonApplicationTriggerActionService.start();        
+       }                           
     }
-    // US3981 - Start
-    // ---------------------------------------------------------------------------------------
-    function handleHandoutpromptsNo() {
-        var sMethod = 'handleHandoutpromptsNo()';
-        console.log(logPrefix + sMethod);
-        messageDialog.info(translator.translateKey("chooseProductScreen_Handoutprompts_Ok_Message")
-        		, translator.translateKey("chooseProductScreen_Handoutprompts_Title"), $.noop);
-    }
-    // ---------------------------------------------------------------------------------------    
-    function handleHandoutpromptsYes() {
-        var sMethod = 'handleHandoutpromptsYes()';
-        console.log(logPrefix + sMethod);
-        saveState();
-        flow.next();
-        app.abandonApplicationTriggerActionService.start();
-    }    
-    // US3981 - End
     // ---------------------------------------------------------------------------------------
     function syncUserData() {
         var sMethod = 'syncUserData() ';
@@ -1132,20 +1000,12 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     function populateProvinces() {
         var sMethod = 'populateProvinces() ';
         console.log(logPrefix + sMethod);
+
         syncUserData();
         var provinceValue = model.get('province');
-        // Placeofissues list is constant so no need to re-populate it!
-//		if ($(refs.province + ' option').length > 1) {
-//			console.log(logPrefix + sMethod
-//					+ " select control is already populated.");
-//			return;
-//		}
-
         var controlRef = $(refs.province);
         controlRef.empty();
-
         var list = new WICI.ProvincesList();
-
         var outletProvince = null;
 
         if (loginModel != null
@@ -1169,8 +1029,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             controlRef.append(optTempl);
         });
 
-        // Save current province
-        selectedProvince = $(refs.province).val();
 
         if(provinceValue){
             $(refs.province + " [value='" + provinceValue + "']").attr("selected",
@@ -1182,9 +1040,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             $(refs.province).trigger("change");
         }
         // US4433 - retain promocode on change of language
-        var promo = model.get('agencyPromoCode');
-        var storeNumber = loginModel.get('locationFieldID');
-        
+        var promo = model.get('agencyPromoCode');               
         console.log(logPrefix + sMethod + " promo :: " + promo);
         if(loginModel.get('retailNetWork') == "SPORTS") {
         	if(promo === "BLANK") {
@@ -1208,33 +1064,22 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         populateDropDown(controlRef, list.data);*/
         
         // US4194
-        var employerID = loginModel.get('employerID');       
-        var storeNumber = loginModel.get('locationFieldID');
+        var employerID = loginModel.get('employerID'); 
         var programObj;
         
         if(loginModel.get('retailNetWork') == "MARKS") {
         	if (employerID.toUpperCase() != "E") {
-        		if(translator.getCurrentLanguage() == 'en') {
-        			
-        			if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
-            	    {	 
-        				programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode_QC);
-                		// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
-            	    }else if (employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
-            	    	programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode);
-            	    	// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
+        		if(translator.getCurrentLanguage() == 'en') {        			
+        			if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC") {	 
+        				programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode_QC);                		
+            	    } else if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
+            	    	programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode);            	    	
             	    }
-        			
-        			// programObj = JSON.parse(WICI.dictionary_en.program_Marks_PromoCode);
-                	// $("<option value='' >Please select ...</option>").prependTo(controlRef);
                 } else {            	
-                	if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
-            	    {	 
-                		programObj = JSON.parse(WICI.dictionary_fr.program_Marks_PromoCode_QC);
-                		// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
-            	    }else if (employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
+                	if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC") {	 
+                		programObj = JSON.parse(WICI.dictionary_fr.program_Marks_PromoCode_QC);                		
+            	    } else if(employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
             	    	programObj = JSON.parse(WICI.dictionary_fr.program_Marks_PromoCode);
-            	    	// $("<option value='' >Veuillez sélectionner...</option>").prependTo(controlRef);
             	    }
                 }
                                 
@@ -1271,7 +1116,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
         	
         	if(translator.getCurrentLanguage() == 'en') {
         		programObj = JSON.parse(WICI.dictionary_en.program_FGL_ProgramCode_intercept);
-        	}else{
+        	} else {
         		programObj = JSON.parse(WICI.dictionary_fr.program_FGL_ProgramCode_intercept);
         	}
         	
@@ -1295,8 +1140,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
             } else if(promo !== "BLANK") {
             	$(refs.agencyPromoCode).val(model.get('agencyPromoCode'));
             }
-        } else if(loginModel.get('retailNetWork') == "PC"){
-        	
+        } else if(loginModel.get('retailNetWork') == "PC"){        	
         	if(loginModel.get('employerID').toUpperCase() !== 'E') {
         		if(translator.getCurrentLanguage() == 'en') {
             		programObj = JSON.parse(WICI.dictionary_en.program_PC_ProgramCode_FMR);
@@ -1390,19 +1234,7 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     selectProgram('', model.get('agencyProgram'));
             	}        	
             }
-        }
-        
-		/*
-		E login blank screen
-		var program = model.get('agencyProgram');
-		console.log(sMethod+"program  : "+program);
-        if (program){
-        	populatePromoCode();
-            selectProgram(program, model.get('agencyPromoCodeDropDown'));
-        }*/
-                
-        // $(refs.agencyProgram).trigger("change");
-
+        }       
     }
     // ---------------------------------------------------------------------------------------    
     // US3767 
@@ -1413,20 +1245,14 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     	var controlRef = $(refs.agencyPromoCodeDropDown);
         controlRef.empty();
 		// US3920
-        var programValue = model.get('agencyProgram');  
-        // US4194
-        var employerID = loginModel.get('employerID');       
-        var storeNumber = loginModel.get('locationFieldID');
+        var programValue = model.get('agencyProgram');        
         
-        if(loginModel.get('retailNetWork') == "MARKS"){
-        	
-        	console.log(logPrefix + sMethod + "Marks Store populate Promocode list");
-        	
+        if(loginModel.get('retailNetWork') == "MARKS"){        	
+        	console.log(logPrefix + sMethod + "Marks Store populate Promocode list");        	
         	// To be added logic for dynamic promocode populating
-        } // US4433
-        else if(loginModel.get('retailNetWork') == "SPORTS"){
+        } else if(loginModel.get('retailNetWork') == "SPORTS"){
         	// PromoCode should be empty
-        }else {
+        } else {
         	if(translator.getCurrentLanguage() == 'en') {
             	var programObj = JSON.parse(WICI.dictionary_en.program_PromoCode);
             	$("<option value='' >Please select ...</option>").prependTo(controlRef);
@@ -1452,90 +1278,16 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                     console.log("value:" + value); 
                });
             });
-        }
-                       
-        /*var list = new WICI.PromoCodeList();
-        list.data = list.getDataByProgram(programValue);        
-        populateDropDown(controlRef, list.data);  */                      
+        }                      
     }    
-    // ---------------------------------------------------------------------------------------    
-    function populateDropDown(dropDown, listData){
-        $.each(listData, function(index, item) {
-            var optTempl = '<option value="' + item.value + '" ';
-            optTempl = optTempl + '>' + translator.translateKey(item.text)
-                + '</option>';
-            dropDown.append(optTempl);
-        });
-    }
     // ---------------------------------------------------------------------------------------
     function selectProgram(programToSelect, promoCode) {
     	var sMethod = "selectProgram() :: ";
         console.log(sMethod + programToSelect + " : " + promoCode);
-        // US3499
-        // Update program desc in drop down for french
-        /*var employerID = loginModel.get('employerID');       
-        var storeNumber = loginModel.get('locationFieldID');*/
-        $(refs.agencyProgram + " [value='" +programToSelect + "']").attr("selected",
-        "selected");
-        $(refs.agencyPromoCodeDropDown + " [value='" + promoCode + "']").attr("selected",
-        "selected");
-        // Old code. Logic implemented for static Quebec specific program population.
-        // Now it's removed, since we are dynamically populating programs and promocode from dictionary.
-        /*if(parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999 && employerID.toUpperCase() !== "E" &&  $(refs.province).val() === "QC")
-	    {	 
-	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect + "_QC") );
-	    }else if (parseInt(storeNumber) >= 6000 && parseInt(storeNumber) <= 6999 && employerID.toUpperCase() !== "E" &&  $(refs.province).val() !== "QC"){
-	    	
-	    	$(refs.agencyProgram + " [value='" +programToSelect + "']").text(translator.translateKey("Program_"+programToSelect) );
-	    }*/
-	    
-        if(promoCode){        	        
-            //$(refs.agencyPromoCode).val(promoCode);
-        }
+     
+        $(refs.agencyProgram + " [value='" +programToSelect + "']").attr("selected",  "selected");
+        $(refs.agencyPromoCodeDropDown + " [value='" + promoCode + "']").attr("selected", "selected");       
     }
-    // ---------------------------------------------------------------------------------------
-    function restoreCreditCardData() {
-        var sMethod = "restoreCreditCardData()";
-        console.log(logPrefix + sMethod);
-        // VZE-107
-        /*model.set('userSignatureNative', null);
-        $(refs.signature).jSignature('reset');
-        $(refs.signature).jSignature ('setData',[], 'native');
-        $(refs.resetSignature).removeClass('darkgrayflat');
-        $(refs.resetSignature).addClass('grayflat');
-        $("#handoutTabToCustomerDialog-container").hide();
-        $("#dialog_container_customer_signature").hide();*/
-        hide_dialog();
-        //VZE-108
-        var outletProvince = null;
-
-        if (loginModel != null
-            && loginModel.get('userLocationResponse') != null) {
-            var locationHelper = new WICI.UserLocationResponseHelper();
-            locationHelper.setUserLocationResponseObject(loginModel
-                .get('userLocationResponse'));
-            outletProvince = locationHelper.getOutletProvince();
-        }
-      //  if(loginModel.get('employerID').toUpperCase() === 'E' && outletProvince !== "QC") {
-	      $(refs.costOfCredit_Checkbox).prop('checked', model.get('costOfCreditAgreement') === 'Y' ? true : false );
-          $(refs.cardmemberAgreement_Checkbox).prop('checked', model.get('cardmemberAgreement_Checkbox') === 'Y' ? true : false );
-          $(refs.triangleRewardProgramCheckbox).prop('checked', model.get('triangleRewardAgreement') === 'Y' ? true : false );
-      // }      
-        restoreProgramAndPromoCode();
-    }
-    //---------------------------------------------------------------------------------------
-    function revertProvince() {
-        $(refs.province).val(selectedProvince);
-        $(refs.province).trigger("change");
-    };
-    //---------------------------------------------------------------------------------------
-    function restoreProgramAndPromoCode() {
-        if(app.agencyProgram){
-            selectProgram(app.agencyProgram, app.agencyPromoCode);
-        }
-        syncUserData();
-        // $(refs.agencyProgram).trigger("change");
-    };
     //---------------------------------------------------------------------------------------
     function hideProgram() {
         var container = $(refs.agencyProgram).parents("tr")[0];
@@ -1558,32 +1310,15 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
     //---------------------------------------------------------------------------------------
     function hidePromoCodeTextField() {
     	$(refs.agencyPromoCode).val(null);
-        var container = $(refs.agencyPromoCode).parents("tr")[0];
-        /*var sibling = $(container).next()[0];
-        for (var i = 0; i < container.children.length; i++) {
-            sibling.children[i].className = container.children[i].className;
-        }*/
+        var container = $(refs.agencyPromoCode).parents("tr")[0];    
         $(container).hide();
     }
     //---------------------------------------------------------------------------------------
     function showPromoCodeTextField() {
     	$(refs.agencyPromoCode).val(null);
-        var container = $(refs.agencyPromoCode).parents("tr")[0];
-        /*var sibling = $(container).next()[0];
-        for (var i = 0; i < container.children.length; i++) {
-            sibling.children[i].className = container.children[i].className;
-        }*/
+        var container = $(refs.agencyPromoCode).parents("tr")[0];       
         $(container).show();
-    }
-    // End
-    //---------------------------------------------------------------------------------------
-    function toggleCTMLogo() {
-        translator.getCurrentLanguage() == 'en' ? $('#choseProduct a#topBanner10XImage').addClass(
-        'topBanner10XImageBlock').removeClass(
-        'topBanner10XImageBlock_fr') : $('#choseProduct a#topBanner10XImage')
-        .addClass('topBanner10XImageBlock_fr').removeClass(
-                'topBanner10XImageBlock');
-    }
+    }    
     //---------------------------------------------------------------------------------------
     function inputLengthControlHandler (event) {
     	var sMethod="inputLengthControlHandler() :: ";
@@ -1656,7 +1391,6 @@ WICI.ChooseProductScreenController = function(activationItems, argTranslator,
                 locationHelper.setUserLocationResponseObject(loginModel.get('userLocationResponse'));
                 outletProvince = locationHelper.getOutletProvince();
         }
-        return outletProvince;
-	      
+        return outletProvince;	      
 	 }
 };

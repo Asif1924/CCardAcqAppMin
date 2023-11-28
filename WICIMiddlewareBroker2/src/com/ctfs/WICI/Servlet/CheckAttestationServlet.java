@@ -5,12 +5,11 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.LoginInvocationHelper;
-import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.TrainingAttestationResponse;
-import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
 import com.ctfs.WICI.Servlet.Model.WICILoginResponse;
 import com.ctfs.WICI.Servlet.Model.WICIResponse;
 
@@ -37,14 +36,13 @@ public class CheckAttestationServlet extends WICIServlet {
 	{
 		
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
-		String sMethod = this.getClass().getName() + "[saveAttestationData] ";
 		
 		String storeLocationNumber = requestMediator.searchElementInsidePostRequestBody("storeLocationNumber") != null ? requestMediator.searchElementInsidePostRequestBody("storeLocationNumber") : EMPTY_STRING;
 		String firstName = requestMediator.searchElementInsidePostRequestBody("firstName") != null ? requestMediator.searchElementInsidePostRequestBody("firstName") : EMPTY_STRING;
 		String lastName = requestMediator.searchElementInsidePostRequestBody("lastName") != null ? requestMediator.searchElementInsidePostRequestBody("lastName") : EMPTY_STRING;
 		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
 		
-		log.info(sMethod + "TAB Request Parames  " + "storeLocationNumber === "+storeLocationNumber+ "  firstName === "+firstName +"  lastName === "+lastName);
+		log.info("CheckAttestationServlet checkAttestationData[] :: TAB Request Parames  " + "storeLocationNumber === "+CWE117Fix.encodeCRLF(storeLocationNumber)+ "  firstName === "+CWE117Fix.encodeCRLF(firstName) +"  lastName === "+CWE117Fix.encodeCRLF(lastName));
 		
 		
 		WICIResponse appResponse = new WICIResponse();
@@ -63,12 +61,12 @@ public class CheckAttestationServlet extends WICIServlet {
 			loginResponse = loginInvocationHelper.checkLocation(retailNetwork, storeLocationNumber, null);
 			String outletTypeId = loginResponse.getCheckLocation().getOutletName();
 			
-			log.info(sMethod + " outletTypeId for fetch the AttestationData " + outletTypeId);
+			log.info("CheckAttestationServlet checkAttestationData[] :: outletTypeId for fetch the AttestationData " + CWE117Fix.encodeCRLF(outletTypeId));
 			String dbUserName = loginResponse.getCheckLocation().getOutletNumber() + firstName.trim() + lastName.trim();
 			
 			attetationResponse = wicidbHelper.getTrainingAttestationData(dbUserName.toUpperCase());
 
-			log.info(sMethod + " userName for fetch the AttestationData " + dbUserName);
+			log.info("CheckAttestationServlet checkAttestationData[] :: userName for fetch the AttestationData " + CWE117Fix.encodeCRLF(dbUserName));
 			
 			if(!outletTypeId.equals(attetationResponse.getRetailNetwork())){
 				appResponse.setError(true);
@@ -107,7 +105,7 @@ public class CheckAttestationServlet extends WICIServlet {
 		} catch (Exception e) {
 			
 			appResponse.setMsg("Training Attestation  Data not available this user" );
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("CheckAttestationServlet checkAttestationData[] :: Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 		finally

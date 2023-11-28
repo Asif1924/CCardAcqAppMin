@@ -113,6 +113,8 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         
         createView();
         disableSubmitButton();
+		// WICI-241
+		//getLocation();
         bindEvents();
         var currentModel = activationItems.getModel(model.name);
 
@@ -192,6 +194,29 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
         assembleNavigationBarAtBottom();
         adjustSignatureSize();
     }
+	//---------------------------------------------------------------------------------------
+	function getLocation() {	
+		var sMethod = 'getLocation() :: ';
+        console.log(logPrefix + sMethod);
+
+		app.geoLocationHelper = new WICI.GeoLocationHelper();
+        app.geoLocationHelper.getCoordinates(getLocationSuccess, getLocationFailure);        
+    }
+
+	function getLocationSuccess(coordinates) {
+        var sMethod = 'getLocationSuccess() ';
+        console.log(logPrefix + sMethod + " Coordinates : " + coordinates);
+		var result = eval('('+coordinates+')' );
+		console.log(logPrefix + sMethod + " coordinates : " + result.longitude + " :: " + result.latitude);
+		
+		activationItems.getModel('loginScreen').set('longitude', result.longitude);
+		activationItems.getModel('loginScreen').set('latitude', result.latitude);			
+	}
+	
+	function getLocationFailure(result) {
+        var sMethod = 'getLocationFailure() ';
+        console.log(logPrefix + sMethod + " Exception is: " + result);  
+	}
     //---------------------------------------------------------------------------------------
 	function adjustSignatureSize() {
 		var signatureWidth = 325;
@@ -546,6 +571,7 @@ WICI.SummaryScreenController = function(activationItems, argTranslator, argMessa
 			}
 			
 			if( new WICI.CreditCardApplicationDataValidator(activationItems).fieldsAreValid()){
+				console.log(logPrefix + sMethod + " longitude : " + activationItems.getModel('loginScreen').get('longitude'));
 				// VZE-478
 				if($.inArray(activationItems.getModel('loginScreen').get('retailNetWork'), ["MARKS", "SPORTS"]) != '-1') {
 					printCoupon();

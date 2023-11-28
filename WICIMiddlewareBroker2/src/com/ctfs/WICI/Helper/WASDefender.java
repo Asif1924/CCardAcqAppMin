@@ -26,8 +26,8 @@ public class WASDefender
 
 	public String scanForXSSInjections(String requestBody) throws Exception
 	{
-		String sMethod = "[scanForXSSInjections]";
-		log.info(sMethod + String.format("::Called with parameters: requestBody - %s", requestBody));
+		//String sMethod = "[scanForXSSInjections]";
+		log.info("scanForXSSInjections" + CWE117Fix.encodeCRLF(String.format("::Called with parameters: requestBody - %s", CWE117Fix.encodeCRLF(requestBody))));
 
 		String cleanedHTML = null;
 		String unescapedRequestBody = null;
@@ -36,11 +36,11 @@ public class WASDefender
 		{
 			// Decode request body before scan
 			String decodedRequestBody = java.net.URLDecoder.decode(requestBody, "UTF-8");
-			log.info(sMethod + String.format("::Decoded requestBody - %s", decodedRequestBody));
+			log.info("scanForXSSInjections" + CWE117Fix.encodeCRLF(String.format("::Decoded requestBody - %s", CWE117Fix.encodeCRLF(decodedRequestBody))));
 
 			// Unescape request body before scan
 			unescapedRequestBody = org.apache.commons.lang3.StringEscapeUtils.unescapeXml(decodedRequestBody);
-			log.info(sMethod + String.format("::Unescaped requestBody - %s", unescapedRequestBody));
+			log.info("scanForXSSInjections" + CWE117Fix.encodeCRLF(String.format("::Unescaped requestBody - %s", CWE117Fix.encodeCRLF(unescapedRequestBody))));
 
 			cleanedHTML = sanitizeInputs(AntiSamyMyspacePolicyFile, unescapedRequestBody);
 			cleanedHTML = sanitizeInputs(AntiSamySlashdotPolicyFile, cleanedHTML);
@@ -48,7 +48,7 @@ public class WASDefender
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::ERROR::" + ex.getMessage());
+			log.warning("scanForXSSInjections::ERROR::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw new XSSAttackException(Constants.UnauthorizedSystemUsingMsg);
 		}
 
@@ -57,8 +57,8 @@ public class WASDefender
 
 	protected String sanitizeInputs(String policyFile, String inputData) throws Exception
 	{
-		String sMethod = "[sanitizeInputs]";
-		log.info(sMethod + String.format("::Called with parameters: policyFile - %s, inputData - %s", policyFile, inputData));
+		//String sMethod = "[sanitizeInputs]";
+		log.info("[sanitizeInputs]" + CWE117Fix.encodeCRLF(String.format("::Called with parameters: policyFile - %s, inputData - %s", policyFile, inputData)));
 
 		Policy policy;
 		String cleanedHTML = null;
@@ -79,7 +79,7 @@ public class WASDefender
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::ERROR::" + ex.getMessage());
+			log.warning("[sanitizeInputs]::ERROR::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			throw ex;
 		}
 
@@ -88,12 +88,12 @@ public class WASDefender
 
 	private void protocolAllErrors(List<String> errors)
 	{
-		String sMethod = "[protocolAllErrors]";
-		log.info(sMethod + "::Called!");
+		//String sMethod = "[protocolAllErrors]";
+		log.info("[protocolAllErrors]::Called!");
 
 		for (String error : errors)
 		{
-			log.warning(sMethod + "::Sanitize Inputs ERROR::" + error + "\n");
+			log.warning("::Sanitize Inputs ERROR::" + CWE117Fix.encodeCRLF(error) + "\n");
 		}
 	}
 }

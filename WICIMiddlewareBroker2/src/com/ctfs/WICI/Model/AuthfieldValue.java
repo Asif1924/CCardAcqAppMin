@@ -21,5 +21,10 @@ public class AuthfieldValue
 	{
 		this.BuildSerial = buildSerial;
 	}
+	@Override
+	public String toString() {
+		return "AuthfieldValue [MfgSerial=" + MfgSerial + ", BuildSerial="
+				+ BuildSerial + "]";
+	}
 
 }

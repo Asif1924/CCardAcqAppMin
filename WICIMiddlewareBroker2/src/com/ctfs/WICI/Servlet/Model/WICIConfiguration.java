@@ -19,6 +19,21 @@ public class WICIConfiguration
 	String jobDescEndPoint;
 	String cpEligibilityEndPoint;
 	
+	//Newly Added
+	String rewriteLoginEndPoint;
+	String rewriteSaveAttestationEndPoint;
+	String rewriteRetrieveTrainingEndPoint;
+	String rewriteCheckAttestationEndPoint;
+	String rewriteInitAccountAppEndPoint;
+	String rewritePollAccountAppEndPoint;
+	String rewriteAgentEndPoint;
+	String rewriteServerAliveEndPoint;
+	String rewriteDssServiceEnv;
+	String rewriteDSSDIIEndPoint;
+	String rewritedssTmxEndPoint;
+	String rewritecpEligibilityEndPoint;
+	String reWrtieDSSJobDescEndPoint;
+
 	
 	public String getJobDescEndPoint() {
 		return jobDescEndPoint;
@@ -172,4 +187,169 @@ public class WICIConfiguration
 		this.cpEligibilityEndPoint = cpEligibilityEndPoint;
 	}
 
+	/**
+	 * @return the rewriteLoginEndPoint
+	 */
+	public String getRewriteLoginEndPoint() {
+		return rewriteLoginEndPoint;
+	}
+
+	/**
+	 * @param rewriteLoginEndPoint the rewriteLoginEndPoint to set
+	 */
+	public void setRewriteLoginEndPoint(String rewriteLoginEndPoint) {
+		this.rewriteLoginEndPoint = rewriteLoginEndPoint;
+	}
+
+	/**
+	 * @return the rewriteSaveAttestationEndPoint
+	 */
+	public String getRewriteSaveAttestationEndPoint() {
+		return rewriteSaveAttestationEndPoint;
+	}
+
+	/**
+	 * @param rewriteSaveAttestationEndPoint the rewriteSaveAttestationEndPoint to set
+	 */
+	public void setRewriteSaveAttestationEndPoint(
+			String rewriteSaveAttestationEndPoint) {
+		this.rewriteSaveAttestationEndPoint = rewriteSaveAttestationEndPoint;
+	}
+
+	/**
+	 * @return the rewriteRetrieveTrainingEndPoint
+	 */
+	public String getRewriteRetrieveTrainingEndPoint() {
+		return rewriteRetrieveTrainingEndPoint;
+	}
+
+	/**
+	 * @param rewriteRetrieveTrainingEndPoint the rewriteRetrieveTrainingEndPoint to set
+	 */
+	public void setRewriteRetrieveTrainingEndPoint(
+			String rewriteRetrieveTrainingEndPoint) {
+		this.rewriteRetrieveTrainingEndPoint = rewriteRetrieveTrainingEndPoint;
+	}
+
+	/**
+	 * @return the rewriteCheckAttestationEndPoint
+	 */
+	public String getRewriteCheckAttestationEndPoint() {
+		return rewriteCheckAttestationEndPoint;
+	}
+
+	/**
+	 * @param rewriteCheckAttestationEndPoint the rewriteCheckAttestationEndPoint to set
+	 */
+	public void setRewriteCheckAttestationEndPoint(
+			String rewriteCheckAttestationEndPoint) {
+		this.rewriteCheckAttestationEndPoint = rewriteCheckAttestationEndPoint;
+	}
+
+	/**
+	 * @return the rewriteInitAccountAppEndPoint
+	 */
+	public String getRewriteInitAccountAppEndPoint() {
+		return rewriteInitAccountAppEndPoint;
+	}
+
+	/**
+	 * @param rewriteInitAccountAppEndPoint the rewriteInitAccountAppEndPoint to set
+	 */
+	public void setRewriteInitAccountAppEndPoint(
+			String rewriteInitAccountAppEndPoint) {
+		this.rewriteInitAccountAppEndPoint = rewriteInitAccountAppEndPoint;
+	}
+
+	/**
+	 * @return the rewritePollAccountAppEndPoint
+	 */
+	public String getRewritePollAccountAppEndPoint() {
+		return rewritePollAccountAppEndPoint;
+	}
+
+	/**
+	 * @param rewritePollAccountAppEndPoint the rewritePollAccountAppEndPoint to set
+	 */
+	public void setRewritePollAccountAppEndPoint(
+			String rewritePollAccountAppEndPoint) {
+		this.rewritePollAccountAppEndPoint = rewritePollAccountAppEndPoint;
+	}
+
+	/**
+	 * @return the rewriteAgentEndPoint
+	 */
+	public String getRewriteAgentEndPoint() {
+		return rewriteAgentEndPoint;
+	}
+
+	/**
+	 * @param rewriteAgentEndPoint the rewriteAgentEndPoint to set
+	 */
+	public void setRewriteAgentEndPoint(String rewriteAgentEndPoint) {
+		this.rewriteAgentEndPoint = rewriteAgentEndPoint;
+	}
+
+	/**
+	 * @return the rewriteServerAliveEndPoint
+	 */
+	public String getRewriteServerAliveEndPoint() {
+		return rewriteServerAliveEndPoint;
+	}
+
+	/**
+	 * @param rewriteServerAliveEndPoint the rewriteServerAliveEndPoint to set
+	 */
+	public void setRewriteServerAliveEndPoint(String rewriteServerAliveEndPoint) {
+		this.rewriteServerAliveEndPoint = rewriteServerAliveEndPoint;
+
+	}
+
+
+	/**
+	 * @return the rewriteDssServiceEnv
+	 */
+	public String getRewriteDssServiceEnv() {
+		return rewriteDssServiceEnv;
+	}
+
+	/**
+	 * @param rewriteDssServiceEnv the rewriteDssServiceEnv to set
+	 */
+	public void setRewriteDssServiceEnv(String rewriteDssServiceEnv) {
+		this.rewriteDssServiceEnv = rewriteDssServiceEnv;
+	}
+
+	public String getRewriteDSSDIIEndPoint() {
+		return rewriteDSSDIIEndPoint;
+	}
+
+	public void setRewriteDSSDIIEndPoint(String rewriteDSSDIIEndPoint) {
+		this.rewriteDSSDIIEndPoint = rewriteDSSDIIEndPoint;
+	}
+
+	public String getRewritedssTmxEndPoint() {
+		return rewritedssTmxEndPoint;
+	}
+
+	public void setRewritedssTmxEndPoint(String rewritedssTmxEndPoint) {
+		this.rewritedssTmxEndPoint = rewritedssTmxEndPoint;
+	}
+
+	public String getRewritecpEligibilityEndPoint() {
+		return rewritecpEligibilityEndPoint;
+	}
+
+	public void setRewritecpEligibilityEndPoint(String rewritecpEligibilityEndPoint) {
+		this.rewritecpEligibilityEndPoint = rewritecpEligibilityEndPoint;
+	}
+
+	public String getReWrtieDSSJobDescEndPoint() {
+		return reWrtieDSSJobDescEndPoint;
+	}
+
+	public void setReWrtieDSSJobDescEndPoint(String reWrtieDSSJobDescEndPoint) {
+		this.reWrtieDSSJobDescEndPoint = reWrtieDSSJobDescEndPoint;
+	}
+	
 }

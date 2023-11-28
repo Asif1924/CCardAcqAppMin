@@ -20,15 +20,14 @@ public class HttpClientHelper {
 	static Logger log = Logger.getLogger(HttpClientHelper.class.getName());
 
 	public CloseableHttpClient getHttpSecureClient() {
-		String sMethod = this.getClass().getName() + "[HttpClientHelper] ";
 
 		CloseableHttpClient httpsClient = null;
 		WICIConfiguration conf = new WICIConfigurationFactory()
 				.createDASSEndPointConfiguration();
 
-		log.info(sMethod + " the JksPath " + conf.getJksPath()
-				+ " getJksPassword  " + conf.getJksPassword() + " jks tls "
-				+ conf.getJksTlsVersion());
+		log.info("HttpClientHelper the JksPath " + CWE117Fix.encodeCRLF(conf.getJksPath())
+				+ " getJksPassword  " + CWE117Fix.encodeCRLF(conf.getJksPassword()) + " jks tls "
+				+ CWE117Fix.encodeCRLF(conf.getJksTlsVersion()));
 		try {
 			String jksFileName = conf.getJksPath();
 			String jksPassword = conf.getJksPassword();
@@ -46,8 +45,8 @@ public class HttpClientHelper {
 
 			// Setup SSL context. DSS services accept only TLSv1.2
 			String tlsVersion = conf.getJksTlsVersion();
-			log.info(sMethod + "TLS version for the connection is -> "
-					+ tlsVersion);
+			log.info("HttpClientHelper TLS version for the connection is -> "
+					+ CWE117Fix.encodeCRLF(tlsVersion));
 			SSLContext sslContext = SSLContext.getInstance(tlsVersion);
 			sslContext.init(null, trustManagers, null);
 			SSLContext.setDefault(sslContext);

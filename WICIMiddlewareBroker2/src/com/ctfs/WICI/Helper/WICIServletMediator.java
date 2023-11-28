@@ -125,12 +125,12 @@ public class WICIServletMediator
 			grabRequestBody();
 		}
 		catch (XSSAttackException xssEx){
-			log.warning(sMethod + "::XSSAttack exception occurred during parsing HttpRequest::" + xssEx.getMessage());
+			log.warning(sMethod + "::XSSAttack exception occurred during parsing HttpRequest::" + CWE117Fix.encodeCRLF(xssEx.getMessage()));
 			throw xssEx;
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + "::Error occurred during parsing HttpRequest::" + e.getMessage());
+			log.warning(sMethod + "::Error occurred during parsing HttpRequest::" + CWE117Fix.encodeCRLF(e.getMessage()));
 		}
 	}
 
@@ -233,7 +233,7 @@ public class WICIServletMediator
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + "::Error occurred during process servlet response::" + e.getMessage());
+			log.warning(sMethod + "::Error occurred during process servlet response::" + CWE117Fix.encodeCRLF(e.getMessage()));
 		}
 		finally
 		{
@@ -246,7 +246,7 @@ public class WICIServletMediator
 				}
 				catch (Exception e)
 				{
-					log.warning(sMethod + "::Error occurred during close 'PrintWriter' stream::" + e.getMessage());
+					log.warning(sMethod + "::Error occurred during close 'PrintWriter' stream::" + CWE117Fix.encodeCRLF(e.getMessage()));
 				}
 			}
 		}
@@ -288,7 +288,7 @@ public class WICIServletMediator
 			}
 			else
 			{
-				log.info(sMethod + "::tablet Response :: "+responseAsJsonString);
+				log.info(sMethod + "::tablet Response :: "+ CWE117Fix.encodeCRLF(responseAsJsonString != null ? responseAsJsonString : null));
 			}
 			
 			writer.append(responseAsJsonString);

@@ -12,8 +12,7 @@ public class DatabaseConnectionFactory
 
 	public Connection getOracleDatabaseConnection() throws SQLException, NamingException
 	{
-		String sMethod = this.getClass().getName() + "[getOracleDatabaseConnection] ";
-		log.info(sMethod);
+		log.info("DatabaseConnectionFactory[getOracleDatabaseConnection] ");
 
 		// Set up DB connection
 		javax.naming.Context ctx = new javax.naming.InitialContext();
@@ -24,9 +23,7 @@ public class DatabaseConnectionFactory
 	
 	public Connection getOracleDatabaseConnectionForHealthCheck() throws SQLException, NamingException
 	{
-		String sMethod = this.getClass().getName() + "[getOracleDatabaseConnectionForHealthCheck] ";
-		//log.info(sMethod);
-
+		
 		// Set up DB connection
 		javax.naming.Context ctx = new javax.naming.InitialContext();
 		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/WICIDataSource");
@@ -36,8 +33,8 @@ public class DatabaseConnectionFactory
 	
 	public Connection getOracleTCTSalesDatabaseConnection() throws SQLException, NamingException
 	{
-		String sMethod = this.getClass().getName() + "[getOracleTCTSalesDatabaseConnection] ";
-		log.info(sMethod);
+		
+		log.info("DatabaseConnectionFactory[getOracleTCTSalesDatabaseConnection] ");
 
 		// Set up DB connection
 		javax.naming.Context ctx = new javax.naming.InitialContext();
@@ -48,9 +45,7 @@ public class DatabaseConnectionFactory
 	
 	public Connection getOracleINetDatabaseConnection() throws SQLException, NamingException
 	{
-		String sMethod = this.getClass().getName() + "[getOracleINetDatabaseConnection] ";
-		log.info(sMethod);
-
+		log.info("DatabaseConnectionFactory[getOracleINetDatabaseConnection] ");
 		// Set up DB connection
 		javax.naming.Context ctx = new javax.naming.InitialContext();
 		DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/instcrds");

@@ -13,8 +13,7 @@ public class DictionaryInfoValidator
 
 	public DictionaryInfo validateDictionaryInformation() throws SQLException, InvalidDictionaryInformationException
 	{
-		String sMethod = this.getClass().getName() + "[validateDictionaryInformation] ";
-		log.info(sMethod);
+		log.info("DictionaryInfoValidator[validateDictionaryInformation]");
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		DictionaryInfo dictInfo = wicidbHelper.getLatestDictionaryInfo();
@@ -28,8 +27,7 @@ public class DictionaryInfoValidator
 
 	private boolean validatedDictionaryInfo(DictionaryInfo argDictionaryInfo)
 	{
-		String sMethod = this.getClass().getName() + "[validatedDictionaryInfo] ";
-		log.info(sMethod);
+		log.info("DictionaryInfoValidator[validatedDictionaryInfo]");
 
 		return (argDictionaryInfo != null  
 		&& argDictionaryInfo.getOlderDictionaryAllowable() !=null
@@ -40,8 +38,7 @@ public class DictionaryInfoValidator
 
 	private boolean validatedStringParameter(String value)
 	{
-		String sMethod = this.getClass().getName() + "[validatedStringParameter] ";
-		log.info(sMethod);
+		log.info("DictionaryInfoValidator[validatedStringParameter] ");
 
 		return value != null && !value.isEmpty();
 	}

@@ -188,7 +188,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
             {name: 'years',             value: null, validation: {type: 'presence',     message: '', group: [5]} },
             {name: 'months',            value: null, validation: {type: 'presence',     message: '', group: [5]} },
             
-            {name: 'addressline1_prev', value: null, validation: {type: 'addressLinePOBox',  message: '', group: [4]} },
+            {name: 'addressline1_prev', value: null, validation: {type: 'addressLinePOBox',  message: '', group: [3]} },
             {name: 'addressline2_prev', value: null, validation: {type: 'addressLine',  message: '', group: [4], canBeEmpty: true} },
             {name: 'suiteunit_prev',    value: null, validation: {type: 'suiteUnit',    message: '', group: [4], canBeEmpty: true} },
             {name: 'city_prev',         value: null, validation: {type: 'city',         message: '', group: [4]} },
@@ -698,25 +698,32 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	$('#personalInfo_canadaPost_SearchedAddress').show();
         	$('#personalInfo_canadaPost_addressSearch_instructions').hide();
         	$('#personalData_canadaPostAddressDescription1').show();
-            $('#contactInfomation_infomation_button').hide();
-            $('#personalInfo_pre_year_informationButton').hide();
         });
         
         $(refs.acceptButton).click(function() {
         	console.log(refs.acceptButton + '::click');
         	models.personalDataModel.set('manualFill', true);
         	app.validationDecorator.clearErrArrtibute();
+        	$('#personalInfo_pre_year_informationButton').hide();
         	var postrez = [];
             if($(refs.suiteunit).val() && !validator.suiteUnit($(refs.suiteunit).val().toUpperCase()))
             	postrez.push({name: 'suiteunit', err: '', uiid: refs.suiteunit});
             if(!$(refs.addressline1).val().toUpperCase() && !validator.addressLinePOBox($(refs.addressline1).val().toUpperCase())){
             	postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
-            	$('#contactInfomation_infomation_button').show();
 	        }else{
 	        			$('#contactInfomation_infomation_button').hide();
 	            		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); // ^[A-Za-z0-9.'/&-]{4,40}$
 	    	            var isValid = $(refs.addressline1).val().toUpperCase().match(regex);
 	    	            if(isValid){
+	    	            	//WICI-193          
+	    	            	const bypassRegex =/^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+	    	            	var isValidRegex = $(refs.addressline1).val().toUpperCase().match(bypassRegex);
+	    	            	if(isValidRegex){    	          		
+	    	            		$('#contactInfomation_infomation_button').show();
+	    	            	}else{
+	    	            		$('#contactInfomation_infomation_button').hide();
+	    	            	}
+	    	            	
 	    	            	var addressline1Value=$(refs.addressline1).val().substring(0,8);
 	    	            	if(!addressline1Value.includes(" ")){
 	    	            		postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
@@ -734,7 +741,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 				                    	$('#contactInfomation_infomation_button').hide();
 				                     }
 	    	            	}else{
-	    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site"];
+	    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","PostalBox","postalBox ","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site","Rural route","Route rurale"];
 	    	            		$.each(poBoxArray, function (index, item) {
 		    	                	if($(refs.addressline1).val().toLowerCase().includes(item.toLowerCase())){
 		    	                    	$('#contactInfomation_infomation_button').show();
@@ -743,20 +750,20 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		    	                    	$('#contactInfomation_infomation_button').hide();
 		    	                    }
 		    	                });
-	    	            		var ruralRouteArray= ["CP ","RR ","PR "];
-	    	            		$.each(ruralRouteArray, function (index, item) {
-	    	            			if($(refs.addressline1).val().toLowerCase().startsWith(item.toLowerCase())){
-	    	            				$('#contactInfomation_infomation_button').show();
-	    	            				postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
-	    	            			}else{
-		    	                    	$('#contactInfomation_infomation_button').hide();
-		    	                    	return;
-		    	                    }
-	    	            		});
+	    	            		
+	    	                   var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+	    	              		var PoBoxValid = ruralRouteRegex.test($(refs.addressLine1).val());
+	    	              		 if(PoBoxValid){
+	    	              			$('#contactInfomation_infomation_button').show();
+		    	            			postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	    	              		 }else{
+	    	              			$('#contactInfomation_infomation_button').hide();	    			    	          	
+	    	              		 }
 	    	            	}
 	    	            } else{
+	    	            	const value = $(refs.addressline1).val().toUpperCase();
 							// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
-							if($.inArray($(refs.addressline1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL']) != -1) {
+							if($.inArray($(refs.addressline1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL' , 'POSTE RESTANTE']) != -1) {
 								// Do Nothing. Bypass these values, since valid.
 							}else if(!validator.addressLinePOBox($(refs.addressline1).val().toUpperCase())) {
 			                	if($(refs.addressline1).val()!=''){
@@ -771,8 +778,10 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 			                     }
 			                }else {
 			                	$('#contactInfomation_infomation_button').hide();
+			                	if(!(/^(PR)\d*\b/).test(value)){
 			                	postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
-			                   
+			                	}
+			                				                   
 			                }
 	    	            }
             }
@@ -968,14 +977,12 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         	$('#personalInfo_canadaPost_SearchedPreviousAddress').show();
         	$('#personalInfo_canadaPost_PreviousAddressSearch_instructions').hide();
         	$('#personalData_canadaPostPreviousAddressDescription1').show();
-            $('#contactInfomation_infomation_button').hide();
-            $('#personalInfo_pre_year_informationButton').hide();
         });
         
         $(refs.acceptPreviousButton).click(function() {
-        	console.log(refs.acceptPreviousButton + '::click');
-            
+        	console.log(refs.acceptPreviousButton + '::click');           
         	app.validationDecorator.clearErrArrtibute();
+        	$('#contactInfomation_infomation_button').hide();
         	var postrez = [];
         	
             if($(refs.suiteunit_prev).val() && !validator.suiteUnit($(refs.suiteunit_prev).val().toUpperCase()))
@@ -987,11 +994,21 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		            		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); 
 		    	            var isValid = $(refs.addressline1_prev).val().toUpperCase().match(regex);
 		    	            if(isValid){
+		    	            	//WICI-193
+		    	            	const bypassRegex = /^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+		    	            	var isValidRegex = $(refs.addressline1_prev).val().toUpperCase().match(bypassRegex);
+		    	            	if(isValidRegex){    	          		
+		    	            		$('#personalInfo_pre_year_informationButton').show();
+		    	            	}else{
+		    	            		$('#personalInfo_pre_year_informationButton').hide();
+		    	            	}
+		    	            	
 		    	            	var addressline1Value=$(refs.addressline1_prev).val().substring(0,8);
 		    	            	if(!addressline1Value.includes(" ")){
 		    	            		postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
 		    	            	}else if(!validator.addressLinePOBox($(refs.addressline1_prev).val().toUpperCase())) {
 		    	                	if($(refs.addressline1_prev).val()!=''){
+		    	                		postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
 		    		                     $('#personalInfo_pre_year_informationButton').show();
 		    	                         $(refs.editAddressPreviousButton).addClass('hideElement');
 		    				        	 $(refs.acceptPreviousButton).removeClass('hideElement');
@@ -1004,29 +1021,28 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 		    	                    	 $('#personalInfo_pre_year_informationButton').hide();
 		    	                      }
 		    	            	}else{
-			    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site"];
+		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postalBox ","Postalbox","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site","Rural route","Route rurale"];
 				    	                $.each(poBoxArray, function (index, item) {
 				    	                	if($(refs.addressline1_prev).val().toLowerCase().includes(item.toLowerCase())){
 				    	                		$('#personalInfo_pre_year_informationButton').show();
 				    	                    	postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
 				    	                    }
 				    	                });
-				    	                var ruralRouteArray= ["CP ","RR ","PR "];
-			    	            		$.each(ruralRouteArray, function (index, item) {
-			    	            			if($(refs.addressline1_prev).val().toLowerCase().startsWith(item.toLowerCase())){
-			    	            				$('#personalInfo_pre_year_informationButton').show();
-			    	            				postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
-			    	            				
-			    	            			}else{
-			    	            				 $('#personalInfo_pre_year_informationButton').hide();
-				    	                    	return;
-				    	                    }
-			    	            		});
+			    	                
+			    	                var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+			    	          		var PoBoxValid = ruralRouteRegex.test($(refs.addressline1_prev).val());
+			    	          		 if(PoBoxValid){
+		    	            				$('#personalInfo_pre_year_informationButton').show();
+		    	            				postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+			    	          		  }else{
+			    	          		 		$('#personalInfo_pre_year_informationButton').hide();				        	
+			    	          		  }
 		    	            	}
 		    	            	
 		    	            }else{
+		    	            	const value = $(refs.addressline1_prev).val().toUpperCase();
 		    	            	// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
-		    	            	if($.inArray($(refs.addressline1_prev).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL']) != -1) {
+		    	            	if($.inArray($(refs.addressline1_prev).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL' , 'POSTE RESTANTE']) != -1) {
 									// Do Nothing. Bypass these values, since valid.
 								}else if(!validator.addressLinePOBox($(refs.addressline1_prev).val().toUpperCase())) {
 				                	if($(refs.addressline1_prev).val()!=''){
@@ -1041,8 +1057,11 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 							             $('#personalInfo_pre_year_informationButton').show();
 				                      }
 				                } else {
-				                	postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
-				                    $('#personalInfo_pre_year_informationButton').hide();
+				                		$('#personalInfo_pre_year_informationButton').hide();
+					                	if(!(/^(PR)\d*\b/).test(value)){
+					                	postrez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+					                	}
+					                	
 				                }
 		    	            }
 		            	
@@ -1348,8 +1367,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
 
         checkForMsButton();
     }
-   // VZE-161
-   // ---------------------------------------------------------------------------------------
+    // VZE-161
+    // ---------------------------------------------------------------------------------------
 	function populateExpiryDateMonthList(takeDayByYearNMonth) {
 		var sMethod = 'populateExpiryDateMonthList() ';
 		console.log(logPrefix + sMethod);
@@ -2128,7 +2147,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         } else if(argResponse && argResponse.data && argResponse.data.abrivatedCityLookup == "N") {
         	// City name is not abbreviated
         	console.log(logPrefix + sMethod + "City name is not abbreviated.");
-        }
+        }	
     }
     //---------------------------------------------------------------------------------------
     function abbreviateCitynameFail(argResponse) {
@@ -2137,6 +2156,7 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
     	// City name abbreviation failed
     	new WICI.LoadingIndicatorController().hide();
     	console.log(logPrefix + sMethod + "City name abbreviation failed.");
+		
     }
     //---------------------------------------------------------------------------------------
     function invokeAddressLookup( line1, line2, city, province, postalcode, argSuccessCB, argFailureCB ){
@@ -2838,21 +2858,90 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                          }
                     } 
                 }
-                
-                var validator = new WICI.Validator();
-                if(!validator.addressLinePOBox($(refs.addressline1).val().toUpperCase())) {
+
+            var validator = new WICI.Validator();
+       		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); // ^[A-Za-z0-9.'/&-]{4,40}$
+            var isValid = $(refs.addressline1).val().toUpperCase().match(regex);
+            if(isValid){
+            	//WICI-193
+            	const bypassRegex = /^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+            	var isValidRegex = $(refs.addressline1).val().toUpperCase().match(bypassRegex);
+            	if(isValidRegex){    	          		
+            		$('#contactInfomation_infomation_button').show();
+                    $('#personalData_enterAddressManuallySection').show();
+                    $(refs.editAddressButton).addClass('hideElement');
+                    $(refs.enterAddressManuallyButton).addClass('hideElement');
+		        	$(refs.acceptButton).removeClass('hideElement');
+		        	$('#personalInfo_canadaPost_SearchedAddress').show();
+		        	$('#personalInfo_canadaPost_addressSearch_instructions').hide();
+		        	$('#personalData_canadaPostAddressDescription1').show();
+            	}else{
+            		$('#contactInfomation_infomation_button').hide();
+            	}
+            	
+            	var addressline1Value=$(refs.addressline1).val().substring(0,8);
+            	if(!addressline1Value.includes(" ")){
+            		temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+            	}else if(!validator.addressLinePOBox($(refs.addressline1).val().toUpperCase())){
+	            		if($(refs.addressline1).val()!=''){
+	            			temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	                        $('#personalData_enterAddressManuallySection').show();
+	                        $(refs.editAddressButton).addClass('hideElement');
+	                        $(refs.enterAddressManuallyButton).addClass('hideElement');
+				        	$(refs.acceptButton).removeClass('hideElement');
+				        	$('#personalInfo_canadaPost_SearchedAddress').show();
+				        	$('#personalInfo_canadaPost_addressSearch_instructions').hide();
+				        	$('#personalData_canadaPostAddressDescription1').show();
+				        	$('#contactInfomation_infomation_button').show();
+	                     }else {
+	                    	$('#contactInfomation_infomation_button').hide();
+	                     }
+            	}else{
+            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postalBox","Postalbox ","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site","Rural route","Route rurale"];
+            		$.each(poBoxArray, function (index, item) {
+	                	if($(refs.addressline1).val().toLowerCase().includes(item.toLowerCase())){
+	                    	$('#contactInfomation_infomation_button').show();
+	                    	temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	                    }else{
+	                    	$('#contactInfomation_infomation_button').hide();
+	                    }
+	                });
+            		
+                   var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+              		var PoBoxValid = ruralRouteRegex.test($(refs.addressLine1).val());
+              		 if(PoBoxValid){
+              			$('#contactInfomation_infomation_button').show();
+              			temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+              		 }else{
+              			$('#contactInfomation_infomation_button').hide();	    			    	          	
+              		 }
+            	}
+            } else{
+            	const value = $(refs.addressline1).val().toUpperCase();
+				// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
+				if($.inArray($(refs.addressline1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL' , 'POSTE RESTANTE']) != -1) {
+					// Do Nothing. Bypass these values, since valid.
+				}else if(!validator.addressLinePOBox($(refs.addressline1).val().toUpperCase())) {
                 	if($(refs.addressline1).val()!=''){
+                		temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
                         $('#personalData_enterAddressManuallySection').show();
                         $(refs.editAddressButton).addClass('hideElement');
+                        $(refs.enterAddressManuallyButton).addClass('hideElement');
 			        	$(refs.acceptButton).removeClass('hideElement');
 			        	$('#personalInfo_canadaPost_SearchedAddress').show();
 			        	$('#personalInfo_canadaPost_addressSearch_instructions').hide();
 			        	$('#personalData_canadaPostAddressDescription1').show();
 			        	$('#contactInfomation_infomation_button').show();
                      }
-                }  else {
-                    $('#contactInfomation_infomation_button').hide();
+                }else {
+                	$('#contactInfomation_infomation_button').hide();
+                	if(!(/^(PR)\d*\b/).test(value)){
+                		temprez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+                	}
+                				                   
                 }
+            }
+
                 
                 if(!validator.suiteUnit($(refs.suiteunit).val().toUpperCase())) {
                 	if($(refs.suiteunit).val()!=''){
@@ -2880,22 +2969,94 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
                 		showAddressFieldsError();
                      }
                 }
-                
-                if(!validator.addressLinePOBox($(refs.addressline1_prev).val().toUpperCase())) {
-                	if($(refs.addressline1_prev).val()!=''){
-	                     $('#personalInfo_pre_year_informationButton').show();
+                //previousAddressline1 Next button validation              
+                if(enteredYears < 2){
+                if (models.addressModel.get('flipPrevWasInCanada') === 'Y'){
+        		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); 
+	            var isValid = $(refs.addressline1_prev).val().toUpperCase().match(regex);
+	            if(isValid){
+	            	//WICI-193
+	            	const bypassRegex = /^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+	            	var isValidRegex = $(refs.addressline1_prev).val().toUpperCase().match(bypassRegex);
+	            	if(isValidRegex){    	          		
+	            	   	$('#personalInfo_pre_year_informationButton').show();
                          $(refs.editAddressPreviousButton).addClass('hideElement');
+                         $(refs.enterAddressManuallyPreviousButton).addClass('hideElement');
 			        	 $(refs.acceptPreviousButton).removeClass('hideElement');
 			        	 $('#personalData_enterAddressManuallyPreviousSection').show();
 			        	 $('#personalInfo_canadaPost_SearchedPreviousAddress').show();
 			        	 $('#personalInfo_canadaPost_PreviousAddressSearch_instructions').hide();
 			        	 $('#personalData_canadaPostPreviousAddressDescription1').show();
-			             $('#personalInfo_pre_year_informationButton').show();
-                      }
-                } else {
-                    $('#personalInfo_pre_year_informationButton').hide();
-                }
-                
+	            	}else{
+	            		$('#personalInfo_pre_year_informationButton').hide();
+	            	}
+	            	
+	            	var addressline1Value=$(refs.addressline1_prev).val().substring(0,8);
+	            	if(!addressline1Value.includes(" ")){
+	            		temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+	            	}else if(!validator.addressLinePOBox($(refs.addressline1_prev).val().toUpperCase())) {
+	                	if($(refs.addressline1_prev).val()!=''){
+	                		temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+		                     $('#personalInfo_pre_year_informationButton').show();
+	                         $(refs.editAddressPreviousButton).addClass('hideElement');
+	                         $(refs.enterAddressManuallyPreviousButton).addClass('hideElement');
+				        	 $(refs.acceptPreviousButton).removeClass('hideElement');
+				        	 $('#personalData_enterAddressManuallyPreviousSection').show();
+				        	 $('#personalInfo_canadaPost_SearchedPreviousAddress').show();
+				        	 $('#personalInfo_canadaPost_PreviousAddressSearch_instructions').hide();
+				        	 $('#personalData_canadaPostPreviousAddressDescription1').show();
+				             $('#personalInfo_pre_year_informationButton').show();
+	                      }else{
+	                    	 $('#personalInfo_pre_year_informationButton').hide();
+	                      }
+	            	}else{
+	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postalBox","Postalbox ","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site","Rural route","Route rurale"];
+	    	                $.each(poBoxArray, function (index, item) {
+	    	                	if($(refs.addressline1_prev).val().toLowerCase().includes(item.toLowerCase())){
+	    	                		$('#personalInfo_pre_year_informationButton').show();
+	    	                		temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+	    	                    }
+	    	                });
+    	                
+    	                var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+    	          		var PoBoxValid = ruralRouteRegex.test($(refs.addressline1_prev).val());
+    	          		 if(PoBoxValid){
+	            				$('#personalInfo_pre_year_informationButton').show();
+	            				temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+    	          		  }else{
+    	          		 		$('#personalInfo_pre_year_informationButton').hide();				        	
+    	          		  }
+	            	}
+	            	
+	            }else{
+	            	const value = $(refs.addressline1_prev).val().toUpperCase();
+	            	// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
+	            	if($.inArray($(refs.addressline1_prev).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL' , 'POSTE RESTANTE']) != -1) {
+						// Do Nothing. Bypass these values, since valid.
+					}else if(!validator.addressLinePOBox($(refs.addressline1_prev).val().toUpperCase())) {
+	                	if($(refs.addressline1_prev).val()!=''){
+	                		 temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+		                     $('#personalInfo_pre_year_informationButton').show();
+	                         $(refs.editAddressPreviousButton).addClass('hideElement');
+	                         $(refs.enterAddressManuallyPreviousButton).addClass('hideElement');
+				        	 $(refs.acceptPreviousButton).removeClass('hideElement');
+				        	 $('#personalData_enterAddressManuallyPreviousSection').show();
+				        	 $('#personalInfo_canadaPost_SearchedPreviousAddress').show();
+				        	 $('#personalInfo_canadaPost_PreviousAddressSearch_instructions').hide();
+				        	 $('#personalData_canadaPostPreviousAddressDescription1').show();
+				             $('#personalInfo_pre_year_informationButton').show();
+	                      }
+	                } else {
+	                		$('#personalInfo_pre_year_informationButton').hide();
+		                	if(!(/^(PR)\d*\b/).test(value)){
+		                		temprez.push({name: 'addressline1_prev', err: '', uiid: refs.addressline1_prev});
+		                	}
+		                	
+	                }
+	            }
+              }  
+            }
+
                 if(!validator.suiteUnit($(refs.suiteunit_prev).val().toUpperCase())) {
                 	if($(refs.suiteunit_prev).val()!=''){
                 		showPrevAddressFieldsError();
@@ -3682,8 +3843,8 @@ WICI.PersonalDataScreenController = function(activationItems, argTranslator,
         const expiryDate = JSON.stringify(rez.expiryDate);
         if((rez.idProvince == '' || !rez.idProvince) ||
         	 (rez.idNumber == '' || !rez.idNumber) ||
-        	   (rez.firstName == '' || !rez.firstName) ||
-        		(rez.lastName == '' || !rez.lastName) ||
+        	  (rez.firstName == '' || !rez.firstName) ||
+      	   		(rez.lastName == '' || !rez.lastName) ||
         		 (rez.dateOfBirth == '' || !rez.dateOfBirth) ||
         		   (rez.expiryDate == '' || !rez.expiryDate)){
         	return true;

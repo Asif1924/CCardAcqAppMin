@@ -16,9 +16,7 @@ public class ReceiptCustomerInfoHelper {
 	static Logger log = Logger.getLogger(ReceiptCustomerInfoHelper.class.getName());
 
 	public ReceiptCustomerInfo getCustomerInformationPortionOfReceipt(String argAccountApplicationRequestXML) {
-		String sMethod = this.getClass().getName() + "[getCustomerInformationPortionOfReceipt] ";
-		log.info(sMethod);
-
+		log.info("ReceiptCustomerInfoHelper[getCustomerInformationPortionOfReceipt]");
 		WICIObjectsHelper objectHelper = new WICIObjectsHelper();
 		AccountApplicationRequestType aaRequest = (AccountApplicationRequestType) objectHelper.deserializeXMLToAccountApplicationRequestType(argAccountApplicationRequestXML);
 		ReceiptCustomerInfo populatedCustomerInformationOfReceipt = new ReceiptCustomerInfo();
@@ -91,8 +89,7 @@ public class ReceiptCustomerInfoHelper {
 	}
 	
 	private String prepareCreditProtectorYesNo(String insuranceCode, String language) {
-		String sMethod = this.getClass().getName() + "[prepareCreditProtectorYesNo] ";
-		log.info(sMethod);
+		log.info("ReceiptCustomerInfoHelper[prepareCreditProtectorYesNo]");
 
 		String returnValue = "";
 		if ("W4".endsWith(insuranceCode) || "CP".equalsIgnoreCase(insuranceCode)) {
@@ -113,9 +110,7 @@ public class ReceiptCustomerInfoHelper {
 	}
 
 	private String prepareIdentityWatchYesNo(String insuranceCode, String language) {
-		String sMethod = this.getClass().getName() + "[prepareIdentityWatchYesNo] ";
-		log.info(sMethod);
-		
+		log.info("[prepareIdentityWatchYesNo]");
 		String returnValue = "";
 		if ("W4".equalsIgnoreCase(insuranceCode) || "IL".equalsIgnoreCase(insuranceCode)) {
 			if ("E".equalsIgnoreCase(language)) {

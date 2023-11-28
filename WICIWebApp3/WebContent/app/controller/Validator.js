@@ -194,30 +194,32 @@ WICI.Validator = function() {
     //---------------------------------------------------------------------------------------
     this.addressLinePOBox= function(value) {
     	 var isPoBox = true;
-         if(value===''){
-             return false;
-         }
          var isValid = regexMatch(/^[A-Za-z0-9àèìòùáéóíúý .'/&-]{1,40}$/, value.trim());
+         var CommaValue = regexMatch(/^(PO,BOX|CASE,POSTALE)[\d ,]*\b$/, value.trim());
+         
          if(isValid){
-               var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site"];
+               var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postalBox","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box","Site","Rural route","Route rurale"];
                 	$.each(poBoxArray, function (index, item) {
                       if(value.toLowerCase().includes(item.toLowerCase())){
                           isPoBox = false;
                       }
                 	});
                 
-                //WICI-229
-                var ruralRouteArray= ["CP ","RR ","PR "];
-          			$.each(ruralRouteArray, function (index, item) {
-	          			if(value.toLowerCase().startsWith(item.toLowerCase())){
-	          				 isPoBox = false;
-	          			}
-          			}); 
+                //WICI-229 -WICI -193
+                var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+          		var PoBoxValid = value.match(ruralRouteRegex);
+          		 if(PoBoxValid){
+          			isPoBox = false;
+          		 }
            return isPoBox;
          }
          else
          {
-            return false;
+        	 if(CommaValue){
+        		 return false;
+        	 }else{
+                 return isPoBox; 
+        	 }
          }  
     };
     //---------------------------------------------------------------------------------------

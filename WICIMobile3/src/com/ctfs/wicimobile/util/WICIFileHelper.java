@@ -234,6 +234,12 @@ public class WICIFileHelper {
                 }
                 // Close input file stream
                 inputStream.close();
+                
+                // Close buffered reader
+                bufferedReader.close();
+                
+                // Close input stream reader
+                inputStreamReader.close();
             }
         }
         finally{
@@ -273,6 +279,10 @@ public class WICIFileHelper {
                     connection.write(replacedLine.getBytes());
             	}
             }
+            // Close input stream reader
+            inputStreamReader.close();
+            // Close buffered reader
+            bufferedReader.close();
             // Close input file stream
             inputStream.close();
         }

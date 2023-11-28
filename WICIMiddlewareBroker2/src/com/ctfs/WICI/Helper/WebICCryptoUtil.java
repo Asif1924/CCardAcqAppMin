@@ -93,14 +93,14 @@ public class WebICCryptoUtil {
 				deCipherProvider = ConfigurationHelper.getConfigurationValue(WEBIC_DECRYPT_SECTION_NAME, WEBIC_DECRYPT_KEYSTORE_CIPHERPROVIDER);
 				deCipherTransform = ConfigurationHelper.getConfigurationValue(WEBIC_DECRYPT_SECTION_NAME, WEBIC_DECRYPT_KEYSTORE_CIPHERTRANSFORM);*/
 				
-				log.info("keyStoreType :" +keyStoreType);
-				log.info("keyStorePassPhrase :"+keyStorePassPhrase);
-				log.info("keyStoreType :"+keyStoreType);
-				log.info("keyStorePrivateAlias :"+keyStorePrivateAlias);
-				log.info("cipherProvider :"+cipherProvider);
-				log.info("cipherTransform :"+cipherTransform);
-				log.info("secretPhrase :"+secretPhrase);
-				log.info("externalLibraryFileAndSlot :"+externalLibraryFileAndSlot);
+				log.info("keyStoreType :" +CWE117Fix.encodeCRLF(keyStoreType));
+				log.info("keyStorePassPhrase :"+CWE117Fix.encodeCRLF(keyStorePassPhrase));
+				log.info("keyStoreType :"+CWE117Fix.encodeCRLF(keyStoreType));
+				log.info("keyStorePrivateAlias :"+CWE117Fix.encodeCRLF(keyStorePrivateAlias));
+				log.info("cipherProvider :"+CWE117Fix.encodeCRLF(cipherProvider));
+				log.info("cipherTransform :"+CWE117Fix.encodeCRLF(cipherTransform));
+				log.info("secretPhrase :"+CWE117Fix.encodeCRLF(secretPhrase));
+				log.info("externalLibraryFileAndSlot :"+CWE117Fix.encodeCRLF(externalLibraryFileAndSlot));
 			} 
 			catch (Exception e) 
 			{
@@ -132,14 +132,14 @@ public class WebICCryptoUtil {
 			externalLibraryFileAndSlot = enviroinmentMap.get(WEBIC_CRYPT_KEYSTORE_EXTERNALLIB).toString();
 			decryptKeyStorePrivateAlias = enviroinmentMap.get(WEBIC_DECRYPT_KEYSTORE_PRIVATEALIAS).toString();
 			
-			log.info("keyStoreType :" +keyStoreType);
-			log.info("keyStorePassPhrase :"+keyStorePassPhrase);
-			log.info("keyStoreType :"+keyStoreType);
-			log.info("keyStorePrivateAlias :"+keyStorePrivateAlias);
-			log.info("cipherProvider :"+cipherProvider);
-			log.info("cipherTransform :"+cipherTransform);
-			log.info("secretPhrase :"+secretPhrase);
-			log.info("externalLibraryFileAndSlot :"+externalLibraryFileAndSlot);
+			log.info("keyStoreType :" +CWE117Fix.encodeCRLF(keyStoreType));
+			log.info("keyStorePassPhrase :"+CWE117Fix.encodeCRLF(keyStorePassPhrase));
+			log.info("keyStoreType :"+CWE117Fix.encodeCRLF(keyStoreType));
+			log.info("keyStorePrivateAlias :"+CWE117Fix.encodeCRLF(keyStorePrivateAlias));
+			log.info("cipherProvider :"+CWE117Fix.encodeCRLF(cipherProvider));
+			log.info("cipherTransform :"+CWE117Fix.encodeCRLF(cipherTransform));
+			log.info("secretPhrase :"+CWE117Fix.encodeCRLF(secretPhrase));
+			log.info("externalLibraryFileAndSlot :"+CWE117Fix.encodeCRLF(externalLibraryFileAndSlot));
 			
 			WebICCryptoUtilitySingleton.setKeystoreType(keyStoreType);
 			WebICCryptoUtilitySingleton.setKeystoreName(keyStoreFile);
@@ -159,9 +159,9 @@ public class WebICCryptoUtil {
 		catch (CryptographyException e) 
 		{
 			e.printStackTrace();
-			log.info("Decryption Error "+e.getMessage());
-			log.info("Decryption Error Stack "+e.toString());
-			log.info("Decryption Error Stack "+e.getLocalizedMessage());
+			log.info("Decryption Error "+CWE117Fix.encodeCRLF(e.getMessage()));
+			log.info("Decryption Error Stack "+CWE117Fix.encodeCRLF(e.toString()));
+			log.info("Decryption Error Stack "+CWE117Fix.encodeCRLF(e.getLocalizedMessage()));
 			throw e;
 			//log.warning(sMethod+ "error while constructing the dss email request");
 			//LogHelper.error(PACKAGE_NAME, CLASS_NAME, "", e

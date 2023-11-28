@@ -13,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.HttpClientHelper;
 import com.ctfs.WICI.Helper.JsonWrapper;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
@@ -36,15 +37,13 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 
 	protected void handleRequest(WICIServletMediator requestMediator)
 			throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doPost] ";
-		log.info(sMethod);
+		log.info("TMXEmailRiskAssessmentServlet[doPost]");
          invokeTMXRiskAssessment(requestMediator);
 	}
 
 	private void invokeTMXRiskAssessment(WICIServletMediator requestMediator) {
 		
-		String sMethod = this.getClass().getName() + "[invokeTMXRiskAssessment] ";
-		log.info(sMethod);
+		log.info("TMXEmailRiskAssessmentServlet[invokeTMXRiskAssessment]");
 		WICIResponse tableResponse = new WICIResponse();
 		try {
 			
@@ -104,8 +103,7 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 		
 		 String  responseContent = null;
 		 EmailRiskAssessmentResponse tmxResponse = new EmailRiskAssessmentResponse();
-		 String sMethod = this.getClass().getName() + "[TMXHttpsclientCall] ";
-		 log.info(sMethod);
+		 log.info("TMXEmailRiskAssessmentServlet[TMXHttpsclientCall]");
 		 try{
 		
 			 HttpClientHelper secureClient = new HttpClientHelper();
@@ -118,22 +116,22 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 			post.setEntity(new StringEntity(jsonInput));
 			post.setHeader("Content-type", "application/json");
 			
-			log.info(sMethod + " The DSS TMX endPoint  ===" + conf.getDssTmxEndPoint() + "txm request for dss ::: "+jsonInput);
+			log.info("TMXEmailRiskAssessmentServlet[TMXHttpsclientCall] The DSS TMX endPoint  ===" + CWE117Fix.encodeCRLF(conf.getDssTmxEndPoint()) + "txm request for dss ::: "+CWE117Fix.encodeCRLF(jsonInput));
 			
 			HttpResponse response = httpClient.execute(post);
 
 			int statusCode = response.getStatusLine().getStatusCode();
 			
-			log.info(sMethod + "TXM Profile status code :::: " + statusCode);
+			log.info("TMXEmailRiskAssessmentServlet[TMXHttpsclientCall] TXM Profile status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			if (statusCode != 200) {
 				throw new RuntimeException("Failed with HTTP error code : "
-						+ statusCode);
+						+ CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			}
 			responseContent = EntityUtils.toString(response.getEntity());
 			tmxResponse = jsonWrapper.deserialize(responseContent,
 					EmailRiskAssessmentResponse.class);
 		        
-			log.info(sMethod + "TMX Profile Response from DSS:::: " + tmxResponse);
+			log.info("TMXEmailRiskAssessmentServlet[TMXHttpsclientCall] TMX Profile Response from DSS:::: " + CWE117Fix.encodeCRLF(tmxResponse.toString()));
 		
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -143,7 +141,7 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 	
 	
 	private EmailRiskAssessmentResponse  tmxProfileHttpClientCall(EmailRiskAssessmentRequest tmxDSSRequest){
-		 String sMethod = this.getClass().getName() + "[TMXHttpclientCall] ";
+		
 		 String  responseContent = null;
 		 EmailRiskAssessmentResponse tmxResponse = new EmailRiskAssessmentResponse();
          HttpClient   httpClient   = HttpClientBuilder.create().build();
@@ -155,7 +153,7 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 	    	String jsonInput = mapper.writeValueAsString(tmxDSSRequest);
 	    	
-	    	log.info(sMethod + " The DSS TMX endPoint  ===" + conf.getDssTmxEndPoint() + "txm request for dss ::: "+jsonInput);
+	    	log.info("TMXEmailRiskAssessmentServlet[TMXHttpclientCall] The DSS TMX endPoint  ===" + conf.getDssTmxEndPoint() + "txm request for dss ::: "+CWE117Fix.encodeCRLF(jsonInput));
 	    	
 	    	
 	    	post.setEntity(new StringEntity(jsonInput));
@@ -165,7 +163,7 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
@@ -173,13 +171,13 @@ public class TMXEmailRiskAssessmentServlet extends WICIServlet {
 	        		EmailRiskAssessmentResponse.class);
 	        
 	        if( tmxResponse != null ){
-	        	log.info(sMethod + "tmxResponse Response "+ tmxResponse);
+	        	log.info("TMXEmailRiskAssessmentServlet[TMXHttpclientCall]tmxResponse Response "+ CWE117Fix.encodeCRLF(tmxResponse.toString()));
 	        	
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("TMXEmailRiskAssessmentServlet[TMXHttpsclientCall]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally

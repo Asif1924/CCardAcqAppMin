@@ -29,21 +29,21 @@ public class SubmitAppHelper {
 	
 	public  void SubmitAPPHttpClient(AccountApplicationRequestType dssRequest, String endPoint, String jwtToken) throws Exception {
 		 
-		 String sMethod = this.getClass().getName() + "[SubmitAPPHttpClient] ";
+		// String sMethod = this.getClass().getName() + "SubmitAppHelper[SubmitAPPHttpClient] ";
 		 HttpClient   httpClient   = HttpClientBuilder.create().build();
 	     
 		 try{
 			 	
-			 log.info(sMethod + " submitApp Request  ===    "+ dssRequest  );
+			 log.info("SubmitAppHelper[SubmitAPPHttpClient] submitApp Request  ===    "+ CWE117Fix.encodeCRLF(dssRequest != null ?dssRequest.toString() : null));
 		   String autherization = constructAuthHeader(dssRequest.getTabSerialId(), jwtToken);
 		   
-		    log.info(sMethod + " jwtToken  ===    "+ jwtToken  );
+		    log.info("SubmitAppHelper[SubmitAPPHttpClient] jwtToken  ===    "+ CWE117Fix.encodeCRLF(jwtToken));
 	    	HttpPost     post  = new HttpPost(endPoint);
 	    	
 	    	post.addHeader("Authorization", "Bearer "+ autherization);
 	    	ObjectMapper  mapper = new ObjectMapper();
 	    	String jsonInput = mapper.writeValueAsString(dssRequest);
-	    	log.info(sMethod + " The DSSSubmitAPP Input  "  +jsonInput);
+	    	log.info("SubmitAppHelper[SubmitAPPHttpClient] The DSSSubmitAPP Input  "  +CWE117Fix.encodeCRLF(jsonInput));
 	    	
 	    	post.setEntity(new StringEntity(jsonInput));
 	    	post.setHeader("Content-type", "application/json");
@@ -52,13 +52,13 @@ public class SubmitAppHelper {
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
-	        log.info(sMethod + " The Status code  "  +statusCode);
+	        log.info("SubmitAppHelper[SubmitAPPHttpClient] The Status code  "  +CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	     }catch(Exception e){
 	    	 
 	      e.printStackTrace();
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("SubmitAppHelper[SubmitAPPHttpClient]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -74,12 +74,12 @@ public class SubmitAppHelper {
 	public  void  submitAPPSecureClient(AccountApplicationRequestType dssInput,String endPoint, String jwtToken) throws Exception{
 	   
 		
-		 String sMethod = this.getClass().getName() + "[submitAPPSecureClient] ";
+		 //String sMethod = this.getClass().getName() + "SubmitAppHelper[submitAPPSecureClient] ";
 	     CloseableHttpClient httpClient = null;
 	     HttpClientHelper httpsecureClient = new HttpClientHelper();	
 	     httpClient = httpsecureClient.getHttpSecureClient();
 	     String autherization = constructAuthHeader(dssInput.getTabSerialId(), jwtToken);
-	     log.info(sMethod + " Configuration Properties  endPoint ==="+ endPoint  );
+	     log.info("SubmitAppHelper[submitAPPSecureClient]  Configuration Properties  endPoint ==="+ CWE117Fix.encodeCRLF(endPoint));
 	     
 		 try{
 			 			 
@@ -88,7 +88,7 @@ public class SubmitAppHelper {
 	    	ObjectMapper  mapper = new ObjectMapper();
 	    	String jsonInput = mapper.writeValueAsString(dssInput);
 	    	
-	    	log.info(sMethod + "submitAPP  Request    " +jsonInput);
+	    	log.info("SubmitAppHelper[submitAPPSecureClient]submitAPP  Request    " +CWE117Fix.encodeCRLF(jsonInput));
 	    	
 	    	post.addHeader("Authorization", "Bearer "+ autherization);
 	    	post.setEntity(new StringEntity(jsonInput));
@@ -98,12 +98,12 @@ public class SubmitAppHelper {
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("SubmitAppHelper[submitAPPSecureClient]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -116,12 +116,12 @@ public class SubmitAppHelper {
 	
 	private String constructAuthHeader(String tabSerailId, String jwtToken) {
 		
-		 String sMethod = this.getClass().getName() + "[constructAuthHeader] ";
+		// String sMethod = this.getClass().getName() + "[constructAuthHeader] ";
 		
 		// The JWT signature algorithm we will be using to sign the token
 		final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 		
-		log.info(sMethod + "tabSerailID Request    " +tabSerailId    +"  jwt token  "  +jwtToken);
+		log.info("[constructAuthHeader] tabSerailID Request    " +CWE117Fix.encodeCRLF(tabSerailId)    +"  jwt token  "  +CWE117Fix.encodeCRLF(jwtToken));
 
 		
 		//set the duration that the jwt is valid

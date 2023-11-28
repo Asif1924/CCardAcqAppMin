@@ -414,10 +414,7 @@ WICI.PendingScreenController = function(activationItems, argTranslator, argMessa
     	messageDialog.error(translator.translateKey("pendingScreen_PrintToken_Error"), translator.translateKey("errorDialog_defaultTitle"), $.noop);
     }
     
-    function printToken (argToken) {
-        var sMethod = 'printToken() ';
-        console.log(logPrefix + sMethod + " token=" + argToken + ", retrievalTokenRefNum=" + retrievalTokenRefNum);
-        
+    function printToken (argToken) {        
     	var isDevice = new WICI.DeviceDetectionHelper().any();
     	if(isDevice){    	
             if (!app.zebraPrinterWrapper.verifyPrinterMacAddress() ) {

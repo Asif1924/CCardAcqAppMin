@@ -22,10 +22,7 @@ WICI.AppLanguage = function () {
         }
     };
     
-    function retrieveStoredLanguageSuccess(result) {
-		var sMethod = 'retrieveStoredLanguageSuccess():: Language: ' + result;
-        console.log(logPrefix + sMethod);
-    	
+    function retrieveStoredLanguageSuccess(result) {    	
         // Set app language
         if (result) {
         	appLanguage = result;
@@ -38,10 +35,7 @@ WICI.AppLanguage = function () {
 		}
     }
 
-    function retrieveStoredLanguageFailure(error) {
-		var sMethod = 'retrieveStoredLanguageFailure():: ' + error;
-        console.log(logPrefix + sMethod);
-        
+    function retrieveStoredLanguageFailure() {		                
         if (translate) {
         	appLanguage = translate.getCurrentLanguageFSDPFormat();
         }
@@ -79,8 +73,7 @@ WICI.AppLanguage = function () {
         console.log(logPrefix + sMethod);
     }
 
-    function storeLanguageFailure(error) {
-		var sMethod = 'storeLanguageFailure():: ' + error;
-        console.log(logPrefix + sMethod);
+    function storeLanguageFailure() {		
+        
     }
 };

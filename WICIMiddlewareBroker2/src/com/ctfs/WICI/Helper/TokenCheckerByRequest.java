@@ -50,15 +50,15 @@ public class TokenCheckerByRequest
 
 	private void printHeaders()
 	{
-		String sMethod = "[printHeaders] ";
-		log.info(sMethod);
+		//String sMethod = "[printHeaders] ";
+		log.info("[printHeaders]" );
 		try
 		{
 			for (Enumeration enumm = request.getHeaderNames(); enumm.hasMoreElements();)
 			{
 				String headerName = (String) enumm.nextElement();
 				String headerValue = request.getHeader(headerName);
-				log.info(sMethod + "Header: Name = " + headerName + "  Value = " + headerValue);
+				log.info("[printHeaders]Header: Name = " + CWE117Fix.encodeCRLF(headerName) + "  Value = " + CWE117Fix.encodeCRLF(headerValue));
 			}
 		}
 		catch (Exception e)

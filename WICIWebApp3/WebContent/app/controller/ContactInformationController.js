@@ -62,6 +62,8 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 		messageDialog = argMessageDialog;
 		outletProvince = getOutletProvince();
 		createView();
+		// WICI-241
+		//getLocation();
 		bindEvents();
 		initModel();
 		// Set masks for UI elements
@@ -132,6 +134,29 @@ WICI.ContactInformationController = function(activationItems, argTranslator, arg
 			model.set('estmt_consent', 'N');
 		}
 		console.log(logPrefix + sMethod + ' model data: \n' + model.toString());
+	}
+	//---------------------------------------------------------------------------------------
+	function getLocation() {	
+		var sMethod = 'getLocation() :: ';
+        console.log(logPrefix + sMethod);
+
+		app.geoLocationHelper = new WICI.GeoLocationHelper();
+        app.geoLocationHelper.getCoordinates(getLocationSuccess, getLocationFailure);        
+    }
+
+	function getLocationSuccess(coordinates) {
+        var sMethod = 'getLocationSuccess() ';
+        console.log(logPrefix + sMethod + " coordinates : " + coordinates);
+		var result = eval('('+coordinates+')' );
+		console.log(logPrefix + sMethod + " coordinates : " + result.longitude + " :: " + result.latitude);
+		
+		activationItems.getModel('loginScreen').set('longitude', result.longitude);
+		activationItems.getModel('loginScreen').set('latitude', result.latitude);					
+	}
+	
+	function getLocationFailure(result) {
+        var sMethod = 'getLocationFailure() ';
+        console.log(logPrefix + sMethod + " Exception is: " + result);  
 	}
 	//---------------------------------------------------------------------------------------
 	function getOutletProvince(){

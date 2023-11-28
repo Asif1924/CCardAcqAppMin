@@ -78,7 +78,7 @@ WICI.Demo_Login = {
 				"outletNumber" : "1",
 				"outletStreet" : "100 Demo Street ",
 				"outletCity" : "Oakville ",
-				"outletProvince" : "QC",
+				"outletProvince" : "ON",
 				"outletPostal" : "L6L0C6",
 				"CTFSStoreNo" : "4398",
 			},

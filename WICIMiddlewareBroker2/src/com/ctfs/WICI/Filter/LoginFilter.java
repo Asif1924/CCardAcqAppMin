@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.ctfs.WICI.Helper.CTFSLoginWrapper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.RolesExaminer;
 import com.ibm.websphere.security.auth.WSSubject;
 
@@ -32,8 +33,7 @@ public class LoginFilter implements Filter
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
-		String sMethod = "[doFilter] ";
-		log.info(sMethod);
+		log.info("LoginFilter[doFilter]");
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		if (httpRequest.getSession(false) != null)
@@ -71,9 +71,9 @@ public class LoginFilter implements Filter
 			RolesExaminer rolesExaminer2 = new RolesExaminer(httpRequest);
 			definedRolesJSON = rolesExaminer2.getRolesJSON();
 
-			log.info(sMethod + " isUserInADefinedRole=" + isUserInADefinedRole);
-			log.info(sMethod + " definedRoles=" + definedRoles);
-			log.info(sMethod + " definedRolesJSON=" + definedRolesJSON);
+			log.info("LoginFilter[doFilter] isUserInADefinedRole=" + CWE117Fix.encodeCRLF(String.valueOf(isUserInADefinedRole)));
+			log.info("LoginFilter[doFilter] definedRoles=" + definedRoles);
+			log.info("LoginFilter[doFilter] definedRolesJSON=" + definedRolesJSON);
 
 			// if (isUserInADefinedRole) {
 			if (!definedRoles.isEmpty())

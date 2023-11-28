@@ -6,8 +6,7 @@ WICI.ZebraPrinterController = function () {
     var printerMacAddress = WICI.AppConfig.defaultPrinterMacAddress;
     
     this.printToken = function (argToken, successCallback, failureCallback){
-        var sMethod = 'printToken() ';
-        console.log(logPrefix + sMethod + "token=" + argToken);   
+        var sMethod = 'printToken() ';         
         
         try {
         	console.log('cordova Object:');

@@ -18,18 +18,17 @@ public class PayloadHelper
 
 	public PayloadHelper(ContentType argContentType)
 	{
-		String sMethod = "[PayloadHelper] ";
-		log.info(sMethod + "::Called::");
+		log.info("[PayloadHelper] ::Called::");
 		validateContentType(argContentType);
-		log.info(sMethod + "::Content Type = " + argContentType.toString());
+		log.info("[PayloadHelper]::Content Type = " + CWE117Fix.encodeCRLF(argContentType.toString()));
 		contentType = argContentType;
 	}
 
 	public void setPayload(StringBuffer argPayload)
 	{
-		String sMethod = "[setPayload] ";
-		log.info(sMethod + "::Called::");
-		log.info(sMethod + "::Payload Data = " + argPayload);
+		
+		log.info("setPayload::Called::");
+		log.info("setPayload::Payload Data = " + CWE117Fix.encodeCRLF(argPayload != null ? argPayload.toString() : null));
 
 		validatePayLoad(argPayload);
 
@@ -48,40 +47,35 @@ public class PayloadHelper
 
 	public String getPayload()
 	{
-		String sMethod = "[getPayload] ";
-		log.info(sMethod + "::Called::");
+		log.info("getPayload()::Called::");
 
 		return payload.toString();
 	}
 
 	public EventType getEventType()
 	{
-		String sMethod = "[getEventType] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getEventType] ::Called::");
 
 		return EventType.fromValue(eventLogModel.getEventType());
 	}
 
 	public String getDeviceFriendlyName()
 	{
-		String sMethod = "[getDeviceFriendlyName] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getDeviceFriendlyName] ::Called::");
 
 		return eventLogModel.getDeviceFriendlyName();
 	}
 
 	public String getSerialNumber()
 	{
-		String sMethod = "[getSerialNumber] ";
-		log.info(sMethod + "::Called::");
+		log.info("[getSerialNumber] ::Called::");
 
 		return eventLogModel.getSerialNumber();
 	}
 
 	public Boolean isWICIEvent()
 	{
-		String sMethod = "[isWICIEvent] ";
-		log.info(sMethod + "::Called::");
+		log.info("isWICIEvent()::Called::");
 
 		validateWICIEvent();
 
@@ -91,31 +85,28 @@ public class PayloadHelper
 
 	public boolean isEnrolRequired()
 	{
-		String sMethod = "[isEnrolRequired] ";
-		log.info(sMethod + "::Called::");
+		log.info("[isEnrolRequired] ::Called::");
 
 		return getEventType() == EventType.COMPROMISED_STATUS_CHANGED;
 	}
 
 	public boolean isDeEnrolRequired()
 	{
-		String sMethod = "[isDeEnrolRequired] ";
-		log.info(sMethod + "::Called::");
+		log.info("[isDeEnrolRequired] ::Called::");
 
 		return getEventType() == EventType.BREAK_MDM_CONFIRMED || getEventType() == EventType.DEVICE_ENTERPRISE_WIPE_REQUESTED;
 	}
 
 	public void setWICIEventMark(String argWICIEventMark)
 	{
-		String sMethod = "[setWICIEventMark] ";
-		log.info(sMethod + "::Called::");
-		log.info(sMethod + "::Argument WICI Event Mark = " + argWICIEventMark);
+		log.info("[setWICIEventMark] ::Called::");
+		log.info("[setWICIEventMark] ::Argument WICI Event Mark = " + CWE117Fix.encodeCRLF(argWICIEventMark));
 		
 		validateWICIEventMark(argWICIEventMark);
 
 		this.wiciEventMark = argWICIEventMark.toUpperCase();
 		
-		log.info(sMethod + "::WICI Event Mark = " + wiciEventMark);
+		log.info("::WICI Event Mark = " + CWE117Fix.encodeCRLF(wiciEventMark));
 	}
 
 	private void validateWICIEventMark(String argWICIEventMark)
@@ -128,8 +119,7 @@ public class PayloadHelper
 	
 	private void validateContentType(ContentType argRequestContentType)
 	{
-		String sMethod = "[validateContentType] ";
-		log.info(sMethod + "::Called::");
+		log.info("[validateContentType] ::Called::");
 
 		if (argRequestContentType == null || argRequestContentType == ContentType.INCORRECT_MIME_TYPE)
 		{
@@ -139,8 +129,8 @@ public class PayloadHelper
 
 	private void validatePayLoad(StringBuffer argPayload)
 	{
-		String sMethod = "[validatePayLoad] ";
-		log.info(sMethod + "::Called::");
+		//String sMethod = "[validatePayLoad] ";
+		log.info("[validatePayLoad]::Called::");
 
 		if (argPayload == null || argPayload.length() == 0)
 		{
@@ -150,8 +140,7 @@ public class PayloadHelper
 
 	private void validateWICIEvent()
 	{
-		String sMethod = "[validateWICIEvent] ";
-		log.info(sMethod + "::Called::");
+		log.info("[validateWICIEvent] ::Called::");
 
 		if (wiciEventMark == null || wiciEventMark.length() == 0)
 		{

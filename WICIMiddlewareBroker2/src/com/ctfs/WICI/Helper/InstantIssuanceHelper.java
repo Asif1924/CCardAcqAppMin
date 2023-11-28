@@ -30,7 +30,6 @@ public class InstantIssuanceHelper {
 	
 	public  WICIDSSInstantIssuanceResponse  instantIssuanceHttpClient(WICIDSSInstantIssuanceRequest dssInput, String endPoint, String jwtToken) throws Exception{
 		 
-		 String sMethod = this.getClass().getName() + "[instantIssuanceHttpClient] ";
 	     WICIDSSInstantIssuanceResponse dssInstantIssuanceResponse = new WICIDSSInstantIssuanceResponse();
 	     String responseContent = null;
 	     
@@ -41,7 +40,7 @@ public class InstantIssuanceHelper {
 			 			 
 			 String autherization = constructAuthHeader(dssInput.getTabSerialID(),jwtToken);
 			
-			log.info(sMethod + " The BROKER TOKEN   ===  "+ autherization );
+			log.info("[instantIssuanceHttpClient] The BROKER TOKEN   ===  "+ CWE117Fix.encodeCRLF(autherization));
 			
 			
 			// point to dev
@@ -55,7 +54,7 @@ public class InstantIssuanceHelper {
 	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 	    	String jsonInput = mapper.writeValueAsString(dssInput);
 	    	
-	    	log.info(sMethod + " The DSS InstantIssuance Input  "  +jsonInput);
+	    	log.info("[instantIssuanceHttpClient] The DSS InstantIssuance Input  "  +CWE117Fix.encodeCRLF(jsonInput));
 	    	
 	    	
 	    	post.setEntity(new StringEntity(jsonInput));
@@ -65,7 +64,7 @@ public class InstantIssuanceHelper {
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
@@ -73,13 +72,13 @@ public class InstantIssuanceHelper {
 	        		WICIDSSInstantIssuanceResponse.class);
 	        
 	        if( dssInstantIssuanceResponse != null ){
-	        	log.info(sMethod + "dssInstantIssuanceResponse "+ dssInstantIssuanceResponse);
+	        	log.info("[instantIssuanceHttpClient]dssInstantIssuanceResponse "+ CWE117Fix.encodeCRLF(dssInstantIssuanceResponse.toString()));
 	        	
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("[instantIssuanceHttpClient]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -96,29 +95,28 @@ public class InstantIssuanceHelper {
 	
 	public  WICIDSSInstantIssuanceResponse  instantIssuanceSecureClient(WICIDSSInstantIssuanceRequest dssInput, String endPoint, String jwtToken) throws Exception{
 		 
-	     String sMethod = this.getClass().getName() + "[instantIssuanceSecureClient] ";
 	     CloseableHttpClient httpClient = null;
 	     WICIDSSInstantIssuanceResponse instantIssuanceResponse = new WICIDSSInstantIssuanceResponse();
 	     HttpClientHelper httpsecureClient = new HttpClientHelper();	
 	     httpClient = httpsecureClient.getHttpSecureClient();
 	     String responseContent = null;
 	     
-	     log.info(sMethod + " Configuration Properties  endPoint ==="+ endPoint  +  " JWT token "+ jwtToken);
+	     log.info("[instantIssuanceSecureClient] Configuration Properties  endPoint ==="+ CWE117Fix.encodeCRLF(endPoint)  +  " JWT token "+ CWE117Fix.encodeCRLF(jwtToken));
 	     
 		 try{
 			 			 
 			 String autherization = constructAuthHeader(dssInput.getTabSerialID(), jwtToken);
 			
-			log.info(sMethod + " The BROKER TOKEN   ===  "+ autherization );
+			log.info("instantIssuanceSecureClient The BROKER TOKEN   ===  "+  CWE117Fix.encodeCRLF(autherization ));
 			
 	    	HttpPost     post  = new HttpPost(endPoint);
-	    	post.addHeader("Authorization", "Bearer "+ autherization);
+	    	post.addHeader("Authorization", "Bearer "+  CWE117Fix.encodeCRLF(autherization));
 	    	
 	    	ObjectMapper  mapper = new ObjectMapper();
 	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 	    	String jsonInput = mapper.writeValueAsString(dssInput);
 	    	
-	    	log.info(sMethod + "InstantIsuance Request    " +jsonInput);
+	    	log.info("instantIssuanceSecureClient InstantIsuance Request    " + CWE117Fix.encodeCRLF(jsonInput));
 	    	
 	    	
 	    	post.setEntity(new StringEntity(jsonInput));
@@ -128,7 +126,7 @@ public class InstantIssuanceHelper {
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
@@ -136,13 +134,13 @@ public class InstantIssuanceHelper {
 	        		WICIDSSInstantIssuanceResponse.class);
 	        
 	        if( instantIssuanceResponse != null ){
-	        	log.info(sMethod + "dssInstantIsuuance Response "+instantIssuanceResponse);
+	        	log.info("instantIssuanceSecureClient dssInstantIsuuance Response "+CWE117Fix.encodeCRLF(instantIssuanceResponse.toString()));
 	        	
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("instantIssuanceSecureClient ::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -161,12 +159,11 @@ public class InstantIssuanceHelper {
 	
 	private String constructAuthHeader(String tabSerailId, String jwtToken) {
 		
-		 String sMethod = this.getClass().getName() + "[constructAuthHeader] ";
 		
 		// The JWT signature algorithm we will be using to sign the token
 		final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 		
-		log.info(sMethod + "tabSerailID Request    " +tabSerailId    +"  jwt token  "  +jwtToken);
+		log.info("[constructAuthHeader]  tabSerailID Request    " +CWE117Fix.encodeCRLF(tabSerailId)    +"  jwt token  "  +CWE117Fix.encodeCRLF(jwtToken));
 
 		
 		//set the duration that the jwt is valid
@@ -192,9 +189,9 @@ public class InstantIssuanceHelper {
 
 	
 	public void validateEnstreamRequest(WICIDSSInstantIssuanceRequest instantIssuanceRequest) {
-		 String sMethod = this.getClass().getName() + "[validateEnstreamRequest] ";
+		
 		 
-		 log.info(sMethod + " EnstreamRequest ::;"+instantIssuanceRequest);
+		 log.info("[validateEnstreamRequest] EnstreamRequest ::;"+CWE117Fix.encodeCRLF(instantIssuanceRequest != null ? instantIssuanceRequest.toString(): null));
 		 
 		 if (instantIssuanceRequest.getExternalReferenceId() == null || instantIssuanceRequest.getExternalReferenceId().isEmpty())
 			{

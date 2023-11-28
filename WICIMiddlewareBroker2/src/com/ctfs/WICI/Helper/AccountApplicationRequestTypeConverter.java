@@ -29,10 +29,10 @@ public class AccountApplicationRequestTypeConverter
 	private static final String HYPHEN_SYMBOL = "-";
 	private static final String EMPTY_STRING = "";
 	
-	private static final String ASC_DEFAULT="9977"; // US5244 - Bill 134 - New ASCs
-	private static final String ASC_FMR="9990";
-	private static final String ASC_STORE_STAFF_QC="9993";
-	private static final String ASC_STORE_STAFF_ROC="9992";
+	private static final String ASC_DEFAULT="9977"; // US5244 - Bill 134 - New ASCs // Bill 96 : WICI-187 New ASCs
+	private static final String ASC_FMR="9991";
+	private static final String ASC_STORE_STAFF_QC="9995";
+	private static final String ASC_STORE_STAFF_ROC="9994";
 	private static final String TOGGLE_SECTION="CTFS_LOYALTY_TOGGLE_FLAG";
 	private static final String TOGGLE_KEY="ECTM_COMPONENTS_TOGGLE_FLAG";
 	
@@ -43,8 +43,6 @@ public class AccountApplicationRequestTypeConverter
 	public AccountApplicationRequestType createAccountApplicationRequestFromCreditCardApplicationData(CreditCardApplicationData argCreditCardApplicationData,String tabSerialNum,boolean authFlag)
     {
 
-                    String sMethod = "[createAccountApplicationRequestFromCreditCardApplicationData()]";
-                    log.info(sMethod);
 
                     //com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
                     AccountApplicationRequestType populatedAccountApplicationRequest = new AccountApplicationRequestType();
@@ -135,7 +133,7 @@ public class AccountApplicationRequestTypeConverter
                     }
                     catch (Exception e)
                     {
-                                    log.warning(sMethod + " Exception: " + e.getMessage());
+                                    log.warning("[createAccountApplicationRequestFromCreditCardApplicationData() Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
                                     e.printStackTrace();
                     }
                    // populatedAccountApplicationRequest.setEmployerCountry(CountryType.CA.value());
@@ -159,7 +157,7 @@ public class AccountApplicationRequestTypeConverter
                     {
                                     Gson gson = new Gson();
                                     String result = gson.toJson(populatedAccountApplicationRequest);
-                                    log.info(sMethod + " accountApplicationRequest populated with data: " + result);
+                                    log.info("[createAccountApplicationRequestFromCreditCardApplicationData() accountApplicationRequest populated with data: " + CWE117Fix.encodeCRLF(result != null ? result : null));
                     }
                     catch (Exception e)
                     {
@@ -170,9 +168,7 @@ public class AccountApplicationRequestTypeConverter
 	
 	public AccountApplicationContactInfo createAccountApplicationContactInfo(CreditCardApplicationData argCreditCardApplicationData) {
 		
-		String sMethod = "[createAccountApplicationContactInfo()]";
-        log.info(sMethod);
-        
+		
         com.ctc.ctfs.channel.accountacquisition.ObjectFactory objectFactory = new com.ctc.ctfs.channel.accountacquisition.ObjectFactory();
         AccountApplicationContactInfo populatedAccountApplicationContactInfo = objectFactory.createAccountApplicationContactInfo();
         
@@ -181,9 +177,7 @@ public class AccountApplicationRequestTypeConverter
 	}
 
     private void populateOptionalProductsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
-    	String sMethod = "[OptionalProductsModel()]";
-        log.info(sMethod);
-        
+    	
         ImageUtils imageUtil = new ImageUtils();
         BaseModel model;
         try {
@@ -220,15 +214,14 @@ public class AccountApplicationRequestTypeConverter
             	argAccAppRequest.setInsuranceSignatureCP(decodedBase64Image);
             }
         } catch (Exception e) {
-        	log.warning(sMethod + " Exception: " + e.getMessage());
+        	log.warning("populateOptionalProductsModel[] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
             e.printStackTrace();
         }
     }
 
 	private void populateSignatureModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[SignatureModel()]";
-		log.info(sMethod + "::called");
+		
 		ImageUtils imageUtil = new ImageUtils();
 		BaseModel model;
 		try
@@ -240,7 +233,7 @@ public class AccountApplicationRequestTypeConverter
 
 				// (AA): This decoding is necessary before setting the value
 				// because apparently, the XSD takes care of BASE64 Encoding
-				// argAccAppRequest.setApplicantSignature(model.getBase64EncodedJPGByteArray("userSignature"));
+				// argAccAppRequest.setApplicantSignature(model.getBase64EncodedJPGByteArray("userSingnature"));
 				byte[] decodedBase64Image = Base64.decodeBase64(model.getBase64EncodedJPGByteArray("userSignature"));
 				argAccAppRequest.setApplicantSignature(decodedBase64Image);
 				
@@ -265,16 +258,14 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populateSignatureModel Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populateSuplementaryDataModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[SuplementaryDataModel()]";
-		log.info(sMethod);
-
+		
 		BaseModel model;
 		try
 		{
@@ -322,15 +313,13 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populateSuplementaryDataModel Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populateFinancialDataModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
-		String sMethod = "[FinancialDataModel()]";
-		log.info(sMethod);
-
+		
 		BaseModel model;
 		try {
 			model = argCreditCardData.getModel(MODEL_FINANCIAL_DATA);
@@ -412,15 +401,14 @@ public class AccountApplicationRequestTypeConverter
 			}
 		}
 		catch (Exception e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populateFinancialDataModel Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populatePersonalData2Model(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[PersonalData2Model()]";
-		log.info(sMethod);		
+			
 
 		BaseModel model;
 		try
@@ -451,7 +439,7 @@ public class AccountApplicationRequestTypeConverter
 				argAccAppRequest.setPreviousAddressLine1(addressLine1Prev);
 				if(argAccAppRequest.getPreviousAddressLine1()!= null && argAccAppRequest.getPreviousAddressLine1().equalsIgnoreCase("null")){
 					argAccAppRequest.setPreviousAddressLine1(null);
-					log.info(sMethod+ "addressline1_prev "+ argAccAppRequest.getPreviousAddressLine1());
+					log.info("populatePersonalData2Model[] addressline1_prev "+ argAccAppRequest.getPreviousAddressLine1());
 				}
 
 				argAccAppRequest.setPreviousAddressLine2(model.get("addressline2_prev"));
@@ -463,7 +451,7 @@ public class AccountApplicationRequestTypeConverter
 				}
 				catch (Exception e)
 				{
-					log.warning(sMethod + "Previous address section - province_prev! Exception: " + e.getMessage());
+					log.warning("populatePersonalData2Model[] Previous address section - province_prev! Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 				}
 				argAccAppRequest.setPreviousPostalCode(model.get("postalcode_prev"));
 				argAccAppRequest.setMonthlyRentMortgageAmount(model.getInt("housingpayment"));
@@ -471,15 +459,14 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populatePersonalData2Model[] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populatePersonalDataModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[PersonalDataModel()]";
-		log.info(sMethod);
+		
 		BaseModel model;
 		try
 		{
@@ -546,15 +533,14 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populatePersonalDataModel[] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populateLoginModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest, boolean authfieldCheckEnable )
 	{
-		String sMethod = "[LoginModel()]";
-		log.info(sMethod);
+		
 		try
 		{
 			BaseModel model = argCreditCardData.getModel(MODEL_LOGIN_SCREEN);
@@ -593,11 +579,11 @@ public class AccountApplicationRequestTypeConverter
                 //US3103 - Sep 16 2014 Release  
 				ApplicationConfiguration.readApplicationConfiguration();
 				Map toggleMap = ApplicationConfiguration.getCategoryKeys(TOGGLE_SECTION);
-				log.info("Toggle is set to "+toggleMap.get(TOGGLE_KEY));
+				log.info("Toggle is set to "+CWE117Fix.encodeCRLF(toggleMap.get(TOGGLE_KEY) != null ? toggleMap.get(TOGGLE_KEY).toString() : null));
 								
 				if(("OFF".equals(toggleMap.get(TOGGLE_KEY)))||("ON_NS".equals(toggleMap.get(TOGGLE_KEY))))
 				{
-					log.info("Setting ASC to " +ASC_DEFAULT);
+					log.info("Setting ASC to " +CWE117Fix.encodeCRLF(ASC_DEFAULT));
 					argAccAppRequest.setAcquistionStrategyCode("0" + agency.toUpperCase() + ASC_DEFAULT); //US3012 - changed agency.toUpperCase()
 				}
 				else if("ON_AOC".equals(toggleMap.get(TOGGLE_KEY)))
@@ -615,22 +601,21 @@ public class AccountApplicationRequestTypeConverter
 				}
 				else
 				{
-					log.info("Setting ASC to " +ASC_DEFAULT);
+					log.info("Setting ASC to " +CWE117Fix.encodeCRLF(ASC_DEFAULT));
 					argAccAppRequest.setAcquistionStrategyCode("0" + agency.toUpperCase() + ASC_DEFAULT); //US3012 - changed agency.toUpperCase()
 				} 
 			}
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("populateLoginModel[] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 
 	private void populateChooseProductModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[ChooseProductModel()]";
-		log.info(sMethod);
+		log.info("[ChooseProductModel()]");
 		ImageUtils imageUtil = new ImageUtils();
 		BaseModel model;
 		BaseModel loginModel;
@@ -659,14 +644,14 @@ public class AccountApplicationRequestTypeConverter
 				}
 				catch (Exception e)
 				{
-					log.warning(sMethod + " MODEL_CHOOSE_PRODUCT::costOfCredit Exception: " + e.getMessage());
+					log.warning("[ChooseProductModel() MODEL_CHOOSE_PRODUCT::costOfCredit Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 					e.printStackTrace();
 				}
 			}
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("[ChooseProductModel() Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
@@ -674,8 +659,7 @@ public class AccountApplicationRequestTypeConverter
 	// US4637
 	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest)
 	{
-		String sMethod = "[populateEmailInfoModel()]";
-		log.info(sMethod);
+		log.info("[populateEmailInfoModel()]");
 
 		BaseModel model;
 		try
@@ -718,15 +702,14 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("[populateEmailInfoModel()] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 	
 	private void populateEmailInfoModel(CreditCardApplicationData argCreditCardData, AccountApplicationContactInfo argAccAppContactInfo)
 	{
-		String sMethod = "[populateEmailInfoModel()]";
-		log.info(sMethod);
+		log.info("[populateEmailInfoModel()]");
 
 		BaseModel model;
 		try
@@ -743,14 +726,13 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("[populateEmailInfoModel()] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 	
 	private void populateMobilePaymentsModel(CreditCardApplicationData argCreditCardData, AccountApplicationRequestType argAccAppRequest) {
-		String sMethod = "[populateMobilePaymentsModel()]";
-		log.info(sMethod);
+		log.info("[populateMobilePaymentsModel()]");
 
 		BaseModel model;
 		try
@@ -763,7 +745,7 @@ public class AccountApplicationRequestTypeConverter
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("[populateMobilePaymentsModel()] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}

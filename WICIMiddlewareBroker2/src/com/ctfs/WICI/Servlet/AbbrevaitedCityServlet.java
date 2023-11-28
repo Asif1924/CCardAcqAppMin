@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
 import com.ctfs.WICI.Model.WICIAbbrevatedCityResponse;
@@ -24,15 +25,14 @@ public class AbbrevaitedCityServlet extends WICIServlet
 
 	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[doPost] ";		log.info(sMethod);
-		
-		
+		String sMethod = this.getClass().getName() + "[doPost] ";		
+		log.info(sMethod);
 		String abrivatedCity = requestMediator.searchElementInsidePostRequestBody("abrivatedCity") != null ? requestMediator.searchElementInsidePostRequestBody("abrivatedCity").trim() : EMPTY_STRING;
 		String province = requestMediator.searchElementInsidePostRequestBody("province") != null ? requestMediator.searchElementInsidePostRequestBody("province").trim() : EMPTY_STRING;
 		String city = requestMediator.searchElementInsidePostRequestBody("city") != null ? requestMediator.searchElementInsidePostRequestBody("city").trim() : EMPTY_STRING;
-		log.info(sMethod +" handleRequest  abrivatedCity   "+abrivatedCity);
-		log.info(sMethod +" handleRequest  provice   "+province);
-		log.info(sMethod +" handleRequest  city   "+city);
+		log.info("AbbrevaitedCityServlet handleRequest  abrivatedCity   "+CWE117Fix.encodeCRLF(abrivatedCity));
+		log.info("AbbrevaitedCityServlet handleRequest  provice   "+CWE117Fix.encodeCRLF(province));
+		log.info("AbbrevaitedCityServlet handleRequest  city   "+CWE117Fix.encodeCRLF(city));
 		
 		if(!abrivatedCity.isEmpty() && abrivatedCity.equalsIgnoreCase("Y")&& !province.isEmpty() && !city.isEmpty() ){
 			
@@ -40,7 +40,7 @@ public class AbbrevaitedCityServlet extends WICIServlet
 			
 		}else{
 			
-			log.warning(sMethod+ "Invalid input parameters  abrivatedCity::  " + abrivatedCity +  "city :: "+city + "province ::  "+ province);
+			log.warning("Invalid input parameters  abrivatedCity:: " + CWE117Fix.encodeCRLF(abrivatedCity) +  "city :: "+CWE117Fix.encodeCRLF(city) + "province ::  "+ CWE117Fix.encodeCRLF(province));
 		}
 	}
 
@@ -58,16 +58,16 @@ public class AbbrevaitedCityServlet extends WICIServlet
 		canadapostaddress.setCity(city);
 		canadapostaddress.setProvince(province);
 		
-		log.info(sMethod+ " candapost input  "+canadapostaddress);
+		log.info(" candapost input  "+CWE117Fix.encodeCRLF(canadapostaddress.toString()));
 		
 		try
 		{
 			 if(canadapostaddress != null && canadapostaddress.getCity() != null && canadapostaddress.getCity().length() >=18 ){
 						
-						log.info(sMethod + " cityName from postalcode Resposne "+canadapostaddress.getCity());
+						log.info( " cityName from postalcode Resposne "+CWE117Fix.encodeCRLF(canadapostaddress.getCity()));
 						 abbrCityName =	dbHelper.retrieve13charABBRCityName(canadapostaddress);
 						 
-						 log.info(sMethod + " cityName from retrive13charABBCityName "+abbrCityName);
+						 log.info( " cityName from retrive13charABBCityName "+CWE117Fix.encodeCRLF(abbrCityName));
 						
 						if(abbrCityName != null  ){
 							abbrevatedResponse.setAbbrevaitedCityName(abbrCityName);
@@ -91,7 +91,7 @@ public class AbbrevaitedCityServlet extends WICIServlet
 					appResponse.setError(false);
 					appResponse.setMsg(EMPTY_STRING);
 			 }
-			 log.info(" the 13 char abbrivated city respone  "+abbrevatedResponse);	
+			 log.info("the 13 char abbrivated city respone  "+CWE117Fix.encodeCRLF(abbrevatedResponse.toString()));	
 			
 		}
 		catch (Exception e)

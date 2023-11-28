@@ -24,6 +24,7 @@ import com.ctc.ctfs.channel.sharedservices.ServiceResponse;
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.WICI.Helper.AccountApplicationHelper;
 import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.InstantIssuanceHelper;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
@@ -47,8 +48,8 @@ public class InstantIssuanceServlet extends WICIServlet {
 
 	protected void handleRequest(WICIServletMediator requestMediator)
 			throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doPost] ";
-		log.info(sMethod);
+		
+		log.info("InstantIssuanceServlet[doPost] ");
 		//getAccountApplicationDataByExternarReferencId(requestMediator);
 		
 		
@@ -60,7 +61,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 
 	private void getAccountApplicationDataByExternarReferencId(WICIServletMediator requestMediator){
 		
-		String sMethod = this.getClass().getName() + "[getAccountApplicationDataByExternarReferencId] ";
+		
 		String msisdn = requestMediator.searchElementInsidePostRequestBody("MSISDN") != null ? requestMediator.searchElementInsidePostRequestBody("MSISDN") : EMPTY_STRING;
 		String externalReferenceId = requestMediator.searchElementInsidePostRequestBody("transactionID") != null ? requestMediator.searchElementInsidePostRequestBody("transactionID") : EMPTY_STRING;
 		String pan = requestMediator.searchElementInsidePostRequestBody("PAN") != null ? requestMediator.searchElementInsidePostRequestBody("PAN") : EMPTY_STRING;
@@ -69,7 +70,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 		SharedWebServicesSOAPProxy sharedServicesSOAPProxy = getWICISharedServicesProxy();
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
-		log.info(sMethod + "externalReferenceId" + externalReferenceId);
+		log.info("externalReferenceId" + externalReferenceId);
 		WICIResponse appResponse = new WICIResponse();
 		appResponse.setError(true);
 		try {
@@ -77,25 +78,25 @@ public class InstantIssuanceServlet extends WICIServlet {
 			AuthfieldValue values = authorizationHelper
 					.getAuthfieldValue(requestMediator);
 
-			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial()
-					+ ", buildSerial=" + values.getBuildSerial() + ")");
+			log.info("::AuthID(mfgSerial=" +CWE117Fix.encodeCRLF( values.getMfgSerial())
+					+ ", buildSerial=" + CWE117Fix.encodeCRLF(values.getBuildSerial()) + ")");
 			if (externalReferenceId != null && !externalReferenceId.isEmpty()) {
 
 				AccountApplicationSubmissionRequest	accountAplicationRequest = wicidbHelper.retrieveAccountApplicationRequest(externalReferenceId);
 						
 				if (accountAplicationRequest != null) {
 
-					log.info(sMethod + "::msisdn: " + msisdn);
-					log.info(sMethod + "::externalReferenceId: "+ externalReferenceId);
-					log.info(sMethod + "::pan: " + pan);
-					log.info(sMethod + "::deviceType: "+deviceType);
-					log.info(sMethod + "::consentGranted: "+accountAplicationRequest.getConsentGranted());
-					log.info(sMethod + "::admappId: "+ accountAplicationRequest.getAdmAppId());
-					log.info(sMethod + "::unitName: "+accountAplicationRequest.getUnitNumber());
-					log.info(sMethod + "::streetName: "+ accountAplicationRequest.getStreetName());
-					log.info(sMethod + "::TransactionState: "+ accountAplicationRequest.getTransactionState());
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::msisdn: " + CWE117Fix.encodeCRLF((msisdn)));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::externalReferenceId: "+ CWE117Fix.encodeCRLF(externalReferenceId));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::pan: " + CWE117Fix.encodeCRLF(pan));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::deviceType: "+CWE117Fix.encodeCRLF(deviceType));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::consentGranted: "+CWE117Fix.encodeCRLF(accountAplicationRequest.getConsentGranted()));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::admappId: "+CWE117Fix.encodeCRLF( accountAplicationRequest.getAdmAppId()));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::unitName: "+CWE117Fix.encodeCRLF(accountAplicationRequest.getUnitNumber()));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::streetName: "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getStreetName()));
+					log.info("InstantIssuanceServlet[getAccountApplicationDataByExternarReferencId]::TransactionState: "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getTransactionState()));
 					
-					//log.info(sMethod + "::request String: "+ accountAplicationRequest.getRequestString());
+					//log.info("::request String: "+ accountAplicationRequest.getRequestString());
 							
 
 					AccountApplicationRequestType	accountApplciationRequestType = prepareApplicationRequestObject(accountAplicationRequest);
@@ -106,7 +107,6 @@ public class InstantIssuanceServlet extends WICIServlet {
 					accountApplciationRequestType.setDeviceType(deviceType);
 					AccountApplicationHelper accountApplicationHelper = new AccountApplicationHelper();
 					String requestStr = accountApplicationHelper.serializeRequestStr(accountApplciationRequestType);
-					log.info(sMethod + " enstream calling request String: "+requestStr);	
 					ServiceRequest serviceRequest = new ServiceRequest();
 					ServiceResponse serviceResponse = new ServiceResponse();
 					serviceRequest.setServiceArgument1(requestStr);
@@ -120,14 +120,14 @@ public class InstantIssuanceServlet extends WICIServlet {
 							{
 						appResponse.setEnstreamResponse("Y");
 						appResponse.setError(false);
-						log.info(sMethod + "sharedservice Enstream response  "+ serviceResponse.getPassFail());
+						log.info("sharedservice Enstream response  "+ CWE117Fix.encodeCRLF(serviceResponse.getPassFail()));
 					}
 					if (serviceResponse != null  && "F".equalsIgnoreCase(serviceResponse.getPassFail()))
 							 {
 						appResponse.setEnstreamResponse("N");
 						appResponse.setError(false);
 						
-						log.info(sMethod + "sharedservice Enstream response "+ serviceResponse.getPassFail());
+						log.info("sharedservice Enstream response "+ CWE117Fix.encodeCRLF(serviceResponse.getPassFail()));
 								
 					}
 
@@ -137,7 +137,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 			}
 
 		} catch (Exception e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning(" Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 		}
@@ -145,8 +145,6 @@ public class InstantIssuanceServlet extends WICIServlet {
 	
 	private AccountApplicationRequestType prepareApplicationRequestObject(AccountApplicationSubmissionRequest accountSubmissionRequest ){
 		AccountApplicationRequestType accountRequest = new AccountApplicationRequestType();
-		String sMethod = this.getClass().getName() + "[prepareApplicationRequestObject] ";
-		log.info(sMethod+accountSubmissionRequest.getRequestString());
 	try {
 		if(accountSubmissionRequest.getRequestString() != null)
 		{   
@@ -168,7 +166,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
-		log.warning(sMethod + " Exception: " + e.getMessage());
+		log.warning(" Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 	}
 	
 	return accountRequest;
@@ -221,13 +219,13 @@ public class InstantIssuanceServlet extends WICIServlet {
 			      
 			    }
 		} catch (ParserConfigurationException e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning(" Exception: " + e.getMessage());
 			e.printStackTrace();
 		} catch (SAXException e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning(" Exception: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning(" Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -245,7 +243,6 @@ public class InstantIssuanceServlet extends WICIServlet {
 	
 	private void DSSInstantIssuance(WICIServletMediator requestMediator){
 		
-		String sMethod = this.getClass().getName() + "[DSSInstantIssuance] ";
 		String msisdn = requestMediator.searchElementInsidePostRequestBody("MSISDN") != null ? requestMediator.searchElementInsidePostRequestBody("MSISDN") : EMPTY_STRING;
 		String externalReferenceId = requestMediator.searchElementInsidePostRequestBody("transactionID") != null ? requestMediator.searchElementInsidePostRequestBody("transactionID") : EMPTY_STRING;
 		String pan = requestMediator.searchElementInsidePostRequestBody("PAN") != null ? requestMediator.searchElementInsidePostRequestBody("PAN") : EMPTY_STRING;
@@ -253,7 +250,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 		
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
-		log.info(sMethod + "externalReferenceId" + externalReferenceId);
+		log.info("[DSSInstantIssuance]externalReferenceId" + externalReferenceId);
 		WICIResponse appResponse = new WICIResponse();
 		appResponse.setError(true);
 		boolean tabAuthorized = false;
@@ -262,7 +259,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 			AuthfieldValue values = authorizationHelper
 					.getAuthfieldValue(requestMediator);
 
-			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial()
+			log.info("[DSSInstantIssuance]::AuthID(mfgSerial=" + values.getMfgSerial()
 					+ ", buildSerial=" + values.getBuildSerial() + ")");
 			
 			validateSerialNumber(values.getBuildSerial());
@@ -277,17 +274,17 @@ public class InstantIssuanceServlet extends WICIServlet {
 						
 				if (accountAplicationRequest != null) {
 
-					log.info(sMethod + "::msisdn: " + msisdn);
-					log.info(sMethod + "::externalReferenceId: "+ externalReferenceId);
-					log.info(sMethod + "::pan: " + pan);
-					log.info(sMethod + "::deviceType: "+deviceType);
-					log.info(sMethod + "::consentGranted: "+accountAplicationRequest.getConsentGranted());
-					log.info(sMethod + "::admappId: "+ accountAplicationRequest.getAdmAppId());
-					log.info(sMethod + "::unitName: "+accountAplicationRequest.getUnitNumber());
-					log.info(sMethod + "::streetName: "+ accountAplicationRequest.getStreetName());
-					log.info(sMethod + "::TransactionState: "+ accountAplicationRequest.getTransactionState());
-					log.info(sMethod + "::addressLine1: "+ accountAplicationRequest.getCurrentAddressLine1());
-					log.info(sMethod + "::tabserialId : "+ accountAplicationRequest.getTabSerialId());
+					log.info("[DSSInstantIssuance]::msisdn: " + CWE117Fix.encodeCRLF(msisdn));
+					log.info("[DSSInstantIssuance]::externalReferenceId: "+ CWE117Fix.encodeCRLF(externalReferenceId));
+					log.info("[DSSInstantIssuance]::pan: " + CWE117Fix.encodeCRLF(pan));
+					log.info("[DSSInstantIssuance]::deviceType: "+CWE117Fix.encodeCRLF(deviceType));
+					log.info("[DSSInstantIssuance]::consentGranted: "+CWE117Fix.encodeCRLF(accountAplicationRequest.getConsentGranted()));
+					log.info("[DSSInstantIssuance]::admappId: "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getAdmAppId()));
+					log.info("[DSSInstantIssuance]::unitName: "+CWE117Fix.encodeCRLF(accountAplicationRequest.getUnitNumber()));
+					log.info("[DSSInstantIssuance]::streetName: "+CWE117Fix.encodeCRLF(accountAplicationRequest.getStreetName()));
+					log.info("[DSSInstantIssuance]::TransactionState: "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getTransactionState()));
+					log.info("[DSSInstantIssuance]::addressLine1: "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getCurrentAddressLine1()));
+					log.info("[DSSInstantIssuance]::tabserialId : "+ CWE117Fix.encodeCRLF(accountAplicationRequest.getTabSerialId()));
 					
 					
 					WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
@@ -300,18 +297,18 @@ public class InstantIssuanceServlet extends WICIServlet {
 					
 					tabAuthorized = wicidbHelper.isDeviceWhitelisted(values.getMfgSerial(),values.getBuildSerial());
 					
-					log.info(sMethod +  ":::  tab authorized  flag  " +tabAuthorized);
+					log.info( "[DSSInstantIssuance]:::  tab authorized  flag  " +CWE117Fix.encodeCRLF(String.valueOf(tabAuthorized)));
 					
 					if(tabAuthorized){
 						InstantIssuanceHelper helper = new InstantIssuanceHelper();
 						
-						log.info(sMethod + "::DssInstantIssuanceRequest : "+ instantIssuanceRequest);
+						log.info("::DssInstantIssuanceRequest : "+ CWE117Fix.encodeCRLF(instantIssuanceRequest.toString()));
 						
 						helper.validateEnstreamRequest(instantIssuanceRequest);
 						
 						if( conf != null && conf.getDssDIIEndPoint() != null && conf .getJwtToken() != null && conf.getDssserviceEnv() != null) {
 							
-							log.info(sMethod + "InstatIssuance Point to   " +conf.getDssserviceEnv()  + " Endpoint "+conf.getDssDIIEndPoint() +" jwtToken  "+conf .getJwtToken());
+							log.info("InstatIssuance Point to   " +CWE117Fix.encodeCRLF(conf.getDssserviceEnv())  + " Endpoint "+CWE117Fix.encodeCRLF(conf.getDssDIIEndPoint()) +" jwtToken  "+CWE117Fix.encodeCRLF(conf .getJwtToken()));
 					
 							if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
 							
@@ -328,26 +325,26 @@ public class InstantIssuanceServlet extends WICIServlet {
 							{
 						appResponse.setEnstreamResponse("Y");
 						appResponse.setError(false);
-						log.info(sMethod + "DSSS Enstream response  "+ dssResponse.getStatus());
+						log.info("DSSS Enstream response  "+ CWE117Fix.encodeCRLF(dssResponse.getStatus()));
 					}
 					if (dssResponse != null  && "F".equalsIgnoreCase(dssResponse.getStatus()))
 							 {
 						appResponse.setEnstreamResponse("N");
 						appResponse.setError(false);
 						
-						log.info(sMethod + "Dss Enstream response "+ dssResponse.getStatus());
+						log.info("Dss Enstream response "+ CWE117Fix.encodeCRLF(dssResponse.getStatus()));
 								
 					}
 							
 						
 						}else{
 							
-							log.warning(sMethod + " eror while loading configuration: "  );
+							log.warning(" eror while loading configuration: "  );
 							
 						}
 						
 						appResponse.setData(dssResponse);
-						log.info(sMethod + "::DssInstantIssuanceResponse : "+ dssResponse);
+						log.info("::DssInstantIssuanceResponse : "+ CWE117Fix.encodeCRLF(dssResponse != null ?dssResponse.toString() : null));
 						
 					}else{
 						 appResponse = new WICIResponse();
@@ -362,15 +359,14 @@ public class InstantIssuanceServlet extends WICIServlet {
 			}
 
 		} catch (Exception e) {
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("InstantIssuanceServlet[DSSInstantIssuance] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 		}
 		
 	private WICIDSSInstantIssuanceRequest prepareDSSInstantIssuanceRequest(AccountApplicationSubmissionRequest accountSubmissionRequest ){
 		WICIDSSInstantIssuanceRequest dssRequest = new WICIDSSInstantIssuanceRequest();
-		String sMethod = this.getClass().getName() + "[prepareDSSInstantIssuanceRequest] ";
-		log.info(sMethod+accountSubmissionRequest.getRequestString());
+		
 	try {
 		if(accountSubmissionRequest.getRequestString() != null)
 		{   
@@ -397,7 +393,7 @@ public class InstantIssuanceServlet extends WICIServlet {
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
-		log.warning(sMethod + " Exception: " + e.getMessage());
+		log.warning("InstantIssuanceServlet[prepareDSSInstantIssuanceRequest] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 	}
 	
 	return dssRequest;

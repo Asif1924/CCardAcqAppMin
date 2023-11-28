@@ -26,9 +26,7 @@ public class LDAPAuthenticationHelper
 	@SuppressWarnings("deprecation")
 	public LDAPResponse authenticateToLDAP(HttpServletRequest argTabletRequest)
 	{
-		String sMethod = "[authenticateToLDAP]";
-		log.info(sMethod);
-
+		
 		String userID = ((argTabletRequest.getParameter("userID") != null) ? argTabletRequest.getParameter("userID") : "");
 		String password = ((argTabletRequest.getParameter("password") != null) ? argTabletRequest.getParameter("password") : "");
 
@@ -45,7 +43,7 @@ public class LDAPAuthenticationHelper
 		// String ldapAuthenticationURL = argTabletRequest.getServerName() + ":"
 		// + argTabletRequest.getServerPort() +
 		// argTabletRequest.getContextPath() + "/j_security_check";
-		log.info("--ldapAuthURL=" + ldapAuthenticationURL);
+		log.info("--ldapAuthURL=" + CWE117Fix.encodeCRLF(ldapAuthenticationURL));
 
 		HttpPost httpPOSTRequestToLDAPURL = new HttpPost(ldapAuthenticationURL);
 		List<NameValuePair> loginCredentials = new ArrayList<NameValuePair>();
@@ -72,7 +70,7 @@ public class LDAPAuthenticationHelper
 		try
 		{
 			httpResponse = inlinedHttpClient.execute(httpPOSTRequestToLDAPURL);
-			log.info(sMethod + " httpResponse=" + httpResponse);
+			log.info("authenticateToLDAP httpResponse=" + CWE117Fix.encodeCRLF(httpResponse != null ? httpResponse.toString() : null));
 			ldapResponse.setHttpResponse(httpResponse);
 		}
 		catch (Exception e)

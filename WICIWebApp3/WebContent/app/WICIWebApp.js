@@ -8,8 +8,7 @@ ensureNamespaceExists();
  */
 WICI.cordovaExecDeferred = function(pluginName, pluginMethod, args) {
     if (args === undefined) args = [];
-    var LOG_TAG = 'cordova.exec('+pluginName+','+pluginMethod+') ';
-    console.log(LOG_TAG+'(' + JSON.stringify(args) + ')');
+    var LOG_TAG = 'cordova.exec('+pluginName+','+pluginMethod+') ';    
 
     var ctx = this;
     var deferred = jQuery.Deferred();

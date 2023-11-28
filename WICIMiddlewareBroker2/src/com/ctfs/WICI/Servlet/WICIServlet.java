@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ctc.ctfs.channel.sharedservices.SharedWebServicesSOAPProxy;
 import com.ctfs.WICI.Configuration.EnvironmentConfiguration;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIPortalProxyFactory;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -30,24 +31,20 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 	abstract void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException;
 
 	final protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doGet] ";
-		log.info(sMethod);
-
+		
+		log.info("WICIServlet[doGet]");
 		baseHandleRequest(request, response);
 	}
 
 	final protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doPost] ";
-		log.info(sMethod);
+		
+		log.info("WICIServlet[doPost]");
 		baseHandleRequest(request, response);
 	}
 
 	private void baseHandleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[baseHandleRequest] ";
-
-
-		log.info(sMethod);
-
+		
+		log.info("WICIServlet[baseHandleRequest]");
 		WICIServletMediator servletMediator = null;
 		WICIResponse appResponse = new WICIResponse();
 		boolean skipSanitization = false;
@@ -71,7 +68,7 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		}
 		catch (UnauthorizedDeviceException ex)
 		{
-			log.info(sMethod + " Exception: " + ex.getMessage());
+			log.info("WICIServlet[baseHandleRequest] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			String errorMessage = "Device not authorized";
 
 			// Prepare request response
@@ -82,7 +79,7 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + "::ERROR::" + ex.getMessage());
+			log.warning("WICIServlet[baseHandleRequest]::ERROR::" + ex.getMessage());
 
 			// Throw servlet exception and redirect to error.jsp page
 			throw new ServletException(ex.getMessage());
@@ -90,16 +87,15 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 	}
 
 	protected void logInputParameters(HttpServletRequest deviceRequest, HttpServletResponse deviceResponse) throws ServletException, IOException{
-		String sMethod = this.getClass().getName() + "[logInputParameters] ";
-		log.info(sMethod);
-
+		
+		log.info("WICIServlet[logInputParameters]");
 		logRequestHeaders(deviceRequest);
 		logRequestParameters(deviceRequest);
 	}
 
 	private void logRequestParameters(HttpServletRequest deviceRequest){
-		String sMethod = this.getClass().getName() + "[logRequestParameters] ";
-		log.info(sMethod);
+
+		log.info("WICIServlet[logRequestParameters]");
 
 		StringBuffer 			requestParametersString 		= new StringBuffer();
 		Enumeration<String> 			requestParameters 				= deviceRequest.getParameterNames();
@@ -111,13 +107,12 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 			requestParametersString.append(paraName + "=" + paramValue + ";");
 		}
 
-		log.info(sMethod + "---Request Parameters: " + requestParametersString.toString());
+		log.info("WICIServlet[logRequestParameters]---Request Parameters: " + CWE117Fix.encodeCRLF(requestParametersString.toString()));
 	}
 
 	private void logRequestHeaders(HttpServletRequest deviceRequest){
-		String sMethod = this.getClass().getName() + "[logRequestHeaders] ";
-		log.info(sMethod);
-
+		
+		log.info("WICIServlet[logRequestParameters][logRequestHeaders]");
 		StringBuffer 			requestHeadersString 			= new StringBuffer();
 		Enumeration<String>		requestHeaders 					= deviceRequest.getHeaderNames();
 
@@ -128,21 +123,17 @@ public abstract class WICIServlet extends HttpServlet implements EnvironmentConf
 			requestHeadersString.append(headerName + "=" + headerValue + ";");
 		}
 
-		log.info(sMethod + "---Headers: " + requestHeadersString.toString());
+		log.info("WICIServlet[logRequestParameters][logRequestHeaders]---Headers: " + CWE117Fix.encodeCRLF(requestHeadersString.toString()));
 	}
 
 	public WICIConfiguration getSharedServicesEndpoint(){
-		String sMethod = this.getClass().getName() + "[getSharedServicesEndpoint] ";
-		log.info(sMethod + "---getting web Sharedservice endpoint");
-
+		log.info("WICIServlet---getting web Sharedservice endpoint");
 		WICIConfigurationFactory wiciConfigurationFactory = new WICIConfigurationFactory();
 		return wiciConfigurationFactory.createSharedServicesConfiguration();
 	}
 
      public SharedWebServicesSOAPProxy getWICISharedServicesProxy(){
-		String sMethod = this.getClass().getName() + "[getWICIWebSharedServicesProxy] ";
-		log.info(sMethod + "---getting web sharedservices portal proxy");
-
+		log.info("WICIServlet[getWICIWebSharedServicesProxy] ---getting web sharedservices portal proxy");
 		WICIPortalProxyFactory wiciPortalProxyFactory = new WICIPortalProxyFactory();
 		return wiciPortalProxyFactory.createWICIWebSharedServicesPortalProxy();
 	}

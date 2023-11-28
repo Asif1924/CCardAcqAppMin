@@ -844,17 +844,17 @@ border: 0px;
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 190px;
-  height: 70px;
+  width: 210px;
+  height: 80px;
   background-color: gray;
   color: #fff;
   text-align: center;
   border-radius: 0px;
-  padding:20px;
+  padding:14px 20px ;
   position: absolute;
   z-index: 1;
   top: 60px;
-  left: -10px;
+  left: -20px;
   margin-left: -80px;
   text-shadow: 0 0 black;
   font-style: normal;

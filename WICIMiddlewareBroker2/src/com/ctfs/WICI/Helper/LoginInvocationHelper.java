@@ -85,8 +85,7 @@ public class LoginInvocationHelper
 
 	private WICICheckLocationResponse attemptUserLocationCheck(WebICCheckLocationRequest locationRequest)
 	{
-		String sMethod = "[attemptUserLocationCheck]";
-		log.info(sMethod);
+		log.info("[attemptUserLocationCheck]");
 
 		WICICheckLocationResponse resp = null;
 		WICIDBHelper helper = new WICIDBHelper();
@@ -111,7 +110,7 @@ public class LoginInvocationHelper
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("[attemptUserLocationCheck] Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 		}
 
 		return resp;

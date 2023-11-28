@@ -44,7 +44,7 @@ public class EmailServiceHelper {
 
 	public void sendEmail(String transactionId, Object  applicationResponse  ) {
 
-		    String sMethod = this.getClass().getName() + "[sendEmail] ";
+		    //String sMethod = this.getClass().getName() + "EmailServiceHelper[sendEmail] ";
 		    CloseableHttpClient httpClient = null;
 			EmailServiceRequest dssEmailRequest = new EmailServiceRequest();
 			EmailResponse dssEmailResponse= new EmailResponse();
@@ -56,19 +56,19 @@ public class EmailServiceHelper {
 						 String responseContent;
 					
 							WICIObjectsHelper objectHelper = new WICIObjectsHelper();
-							log.info(sMethod + "submissionRequest.getRequestString() :::: " + submissionRequest.getRequestString());
+							log.info("EmailServiceHelper[sendEmail] submissionRequest.getRequestString() :::: " + CWE117Fix.encodeCRLF(submissionRequest.getRequestString()));
 							 AccountApplicationRequestType AccountApplicationRequest = objectHelper.deserializeXMLToAccountApplicationRequestType(submissionRequest.getRequestString());
 							 
 							 Activity activity = prepareApprovedEmailRequest(AccountApplicationRequest,applicationResponse,submissionRequest.getAdmAppId(),submissionRequest.getRetailNetwork(),submissionRequest.getAgencyCode() );
 							
 							 dssEmailRequest.setActivity(activity);
 							 
-							 log.info(sMethod + "DSS EmailService Request :::: " + toJson(dssEmailRequest));
+							 log.info("EmailServiceHelper[sendEmail] DSS EmailService Request :::: " + toJson(dssEmailRequest));
 							 
 							 HttpClientHelper secureClient = new HttpClientHelper();
 							 httpClient = secureClient.getHttpSecureClient();
 							 WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
-							 log.info(sMethod + " The DSS email endPoint  ===" + conf.getDssEmailEndPoint());
+							 log.info("EmailServiceHelper[sendEmail]  The DSS email endPoint  ===" + CWE117Fix.encodeCRLF(conf.getDssEmailEndPoint()));
 
 								HttpPost post = new HttpPost(conf.getDssEmailEndPoint());
 								ObjectMapper mapper = new ObjectMapper();
@@ -80,18 +80,18 @@ public class EmailServiceHelper {
 
 								int statusCode = response.getStatusLine().getStatusCode();
 								
-								log.info(sMethod + "EmailService Response status code :::: " + statusCode);
+								log.info("EmailServiceHelper[sendEmail] EmailService Response status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 								if (statusCode != 200) {
 									throw new RuntimeException("Failed with HTTP error code : "
-											+ statusCode);
+											+ CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 								}
 								responseContent = EntityUtils.toString(response.getEntity());
 								dssEmailResponse = jsonWrapper.deserialize(responseContent, EmailResponse.class);
 								
-								log.info(sMethod + "EmailService Response :::: " + dssEmailResponse);
+								log.info("EmailServiceHelper[sendEmail]EmailService Response :::: " + CWE117Fix.encodeCRLF(dssEmailResponse != null ? dssEmailResponse.toString() : null));
 								
 								if(dssEmailResponse != null && dssEmailResponse.getId() != null){
-									log.info(sMethod + "update email flag with transaction Id :::: " + transactionId);
+									log.info("EmailServiceHelper[sendEmail]update email flag with transaction Id :::: " + CWE117Fix.encodeCRLF(transactionId));
 									wiciDBHelper.updateApprovedEmailFlag(transactionId);
 								}
 							
@@ -104,7 +104,7 @@ public class EmailServiceHelper {
 	}
 	public void sendEmailHttp(String transactionId, Object  applicationResponse  ) {
 
-	    String sMethod = this.getClass().getName() + "[sendEmail] ";
+	    
 	   // CloseableHttpClient httpClient = null;
 		EmailServiceRequest dssEmailRequest = new EmailServiceRequest();
 		EmailResponse dssEmailResponse= new EmailResponse();
@@ -116,14 +116,14 @@ public class EmailServiceHelper {
 					 String responseContent;
 				
 						WICIObjectsHelper objectHelper = new WICIObjectsHelper();
-						log.info(sMethod + "submissionRequest.getRequestString() :::: " + submissionRequest.getRequestString());
+						log.info("[sendEmailHttp]  submissionRequest.getRequestString() :::: " + CWE117Fix.encodeCRLF(submissionRequest.getRequestString()));
 						 AccountApplicationRequestType AccountApplicationRequest = objectHelper.deserializeXMLToAccountApplicationRequestType(submissionRequest.getRequestString());
 						 
 						 Activity activity = prepareApprovedEmailRequest(AccountApplicationRequest,applicationResponse,submissionRequest.getAdmAppId(),submissionRequest.getRetailNetwork(),submissionRequest.getAgencyCode() );
 						
 						 dssEmailRequest.setActivity(activity);
 						 
-						 log.info(sMethod + "DSS EmailService Request :::: " + toJson(dssEmailRequest));
+						 log.info("[sendEmailHttp] DSS EmailService Request :::: " + toJson(dssEmailRequest));
 						 
 						 
 						 HttpClient   httpClient = HttpClientBuilder.create().build();
@@ -140,7 +140,7 @@ public class EmailServiceHelper {
 				            JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 				            String jsonInput = mapper.writeValueAsString(dssEmailRequest);
 
-				            log.info(sMethod + " The DSS Email Input  "  +jsonInput);
+				            log.info("[sendEmailHttp] The DSS Email Input  "  +CWE117Fix.encodeCRLF(jsonInput));
 
 
 				            post.setEntity(new StringEntity(jsonInput));
@@ -150,29 +150,28 @@ public class EmailServiceHelper {
 				            response = httpClient.execute(post);
 				            }catch(Exception e)
 				            {
-				            	log.info(sMethod + "EmailService httpClient :::: " + e.getMessage());
-				            	log.info(sMethod + "EmailService httpClient :::: " + e.getStackTrace());
+				            	log.info("[sendEmailHttp] EmailService httpClient :::: " + CWE117Fix.encodeCRLF(e.getMessage()));
 				            }
 
 				            int statusCode = response.getStatusLine().getStatusCode();
 				            if (statusCode != 200)
 				            {   
-				                throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+				                throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 				            }
 				            responseContent = EntityUtils.toString(response.getEntity());
 							
-							log.info(sMethod + "EmailService Response status code :::: " + statusCode);
+							log.info("[sendEmailHttp] EmailService Response status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 							if (statusCode != 200) {
 								throw new RuntimeException("Failed with HTTP error code : "
-										+ statusCode);
+										+ CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 							}
 							responseContent = EntityUtils.toString(response.getEntity());
 							dssEmailResponse = jsonWrapper.deserialize(responseContent, EmailResponse.class);
 							
-							log.info(sMethod + "EmailService Response :::: " + dssEmailResponse);
+							log.info("[sendEmailHttp]EmailService Response :::: " +CWE117Fix.encodeCRLF(dssEmailResponse != null ?dssEmailResponse.toString() : null));
 							
 							if(dssEmailResponse != null && dssEmailResponse.getId() != null){
-								log.info(sMethod + "update email flag with transaction Id :::: " + transactionId);
+								log.info("[sendEmailHttp] update email flag with transaction Id :::: " + CWE117Fix.encodeCRLF(transactionId));
 								wiciDBHelper.updateApprovedEmailFlag(transactionId);
 							}
 						
@@ -192,9 +191,8 @@ public class EmailServiceHelper {
 	
 	private Activity prepareApprovedEmailRequest(AccountApplicationRequestType request, Object applicationResponse,String admAppId, String banner, String EmployerId){
 		
-		String sMethod = this.getClass().getName() + "[prepareApprovedEmailRequest] ";
 		
-		log.info(sMethod +" Request object from wicirquestQueqe :::::    \n"+ request +"[admappdid] :::::   \n" +admAppId+  "the response from approved appp::::::  \n" + applicationResponse);
+		log.info("[prepareApprovedEmailRequest] Request object from wicirquestQueqe :::::    \n"+ CWE117Fix.encodeCRLF(request != null ?request.toString() : null) +"[admappdid] :::::   \n" +CWE117Fix.encodeCRLF(admAppId)+  "the response from approved appp::::::  \n" + CWE117Fix.encodeCRLF(applicationResponse != null ? applicationResponse.toString() : null));
 		 Activity activity;
 		try {
 			activity = new Activity();
@@ -226,9 +224,8 @@ public class EmailServiceHelper {
 				 WICIAccountApplicationResponse approvedResponse = (WICIAccountApplicationResponse) applicationResponse;
 	                 
 				 activity.setEvent(event.concat(approvedResponse.getRespCardType()).concat("_"+request.getPreferedLanguage().toUpperCase()));
-				 log.info("WICIAccountApplicationResponse Account Number : "+approvedResponse.getAccountApplicationresponse().getAccountNumber());
 				 if(approvedResponse.getAccountApplicationresponse().getAccountNumber()!=null) {
-					 log.info("AccountNumber : "+approvedResponse.getAccountApplicationresponse().getAccountNumber());
+					 log.info("AccountNumber : "+CWE117Fix.encodeCRLF(approvedResponse.getAccountApplicationresponse().getAccountNumber()));
 					 String retrieveDecryptedPANNumber=null;
 					if (approvedResponse.getAccountApplicationresponse().getAccountNumber().length() > 16) {
 						try {
@@ -237,7 +234,7 @@ public class EmailServiceHelper {
 							ex.printStackTrace();
 						}
 					}
-				 log.info(sMethod + "retrieveDecryptedPANNumber : " + retrieveDecryptedPANNumber);
+				 log.info("prepareApprovedEmailRequest:: retrieveDecryptedPANNumber : " + CWE117Fix.encodeCRLF(retrieveDecryptedPANNumber));
 				 activity.setPgToken(retrieveDecryptedPANNumber);
 				 if(activity.getPgToken()!=null)
 				 {
@@ -247,9 +244,9 @@ public class EmailServiceHelper {
 			     cal.setTime(currentDate);
 				 cal.add(Calendar.DAY_OF_MONTH, 2);
 				 Date currentDatePlusTwo = cal.getTime();
-				 log.info(sMethod+   "JWT Expiry :   ::::: "+dateFormat.format(currentDatePlusTwo));
+				 log.info("prepareApprovedEmailRequest::JWT Expiry :   ::::: "+CWE117Fix.encodeCRLF(dateFormat.format(currentDatePlusTwo)));
 				 properties.put("pgTokenExpiry", dateFormat.format(currentDatePlusTwo));
-				 log.info(sMethod+   " WICIAccountApplicationResponse Form Subm Id :: "+approvedResponse.getAccountApplicationresponse().getFormSubmId());
+				 log.info("prepareApprovedEmailRequest:: WICIAccountApplicationResponse Form Subm Id :: "+CWE117Fix.encodeCRLF(approvedResponse.getAccountApplicationresponse().getFormSubmId()));
 				 activity.setFormSubmID(approvedResponse.getAccountApplicationresponse().getFormSubmId());
 				 }
 				 }
@@ -260,17 +257,16 @@ public class EmailServiceHelper {
 				 //properties.put("dsaHost", "qa-mastercard.cantire.net");
 				 ApplicationConfiguration.readApplicationConfiguration();
 				 String dsaHost = ApplicationConfiguration.getCategoryKeyValue("WebICKeyStore","DSAHost");
-				 log.info(sMethod + "dsaHost : " + dsaHost);
+				 log.info("prepareApprovedEmailRequest::dsaHost : " + dsaHost);
 				 properties.put("dsaHost", dsaHost);
 				
 			 } 
 			if( applicationResponse instanceof PendAccountApplicationRequest ){
 				PendAccountApplicationRequest pendApprovedResponse = (PendAccountApplicationRequest) applicationResponse;
 				 activity.setEvent(event.concat(pendApprovedResponse.getRespCardType()).concat("_"+request.getPreferedLanguage().toUpperCase()));
-				 log.info("PendAccountApplicationRequest Account Number : "+pendApprovedResponse.getAccountNumber());
 				 
 				 if(pendApprovedResponse.getAccountNumber()!=null) {
-					 log.info("PendAccountApplicationRequest AccountNumber : "+pendApprovedResponse.getAccountNumber());
+					 log.info("PendAccountApplicationRequest AccountNumber : "+CWE117Fix.encodeCRLF(pendApprovedResponse.getAccountNumber()));
 					 String retrieveDecryptedPANNumber=null;
 					 
 					 if(pendApprovedResponse.getAccountNumber().length()>16){
@@ -278,9 +274,9 @@ public class EmailServiceHelper {
 						 retrieveDecryptedPANNumber=retrieveDecryptedPANNumber(pendApprovedResponse.getAccountNumber());
 						 }catch(Exception ex)
 						 {
-							log.info(""+ ex.getStackTrace());
+							ex.getStackTrace();
 						 }
-						 log.info(sMethod + " PendAccountApplicationRequest retrieveDecryptedPANNumber : " + retrieveDecryptedPANNumber);
+						 log.info("prepareApprovedEmailRequest:: PendAccountApplicationRequest retrieveDecryptedPANNumber : " + CWE117Fix.encodeCRLF(retrieveDecryptedPANNumber));
 						 activity.setPgToken(retrieveDecryptedPANNumber);
 						 if(activity.getPgToken()!=null)
 						 {
@@ -290,9 +286,9 @@ public class EmailServiceHelper {
 						     cal.setTime(currentDate);
 							 cal.add(Calendar.DAY_OF_MONTH, 2);
 							 Date currentDatePlusTwo = cal.getTime();
-							 log.info(sMethod+   "JWT Expiry :   ::::: "+dateFormat.format(currentDatePlusTwo));
+							 log.info("prepareApprovedEmailRequest::JWT Expiry :   ::: "+CWE117Fix.encodeCRLF(dateFormat.format(currentDatePlusTwo)));
 							 properties.put("pgTokenExpiry",dateFormat.format(currentDatePlusTwo));
-							 log.info(sMethod+   " PendAccountApplicationRequest Form Subm Id :: "+pendApprovedResponse.getFormSubmId());
+							 log.info("prepareApprovedEmailRequest:: PendAccountApplicationRequest Form Subm Id :: "+CWE117Fix.encodeCRLF(pendApprovedResponse.getFormSubmId()));
 						 	 activity.setFormSubmID(pendApprovedResponse.getFormSubmId());
 						 }
 					 }
@@ -304,7 +300,7 @@ public class EmailServiceHelper {
 				 
 				 ApplicationConfiguration.readApplicationConfiguration();
 				 String dsaHost = ApplicationConfiguration.getCategoryKeyValue("WebICKeyStore","DSAHost");
-				 log.info(sMethod + "dsaHost : " + dsaHost);
+				 log.info("prepareApprovedEmailRequest::dsaHost : " + dsaHost);
 				 properties.put("dsaHost", dsaHost);
 			 } 	 
 					 
@@ -334,13 +330,13 @@ public class EmailServiceHelper {
 			 
 			 activity.setProperties(properties);
 			 
-			 log.info(sMethod+   "the Activity request Object For Dss   ::::: "+activity);
+			 log.info("prepareApprovedEmailRequest:: the Activity request Object For Dss   ::::: "+CWE117Fix.encodeCRLF(activity != null ? activity.toString() : null));
 			 
 			 
 			 return activity;
 			 
 		} catch (Exception e) {
-			log.warning(sMethod+ "error while constructing the dss email request");
+			log.warning("prepareApprovedEmailRequest:: error while constructing the dss email request");
 			e.printStackTrace();
 		}
 		return null;

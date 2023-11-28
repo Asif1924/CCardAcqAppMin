@@ -23,9 +23,7 @@ public class RetrieveTrainingContentServlet extends WICIServlet{
 	}
 
 	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException {
-		
-		String sMethod = this.getClass().getName() + "[handleRequest] ";
-		log.info(sMethod);
+		log.info("RetrieveTrainingContentServlet[handleRequest]");
 		
 		WICIResponse tableResponse = new WICIResponse();
 		RetrieveTrainingContent trainingContentResponse = null;
@@ -44,19 +42,19 @@ public class RetrieveTrainingContentServlet extends WICIServlet{
 				tableResponse.setError(false);
 				tableResponse.setMsg("Successfully fetched the RetrieveTrainingContent data from the Database");
 				
-				log.info(sMethod +":::Successfully set the RetrieveTrainingContent Data to WICIResponse:::");
+				log.info("RetrieveTrainingContentServlet[handleRequest]:::Successfully set the RetrieveTrainingContent Data to WICIResponse:::");
 				
 			}else {
 				
 				tableResponse.setError(true);
 				tableResponse.setMsg("Failed to fetch the RetrieveTrainingContent data from the Database");
 				
-				log.info(sMethod +":::Failed to set the RetrieveTrainingContent Data to WICIResponse:::");
+				log.info("RetrieveTrainingContentServlet[handleRequest]:::Failed to set the RetrieveTrainingContent Data to WICIResponse:::");
 			}
 			
 			
 		}catch (Exception e) {
-			log.info(sMethod +":::Exception occured while fetching the RetrieveTrainingContent data from DB:::");
+			log.info("RetrieveTrainingContentServlet[handleRequest]:::Exception occured while fetching the RetrieveTrainingContent data from DB:::");
 			e.printStackTrace();
 			tableResponse.setError(true);
 			tableResponse.setMsg("Failure");

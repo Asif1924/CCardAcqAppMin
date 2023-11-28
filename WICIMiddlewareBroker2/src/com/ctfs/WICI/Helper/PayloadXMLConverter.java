@@ -15,8 +15,7 @@ public class PayloadXMLConverter implements IPayloadConversion
 	@Override
 	public Eventlog convertToModel(String argPayload)
 	{
-		String sMethod = this.getClass().getName() + "[convertToModel] ";
-		log.info(sMethod);
+		log.info("PayloadXMLConverter[convertToModel] ");
 
 		Eventlog deserializedPayload = null;
 		XStream xstream = new XStream(new DomDriver()){

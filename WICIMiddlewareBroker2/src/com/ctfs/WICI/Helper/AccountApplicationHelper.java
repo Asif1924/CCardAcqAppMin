@@ -19,10 +19,8 @@ public class AccountApplicationHelper
 	
 	public WICIAccountApplicationResponse doRequest(CreditCardApplicationData argCardData, AccountApplicationRequestType argAARequestObject ) throws Exception
 	{
-		String sMethod = this.getClass().getName() + "[doRequest( CreditCardApplicationData, AccountApplicationRequestType )] ";
-		log.info(sMethod);
 		WICIAccountApplicationResponse response = new WICIAccountApplicationResponse();
-			log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
+			log.info("AccountApplicationHelper::argAARequestObject::" + CWE117Fix.encodeCRLF(argAARequestObject != null ? argAARequestObject.toString() : null));
 				try
 				{
 					if (argAARequestObject != null ) {	
@@ -34,7 +32,7 @@ public class AccountApplicationHelper
 				}
 				catch (Exception e)
 				{
-					log.warning(sMethod + "::Exception::" + e.getMessage());
+					log.warning("AccountApplicationHelper::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 					throw e;
 				}
 				return response;
@@ -67,9 +65,7 @@ public class AccountApplicationHelper
 	
 	public WebIcMQRespVO deserializeResponseforSS(ServiceResponse serviceResponse) throws Exception
 	{
-		String sMethod = this.getClass().getName() + "[deserializeResponse] ";
-		log.info(sMethod);
-
+		
 		String response = serviceResponse.getResponseArgument1();
 		WebIcMQRespVO webIcMQRespVO = null;
 		String accountApplicationResponseXML = "";
@@ -86,7 +82,7 @@ public class AccountApplicationHelper
 			return webIcMQRespVO;
 		}
 
-		log.info(sMethod + "::accountApplicationResponseXML::" + accountApplicationResponseXML);
+		log.info("deserializeResponseforSS ::accountApplicationResponseXML::" + CWE117Fix.encodeCRLF(accountApplicationResponseXML));
 
 		try
 		{
@@ -95,7 +91,7 @@ public class AccountApplicationHelper
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			log.warning("deserializeResponseforSS Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			throw e;
 		}
 
@@ -156,9 +152,8 @@ public class AccountApplicationHelper
 	
 	public void  processWICIDSSSubmitAPP( AccountApplicationRequestType argAARequestObject ) throws Exception {
 		
-		String sMethod = this.getClass().getName() + "[processDSSWICISubmitAPP( AccountApplicationRequestType )] ";
-		log.info(sMethod);
-		log.info(sMethod + "::argAARequestObject::" + argAARequestObject);
+		
+		log.info("processWICIDSSSubmitAPP ::argAARequestObject::" + CWE117Fix.encodeCRLF(argAARequestObject != null ? argAARequestObject.toString() : null) );
 		WICISubmitResponse dsssubmitResponse = new WICISubmitResponse();
 		SubmitAppHelper  submitAppHelper = new SubmitAppHelper();
 		WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
@@ -169,7 +164,7 @@ public class AccountApplicationHelper
 				
 				if( conf != null && conf.getDsssubmitAppEndPoint() != null && conf.getDssserviceEnv() != null && conf.getJwtToken() != null ) {
 					
-					log.info(sMethod + "SubmitApp Point to   " +conf.getDssserviceEnv()  + " Endpoint "+conf.getDsssubmitAppEndPoint());
+					log.info("processWICIDSSSubmitAPP SubmitApp Point to   " + CWE117Fix.encodeCRLF(conf.getDssserviceEnv())  + " Endpoint "+ CWE117Fix.encodeCRLF(conf.getDsssubmitAppEndPoint()));
 			
 					if(conf.getDssserviceEnv().equalsIgnoreCase("DSSDEV")){
 					
@@ -191,11 +186,11 @@ public class AccountApplicationHelper
 		}
 		catch (Exception e)
 		{
-			log.warning(sMethod + "::Exception::" + e.getMessage());
+			log.warning("processWICIDSSSubmitAPP::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 			throw e;
 		}
 		
-		log.info(sMethod + "SubmitApp Response  "+dsssubmitResponse); 
+		log.info("processWICIDSSSubmitAPPSubmitApp Response  "+CWE117Fix.encodeCRLF(dsssubmitResponse != null ? dsssubmitResponse.toString() : null)); 
 		
 	}
 	

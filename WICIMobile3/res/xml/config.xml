@@ -108,6 +108,10 @@
       	<param name="android-package" value="com.ctfs.wicimobile.plugins.AppVersionPlugin"/>
 	</feature>
 	
+    <feature name="GeoLocationPlugin" >
+      	<param name="android-package" value="com.ctfs.wicimobile.plugins.GeoLocationPlugin"/>
+	</feature>
+	
     <feature name="DeviceInfoPlugin" >
       	<param name="android-package" value="com.ctfs.wicimobile.plugins.DeviceInfoPlugin"/>
 	</feature>	

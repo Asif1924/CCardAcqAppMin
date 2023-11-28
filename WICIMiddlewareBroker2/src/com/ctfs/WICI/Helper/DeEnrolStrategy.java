@@ -17,8 +17,7 @@ public class DeEnrolStrategy implements IEnrolStrategy
 	@Override
 	public void executeOperation() throws Exception
 	{
-		String sMethod = "[executeOperation] ";
-		log.info(sMethod + "::Called::");
+		log.info("executeOperation()::Called::");
 		
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		wicidbHelper.deEnrolWICIDevice( serialNumber);

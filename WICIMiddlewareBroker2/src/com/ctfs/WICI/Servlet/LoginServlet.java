@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import com.ctfs.WICI.Helper.ApplicationApkVersionValidator;
 import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.DictionaryInfoValidator;
 import com.ctfs.WICI.Helper.EmployerIDCodeValidator;
 import com.ctfs.WICI.Helper.LoginInvocationHelper;
@@ -39,17 +40,14 @@ public class LoginServlet extends WICIServlet
 
 	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[handleRequest] ";
-		log.info(sMethod);
+		log.info("LoginServlet[handleRequest]");
 
 		invokeValidate(requestMediator);
 	}
 
 	private void invokeValidate(WICIServletMediator requestMediator) throws IOException
 	{
-		String sMethod = this.getClass().getName() + "[invokeValidate] ";
-		log.info(sMethod);
-
+		
 		String employerID = requestMediator.searchElementInsidePostRequestBody("employerID") != null ? requestMediator.searchElementInsidePostRequestBody("employerID") : EMPTY_STRING;
 		String agentID = requestMediator.searchElementInsidePostRequestBody("agentID") != null ? requestMediator.searchElementInsidePostRequestBody("agentID") : EMPTY_STRING;
 		String userLocation = requestMediator.searchElementInsidePostRequestBody("userLocation") != null ? requestMediator.searchElementInsidePostRequestBody("userLocation") : EMPTY_STRING;
@@ -61,12 +59,12 @@ public class LoginServlet extends WICIServlet
 		
 		Boolean blackListedEmpIDAgtIDValid = false;
 		
-		log.info(sMethod + "::employerID: " + employerID);
-		log.info(sMethod + "::agentID: " + agentID);
-		log.info(sMethod + "::userLocation: " + userLocation);
-		log.info(sMethod + "::apkVersion: " + apkVersion);
-		log.info(sMethod + "::password: " + password);
-		log.info(sMethod + "::retailNetwork: " + retailNetwork);
+		log.info("LoginServlet[invokeValidate]::employerID: " + CWE117Fix.encodeCRLF(employerID));
+		log.info("LoginServlet[invokeValidate]::agentID: " + CWE117Fix.encodeCRLF(agentID));
+		log.info("LoginServlet[invokeValidate]::userLocation: " + CWE117Fix.encodeCRLF(userLocation));
+		log.info("LoginServlet[invokeValidate]::apkVersion: " + CWE117Fix.encodeCRLF(apkVersion));
+		log.info("LoginServlet[invokeValidate]::password: " + CWE117Fix.encodeCRLF(password));
+		log.info("LoginServlet[invokeValidate]::retailNetwork: " + CWE117Fix.encodeCRLF(retailNetwork));
 		//log.info(sMethod + "::serialNumber: " + serialNumber);
 		
 		WICIResponse appResponse = new WICIResponse();
@@ -82,14 +80,14 @@ public class LoginServlet extends WICIServlet
 
 			AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
 			//US3125 - Sep 16th 2014 Release
-			log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+			log.info("LoginServlet[invokeValidate]::AuthID(mfgSerial=" + CWE117Fix.encodeCRLF(values.getMfgSerial()) + ", buildSerial=" + CWE117Fix.encodeCRLF(values.getBuildSerial()) + ")");
 			
 			ApplicationApkVersionValidator applicationApkVersionValidator = new ApplicationApkVersionValidator();
 			applicationApkVersionValidator.validateApkVersion(employerID, agentID, userLocation, apkVersion, values);
 
 			EmployerIDCodeValidator employerIDCodeValidator = new EmployerIDCodeValidator();
 			Boolean employerIDValid = employerIDCodeValidator.validateCode(employerID);
-			log.info("Employer Id Valid returned value :: " + employerIDValid);
+			log.info("Employer Id Valid returned value :: " + CWE117Fix.encodeCRLF(String.valueOf(employerIDValid)));
 			String roleId=null;
 			String trainingModuleEffectiveDate = null;
 			String checkAttestation_List = null;
@@ -110,7 +108,7 @@ public class LoginServlet extends WICIServlet
 						logonInfo.setUserLocation(userLocation);
 
 						blackListedEmpIDAgtIDValid = wicidbHelper.employerIdAgentIDExists(logonInfo);
-						log.info("Employer Id and Agent Id Exists returned value :: " + blackListedEmpIDAgtIDValid);
+						log.info("Employer Id and Agent Id Exists returned value :: " + CWE117Fix.encodeCRLF(String.valueOf(blackListedEmpIDAgtIDValid)));
 					} catch (Exception e) {
 						log.info("Error :: Employer Id and Agent Id validation check error!");
 					}
@@ -123,7 +121,7 @@ public class LoginServlet extends WICIServlet
 						log.info("Authentication started...");
 						WICIDBHelper wiciAuthHelper = new WICIDBHelper();
 						roleId=wiciAuthHelper.validateUserNamePassKey((employerID+agentID),encodePassWord(password),agentID);
-						log.info("roleId"+roleId);
+						log.info("roleId"+CWE117Fix.encodeCRLF(String.valueOf(roleId)));
 						if(roleId==null)
 						{
 							loginResponse.setMessage(LOGIN_FAILED);
@@ -197,7 +195,7 @@ public class LoginServlet extends WICIServlet
 					if(wicidbHelper.deviceWithThisMfgSerialNumberExists(values.getMfgSerial())) {
 						boolean loggedIn = false;
 						loggedIn = wicidbHelper.checkAgentPreLoggedin(logonInfo);
-						log.info("loggedIn Response :: " + loggedIn);
+						log.info("loggedIn Response :: " + CWE117Fix.encodeCRLF(String.valueOf(loggedIn)));
 						
 						if( loggedIn ) {				
 							String errorMsg = "Your login details are currently in use";
@@ -235,13 +233,13 @@ public class LoginServlet extends WICIServlet
 				appResponse.setError(true);
 			}
 			
-			log.info(loginResponse + " loginResponse: " + loginResponse.getRoleId());
+			log.info(CWE117Fix.encodeCRLF(loginResponse != null ?loginResponse.toString() : null) + " loginResponse: " + CWE117Fix.encodeCRLF(loginResponse.getRoleId()));
 			loginResponse.setRoleId(roleId);
 			appResponse.setData(loginResponse);
 		}
 		catch (IllegalAppVersionException ex)
 		{
-			log.info(sMethod + " Exception: " + ex.getMessage());
+			log.info("LoginServlet[invokeValidate] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			String errrorMsg = "Version does not match!";
 
 			// Prepare login response
@@ -255,7 +253,7 @@ public class LoginServlet extends WICIServlet
 		}
 		catch (InvalidDictionaryInformationException ex)
 		{
-			log.info(sMethod + " Exception: " + ex.getMessage());
+			log.info("LoginServlet[invokeValidate] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			String errorMessage = "One of the values are null for the dictionary configuration keys";
 
 			// Prepare login response
@@ -270,7 +268,7 @@ public class LoginServlet extends WICIServlet
 		
 		catch (Exception ex)
 		{
-			log.warning(sMethod + " Exception: " + ex.getMessage());
+			log.warning("LoginServlet[invokeValidate] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			appResponse.setError(true);
 			appResponse.setMsg(ex.getMessage());
 		}
@@ -287,7 +285,7 @@ public class LoginServlet extends WICIServlet
 			// Encode data
 			encodedPassWord = DatatypeConverter.printBase64Binary(passWord
 					.getBytes());
-			System.out.println(passWord + " Encoded= " + encodedPassWord);
+			System.out.println(CWE117Fix.encodeCRLF(passWord) + " Encoded= " + CWE117Fix.encodeCRLF(encodedPassWord));
 		} catch (Exception e) {
 			System.out.println(e);
 		}

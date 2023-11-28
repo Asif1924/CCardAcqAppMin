@@ -13,8 +13,8 @@ public class PayloadJSONConverter implements IPayloadConversion
 	@Override
 	public Eventlog convertToModel(String argPayload)
 	{
-		String sMethod = this.getClass().getName() + "[convertToModel] ";
-		log.info(sMethod);
+		
+		log.info("PayloadJSONConverter[convertToModel] ");
 
 		//Eventlog deserializedPayload = null;
 		Eventlog deserializedPayload = new Eventlog();

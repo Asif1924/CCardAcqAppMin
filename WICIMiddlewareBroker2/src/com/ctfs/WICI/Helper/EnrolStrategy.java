@@ -17,8 +17,8 @@ public class EnrolStrategy implements IEnrolStrategy
 	@Override
 	public void executeOperation() throws Exception
 	{
-		String sMethod = "[executeOperation] ";
-		log.info(sMethod + "::Called::");
+		
+		log.info("executeOperation()[executeOperation] ::Called::");
 		
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		wicidbHelper.enrolWICIDevice( serialNumber);

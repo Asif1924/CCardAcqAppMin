@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.xml.bind.DatatypeConverter;
 import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -38,8 +39,6 @@ public class AgentServlet extends WICIServlet
 
 	private void invokeValidate(WICIServletMediator requestMediator) throws IOException
 	{
-		String sMethod = this.getClass().getName() + "[invokeValidate] ";
-		log.info(sMethod);
 
 		String employerID = requestMediator.searchElementInsidePostRequestBody("employerID") != null ? requestMediator.searchElementInsidePostRequestBody("employerID") : EMPTY_STRING;
 		String agentID = requestMediator.searchElementInsidePostRequestBody("agentID") != null ? requestMediator.searchElementInsidePostRequestBody("agentID") : EMPTY_STRING;
@@ -51,15 +50,15 @@ public class AgentServlet extends WICIServlet
 		String locale=requestMediator.searchElementInsidePostRequestBody("locale") != null ? requestMediator.searchElementInsidePostRequestBody("locale") : EMPTY_STRING;
 		String rollId=requestMediator.searchElementInsidePostRequestBody("rollId") != null ? requestMediator.searchElementInsidePostRequestBody("rollId") : EMPTY_STRING;
 		
-		log.info(sMethod + "::employerID: " + employerID);
-		log.info(sMethod + "::agentID: " + agentID);
-		log.info(sMethod + "::userLocation: " + userLocation);
-		log.info(sMethod + "::apkVersion: " + apkVersion);
-		log.info(sMethod + "::password: " + password);
-		log.info(sMethod + "::userOperation: " + userOperation);
-		log.info(sMethod + "::userName: " + userName);
-		log.info(sMethod + "::locale: " + locale);
-		log.info(sMethod + "::rollId: " + rollId);
+		log.info("AgentServlet[invokeValidate]::employerID: " + CWE117Fix.encodeCRLF(employerID));
+		log.info("AgentServlet[invokeValidate]::agentID: " + CWE117Fix.encodeCRLF(agentID));
+		log.info("AgentServlet[invokeValidate]::userLocation: " + CWE117Fix.encodeCRLF(userLocation));
+		log.info("AgentServlet[invokeValidate]::apkVersion: " + CWE117Fix.encodeCRLF(apkVersion));
+		log.info("AgentServlet[invokeValidate]::password: " + CWE117Fix.encodeCRLF(password));
+		log.info("AgentServlet[invokeValidate]::userOperation: " + CWE117Fix.encodeCRLF(userOperation));
+		log.info("AgentServlet[invokeValidate]::userName: " + CWE117Fix.encodeCRLF(userName));
+		log.info("AgentServlet[invokeValidate]::locale: " + CWE117Fix.encodeCRLF(locale));
+		log.info("AgentServlet[invokeValidate]::rollId: " + CWE117Fix.encodeCRLF(rollId));
 		
 		WICIResponse appResponse = new WICIResponse();
 		WICILoginResponse loginResponse = new WICILoginResponse();
@@ -72,7 +71,7 @@ public class AgentServlet extends WICIServlet
 			if (values != null && values.getMfgSerial() != null) {
 				serialNumber = values.getMfgSerial().toUpperCase();
 			}
-		    log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+		    log.info("AgentServlet[invokeValidate]::AuthID(mfgSerial=" + CWE117Fix.encodeCRLF(values.getMfgSerial()) + ", buildSerial=" + CWE117Fix.encodeCRLF(values.getBuildSerial()) + ")");
 			if(employerID != "" && employerID != null) {
 				if (!"E".equalsIgnoreCase(employerID.toUpperCase())) {
 					if(wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH))
@@ -141,7 +140,7 @@ public class AgentServlet extends WICIServlet
 		}
 		catch (DuplicateAgentIDException ex)
 		{
-			log.warning(sMethod + " Exception: " + ex.getMessage());
+			log.warning("AgentServlet[invokeValidate] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			loginResponse.setStatusCode(DUPLICATE_AGENT);
 			loginResponse.setMessage(DUPLICATE_AGENT_MSG);
 			appResponse.setError(false);
@@ -152,7 +151,7 @@ public class AgentServlet extends WICIServlet
 		{
 			loginResponse.setStatusCode(SERVICE_FAILURE);
 			loginResponse.setMessage(SERVICE_FAILURE_MSG);
-			log.warning(sMethod + " Exception: " + ex.getMessage());
+			log.warning("AgentServlet[invokeValidate] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 			appResponse.setError(true);
 			appResponse.setMsg(ex.getMessage());
 			ex.printStackTrace();
@@ -164,7 +163,7 @@ public class AgentServlet extends WICIServlet
 	
 	private String createAgent(int roleId, String userName, String activatedflag, String adminId, String passKey, String locale,String agency,String serialNumber) throws DuplicateAgentIDException,Exception
 	{
-		log.info("roleId"+roleId+"userName"+userName+"activatedflag"+activatedflag+"adminId"+adminId+"passKey"+passKey+"locale"+locale+"agency"+agency+"serialNumber"+serialNumber);
+		log.info("roleId"+CWE117Fix.encodeCRLF(String.valueOf(roleId))+"userName"+CWE117Fix.encodeCRLF(userName)+"activatedflag"+CWE117Fix.encodeCRLF(activatedflag)+"adminId"+CWE117Fix.encodeCRLF(adminId)+"passKey"+CWE117Fix.encodeCRLF(passKey)+"locale"+CWE117Fix.encodeCRLF(locale)+"agency"+CWE117Fix.encodeCRLF(agency)+"serialNumber"+CWE117Fix.encodeCRLF(serialNumber));
 		wicidbHelper.insertUserInfo(roleId, userName, activatedflag, adminId, passKey, locale, agency,serialNumber);
 		return passKey;
 	}
@@ -185,7 +184,7 @@ public class AgentServlet extends WICIServlet
 			int spot = r.nextInt(9);
 			pass += intChar.charAt(spot);
 		}
-		log.info("Generated Pass: " + pass);
+		log.info("Generated Pass: " + CWE117Fix.encodeCRLF(pass));
 		return pass;
 	}
 	
@@ -196,13 +195,13 @@ public class AgentServlet extends WICIServlet
 	}
 	private int updateAgent(String userName,String modifiedId,String passKey,String employerID,String rollId) throws Exception
 	{
-		log.info("::agentId:: " + userName);
+		log.info("::agentId:: " + CWE117Fix.encodeCRLF(userName));
 		int update = wicidbHelper.updateAgent(userName, modifiedId,passKey,employerID,rollId);
 		return update;
 	}
 	private boolean deleteAgent(String userName,String modifiedAdminId,String serialNumber,String employerID,String rollId) throws Exception
 	{
-		log.info("::agentId:: " + userName);
+		log.info("::agentId:: " + CWE117Fix.encodeCRLF(userName));
 		int auth = wicidbHelper.deleteAgent(userName,modifiedAdminId,serialNumber,employerID,rollId);
 		if (auth > 0) {
 			return true;
@@ -211,13 +210,13 @@ public class AgentServlet extends WICIServlet
 	}
 	private WICILoginResponse searchAgent(String userName,String agency,String userOperation,String agentID,String rollId) throws Exception
 	{
-		log.info("::agentId:: " + userName+"agency"+agency+"userOperation"+userOperation+"agentID"+agentID);
+		log.info("::agentId:: " + CWE117Fix.encodeCRLF(userName)+"agency"+CWE117Fix.encodeCRLF(agency)+"userOperation"+CWE117Fix.encodeCRLF(userOperation)+"agentID"+CWE117Fix.encodeCRLF(agentID));
 		WICILoginResponse wiciLoginResponse = wicidbHelper.searchAgent(userName,agency,userOperation,agentID,rollId);
 		return wiciLoginResponse;
 	}
 	private WICILoginResponse searchAnyAgent(String userName) throws Exception
 	{
-		log.info("::agentId:: " + userName);
+		log.info("::agentId:: " + CWE117Fix.encodeCRLF(userName));
 		WICILoginResponse wiciLoginResponse = wicidbHelper.searchAnyAgent(userName);
 		return wiciLoginResponse;
 	}
@@ -227,7 +226,7 @@ public class AgentServlet extends WICIServlet
 		try {
 			// Encode data
 			encodedPassWord = DatatypeConverter.printBase64Binary(passWord.getBytes());
-			log.info(passWord + " Encoded= " + encodedPassWord);
+			log.info(passWord + " Encoded= " + CWE117Fix.encodeCRLF(encodedPassWord));
 		} catch (Exception e) {
 			throw e;
 		}

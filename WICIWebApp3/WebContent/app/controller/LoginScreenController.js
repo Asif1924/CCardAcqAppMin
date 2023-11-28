@@ -664,10 +664,20 @@ WICI.LoginScreenController = function (app) {
         // showAndHideOtherStaffMember();
         $(refs.loginButtonID).click(function () {
             //VZE-442 & VZE-553
-            if (app.deviceInfoHelper.getDeviceInfo().MfgSerial == "UNKNOWN" ||
-                app.deviceInfoHelper.getDeviceInfo().MfgSerial == "SCOOBY") {
-                messageDialog.printerError(translator.translateKey("loginScreen_Device_serial_number_error_message"), translator.translateKey("loginScreen_Device_serial_number_message"), translator.translateKey("loginScreen_Device_serial_number_error_title"), $.noop);
-            }
+ 			try {
+    			var isDevice = new WICI.DeviceDetectionHelper().any();
+    	
+    			if (isDevice) {
+    				if (app.deviceInfoHelper.getDeviceInfo().MfgSerial == "UNKNOWN" ||
+		                app.deviceInfoHelper.getDeviceInfo().MfgSerial == "SCOOBY") {
+		                messageDialog.printerError(translator.translateKey("loginScreen_Device_serial_number_error_message"), translator.translateKey("loginScreen_Device_serial_number_message"), translator.translateKey("loginScreen_Device_serial_number_error_title"), $.noop);
+		            }
+    			} else {
+    				// Browser, don't show error dialog    				
+    			}
+    		} catch (error) {
+    			console.log(logPrefix + sMethod + "::[ERROR]::[" + error + "]");
+    		}            
             // VZE-442
             generateAgentId();
             //handleLoginOrAttestation();
@@ -675,7 +685,8 @@ WICI.LoginScreenController = function (app) {
             //syncUserData();
             //invokeLogin($(refs.employerID).val().toUpperCase(), $(refs.agentID).val(), "", $(refs.password).val().toUpperCase(), $(refs.businessStoreNo).val().toUpperCase(), $(refs.firstName).val(), $(refs.lastName).val(), app.apkVersionHelper.getAPKVersion(), handleSuccessfulLoginRequest, failedLogin);            
         });
-        $(refs.trainingButtonID).click(function () {
+
+        $(refs.trainingButtonID).click(function () {       	
         	if(isTrainingButtonEnabled){
         		if($(refs.employerID).val().toUpperCase()==="" || $(refs.employerID).val().toUpperCase()===null){
            		    $(refs.employerID).addClass('errorField');
@@ -719,7 +730,8 @@ WICI.LoginScreenController = function (app) {
                 employeeNumberFieldHandler();
                 // WICI-83
                 showHideTrainingModuleSlider();
-                validateTrainingModuleFields();
+				// WICI-166 
+                //validateTrainingModuleFields();
             }
 
         });
@@ -876,7 +888,8 @@ WICI.LoginScreenController = function (app) {
                 createSignatureControl();
                 employeeNumberFieldHandler();
                 $(refs.modeSliderComponent).show();
-                validateTrainingModuleFields();
+				// WICI-166
+                // validateTrainingModuleFields();
                 createTrainingModuleFlip();
                 break;
             default:
@@ -1623,14 +1636,35 @@ WICI.LoginScreenController = function (app) {
     }
 
     // -------------------------------------------------------------------------------------
+    function getLocation() {	
+		var sMethod = 'getLocation() :: ';
+        console.log(logPrefix + sMethod);
 
-    function getLocation() {
-        if (navigator.geolocation) {
+		if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
-            console.log("Geolocation is not supported by this browser.");
+            console.log("Geolocation is not supported by this tab.");
         }
+
+		// WICI-241
+		/*app.geoLocationHelper = new WICI.GeoLocationHelper();
+        app.geoLocationHelper.getCoordinates(getLocationSuccess, getLocationFailure);*/       
     }
+
+	function getLocationSuccess(coordinates) {
+        var sMethod = 'getLocationSuccess() ';
+        console.log(logPrefix + sMethod + " coordinates : " + coordinates);
+		var result = eval('('+coordinates+')' );
+		console.log(logPrefix + sMethod + " coordinates : " + result.longitude + " :: " + result.latitude);
+	
+		model.set('longitude', result.longitude);
+		model.set('latitude', result.latitude);		
+	}
+	
+	function getLocationFailure(result) {
+        var sMethod = 'getLocationFailure() ';
+        console.log(logPrefix + sMethod + " Exception is: " + result);  		
+	}
 
     function showPosition(position) {
         var longitude = position.coords.longitude.toFixed(5);
@@ -1656,6 +1690,7 @@ WICI.LoginScreenController = function (app) {
         $(refs.trainingButtonID).addClass('greenflat');
         isTrainingButtonEnabled = true;
     }
+
     //-----------------------------------------------------------------------------------------
     function validateTrainingModuleFields() {
     	 var sMethod = 'validateTrainingModuleFields() ';
@@ -1663,16 +1698,11 @@ WICI.LoginScreenController = function (app) {
          var rez3 = [];
          generateAgentId();
          syncUserData();
-         if (app.validationsOn) {
-             app.validationDecorator.clearErrArrtibute();
-             
+         if (app.validationsOn) {        	 
              if (validateNameFields) {
-                 var rez2 = model.validate(2);
-                 app.validationDecorator.applyErrAttribute(rez2);
-             }
-             
+                 var rez2 = model.validate(2);                 
+             }           
              var rez = model.validate(1);
-             app.validationDecorator.applyErrAttribute(rez);
              
              if (rez.length == 0 && rez2.length == 0) {
                  showGreenTrainingButton();

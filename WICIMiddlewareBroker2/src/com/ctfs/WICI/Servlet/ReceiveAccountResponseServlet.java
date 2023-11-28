@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 
 import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
 import com.ctfs.WICI.Concurrent.PendAccountApplicationResponseThread;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.DeviceAdminHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -26,8 +27,7 @@ public class ReceiveAccountResponseServlet extends WICIServlet {
 
 	public ReceiveAccountResponseServlet()
 	{
-		String sMethod = this.getClass().getName() + "[ReceiveAccountResponseServlet] ";
-		log.info(sMethod);
+		log.info("ReceiveAccountResponseServlet[ReceiveAccountResponseServlet]");
 
 		try
 		{
@@ -44,15 +44,14 @@ public class ReceiveAccountResponseServlet extends WICIServlet {
 	@Override
 	void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[handleRequest]";
-		log.info(sMethod);
+		log.info("ReceiveAccountResponseServlet[handleRequest]");
 
 		try
 		{
 			String payloadData = EMPTY_STRING;
 
 			StringBuffer postRequestBodyAsString = requestMediator.getPostRequestBody();
-			log.info(sMethod + ":: postRequestBody = " + postRequestBodyAsString.toString());
+			log.info("ReceiveAccountResponseServlet[handleRequest]:: postRequestBody = " + CWE117Fix.encodeCRLF(postRequestBodyAsString.toString()));
 
 			payloadData = postRequestBodyAsString.toString();
 			
@@ -62,7 +61,7 @@ public class ReceiveAccountResponseServlet extends WICIServlet {
 		}
 		catch (Exception ex)
 		{
-			log.warning(sMethod + " Exception: " + ex.getMessage());
+			log.warning("ReceiveAccountResponseServlet[handleRequest] Exception: " + CWE117Fix.encodeCRLF(ex.getMessage()));
 		}
 		finally
 		{
@@ -72,8 +71,7 @@ public class ReceiveAccountResponseServlet extends WICIServlet {
 
 	private void updatePendingApplication(PendAccountApplicationRequest argPayloadDataAsObject, WICIServletMediator requestMediator)
 	{
-		String sMethod = this.getClass().getName() + "[updatePendingApplication]";
-		log.info(sMethod);
+		log.info("ReceiveAccountResponseServlet[updatePendingApplication]");
 		
 		PendAccountApplicationResponseThread concurrentPendAccountApplicationRequest = new PendAccountApplicationResponseThread(argPayloadDataAsObject,requestMediator);
 

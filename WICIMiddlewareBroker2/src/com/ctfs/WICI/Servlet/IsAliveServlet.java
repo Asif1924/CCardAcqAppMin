@@ -17,9 +17,7 @@ public class IsAliveServlet extends WICIServlet
 
 	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[handleRequest] ";
-		log.info(sMethod);
-
+		log.info("IsAliveServlet[handleRequest]" );
 		WICIResponse appResponse = new WICIResponse(false, "IsAliveServlet success response", true);
 		
 		requestMediator.processHttpResponse(appResponse);

@@ -107,16 +107,30 @@ public class WICIStoreRecallPrintHelper {
 		private JSONObject getPrintTemplateObject(Context context) throws IOException, JSONException {
 	    	String SMethod = "getPrintTemplateObject() ";
 	    	Log.i(LOG_TAG, SMethod);
+	    	
 	    	if(printTemplateConfig == null) {    		    		
-				InputStream inputStream = context.getAssets().open("PrintTemplateDetails.json");
-				BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8")); 
-				StringBuilder responseStrBuilder = new StringBuilder();
-				
-				String inputStr;
-				while ((inputStr = streamReader.readLine()) != null)
-				  responseStrBuilder.append(inputStr);
-				 
-				printTemplateConfig = new JSONObject(responseStrBuilder.toString());
+				try {
+					InputStream inputStream = context.getAssets().open("PrintTemplateDetails.json");
+					BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8")); 
+					StringBuilder responseStrBuilder = new StringBuilder();
+					
+					String inputStr;
+					while ((inputStr = streamReader.readLine()) != null)
+					  responseStrBuilder.append(inputStr);
+					 
+					printTemplateConfig = new JSONObject(responseStrBuilder.toString());
+					
+					// Close input stream
+					inputStream.close();
+					// Close buffered reader
+					streamReader.close();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 	    	}
 			return printTemplateConfig;
 	    }
@@ -301,6 +315,7 @@ public class WICIStoreRecallPrintHelper {
 	                }
 
 	                inputStream.close();
+	                bufferedReader.close();
 	                Log.i(LOG_TAG, SMethod + " InputStream closed.");
 	                waitForBluetoothDataTransferToComplete(printer);
 	                return true;
@@ -319,24 +334,32 @@ public class WICIStoreRecallPrintHelper {
 	    	String SMethod = "sendVersionControlLabel() :: ";
 	    	Log.i(LOG_TAG, SMethod);
 	    	
-	        InputStream inputStream = context.getAssets().open(StoreRecallFilePath + _versionControlLabelName + ".prn");
+	        try {
+				InputStream inputStream = context.getAssets().open(StoreRecallFilePath + _versionControlLabelName + ".prn");
 
-	        if ( inputStream != null ) {
-	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-	            String receiveString = "";
+				if ( inputStream != null ) {
+				    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				    String receiveString = "";
 
-	            while ( (receiveString = bufferedReader.readLine()) != null ) {
-	            		printerConnection.write(receiveString
-	                                                    .replace("#[Version]", String.valueOf(prnVersion))
-	                                                    .replace("#[FileName]", "V" + parentPRNName).getBytes());
-	            }
+				    while ( (receiveString = bufferedReader.readLine()) != null ) {
+				    		printerConnection.write(receiveString
+				                                            .replace("#[Version]", String.valueOf(prnVersion))
+				                                            .replace("#[FileName]", "V" + parentPRNName).getBytes());
+				    }
 
-	            inputStream.close();
-                waitForBluetoothDataTransferToComplete(printer);
-	        } else  {
-	            throw new IOException("inputStream is null");
-	        }	        
+				    inputStream.close();
+				    bufferedReader.close();
+				    inputStreamReader.close();
+				    waitForBluetoothDataTransferToComplete(printer);
+				} else  {
+				    throw new IOException("inputStream is null");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ConnectionException e) {
+				e.printStackTrace();
+			}	        
 	    }
 	    
 	    private boolean waitForBluetoothDataTransferToComplete(ZebraPrinter printer) {

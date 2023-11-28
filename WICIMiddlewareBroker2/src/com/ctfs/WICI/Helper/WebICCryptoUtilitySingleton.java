@@ -62,20 +62,20 @@ public class WebICCryptoUtilitySingleton
 			//populate the list of certificates and private keys available within the security world 
 			certificateList = new HashMap();
 			privateKeyList = new HashMap();
-			log.info("WebICCryptoUtilitySingleton() keyStore"+keyStore);
+			log.info("WebICCryptoUtilitySingleton() keyStore"+CWE117Fix.encodeCRLF( keyStore != null ? keyStore.toString() : null));
 			for (Enumeration list = keyStore.aliases(); list.hasMoreElements();) 
 			{
-				log.info("WebICCryptoUtilitySingleton() keyStore for"+keyStore);
+				log.info("WebICCryptoUtilitySingleton() keyStore for"+CWE117Fix.encodeCRLF( keyStore != null ? keyStore.toString() : null));
 				String alias = (String) list.nextElement();
 				Certificate c = null;
 				if (keyStore.isKeyEntry(alias))
 				{
-					log.info("WebICCryptoUtilitySingleton() keyStore for isKeyEntry"+alias);
+					log.info("WebICCryptoUtilitySingleton() keyStore for isKeyEntry"+CWE117Fix.encodeCRLF(alias));
 					Key k = keyStore.getKey(alias, passPhrase.toCharArray());
 					
 					if (k instanceof PrivateKey) 
 					{
-						log.info("WebICCryptoUtilitySingleton() keyStore for PrivateKey"+alias);
+						log.info("WebICCryptoUtilitySingleton() keyStore for PrivateKey"+CWE117Fix.encodeCRLF(alias));
 						c = keyStore.getCertificate(alias); 
 						if (c == null)
 							throw new CryptographyException(CryptographyException.CERTIFICATE_PROBLEM,alias + "certificate missing from keystore");
@@ -86,7 +86,7 @@ public class WebICCryptoUtilitySingleton
 				}
 				else if(keyStore.isCertificateEntry(alias))
 				{
-					log.info("WebICCryptoUtilitySingleton() keyStore for isCertificateEntry"+alias);
+					log.info("WebICCryptoUtilitySingleton() keyStore for isCertificateEntry"+CWE117Fix.encodeCRLF(alias));
 					c = keyStore.getCertificate(alias);
 					if (c == null)
 						throw new CryptographyException(CryptographyException.CERTIFICATE_PROBLEM,alias + "certificate missing from keystore");

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIObjectsHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -22,18 +23,17 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 	@Override
 	public void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[handleRequest] ";
-		log.info(sMethod);
+		log.info("PollAccountApplicationResponseServlet.[handleRequest]");
 
 		String transactionID = requestMediator.searchElementInsidePostRequestBody("transactionID") != null ? requestMediator.searchElementInsidePostRequestBody("transactionID") : EMPTY_STRING;		
 		String action = requestMediator.searchElementInsidePostRequestBody("action") != null ? requestMediator.searchElementInsidePostRequestBody("action") : EMPTY_STRING;		
 		String retrievalToken = requestMediator.searchElementInsidePostRequestBody("retrievalToken") != null ? requestMediator.searchElementInsidePostRequestBody("retrievalToken").toUpperCase() : EMPTY_STRING;		
 		String phone = requestMediator.searchElementInsidePostRequestBody("phone") != null ? requestMediator.searchElementInsidePostRequestBody("phone") : EMPTY_STRING;
 
-		log.info(sMethod + " transactionID = " + transactionID);
-		log.info(sMethod + " action = " + action);
-		log.info(sMethod + " retrievalToken = " + retrievalToken);
-		log.info(sMethod + " phone = " + phone);
+		log.info("PollAccountApplicationResponseServlet.[handleRequest] transactionID = " + CWE117Fix.encodeCRLF(transactionID));
+		log.info("PollAccountApplicationResponseServlet.[handleRequest] action = " + CWE117Fix.encodeCRLF(action));
+		log.info("PollAccountApplicationResponseServlet.[handleRequest] retrievalToken = " +CWE117Fix.encodeCRLF(retrievalToken));
+		log.info("PollAccountApplicationResponseServlet.[handleRequest] phone = " +CWE117Fix.encodeCRLF(phone));
 		
 		WICIResponse accountApplicationResponse = null;
 
@@ -55,9 +55,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 	}
 
 	private WICIResponse retrievePendingAccountApplicationResponse(String argRetrievalToken, String argPhone) {
-		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[retrievePendingAccountApplicationResponse] retrievalToken=" + argRetrievalToken + ", phone=" + argPhone;
-		log.info(sMethod);
-
+		log.info("PollAccountApplicationResponseServlet[retrievePendingAccountApplicationResponse]");
 		AccountApplicationSubmissionResponse accountApplicationSubmissionResponse = new AccountApplicationSubmissionResponse();
 		
 		WICIResponse pendRetrieveResponse = null;
@@ -78,7 +76,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			//Just use the Gson converter to log the response
 			Gson gson = new Gson();
 			String printedResponse = gson.toJson(pendRetrieveResponse, WICIResponse.class);				
-			log.info(sMethod + "\n::Pend Retrieve Response: \n" + printedResponse);
+			log.info("PollAccountApplicationResponseServlet[retrievePendingAccountApplicationResponse]  \n::Pend Retrieve Response: \n" + CWE117Fix.encodeCRLF(printedResponse));
 			
 		} catch (Exception e) {
 			log.warning(e.getMessage());
@@ -89,8 +87,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 	}
 
 	private WICIResponse retrieveAccountApplicationResponse(String argTransactionID) {
-		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[retrieveAccountApplicationResponse] argTransactionID=" + argTransactionID;
-		log.info(sMethod);
+		log.info("PollAccountApplicationResponseServlet].[retrieveAccountApplicationResponse] argTransactionID=" + CWE117Fix.encodeCRLF(argTransactionID));
 
 		AccountApplicationSubmissionResponse accountApplicationSubmissionResponse = new AccountApplicationSubmissionResponse();
 		WICIResponse retrieveResponse = null;
@@ -106,7 +103,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			Gson gson = new Gson();
 			String printedResponse = gson.toJson(retrieveResponse, WICIResponse.class);	
 			
-			log.info(sMethod + "\n::Retrieve Response: \n" + printedResponse);
+			log.info("PollAccountApplicationResponseServlet].[retrieveAccountApplicationResponse] \n::Retrieve Response: \n" + CWE117Fix.encodeCRLF(printedResponse));
 		} catch (Exception e) {
 			log.warning(e.getMessage());
 			retrieveResponse = new WICIResponse(true, AppConstants.RETRIEVE_ACCOUNTAPPLICATION_REQUEST_FAILED, accountApplicationSubmissionResponse);
@@ -116,8 +113,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 	}
 
 	private WICIResponse purgeAccountApplication(String argTransactionID) {
-		String sMethod = this.getClass().getName() + "[PollAccountApplicationResponseServlet].[purgeAccountApplication] argTransactionID=" + argTransactionID;
-		log.info(sMethod);
+		log.info("PollAccountApplicationResponseServlet.[purgeAccountApplication]");
 
 		WICIResponse purgeResponse = null;
 
@@ -129,7 +125,7 @@ public class PollAccountApplicationResponseServlet extends WICIServlet
 			// Form response for client
 			purgeResponse = new WICIResponse(false, AppConstants.PURGE_REQUEST_SUCCESS, rowsAffected);
 		} catch (Exception ex) {
-			log.warning(sMethod + "::Raise EXCEPTION::" + ex.getMessage());
+			log.warning("PollAccountApplicationResponseServlet.[purgeAccountApplication]::Raise EXCEPTION::" + CWE117Fix.encodeCRLF(ex.getMessage()));
 			// Form response for client
 			purgeResponse = new WICIResponse(false, AppConstants.PURGE_REQUEST_FAILED, ex.getMessage());
 		}

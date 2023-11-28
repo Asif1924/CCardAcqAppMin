@@ -12,6 +12,7 @@ import com.ctfs.WICI.AppConstants;
 import com.ctfs.WICI.Concurrent.AccountApplicationRequestThread;
 import com.ctfs.WICI.Helper.AccountApplicationRequestTypeConverter;
 import com.ctfs.WICI.Helper.AuthorizationHelper;
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.ExternalReferenceIdHelper;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Helper.WICIServletMediator;
@@ -34,8 +35,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 
 	public InitAccountApplicationServlet()
 	{
-		String sMethod = this.getClass().getName() + "[InitAccountApplicationServlet] ";
-		log.info(sMethod);
+		log.info("InitAccountApplicationServlet called");
 
 		try {
 			InitialContext ctx = new InitialContext();
@@ -49,8 +49,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 	@Override
 	void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException
 	{
-		String sMethod = this.getClass().getName() + "[handleRequest] ";
-		log.info(sMethod);
+		log.info("InitAccountApplicationServlet[handleRequest] ");
 
 		try {
 			queueAccountApplicationRequest(requestMediator);
@@ -61,9 +60,8 @@ public class InitAccountApplicationServlet extends WICIServlet
 	}
 
 	private void queueAccountApplicationRequest(WICIServletMediator requestMediator) throws Exception {
-		String sMethod = this.getClass().getName() + "[queueAccountApplicationRequest] ";
-		log.info(sMethod);
-		log.info(sMethod + " requestMediator : " + requestMediator);
+		
+		log.info("InitAccountApplicationServlet[queueAccountApplicationRequest] requestMediator : " + CWE117Fix.encodeCRLF(requestMediator != null ?requestMediator.toString() : null));
 		
 		String transactionID = "";
 		String duplicateTransID = null;
@@ -77,7 +75,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		AuthfieldValue values = authorizationHelper.getAuthfieldValue(requestMediator);
 
 		//US3125 - Sep 16th 2014 Release consentGranted
-		log.info(sMethod + "::AuthID(mfgSerial=" + values.getMfgSerial() + ", buildSerial=" + values.getBuildSerial() + ")");
+		log.info("InitAccountApplicationServlet[queueAccountApplicationRequest] ::AuthID(mfgSerial=" + CWE117Fix.encodeCRLF(values.getMfgSerial()) + ", buildSerial=" + CWE117Fix.encodeCRLF(values.getBuildSerial()) + ")");
 		if (values.getMfgSerial() != null) {
 			serialNumber = values.getMfgSerial().toUpperCase();
 		}
@@ -93,8 +91,8 @@ public class InitAccountApplicationServlet extends WICIServlet
 		
 		String applicationReferenceID = ((BaseModel) incomingCreditCardApplicationData.getModel("contactInfoScreen")).get("applicationReferenceID");
 		duplicateTransID = wicidbHelper.getDuplicateTransactionIDWithUserId(applicationReferenceID, agentID);
-		log.info(sMethod + "\n:: Agent ID & Application ReferenceID from Tablet Request :: \n" + agentID + " :: " + applicationReferenceID);
-		log.info(sMethod + "\n:: Duplicate Transaction ID :: \n" + duplicateTransID);
+		log.info("InitAccountApplicationServlet[queueAccountApplicationRequest] \n:: Agent ID & Application ReferenceID from Tablet Request :: \n" + CWE117Fix.encodeCRLF(agentID) + " :: " + CWE117Fix.encodeCRLF(applicationReferenceID));
+		log.info("InitAccountApplicationServlet[queueAccountApplicationRequest] \n:: Duplicate Transaction ID :: \n" + CWE117Fix.encodeCRLF(duplicateTransID));
 		
 		if(duplicateTransID != null && duplicateTransID.equalsIgnoreCase(applicationReferenceID)) {
 			AccountApplicationSubmissionResponse accountApplicationSubmissionResponse = new AccountApplicationSubmissionResponse();
@@ -123,7 +121,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 				Gson gson1 = new Gson();
 				String printedResponse = gson1.toJson(retrieveResponse, WICIResponse.class);	
 				
-				log.info(sMethod + "\n::Duplicate Submission Response: \n" + printedResponse);
+				log.info("InitAccountApplicationServlet[queueAccountApplicationRequest]  \n::Duplicate Submission Response: \n" + CWE117Fix.encodeCRLF(printedResponse));
 				
 				requestMediator.processHttpResponse(retrieveResponse);
 			} catch (Exception e) {
@@ -165,8 +163,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 	}
 	
 	private DatabaseResponse insertIntoTable(CreditCardApplicationData incomingCreditCardApplicationData,String tabSerialNum) {
-		String sMethod = this.getClass().getName() + "[insertIntoTable] ";
-		log.info(sMethod);
+		log.info("InitAccountApplicationServlet[insertIntoTable]");
 		
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		String CONFIG_NAME_ENABLE_AGENT_AUTH = "ENABLE_AGENT_AUTH"; 
@@ -190,7 +187,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		
 		String applicationReferenceID = ((BaseModel) incomingCreditCardApplicationData.getModel("contactInfoScreen")).get("applicationReferenceID");
 		
-		log.info(sMethod + " applicationReferenceID from tablet request :: " + applicationReferenceID);
+		log.info("InitAccountApplicationServlet[insertIntoTable] applicationReferenceID from tablet request :: " + CWE117Fix.encodeCRLF(applicationReferenceID));
 		
 		boolean authfieldCheckEnable=wicidbHelper.isAuthfieldCheckEnabled(CONFIG_NAME_ENABLE_AGENT_AUTH);
 		
@@ -203,7 +200,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 		String retrievalToken = new ExternalReferenceIdHelper().getLastPartOfExternalRefId(transactionID);
 		String currentTelephone = aaContactInfo.getPrimaryPhone();
 		
-		log.info(sMethod + " transactionID from requestConverter :: " + transactionID);
+		log.info("InitAccountApplicationServlet[insertIntoTable] transactionID from requestConverter :: " + CWE117Fix.encodeCRLF(transactionID));
 		
 		try {
 			if (employerId != null && employerId.equalsIgnoreCase("E")
@@ -215,7 +212,7 @@ public class InitAccountApplicationServlet extends WICIServlet
 			}
 			databaseResponse = new DatabaseResponse(false, "INSERT_SUCCESS", transactionID,aaObject);
 		} catch (Exception e) {
-			log.warning(sMethod + "---Problem inserting the requestData into table=" + e.getMessage());
+			log.warning("InitAccountApplicationServlet[insertIntoTable]---Problem inserting the requestData into table=" + CWE117Fix.encodeCRLF(e.getMessage()));
 			databaseResponse = new DatabaseResponse(true, "INSERT_FAILED", e.getMessage(),aaObject);
 			e.printStackTrace();
 		}

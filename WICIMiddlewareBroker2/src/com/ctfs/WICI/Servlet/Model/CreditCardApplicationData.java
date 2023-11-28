@@ -19,6 +19,14 @@ public class CreditCardApplicationData
 	static Logger log = Logger.getLogger(CreditCardApplicationData.class.getName());
 
 	public List<BaseModel> models;
+	public List<BaseModel> getModels() {
+		return models;
+	}
+
+	public void setModels(List<BaseModel> models) {
+		this.models = models;
+	}
+
 	private StringBuffer requestBodyStr;
 
 	public CreditCardApplicationData(){

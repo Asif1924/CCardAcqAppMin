@@ -48,7 +48,7 @@ public class Cryptographer
 
 		keyStoreType = "BKS";
         keyStoreFile = "cer/keystore.bks";  //"C:\\workspaces\\WICI\\keystore.jks";
-		keyStorePassPhrase = "wiciepam";
+		keyStorePassPhrase = "JHSF3AkNASBF(*@#";
 		keyStorePrivateAlias = "wiciprivate";
 		certificateAlias = "newpubcer";
 		cipherProvider = "SunJCE";

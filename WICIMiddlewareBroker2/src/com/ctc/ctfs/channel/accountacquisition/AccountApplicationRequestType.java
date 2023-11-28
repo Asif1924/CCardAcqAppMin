@@ -290,9 +290,9 @@ public class AccountApplicationRequestType implements Serializable {
 
 	private String acquirerCode;
 
-	private String tuSessionID;
+	/*private String tuSessionID;
 
-	private String tuExamResult;
+	private String tuExamResult;*/
 
 	private String emailConsentFlag;
 
@@ -2151,43 +2151,43 @@ public class AccountApplicationRequestType implements Serializable {
 	 * 
 	 * @return possible object is {@link String }
 	 * 
-	 */
+	 *//*
 	public String getTUSessionID() {
 		return tuSessionID;
 	}
 
-	/**
+	*//**
 	 * Sets the value of the tuSessionID property.
 	 * 
 	 * @param value
 	 *            allowed object is {@link String }
 	 * 
-	 */
+	 *//*
 	public void setTUSessionID(String value) {
 		this.tuSessionID = value;
 	}
-
+*/
 	/**
 	 * Gets the value of the tuExamResult property.
 	 * 
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getTUExamResult() {
+	/*public String getTUExamResult() {
 		return tuExamResult;
 	}
 
-	/**
+	*//**
 	 * Sets the value of the tuExamResult property.
 	 * 
 	 * @param value
 	 *            allowed object is {@link String }
 	 * 
-	 */
+	 *//*
 	public void setTUExamResult(String value) {
 		this.tuExamResult = value;
 	}
-
+*/
 	/**
 	 * Gets the value of the emailConsentFlag property.
 	 * 
@@ -2375,8 +2375,7 @@ public class AccountApplicationRequestType implements Serializable {
 				+ ", insuranceSignatureCP=" + insuranceSignatureCP
 				+ ", insuranceSignatureIW=" + insuranceSignatureIW
 				+ ", affiliationCode=" + affiliationCode + ", acquirerCode="
-				+ acquirerCode + ", tuSessionID=" + tuSessionID
-				+ ", tuExamResult=" + tuExamResult + ", emailConsentFlag="
+				+ acquirerCode + ", emailConsentFlag="
 				+ emailConsentFlag + ", enstreamConsent=" + enstreamConsent
 				+ ", msisdn=" + msisdn + ", pan=" + pan + ", admAppId="
 				+ admAppId + ", unitNumber=" + unitNumber + ", streetName="

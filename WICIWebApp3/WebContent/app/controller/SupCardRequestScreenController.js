@@ -404,8 +404,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
         });
         
         $(refs.supAcceptButton).click(function() {
-        	console.log(refs.supAcceptButton + '::click');
-        	
+        	console.log(refs.supAcceptButton + '::click');        	
         	app.validationDecorator.clearErrArrtibute();
         	var postrez = [];
             if($(refs.suiteUnit).val() && !validator.suiteUnit($(refs.suiteUnit).val().toUpperCase()))
@@ -416,12 +415,22 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 	        	// WIIC-17
 		            		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); // ^[A-Za-z0-9.'/&-]{4,40}$
 		            		var isValid = $(refs.addressLine1).val().toUpperCase().match(regex);
-		    	            if(isValid){
+		    	            if(isValid){	
+		    	            	//WICI-193
+		    	            	const bypassRegex = /^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+		    	            	var isValidRegex = $(refs.addressLine1).val().toUpperCase().match(bypassRegex);
+		    	            	if(isValidRegex){    	          		
+		    	            		$('#suppCardInfo_infomation_button').show();
+		    	            	}else{
+		    	            		$('#suppCardInfo_infomation_button').hide();
+		    	            	}
+		    	            	
 		    	            	var addressline1Value=$(refs.addressLine1).val().substring(0,8);
 		    	            	if(!addressline1Value.includes(" ")){
 		    	            		postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
 		    	            	}else if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
 		    	                	if($(refs.addressLine1).val()!=''){
+		    	                		  postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
 		    		                      $('#sup_enterAddressManuallySection').show();
 		    			                  $('#suppCardInfo_infomation_button').show();
 		    		                      $(refs.supEditAddressButton).addClass('hideElement');
@@ -434,7 +443,7 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				    	             }
 		    	                        
 		    	                }else{
-		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box","postal Box","Postal box","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site"];
+		    	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box ","postalBox","Postalbox ","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site","Rural route","Route rurale"];
 			    	                $.each(poBoxArray, function (index, item) {
 			    	                	if($(refs.addressLine1).val().toLowerCase().includes(item.toLowerCase())){
 			    	                    	$('#suppCardInfo_infomation_button').show();
@@ -443,23 +452,21 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		    	            				$('#suppCardInfo_infomation_button').hide();
 			    	                    	return;
 			    	                    }
-			    	                });
-			    	                var ruralRouteArray= ["CP ","RR ","PR "];
-		    	            		$.each(ruralRouteArray, function (index, item) {
-		    	            			if($(refs.addressLine1).val().toLowerCase().startsWith(item.toLowerCase())){
-		    	            				$('#suppCardInfo_infomation_button').show();
-		    	            				postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
-		    	            				
-		    	            			}else{
-		    	            				$('#suppCardInfo_infomation_button').hide();
-			    	                    	return;
-			    	                    }
-		    	            		});
+			    	                });			    	                
+		    	                    var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+		    	              		var PoBoxValid = ruralRouteRegex.test($(refs.addressLine1).val());
+		    	              		 if(PoBoxValid){
+		    	              			$('#suppCardInfo_infomation_button').show();
+			    	            			postrez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+		    	              		 }else{
+		    	              			$('#suppCardInfo_infomation_button').hide();
+		    	              		 }
 		    	            	}
 		    	            } else{
+		    	            	const value = $(refs.addressLine1).val().toUpperCase();
 		    	            	// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
-		    	            	if($.inArray($(refs.addressLine1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL']) != -1) {
-									// Do Nothing. Bypass these values, since valid.
+		    	            	if($.inArray($(refs.addressLine1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL', 'POSTE RESTANTE']) != -1) {
+		    	            		$('#suppCardInfo_infomation_button').hide();
 								} else if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
 		    	                	if($(refs.addressLine1).val()!=''){
 		    	                		  postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
@@ -476,7 +483,9 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 		    	                        
 		    	                }else{
 		    	                	$('#suppCardInfo_infomation_button').hide();
+		    	                	if(!(/^(PR)\d*\b/).test(value)){
 		    	            		postrez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+		    	                	}
 		    	            	}
 		    	            }
 	        }
@@ -891,21 +900,94 @@ WICI.SupCardRequestScreenController = function(activationItems, argTranslator,
 				rez = rez.concat(rez,rezAge);
 				
 				var validator = new WICI.Validator();
-                if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
-                	if($(refs.addressLine1).val()!=''){
-	                      $('#sup_enterAddressManuallySection').show();
-		                  $('#suppCardInfo_infomation_button').show();
-	                      $(refs.supEditAddressButton).addClass('hideElement');
-			        	  $(refs.supAcceptButton).removeClass('hideElement');
-			        	  $('#sup_canadaPost_SearchedAddress').show();
-			        	  $('#sup_canadaPost_addressSearch_instructions').hide();
-			        	  $('#sup_canadaPostAddressDescription1').show();
-                     }
-                        
-                } else {
-                	$('#suppCardInfo_infomation_button').hide();
-                }
-                
+
+			if (model.get('sameAddressYesNo') == 'N') {
+           		var regex = new RegExp("(?=.*[\\s])(?=.*[0-9])(?=.*[A-Za-z])^[a-zA-Z0-9\.\/\'\&\\s\-]{0,7}[a-zA-Z0-9\.\/\'\&\\s\-]{4,40}$"); // ^[A-Za-z0-9.'/&-]{4,40}$
+        		var isValid = $(refs.addressLine1).val().toUpperCase().match(regex);
+	            if(isValid){	
+	            	//WICI-193
+	            	const bypassRegex = /^(CASE[-.\/ ]?POSTALE|POSTALBOX) \d+$/i;
+	            	var isValidRegex = $(refs.addressLine1).val().toUpperCase().match(bypassRegex);
+	            	if(isValidRegex){    	          		
+	            		 $('#suppCardInfo_infomation_button').show();
+	                     $('#sup_enterAddressManuallySection').show();
+	                     $(refs.supEditAddressButton).addClass('hideElement');
+	                     $(refs.supEnterAddressManuallyButton).addClass('hideElement');
+			             $(refs.supAcceptButton).removeClass('hideElement');
+			        	 $('#sup_canadaPost_SearchedAddress').show();
+			             $('#sup_canadaPost_addressSearch_instructions').hide();
+			       	     $('#sup_canadaPostAddressDescription1').show();
+	            	}else{
+	            		$('#suppCardInfo_infomation_button').hide();
+	            	}
+	            	
+	            	var addressline1Value=$(refs.addressLine1).val().substring(0,8);
+	            	if(!addressline1Value.includes(" ")){
+	            		 rez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+	            	}else if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
+	                	if($(refs.addressLine1).val()!=''){
+	                		  rez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+		                      $('#sup_enterAddressManuallySection').show();
+			                  $('#suppCardInfo_infomation_button').show();
+		                      $(refs.supEditAddressButton).addClass('hideElement');
+		                      $(refs.supEnterAddressManuallyButton).addClass('hideElement');
+				        	  $(refs.supAcceptButton).removeClass('hideElement');
+				        	  $('#sup_canadaPost_SearchedAddress').show();
+				        	  $('#sup_canadaPost_addressSearch_instructions').hide();
+				        	  $('#sup_canadaPostAddressDescription1').show();
+	                     }else {
+	    	                	$('#suppCardInfo_infomation_button').hide();
+	    	             }
+	                        
+	                }else{
+	            		var poBoxArray = ["P O B O X","P O BO X","P O BOX","PO BOX","PO Box","po box","P.o box","P.O Box","P.O. Box","p.o box","p.o. box","postal box","Postal Box ","postalBox","Postalbox","C.P","c.P","C.p","c.p","C.P.","c.p.","Case Postale","Case postale","case postale","Case postale","POBOX","BOX","PO-BOX","PO.BOX","PO/BOX","PO,BOX","PO    BOX","Case    Postale","Case-Postale","Case.Postale","Case/Postale","Postale","CasePostale","PoBox","Po Box","Box", "Site","Rural route","Route rurale"];
+    	                $.each(poBoxArray, function (index, item) {
+    	                	if($(refs.addressLine1).val().toLowerCase().includes(item.toLowerCase())){
+    	                    	$('#suppCardInfo_infomation_button').show();
+    	                    	rez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+    	                    }else{
+	            				$('#suppCardInfo_infomation_button').hide();
+    	                    	return;
+    	                    }
+    	                });			    	                
+	                    var ruralRouteRegex =  /^(RR|CP)\d*\b/;
+	              		var PoBoxValid = ruralRouteRegex.test($(refs.addressLine1).val());
+	              		 if(PoBoxValid){
+	              			$('#suppCardInfo_infomation_button').show();
+    	            			rez.push({name: 'addressline1', err: '', uiid: refs.addressline1});
+	              		 }else{
+	              			$('#suppCardInfo_infomation_button').hide();
+	              		 }
+	            	}
+	            } else{
+	            	const value = $(refs.addressLine1).val().toUpperCase();
+	            	// GD, GD RPO, GD STN, GD LCD, GD BDP, GD CSP, GD SUCC, GD PDF, GENERAL DELIVERY,GEN DELIVERY,GEN DEL 
+	            	if($.inArray($(refs.addressLine1).val().toUpperCase(), ['GD', 'GD RPO', 'GD STN', 'GD LCD', 'GD BDP', 'GD CSP', 'GD SUCC', 'GD PDF', 'GENERAL DELIVERY', 'GEN DELIVERY', 'GEN DEL', 'POSTE RESTANTE']) != -1) {
+	            		$('#suppCardInfo_infomation_button').hide();
+					} else if(!validator.addressLinePOBox($(refs.addressLine1).val().toUpperCase())) {
+	                	if($(refs.addressLine1).val()!=''){
+	                		  rez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+		                      $('#sup_enterAddressManuallySection').show();
+			                  $('#suppCardInfo_infomation_button').show();
+		                      $(refs.supEditAddressButton).addClass('hideElement');
+		                      $(refs.supEnterAddressManuallyButton).addClass('hideElement');
+				        	  $(refs.supAcceptButton).removeClass('hideElement');
+				        	  $('#sup_canadaPost_SearchedAddress').show();
+				        	  $('#sup_canadaPost_addressSearch_instructions').hide();
+				        	  $('#sup_canadaPostAddressDescription1').show();
+	                     }else {
+	    	                	$('#suppCardInfo_infomation_button').hide();
+	    	             }
+	                        
+	                }else{
+	                	$('#suppCardInfo_infomation_button').hide();
+	                	if(!(/^(PR)\d*\b/).test(value)){
+	            		rez.push({name: 'addressLine1', err: '', uiid: refs.addressLine1});
+	                	}
+	            	}
+	            }
+			}
+	            
                 if(!validator.suiteUnit($(refs.suiteUnit).val().toUpperCase())) {
                 	if($(refs.suiteUnit).val()!=''){
                 		showAddressFieldsError();

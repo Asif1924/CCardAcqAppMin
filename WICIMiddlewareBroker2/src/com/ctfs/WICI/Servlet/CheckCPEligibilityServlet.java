@@ -13,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.HttpClientHelper;
 import com.ctfs.WICI.Helper.JsonWrapper;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
@@ -37,8 +38,7 @@ public class CheckCPEligibilityServlet extends WICIServlet {
 	}
 
 	private void checkCPEligibility(WICIServletMediator requestMediator) {
-		String sMethod = this.getClass().getName() + "[checkCPEligibility] ";
-		log.info(sMethod);
+		log.info("CheckCPEligibilityServlet[checkCPEligibility]");
 		WICIResponse tabletResponse = new WICIResponse();
 		try {
 			String dateOfBirth = requestMediator.searchElementInsidePostRequestBody("dateOfBirth") != null ? requestMediator.searchElementInsidePostRequestBody("dateOfBirth") : EMPTY_STRING;;
@@ -118,16 +118,16 @@ public class CheckCPEligibilityServlet extends WICIServlet {
 			post.setEntity(new StringEntity(jsonInput));
 			post.setHeader("Content-type", "application/json");
 			
-			log.info(sMethod + " The DSS CheckCPEligibility endPoint  === " + conf.getCpEligibilityEndPoint() + " CheckCPEligibility request for dss ::: "+jsonInput);
+			log.info("[checkCPEligibilityHttpsClientCall]CheckCPEligibility The DSS CheckCPEligibility endPoint  === " + CWE117Fix.encodeCRLF(conf.getCpEligibilityEndPoint()) + " CheckCPEligibility request for dss ::: "+CWE117Fix.encodeCRLF(jsonInput));
 			HttpResponse response = httpClient.execute(post);
 			int statusCode = response.getStatusLine().getStatusCode();
-			log.info(sMethod + "CheckCPEligibility Profile status code :::: " + statusCode);
+			log.info("[checkCPEligibilityHttpsClientCall]CheckCPEligibility Profile status code :::: " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			if (statusCode != 200) {
-				throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+				throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 			}
 			responseContent = EntityUtils.toString(response.getEntity());
 			checkCPEligibilityResponse = jsonWrapper.deserialize(responseContent, WICIDSSCheckCPEligibilityResponse.class);
-			log.info(sMethod + "CheckCPEligibility Profile Response from DSS:::: " + checkCPEligibilityResponse);
+			log.info("[checkCPEligibilityHttpsClientCall] CheckCPEligibility Profile Response from DSS:::: " + CWE117Fix.encodeCRLF(checkCPEligibilityResponse != null ?checkCPEligibilityResponse.toString(): null));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,7 +135,7 @@ public class CheckCPEligibilityServlet extends WICIServlet {
 	}
 	
 	private WICIDSSCheckCPEligibilityResponse checkCPEligibilityHttpClientCall(WICIDSSCheckCPEligibilityRequest checkCPEligibilityDSSRequest) {
-		String sMethod = this.getClass().getName() + "[checkCPEligibilityHttpClientCall] ";
+		//String sMethod = this.getClass().getName() + "[checkCPEligibilityHttpClientCall] ";
 		String  responseContent = null;
 		WICIDSSCheckCPEligibilityResponse checkCPEligibilityResponse = new WICIDSSCheckCPEligibilityResponse();
         HttpClient httpClient = HttpClientBuilder.create().build();
@@ -147,22 +147,22 @@ public class CheckCPEligibilityServlet extends WICIServlet {
 	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 	    	String jsonInput = mapper.writeValueAsString(checkCPEligibilityDSSRequest);
 	    	
-	    	log.info(sMethod + " The DSS CheckCPEligibility endPoint  === " + conf.getCpEligibilityEndPoint() + " CheckCPEligibility request for dss ::: "+jsonInput);
+	    	log.info("[checkCPEligibilityHttpClientCall] The DSS CheckCPEligibility endPoint  === " + CWE117Fix.encodeCRLF(conf.getCpEligibilityEndPoint()) + " CheckCPEligibility request for dss ::: "+CWE117Fix.encodeCRLF(jsonInput));
 	    	post.setEntity(new StringEntity(jsonInput));
 	    	post.setHeader("Content-type", "application/json");
 	    	HttpResponse response = httpClient.execute(post);
 	    	        
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        checkCPEligibilityResponse = jsonWrapper.deserialize(responseContent, WICIDSSCheckCPEligibilityResponse.class);
 	        if( checkCPEligibilityResponse != null ){
-	        	log.info(sMethod + "checkCPEligibilityResponse Response "+ checkCPEligibilityResponse);
+	        	log.info("[checkCPEligibilityHttpClientCall]checkCPEligibilityResponse Response "+ CWE117Fix.encodeCRLF(checkCPEligibilityResponse.toString()));
 	        }
 	    } catch(Exception e){
-	    	log.warning(sMethod + "::Exception::" + e.getMessage());
+	    	log.warning("[checkCPEligibilityHttpClientCall]::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    } finally {
 	    	httpClient.getConnectionManager().shutdown();
 	    }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.WICIDBHelper;
 import com.ctfs.WICI.Model.HealthCheckRecord;
 import com.ctfs.WICI.Servlet.Model.HealthCheckResponse;
@@ -24,15 +25,11 @@ public class IsServerAliveServlet extends HttpServlet
 	}
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		String sMethod = this.getClass().getName() + "[doGet] ";
-		//log.info(sMethod + "IsServerAliveServlet");
+		
 		handleRequest(response);
 	}
 
 	protected void handleRequest(HttpServletResponse response)throws ServletException, IOException {
-		String sMethod = this.getClass().getName()+ "[IsServerAliveServlet handleRequest] ";
-		//log.info(sMethod);
-
 		String hostName = InetAddress.getLocalHost().getHostName();
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		String status = null;
@@ -71,17 +68,17 @@ public class IsServerAliveServlet extends HttpServlet
 		try {
 			writer = response.getWriter();
 			String responseAsJsonString = gson.create().toJson(appResponse,appResponse.getClass());
-			log.info(sMethod + "::responseAsJsonString for HealthCheck:: "	+ responseAsJsonString);
+			log.info("IsServerAliveServlet[handleRequest]::responseAsJsonString for HealthCheck:: "	+ CWE117Fix.encodeCRLF(responseAsJsonString));
 			writer.append(responseAsJsonString);
 		} catch (Exception e) {
-			log.warning(sMethod+ "::Error occurred during process servlet response::"+ e.getMessage());
+			log.warning("IsServerAliveServlet[handleRequest]::Error occurred during process servlet response::"+ CWE117Fix.encodeCRLF(e.getMessage()));
 		} finally {
 			if (writer != null) {
 				try {
 					writer.flush();
 					writer.close();
 				} catch (Exception e) {
-					log.warning(sMethod	+ "::Error occurred during close 'PrintWriter' stream::"+ e.getMessage());
+					log.warning("IsServerAliveServlet[handleRequest]::Error occurred during close 'PrintWriter' stream::"+ CWE117Fix.encodeCRLF(e.getMessage()));
 				}
 			}
 		}

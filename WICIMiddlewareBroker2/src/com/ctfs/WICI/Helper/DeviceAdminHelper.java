@@ -14,8 +14,7 @@ public class DeviceAdminHelper
 
 	public DeviceAdminHelper(String argPayloadData, ContentType argRequestContentType)
 	{
-		String sMethod = "[DeviceAdminHelper] ";
-		log.info(sMethod + "::Called::");
+		log.info("[DeviceAdminHelper]::Called::");
 
 		payloadHelper = new PayloadHelper(argRequestContentType);
 		payloadHelper.setPayload(new StringBuffer(argPayloadData));
@@ -23,8 +22,8 @@ public class DeviceAdminHelper
 
 	public void processPayload() throws Exception
 	{
-		String sMethod = "[processPayload] ";
-		log.info(sMethod + "::Called::");
+		
+		log.info("[processPayload] ::Called::");
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		String airwatchDFNSearchPrefix = wicidbHelper.getAirwatchDFNSearchPrefix();
@@ -34,7 +33,7 @@ public class DeviceAdminHelper
 
 		if (!payloadHelper.isWICIEvent())
 		{
-			log.info(sMethod + "::No 'WICIEvent' has been detected!");
+			log.info("[processPayload]::No 'WICIEvent' has been detected!");
 			return;
 		}
 
@@ -56,8 +55,7 @@ public class DeviceAdminHelper
 
 	private void validatePayloadHelper()
 	{
-		String sMethod = "[validatePayloadHelper] ";
-		log.info(sMethod + "::Called::");
+		log.info("[validatePayloadHelper] ::Called::");
 
 		if (payloadHelper == null)
 		{

@@ -32,6 +32,7 @@ import com.ctfs.WICI.Model.WICIDSSAddressResponse;
 import com.ctfs.WICI.Model.WICIDSSInstantIssuanceRequest;
 import com.ctfs.WICI.Model.WICIDSSInstantIssuanceResponse;
 import com.ctfs.WICI.Servlet.Model.WICIConfiguration;
+import com.ctfs.WICI.Servlet.Model.WICIResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -61,17 +62,15 @@ public class AddressLookupHelper
 		}
 		addressLookupReturnValue = addressLookupParser.toXML(obj);
 
-		log.log(Level.FINE, "---AddressLookup Request XML:\n" + addressLookupReturnValue);
+		log.log(Level.FINE, "---AddressLookup Request XML:\n" + CWE117Fix.encodeCRLF(addressLookupReturnValue));
 
 		return addressLookupReturnValue;
 	}
 
 	public WebICAddressLookupResponse deserializeXMLToWebICAddressLookupResponseObject(String argXMLString)
 	{
-		String sMethod = this.getClass().getName() + "[deserializeXMLToWebICAddressLookupResponseObject] ";
-		log.info(sMethod);
-
-		log.log(Level.FINE, "---argXMLString = " + argXMLString);
+		
+		log.log(Level.FINE, "---argXMLString = " + CWE117Fix.encodeCRLF(argXMLString != null ? argXMLString : null ));
 
 		WebICAddressLookupResponse deserializedAddressLookupResponseObject = new WebICAddressLookupResponse();
 		XStream xstream = new XStream(new DomDriver());
@@ -87,15 +86,11 @@ public class AddressLookupHelper
 	
 	public  WICIDSSAddressResponse  retriveAddress(WICIDSSAddressInput dssInput) throws Exception{
 		 
-	     String sMethod = this.getClass().getName() + "[retriveAddress] ";
-	     
 		 WICIDSSAddressResponse dssAddressResponse = new WICIDSSAddressResponse();
 	    WICIConfiguration conf = new WICIConfigurationFactory().createDASSEndPointConfiguration();
 	     
-	    log.info(sMethod + "the dss inputRequest    :::" + dssInput );
-	   
-         
-	     log.info(sMethod + " the JksPath "+conf.getJksPath() +  " getJksPassword  "+conf.getJksPassword()  +" jks tls "+ conf.getJksTlsVersion());
+	    log.info("[retriveAddress] the dss inputRequest    :::" + CWE117Fix.encodeCRLF(dssInput != null ? dssInput.toString() : null )); 
+	    log.info("[retriveAddress]  the JksPath "+CWE117Fix.encodeCRLF(conf.getJksPath() != null ? conf.getJksPath(): null ) +  " getJksPassword  "+ CWE117Fix.encodeCRLF(conf.getJksPassword() != null ? conf.getJksPassword() : null)  +" jks tls "+ CWE117Fix.encodeCRLF(conf.getJksTlsVersion() != null ? conf.getJksTlsVersion() : null));
 		   
 	     
          String jksFileName = conf.getJksPath();
@@ -112,7 +107,7 @@ public class AddressLookupHelper
          
          //Setup SSL context. DSS services accept only TLSv1.2
          String tlsVersion = conf.getJksTlsVersion();
-         log.info(sMethod +"TLS version for the connection is -> "+tlsVersion);
+         log.info("TLS version for the connection is -> "+CWE117Fix.encodeCRLF(tlsVersion != null ? tlsVersion: null));
          SSLContext sslContext = SSLContext.getInstance(tlsVersion);
          sslContext.init(null, trustManagers, null);
          SSLContext.setDefault(sslContext);
@@ -129,7 +124,7 @@ public class AddressLookupHelper
 			 String postUrl = conf.getDssEndPoint();
 			 
 			 			 
-			 log.info(sMethod + " The DSS endPoint  ==="+ postUrl );
+			 log.info(" The DSS endPoint  ==="+ CWE117Fix.encodeCRLF(postUrl != null ? postUrl : null));
 			 
 	    	HttpPost     post  = new HttpPost(postUrl);
 	    	ObjectMapper  mapper = new ObjectMapper();
@@ -143,7 +138,7 @@ public class AddressLookupHelper
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
@@ -151,13 +146,13 @@ public class AddressLookupHelper
 	        		WICIDSSAddressResponse.class);
 	        
 	        if( dssAddressResponse != null ){
-	        	log.info(sMethod + "dssAddressResponse "+dssAddressResponse);
+	        	log.info("dssAddressResponse "+ CWE117Fix.encodeCRLF(dssAddressResponse != null ? dssAddressResponse.toString() : null));
 	        	
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -171,7 +166,6 @@ public class AddressLookupHelper
 	
 	public  WICIDSSAddressResponse  retriveAddressHttpClient(WICIDSSAddressInput dssInput, String endPoint) throws Exception{
 		 
-		 String sMethod = this.getClass().getName() + "[retriveAddressHttpClient] ";
 		 WICIDSSAddressResponse dssAddressResp = new WICIDSSAddressResponse();
 	     String responseContent = null;
 	     
@@ -184,7 +178,7 @@ public class AddressLookupHelper
 	    	JsonWrapper jsonWrapper = new JsonWrapper(mapper);
 	    	String jsonInput = mapper.writeValueAsString(dssInput);
 	    	
-	    	log.info(sMethod + " The DSS Address Input  "  +jsonInput);
+	    	log.info(" [retriveAddressHttpClient]  The DSS Address Input  "  + CWE117Fix.encodeCRLF(jsonInput != null ?  jsonInput : null));
 	    	
 	    	
 	    	post.setEntity(new StringEntity(jsonInput));
@@ -194,7 +188,7 @@ public class AddressLookupHelper
 	        int statusCode = response.getStatusLine().getStatusCode();
 	        if (statusCode != 200) 
 	        {    
-	            throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	            throw new RuntimeException("Failed with HTTP error code : " + CWE117Fix.encodeCRLF(String.valueOf(statusCode)));
 	        }
 	        responseContent = EntityUtils.toString(response.getEntity());
 	        
@@ -202,13 +196,13 @@ public class AddressLookupHelper
 	        		WICIDSSAddressResponse.class);
 	        
 	        if( dssAddressResp != null ){
-	        	log.info(sMethod + "address Response "+ dssAddressResp);
+	        	log.info("dssAddressResponse "+ CWE117Fix.encodeCRLF(dssAddressResp != null ? dssAddressResp.toString() : null));
 	        	
 	        }
 	        
 	     }catch(Exception e){
 	    	
-	      log.warning(sMethod + "::Exception::" + e.getMessage());
+	      log.warning("[retriveAddressHttpClient] ::Exception::" + CWE117Fix.encodeCRLF(e.getMessage()));
 	    	
 	    }
 	    finally
@@ -221,30 +215,6 @@ public class AddressLookupHelper
 
 		 
 	 } 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+ 	
 }

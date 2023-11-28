@@ -13,8 +13,7 @@ public class ApplicationConfiguration
 	
 	public synchronized static void initialize(String configFile) throws ConfigurationException
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.initialize()";
-		log.info(sMethod+ " Entry");
+		log.info("ApplicationConfiguration.initialize() Entry");
 	
 		if (!initializationStatus)
 		{
@@ -29,7 +28,7 @@ public class ApplicationConfiguration
 				throw ce;
 			}
 			initializationStatus = true;
-			log.info(sMethod+" Exit");
+			log.info("ApplicationConfiguration.initialize() Exit");
 		}
 	}
 	
@@ -41,33 +40,31 @@ public class ApplicationConfiguration
 	
 	public static void readApplicationConfiguration()
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.readApplicationConfiguration()";
-		log.info(sMethod+ " Entry");
+		log.info("ApplicationConfiguration.readApplicationConfiguration Entry");
 		try
 		{
 			if (! initializationStatus)
 			{
 				String appConfiguration = System.getProperty("application.configuration.location");
 				if (appConfiguration != null)
-					log.info("Configuring application based on settings located in <" + appConfiguration + ">");
+					log.info("Configuring application based on settings located in <" + CWE117Fix.encodeCRLF(appConfiguration) + ">");
 				else
 					throw new ConfigurationException("System property <application.configuration.location> has not been set");
 			
 				initialize(appConfiguration);
-				log.info(sMethod+" Exit");
+				log.info("ApplicationConfiguration.readApplicationConfiguration Exit");
 			}
 		}
 		catch(Exception e)
 		{
-			log.warning("Application Configuration could not be loaded" + " Exception: " + e.getMessage());
+			log.warning("Application Configuration could not be loaded" + " Exception: " + CWE117Fix.encodeCRLF(e.getMessage()));
 			e.printStackTrace();
 		}
 	}
 	
 	public static Map getCategoryKeys(String category) 
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategoryKeys()";
-		log.info(sMethod+ " Entry");
+		log.info("ApplicationConfiguration.getCategoryKeys Entry");
 		Map rc = null;
 		try
 		{
@@ -77,14 +74,13 @@ public class ApplicationConfiguration
 		{
 			e.printStackTrace();
 		}
-		log.info(sMethod+" Exit");
+		log.info("ApplicationConfiguration.getCategoryKeys Exit");
 		return rc;
 	}
 	
 	public static String getCategoryKeyValue(String category, String key)
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategoryKeyValue()";
-		log.info(sMethod+ " Entry");
+		log.info( "ApplicationConfiguration.getCategoryKeyValue Entry");
 		String rc = null;
 		try
 		{
@@ -94,14 +90,13 @@ public class ApplicationConfiguration
 		{
 			e.printStackTrace();
 		}
-		log.info(sMethod+" Exit");
+		log.info("ApplicationConfiguration.getCategoryKeyValue Exit");
 		return rc;
 	}
 	
 	public static List getCategorys()
 	{
-		String sMethod="com.ctfs.WICI.Helper.ApplicationConfiguration.getCategorys()";
-		log.info(sMethod+ " Entry");
+		log.info("ApplicationConfiguration.getCategorys Entry");
 		List rc = null;
 		try
 		{
@@ -111,7 +106,7 @@ public class ApplicationConfiguration
 		{
 			e.printStackTrace();
 		}
-		log.info(sMethod+" Exit");
+		log.info("ApplicationConfiguration.getCategorys Exit");
 		return rc;
 	}
 }

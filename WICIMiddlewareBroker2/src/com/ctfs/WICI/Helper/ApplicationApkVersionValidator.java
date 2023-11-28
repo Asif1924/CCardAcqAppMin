@@ -15,8 +15,7 @@ public class ApplicationApkVersionValidator
 
 	public void validateApkVersion(String employerID, String agentID, String userLocation, String apkVersion, AuthfieldValue argSerials) throws SQLException, IllegalAppVersionException
 	{
-		String sMethod = this.getClass().getName() + "[validateApkVersion] ";
-		log.info(sMethod);
+		log.info("ApplicationApkVersionValidator[validateApkVersion]");
 
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		IConfigurationTableEntity configurationTableEntity = wicidbHelper.getApprovedAPKVersion(apkVersion);
@@ -31,17 +30,15 @@ public class ApplicationApkVersionValidator
 
 	private boolean validateConfigurationTableEntity(IConfigurationTableEntity configurationTableEntity)
 	{
-		String sMethod = this.getClass().getName() + "[validateConfigurationTableEntity] ";
-		log.info(sMethod);
+		log.info("ApplicationApkVersionValidator[validateConfigurationTableEntity]");
 
 		return configurationTableEntity != null && validateStringParameter(configurationTableEntity.getConfigName()) && validateStringParameter(configurationTableEntity.getConfigValue());
 	}
 
 	private boolean validateStringParameter(String value)
 	{
-		String sMethod = this.getClass().getName() + "[validateStringParameter] ";
-		log.info(sMethod);
-
+		
+		log.info("[validateStringParameter] ");
 		return value != null && !value.isEmpty();
 	}
 }

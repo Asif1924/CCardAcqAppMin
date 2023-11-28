@@ -32,7 +32,7 @@ public class WICIPortalProxyFactory
 		catch (MalformedURLException potentialProblem)
 		{
 
-			log.warning(sMethod + "---exception in invocation = " + potentialProblem.getMessage());
+			log.warning(sMethod + "---exception in invocation = " + CWE117Fix.encodeCRLF(potentialProblem.getMessage()));
 
 			potentialProblem.printStackTrace();
 		}

@@ -46,14 +46,12 @@ ensureNamespaceExists();
          */
         scan: function () {
             var deferred = WICI.cordovaExecDeferred('BarcodeScanner', 'scan', [types, options, licenseAndroid]);
-            deferred.fail(function (msg) {
-                console.log(LOG_TAG + 'Barcode scan fail: ' + msg);
+            deferred.fail(function () {
+                
             });
             deferred.done(function (res) {
                 if (res.cancelled) {
                     console.log(LOG_TAG + 'Cancelled');
-                } else {
-                    console.log(LOG_TAG + 'Done. result: ' + JSON.stringify(res));
                 }
             });
             return deferred;

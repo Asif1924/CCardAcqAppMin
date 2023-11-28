@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.ctfs.WICI.Helper.CWE117Fix;
 import com.ctfs.WICI.Helper.LoginInvocationHelper;
 import com.ctfs.WICI.Helper.WICIConfigurationFactory;
 import com.ctfs.WICI.Helper.WICIDBHelper;
@@ -20,7 +21,6 @@ import com.ctfs.WICI.Servlet.Model.WICIResponse;
 public class SaveAttestationServlet extends WICIServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String MODEL_LOGIN_SCREEN = "loginScreen";
 
 	static Logger log = Logger.getLogger(SaveAttestationServlet.class.getName());
 
@@ -30,9 +30,7 @@ public class SaveAttestationServlet extends WICIServlet {
 
 	protected void handleRequest(WICIServletMediator requestMediator) throws ServletException, IOException {
 		
-		String sMethod = this.getClass().getName() + "[doPost] ";
-		log.info(sMethod);
-
+		log.info("SaveAttestationServlet[doPost]");
 		saveAttestationData(requestMediator);
 
 	}
@@ -40,7 +38,7 @@ public class SaveAttestationServlet extends WICIServlet {
 	public void saveAttestationData(WICIServletMediator requestMediator)
 	{
 		
-		String sMethod = this.getClass().getName() + "[saveAttestationData] ";
+		
 		String storeLocationNumber = requestMediator.searchElementInsidePostRequestBody("storeLocationNumber") != null ? requestMediator.searchElementInsidePostRequestBody("storeLocationNumber") : EMPTY_STRING;
 		String firstName = requestMediator.searchElementInsidePostRequestBody("firstName") != null ? requestMediator.searchElementInsidePostRequestBody("firstName") : EMPTY_STRING;
 		String lastName = requestMediator.searchElementInsidePostRequestBody("lastName") != null ? requestMediator.searchElementInsidePostRequestBody("lastName") : EMPTY_STRING;
@@ -50,7 +48,7 @@ public class SaveAttestationServlet extends WICIServlet {
 		//WICI-154 --start
 		String retailNetwork = requestMediator.searchElementInsidePostRequestBody("retailNetwork") != null ? requestMediator.searchElementInsidePostRequestBody("retailNetwork") : EMPTY_STRING;
 		//WICI-154 --end
-		log.info(sMethod + "TAB Request Params  " + "storeLocationNumber === "+storeLocationNumber+ "  firstName === "+firstName +"  lastName === "+lastName+ " employeeNumber  "+employeeNumber +" signature  "+signature+" trainingContentVersion  "+trainingContentVersion+" retailNetwork  "+retailNetwork);
+		log.info("SaveAttestationServlet[saveAttestationData] TAB Request Params  " + "storeLocationNumber === "+CWE117Fix.encodeCRLF(storeLocationNumber)+ "  firstName === "+CWE117Fix.encodeCRLF(firstName) +"  lastName === "+CWE117Fix.encodeCRLF(lastName)+ " employeeNumber  "+CWE117Fix.encodeCRLF(employeeNumber) +" signature  "+CWE117Fix.encodeCRLF(signature)+" trainingContentVersion  "+CWE117Fix.encodeCRLF(trainingContentVersion)+" retailNetwork  "+CWE117Fix.encodeCRLF(retailNetwork));
 		WICIDBHelper wicidbHelper = new WICIDBHelper();
 		WICIResponse appResponse = new WICIResponse();
 		
@@ -60,7 +58,7 @@ public class SaveAttestationServlet extends WICIServlet {
 			
 		byte[] decodedBase64Image = Base64.decodeBase64(signature);
 		
-		log.info(sMethod + "AttestationSignature = "+decodedBase64Image);
+		log.info("SaveAttestationServlet[saveAttestationData]  AttestationSignature  "+CWE117Fix.encodeCRLF(String.valueOf(decodedBase64Image)));
 		
 		//WICI-154 --start
 		String derivedUserID = employeeNumber;
@@ -68,22 +66,22 @@ public class SaveAttestationServlet extends WICIServlet {
 		LoginInvocationHelper loginInvocationHelper = new LoginInvocationHelper();
 		loginResponse = loginInvocationHelper.checkLocation(retailNetwork, storeLocationNumber, derivedUserID);
 		
-		log.info(sMethod + ":: retailNetwork :: " + retailNetwork);
+		log.info("SaveAttestationServlet[saveAttestationData] :: retailNetwork :: " + CWE117Fix.encodeCRLF(retailNetwork));
 		
 		String outletTypeId = loginResponse.getCheckLocation().getOutletName();
-		log.info(sMethod + " outletTypeId id: "+ outletTypeId);
+		log.info("SaveAttestationServlet[saveAttestationData]  outletTypeId id: "+ CWE117Fix.encodeCRLF(outletTypeId));
 		//Business store number
 		String businessStoreNumber = loginResponse.getCheckLocation().getBusinessStoreNumber();
-		log.info(sMethod + " businessStoreNumber "+ businessStoreNumber);
+		log.info("SaveAttestationServlet[saveAttestationData]  businessStoreNumber "+CWE117Fix.encodeCRLF( businessStoreNumber));
 		
 		if (businessStoreNumber == null || businessStoreNumber.isEmpty()) {
 			// search based on the store location number
 			businessStoreNumber = loginResponse.getCheckLocation().getOutletNumber();
-			log.info(sMethod + " businessStoreNumber "+ loginResponse.getCheckLocation().getOutletNumber());
+			log.info(" businessStoreNumber "+ CWE117Fix.encodeCRLF(loginResponse.getCheckLocation().getOutletNumber()));
 		}
 		//CT Sale outlet number
 		String ctSaleOutletNumber = loginResponse.getCheckLocation().getOutletNumber();
-		log.info(sMethod + " ctSaleOutletNumber "+ ctSaleOutletNumber);
+		log.info(" ctSaleOutletNumber "+ CWE117Fix.encodeCRLF(ctSaleOutletNumber));
 		
 		if(!ctSaleOutletNumber.isEmpty() && ctSaleOutletNumber != null){
 			storeLocationNumber = ctSaleOutletNumber;
@@ -107,7 +105,7 @@ public class SaveAttestationServlet extends WICIServlet {
 	       
            String userName = storeLocationNumber.trim()+firstName.trim()+lastName.trim();
 	       
-	       log.info(sMethod + " saveAttestationUserName "+ userName);
+	       log.info("SaveAttestationServlet[saveAttestationData] :: saveAttestationUserName "+ CWE117Fix.encodeCRLF(userName));
 	       
 	       
 	       TrainingAttestationResponse  attetationResponse =   wicidbHelper.getTrainingAttestationData(userName.toUpperCase());
@@ -126,8 +124,8 @@ public class SaveAttestationServlet extends WICIServlet {
 	       }
 	       
 		} catch (Exception e) {
-			appResponse.setMsg("Failed saving AttestationTrainingData into Database"); 
-			log.warning(sMethod + " Exception: " + e.getMessage());
+			appResponse.setMsg("Failed save AttestationTrainingData into Database"); 
+			log.warning("SaveAttestationServlet[saveAttestationData]  Exception: " + e.getMessage());
 			appResponse.setMsg(e.getMessage());
 			e.printStackTrace();
 		}
