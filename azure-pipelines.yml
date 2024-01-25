@@ -6,16 +6,20 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+jobs:
+- job: Build
 
-steps:
-- task: Ant@1
-  inputs:
-    workingDirectory: ''
-    buildFile: 'build.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
+  pool:
+    vmImage: 'AzureWindowsAndroidVM'
+
+  steps:
+  - task: Ant@1
+    inputs: 
+      workingDirectory: ''
+      buildFile: './wici_brb/WICIWebApp3/build.xml'
+      targets: 'build.all.no.tests.copy'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
