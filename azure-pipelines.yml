@@ -10,7 +10,7 @@ jobs:
 - job: Build
 
   pool:
-    vmImage: 'AzureWindowsAndroidVM'
+    vmImage: 'WICIBuildVM'
 
   steps:
   - task: Ant@1
