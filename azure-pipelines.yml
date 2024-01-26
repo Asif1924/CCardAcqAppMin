@@ -9,8 +9,10 @@ trigger:
 jobs:
 - job: Build
 
-  pool: 'SelfHostedPool'
-    #vmImage: 'WICIBuildVM'
+  pool: 
+    name: SelfHostedPool
+    demands:
+      - agent.name -equals WICIBuildVM
 
   steps:
   - task: Ant@1
