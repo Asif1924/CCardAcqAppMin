@@ -11,8 +11,8 @@ jobs:
 
   pool: 
     name: SelfHostedPool
-    demands:
-      - agent.name -equals WICIBuildVM
+    demands: 
+      - Agent.Name -equals WICIBuildVM
 
   steps:
   - task: Ant@1
