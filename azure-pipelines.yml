@@ -9,7 +9,7 @@ trigger:
 jobs:
 - job: Build
 
-  pool:
+  pool: 'SelfHostedPool'
     vmImage: 'WICIBuildVM'
 
   steps:
