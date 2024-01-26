@@ -10,7 +10,7 @@ jobs:
 - job: Build
 
   pool: 'SelfHostedPool'
-    vmImage: 'WICIBuildVM'
+    #vmImage: 'WICIBuildVM'
 
   steps:
   - task: Ant@1
