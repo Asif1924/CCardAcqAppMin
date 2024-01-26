@@ -15,6 +15,10 @@ jobs:
       - Agent.Name -equals WICIBuildVM
 
   steps:
+  
+  - script: dir
+    workingDirectory: $(Agent.BuildDirectory)
+
   - task: Ant@1
     inputs: 
       workingDirectory: ''
