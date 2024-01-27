@@ -9,6 +9,7 @@ trigger:
 variables:
   antSDKDIR: $(SDKDIR)
   antWEBAPP_ARTIFACT_DEBUG: $(Build.BinariesDirectory)\$(WEBAPPNAME)\$(WEBAPP_ARTIFACT_DEBUG)
+  antWEBAPP_ARTIFACT_RELEASE: $(Build.BinariesDirectory)\$(WEBAPPNAME)\$(WEBAPP_ARTIFACT_RELEASE)
   antMOBILE_ARTIFACT_DEBUG: $(MOBILE_ARTIFACT_DEBUG)
 
 jobs:
@@ -26,6 +27,7 @@ jobs:
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
       echo 'antWEBAPP_ARTIFACT_DEBUG=$(antWEBAPP_ARTIFACT_DEBUG)'
+      echo 'antWEBAPP_ARTIFACT_RELEASE=$(antWEBAPP_ARTIFACT_RELEASE)'
       echo 'SDKDIR=$(SDKDIR)'
     displayName: 'Injected Vars'
 
@@ -39,8 +41,10 @@ jobs:
   - task: Ant@1
     displayName: Build WICIWebApp3
     inputs: 
-      options: '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG)'
-      workingDirectory: ''
+      options: |
+        '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG)'
+        '-DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
+      
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
       targets: 'build.all.no.tests.copy'
       javaHomeOption: 'JDKVersion'
