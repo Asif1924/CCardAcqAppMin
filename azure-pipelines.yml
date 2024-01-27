@@ -20,7 +20,7 @@ jobs:
       - Agent.Name -equals WICIBuildVM
 
   steps:
-  - script: echo $(myVariable)
+  - script: echo '$(Agent.BuildDirectory)'
     displayName: 'Injected Vars'
 
   - script: set
