@@ -11,10 +11,6 @@ variables:
   antSDKDIR: $(SDKDIR)
 
 jobs:
-- job: Setup
-  displayName: 'Enviroment Setup'
-  steps:
-  - script: echo $(Agent.BuildDirectory)
 
 - job: Build
 
@@ -24,8 +20,11 @@ jobs:
       - Agent.Name -equals WICIBuildVM
 
   steps:
+  - script: echo $(myVariable)
+    displayName: 'Injected Vars'
+
   - script: set
-    displayName: Show Environment
+    displayName: Show Agent Environment
     
   - script: dir
     workingDirectory: $(Agent.BuildDirectory)
