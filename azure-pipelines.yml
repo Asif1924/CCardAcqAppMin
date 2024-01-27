@@ -8,7 +8,7 @@ trigger:
 
 
 variables:
-  antSDKDIR: 'F:/DevTools/WICI_Build_Env/AndroidSDK'
+  antSDKDIR: $(SDKDIR)
 
 jobs:
 - job: Build
