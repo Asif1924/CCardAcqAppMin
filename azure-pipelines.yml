@@ -19,8 +19,10 @@ jobs:
     demands: 
       - Agent.Name -equals WICIBuildVM
 
-  steps:
-  - script: echo '$(Agent.BuildDirectory)'
+  steps: 
+  - script: |
+      echo '$(Agent.BuildDirectory)'
+      echo '$(SDKDIR)'
     displayName: 'Injected Vars'
 
   - script: set
