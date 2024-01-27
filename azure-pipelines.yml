@@ -15,7 +15,10 @@ jobs:
       - Agent.Name -equals WICIBuildVM
 
   steps:
-  
+  - task: BatchScript@1
+  inputs:
+    filename: 'F:/DevTools/setWICIEnv.cmd'
+
   - script: dir
     workingDirectory: $(Agent.BuildDirectory)
     displayName: List contents of a folder
