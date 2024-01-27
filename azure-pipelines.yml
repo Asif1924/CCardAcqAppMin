@@ -11,6 +11,11 @@ variables:
   antSDKDIR: $(SDKDIR)
 
 jobs:
+- job: Setup
+  displayName: 'Enviroment Setup'
+  steps:
+  - script: echo $(Agent.BuildDirectory)
+
 - job: Build
 
   pool: 
