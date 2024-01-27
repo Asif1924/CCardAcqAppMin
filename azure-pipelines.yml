@@ -39,6 +39,7 @@ jobs:
   - task: Ant@1
     displayName: Build WICIWebApp3
     inputs: 
+      options: '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG)'
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
       targets: 'build.all.no.tests.copy'
