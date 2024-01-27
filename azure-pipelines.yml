@@ -9,6 +9,9 @@ trigger:
 variables:
   antSDKDIR: $(SDKDIR)
   antKeyStore: $(RELEASEKEYSTOREDIRNAME)
+  antKeyStoreAlias: $(WICI_KEYSTORE_ALIAS)
+  antKeyStorePW: $(WICI_KEYSTORE_PW)
+  antKeyStoreAliasPW: $(WICI_KEYSTOREALIAS_PW)
   antWEBAPP_ARTIFACT_DEBUG: $(Build.BinariesDirectory)\$(WEBAPPNAME)\$(WEBAPP_ARTIFACT_DEBUG)
   antWEBAPP_ARTIFACT_RELEASE: $(Build.BinariesDirectory)\$(WEBAPPNAME)\$(WEBAPP_ARTIFACT_RELEASE)
   antMOBILE_ARTIFACT_DEBUG: $(MOBILE_ARTIFACT_DEBUG)
@@ -56,7 +59,7 @@ jobs:
   - task: Ant@1
     displayName: Build WICIMobile3
     inputs: 
-      options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
+      options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DreleaseKeystoreAlias=$(antKeyStoreAlias) -DreleaseKeystorePassword=$(antKeyStorePW) -DreleaseKeystoreAliasPassword=$(antKeyStoreAliasPW) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
       targets: 'jenkins.build.full.release'
