@@ -41,10 +41,8 @@ jobs:
   - task: Ant@1
     displayName: Build WICIWebApp3
     inputs: 
-      options: |
-        '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG)'
-        '-DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
-      
+      options: '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
+      workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
       targets: 'build.all.no.tests.copy'
       javaHomeOption: 'JDKVersion'
