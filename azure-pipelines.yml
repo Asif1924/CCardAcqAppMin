@@ -21,8 +21,8 @@ jobs:
 
   steps: 
   - script: |
-      echo '$(Agent.BuildDirectory)'
-      echo '$(SDKDIR)'
+      echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
+      echo 'SDKDIR=$(SDKDIR)'
     displayName: 'Injected Vars'
 
   - script: set
