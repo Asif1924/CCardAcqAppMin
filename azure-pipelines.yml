@@ -41,7 +41,7 @@ jobs:
   - task: Ant@1
     displayName: Build WICIMobile3
     inputs: 
-      options: '-DpropertyName=$(sdk.dir)'
+      options: '-DpropertyName=$(antSDKDIR)'
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
       targets: 'jenkins.build.full.release'
