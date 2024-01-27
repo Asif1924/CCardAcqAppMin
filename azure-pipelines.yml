@@ -18,6 +18,7 @@ jobs:
   
   - script: dir
     workingDirectory: $(Agent.BuildDirectory)
+    displayName: List contents of a folder
 
   - task: Ant@1
     inputs: 
