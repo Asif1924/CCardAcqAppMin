@@ -6,7 +6,6 @@
 trigger:
 - master
 
-
 variables:
   antSDKDIR: $(SDKDIR)
 
@@ -21,7 +20,7 @@ jobs:
 
   steps: 
   - script: |
-      echo 'Agent.BuildSourcesDirectory=$(Agent.BuildSourcesDirectory)'
+      echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
       echo 'SDKDIR=$(SDKDIR)'
     displayName: 'Injected Vars'
