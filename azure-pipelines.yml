@@ -23,6 +23,7 @@ jobs:
     displayName: List contents of a folder
 
   - task: Ant@1
+    displayName: Build WICIWebApp3
     inputs: 
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
@@ -34,6 +35,7 @@ jobs:
       testResultsFiles: '**/TEST-*.xml'
       
   - task: Ant@1
+    displayName: Build WICIMobile3
     inputs: 
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
