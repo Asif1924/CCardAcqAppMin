@@ -8,7 +8,7 @@ trigger:
 
 variables:
   antSDKDIR: $(SDKDIR)
-  antWEBAPP_ARTIFACT_DEBUG: $(WEBAPP_ARTIFACT_DEBUG)
+  antWEBAPP_ARTIFACT_DEBUG: $(Build.BinariesDirectory)\$(WEBAPP_ARTIFACT_DEBUG)
   antMOBILE_ARTIFACT_DEBUG: $(MOBILE_ARTIFACT_DEBUG)
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
       echo 'Build.BinariesDirectory=$(Build.BinariesDirectory)'
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
+      echo 'antWEBAPP_ARTIFACT_DEBUG=$(antWEBAPP_ARTIFACT_DEBUG)'
       echo 'SDKDIR=$(SDKDIR)'
     displayName: 'Injected Vars'
 
