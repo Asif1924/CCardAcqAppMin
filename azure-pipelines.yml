@@ -8,7 +8,7 @@ trigger:
 
 variables:
   antSDKDIR: $(SDKDIR)
-  antWEBAPP_ARTIFACT_DEBUG: $(Build.BinariesDirectory)\$($(WEBAPPNAME))\$(WEBAPP_ARTIFACT_DEBUG)
+  antWEBAPP_ARTIFACT_DEBUG: $(Build.BinariesDirectory)\$(WEBAPPNAME)\$(WEBAPP_ARTIFACT_DEBUG)
   antMOBILE_ARTIFACT_DEBUG: $(MOBILE_ARTIFACT_DEBUG)
 
 jobs:
