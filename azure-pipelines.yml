@@ -32,3 +32,14 @@ jobs:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'
+      
+  - task: Ant@1
+    inputs: 
+      workingDirectory: ''
+      buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
+      targets: 'jenkins.build.full.release'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
