@@ -20,6 +20,7 @@ jobs:
 
   steps: 
   - script: |
+      echo 'Build.BinariesDirectory=$(Build.BinariesDirectory)'
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
       echo 'SDKDIR=$(SDKDIR)'
