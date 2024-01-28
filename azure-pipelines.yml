@@ -54,7 +54,8 @@ jobs:
     inputs: 
       options: '-DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE)'
       workingDirectory: ''
-      buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
+      #buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIWebApp3/build.xml'
+      buildFile: $(antWEBAPP_BUILDXML)
       targets: 'build.all.no.tests.copy'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
@@ -67,7 +68,8 @@ jobs:
     inputs: 
       options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DreleaseKeystoreAlias=$(antKeyStoreAlias) -DreleaseKeystorePassword=$(antKeyStorePW) -DreleaseKeystoreAliasPassword=$(antKeyStoreAliasPW) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE) -DmobileArtifactDebugDir=$(antMOBILE_ARTIFACT_DEBUG) -DmobileArtifactReleaseDir=$(antMOBILE_ARTIFACT_DEBUG)'
       workingDirectory: ''
-      buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
+      #buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
+      buildFile: $(antMOBILE_BUILDXML)
       targets: 'jenkins.build.full.release.copy'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
