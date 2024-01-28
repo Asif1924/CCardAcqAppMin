@@ -79,5 +79,5 @@ jobs:
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'
-      artifact: '$(antMOBILE_ARTIFACT)\*.apk'
+      artifact: '$(antMOBILE_ARTIFACT)'
       publishLocation: 'pipeline'    
