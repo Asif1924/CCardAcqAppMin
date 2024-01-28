@@ -20,7 +20,7 @@ variables:
   antMOBILE_BUILDXML: $(Build.Repository.LocalPath)\$(MOBILEAPPNAME)\build.xml
 jobs:
 
-- job: Build
+- job: Build APK
 
   pool: 
     name: SelfHostedPool
