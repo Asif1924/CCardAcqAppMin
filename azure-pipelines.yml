@@ -33,7 +33,7 @@ jobs:
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
       echo 'antWEBAPP_BUILDXML=$(antWEBAPP_BUILDXML)'
-      echo 'antMOBILEAPP_BUILDXML=$(antMOBILEAPP_BUILDXML)'
+      echo 'antMOBILE_BUILDXML=$(antMOBILE_BUILDXML)'
       echo 'antWEBAPP_ARTIFACT_DEBUG=$(antWEBAPP_ARTIFACT_DEBUG)'
       echo 'antWEBAPP_ARTIFACT_RELEASE=$(antWEBAPP_ARTIFACT_RELEASE)'
       echo 'SDKDIR=$(SDKDIR)'
