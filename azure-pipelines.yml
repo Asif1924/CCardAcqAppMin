@@ -65,7 +65,7 @@ jobs:
       options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DreleaseKeystoreAlias=$(antKeyStoreAlias) -DreleaseKeystorePassword=$(antKeyStorePW) -DreleaseKeystoreAliasPassword=$(antKeyStoreAliasPW) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE) -DmobileArtifactDebug=$(antMOBILE_ARTIFACT_RELEASE) -DmobileArtifactDebug=$(antMOBILE_ARTIFACT_DEBUG)'
       workingDirectory: ''
       buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
-      targets: 'jenkins.build.full.release'
+      targets: 'jenkins.build.full.release.copy'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
