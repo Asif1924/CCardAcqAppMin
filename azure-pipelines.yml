@@ -35,6 +35,8 @@ jobs:
       echo 'antWEBAPP_ARTIFACT_RELEASE=$(antWEBAPP_ARTIFACT_RELEASE)'
       echo 'SDKDIR=$(SDKDIR)'
       echo 'RELEASEKEYSTOREDIRNAME=$(RELEASEKEYSTOREDIRNAME)'
+      echo 'antMOBILE_ARTIFACT_DEBUG=$(antMOBILE_ARTIFACT_DEBUG)'
+      echo 'antMOBILE_ARTIFACT_RELEASE=$(antMOBILE_ARTIFACT_RELEASE)'
     displayName: 'Injected Vars'
 
   - script: set
