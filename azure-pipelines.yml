@@ -1,4 +1,5 @@
 # Ant
+
 # Build your Java projects and run tests with Apache Ant.
 # Add steps that save build artifacts and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -75,4 +76,8 @@ jobs:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       
-      
+  - task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: '$(antMOBILE_ARTIFACT)/**/*.apk'
+    publishLocation: 'pipeline'    
