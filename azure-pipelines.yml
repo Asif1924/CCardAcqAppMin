@@ -77,7 +77,8 @@ jobs:
       jdkArchitectureOption: 'x64'
       
   - task: PublishPipelineArtifact@1
+    displayName: APK Publish
     inputs:
       targetPath: '$(antMOBILE_ARTIFACT)'
-      artifact: '$(antMOBILE_ARTIFACT)/*.apk'      
+      artifact: '$(antMOBILE_ARTIFACT)/*.apk'
       #publishLocation: 'pipeline'    
