@@ -85,6 +85,6 @@ jobs:
   #     #publishLocation: 'pipeline'    
   - task: PublishBuildArtifacts@1
     inputs:
-      #PathtoPublish: '$(antMOBILE_ARTIFACT)'
+      PathtoPublish: '$(Build.SourceDirectory)'
       ArtifactName: 'WICIMobile3'
       publishLocation: 'Container'
