@@ -68,7 +68,7 @@ jobs:
   - task: Ant@1
     displayName: Build WICIMobile3
     inputs: 
-      options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DreleaseKeystoreAlias=$(antKeyStoreAlias) -DreleaseKeystorePassword=$(antKeyStorePW) -DreleaseKeystoreAliasPassword=$(antKeyStoreAliasPW) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE) -DmobileArtifactDebugDir=$(antMOBILE_ARTIFACT_DEBUG) -DmobileArtifactReleaseDir=$(antMOBILE_ARTIFACT_DEBUG)'
+      options: '-DsdkDir=$(antSDKDIR) -DreleaseKeystoreDir=$(antKeyStore) -DreleaseKeystoreAlias=$(antKeyStoreAlias) -DreleaseKeystorePassword=$(antKeyStorePW) -DreleaseKeystoreAliasPassword=$(antKeyStoreAliasPW) -DwebAppArtifactDebugDir=$(antWEBAPP_ARTIFACT_DEBUG) -DwebAppArtifactReleaseDir=$(antWEBAPP_ARTIFACT_RELEASE) -DmobileArtifactDebugDir=$(antMOBILE_ARTIFACT_DEBUG) -DmobileArtifactReleaseDir=$(antMOBILE_ARTIFACT_DEBUG) -DazureSourceDir=$(Build.SourcesDirectory)'
       workingDirectory: ''
       #buildFile: 'F:/DevTools/AzureAgent/vsts-agent-win-x64-3.232.3/_work/1/s/WICIMobile3/build.xml'
       buildFile: $(antMOBILE_BUILDXML)
@@ -85,6 +85,6 @@ jobs:
   #     #publishLocation: 'pipeline'    
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(antMOBILE_ARTIFACT)'
+      #PathtoPublish: '$(antMOBILE_ARTIFACT)'
       ArtifactName: 'WICIMobile3'
       publishLocation: 'Container'
