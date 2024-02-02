@@ -80,6 +80,6 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: APK Publish
     inputs:
-      targetPath: $(antMOBILE_ARTIFACT)
+      targetPath: '$(antMOBILE_ARTIFACT)'
       artifact: 'WICIMobile3.apk'
       #publishLocation: 'pipeline'    
