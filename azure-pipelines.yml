@@ -30,6 +30,7 @@ jobs:
 
   steps: 
   - script: |
+      echo 'Build.BuildNumber=$(Build.BuildNumber)'
       echo 'Pipeline.Workspace=$(Pipeline.Workspace)'
       echo 'Build.BinariesDirectory=$(Build.BinariesDirectory)'
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
