@@ -30,10 +30,13 @@ jobs:
 
   steps: 
   - script: |
+      echo 'Build.DefinitionName=$(Build.DefinitionName)'
+      echo 'Build.BuildId=$(Build.BuildId)'
       echo 'Build.BuildNumber=$(Build.BuildNumber)'
       echo 'Pipeline.Workspace=$(Pipeline.Workspace)'
       echo 'Build.BinariesDirectory=$(Build.BinariesDirectory)'
       echo 'Build.SourcesDirectory=$(Build.SourcesDirectory)'
+      echo 'Build.BinariesDirectory=$(Build.BinariesDirectory)'
       echo 'Agent.BuildDirectory=$(Agent.BuildDirectory)'
       echo 'antWEBAPP_BUILDXML=$(antWEBAPP_BUILDXML)'
       echo 'antMOBILE_BUILDXML=$(antMOBILE_BUILDXML)'
