@@ -24,7 +24,7 @@ jobs:
 - job: BuildAPK
 
   pool: 
-    name: SelfHostedPool
+    name: WICI Agents
     demands: 
       - Agent.Name -equals WICIBuildVM
 
