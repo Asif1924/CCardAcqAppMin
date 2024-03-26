@@ -1,0 +1,116 @@
+/*================== iPad mini in portrait ===================*/
+
+@media only screen
+  and (device-width: 768px)
+  and (orientation: portrait)
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+  #WebAppMainPage{
+    .wrapper{
+      padding-top: 20px !important;
+    }
+    #AppNavigatorScreen .header-container{
+      height: 120px;
+    }
+
+    #TopNavigation #openSideNav{
+      top: 36px;
+    }
+    #side-nav-body{
+      padding-top: 20px;
+    }
+    #IncomeScreen{
+      .expanded{
+        input[type=checkbox]:not(old) + label, input[type=radio]:not(old) + label{
+          line-height: 2.3em;
+        }
+        input[type=radio]:not(old) + label > span{
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+        input[type=radio]:not(old):checked + label > span > span{
+          width: 1.1rem;
+          height: 1.1rem;
+        }
+      }
+    }
+    #LoanAmountScreen {
+      .Zebra_DatePicker{
+        margin-left: -40%;
+      }
+      .bottom-action{
+        margin-top: 10px;
+      }
+    }
+    #LoanCalculationScreen{
+      img {
+        margin-bottom: -80px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+      }
+      .tooltip.max-width.relative.bottom{
+        position: absolute;
+        top: 405px;
+        left: 75px;
+        width: 292px;
+      }
+      .tooltip.bottom:before{
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 15px solid #5cb527;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        position: absolute;
+        top: 20px;
+        left: 292px;
+      }
+    }
+    #SwipeScreen, #IncreaseSwipeScreen{
+      h3{
+        font-size: 1.45rem;
+      }
+      .col-1-2{
+        margin-top: 0%;
+        width: 60%;
+      }
+      .col-1-2.right{
+        width: 40%;
+        img{
+          margin-top: -17px;
+          margin-bottom: 115px;
+        }
+      }
+      table{
+        font-size: 1.1rem;
+        th, td{
+          padding: 5px;
+        }
+      }
+      .radio-button-wrapper{
+        padding: 9px 0px;
+      }
+    }
+    #VerifyIdentityScreen{
+      ol.id_list {
+        margin-bottom: -10px;
+      }
+      .user-information {
+        margin-bottom: 0px;
+      }
+      .storeManager {
+        margin-bottom: -15px;
+      }
+    }
+    #DocusignScreen{
+      .status{
+        margin-bottom: -50px;
+      }
+      svg {
+        margin-top: -160px;
+      }
+    }
+  }
+}

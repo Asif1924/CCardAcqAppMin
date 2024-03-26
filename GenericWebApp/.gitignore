@@ -1,0 +1,5 @@
+reports
+.svn
+web_artifacts
+/build/
+/local.properties
