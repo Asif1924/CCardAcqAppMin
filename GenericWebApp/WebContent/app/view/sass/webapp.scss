@@ -1,3 +1,18 @@
 .customerLogo { display: none; }
 @import "customers/_partner_name";
 
+		/* Custom styles for login form */
+		.login-form {
+		  max-width: 350px;
+		  margin: 0 auto;
+		  padding: 30px;
+		  border: 1px solid #ccc;
+		  border-radius: 5px;
+		  background-color: #f9f9f9;
+		}
+		.login-title {
+		  font-size: 24px;
+		  font-weight: bold;
+		  text-align: center;
+		  margin-bottom: 30px;
+		}
