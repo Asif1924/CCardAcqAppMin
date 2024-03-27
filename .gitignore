@@ -13,3 +13,5 @@ WICIMobile3/.project
 APIAutomation/.settings/org.eclipse.jdt.core.prefs
 APIAutomation/.classpath
 *.prefs
+GenericWebApp/conf/compass/.sass-cache/
+WICIMobile3/bin/
