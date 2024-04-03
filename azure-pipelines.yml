@@ -67,7 +67,7 @@ jobs:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
+      #testResultsFiles: '**/TEST-*.xml'
       
   - task: Ant@1
     displayName: Build WICIMobile3
