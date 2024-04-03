@@ -358,8 +358,8 @@ load:
             GENERICWEBAPP.middlewareName        = "${middleware.name}";
             GENERICWEBAPP.allowedCorsDomains    = "${allowed.cors.domains}";
             GENERICWEBAPP.picsQuality			= "${pics.quality}";
-            GENERICWEBAPP.desktopExperience		=  ${enable.desktop.experience.mode};
-            GENERICWEBAPP.localizationTesting	=  ${localization.testing};            
+            GENERICWEBAPP.desktopExperience		= "${enable.desktop.experience.mode}";
+            GENERICWEBAPP.localizationTesting	= "${localization.testing}";            
             GENERICWEBAPP.partner				= "${partner}";
         	GENERICWEBAPP.platform				= "${build.platform}";
         	GENERICWEBAPP.testharnessmode		= ${test.harness.mode};
