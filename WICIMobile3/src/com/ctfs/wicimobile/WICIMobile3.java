@@ -21,16 +21,7 @@ package com.ctfs.wicimobile;
 
 import org.apache.cordova.CordovaActivity;
 
-import com.ctfs.wicimobile.plugins.AppLanguagePlugin;
-import com.ctfs.wicimobile.util.PrinterManager;
-import com.ctfs.wicimobile.util.WICIAppSettingsStorageManager;
-import com.ctfs.wicimobile.util.WICIDeviceInfoHelper;
-import com.newrelic.agent.android.NewRelic;
-
-import android.os.Bundle;
-import android.util.Log;
 import android.Manifest;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -38,8 +29,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class WICIMobile3 extends CordovaActivity
-{
+{	
 	private static final String LOG_TAG = "WICIMobile3";
+	private static final String LOGPREFIX = "===========================";	
 	private static final int APP_PERMISSION_REQUEST_CODE = 1;
 	AlertDialog alertDialog;
 	
@@ -51,25 +43,27 @@ public class WICIMobile3 extends CordovaActivity
         
         //setContentView(R.layout.main);
 
-        WICIAppSettingsStorageManager.init(this);
-        String lang = WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings().getAppLanguage();
-        if ("F".equals(lang)) {
-            AppLanguagePlugin.changeSystemLang(this, lang);
-        }
+		/*
+		 * WICIAppSettingsStorageManager.init(this); String lang =
+		 * WICIAppSettingsStorageManager.getInstance().getCurrentAppSettings().
+		 * getAppLanguage(); if ("F".equals(lang)) {
+		 * AppLanguagePlugin.changeSystemLang(this, lang); }
+		 */
 
         // Restore printers history
-        PrinterManager.getInstance().populatePrinterHistoryFromPreferences(this);
+//        PrinterManager.getInstance().populatePrinterHistoryFromPreferences(this);
 
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
+        Log.i(LOG_TAG, LOGPREFIX + "onCreate:: launchUrl=" + launchUrl);
         loadUrl(launchUrl);
         
-        NewRelic.withApplicationToken("${NewRelic.WICI_App_Token}")
-		.start(this.getApplicationContext());
+//        NewRelic.withApplicationToken("AA1f24be0bf516669da84d7c0aec7b098f5835ffcb-NRMA")
+//		.start(this.getApplicationContext());
 
-        NewRelic.setUserId(WICIDeviceInfoHelper.getInstace(this).getDeviceSerialNo());
-		NewRelic.setAttribute("PrinterMAC",PrinterManager.getInstance().getMacAddress() != null ? PrinterManager.getInstance().getMacAddress() : "NOT_AVAILABLE");
-        
+//        NewRelic.setUserId(WICIDeviceInfoHelper.getInstace(this).getDeviceSerialNo());
+//		NewRelic.setAttribute("PrinterMAC",PrinterManager.getInstance().getMacAddress() != null ? PrinterManager.getInstance().getMacAddress() : "NOT_AVAILABLE");
+//        
         //Orphaned and only relevant for DroidGap inheritance
         // super.loadUrl(Config.getStartUrl());
 		// VZE-444
@@ -107,7 +101,7 @@ public class WICIMobile3 extends CordovaActivity
         super.onStop();
 
         // Save printers history
-        PrinterManager.getInstance().storePrinterHistoryInPreferences(this);
+//        PrinterManager.getInstance().storePrinterHistoryInPreferences(this);
 
         Log.i(LOG_TAG, "WICIMobile3 stopped");
     } 

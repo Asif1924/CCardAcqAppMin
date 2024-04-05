@@ -1,0 +1,61 @@
+        <title>Generic Web App</title>
+    </head>
+    <body topmargin="0" leftmargin="0">
+        <div data-role="page" id="WebAppMainPage">
+        	<!-- Loading Icon -->
+			<div id="loadingIconBackgroundPane" style="display:none">
+				<div id="loadingIconPane">
+		    		<h2>
+		    			<span data-translationKey="app_loading">Loading...</span>
+		    		</h2>
+			       	<span id="loadingIcon"></span>
+		       	</div>
+			</div>
+			
+            <!-- Message Dialog -->
+            <section id="messageDialogLocation" style="display: none">
+            </section>
+
+            <!-- TestHarnessScreen -->
+            <section id="TestHarnessScreen" class="GenericScreenStyle" style="display:none">			
+            </section>
+
+            <!-- Login Screen -->
+            <section id="LoginScreen" class="GenericScreenStyle" style="display:none">			
+            </section>
+
+			<script type="text/javascript">
+				/**
+				 * Determine whether the file loaded from PhoneGap or not
+				 */
+				function isPhoneGap() {
+				    return (cordova || PhoneGap || phonegap) 
+				    && /^file:\/{3}[^\/]/i.test(window.location.href) 
+				    && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+				}
+				
+				if ( isPhoneGap() ) {
+				    document.addEventListener("deviceready", onDeviceReady, false); //Running on PhoneGap
+				} else {
+				    onDeviceReady(); //Running NOT on PhoneGap
+				}
+				
+				function onDeviceReady() {
+		        	app = new GENERICWEBAPP.WebApp();
+                	app.init();
+		    	}
+
+             	$(document).ready(function(){                	 
+    	            document.addEventListener("deviceready", onDeviceReady, false);    	            
+                });
+
+			</script>
+        </div>
+		<!-- Bootstrap JS 
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  	
+		//-->
+       
+    </body>
+</html>

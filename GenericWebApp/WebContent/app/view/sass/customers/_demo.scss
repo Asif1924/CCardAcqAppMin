@@ -1,0 +1,307 @@
+/*----- Common -----*/
+@font-face {
+  font-family: DINNext;
+  src: url('../../fonts/Linotype - DINNextLTPro-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$max-width: 1366px;
+$min-width: 600px;
+$fontFamily: DINNext;
+$linkColor: #2489CE;
+$linkColorHover: #258faf;
+$background: #FFFFFA;
+$backgroundDark: #555555;
+$headerHeight: 100px;
+$errorColor: red;
+$textColor: #222222;
+$textColorWhite: #ffffff;
+$successColor: #5cb527;
+$greenTextColor: #008000;
+
+@mixin logoMixin($width, $logo){
+  display: inline-block;
+  width: $width;
+  background: url($logo) no-repeat;
+  background-position-y: 50%;
+}
+
+
+@mixin screenImage($image){
+  background-image: inline-image($image);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+@mixin loginScreen {
+  @include screenImage("login_screen.png");
+  background-position: -60px 450px;
+  background-color: #F2F3F7;
+  background-size: 120%;
+}
+
+/*----- side navigation -----*/
+$sideNavigationBackground: #ebebeb;
+$sideNavigationBorderBottomColor: 1px solid #fff;
+$openSideNavBackground: #666666;
+
+/*----- header -----*/
+$headerContainerBackground: white;
+$headerContainerBorder: 1px solid #ccc;
+$headerContainerOptgroupBackground: #D3D3D3;
+
+/*----- tooltip -----*/
+$tooltipColor: $successColor;
+
+/*----- Accordion -----*/
+$accordionBackground: $successColor;
+$accordionItemBorder: 1px solid #C0C0C0;
+$accordionTitleBackground: linear-gradient(#f0f0f0, #e0e0e0);
+$accordionTitleColor: $textColor;
+$accordionTitleActiveBackground: #4c4c4c;
+$accordionTitleActiveColor: #fff;
+
+/*----- Amount Slider -----*/
+$amountSliderBackground: #eee;
+$amountSliderBorder: 1px solid #ccc;
+$amountSliderSelectedBackground: $successColor;
+$amountSelectionBackground: rgba(0, 0, 0, 0.1);
+$amountSelectionHandleBackground: #fff;
+
+/*----- Tool Tip -----*/
+$toolTipThemeBorder: 2px solid #444;
+$toolTipThemeBackground: #555;
+$toolTipThemeColor: #fff;
+$toolTipCloseBtnBackground: #FFA500;
+$toolTipCloseBtnColor: #fff;
+
+@mixin toolTipImage($width, $height, $imageUrl) {
+  width: $width;
+  height: $height;
+  background-image: #{inline-image($imageUrl)};
+}
+
+
+/*----- Custom Input -----*/
+
+@mixin inputLinearGradient($x1,$y1,$z1,$x2,$y2,$z2) {
+  background-image :    -moz-linear-gradient(rgb($x1,$y1,$z1),rgb($x2,$y2,$z2));
+  background-image :     -ms-linear-gradient(rgb($x1,$y1,$z1),rgb($x2,$y2,$z2));
+  background-image :      -o-linear-gradient(rgb($x1,$y1,$z1),rgb($x2,$y2,$z2));
+  background-image : -webkit-linear-gradient(rgb($x1,$y1,$z1),rgb($x2,$y2,$z2));
+  background-image :         linear-gradient(rgb($x1,$y1,$z1),rgb($x2,$y2,$z2));
+}
+
+@mixin greyBackground {
+  @include inputLinearGradient(224,224,224,240,240,240);
+}
+@mixin greyRadioBackground {
+  border           : 0.0625em solid rgb(192,192,192);
+  background       : rgb(224,224,224);
+  @include inputLinearGradient(240,240,240,224,224,224);
+}
+@mixin greyCheckboxBackground {
+  border           : 0.0625em solid rgb(192,192,192);
+  background       : rgb(224,224,224);
+  @include inputLinearGradient(240,240,240,224,224,224);
+}
+
+@mixin radioCheckedBackground {
+  border           : 0.0625em solid rgb(115,153,77);
+  background       : rgb(153,204,102);
+  @include inputLinearGradient(179,217,140,153,204,102);
+}
+@mixin checkboxCheckedColor {
+  color : rgb(153,204,102);
+}
+
+/*----- Buttons -----*/
+
+@mixin transparentButton{
+  border: 3px solid #ccc;
+  color: $textColor;
+}
+
+@mixin buttonStyle($background, $borderColor, $gradientStart, $gradientEnd) {
+  color: white;
+  background: $background;
+  border: 1px solid $borderColor;
+  background-image: -webkit-linear-gradient(top, $gradientStart, $gradientEnd);
+  background-image: -moz-linear-gradient(top, $gradientStart, $gradientEnd);
+  background-image: -ms-linear-gradient(top, $gradientStart, $gradientEnd);
+  background-image: -o-linear-gradient(top, $gradientStart, $gradientEnd);
+  background-image: linear-gradient(top, $gradientStart, $gradientEnd);
+  &:hover {
+    color: white;
+  }
+  &:active {
+    color: white;
+  }
+}
+@mixin buttonStyleOrange{
+  @include buttonStyle(#e78404, #e77104, #ffaf46, #e78404);
+}
+@mixin buttonStyleBlue{
+  @include buttonStyle(#4B8AD9, #379AA4, #48C6D4, #4B8AD9);
+}
+@mixin buttonStyleGreen{
+  @include buttonStyle(#7bb64b, #69b64b, #8ed058, #7bb64b);
+}
+@mixin buttonStylePaleBlue{
+  @include buttonStyle(#4cb8e6, #1fa6e0, #62c1e9, #36afe3);
+}
+@mixin buttonStyleRed{
+    @include buttonStyle(#f62b2b, #e40a0a, #f62b2b, #d20202);
+}
+@mixin circle($backgroundColor, $padding, $fontSize, $color, $width, $heigth){
+  background-color: $backgroundColor;
+  border-radius: 50%;
+  padding: $padding;
+  margin: 10px;
+  display: inline-block;
+  line-height: 1.6em;
+  font-size: $fontSize;
+  text-transform: uppercase;
+  color: $color;
+  width: $width;
+  height: $heigth;
+  font-weight: bold;
+  &.divider {
+    position: absolute;
+    right: -50px;
+    top: -10px;
+  }
+}
+
+.sweet-alert.demo{
+  background: none;
+  width: auto;
+  padding: 0px;
+  .sa-icon{
+    width: 583px !important;
+    height: 344px !important;
+  }
+}
+
+.demo{
+  #TermsAndConditionsScreen, #DocusignScreen, #IncreaseDocusignScreen{
+    p.demotip {
+    	top: -1px;
+    	left: -70px;    
+    	
+    }
+    #demoframeSectionTC, #demoframeSectionLoan{
+      .sign-box-content{
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+
+      }
+      .document-header{
+        background: #1b49a0;
+        text-align: left;
+        line-height: 55px;
+        color: white;
+        padding: 0px 10px;
+        font-size: 18px;
+        position: fixed;
+        width: calc(100% - 60px);
+        .finish-document{
+          background: #ffc820;
+          float: right;
+          top: 10px;
+          position: relative;
+          padding: 7px 30px;
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+      .document-footer{
+        line-height: 50px;
+        padding: 0px 10px;
+        position: fixed;
+        width: calc(100% - 60px);
+        background: #eaeaea;
+        bottom: 0;
+      }
+      overflow-y: scroll;
+      height: 750px;
+      background: #eaeaea;
+      width: 93%;
+      top: 280px;
+      text-align: center;
+      padding-bottom: 100px;
+      position: fixed;
+      img{
+        margin: 10px 0px;
+      }
+    }
+    .storeManager{
+      display: none;
+    }
+  }
+
+  #LoanAmountScreen{
+    .total-purchase-amount {
+      h4 {
+        white-space: normal;
+        span {
+          white-space: normal;
+        }
+      }
+      .totalPurchase-wrap {
+        width: 80%;
+        #totalPurchaseAmount {
+          width: 80%;
+          margin-left: 30px;
+        }
+		#totalCashPrice {
+			width: 80%;
+			margin-left: 30px;
+		}       
+      }
+      .totalPurchase-wrap:before {
+        left: 0;
+      }
+    }
+        .down-payment-amount-wrap {
+            margin-top: 30px;
+            font-size: 20px;
+            h3 {
+                font-size: 19px;
+            }
+        }
+    .loan-message{
+      margin-top: 15px;
+    }
+    .Zebra_DatePicker{
+      margin-left: -18%;
+    }
+	#downPaymentAmount {
+		font-size: 20px;
+		font-weight: bold;
+	}   
+  }
+  #ApplicationStatusScreen{
+    h2 {
+      white-space: nowrap;
+    }
+  }
+
+  .createPhoto{
+    text-align: center;
+    .demo-image-from-camera-image {
+      line-height: 45px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+  }
+
+  #IncreaseThankYouScreen.thank-you-screen-prime, #ThankYouScreen.thank-you-screen-prime{
+    background: linear-gradient(to bottom, #50b7e3 0%,#60abf8 44%,#b1d5e2 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  }
+
+  .promo-pricing-description{ display: none; }
+}
+
+@import "../media/media_ipad_mini";
